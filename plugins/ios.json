@@ -1,0 +1,33 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.sherpadesk.mobile"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.sherpadesk.mobile"
+        },
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "com.sherpadesk.mobile"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "com.sherpadesk.mobile"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "com.sherpadesk.mobile"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.sherpadesk.mobile"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.sherpadesk.mobile"
+        }
+    },
+    "dependent_plugins": {}
+}
