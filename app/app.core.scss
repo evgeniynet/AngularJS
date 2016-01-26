@@ -10,3 +10,36 @@
 @import "pages/hello-ionic/hello-ionic";
 
 @import "pages/item-details/item-details";
+
+
+
+.menu-bg{
+ background-color: $sherpa_bg; 
+}
+
+
+.font_menu{
+  font-size: 2.2rem !important;;
+}
+
+//menu
+.ionFont {
+    font-size: 26px;
+    padding-right: 10px;
+     width: 40px;
+    height: 40px;
+    border: 2px solid rgba(255,255,255,0.4);
+    border-radius: 100%;
+    float: left;
+    margin-right: 10px;
+    padding-left: 5px;
+    padding-top: 2px;
+    text-align: center;
+}
+
+     
+    .activeBorder {
+    border: 2px solid #88ddfa !important;
+}
+    
+ 

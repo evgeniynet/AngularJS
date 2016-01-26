@@ -16,10 +16,17 @@ class MyApp {
 
     // set our app's pages
     this.pages = [
-      { title: 'Hello Ionic', component: HelloIonicPage },
-      { title: 'My First List', component: ListPage }
+      { title: 'Dashboard', component: HelloIonicPage, icon: "speedometer" },
+{ title: 'Tickets', component: ListPage, icon: "compose" },
+{ title: 'Timelogs', component: ListPage, icon: "android-time" },
+{ title: 'Account', component: ListPage, icon: "people" },
+{ title: 'Invoice', component: ListPage, icon: "card" },
+{ title: 'Queues', component: ListPage, icon: "list-outline" },
+{ title: 'Switch Org', component: ListPage, icon: "arrow-swap" },
+{ title: 'Signout', component: ListPage, icon: "log-in" },
+{ title: 'Full App', component: ListPage, icon: "share" },
     ];
-
+      
     // make HelloIonicPage the root (or first) page
     this.rootPage = HelloIonicPage;
   }

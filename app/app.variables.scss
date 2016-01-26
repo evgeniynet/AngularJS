@@ -21,10 +21,27 @@
 // are different per mode.
 
 $colors: (
-  primary:    #387ef5,
-  secondary:  #32db64,
+  primary:    #fff,
+  secondary:  #42bd41,
   danger:     #f53d3d,
   light:      #f4f4f4,
   dark:       #222,
   favorite:   #69BB7B
 );
+
+$background-color: #34495e;
+$toolbar-background: #25b0e6;
+$text-color: #fff;
+$toolbar-border-color: #25b0e6;
+$toolbar-text-color: #fff;
+$toolbar-inactive-color: #000;
+$sherpa_bg: #161E27; 
+$headings-line-height: #34495e;
+
+
+
+/*$background-color: #fff;
+$toolbar-background: #ffac30;
+$text-color: #000;
+$toolbar-border-color: #ffac30;
+$toolbar-text-color: #fff;*/

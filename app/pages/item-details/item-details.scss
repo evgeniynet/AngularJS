@@ -5,3 +5,12 @@ div.selection {
   padding-top: 5%;
 }
 
+
+.text_list{
+    color: #fff !important;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 19px;
+    text-overflow: ellipsis;
+}
+
