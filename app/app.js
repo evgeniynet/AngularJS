@@ -2,6 +2,14 @@ import {App, IonicApp, Platform} from 'ionic/ionic';
 
 import {HelloIonicPage} from './pages/hello-ionic/hello-ionic';
 import {ListPage} from './pages/list/list';
+import {QueuesPage} from './pages/queues/queues';
+import {InvoicesPage} from './pages/invoices/invoices';
+import {AccountsPage} from './pages/accounts/accounts';
+import {TimelogsPage} from './pages/timelogs/timelogs';
+import {TicketsPage} from './pages/tickets/tickets';
+import {DashboardPage} from './pages/dashboard/dashboard';
+import {OrganizationsPage} from './pages/organizations/organizations';
+import {LoginPage} from './pages/login/login';
 
 @App({
   templateUrl: 'build/app.html'
@@ -16,15 +24,15 @@ class MyApp {
 
     // set our app's pages
     this.pages = [
-      { title: 'Dashboard', component: HelloIonicPage, icon: "speedometer" },
-{ title: 'Tickets', component: ListPage, icon: "compose" },
-{ title: 'Timelogs', component: ListPage, icon: "android-time" },
-{ title: 'Account', component: ListPage, icon: "people" },
-{ title: 'Invoice', component: ListPage, icon: "card" },
-{ title: 'Queues', component: ListPage, icon: "list-outline" },
-{ title: 'Switch Org', component: ListPage, icon: "arrow-swap" },
-{ title: 'Signout', component: ListPage, icon: "log-in" },
-{ title: 'Full App', component: ListPage, icon: "share" },
+        { title: 'Dashboard', component: DashboardPage, icon: "speedometer" },
+        { title: 'Tickets', component: TicketsPage, icon: "compose" },
+        { title: 'Timelogs', component: TimelogsPage, icon: "android-time" },
+        { title: 'Accounts', component: AccountsPage, icon: "people" },
+        { title: 'Invoices', component: InvoicesPage, icon: "card" },
+        { title: 'Queues', component: QueuesPage, icon: "list-outline" },
+        { title: 'Switch Org', component: OrganizationsPage, icon: "arrow-swap" },
+        { title: 'Signout', component: LoginPage, icon: "log-in" },
+        { title: 'Full App', component: LoginPage, icon: "share" },
     ];
       
     // make HelloIonicPage the root (or first) page
