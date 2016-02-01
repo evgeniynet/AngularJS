@@ -8,6 +8,47 @@
   <ion-title>Tickets</ion-title>
 </ion-navbar>
 
-<ion-content padding class="tickets">
+<ion-content class="tickets">
+    <div class="tabsTicket">
+  <ion-segment tabs>
+    <ion-segment-button class="nameTabs">
+      User
+    </ion-segment-button>
+    <ion-segment-button class="nameTabs">
+      Tech
+    </ion-segment-button>
+    <ion-segment-button class="nameTabs">
+        Alt
+    </ion-segment-button>
+    <ion-segment-button class="nameTabs">
+      All Open
+    </ion-segment-button>
+  </ion-segment>
+</div>
+
+
+         <ion-list>
+    <button ion-item *ngFor="#item of items" (click)="itemTapped($event, item)">
+
+    <ion-avatar padding item-left class="ticketImg">
+    <ion-note citem-left class="number">#2030</ion-note>
+
+      <img  src="http://www.gravatar.com/avatar/8cf59c68bb835b9e03dcd09c0e620d5d?d=mm&s=80">
+    <ion-note class="admin" item-left>test</ion-note> 
+
+    </ion-avatar>
+        
+    <h2 style="font-size: 1.9rem">Finn</h2>
+    <h3>Don't Know What To Do!</h3>
+    <p item-right class="text_list">Mobile</p>
+
+        <!--        <p item-left class="text_list">test</p>-->
+    </button>
+        </ion-list>
+  <div *ngIf="selectedItem" padding>
+    You navigated here from <b>{{selectedItem.title}}</b>
+  </div>
+    
+    <button secondary fab >+</button>
   
 </ion-content>

@@ -3215,14 +3215,14 @@
 	};
 	var ionic_1 = __webpack_require__(6);
 	var hello_ionic_1 = __webpack_require__(353);
-	var queues_1 = __webpack_require__(354);
-	var invoices_1 = __webpack_require__(355);
-	var accounts_1 = __webpack_require__(356);
-	var timelogs_1 = __webpack_require__(357);
-	var tickets_1 = __webpack_require__(358);
-	var dashboard_1 = __webpack_require__(359);
-	var organizations_1 = __webpack_require__(360);
-	var login_1 = __webpack_require__(361);
+	var queues_1 = __webpack_require__(357);
+	var invoices_1 = __webpack_require__(358);
+	var accounts_1 = __webpack_require__(359);
+	var timelogs_1 = __webpack_require__(360);
+	var tickets_1 = __webpack_require__(361);
+	var dashboard_1 = __webpack_require__(362);
+	var organizations_1 = __webpack_require__(363);
+	var login_1 = __webpack_require__(364);
 	var MyApp = (function () {
 	    function MyApp(app, platform) {
 	        // set up our app
@@ -61390,7 +61390,41 @@
 
 
 /***/ },
-/* 354 */
+/* 354 */,
+/* 355 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(6);
+	var ItemDetailsPage = (function () {
+	    function ItemDetailsPage(app, nav, navParams) {
+	        this.nav = nav;
+	        // If we navigated to this page, we will have an item available as a nav param
+	        this.selectedItem = navParams.get('item');
+	    }
+	    ItemDetailsPage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/item-details/item-details.html'
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.IonicApp !== 'undefined' && ionic_1.IonicApp) === 'function' && _a) || Object, (typeof (_b = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _b) || Object, (typeof (_c = typeof ionic_1.NavParams !== 'undefined' && ionic_1.NavParams) === 'function' && _c) || Object])
+	    ], ItemDetailsPage);
+	    return ItemDetailsPage;
+	    var _a, _b, _c;
+	})();
+	exports.ItemDetailsPage = ItemDetailsPage;
+
+
+/***/ },
+/* 356 */,
+/* 357 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61426,7 +61460,7 @@
 
 
 /***/ },
-/* 355 */
+/* 358 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61462,7 +61496,7 @@
 
 
 /***/ },
-/* 356 */
+/* 359 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61498,7 +61532,7 @@
 
 
 /***/ },
-/* 357 */
+/* 360 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61534,7 +61568,7 @@
 
 
 /***/ },
-/* 358 */
+/* 361 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61553,24 +61587,44 @@
 	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
 	  Ionic pages and navigation.
 	*/
+	var ionic_2 = __webpack_require__(6);
+	var item_details_1 = __webpack_require__(355);
 	var TicketsPage = (function () {
-	    function TicketsPage(nav) {
+	    function TicketsPage(app, nav, navParams) {
 	        this.nav = nav;
+	        // If we navigated to this page, we will have an item available as a nav param
+	        this.selectedItem = navParams.get('item');
+	        this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
+	            'american-football', 'boat', 'bluetooth', 'build'];
+	        this.items = [];
+	        for (var i = 1; i < 11; i++) {
+	            this.items.push({
+	                title: 'Item ' + i,
+	                note: 'This is item #' + i,
+	                icon: this.icons[Math.floor(Math.random() * this.icons.length)]
+	            });
+	        }
 	    }
+	    TicketsPage.prototype.itemTapped = function (event, item) {
+	        console.log('You selected:', item.title);
+	        this.nav.push(item_details_1.ItemDetailsPage, {
+	            item: item
+	        });
+	    };
 	    TicketsPage = __decorate([
 	        ionic_1.Page({
 	            templateUrl: 'build/pages/tickets/tickets.html',
 	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_2.IonicApp !== 'undefined' && ionic_2.IonicApp) === 'function' && _a) || Object, (typeof (_b = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _b) || Object, (typeof (_c = typeof ionic_2.NavParams !== 'undefined' && ionic_2.NavParams) === 'function' && _c) || Object])
 	    ], TicketsPage);
 	    return TicketsPage;
-	    var _a;
+	    var _a, _b, _c;
 	})();
 	exports.TicketsPage = TicketsPage;
 
 
 /***/ },
-/* 359 */
+/* 362 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61606,7 +61660,7 @@
 
 
 /***/ },
-/* 360 */
+/* 363 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61642,7 +61696,7 @@
 
 
 /***/ },
-/* 361 */
+/* 364 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
