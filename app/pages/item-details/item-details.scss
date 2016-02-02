@@ -48,7 +48,9 @@ color: #fff;
 }
 
 
-
+ion-list > .item:first-child {
+    border-top: 1px solid #c8c7cc;
+}
 
 
 
