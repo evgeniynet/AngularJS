@@ -10,14 +10,28 @@
 @import "../pages/hello-ionic/hello-ionic";
 
 @import "../pages/item-details/item-details";
+
+.item {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.item-nocenter {
+    text-align: justify !important;
+    margin-top: 0px !important;  
+}
+
+.grey > * {
+    background-color: $grey;
+}
+
+scroll-content {
+    overflow-y: auto;
+}
+
     
 .menu-bg{
  background-color: $sherpa_bg; 
-}
-
-
-.font_menu{
-  font-size: 2.2rem !important;;
 }
 
 //menu
@@ -35,28 +49,15 @@
     text-align: center;
 }
 
-.blue1 {
+.blue1 > * {
     background-color: $blue1;
-    margin-top: 10px;
 }
 
-.blue2 {
+.blue2 > * {
     background-color: $blue2;
-    text-align: center;
-    margin-top: 10px;
-}
-
-.grey {
-    background-color: $grey;
-    text-align: center;
-    margin-top: 10px;
-}
-
-.font_text{
-font-size: $font-size;
 }
      
-    .activeBorder {
+.activeBorder {
     border: 2px solid #88ddfa !important;
 }
 

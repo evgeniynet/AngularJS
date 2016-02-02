@@ -5381,7 +5381,7 @@ ion-item-sliding.active-slide.active-options ion-item-options {
 .item {
   position: relative;
   padding-left: 16px;
-  font-size: 1.6rem;
+  font-size: 2.1rem;
   border-radius: 0;
   color: #fff;
   background-color: #34495e;
@@ -7087,11 +7087,22 @@ div.selection {
 ion-list > .item:first-child {
   border-top: 1px solid #c8c7cc; }
 
+.item {
+  text-align: center;
+  margin-top: 10px; }
+
+.item-nocenter {
+  text-align: justify !important;
+  margin-top: 0px !important; }
+
+.grey > * {
+  background-color: rgba(224, 224, 224, 0.29); }
+
+scroll-content {
+  overflow-y: auto; }
+
 .menu-bg {
   background-color: #161E27; }
-
-.font_menu {
-  font-size: 2.2rem !important; }
 
 .ionFont {
   font-size: 26px;
@@ -7106,22 +7117,11 @@ ion-list > .item:first-child {
   padding-top: 2px;
   text-align: center; }
 
-.blue1 {
-  background-color: #25b0e6;
-  margin-top: 10px; }
+.blue1 > * {
+  background-color: #25b0e6; }
 
-.blue2 {
-  background-color: #09c;
-  text-align: center;
-  margin-top: 10px; }
-
-.grey {
-  background-color: rgba(224, 224, 224, 0.29);
-  text-align: center;
-  margin-top: 10px; }
-
-.font_text {
-  font-size: 2.1rem; }
+.blue2 > * {
+  background-color: #09c; }
 
 .activeBorder {
   border: 2px solid #88ddfa !important; }
