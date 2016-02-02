@@ -25,7 +25,7 @@ class MyApp {
     // set our app's pages
     this.pages = [
         { title: 'Dashboard', component: DashboardPage, icon: "speedometer" },
-        { title: 'Tickets', component: TicketsPage, icon: "compose" },
+        { title: 'Tickets', component: TicketsPage, icon: "create-outline" },
         { title: 'Timelogs', component: TimelogsPage, icon: "android-time" },
         { title: 'Accounts', component: AccountsPage, icon: "people" },
         { title: 'Invoices', component: InvoicesPage, icon: "card" },
