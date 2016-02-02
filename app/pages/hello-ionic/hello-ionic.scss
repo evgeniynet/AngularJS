@@ -119,3 +119,8 @@ width: 12%;
     text-align: center;
     color: #dadada;
 }
+
+
+ion-list > .item:first-child {
+    border-top: 1px solid #c8c7cc;
+}

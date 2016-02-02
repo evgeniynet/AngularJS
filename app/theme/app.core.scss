@@ -10,9 +10,7 @@
 @import "../pages/hello-ionic/hello-ionic";
 
 @import "../pages/item-details/item-details";
-
-
-
+    
 .menu-bg{
  background-color: $sherpa_bg; 
 }
@@ -39,11 +37,40 @@
 
 .blue1 {
     background-color: $blue1;
+    margin-top: 10px;
 }
 
+.blue2 {
+    background-color: $blue2;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.grey {
+    background-color: $grey;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.font_text{
+font-size: $font-size;
+}
      
     .activeBorder {
     border: 2px solid #88ddfa !important;
 }
-    
- 
+
+.list{
+    width: 90%;
+    margin: 0 auto;
+ }
+
+.optionLeft{
+    width: 75%;
+    float: left;
+}
+
+.optionRight{
+    width: 25%;
+    float: right;
+}
