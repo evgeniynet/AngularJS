@@ -7,7 +7,28 @@
 <ion-navbar *navbar><button menuToggle><ion-icon name="menu"></ion-icon></button>
   <ion-title>TicketCreate</ion-title>
 </ion-navbar>
-
 <ion-content padding class="ticket-create">
-  
+    <ion-list class="list blue4" no-lines >
+    <button ion-item>Tech</button>
+    <button ion-item>bigWebApps</button>
+    <button ion-item>choose location</button>
+    <button ion-item>choose technician</button>
+    <button ion-item>choose a project</button>
+    <button ion-item>choose a class</button>
+        </ion-list>    
+                <br>
+    <ion-card class="list">
+  <ion-card-header>Subject</ion-card-header>
+  </ion-card>
+    <br>
+    <ion-card class="list">
+  <ion-card-header>Details...</ion-card-header>
+  <ion-card-content></ion-card-content>
+  <ion-card-content></ion-card-content>
+</ion-card>
+    <ion-list no-lines>
+        <div padding="">
+      <button secondary block="" type="submit" class="disable-hover button button-default button-block">Add Ticket</button>
+    </div>
+    </ion-list>
 </ion-content>

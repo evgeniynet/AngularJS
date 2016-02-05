@@ -1,47 +1,7 @@
-.dashboard {
-
-}
-
-.sideleft{
-    width: 51%;
-    float: left;
-}
-
-.sideright{
-    width: 24%;
-    float: right;
-}
-
-
-.mainStat{
-font-size: 7rem;
-}
-
 
 .sideStatsLeft{
 font-size:1.9rem;
 } 
-
-
-.tableRows1{
-width: 36%;
-    float: left;
-}
-
-.tableRows2{
-width: 24%;
-    float: left;
-}
-
-.tableRows3{
-width: 28%;
-    float: left;
-}
-
-.tableRows4{
-width: 12%;
-    float: right;
-}
 
 .tkts{
     background: #09c;
@@ -51,8 +11,18 @@ width: 12%;
      margin-bottom: 10px;
 }
 
-
 .textTabl{
     text-align: center;
     color: #dadada;
+}
+
+.tech{
+    width: 45%;
+    height: 176px;
+    float: left;
+    color: #fff;
+}
+
+.text_tech{
+    text-align: center;
 }

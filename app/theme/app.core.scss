@@ -16,10 +16,43 @@
     margin-top: 10px;
 }
 
+.item h2 {
+    font-size: 1.9rem;
+}
+
+.itemTech {
+    margin-top: 0px !important;
+}
+
+.text-left {
+    text-align: left !important;
+}
+
+.text-right {
+    text-align: right !important;
+}
+
 .item-nocenter {
     text-align: justify !important;
     margin-top: 0px !important;  
 }
+
+.timeleft{
+    width: 76%;
+    float: left;
+}
+
+.segment-button{
+   color: $segment-button-ios-bg-color-activated;
+   border-color: $color-value;
+}
+
+p {
+    color: $item-ios-paragraph-text-color;
+  }
+
+.left {
+  float: left; }
 
 .grey > * {
     background-color: $grey;
@@ -56,7 +89,15 @@ scroll-content {
 .blue2 > * {
     background-color: $blue2;
 }
-     
+
+.blue3 > * {
+    background-color: $blue3;
+}
+  
+.blue4 > * {
+    background-color: $blue4;
+}
+
 .activeBorder {
     border: 2px solid #88ddfa !important;
 }
@@ -66,12 +107,42 @@ scroll-content {
     margin: 0 auto;
  }
 
-.optionLeft{
-    width: 75%;
+.left{
     float: left;
 }
 
-.optionRight{
-    width: 25%;
+.right{
     float: right;
+}
+
+.width25{
+    width: 25%;
+}
+
+.width75{
+    width: 75%;
+}
+
+.width35{
+    width: 35%;
+}
+
+.width28{
+    width: 28%;
+}
+
+.width12{
+    width: 12%;
+}
+
+.width51{
+    width: 51%;
+}
+ 
+.width24{
+    width: 24%;
+}
+
+.mainStat{
+font-size: 6.4rem;
 }

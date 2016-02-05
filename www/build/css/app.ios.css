@@ -4699,7 +4699,7 @@ a.button {
   padding: 0 1em;
   min-height: 2.8em;
   font-size: 1.6rem;
-  border-radius: 4px;
+  border-radius: 3px;
   color: black;
   background-color: #fff; }
   .button:hover:not(.disable-hover) {
@@ -4911,9 +4911,9 @@ ion-card-content {
 ion-card {
   margin: 12px 12px 12px 12px;
   font-size: 1.4rem;
-  background: #34495e;
+  background: rgba(0, 0, 0, 0.4);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-  border-radius: 2px; }
+  border-radius: 0px; }
   ion-card ion-list {
     margin-bottom: 0; }
     ion-card ion-list .item {
@@ -4933,7 +4933,7 @@ ion-card {
     padding: 16px;
     font-size: 1.6rem;
     font-weight: 500;
-    color: #333; }
+    color: #fff; }
   ion-card ion-card-header + ion-card-content,
   ion-card .item + ion-card-content {
     padding-top: 0; }
@@ -4975,7 +4975,7 @@ ion-checkbox {
   position: relative;
   width: 21px;
   height: 21px;
-  border-radius: 50%;
+  border-radius: 0px;
   border-width: 1px;
   border-style: solid;
   border-color: #c8c7cc;
@@ -5405,7 +5405,7 @@ ion-item-sliding.active-slide.active-options ion-item-options {
     font-weight: normal; }
   .item p {
     line-height: normal;
-    color: #666;
+    color: #fff;
     font-size: 1.2rem;
     margin: 0 0 2px; }
   .item h2:last-child,
@@ -6956,22 +6956,6 @@ body {
   line-height: 22px;
   font-size: 16px; }
 
-.queues_list {
-  width: 90%;
-  margin: 0 auto; }
-
-.dashboardlist {
-  background-color: #161E27;
-  font-size: 1.9rem;
-  height: 81px;
-  text-align: center; }
-
-.dashboardlist_2 {
-  background-color: #161E27;
-  font-size: 2.5rem;
-  text-align: center;
-  height: 54px; }
-
 .sideleft {
   width: 51%;
   float: left; }
@@ -6985,28 +6969,6 @@ body {
 
 .sideStatsLeft {
   font-size: 1.9rem; }
-
-.queues_list {
-  width: 90%;
-  margin: 0 auto; }
-
-.queueslist {
-  background-color: #25b0e6;
-  font-size: 1.9rem; }
-
-.queueslist_2 {
-  background-color: #09c;
-  font-size: 2.5rem;
-  text-align: center;
-  height: 47px; }
-
-.option {
-  width: 75%;
-  float: left; }
-
-.optionlist {
-  width: 25%;
-  float: right; }
 
 .tableRows1 {
   width: 36%;
@@ -7077,9 +7039,6 @@ div.selection {
 .tech {
   text-align: center; }
 
-.response {
-  color: #fff; }
-
 .text {
   font-size: 16px !important;
   color: #fff !important; }
@@ -7091,9 +7050,35 @@ ion-list > .item:first-child {
   text-align: center;
   margin-top: 10px; }
 
+.item h2 {
+  font-size: 1.9rem; }
+
+.itemTech {
+  margin-top: 0px !important; }
+
+.text-left {
+  text-align: left !important; }
+
+.text-right {
+  text-align: right !important; }
+
 .item-nocenter {
   text-align: justify !important;
   margin-top: 0px !important; }
+
+.timeleft {
+  width: 76%;
+  float: left; }
+
+.segment-button {
+  color: #fff;
+  border-color: #34495e; }
+
+p {
+  color: #fff; }
+
+.left {
+  float: left; }
 
 .grey > * {
   background-color: rgba(224, 224, 224, 0.29); }
@@ -7123,6 +7108,12 @@ scroll-content {
 .blue2 > * {
   background-color: #09c; }
 
+.blue3 > * {
+  background-color: rgba(0, 0, 0, 0.4); }
+
+.blue4 > * {
+  background-color: #489cd6; }
+
 .activeBorder {
   border: 2px solid #88ddfa !important; }
 
@@ -7130,10 +7121,32 @@ scroll-content {
   width: 90%;
   margin: 0 auto; }
 
-.optionLeft {
-  width: 75%;
+.left {
   float: left; }
 
-.optionRight {
-  width: 25%;
+.right {
   float: right; }
+
+.width25 {
+  width: 25%; }
+
+.width75 {
+  width: 75%; }
+
+.width35 {
+  width: 35%; }
+
+.width28 {
+  width: 28%; }
+
+.width12 {
+  width: 12%; }
+
+.width51 {
+  width: 51%; }
+
+.width24 {
+  width: 24%; }
+
+.mainStat {
+  font-size: 6.4rem; }

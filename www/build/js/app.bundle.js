@@ -3233,13 +3233,13 @@
 	        this.pages = [
 	            { title: 'Dashboard', component: dashboard_1.DashboardPage, icon: "speedometer" },
 	            { title: 'Tickets', component: tickets_1.TicketsPage, icon: "create-outline" },
-	            { title: 'Timelogs', component: timelogs_1.TimelogsPage, icon: "android-time" },
+	            { title: 'Timelogs', component: timelogs_1.TimelogsPage, icon: "md-time" },
 	            { title: 'Accounts', component: accounts_1.AccountsPage, icon: "people" },
 	            { title: 'Invoices', component: invoices_1.InvoicesPage, icon: "card" },
-	            { title: 'Queues', component: queues_1.QueuesPage, icon: "list-outline" },
-	            { title: 'Switch Org', component: organizations_1.OrganizationsPage, icon: "arrow-swap" },
-	            { title: 'Signout', component: login_1.LoginPage, icon: "log-in" },
-	            { title: 'Full App', component: login_1.LoginPage, icon: "share" },
+	            { title: 'Queues', component: queues_1.QueuesPage, icon: "list-box-outline" },
+	            { title: 'Switch Org', component: organizations_1.OrganizationsPage, icon: "md-swap" },
+	            { title: 'Signout', component: login_1.LoginPage, icon: "md-log-in" },
+	            { title: 'Full App', component: login_1.LoginPage, icon: "md-share-alt" },
 	        ];
 	        // make HelloIonicPage the root (or first) page
 	        this.rootPage = hello_ionic_1.HelloIonicPage;
