@@ -3218,11 +3218,11 @@
 	var queues_1 = __webpack_require__(354);
 	var invoices_1 = __webpack_require__(355);
 	var accounts_1 = __webpack_require__(356);
-	var timelogs_1 = __webpack_require__(357);
-	var tickets_1 = __webpack_require__(358);
-	var dashboard_1 = __webpack_require__(360);
-	var organizations_1 = __webpack_require__(361);
-	var login_1 = __webpack_require__(362);
+	var timelogs_1 = __webpack_require__(358);
+	var tickets_1 = __webpack_require__(359);
+	var dashboard_1 = __webpack_require__(361);
+	var organizations_1 = __webpack_require__(362);
+	var login_1 = __webpack_require__(363);
 	var MyApp = (function () {
 	    function MyApp(app, platform) {
 	        // set up our app
@@ -3239,10 +3239,10 @@
 	            { title: 'Queues', component: queues_1.QueuesPage, icon: "list-box-outline" },
 	            { title: 'Switch Org', component: organizations_1.OrganizationsPage, icon: "md-swap" },
 	            { title: 'Signout', component: login_1.LoginPage, icon: "md-log-in" },
-	            { title: 'Full App', component: login_1.LoginPage, icon: "md-share-alt" },
+	            { title: 'Full App', component: hello_ionic_1.HelloIonicPage, icon: "md-share-alt" },
 	        ];
 	        // make HelloIonicPage the root (or first) page
-	        this.rootPage = hello_ionic_1.HelloIonicPage;
+	        this.rootPage = dashboard_1.DashboardPage;
 	    }
 	    MyApp.prototype.initializeApp = function () {
 	        this.platform.ready().then(function () {
@@ -61487,6 +61487,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
+	var account_details_1 = __webpack_require__(357);
 	/*
 	  Generated class for the AccountsPage page.
 
@@ -61497,6 +61498,7 @@
 	    function AccountsPage(nav) {
 	        this.nav = nav;
 	    }
+	    AccountsPage.prototype.itemTapped = function () { this.nav.push(account_details_1.AccountDetailsPage); };
 	    AccountsPage = __decorate([
 	        ionic_1.Page({
 	            templateUrl: 'build/pages/accounts/accounts.html',
@@ -61511,6 +61513,42 @@
 
 /***/ },
 /* 357 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(6);
+	/*
+	  Generated class for the AccountDetailsPage page.
+
+	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+	  Ionic pages and navigation.
+	*/
+	var AccountDetailsPage = (function () {
+	    function AccountDetailsPage(nav) {
+	        this.nav = nav;
+	    }
+	    AccountDetailsPage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/account-details/account-details.html',
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
+	    ], AccountDetailsPage);
+	    return AccountDetailsPage;
+	    var _a;
+	})();
+	exports.AccountDetailsPage = AccountDetailsPage;
+
+
+/***/ },
+/* 358 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61546,7 +61584,7 @@
 
 
 /***/ },
-/* 358 */
+/* 359 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61566,7 +61604,7 @@
 	  Ionic pages and navigation.
 	*/
 	var ionic_2 = __webpack_require__(6);
-	var item_details_1 = __webpack_require__(359);
+	var item_details_1 = __webpack_require__(360);
 	var TicketsPage = (function () {
 	    function TicketsPage(app, nav, navParams) {
 	        this.nav = nav;
@@ -61602,7 +61640,7 @@
 
 
 /***/ },
-/* 359 */
+/* 360 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61634,7 +61672,7 @@
 
 
 /***/ },
-/* 360 */
+/* 361 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61670,7 +61708,7 @@
 
 
 /***/ },
-/* 361 */
+/* 362 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61706,7 +61744,7 @@
 
 
 /***/ },
-/* 362 */
+/* 363 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {

@@ -32,11 +32,11 @@ class MyApp {
         { title: 'Queues', component: QueuesPage, icon: "list-box-outline" },
         { title: 'Switch Org', component: OrganizationsPage, icon: "md-swap" },
         { title: 'Signout', component: LoginPage, icon: "md-log-in" },
-        { title: 'Full App', component: LoginPage, icon: "md-share-alt" },
+        { title: 'Full App', component: HelloIonicPage, icon: "md-share-alt" },
     ];
       
     // make HelloIonicPage the root (or first) page
-    this.rootPage = HelloIonicPage;
+      this.rootPage = DashboardPage;
   }
 
   initializeApp() {
