@@ -10,9 +10,13 @@ import {TicketsPage} from './pages/tickets/tickets';
 import {DashboardPage} from './pages/dashboard/dashboard';
 import {OrganizationsPage} from './pages/organizations/organizations';
 import {LoginPage} from './pages/login/login';
+import {TabsPage} from './pages/tabs/tabs';
 
 @App({
-  templateUrl: 'build/app.html'
+  templateUrl: 'build/app.html',
+    config: {
+    tabbarPlacement: 'top'
+}
 })
 class MyApp {
   constructor(app: IonicApp, platform: Platform) {
@@ -32,11 +36,12 @@ class MyApp {
         { title: 'Queues', component: QueuesPage, icon: "list-box-outline" },
         { title: 'Switch Org', component: OrganizationsPage, icon: "md-swap" },
         { title: 'Signout', component: LoginPage, icon: "md-log-in" },
-        { title: 'Full App', component: LoginPage, icon: "md-share-alt" },
+        { title: 'Full App', component: HelloIonicPage, icon: "md-share-alt" },
+        { title: 'Tabs', component: TabsPage, icon: "md-share-alt" },
     ];
       
     // make HelloIonicPage the root (or first) page
-    this.rootPage = HelloIonicPage;
+      this.rootPage = DashboardPage;
   }
 
   initializeApp() {

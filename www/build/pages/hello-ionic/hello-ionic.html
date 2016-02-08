@@ -6,35 +6,39 @@
 
 
 <ion-content class="getting-started">
+    <ion-list padding class="list blue4" no-lines>
+    <button class="width28">+</button>
+    <button class="blue3 width35">00</button>
+    <button class="width28">-</button>
+         </ion-list>  
+    <ion-list class="list blue3" no-lines>
+    <button block>Start Time</button>
+    <button block>End Time</button>
+        </ion-list>   
  <ion-list class="list blue4" no-lines >
-    <button ion-item>Tech</button>
     <button ion-item>bigWebApps</button>
-    <button ion-item>choose location</button>
-    <button ion-item>choose technician</button>
     <button ion-item>choose a project</button>
-    <button ion-item>choose a class</button>
+    <button ion-item>choose a task type</button>
         </ion-list>    
                 <br>
-    <ion-card class="list">
-  <ion-card-header>Subject</ion-card-header>
-  </ion-card>
-    <br>
-    <ion-card class="list">
+       <ion-card class="list">
   <ion-card-header>Details...</ion-card-header>
   <ion-card-content></ion-card-content>
   <ion-card-content></ion-card-content>
 </ion-card>
+    <ion-label no-lines class="list">
+          <i class="billable">
+ <ion-icon class="ion-ios-radio-button-on"></ion-icon>
+          </i>
+        Billable
+      </ion-label>
+    
     <ion-list no-lines>
         <div padding="">
-      <button secondary block="" type="submit" class="disable-hover button button-default button-block">Add Ticket</button>
+      <button secondary block="" type="submit" class="disable-hover button button-default button-block">Update Time</button>
     </div>
     </ion-list>
-  
-    
-
-    
 <!--    <p>
     <button secondary menuToggle>Toggle Menu</button>
   </p>-->
-    
 </ion-content>

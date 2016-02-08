@@ -3216,13 +3216,14 @@
 	var ionic_1 = __webpack_require__(6);
 	var hello_ionic_1 = __webpack_require__(353);
 	var queues_1 = __webpack_require__(354);
-	var invoices_1 = __webpack_require__(355);
-	var accounts_1 = __webpack_require__(356);
-	var timelogs_1 = __webpack_require__(357);
-	var tickets_1 = __webpack_require__(358);
-	var dashboard_1 = __webpack_require__(360);
-	var organizations_1 = __webpack_require__(361);
-	var login_1 = __webpack_require__(362);
+	var invoices_1 = __webpack_require__(357);
+	var accounts_1 = __webpack_require__(359);
+	var timelogs_1 = __webpack_require__(361);
+	var tickets_1 = __webpack_require__(355);
+	var dashboard_1 = __webpack_require__(363);
+	var organizations_1 = __webpack_require__(364);
+	var login_1 = __webpack_require__(365);
+	var tabs_1 = __webpack_require__(366);
 	var MyApp = (function () {
 	    function MyApp(app, platform) {
 	        // set up our app
@@ -3239,10 +3240,11 @@
 	            { title: 'Queues', component: queues_1.QueuesPage, icon: "list-box-outline" },
 	            { title: 'Switch Org', component: organizations_1.OrganizationsPage, icon: "md-swap" },
 	            { title: 'Signout', component: login_1.LoginPage, icon: "md-log-in" },
-	            { title: 'Full App', component: login_1.LoginPage, icon: "md-share-alt" },
+	            { title: 'Full App', component: hello_ionic_1.HelloIonicPage, icon: "md-share-alt" },
+	            { title: 'Tabs', component: tabs_1.TabsPage, icon: "md-share-alt" },
 	        ];
 	        // make HelloIonicPage the root (or first) page
-	        this.rootPage = hello_ionic_1.HelloIonicPage;
+	        this.rootPage = dashboard_1.DashboardPage;
 	    }
 	    MyApp.prototype.initializeApp = function () {
 	        this.platform.ready().then(function () {
@@ -3273,7 +3275,10 @@
 	    };
 	    MyApp = __decorate([
 	        ionic_1.App({
-	            templateUrl: 'build/app.html'
+	            templateUrl: 'build/app.html',
+	            config: {
+	                tabbarPlacement: 'top'
+	            }
 	        }), 
 	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.IonicApp !== 'undefined' && ionic_1.IonicApp) === 'function' && _a) || Object, (typeof (_b = typeof ionic_1.Platform !== 'undefined' && ionic_1.Platform) === 'function' && _b) || Object])
 	    ], MyApp);
@@ -61415,6 +61420,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
+	var tickets_1 = __webpack_require__(355);
 	/*
 	  Generated class for the QueuesPage page.
 
@@ -61425,6 +61431,7 @@
 	    function QueuesPage(nav) {
 	        this.nav = nav;
 	    }
+	    QueuesPage.prototype.itemTappedTL = function () { this.nav.push(tickets_1.TicketsPage); };
 	    QueuesPage = __decorate([
 	        ionic_1.Page({
 	            templateUrl: 'build/pages/queues/queues.html',
@@ -61451,26 +61458,34 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	/*
-	  Generated class for the InvoicesPage page.
-
-	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-	  Ionic pages and navigation.
-	*/
-	var InvoicesPage = (function () {
-	    function InvoicesPage(nav) {
+	var ticket_details_1 = __webpack_require__(356);
+	var TicketsPage = (function () {
+	    function TicketsPage(app, nav, navParams) {
 	        this.nav = nav;
+	        // If we navigated to this page, we will have an item available as a nav param
+	        this.selectedItem = navParams.get('item');
+	        this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
+	            'american-football', 'boat', 'bluetooth', 'build'];
+	        this.items = [];
+	        for (var i = 1; i < 11; i++) {
+	            this.items.push({
+	                title: 'Item ' + i,
+	                note: 'This is item #' + i,
+	                icon: this.icons[Math.floor(Math.random() * this.icons.length)]
+	            });
+	        }
 	    }
-	    InvoicesPage = __decorate([
+	    TicketsPage.prototype.itemTapped = function () { this.nav.push(ticket_details_1.TicketDetailsPage); };
+	    TicketsPage = __decorate([
 	        ionic_1.Page({
-	            templateUrl: 'build/pages/invoices/invoices.html',
+	            templateUrl: 'build/pages/tickets/tickets.html',
 	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
-	    ], InvoicesPage);
-	    return InvoicesPage;
-	    var _a;
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.IonicApp !== 'undefined' && ionic_1.IonicApp) === 'function' && _a) || Object, (typeof (_b = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _b) || Object, (typeof (_c = typeof ionic_1.NavParams !== 'undefined' && ionic_1.NavParams) === 'function' && _c) || Object])
+	    ], TicketsPage);
+	    return TicketsPage;
+	    var _a, _b, _c;
 	})();
-	exports.InvoicesPage = InvoicesPage;
+	exports.TicketsPage = TicketsPage;
 
 
 /***/ },
@@ -61488,25 +61503,25 @@
 	};
 	var ionic_1 = __webpack_require__(6);
 	/*
-	  Generated class for the AccountsPage page.
+	  Generated class for the TicketDetailsPage page.
 
 	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
 	  Ionic pages and navigation.
 	*/
-	var AccountsPage = (function () {
-	    function AccountsPage(nav) {
+	var TicketDetailsPage = (function () {
+	    function TicketDetailsPage(nav) {
 	        this.nav = nav;
 	    }
-	    AccountsPage = __decorate([
+	    TicketDetailsPage = __decorate([
 	        ionic_1.Page({
-	            templateUrl: 'build/pages/accounts/accounts.html',
+	            templateUrl: 'build/pages/ticket-details/ticket-details.html',
 	        }), 
 	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
-	    ], AccountsPage);
-	    return AccountsPage;
+	    ], TicketDetailsPage);
+	    return TicketDetailsPage;
 	    var _a;
 	})();
-	exports.AccountsPage = AccountsPage;
+	exports.TicketDetailsPage = TicketDetailsPage;
 
 
 /***/ },
@@ -61523,26 +61538,28 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
+	var invoice_details_1 = __webpack_require__(358);
 	/*
-	  Generated class for the TimelogsPage page.
+	  Generated class for the InvoicesPage page.
 
 	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
 	  Ionic pages and navigation.
 	*/
-	var TimelogsPage = (function () {
-	    function TimelogsPage(nav) {
+	var InvoicesPage = (function () {
+	    function InvoicesPage(nav) {
 	        this.nav = nav;
 	    }
-	    TimelogsPage = __decorate([
+	    InvoicesPage.prototype.itemTapped = function () { this.nav.push(invoice_details_1.InvoiceDetailsPage); };
+	    InvoicesPage = __decorate([
 	        ionic_1.Page({
-	            templateUrl: 'build/pages/timelogs/timelogs.html',
+	            templateUrl: 'build/pages/invoices/invoices.html',
 	        }), 
 	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
-	    ], TimelogsPage);
-	    return TimelogsPage;
+	    ], InvoicesPage);
+	    return InvoicesPage;
 	    var _a;
 	})();
-	exports.TimelogsPage = TimelogsPage;
+	exports.InvoicesPage = InvoicesPage;
 
 
 /***/ },
@@ -61560,45 +61577,25 @@
 	};
 	var ionic_1 = __webpack_require__(6);
 	/*
-	  Generated class for the TicketsPage page.
+	  Generated class for the InvoiceDetailsPage page.
 
 	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
 	  Ionic pages and navigation.
 	*/
-	var ionic_2 = __webpack_require__(6);
-	var item_details_1 = __webpack_require__(359);
-	var TicketsPage = (function () {
-	    function TicketsPage(app, nav, navParams) {
+	var InvoiceDetailsPage = (function () {
+	    function InvoiceDetailsPage(nav) {
 	        this.nav = nav;
-	        // If we navigated to this page, we will have an item available as a nav param
-	        this.selectedItem = navParams.get('item');
-	        this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
-	            'american-football', 'boat', 'bluetooth', 'build'];
-	        this.items = [];
-	        for (var i = 1; i < 11; i++) {
-	            this.items.push({
-	                title: 'Item ' + i,
-	                note: 'This is item #' + i,
-	                icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-	            });
-	        }
 	    }
-	    TicketsPage.prototype.itemTapped = function (event, item) {
-	        console.log('You selected:', item.title);
-	        this.nav.push(item_details_1.ItemDetailsPage, {
-	            item: item
-	        });
-	    };
-	    TicketsPage = __decorate([
+	    InvoiceDetailsPage = __decorate([
 	        ionic_1.Page({
-	            templateUrl: 'build/pages/tickets/tickets.html',
+	            templateUrl: 'build/pages/invoice-details/invoice-details.html',
 	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_2.IonicApp !== 'undefined' && ionic_2.IonicApp) === 'function' && _a) || Object, (typeof (_b = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _b) || Object, (typeof (_c = typeof ionic_2.NavParams !== 'undefined' && ionic_2.NavParams) === 'function' && _c) || Object])
-	    ], TicketsPage);
-	    return TicketsPage;
-	    var _a, _b, _c;
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
+	    ], InvoiceDetailsPage);
+	    return InvoiceDetailsPage;
+	    var _a;
 	})();
-	exports.TicketsPage = TicketsPage;
+	exports.InvoiceDetailsPage = InvoiceDetailsPage;
 
 
 /***/ },
@@ -61615,22 +61612,28 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	var ItemDetailsPage = (function () {
-	    function ItemDetailsPage(app, nav, navParams) {
+	var account_details_1 = __webpack_require__(360);
+	/*
+	  Generated class for the AccountsPage page.
+
+	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+	  Ionic pages and navigation.
+	*/
+	var AccountsPage = (function () {
+	    function AccountsPage(nav) {
 	        this.nav = nav;
-	        // If we navigated to this page, we will have an item available as a nav param
-	        this.selectedItem = navParams.get('item');
 	    }
-	    ItemDetailsPage = __decorate([
+	    AccountsPage.prototype.itemTapped = function () { this.nav.push(account_details_1.AccountDetailsPage); };
+	    AccountsPage = __decorate([
 	        ionic_1.Page({
-	            templateUrl: 'build/pages/item-details/item-details.html'
+	            templateUrl: 'build/pages/accounts/accounts.html',
 	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.IonicApp !== 'undefined' && ionic_1.IonicApp) === 'function' && _a) || Object, (typeof (_b = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _b) || Object, (typeof (_c = typeof ionic_1.NavParams !== 'undefined' && ionic_1.NavParams) === 'function' && _c) || Object])
-	    ], ItemDetailsPage);
-	    return ItemDetailsPage;
-	    var _a, _b, _c;
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
+	    ], AccountsPage);
+	    return AccountsPage;
+	    var _a;
 	})();
-	exports.ItemDetailsPage = ItemDetailsPage;
+	exports.AccountsPage = AccountsPage;
 
 
 /***/ },
@@ -61648,6 +61651,119 @@
 	};
 	var ionic_1 = __webpack_require__(6);
 	/*
+	  Generated class for the AccountDetailsPage page.
+
+	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+	  Ionic pages and navigation.
+	*/
+	var AccountDetailsPage = (function () {
+	    function AccountDetailsPage(nav) {
+	        this.nav = nav;
+	    }
+	    AccountDetailsPage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/account-details/account-details.html',
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
+	    ], AccountDetailsPage);
+	    return AccountDetailsPage;
+	    var _a;
+	})();
+	exports.AccountDetailsPage = AccountDetailsPage;
+
+
+/***/ },
+/* 361 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(6);
+	var timelog_1 = __webpack_require__(362);
+	/*
+	  Generated class for the TimelogsPage page.
+
+	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+	  Ionic pages and navigation.
+	*/
+	var TimelogsPage = (function () {
+	    function TimelogsPage(nav) {
+	        this.nav = nav;
+	    }
+	    TimelogsPage.prototype.itemTapped = function () { this.nav.push(timelog_1.TimelogPage); };
+	    TimelogsPage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/timelogs/timelogs.html',
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
+	    ], TimelogsPage);
+	    return TimelogsPage;
+	    var _a;
+	})();
+	exports.TimelogsPage = TimelogsPage;
+
+
+/***/ },
+/* 362 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(6);
+	/*
+	  Generated class for the TimelogPage page.
+
+	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+	  Ionic pages and navigation.
+	*/
+	var TimelogPage = (function () {
+	    function TimelogPage(nav) {
+	        this.nav = nav;
+	    }
+	    TimelogPage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/timelog/timelog.html',
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
+	    ], TimelogPage);
+	    return TimelogPage;
+	    var _a;
+	})();
+	exports.TimelogPage = TimelogPage;
+
+
+/***/ },
+/* 363 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(6);
+	var tickets_1 = __webpack_require__(355);
+	var queues_1 = __webpack_require__(354);
+	var account_details_1 = __webpack_require__(360);
+	/*
 	  Generated class for the DashboardPage page.
 
 	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
@@ -61657,6 +61773,9 @@
 	    function DashboardPage(nav) {
 	        this.nav = nav;
 	    }
+	    DashboardPage.prototype.itemTappedTL = function () { this.nav.push(tickets_1.TicketsPage); };
+	    DashboardPage.prototype.itemTappedQ = function () { this.nav.push(queues_1.QueuesPage); };
+	    DashboardPage.prototype.itemTappedAD = function () { this.nav.push(account_details_1.AccountDetailsPage); };
 	    DashboardPage = __decorate([
 	        ionic_1.Page({
 	            templateUrl: 'build/pages/dashboard/dashboard.html',
@@ -61670,7 +61789,7 @@
 
 
 /***/ },
-/* 361 */
+/* 364 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61706,7 +61825,7 @@
 
 
 /***/ },
-/* 362 */
+/* 365 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61739,6 +61858,92 @@
 	    var _a;
 	})();
 	exports.LoginPage = LoginPage;
+
+
+/***/ },
+/* 366 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(6);
+	var ticket_details_1 = __webpack_require__(356);
+	var tickets_list_1 = __webpack_require__(367);
+	/*
+	  Generated class for the TabsPage page.
+
+	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+	  Ionic pages and navigation.
+	*/
+	var TabsPage = (function () {
+	    function TabsPage(nav) {
+	        this.nav = nav;
+	        this.tab1Root = tickets_list_1.TicketsListPage;
+	        this.tab2Root = ticket_details_1.TicketDetailsPage;
+	        this.tab3Root = tickets_list_1.TicketsListPage;
+	        this.tab4Root = ticket_details_1.TicketDetailsPage;
+	    }
+	    TabsPage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/tabs/tabs.html',
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
+	    ], TabsPage);
+	    return TabsPage;
+	    var _a;
+	})();
+	exports.TabsPage = TabsPage;
+
+
+/***/ },
+/* 367 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(6);
+	var ticket_details_1 = __webpack_require__(356);
+	var TicketsListPage = (function () {
+	    function TicketsListPage(app, nav, navParams) {
+	        this.nav = nav;
+	        // If we navigated to this page, we will have an item available as a nav param
+	        //this.selectedItem = navParams.get('item');
+	        this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
+	            'american-football', 'boat', 'bluetooth', 'build'];
+	        this.items = [];
+	        for (var i = 1; i < 11; i++) {
+	            this.items.push({
+	                title: 'Item ' + i,
+	                note: 'This is item #' + i,
+	                icon: this.icons[Math.floor(Math.random() * this.icons.length)]
+	            });
+	        }
+	    }
+	    TicketsListPage.prototype.itemTapped = function () { this.nav.push(ticket_details_1.TicketDetailsPage); };
+	    TicketsListPage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/tickets-list/tickets-list.html',
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.IonicApp !== 'undefined' && ionic_1.IonicApp) === 'function' && _a) || Object, (typeof (_b = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _b) || Object, (typeof (_c = typeof ionic_1.NavParams !== 'undefined' && ionic_1.NavParams) === 'function' && _c) || Object])
+	    ], TicketsListPage);
+	    return TicketsListPage;
+	    var _a, _b, _c;
+	})();
+	exports.TicketsListPage = TicketsListPage;
 
 
 /***/ }
