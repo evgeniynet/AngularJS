@@ -1,4 +1,4 @@
-import {Page, NavController} from 'ionic/ionic';
+import {IonicApp, Page, NavController, NavParams} from 'ionic/ionic';
 
 /*
   Generated class for the TicketDetailsPage page.
@@ -10,7 +10,9 @@ import {Page, NavController} from 'ionic/ionic';
   templateUrl: 'build/pages/ticket-details/ticket-details.html',
 })
 export class TicketDetailsPage {
-  constructor(nav: NavController) {
-    this.nav = nav;
-  }
+    constructor(app: IonicApp, nav: NavController, navParams: NavParams) {
+        this.nav = nav;
+        // If we navigated to this page, we will have an item available as a nav param
+        this.selectedItem = navParams.get('item');
+    }
 }
