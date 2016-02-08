@@ -1,4 +1,5 @@
 import {Page, NavController} from 'ionic/ionic';
+import {TicketDetailsPage} from '../ticket-details/ticket-details';
 
 /*
   Generated class for the TicketsPage page.
@@ -32,13 +33,6 @@ export class TicketsPage {
     }
   }
 
-  itemTapped(event, item) {
-
-    console.log('You selected:', item.title);
-
-     this.nav.push(ItemDetailsPage, {
-       item: item
-     });
-  }
+    itemTapped() {this.nav.push(TicketDetailsPage);}
     
 }

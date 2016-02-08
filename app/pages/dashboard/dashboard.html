@@ -11,7 +11,7 @@
 
 <ion-content class="dashboard">
     
-    <ion-list class="list" no-lines margin-top>
+    <ion-list class="list" no-lines margin-top  (click)="itemTappedTL()">
         <div class="width51 left blue3">
     <ion-item class="mainStat itemTech">12</ion-item>
      <ion-item class="itemTech">As Tech</ion-item>
@@ -28,7 +28,7 @@
          </div>
         <br>
          </ion-list>
-    <ion-list class="list" no-lines>
+    <ion-list class="list" no-lines  (click)="itemTappedQ()">
         <div class="blue1 left width75" style="margin-bottom: 60px;">
    <ion-item>New Ticket</ion-item>
         <br>
@@ -53,7 +53,7 @@
                 </div>
 </ion-list>
     
-    <ion-list class="list" no-lines>
+    <ion-list class="list" no-lines  (click)="itemTappedAD()">
         <div class="grey width35 left">
    <ion-item>New Ticket</ion-item>
    <ion-item>New Ticket</ion-item>

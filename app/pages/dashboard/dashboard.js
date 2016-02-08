@@ -1,4 +1,7 @@
 import {Page, NavController} from 'ionic/ionic';
+import {TicketsPage} from '../tickets/tickets';
+import {QueuesPage} from '../queues/queues';
+import {AccountDetailsPage} from '../account-details/account-details';
 
 /*
   Generated class for the DashboardPage page.
@@ -13,4 +16,10 @@ export class DashboardPage {
   constructor(nav: NavController) {
     this.nav = nav;
   }
+    
+    itemTappedTL() {this.nav.push(TicketsPage);}
+    
+    itemTappedQ() {this.nav.push(QueuesPage);}
+    
+    itemTappedAD() {this.nav.push(AccountDetailsPage);}
 }

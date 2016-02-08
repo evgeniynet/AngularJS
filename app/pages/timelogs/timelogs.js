@@ -1,4 +1,5 @@
 import {Page, NavController} from 'ionic/ionic';
+import {TimelogPage} from '../timelog/timelog';
 
 /*
   Generated class for the TimelogsPage page.
@@ -13,4 +14,5 @@ export class TimelogsPage {
   constructor(nav: NavController) {
     this.nav = nav;
   }
+    itemTapped() {this.nav.push(TimelogPage);}
 }

@@ -1,4 +1,5 @@
 import {Page, NavController} from 'ionic/ionic';
+import {InvoiceDetailsPage} from '../invoice-details/invoice-details';
 
 /*
   Generated class for the InvoicesPage page.
@@ -13,4 +14,5 @@ export class InvoicesPage {
   constructor(nav: NavController) {
     this.nav = nav;
   }
+    itemTapped() {this.nav.push(InvoiceDetailsPage);}
 }
