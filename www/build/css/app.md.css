@@ -7873,6 +7873,18 @@ scroll-content {
   padding-top: 2px;
   text-align: center; }
 
+.billable {
+  font-size: 26px;
+  padding-right: 10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  float: left;
+  margin-right: 10px;
+  padding-left: 5px;
+  padding-top: 2px;
+  text-align: center; }
+
 .blue1 > * {
   background-color: #25b0e6; }
 
