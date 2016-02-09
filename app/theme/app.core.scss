@@ -92,7 +92,11 @@ scroll-content {
 }
 
 .button {
-    color: #FBFBFB;
+color: #fff;
+}
+
+.tablText {
+    color: $label-ios-text-color;
 }
 
 .blue1 > * {
@@ -128,12 +132,17 @@ scroll-content {
     float: right;
 }
 
-.width25{
-    width: 25%;
+
+.width90{
+    width: 90%;
 }
 
 .width75{
     width: 75%;
+}
+
+.width51{
+    width: 51%;
 }
 
 .width35{
@@ -148,14 +157,14 @@ scroll-content {
     width: 28%;
 }
 
+.width25{
+    width: 25%;
+}
+
 .width12{
     width: 12%;
 }
 
-.width51{
-    width: 51%;
-}
- 
 .width24{
     width: 24%;
 }

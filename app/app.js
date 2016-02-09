@@ -11,6 +11,7 @@ import {DashboardPage} from './pages/dashboard/dashboard';
 import {OrganizationsPage} from './pages/organizations/organizations';
 import {LoginPage} from './pages/login/login';
 import {TabsPage} from './pages/tabs/tabs';
+import {TimelogCreatePage} from './pages/timelog-create/timelog-create';
 
 @App({
   templateUrl: 'build/app.html',
@@ -41,7 +42,7 @@ class MyApp {
     ];
       
     // make HelloIonicPage the root (or first) page
-      this.rootPage = HelloIonicPage;
+      this.rootPage = TimelogCreatePage;
   }
 
   initializeApp() {

@@ -10,11 +10,12 @@
 
 <ion-content padding class="timelog-create">
     
-    <ion-list padding class="list blue4" no-lines>
-    <button class="width28">+</button>
-    <button class="blue3 width35">00</button>
-    <button class="width28">-</button>
-         </ion-list>  
+    <ion-row class="list">
+    <ion-col width-33 class="blue4"><button class="width30" type="button"><ion-icon name="remove-outline"></ion-icon><i name="arrow-back-outline"></i></button></ion-col>
+    <ion-col width-33 class="blue4" center><button type="button">00</button></ion-col>
+    <ion-col width-33 class="blue4"><button><ion-icon name="ios-add"></ion-icon></button></ion-col>
+  </ion-row>
+ 
     <ion-list class="list blue3" no-lines>
     <button block>Start Time</button>
     <button block>End Time</button>
