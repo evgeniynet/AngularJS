@@ -41,7 +41,7 @@ class MyApp {
     ];
       
     // make HelloIonicPage the root (or first) page
-      this.rootPage = DashboardPage;
+      this.rootPage = HelloIonicPage;
   }
 
   initializeApp() {
