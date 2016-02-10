@@ -1,5 +1,5 @@
 import {App, IonicApp, Platform} from 'ionic/ionic';
-
+import {ApiData} from './providers/api-data';
 import {HelloIonicPage} from './pages/hello-ionic/hello-ionic';
 import {ListPage} from './pages/list/list';
 import {QueuesPage} from './pages/queues/queues';
@@ -15,17 +15,21 @@ import {TimelogCreatePage} from './pages/timelog-create/timelog-create';
 
 @App({
   templateUrl: 'build/app.html',
+    providers: [ApiData],
     config: {
     tabbarPlacement: 'top'
 }
 })
 class MyApp {
-  constructor(app: IonicApp, platform: Platform) {
+    constructor(app: IonicApp, platform: Platform, apiData: ApiData) {
 
     // set up our app
     this.app = app;
     this.platform = platform;
     this.initializeApp();
+    /*apiData.getChildren().then(child => {
+        console.log(child[0].data.url)
+    });*/
 
     // set our app's pages
     this.pages = [
@@ -42,7 +46,7 @@ class MyApp {
     ];
       
     // make HelloIonicPage the root (or first) page
-      this.rootPage = TimelogCreatePage;
+      this.rootPage = DashboardPage;
   }
 
   initializeApp() {
@@ -69,9 +73,11 @@ class MyApp {
 
   openPage(page) {
     // close the menu when clicking a link from the menu
-    this.app.getComponent('leftMenu').close();
-    // navigate to the new page if it is not the current page
-    let nav = this.app.getComponent('nav');
-    nav.setRoot(page.component);
+      let nav = this.app.getComponent('nav');
+      nav.setRoot(page.component).then(() => {
+          // wait for the root page to be completely loaded
+          // then close the menu
+          this.app.getComponent('leftMenu').close();
+      });
   }
 }

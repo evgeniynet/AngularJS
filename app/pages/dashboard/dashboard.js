@@ -1,4 +1,5 @@
-import {Page, NavController} from 'ionic/ionic';
+import {Page, ActionSheet, NavController} from 'ionic/ionic';
+import {ApiData} from '../../providers/api-data';
 import {TicketsPage} from '../tickets/tickets';
 import {QueuesPage} from '../queues/queues';
 import {AccountDetailsPage} from '../account-details/account-details';
@@ -13,8 +14,14 @@ import {AccountDetailsPage} from '../account-details/account-details';
   templateUrl: 'build/pages/dashboard/dashboard.html',
 })
 export class DashboardPage {
-  constructor(nav: NavController) {
+    constructor(nav: NavController, apiData: ApiData) {
     this.nav = nav;
+    this.posts = null;
+    apiData.getChildren().then(child => {
+        this.posts = child;
+    }).catch(function(){
+        console.log("1");
+    });
   }
     
     itemTappedTL() {this.nav.push(TicketsPage);}
@@ -22,4 +29,50 @@ export class DashboardPage {
     itemTappedQ() {this.nav.push(QueuesPage);}
     
     itemTappedAD() {this.nav.push(AccountDetailsPage);}
+    
+    presentActionSheet() {
+        let actionSheet = ActionSheet.create({
+            title: '',
+            buttons: [
+                {
+                    icon: 'create-outline',
+                    text: 'Add Ticket',
+                    handler: () => {
+                        console.log('Destructive clicked');
+                    }
+                },{
+                    icon: 'md-time',
+                    text: 'Add Time',
+                    handler: () => {
+                        console.log('Archive clicked');
+                    }
+                },{
+                    icon: 'card',
+                    text: 'Add Invoice',
+                    handler: () => {
+                        console.log('Archive clicked');
+                    }
+                },{
+                    icon: 'calculator',
+                    text: 'Add Expense',
+                    handler: () => {
+                        console.log('Archive clicked');
+                    }
+                },{
+                    icon: '',
+                    text: 'Cancel',
+                    style: 'cancel',
+                    handler: () => {
+                        console.log('Cancel clicked');
+                    }
+                }
+            ]
+        });
+        this.nav.present(actionSheet);
+    }
+    
+    onPageWillLeave() {
+        actionSheet && actionSheet.dismiss();
+    }
+
 }

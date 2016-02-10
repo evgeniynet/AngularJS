@@ -10,7 +10,11 @@
 </ion-navbar>
 
 <ion-content class="dashboard">
-    
+    <ion-list>
+        <ion-item *ngFor="#post of posts">
+            <img [src]="post.data.url" />
+        </ion-item>
+    </ion-list>
     <ion-list class="list" no-lines margin-top  (click)="itemTappedTL()">
         <div class="width51 left blue3">
     <ion-item class="mainStat itemTech">12</ion-item>
@@ -86,3 +90,4 @@
 </ion-list>
   
 </ion-content>
+<button item-right secondary fab fab-right fab-bottom (click)="presentActionSheet()"><ion-icon name="md-add"></ion-icon></button>
