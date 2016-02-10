@@ -17,11 +17,8 @@ export class DashboardPage {
     constructor(nav: NavController, apiData: ApiData) {
     this.nav = nav;
     this.posts = null;
-    apiData.getChildren().then(child => {
-        this.posts = child;
-    }).catch(function(){
-        console.log("1");
-    });
+        
+    apiData.get().subscribe(data => {this.posts = data.data.children}, error => { console.log(error || 'Server error');});
   }
     
     itemTappedTL() {this.nav.push(TicketsPage);}

@@ -3215,16 +3215,16 @@
 	};
 	var ionic_1 = __webpack_require__(6);
 	var api_data_1 = __webpack_require__(353);
-	var hello_ionic_1 = __webpack_require__(355);
-	var queues_1 = __webpack_require__(356);
-	var invoices_1 = __webpack_require__(359);
-	var accounts_1 = __webpack_require__(361);
-	var timelogs_1 = __webpack_require__(363);
-	var tickets_1 = __webpack_require__(357);
-	var dashboard_1 = __webpack_require__(365);
-	var organizations_1 = __webpack_require__(366);
-	var login_1 = __webpack_require__(367);
-	var tabs_1 = __webpack_require__(368);
+	var hello_ionic_1 = __webpack_require__(582);
+	var queues_1 = __webpack_require__(583);
+	var invoices_1 = __webpack_require__(586);
+	var accounts_1 = __webpack_require__(588);
+	var timelogs_1 = __webpack_require__(590);
+	var tickets_1 = __webpack_require__(584);
+	var dashboard_1 = __webpack_require__(592);
+	var organizations_1 = __webpack_require__(593);
+	var login_1 = __webpack_require__(594);
+	var tabs_1 = __webpack_require__(595);
 	var MyApp = (function () {
 	    function MyApp(app, platform, apiData) {
 	        // set up our app
@@ -61401,8 +61401,8 @@
 	var http_1 = __webpack_require__(144);
 	var Observable_1 = __webpack_require__(58);
 	var config_1 = __webpack_require__(354);
-	__webpack_require__(370);
-	var childURL = config_1.API_URL + 'r/gifs/new/.json?limit=1';
+	__webpack_require__(355);
+	var childURL = config_1.API_URL + 'r/gifs/new/.json?limit=3';
 	var ApiData = (function () {
 	    function ApiData(http) {
 	        // inject the Http provider and set to this instance
@@ -61412,18 +61412,9 @@
 	        var _this = this;
 	        if (this.data) {
 	        }
-	        // don't have the data yet
-	        return new Promise(function (resolve) {
-	            // We're using Angular Http provider to request the data,
-	            // then on the response it'll map the JSON data to a parsed JS object.
-	            // Next we process the data and resolve the promise with the new data.
-	            _this.http.get(childURL).subscribe(function (res) {
-	                // we've got back the raw data, now generate the core schedule data
-	                // and save the data for later reference
-	                _this.data = _this.processData(res.json());
-	                resolve(_this.data);
-	            }, function (error) { throw (error.json().error || 'Server error'); /*console.log(error);*/ });
-	        });
+	        return this.http.get(childURL)
+	            .map(function (res) { return _this.processData(res.json()); })
+	            .catch(this.handleError);
 	    };
 	    ApiData.prototype.processData = function (data) {
 	        // just some good 'ol JS fun with objects and arrays
@@ -61436,9 +61427,6 @@
 	        return Observable_1.Observable.throw(error.json().error || 'Server error');
 	    };
 	    ApiData.prototype.getChildren = function () {
-	        return this.get().then(function (data) {
-	            return data.data.children;
-	        });
 	    };
 	    ApiData = __decorate([
 	        core_1.Injectable(), 
@@ -61453,635 +61441,11 @@
 /* 354 */
 /***/ function(module, exports) {
 
-	exports.API_URL = "1https://www.reddit.com/";
+	exports.API_URL = "https://www.reddit.com/";
 
 
 /***/ },
 /* 355 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var ionic_1 = __webpack_require__(6);
-	var HelloIonicPage = (function () {
-	    function HelloIonicPage(nav) {
-	        this.nav = nav;
-	    }
-	    HelloIonicPage = __decorate([
-	        ionic_1.Page({
-	            templateUrl: 'build/pages/hello-ionic/hello-ionic.html'
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
-	    ], HelloIonicPage);
-	    return HelloIonicPage;
-	    var _a;
-	})();
-	exports.HelloIonicPage = HelloIonicPage;
-
-
-/***/ },
-/* 356 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var ionic_1 = __webpack_require__(6);
-	var tickets_1 = __webpack_require__(357);
-	/*
-	  Generated class for the QueuesPage page.
-
-	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-	  Ionic pages and navigation.
-	*/
-	var QueuesPage = (function () {
-	    function QueuesPage(nav) {
-	        this.nav = nav;
-	    }
-	    QueuesPage.prototype.itemTappedTL = function () { this.nav.push(tickets_1.TicketsPage); };
-	    QueuesPage = __decorate([
-	        ionic_1.Page({
-	            templateUrl: 'build/pages/queues/queues.html',
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
-	    ], QueuesPage);
-	    return QueuesPage;
-	    var _a;
-	})();
-	exports.QueuesPage = QueuesPage;
-
-
-/***/ },
-/* 357 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var ionic_1 = __webpack_require__(6);
-	var ticket_details_1 = __webpack_require__(358);
-	var TicketsPage = (function () {
-	    function TicketsPage(nav, navParams) {
-	        this.nav = nav;
-	        // If we navigated to this page, we will have an item available as a nav param
-	        this.selectedItem = navParams.get('item');
-	        this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
-	            'american-football', 'boat', 'bluetooth', 'build'];
-	        this.items = [];
-	        for (var i = 1; i < 11; i++) {
-	            this.items.push({
-	                title: 'Item ' + i,
-	                note: 'This is item #' + i,
-	                icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-	            });
-	        }
-	    }
-	    TicketsPage.prototype.itemTapped = function () { this.nav.push(ticket_details_1.TicketDetailsPage); };
-	    TicketsPage = __decorate([
-	        ionic_1.Page({
-	            templateUrl: 'build/pages/tickets/tickets.html',
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof ionic_1.NavParams !== 'undefined' && ionic_1.NavParams) === 'function' && _b) || Object])
-	    ], TicketsPage);
-	    return TicketsPage;
-	    var _a, _b;
-	})();
-	exports.TicketsPage = TicketsPage;
-
-
-/***/ },
-/* 358 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var ionic_1 = __webpack_require__(6);
-	/*
-	  Generated class for the TicketDetailsPage page.
-
-	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-	  Ionic pages and navigation.
-	*/
-	var TicketDetailsPage = (function () {
-	    function TicketDetailsPage(nav, navParams) {
-	        this.nav = nav;
-	        this.pet = "Reply";
-	        // If we navigated to this page, we will have an item available as a nav param
-	        this.selectedItem = navParams.get('item');
-	    }
-	    TicketDetailsPage = __decorate([
-	        ionic_1.Page({
-	            templateUrl: 'build/pages/ticket-details/ticket-details.html',
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof ionic_1.NavParams !== 'undefined' && ionic_1.NavParams) === 'function' && _b) || Object])
-	    ], TicketDetailsPage);
-	    return TicketDetailsPage;
-	    var _a, _b;
-	})();
-	exports.TicketDetailsPage = TicketDetailsPage;
-
-
-/***/ },
-/* 359 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var ionic_1 = __webpack_require__(6);
-	var invoice_details_1 = __webpack_require__(360);
-	/*
-	  Generated class for the InvoicesPage page.
-
-	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-	  Ionic pages and navigation.
-	*/
-	var InvoicesPage = (function () {
-	    function InvoicesPage(nav) {
-	        this.nav = nav;
-	    }
-	    InvoicesPage.prototype.itemTapped = function () { this.nav.push(invoice_details_1.InvoiceDetailsPage); };
-	    InvoicesPage = __decorate([
-	        ionic_1.Page({
-	            templateUrl: 'build/pages/invoices/invoices.html',
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
-	    ], InvoicesPage);
-	    return InvoicesPage;
-	    var _a;
-	})();
-	exports.InvoicesPage = InvoicesPage;
-
-
-/***/ },
-/* 360 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var ionic_1 = __webpack_require__(6);
-	/*
-	  Generated class for the InvoiceDetailsPage page.
-
-	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-	  Ionic pages and navigation.
-	*/
-	var InvoiceDetailsPage = (function () {
-	    function InvoiceDetailsPage(nav) {
-	        this.nav = nav;
-	    }
-	    InvoiceDetailsPage = __decorate([
-	        ionic_1.Page({
-	            templateUrl: 'build/pages/invoice-details/invoice-details.html',
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
-	    ], InvoiceDetailsPage);
-	    return InvoiceDetailsPage;
-	    var _a;
-	})();
-	exports.InvoiceDetailsPage = InvoiceDetailsPage;
-
-
-/***/ },
-/* 361 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var ionic_1 = __webpack_require__(6);
-	var account_details_1 = __webpack_require__(362);
-	/*
-	  Generated class for the AccountsPage page.
-
-	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-	  Ionic pages and navigation.
-	*/
-	var AccountsPage = (function () {
-	    function AccountsPage(nav) {
-	        this.nav = nav;
-	    }
-	    AccountsPage.prototype.itemTapped = function () { this.nav.push(account_details_1.AccountDetailsPage); };
-	    AccountsPage = __decorate([
-	        ionic_1.Page({
-	            templateUrl: 'build/pages/accounts/accounts.html',
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
-	    ], AccountsPage);
-	    return AccountsPage;
-	    var _a;
-	})();
-	exports.AccountsPage = AccountsPage;
-
-
-/***/ },
-/* 362 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var ionic_1 = __webpack_require__(6);
-	/*
-	  Generated class for the AccountDetailsPage page.
-
-	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-	  Ionic pages and navigation.
-	*/
-	var AccountDetailsPage = (function () {
-	    function AccountDetailsPage(nav) {
-	        this.nav = nav;
-	    }
-	    AccountDetailsPage = __decorate([
-	        ionic_1.Page({
-	            templateUrl: 'build/pages/account-details/account-details.html',
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
-	    ], AccountDetailsPage);
-	    return AccountDetailsPage;
-	    var _a;
-	})();
-	exports.AccountDetailsPage = AccountDetailsPage;
-
-
-/***/ },
-/* 363 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var ionic_1 = __webpack_require__(6);
-	var timelog_1 = __webpack_require__(364);
-	/*
-	  Generated class for the TimelogsPage page.
-
-	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-	  Ionic pages and navigation.
-	*/
-	var TimelogsPage = (function () {
-	    function TimelogsPage(nav) {
-	        this.nav = nav;
-	    }
-	    TimelogsPage.prototype.itemTapped = function () { this.nav.push(timelog_1.TimelogPage); };
-	    TimelogsPage = __decorate([
-	        ionic_1.Page({
-	            templateUrl: 'build/pages/timelogs/timelogs.html',
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
-	    ], TimelogsPage);
-	    return TimelogsPage;
-	    var _a;
-	})();
-	exports.TimelogsPage = TimelogsPage;
-
-
-/***/ },
-/* 364 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var ionic_1 = __webpack_require__(6);
-	/*
-	  Generated class for the TimelogPage page.
-
-	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-	  Ionic pages and navigation.
-	*/
-	var TimelogPage = (function () {
-	    function TimelogPage(nav) {
-	        this.nav = nav;
-	    }
-	    TimelogPage = __decorate([
-	        ionic_1.Page({
-	            templateUrl: 'build/pages/timelog/timelog.html',
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
-	    ], TimelogPage);
-	    return TimelogPage;
-	    var _a;
-	})();
-	exports.TimelogPage = TimelogPage;
-
-
-/***/ },
-/* 365 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var ionic_1 = __webpack_require__(6);
-	var api_data_1 = __webpack_require__(353);
-	var tickets_1 = __webpack_require__(357);
-	var queues_1 = __webpack_require__(356);
-	var account_details_1 = __webpack_require__(362);
-	/*
-	  Generated class for the DashboardPage page.
-
-	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-	  Ionic pages and navigation.
-	*/
-	var DashboardPage = (function () {
-	    function DashboardPage(nav, apiData) {
-	        var _this = this;
-	        this.nav = nav;
-	        this.posts = null;
-	        apiData.getChildren().then(function (child) {
-	            _this.posts = child;
-	        }).catch(function () {
-	            console.log("1");
-	        });
-	    }
-	    DashboardPage.prototype.itemTappedTL = function () { this.nav.push(tickets_1.TicketsPage); };
-	    DashboardPage.prototype.itemTappedQ = function () { this.nav.push(queues_1.QueuesPage); };
-	    DashboardPage.prototype.itemTappedAD = function () { this.nav.push(account_details_1.AccountDetailsPage); };
-	    DashboardPage.prototype.presentActionSheet = function () {
-	        var actionSheet = ionic_1.ActionSheet.create({
-	            title: '',
-	            buttons: [
-	                {
-	                    icon: 'create-outline',
-	                    text: 'Add Ticket',
-	                    handler: function () {
-	                        console.log('Destructive clicked');
-	                    }
-	                }, {
-	                    icon: 'md-time',
-	                    text: 'Add Time',
-	                    handler: function () {
-	                        console.log('Archive clicked');
-	                    }
-	                }, {
-	                    icon: 'card',
-	                    text: 'Add Invoice',
-	                    handler: function () {
-	                        console.log('Archive clicked');
-	                    }
-	                }, {
-	                    icon: 'calculator',
-	                    text: 'Add Expense',
-	                    handler: function () {
-	                        console.log('Archive clicked');
-	                    }
-	                }, {
-	                    icon: '',
-	                    text: 'Cancel',
-	                    style: 'cancel',
-	                    handler: function () {
-	                        console.log('Cancel clicked');
-	                    }
-	                }
-	            ]
-	        });
-	        this.nav.present(actionSheet);
-	    };
-	    DashboardPage.prototype.onPageWillLeave = function () {
-	        actionSheet && actionSheet.dismiss();
-	    };
-	    DashboardPage = __decorate([
-	        ionic_1.Page({
-	            templateUrl: 'build/pages/dashboard/dashboard.html',
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof api_data_1.ApiData !== 'undefined' && api_data_1.ApiData) === 'function' && _b) || Object])
-	    ], DashboardPage);
-	    return DashboardPage;
-	    var _a, _b;
-	})();
-	exports.DashboardPage = DashboardPage;
-
-
-/***/ },
-/* 366 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var ionic_1 = __webpack_require__(6);
-	/*
-	  Generated class for the OrganizationsPage page.
-
-	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-	  Ionic pages and navigation.
-	*/
-	var OrganizationsPage = (function () {
-	    function OrganizationsPage(nav) {
-	        this.nav = nav;
-	    }
-	    OrganizationsPage = __decorate([
-	        ionic_1.Page({
-	            templateUrl: 'build/pages/organizations/organizations.html',
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
-	    ], OrganizationsPage);
-	    return OrganizationsPage;
-	    var _a;
-	})();
-	exports.OrganizationsPage = OrganizationsPage;
-
-
-/***/ },
-/* 367 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var ionic_1 = __webpack_require__(6);
-	/*
-	  Generated class for the LoginPage page.
-
-	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-	  Ionic pages and navigation.
-	*/
-	var LoginPage = (function () {
-	    function LoginPage(nav) {
-	        this.nav = nav;
-	    }
-	    LoginPage = __decorate([
-	        ionic_1.Page({
-	            templateUrl: 'build/pages/login/login.html',
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
-	    ], LoginPage);
-	    return LoginPage;
-	    var _a;
-	})();
-	exports.LoginPage = LoginPage;
-
-
-/***/ },
-/* 368 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var ionic_1 = __webpack_require__(6);
-	var ticket_details_1 = __webpack_require__(358);
-	var tickets_list_1 = __webpack_require__(369);
-	/*
-	  Generated class for the TabsPage page.
-
-	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-	  Ionic pages and navigation.
-	*/
-	var TabsPage = (function () {
-	    function TabsPage(nav) {
-	        this.nav = nav;
-	        this.tab1Root = tickets_list_1.TicketsListPage;
-	        this.tab2Root = ticket_details_1.TicketDetailsPage;
-	        this.tab3Root = tickets_list_1.TicketsListPage;
-	        this.tab4Root = ticket_details_1.TicketDetailsPage;
-	    }
-	    TabsPage = __decorate([
-	        ionic_1.Page({
-	            templateUrl: 'build/pages/tabs/tabs.html',
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
-	    ], TabsPage);
-	    return TabsPage;
-	    var _a;
-	})();
-	exports.TabsPage = TabsPage;
-
-
-/***/ },
-/* 369 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var ionic_1 = __webpack_require__(6);
-	var ticket_details_1 = __webpack_require__(358);
-	var TicketsListPage = (function () {
-	    function TicketsListPage(nav, navParams) {
-	        this.nav = nav;
-	        // If we navigated to this page, we will have an item available as a nav param
-	        //this.selectedItem = navParams.get('item');
-	        this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
-	            'american-football', 'boat', 'bluetooth', 'build'];
-	        this.items = [];
-	        for (var i = 1; i < 11; i++) {
-	            this.items.push({
-	                title: 'Item ' + i,
-	                note: 'This is item #' + i,
-	                icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-	            });
-	        }
-	    }
-	    TicketsListPage.prototype.itemTapped = function () { this.nav.push(ticket_details_1.TicketDetailsPage); };
-	    TicketsListPage = __decorate([
-	        ionic_1.Page({
-	            templateUrl: 'build/pages/tickets-list/tickets-list.html',
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof ionic_1.NavParams !== 'undefined' && ionic_1.NavParams) === 'function' && _b) || Object])
-	    ], TicketsListPage);
-	    return TicketsListPage;
-	    var _a, _b;
-	})();
-	exports.TicketsListPage = TicketsListPage;
-
-
-/***/ },
-/* 370 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* tslint:disable:no-unused-variable */
@@ -62095,85 +61459,93 @@
 	exports.Observable = Observable_1.Observable;
 	// statics
 	/* tslint:disable:no-use-before-declare */
-	__webpack_require__(371);
-	__webpack_require__(385);
-	__webpack_require__(388);
+	__webpack_require__(356);
+	__webpack_require__(370);
+	__webpack_require__(373);
+	__webpack_require__(375);
+	__webpack_require__(378);
+	__webpack_require__(380);
+	__webpack_require__(381);
+	__webpack_require__(384);
+	__webpack_require__(389);
 	__webpack_require__(390);
-	__webpack_require__(393);
+	__webpack_require__(392);
+	__webpack_require__(394);
 	__webpack_require__(395);
-	__webpack_require__(396);
-	__webpack_require__(399);
 	__webpack_require__(404);
-	__webpack_require__(405);
-	__webpack_require__(407);
+	__webpack_require__(406);
+	__webpack_require__(408);
 	__webpack_require__(409);
-	__webpack_require__(410);
+	__webpack_require__(412);
+	//operators
+	__webpack_require__(415);
+	__webpack_require__(417);
 	__webpack_require__(419);
 	__webpack_require__(421);
 	__webpack_require__(423);
-	__webpack_require__(424);
+	__webpack_require__(425);
 	__webpack_require__(427);
-	//operators
-	__webpack_require__(430);
-	__webpack_require__(432);
-	__webpack_require__(434);
-	__webpack_require__(436);
+	__webpack_require__(429);
+	__webpack_require__(431);
+	__webpack_require__(433);
+	__webpack_require__(435);
 	__webpack_require__(438);
-	__webpack_require__(440);
-	__webpack_require__(442);
-	__webpack_require__(444);
-	__webpack_require__(446);
-	__webpack_require__(448);
-	__webpack_require__(450);
+	__webpack_require__(441);
+	__webpack_require__(443);
+	__webpack_require__(445);
+	__webpack_require__(447);
+	__webpack_require__(449);
+	__webpack_require__(451);
 	__webpack_require__(453);
-	__webpack_require__(456);
-	__webpack_require__(458);
+	__webpack_require__(455);
+	__webpack_require__(457);
 	__webpack_require__(460);
 	__webpack_require__(462);
 	__webpack_require__(464);
-	__webpack_require__(466);
-	__webpack_require__(468);
-	__webpack_require__(470);
-	__webpack_require__(472);
+	__webpack_require__(467);
+	__webpack_require__(473);
 	__webpack_require__(475);
 	__webpack_require__(477);
 	__webpack_require__(479);
-	__webpack_require__(482);
-	__webpack_require__(488);
-	__webpack_require__(490);
-	__webpack_require__(492);
-	__webpack_require__(494);
+	__webpack_require__(481);
+	__webpack_require__(483);
+	__webpack_require__(485);
+	__webpack_require__(487);
+	__webpack_require__(489);
+	__webpack_require__(491);
+	__webpack_require__(493);
 	__webpack_require__(496);
 	__webpack_require__(498);
-	__webpack_require__(500);
-	__webpack_require__(502);
-	__webpack_require__(504);
-	__webpack_require__(506);
-	__webpack_require__(508);
-	__webpack_require__(511);
-	__webpack_require__(513);
-	__webpack_require__(516);
-	__webpack_require__(518);
-	__webpack_require__(522);
+	__webpack_require__(501);
+	__webpack_require__(503);
+	__webpack_require__(507);
+	__webpack_require__(510);
+	__webpack_require__(512);
+	__webpack_require__(515);
+	__webpack_require__(517);
+	__webpack_require__(519);
+	__webpack_require__(521);
+	__webpack_require__(523);
 	__webpack_require__(525);
 	__webpack_require__(527);
-	__webpack_require__(530);
-	__webpack_require__(532);
-	__webpack_require__(534);
-	__webpack_require__(536);
-	__webpack_require__(538);
-	__webpack_require__(540);
+	__webpack_require__(529);
+	__webpack_require__(531);
+	__webpack_require__(533);
+	__webpack_require__(535);
+	__webpack_require__(537);
+	__webpack_require__(539);
 	__webpack_require__(542);
 	__webpack_require__(544);
 	__webpack_require__(546);
 	__webpack_require__(548);
-	__webpack_require__(550);
-	__webpack_require__(552);
-	__webpack_require__(554);
+	__webpack_require__(551);
+	__webpack_require__(553);
+	__webpack_require__(555);
 	__webpack_require__(557);
 	__webpack_require__(559);
 	__webpack_require__(561);
 	__webpack_require__(563);
+	__webpack_require__(565);
 	__webpack_require__(566);
 	__webpack_require__(568);
 	__webpack_require__(570);
@@ -62182,36 +61554,28 @@
 	__webpack_require__(576);
 	__webpack_require__(578);
 	__webpack_require__(580);
-	__webpack_require__(581);
-	__webpack_require__(583);
-	__webpack_require__(585);
-	__webpack_require__(587);
-	__webpack_require__(589);
-	__webpack_require__(591);
-	__webpack_require__(593);
-	__webpack_require__(595);
 	/* tslint:disable:no-unused-variable */
 	var Subscription_1 = __webpack_require__(63);
 	exports.Subscription = Subscription_1.Subscription;
 	var Subscriber_1 = __webpack_require__(59);
 	exports.Subscriber = Subscriber_1.Subscriber;
-	var AsyncSubject_1 = __webpack_require__(392);
+	var AsyncSubject_1 = __webpack_require__(377);
 	exports.AsyncSubject = AsyncSubject_1.AsyncSubject;
-	var ReplaySubject_1 = __webpack_require__(524);
+	var ReplaySubject_1 = __webpack_require__(509);
 	exports.ReplaySubject = ReplaySubject_1.ReplaySubject;
-	var BehaviorSubject_1 = __webpack_require__(520);
+	var BehaviorSubject_1 = __webpack_require__(505);
 	exports.BehaviorSubject = BehaviorSubject_1.BehaviorSubject;
-	var ConnectableObservable_1 = __webpack_require__(510);
+	var ConnectableObservable_1 = __webpack_require__(495);
 	exports.ConnectableObservable = ConnectableObservable_1.ConnectableObservable;
-	var Notification_1 = __webpack_require__(403);
+	var Notification_1 = __webpack_require__(388);
 	exports.Notification = Notification_1.Notification;
-	var EmptyError_1 = __webpack_require__(481);
+	var EmptyError_1 = __webpack_require__(466);
 	exports.EmptyError = EmptyError_1.EmptyError;
-	var ArgumentOutOfRangeError_1 = __webpack_require__(565);
+	var ArgumentOutOfRangeError_1 = __webpack_require__(550);
 	exports.ArgumentOutOfRangeError = ArgumentOutOfRangeError_1.ArgumentOutOfRangeError;
-	var ObjectUnsubscribedError_1 = __webpack_require__(521);
+	var ObjectUnsubscribedError_1 = __webpack_require__(506);
 	exports.ObjectUnsubscribedError = ObjectUnsubscribedError_1.ObjectUnsubscribedError;
-	var asap_1 = __webpack_require__(413);
+	var asap_1 = __webpack_require__(398);
 	var queue_1 = __webpack_require__(70);
 	var rxSubscriber_1 = __webpack_require__(64);
 	/* tslint:enable:no-unused-variable */
@@ -62229,22 +61593,22 @@
 	//# sourceMappingURL=Rx.js.map
 
 /***/ },
-/* 371 */
+/* 356 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var combineLatest_static_1 = __webpack_require__(372);
+	var combineLatest_static_1 = __webpack_require__(357);
 	Observable_1.Observable.combineLatest = combineLatest_static_1.combineLatest;
 	//# sourceMappingURL=combineLatest-static.js.map
 
 /***/ },
-/* 372 */
+/* 357 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var fromArray_1 = __webpack_require__(373);
-	var combineLatest_support_1 = __webpack_require__(380);
-	var isScheduler_1 = __webpack_require__(379);
-	var isArray_1 = __webpack_require__(384);
+	var fromArray_1 = __webpack_require__(358);
+	var combineLatest_support_1 = __webpack_require__(365);
+	var isScheduler_1 = __webpack_require__(364);
+	var isArray_1 = __webpack_require__(369);
 	/**
 	 * Combines the values from observables passed as arguments. This is done by subscribing
 	 * to each observable, in order, and collecting an array of each of the most recent values any time any of the observables
@@ -62279,7 +61643,7 @@
 	//# sourceMappingURL=combineLatest-static.js.map
 
 /***/ },
-/* 373 */
+/* 358 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -62288,9 +61652,9 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var Observable_1 = __webpack_require__(58);
-	var ScalarObservable_1 = __webpack_require__(374);
-	var empty_1 = __webpack_require__(378);
-	var isScheduler_1 = __webpack_require__(379);
+	var ScalarObservable_1 = __webpack_require__(359);
+	var empty_1 = __webpack_require__(363);
+	var isScheduler_1 = __webpack_require__(364);
 	var ArrayObservable = (function (_super) {
 	    __extends(ArrayObservable, _super);
 	    function ArrayObservable(array, scheduler) {
@@ -62364,7 +61728,7 @@
 	//# sourceMappingURL=fromArray.js.map
 
 /***/ },
-/* 374 */
+/* 359 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -62373,10 +61737,10 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var Observable_1 = __webpack_require__(58);
-	var tryCatch_1 = __webpack_require__(375);
-	var errorObject_1 = __webpack_require__(376);
-	var throw_1 = __webpack_require__(377);
-	var empty_1 = __webpack_require__(378);
+	var tryCatch_1 = __webpack_require__(360);
+	var errorObject_1 = __webpack_require__(361);
+	var throw_1 = __webpack_require__(362);
+	var empty_1 = __webpack_require__(363);
 	var ScalarObservable = (function (_super) {
 	    __extends(ScalarObservable, _super);
 	    function ScalarObservable(value, scheduler) {
@@ -62486,10 +61850,10 @@
 	//# sourceMappingURL=ScalarObservable.js.map
 
 /***/ },
-/* 375 */
+/* 360 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var errorObject_1 = __webpack_require__(376);
+	var errorObject_1 = __webpack_require__(361);
 	var tryCatchTarget;
 	function tryCatcher() {
 	    try {
@@ -62509,14 +61873,14 @@
 	//# sourceMappingURL=tryCatch.js.map
 
 /***/ },
-/* 376 */
+/* 361 */
 /***/ function(module, exports) {
 
 	exports.errorObject = { e: {} };
 	//# sourceMappingURL=errorObject.js.map
 
 /***/ },
-/* 377 */
+/* 362 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -62557,7 +61921,7 @@
 	//# sourceMappingURL=throw.js.map
 
 /***/ },
-/* 378 */
+/* 363 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -62594,7 +61958,7 @@
 	//# sourceMappingURL=empty.js.map
 
 /***/ },
-/* 379 */
+/* 364 */
 /***/ function(module, exports) {
 
 	function isScheduler(value) {
@@ -62604,7 +61968,7 @@
 	//# sourceMappingURL=isScheduler.js.map
 
 /***/ },
-/* 380 */
+/* 365 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -62612,10 +61976,10 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var tryCatch_1 = __webpack_require__(375);
-	var errorObject_1 = __webpack_require__(376);
-	var OuterSubscriber_1 = __webpack_require__(381);
-	var subscribeToResult_1 = __webpack_require__(382);
+	var tryCatch_1 = __webpack_require__(360);
+	var errorObject_1 = __webpack_require__(361);
+	var OuterSubscriber_1 = __webpack_require__(366);
+	var subscribeToResult_1 = __webpack_require__(367);
 	var CombineLatestOperator = (function () {
 	    function CombineLatestOperator(project) {
 	        this.project = project;
@@ -62693,7 +62057,7 @@
 	//# sourceMappingURL=combineLatest-support.js.map
 
 /***/ },
-/* 381 */
+/* 366 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -62722,12 +62086,12 @@
 	//# sourceMappingURL=OuterSubscriber.js.map
 
 /***/ },
-/* 382 */
+/* 367 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
 	var SymbolShim_1 = __webpack_require__(65);
-	var InnerSubscriber_1 = __webpack_require__(383);
+	var InnerSubscriber_1 = __webpack_require__(368);
 	var isArray = Array.isArray;
 	function subscribeToResult(outerSubscriber, result, outerValue, outerIndex) {
 	    var destination = new InnerSubscriber_1.InnerSubscriber(outerSubscriber, outerValue, outerIndex);
@@ -62794,7 +62158,7 @@
 	//# sourceMappingURL=subscribeToResult.js.map
 
 /***/ },
-/* 383 */
+/* 368 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -62828,29 +62192,29 @@
 	//# sourceMappingURL=InnerSubscriber.js.map
 
 /***/ },
-/* 384 */
+/* 369 */
 /***/ function(module, exports) {
 
 	exports.isArray = Array.isArray || (function (x) { return x && typeof x.length === 'number'; });
 	//# sourceMappingURL=isArray.js.map
 
 /***/ },
-/* 385 */
+/* 370 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var concat_static_1 = __webpack_require__(386);
+	var concat_static_1 = __webpack_require__(371);
 	Observable_1.Observable.concat = concat_static_1.concat;
 	//# sourceMappingURL=concat-static.js.map
 
 /***/ },
-/* 386 */
+/* 371 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var queue_1 = __webpack_require__(70);
-	var mergeAll_support_1 = __webpack_require__(387);
-	var fromArray_1 = __webpack_require__(373);
-	var isScheduler_1 = __webpack_require__(379);
+	var mergeAll_support_1 = __webpack_require__(372);
+	var fromArray_1 = __webpack_require__(358);
+	var isScheduler_1 = __webpack_require__(364);
 	/**
 	 * Joins multiple observables together by subscribing to them one at a time and merging their results
 	 * into the returned observable. Will wait for each observable to complete before moving on to the next.
@@ -62874,7 +62238,7 @@
 	//# sourceMappingURL=concat-static.js.map
 
 /***/ },
-/* 387 */
+/* 372 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -62882,8 +62246,8 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var OuterSubscriber_1 = __webpack_require__(381);
-	var subscribeToResult_1 = __webpack_require__(382);
+	var OuterSubscriber_1 = __webpack_require__(366);
+	var subscribeToResult_1 = __webpack_require__(367);
 	var MergeAllOperator = (function () {
 	    function MergeAllOperator(concurrent) {
 	        this.concurrent = concurrent;
@@ -62940,22 +62304,22 @@
 	//# sourceMappingURL=mergeAll-support.js.map
 
 /***/ },
-/* 388 */
+/* 373 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var merge_static_1 = __webpack_require__(389);
+	var merge_static_1 = __webpack_require__(374);
 	Observable_1.Observable.merge = merge_static_1.merge;
 	//# sourceMappingURL=merge-static.js.map
 
 /***/ },
-/* 389 */
+/* 374 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var fromArray_1 = __webpack_require__(373);
-	var mergeAll_support_1 = __webpack_require__(387);
+	var fromArray_1 = __webpack_require__(358);
+	var mergeAll_support_1 = __webpack_require__(372);
 	var queue_1 = __webpack_require__(70);
-	var isScheduler_1 = __webpack_require__(379);
+	var isScheduler_1 = __webpack_require__(364);
 	function merge() {
 	    var observables = [];
 	    for (var _i = 0; _i < arguments.length; _i++) {
@@ -62982,16 +62346,16 @@
 	//# sourceMappingURL=merge-static.js.map
 
 /***/ },
-/* 390 */
+/* 375 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var bindCallback_1 = __webpack_require__(391);
+	var bindCallback_1 = __webpack_require__(376);
 	Observable_1.Observable.bindCallback = bindCallback_1.BoundCallbackObservable.create;
 	//# sourceMappingURL=bindCallback.js.map
 
 /***/ },
-/* 391 */
+/* 376 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -63000,9 +62364,9 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var Observable_1 = __webpack_require__(58);
-	var tryCatch_1 = __webpack_require__(375);
-	var errorObject_1 = __webpack_require__(376);
-	var AsyncSubject_1 = __webpack_require__(392);
+	var tryCatch_1 = __webpack_require__(360);
+	var errorObject_1 = __webpack_require__(361);
+	var AsyncSubject_1 = __webpack_require__(377);
 	var BoundCallbackObservable = (function (_super) {
 	    __extends(BoundCallbackObservable, _super);
 	    function BoundCallbackObservable(callbackFunc, selector, args, scheduler) {
@@ -63117,7 +62481,7 @@
 	//# sourceMappingURL=bindCallback.js.map
 
 /***/ },
-/* 392 */
+/* 377 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -63171,16 +62535,16 @@
 	//# sourceMappingURL=AsyncSubject.js.map
 
 /***/ },
-/* 393 */
+/* 378 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var defer_1 = __webpack_require__(394);
+	var defer_1 = __webpack_require__(379);
 	Observable_1.Observable.defer = defer_1.DeferObservable.create;
 	//# sourceMappingURL=defer.js.map
 
 /***/ },
-/* 394 */
+/* 379 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -63189,8 +62553,8 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var Observable_1 = __webpack_require__(58);
-	var tryCatch_1 = __webpack_require__(375);
-	var errorObject_1 = __webpack_require__(376);
+	var tryCatch_1 = __webpack_require__(360);
+	var errorObject_1 = __webpack_require__(361);
 	var DeferObservable = (function (_super) {
 	    __extends(DeferObservable, _super);
 	    function DeferObservable(observableFactory) {
@@ -63215,25 +62579,25 @@
 	//# sourceMappingURL=defer.js.map
 
 /***/ },
-/* 395 */
+/* 380 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var empty_1 = __webpack_require__(378);
+	var empty_1 = __webpack_require__(363);
 	Observable_1.Observable.empty = empty_1.EmptyObservable.create;
 	//# sourceMappingURL=empty.js.map
 
 /***/ },
-/* 396 */
+/* 381 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var forkJoin_1 = __webpack_require__(397);
+	var forkJoin_1 = __webpack_require__(382);
 	Observable_1.Observable.forkJoin = forkJoin_1.ForkJoinObservable.create;
 	//# sourceMappingURL=forkJoin.js.map
 
 /***/ },
-/* 397 */
+/* 382 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -63244,9 +62608,9 @@
 	var Observable_1 = __webpack_require__(58);
 	var Subscriber_1 = __webpack_require__(59);
 	var fromPromise_1 = __webpack_require__(69);
-	var empty_1 = __webpack_require__(378);
-	var isPromise_1 = __webpack_require__(398);
-	var isArray_1 = __webpack_require__(384);
+	var empty_1 = __webpack_require__(363);
+	var isPromise_1 = __webpack_require__(383);
+	var isArray_1 = __webpack_require__(369);
 	var ForkJoinObservable = (function (_super) {
 	    __extends(ForkJoinObservable, _super);
 	    function ForkJoinObservable(sources, resultSelector) {
@@ -63333,7 +62697,7 @@
 	//# sourceMappingURL=forkJoin.js.map
 
 /***/ },
-/* 398 */
+/* 383 */
 /***/ function(module, exports) {
 
 	function isPromise(value) {
@@ -63343,16 +62707,16 @@
 	//# sourceMappingURL=isPromise.js.map
 
 /***/ },
-/* 399 */
+/* 384 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var from_1 = __webpack_require__(400);
+	var from_1 = __webpack_require__(385);
 	Observable_1.Observable.from = from_1.FromObservable.create;
 	//# sourceMappingURL=from.js.map
 
 /***/ },
-/* 400 */
+/* 385 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -63361,11 +62725,11 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var fromPromise_1 = __webpack_require__(69);
-	var IteratorObservable_1 = __webpack_require__(401);
-	var fromArray_1 = __webpack_require__(373);
+	var IteratorObservable_1 = __webpack_require__(386);
+	var fromArray_1 = __webpack_require__(358);
 	var SymbolShim_1 = __webpack_require__(65);
 	var Observable_1 = __webpack_require__(58);
-	var observeOn_support_1 = __webpack_require__(402);
+	var observeOn_support_1 = __webpack_require__(387);
 	var queue_1 = __webpack_require__(70);
 	var isArray = Array.isArray;
 	var FromObservable = (function (_super) {
@@ -63412,7 +62776,7 @@
 	//# sourceMappingURL=from.js.map
 
 /***/ },
-/* 401 */
+/* 386 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -63423,8 +62787,8 @@
 	var Observable_1 = __webpack_require__(58);
 	var root_1 = __webpack_require__(66);
 	var SymbolShim_1 = __webpack_require__(65);
-	var tryCatch_1 = __webpack_require__(375);
-	var errorObject_1 = __webpack_require__(376);
+	var tryCatch_1 = __webpack_require__(360);
+	var errorObject_1 = __webpack_require__(361);
 	var IteratorObservable = (function (_super) {
 	    __extends(IteratorObservable, _super);
 	    function IteratorObservable(iterator, project, thisArg, scheduler) {
@@ -63596,7 +62960,7 @@
 	//# sourceMappingURL=IteratorObservable.js.map
 
 /***/ },
-/* 402 */
+/* 387 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -63605,7 +62969,7 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var Subscriber_1 = __webpack_require__(59);
-	var Notification_1 = __webpack_require__(403);
+	var Notification_1 = __webpack_require__(388);
 	var ObserveOnOperator = (function () {
 	    function ObserveOnOperator(scheduler, delay) {
 	        if (delay === void 0) { delay = 0; }
@@ -63655,7 +63019,7 @@
 	//# sourceMappingURL=observeOn-support.js.map
 
 /***/ },
-/* 403 */
+/* 388 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
@@ -63726,26 +63090,26 @@
 	//# sourceMappingURL=Notification.js.map
 
 /***/ },
-/* 404 */
+/* 389 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var fromArray_1 = __webpack_require__(373);
+	var fromArray_1 = __webpack_require__(358);
 	Observable_1.Observable.fromArray = fromArray_1.ArrayObservable.create;
 	Observable_1.Observable.of = fromArray_1.ArrayObservable.of;
 	//# sourceMappingURL=fromArray.js.map
 
 /***/ },
-/* 405 */
+/* 390 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var fromEvent_1 = __webpack_require__(406);
+	var fromEvent_1 = __webpack_require__(391);
 	Observable_1.Observable.fromEvent = fromEvent_1.FromEventObservable.create;
 	//# sourceMappingURL=fromEvent.js.map
 
 /***/ },
-/* 406 */
+/* 391 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -63754,8 +63118,8 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var Observable_1 = __webpack_require__(58);
-	var tryCatch_1 = __webpack_require__(375);
-	var errorObject_1 = __webpack_require__(376);
+	var tryCatch_1 = __webpack_require__(360);
+	var errorObject_1 = __webpack_require__(361);
 	var Subscription_1 = __webpack_require__(63);
 	var FromEventObservable = (function (_super) {
 	    __extends(FromEventObservable, _super);
@@ -63811,16 +63175,16 @@
 	//# sourceMappingURL=fromEvent.js.map
 
 /***/ },
-/* 407 */
+/* 392 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var fromEventPattern_1 = __webpack_require__(408);
+	var fromEventPattern_1 = __webpack_require__(393);
 	Observable_1.Observable.fromEventPattern = fromEventPattern_1.FromEventPatternObservable.create;
 	//# sourceMappingURL=fromEventPattern.js.map
 
 /***/ },
-/* 408 */
+/* 393 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -63830,8 +63194,8 @@
 	};
 	var Observable_1 = __webpack_require__(58);
 	var Subscription_1 = __webpack_require__(63);
-	var tryCatch_1 = __webpack_require__(375);
-	var errorObject_1 = __webpack_require__(376);
+	var tryCatch_1 = __webpack_require__(360);
+	var errorObject_1 = __webpack_require__(361);
 	var FromEventPatternObservable = (function (_super) {
 	    __extends(FromEventPatternObservable, _super);
 	    function FromEventPatternObservable(addHandler, removeHandler, selector) {
@@ -63871,7 +63235,7 @@
 	//# sourceMappingURL=fromEventPattern.js.map
 
 /***/ },
-/* 409 */
+/* 394 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
@@ -63880,16 +63244,16 @@
 	//# sourceMappingURL=fromPromise.js.map
 
 /***/ },
-/* 410 */
+/* 395 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var interval_1 = __webpack_require__(411);
+	var interval_1 = __webpack_require__(396);
 	Observable_1.Observable.interval = interval_1.IntervalObservable.create;
 	//# sourceMappingURL=interval.js.map
 
 /***/ },
-/* 411 */
+/* 396 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -63897,9 +63261,9 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var isNumeric_1 = __webpack_require__(412);
+	var isNumeric_1 = __webpack_require__(397);
 	var Observable_1 = __webpack_require__(58);
-	var asap_1 = __webpack_require__(413);
+	var asap_1 = __webpack_require__(398);
 	var IntervalObservable = (function (_super) {
 	    __extends(IntervalObservable, _super);
 	    function IntervalObservable(period, scheduler) {
@@ -63943,7 +63307,7 @@
 	//# sourceMappingURL=interval.js.map
 
 /***/ },
-/* 412 */
+/* 397 */
 /***/ function(module, exports) {
 
 	var is_array = Array.isArray;
@@ -63959,15 +63323,15 @@
 	//# sourceMappingURL=isNumeric.js.map
 
 /***/ },
-/* 413 */
+/* 398 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var AsapScheduler_1 = __webpack_require__(414);
+	var AsapScheduler_1 = __webpack_require__(399);
 	exports.asap = new AsapScheduler_1.AsapScheduler();
 	//# sourceMappingURL=asap.js.map
 
 /***/ },
-/* 414 */
+/* 399 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -63976,7 +63340,7 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var QueueScheduler_1 = __webpack_require__(71);
-	var AsapAction_1 = __webpack_require__(415);
+	var AsapAction_1 = __webpack_require__(400);
 	var QueueAction_1 = __webpack_require__(72);
 	var AsapScheduler = (function (_super) {
 	    __extends(AsapScheduler, _super);
@@ -63994,7 +63358,7 @@
 	//# sourceMappingURL=AsapScheduler.js.map
 
 /***/ },
-/* 415 */
+/* 400 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -64002,7 +63366,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var Immediate_1 = __webpack_require__(416);
+	var Immediate_1 = __webpack_require__(401);
 	var QueueAction_1 = __webpack_require__(72);
 	var AsapAction = (function (_super) {
 	    __extends(AsapAction, _super);
@@ -64046,7 +63410,7 @@
 	//# sourceMappingURL=AsapAction.js.map
 
 /***/ },
-/* 416 */
+/* 401 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(clearImmediate, setImmediate) {/**
@@ -64257,13 +63621,13 @@
 	exports.ImmediateDefinition = ImmediateDefinition;
 	exports.Immediate = new ImmediateDefinition(root_1.root);
 	//# sourceMappingURL=Immediate.js.map
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(417).clearImmediate, __webpack_require__(417).setImmediate))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(402).clearImmediate, __webpack_require__(402).setImmediate))
 
 /***/ },
-/* 417 */
+/* 402 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(setImmediate, clearImmediate) {var nextTick = __webpack_require__(418).nextTick;
+	/* WEBPACK VAR INJECTION */(function(setImmediate, clearImmediate) {var nextTick = __webpack_require__(403).nextTick;
 	var apply = Function.prototype.apply;
 	var slice = Array.prototype.slice;
 	var immediateIds = {};
@@ -64339,10 +63703,10 @@
 	exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate : function(id) {
 	  delete immediateIds[id];
 	};
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(417).setImmediate, __webpack_require__(417).clearImmediate))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(402).setImmediate, __webpack_require__(402).clearImmediate))
 
 /***/ },
-/* 418 */
+/* 403 */
 /***/ function(module, exports) {
 
 	// shim for using process in browser
@@ -64439,16 +63803,16 @@
 
 
 /***/ },
-/* 419 */
+/* 404 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var never_1 = __webpack_require__(420);
+	var never_1 = __webpack_require__(405);
 	Observable_1.Observable.never = never_1.InfiniteObservable.create;
 	//# sourceMappingURL=never.js.map
 
 /***/ },
-/* 420 */
+/* 405 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -64475,16 +63839,16 @@
 	//# sourceMappingURL=never.js.map
 
 /***/ },
-/* 421 */
+/* 406 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var range_1 = __webpack_require__(422);
+	var range_1 = __webpack_require__(407);
 	Observable_1.Observable.range = range_1.RangeObservable.create;
 	//# sourceMappingURL=range.js.map
 
 /***/ },
-/* 422 */
+/* 407 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -64549,25 +63913,25 @@
 	//# sourceMappingURL=range.js.map
 
 /***/ },
-/* 423 */
+/* 408 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var throw_1 = __webpack_require__(377);
+	var throw_1 = __webpack_require__(362);
 	Observable_1.Observable.throw = throw_1.ErrorObservable.create;
 	//# sourceMappingURL=throw.js.map
 
 /***/ },
-/* 424 */
+/* 409 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var timer_1 = __webpack_require__(425);
+	var timer_1 = __webpack_require__(410);
 	Observable_1.Observable.timer = timer_1.TimerObservable.create;
 	//# sourceMappingURL=timer.js.map
 
 /***/ },
-/* 425 */
+/* 410 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -64575,11 +63939,11 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var isNumeric_1 = __webpack_require__(412);
+	var isNumeric_1 = __webpack_require__(397);
 	var Observable_1 = __webpack_require__(58);
-	var asap_1 = __webpack_require__(413);
-	var isScheduler_1 = __webpack_require__(379);
-	var isDate_1 = __webpack_require__(426);
+	var asap_1 = __webpack_require__(398);
+	var isScheduler_1 = __webpack_require__(364);
+	var isDate_1 = __webpack_require__(411);
 	var TimerObservable = (function (_super) {
 	    __extends(TimerObservable, _super);
 	    function TimerObservable(dueTime, period, scheduler) {
@@ -64639,7 +64003,7 @@
 	//# sourceMappingURL=timer.js.map
 
 /***/ },
-/* 426 */
+/* 411 */
 /***/ function(module, exports) {
 
 	function isDate(value) {
@@ -64649,20 +64013,20 @@
 	//# sourceMappingURL=isDate.js.map
 
 /***/ },
-/* 427 */
+/* 412 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var zip_static_1 = __webpack_require__(428);
+	var zip_static_1 = __webpack_require__(413);
 	Observable_1.Observable.zip = zip_static_1.zip;
 	//# sourceMappingURL=zip-static.js.map
 
 /***/ },
-/* 428 */
+/* 413 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var fromArray_1 = __webpack_require__(373);
-	var zip_support_1 = __webpack_require__(429);
+	var fromArray_1 = __webpack_require__(358);
+	var zip_support_1 = __webpack_require__(414);
 	function zip() {
 	    var observables = [];
 	    for (var _i = 0; _i < arguments.length; _i++) {
@@ -64678,7 +64042,7 @@
 	//# sourceMappingURL=zip-static.js.map
 
 /***/ },
-/* 429 */
+/* 414 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -64687,10 +64051,10 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var Subscriber_1 = __webpack_require__(59);
-	var tryCatch_1 = __webpack_require__(375);
-	var errorObject_1 = __webpack_require__(376);
-	var OuterSubscriber_1 = __webpack_require__(381);
-	var subscribeToResult_1 = __webpack_require__(382);
+	var tryCatch_1 = __webpack_require__(360);
+	var errorObject_1 = __webpack_require__(361);
+	var OuterSubscriber_1 = __webpack_require__(366);
+	var subscribeToResult_1 = __webpack_require__(367);
 	var SymbolShim_1 = __webpack_require__(65);
 	var isArray = Array.isArray;
 	var ZipOperator = (function () {
@@ -64888,16 +64252,16 @@
 	//# sourceMappingURL=zip-support.js.map
 
 /***/ },
-/* 430 */
+/* 415 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var buffer_1 = __webpack_require__(431);
+	var buffer_1 = __webpack_require__(416);
 	Observable_1.Observable.prototype.buffer = buffer_1.buffer;
 	//# sourceMappingURL=buffer.js.map
 
 /***/ },
-/* 431 */
+/* 416 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -64975,16 +64339,16 @@
 	//# sourceMappingURL=buffer.js.map
 
 /***/ },
-/* 432 */
+/* 417 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var bufferCount_1 = __webpack_require__(433);
+	var bufferCount_1 = __webpack_require__(418);
 	Observable_1.Observable.prototype.bufferCount = bufferCount_1.bufferCount;
 	//# sourceMappingURL=bufferCount.js.map
 
 /***/ },
-/* 433 */
+/* 418 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -65068,16 +64432,16 @@
 	//# sourceMappingURL=bufferCount.js.map
 
 /***/ },
-/* 434 */
+/* 419 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var bufferTime_1 = __webpack_require__(435);
+	var bufferTime_1 = __webpack_require__(420);
 	Observable_1.Observable.prototype.bufferTime = bufferTime_1.bufferTime;
 	//# sourceMappingURL=bufferTime.js.map
 
 /***/ },
-/* 435 */
+/* 420 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -65086,7 +64450,7 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var Subscriber_1 = __webpack_require__(59);
-	var asap_1 = __webpack_require__(413);
+	var asap_1 = __webpack_require__(398);
 	/**
 	 * buffers values from the source for a specific time period. Optionally allows new buffers to be set up at an interval.
 	 * @param {number} the amount of time to fill each buffer for before emitting them and clearing them.
@@ -65189,16 +64553,16 @@
 	//# sourceMappingURL=bufferTime.js.map
 
 /***/ },
-/* 436 */
+/* 421 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var bufferToggle_1 = __webpack_require__(437);
+	var bufferToggle_1 = __webpack_require__(422);
 	Observable_1.Observable.prototype.bufferToggle = bufferToggle_1.bufferToggle;
 	//# sourceMappingURL=bufferToggle.js.map
 
 /***/ },
-/* 437 */
+/* 422 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -65208,8 +64572,8 @@
 	};
 	var Subscriber_1 = __webpack_require__(59);
 	var Subscription_1 = __webpack_require__(63);
-	var tryCatch_1 = __webpack_require__(375);
-	var errorObject_1 = __webpack_require__(376);
+	var tryCatch_1 = __webpack_require__(360);
+	var errorObject_1 = __webpack_require__(361);
 	/**
 	 * buffers values from the source by opening the buffer via signals from an observable provided to `openings`, and closing
 	 * and sending the buffers when an observable returned by the `closingSelector` emits.
@@ -65341,16 +64705,16 @@
 	//# sourceMappingURL=bufferToggle.js.map
 
 /***/ },
-/* 438 */
+/* 423 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var bufferWhen_1 = __webpack_require__(439);
+	var bufferWhen_1 = __webpack_require__(424);
 	Observable_1.Observable.prototype.bufferWhen = bufferWhen_1.bufferWhen;
 	//# sourceMappingURL=bufferWhen.js.map
 
 /***/ },
-/* 439 */
+/* 424 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -65359,8 +64723,8 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var Subscriber_1 = __webpack_require__(59);
-	var tryCatch_1 = __webpack_require__(375);
-	var errorObject_1 = __webpack_require__(376);
+	var tryCatch_1 = __webpack_require__(360);
+	var errorObject_1 = __webpack_require__(361);
 	/**
 	 * Opens a buffer immediately, then closes the buffer when the observable returned by calling `closingSelector` emits a value.
 	 * It that immediately opens a new buffer and repeats the process
@@ -65443,16 +64807,16 @@
 	//# sourceMappingURL=bufferWhen.js.map
 
 /***/ },
-/* 440 */
+/* 425 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var catch_1 = __webpack_require__(441);
+	var catch_1 = __webpack_require__(426);
 	Observable_1.Observable.prototype.catch = catch_1._catch;
 	//# sourceMappingURL=catch.js.map
 
 /***/ },
-/* 441 */
+/* 426 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -65461,8 +64825,8 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var Subscriber_1 = __webpack_require__(59);
-	var tryCatch_1 = __webpack_require__(375);
-	var errorObject_1 = __webpack_require__(376);
+	var tryCatch_1 = __webpack_require__(360);
+	var errorObject_1 = __webpack_require__(361);
 	/**
 	 * Catches errors on the observable to be handled by returning a new observable or throwing an error.
 	 * @param {function} selector a function that takes as arguments `err`, which is the error, and `caught`, which
@@ -65522,19 +64886,19 @@
 	//# sourceMappingURL=catch.js.map
 
 /***/ },
-/* 442 */
+/* 427 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var combineAll_1 = __webpack_require__(443);
+	var combineAll_1 = __webpack_require__(428);
 	Observable_1.Observable.prototype.combineAll = combineAll_1.combineAll;
 	//# sourceMappingURL=combineAll.js.map
 
 /***/ },
-/* 443 */
+/* 428 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var combineLatest_support_1 = __webpack_require__(380);
+	var combineLatest_support_1 = __webpack_require__(365);
 	/**
 	 * Takes an Observable of Observables, and collects all observables from it. Once the outer observable
 	 * completes, it subscribes to all collected observables and "combines" their values, such that:
@@ -65554,21 +64918,21 @@
 	//# sourceMappingURL=combineAll.js.map
 
 /***/ },
-/* 444 */
+/* 429 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var combineLatest_1 = __webpack_require__(445);
+	var combineLatest_1 = __webpack_require__(430);
 	Observable_1.Observable.prototype.combineLatest = combineLatest_1.combineLatest;
 	//# sourceMappingURL=combineLatest.js.map
 
 /***/ },
-/* 445 */
+/* 430 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var fromArray_1 = __webpack_require__(373);
-	var combineLatest_support_1 = __webpack_require__(380);
-	var isArray_1 = __webpack_require__(384);
+	var fromArray_1 = __webpack_require__(358);
+	var combineLatest_support_1 = __webpack_require__(365);
+	var isArray_1 = __webpack_require__(369);
 	/**
 	 * Combines the values from this observable with values from observables passed as arguments. This is done by subscribing
 	 * to each observable, in order, and collecting an array of each of the most recent values any time any of the observables
@@ -65600,21 +64964,21 @@
 	//# sourceMappingURL=combineLatest.js.map
 
 /***/ },
-/* 446 */
+/* 431 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var concat_1 = __webpack_require__(447);
+	var concat_1 = __webpack_require__(432);
 	Observable_1.Observable.prototype.concat = concat_1.concat;
 	//# sourceMappingURL=concat.js.map
 
 /***/ },
-/* 447 */
+/* 432 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isScheduler_1 = __webpack_require__(379);
-	var fromArray_1 = __webpack_require__(373);
-	var mergeAll_support_1 = __webpack_require__(387);
+	var isScheduler_1 = __webpack_require__(364);
+	var fromArray_1 = __webpack_require__(358);
+	var mergeAll_support_1 = __webpack_require__(372);
 	/**
 	 * Joins this observable with multiple other observables by subscribing to them one at a time, starting with the source,
 	 * and merging their results into the returned observable. Will wait for each observable to complete before moving
@@ -65640,19 +65004,19 @@
 	//# sourceMappingURL=concat.js.map
 
 /***/ },
-/* 448 */
+/* 433 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var concatAll_1 = __webpack_require__(449);
+	var concatAll_1 = __webpack_require__(434);
 	Observable_1.Observable.prototype.concatAll = concatAll_1.concatAll;
 	//# sourceMappingURL=concatAll.js.map
 
 /***/ },
-/* 449 */
+/* 434 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var mergeAll_support_1 = __webpack_require__(387);
+	var mergeAll_support_1 = __webpack_require__(372);
 	/**
 	 * Joins every Observable emitted by the source (an Observable of Observables), in a serial
 	 * fashion. Subscribing to each one only when the previous one has completed, and merging
@@ -65671,19 +65035,19 @@
 	//# sourceMappingURL=concatAll.js.map
 
 /***/ },
-/* 450 */
+/* 435 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var concatMap_1 = __webpack_require__(451);
+	var concatMap_1 = __webpack_require__(436);
 	Observable_1.Observable.prototype.concatMap = concatMap_1.concatMap;
 	//# sourceMappingURL=concatMap.js.map
 
 /***/ },
-/* 451 */
+/* 436 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var mergeMap_support_1 = __webpack_require__(452);
+	var mergeMap_support_1 = __webpack_require__(437);
 	/**
 	 * Maps values from the source observable into new Observables, then merges them in a serialized fashion,
 	 * waiting for each one to complete before merging the next.
@@ -65710,7 +65074,7 @@
 	//# sourceMappingURL=concatMap.js.map
 
 /***/ },
-/* 452 */
+/* 437 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -65718,10 +65082,10 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var tryCatch_1 = __webpack_require__(375);
-	var errorObject_1 = __webpack_require__(376);
-	var subscribeToResult_1 = __webpack_require__(382);
-	var OuterSubscriber_1 = __webpack_require__(381);
+	var tryCatch_1 = __webpack_require__(360);
+	var errorObject_1 = __webpack_require__(361);
+	var subscribeToResult_1 = __webpack_require__(367);
+	var OuterSubscriber_1 = __webpack_require__(366);
 	var MergeMapOperator = (function () {
 	    function MergeMapOperator(project, resultSelector, concurrent) {
 	        if (concurrent === void 0) { concurrent = Number.POSITIVE_INFINITY; }
@@ -65806,19 +65170,19 @@
 	//# sourceMappingURL=mergeMap-support.js.map
 
 /***/ },
-/* 453 */
+/* 438 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var concatMapTo_1 = __webpack_require__(454);
+	var concatMapTo_1 = __webpack_require__(439);
 	Observable_1.Observable.prototype.concatMapTo = concatMapTo_1.concatMapTo;
 	//# sourceMappingURL=concatMapTo.js.map
 
 /***/ },
-/* 454 */
+/* 439 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var mergeMapTo_support_1 = __webpack_require__(455);
+	var mergeMapTo_support_1 = __webpack_require__(440);
 	/**
 	 * Maps values from the source to a specific observable, and merges them together in a serialized fashion.
 	 *
@@ -65839,7 +65203,7 @@
 	//# sourceMappingURL=concatMapTo.js.map
 
 /***/ },
-/* 455 */
+/* 440 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -65847,10 +65211,10 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var tryCatch_1 = __webpack_require__(375);
-	var errorObject_1 = __webpack_require__(376);
-	var OuterSubscriber_1 = __webpack_require__(381);
-	var subscribeToResult_1 = __webpack_require__(382);
+	var tryCatch_1 = __webpack_require__(360);
+	var errorObject_1 = __webpack_require__(361);
+	var OuterSubscriber_1 = __webpack_require__(366);
+	var subscribeToResult_1 = __webpack_require__(367);
 	var MergeMapToOperator = (function () {
 	    function MergeMapToOperator(ish, resultSelector, concurrent) {
 	        if (concurrent === void 0) { concurrent = Number.POSITIVE_INFINITY; }
@@ -65934,16 +65298,16 @@
 	//# sourceMappingURL=mergeMapTo-support.js.map
 
 /***/ },
-/* 456 */
+/* 441 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var count_1 = __webpack_require__(457);
+	var count_1 = __webpack_require__(442);
 	Observable_1.Observable.prototype.count = count_1.count;
 	//# sourceMappingURL=count.js.map
 
 /***/ },
-/* 457 */
+/* 442 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -65952,8 +65316,8 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var Subscriber_1 = __webpack_require__(59);
-	var tryCatch_1 = __webpack_require__(375);
-	var errorObject_1 = __webpack_require__(376);
+	var tryCatch_1 = __webpack_require__(360);
+	var errorObject_1 = __webpack_require__(361);
 	/**
 	 * Returns an observable of a single number that represents the number of items that either:
 	 * Match a provided predicate function, _or_ if a predicate is not provided, the number
@@ -66013,16 +65377,16 @@
 	//# sourceMappingURL=count.js.map
 
 /***/ },
-/* 458 */
+/* 443 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var dematerialize_1 = __webpack_require__(459);
+	var dematerialize_1 = __webpack_require__(444);
 	Observable_1.Observable.prototype.dematerialize = dematerialize_1.dematerialize;
 	//# sourceMappingURL=dematerialize.js.map
 
 /***/ },
-/* 459 */
+/* 444 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -66056,16 +65420,16 @@
 	//# sourceMappingURL=dematerialize.js.map
 
 /***/ },
-/* 460 */
+/* 445 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var debounce_1 = __webpack_require__(461);
+	var debounce_1 = __webpack_require__(446);
 	Observable_1.Observable.prototype.debounce = debounce_1.debounce;
 	//# sourceMappingURL=debounce.js.map
 
 /***/ },
-/* 461 */
+/* 446 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -66075,9 +65439,9 @@
 	};
 	var fromPromise_1 = __webpack_require__(69);
 	var Subscriber_1 = __webpack_require__(59);
-	var tryCatch_1 = __webpack_require__(375);
-	var isPromise_1 = __webpack_require__(398);
-	var errorObject_1 = __webpack_require__(376);
+	var tryCatch_1 = __webpack_require__(360);
+	var isPromise_1 = __webpack_require__(383);
+	var errorObject_1 = __webpack_require__(361);
 	function debounce(durationSelector) {
 	    return this.lift(new DebounceOperator(durationSelector));
 	}
@@ -66174,16 +65538,16 @@
 	//# sourceMappingURL=debounce.js.map
 
 /***/ },
-/* 462 */
+/* 447 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var debounceTime_1 = __webpack_require__(463);
+	var debounceTime_1 = __webpack_require__(448);
 	Observable_1.Observable.prototype.debounceTime = debounceTime_1.debounceTime;
 	//# sourceMappingURL=debounceTime.js.map
 
 /***/ },
-/* 463 */
+/* 448 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -66192,7 +65556,7 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var Subscriber_1 = __webpack_require__(59);
-	var asap_1 = __webpack_require__(413);
+	var asap_1 = __webpack_require__(398);
 	function debounceTime(dueTime, scheduler) {
 	    if (scheduler === void 0) { scheduler = asap_1.asap; }
 	    return this.lift(new DebounceTimeOperator(dueTime, scheduler));
@@ -66249,16 +65613,16 @@
 	//# sourceMappingURL=debounceTime.js.map
 
 /***/ },
-/* 464 */
+/* 449 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var defaultIfEmpty_1 = __webpack_require__(465);
+	var defaultIfEmpty_1 = __webpack_require__(450);
 	Observable_1.Observable.prototype.defaultIfEmpty = defaultIfEmpty_1.defaultIfEmpty;
 	//# sourceMappingURL=defaultIfEmpty.js.map
 
 /***/ },
-/* 465 */
+/* 450 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -66303,16 +65667,16 @@
 	//# sourceMappingURL=defaultIfEmpty.js.map
 
 /***/ },
-/* 466 */
+/* 451 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var delay_1 = __webpack_require__(467);
+	var delay_1 = __webpack_require__(452);
 	Observable_1.Observable.prototype.delay = delay_1.delay;
 	//# sourceMappingURL=delay.js.map
 
 /***/ },
-/* 467 */
+/* 452 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -66321,9 +65685,9 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var Subscriber_1 = __webpack_require__(59);
-	var Notification_1 = __webpack_require__(403);
+	var Notification_1 = __webpack_require__(388);
 	var queue_1 = __webpack_require__(70);
-	var isDate_1 = __webpack_require__(426);
+	var isDate_1 = __webpack_require__(411);
 	function delay(delay, scheduler) {
 	    if (scheduler === void 0) { scheduler = queue_1.queue; }
 	    var absoluteDelay = isDate_1.isDate(delay);
@@ -66407,16 +65771,16 @@
 	//# sourceMappingURL=delay.js.map
 
 /***/ },
-/* 468 */
+/* 453 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var distinctUntilChanged_1 = __webpack_require__(469);
+	var distinctUntilChanged_1 = __webpack_require__(454);
 	Observable_1.Observable.prototype.distinctUntilChanged = distinctUntilChanged_1.distinctUntilChanged;
 	//# sourceMappingURL=distinctUntilChanged.js.map
 
 /***/ },
-/* 469 */
+/* 454 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -66425,8 +65789,8 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var Subscriber_1 = __webpack_require__(59);
-	var tryCatch_1 = __webpack_require__(375);
-	var errorObject_1 = __webpack_require__(376);
+	var tryCatch_1 = __webpack_require__(360);
+	var errorObject_1 = __webpack_require__(361);
 	function distinctUntilChanged(compare) {
 	    return this.lift(new DistinctUntilChangedOperator(compare));
 	}
@@ -66474,16 +65838,16 @@
 	//# sourceMappingURL=distinctUntilChanged.js.map
 
 /***/ },
-/* 470 */
+/* 455 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var do_1 = __webpack_require__(471);
+	var do_1 = __webpack_require__(456);
 	Observable_1.Observable.prototype.do = do_1._do;
 	//# sourceMappingURL=do.js.map
 
 /***/ },
-/* 471 */
+/* 456 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -66493,8 +65857,8 @@
 	};
 	var Subscriber_1 = __webpack_require__(59);
 	var noop_1 = __webpack_require__(60);
-	var tryCatch_1 = __webpack_require__(375);
-	var errorObject_1 = __webpack_require__(376);
+	var tryCatch_1 = __webpack_require__(360);
+	var errorObject_1 = __webpack_require__(361);
 	function _do(nextOrObserver, error, complete) {
 	    var next;
 	    if (nextOrObserver && typeof nextOrObserver === 'object') {
@@ -66559,19 +65923,19 @@
 	//# sourceMappingURL=do.js.map
 
 /***/ },
-/* 472 */
+/* 457 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var expand_1 = __webpack_require__(473);
+	var expand_1 = __webpack_require__(458);
 	Observable_1.Observable.prototype.expand = expand_1.expand;
 	//# sourceMappingURL=expand.js.map
 
 /***/ },
-/* 473 */
+/* 458 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var expand_support_1 = __webpack_require__(474);
+	var expand_support_1 = __webpack_require__(459);
 	function expand(project, concurrent, scheduler) {
 	    if (concurrent === void 0) { concurrent = Number.POSITIVE_INFINITY; }
 	    if (scheduler === void 0) { scheduler = undefined; }
@@ -66582,7 +65946,7 @@
 	//# sourceMappingURL=expand.js.map
 
 /***/ },
-/* 474 */
+/* 459 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -66590,10 +65954,10 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var tryCatch_1 = __webpack_require__(375);
-	var errorObject_1 = __webpack_require__(376);
-	var OuterSubscriber_1 = __webpack_require__(381);
-	var subscribeToResult_1 = __webpack_require__(382);
+	var tryCatch_1 = __webpack_require__(360);
+	var errorObject_1 = __webpack_require__(361);
+	var OuterSubscriber_1 = __webpack_require__(366);
+	var subscribeToResult_1 = __webpack_require__(367);
 	var ExpandOperator = (function () {
 	    function ExpandOperator(project, concurrent, scheduler) {
 	        this.project = project;
@@ -66684,16 +66048,16 @@
 	//# sourceMappingURL=expand-support.js.map
 
 /***/ },
-/* 475 */
+/* 460 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var filter_1 = __webpack_require__(476);
+	var filter_1 = __webpack_require__(461);
 	Observable_1.Observable.prototype.filter = filter_1.filter;
 	//# sourceMappingURL=filter.js.map
 
 /***/ },
-/* 476 */
+/* 461 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -66702,8 +66066,8 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var Subscriber_1 = __webpack_require__(59);
-	var tryCatch_1 = __webpack_require__(375);
-	var errorObject_1 = __webpack_require__(376);
+	var tryCatch_1 = __webpack_require__(360);
+	var errorObject_1 = __webpack_require__(361);
 	/**
 	 * Similar to the well-known `Array.prototype.filter` method, this operator filters values down to a set
 	 * allowed by a `select` function
@@ -66749,16 +66113,16 @@
 	//# sourceMappingURL=filter.js.map
 
 /***/ },
-/* 477 */
+/* 462 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var finally_1 = __webpack_require__(478);
+	var finally_1 = __webpack_require__(463);
 	Observable_1.Observable.prototype.finally = finally_1._finally;
 	//# sourceMappingURL=finally.js.map
 
 /***/ },
-/* 478 */
+/* 463 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -66792,16 +66156,16 @@
 	//# sourceMappingURL=finally.js.map
 
 /***/ },
-/* 479 */
+/* 464 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var first_1 = __webpack_require__(480);
+	var first_1 = __webpack_require__(465);
 	Observable_1.Observable.prototype.first = first_1.first;
 	//# sourceMappingURL=first.js.map
 
 /***/ },
-/* 480 */
+/* 465 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -66810,9 +66174,9 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var Subscriber_1 = __webpack_require__(59);
-	var tryCatch_1 = __webpack_require__(375);
-	var errorObject_1 = __webpack_require__(376);
-	var EmptyError_1 = __webpack_require__(481);
+	var tryCatch_1 = __webpack_require__(360);
+	var errorObject_1 = __webpack_require__(361);
+	var EmptyError_1 = __webpack_require__(466);
 	function first(predicate, resultSelector, defaultValue) {
 	    return this.lift(new FirstOperator(predicate, resultSelector, defaultValue, this));
 	}
@@ -66882,7 +66246,7 @@
 	//# sourceMappingURL=first.js.map
 
 /***/ },
-/* 481 */
+/* 466 */
 /***/ function(module, exports) {
 
 	var EmptyError = (function () {
@@ -66896,16 +66260,16 @@
 	//# sourceMappingURL=EmptyError.js.map
 
 /***/ },
-/* 482 */
+/* 467 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var groupBy_1 = __webpack_require__(483);
+	var groupBy_1 = __webpack_require__(468);
 	Observable_1.Observable.prototype.groupBy = groupBy_1.groupBy;
 	//# sourceMappingURL=groupBy.js.map
 
 /***/ },
-/* 483 */
+/* 468 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -66916,11 +66280,11 @@
 	var Subscriber_1 = __webpack_require__(59);
 	var Observable_1 = __webpack_require__(58);
 	var Subject_1 = __webpack_require__(57);
-	var Map_1 = __webpack_require__(484);
-	var FastMap_1 = __webpack_require__(486);
-	var groupBy_support_1 = __webpack_require__(487);
-	var tryCatch_1 = __webpack_require__(375);
-	var errorObject_1 = __webpack_require__(376);
+	var Map_1 = __webpack_require__(469);
+	var FastMap_1 = __webpack_require__(471);
+	var groupBy_support_1 = __webpack_require__(472);
+	var tryCatch_1 = __webpack_require__(360);
+	var errorObject_1 = __webpack_require__(361);
 	function groupBy(keySelector, elementSelector, durationSelector) {
 	    return new GroupByObservable(this, keySelector, elementSelector, durationSelector);
 	}
@@ -67048,16 +66412,16 @@
 	//# sourceMappingURL=groupBy.js.map
 
 /***/ },
-/* 484 */
+/* 469 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var root_1 = __webpack_require__(66);
-	var MapPolyfill_1 = __webpack_require__(485);
+	var MapPolyfill_1 = __webpack_require__(470);
 	exports.Map = root_1.root.Map || (function () { return MapPolyfill_1.MapPolyfill; })();
 	//# sourceMappingURL=Map.js.map
 
 /***/ },
-/* 485 */
+/* 470 */
 /***/ function(module, exports) {
 
 	var MapPolyfill = (function () {
@@ -67103,7 +66467,7 @@
 	//# sourceMappingURL=MapPolyfill.js.map
 
 /***/ },
-/* 486 */
+/* 471 */
 /***/ function(module, exports) {
 
 	var FastMap = (function () {
@@ -67138,7 +66502,7 @@
 	//# sourceMappingURL=FastMap.js.map
 
 /***/ },
-/* 487 */
+/* 472 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -67212,16 +66576,16 @@
 	//# sourceMappingURL=groupBy-support.js.map
 
 /***/ },
-/* 488 */
+/* 473 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var ignoreElements_1 = __webpack_require__(489);
+	var ignoreElements_1 = __webpack_require__(474);
 	Observable_1.Observable.prototype.ignoreElements = ignoreElements_1.ignoreElements;
 	//# sourceMappingURL=ignoreElements.js.map
 
 /***/ },
-/* 489 */
+/* 474 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -67257,16 +66621,16 @@
 	//# sourceMappingURL=ignoreElements.js.map
 
 /***/ },
-/* 490 */
+/* 475 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var every_1 = __webpack_require__(491);
+	var every_1 = __webpack_require__(476);
 	Observable_1.Observable.prototype.every = every_1.every;
 	//# sourceMappingURL=every.js.map
 
 /***/ },
-/* 491 */
+/* 476 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -67274,12 +66638,12 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var ScalarObservable_1 = __webpack_require__(374);
-	var fromArray_1 = __webpack_require__(373);
-	var throw_1 = __webpack_require__(377);
+	var ScalarObservable_1 = __webpack_require__(359);
+	var fromArray_1 = __webpack_require__(358);
+	var throw_1 = __webpack_require__(362);
 	var Subscriber_1 = __webpack_require__(59);
-	var tryCatch_1 = __webpack_require__(375);
-	var errorObject_1 = __webpack_require__(376);
+	var tryCatch_1 = __webpack_require__(360);
+	var errorObject_1 = __webpack_require__(361);
 	function every(predicate, thisArg) {
 	    var source = this;
 	    var result;
@@ -67346,16 +66710,16 @@
 	//# sourceMappingURL=every.js.map
 
 /***/ },
-/* 492 */
+/* 477 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var last_1 = __webpack_require__(493);
+	var last_1 = __webpack_require__(478);
 	Observable_1.Observable.prototype.last = last_1.last;
 	//# sourceMappingURL=last.js.map
 
 /***/ },
-/* 493 */
+/* 478 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -67364,9 +66728,9 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var Subscriber_1 = __webpack_require__(59);
-	var tryCatch_1 = __webpack_require__(375);
-	var errorObject_1 = __webpack_require__(376);
-	var EmptyError_1 = __webpack_require__(481);
+	var tryCatch_1 = __webpack_require__(360);
+	var errorObject_1 = __webpack_require__(361);
+	var EmptyError_1 = __webpack_require__(466);
 	function last(predicate, resultSelector, defaultValue) {
 	    return this.lift(new LastOperator(predicate, resultSelector, defaultValue, this));
 	}
@@ -67442,16 +66806,16 @@
 	//# sourceMappingURL=last.js.map
 
 /***/ },
-/* 494 */
+/* 479 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var map_1 = __webpack_require__(495);
+	var map_1 = __webpack_require__(480);
 	Observable_1.Observable.prototype.map = map_1.map;
 	//# sourceMappingURL=map.js.map
 
 /***/ },
-/* 495 */
+/* 480 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -67460,8 +66824,8 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var Subscriber_1 = __webpack_require__(59);
-	var tryCatch_1 = __webpack_require__(375);
-	var errorObject_1 = __webpack_require__(376);
+	var tryCatch_1 = __webpack_require__(360);
+	var errorObject_1 = __webpack_require__(361);
 	/**
 	 * Similar to the well known `Array.prototype.map` function, this operator
 	 * applies a projection to each value and emits that projection in the returned observable
@@ -67509,16 +66873,16 @@
 	//# sourceMappingURL=map.js.map
 
 /***/ },
-/* 496 */
+/* 481 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var mapTo_1 = __webpack_require__(497);
+	var mapTo_1 = __webpack_require__(482);
 	Observable_1.Observable.prototype.mapTo = mapTo_1.mapTo;
 	//# sourceMappingURL=mapTo.js.map
 
 /***/ },
-/* 497 */
+/* 482 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -67559,16 +66923,16 @@
 	//# sourceMappingURL=mapTo.js.map
 
 /***/ },
-/* 498 */
+/* 483 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var materialize_1 = __webpack_require__(499);
+	var materialize_1 = __webpack_require__(484);
 	Observable_1.Observable.prototype.materialize = materialize_1.materialize;
 	//# sourceMappingURL=materialize.js.map
 
 /***/ },
-/* 499 */
+/* 484 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -67577,7 +66941,7 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var Subscriber_1 = __webpack_require__(59);
-	var Notification_1 = __webpack_require__(403);
+	var Notification_1 = __webpack_require__(388);
 	function materialize() {
 	    return this.lift(new MaterializeOperator());
 	}
@@ -67613,19 +66977,19 @@
 	//# sourceMappingURL=materialize.js.map
 
 /***/ },
-/* 500 */
+/* 485 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var merge_1 = __webpack_require__(501);
+	var merge_1 = __webpack_require__(486);
 	Observable_1.Observable.prototype.merge = merge_1.merge;
 	//# sourceMappingURL=merge.js.map
 
 /***/ },
-/* 501 */
+/* 486 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var merge_static_1 = __webpack_require__(389);
+	var merge_static_1 = __webpack_require__(374);
 	function merge() {
 	    var observables = [];
 	    for (var _i = 0; _i < arguments.length; _i++) {
@@ -67638,19 +67002,19 @@
 	//# sourceMappingURL=merge.js.map
 
 /***/ },
-/* 502 */
+/* 487 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var mergeAll_1 = __webpack_require__(503);
+	var mergeAll_1 = __webpack_require__(488);
 	Observable_1.Observable.prototype.mergeAll = mergeAll_1.mergeAll;
 	//# sourceMappingURL=mergeAll.js.map
 
 /***/ },
-/* 503 */
+/* 488 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var mergeAll_support_1 = __webpack_require__(387);
+	var mergeAll_support_1 = __webpack_require__(372);
 	function mergeAll(concurrent) {
 	    if (concurrent === void 0) { concurrent = Number.POSITIVE_INFINITY; }
 	    return this.lift(new mergeAll_support_1.MergeAllOperator(concurrent));
@@ -67659,20 +67023,20 @@
 	//# sourceMappingURL=mergeAll.js.map
 
 /***/ },
-/* 504 */
+/* 489 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var mergeMap_1 = __webpack_require__(505);
+	var mergeMap_1 = __webpack_require__(490);
 	Observable_1.Observable.prototype.mergeMap = mergeMap_1.mergeMap;
 	Observable_1.Observable.prototype.flatMap = mergeMap_1.mergeMap;
 	//# sourceMappingURL=mergeMap.js.map
 
 /***/ },
-/* 505 */
+/* 490 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var mergeMap_support_1 = __webpack_require__(452);
+	var mergeMap_support_1 = __webpack_require__(437);
 	function mergeMap(project, resultSelector, concurrent) {
 	    if (concurrent === void 0) { concurrent = Number.POSITIVE_INFINITY; }
 	    return this.lift(new mergeMap_support_1.MergeMapOperator(project, resultSelector, concurrent));
@@ -67681,19 +67045,19 @@
 	//# sourceMappingURL=mergeMap.js.map
 
 /***/ },
-/* 506 */
+/* 491 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var mergeMapTo_1 = __webpack_require__(507);
+	var mergeMapTo_1 = __webpack_require__(492);
 	Observable_1.Observable.prototype.mergeMapTo = mergeMapTo_1.mergeMapTo;
 	//# sourceMappingURL=mergeMapTo.js.map
 
 /***/ },
-/* 507 */
+/* 492 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var mergeMapTo_support_1 = __webpack_require__(455);
+	var mergeMapTo_support_1 = __webpack_require__(440);
 	function mergeMapTo(observable, resultSelector, concurrent) {
 	    if (concurrent === void 0) { concurrent = Number.POSITIVE_INFINITY; }
 	    return this.lift(new mergeMapTo_support_1.MergeMapToOperator(observable, resultSelector, concurrent));
@@ -67702,19 +67066,19 @@
 	//# sourceMappingURL=mergeMapTo.js.map
 
 /***/ },
-/* 508 */
+/* 493 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var multicast_1 = __webpack_require__(509);
+	var multicast_1 = __webpack_require__(494);
 	Observable_1.Observable.prototype.multicast = multicast_1.multicast;
 	//# sourceMappingURL=multicast.js.map
 
 /***/ },
-/* 509 */
+/* 494 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ConnectableObservable_1 = __webpack_require__(510);
+	var ConnectableObservable_1 = __webpack_require__(495);
 	function multicast(subjectOrSubjectFactory) {
 	    var subjectFactory;
 	    if (typeof subjectOrSubjectFactory === 'function') {
@@ -67731,7 +67095,7 @@
 	//# sourceMappingURL=multicast.js.map
 
 /***/ },
-/* 510 */
+/* 495 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -67858,19 +67222,19 @@
 	//# sourceMappingURL=ConnectableObservable.js.map
 
 /***/ },
-/* 511 */
+/* 496 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var observeOn_1 = __webpack_require__(512);
+	var observeOn_1 = __webpack_require__(497);
 	Observable_1.Observable.prototype.observeOn = observeOn_1.observeOn;
 	//# sourceMappingURL=observeOn.js.map
 
 /***/ },
-/* 512 */
+/* 497 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var observeOn_support_1 = __webpack_require__(402);
+	var observeOn_support_1 = __webpack_require__(387);
 	function observeOn(scheduler, delay) {
 	    if (delay === void 0) { delay = 0; }
 	    return this.lift(new observeOn_support_1.ObserveOnOperator(scheduler, delay));
@@ -67879,20 +67243,20 @@
 	//# sourceMappingURL=observeOn.js.map
 
 /***/ },
-/* 513 */
+/* 498 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var partition_1 = __webpack_require__(514);
+	var partition_1 = __webpack_require__(499);
 	Observable_1.Observable.prototype.partition = partition_1.partition;
 	//# sourceMappingURL=partition.js.map
 
 /***/ },
-/* 514 */
+/* 499 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var not_1 = __webpack_require__(515);
-	var filter_1 = __webpack_require__(476);
+	var not_1 = __webpack_require__(500);
+	var filter_1 = __webpack_require__(461);
 	function partition(predicate, thisArg) {
 	    return [
 	        filter_1.filter.call(this, predicate),
@@ -67903,7 +67267,7 @@
 	//# sourceMappingURL=partition.js.map
 
 /***/ },
-/* 515 */
+/* 500 */
 /***/ function(module, exports) {
 
 	function not(pred, thisArg) {
@@ -67918,20 +67282,20 @@
 	//# sourceMappingURL=not.js.map
 
 /***/ },
-/* 516 */
+/* 501 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var publish_1 = __webpack_require__(517);
+	var publish_1 = __webpack_require__(502);
 	Observable_1.Observable.prototype.publish = publish_1.publish;
 	//# sourceMappingURL=publish.js.map
 
 /***/ },
-/* 517 */
+/* 502 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Subject_1 = __webpack_require__(57);
-	var multicast_1 = __webpack_require__(509);
+	var multicast_1 = __webpack_require__(494);
 	function publish() {
 	    return multicast_1.multicast.call(this, new Subject_1.Subject());
 	}
@@ -67939,20 +67303,20 @@
 	//# sourceMappingURL=publish.js.map
 
 /***/ },
-/* 518 */
+/* 503 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var publishBehavior_1 = __webpack_require__(519);
+	var publishBehavior_1 = __webpack_require__(504);
 	Observable_1.Observable.prototype.publishBehavior = publishBehavior_1.publishBehavior;
 	//# sourceMappingURL=publishBehavior.js.map
 
 /***/ },
-/* 519 */
+/* 504 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var BehaviorSubject_1 = __webpack_require__(520);
-	var multicast_1 = __webpack_require__(509);
+	var BehaviorSubject_1 = __webpack_require__(505);
+	var multicast_1 = __webpack_require__(494);
 	function publishBehavior(value) {
 	    return multicast_1.multicast.call(this, new BehaviorSubject_1.BehaviorSubject(value));
 	}
@@ -67960,7 +67324,7 @@
 	//# sourceMappingURL=publishBehavior.js.map
 
 /***/ },
-/* 520 */
+/* 505 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -67970,7 +67334,7 @@
 	};
 	var Subject_1 = __webpack_require__(57);
 	var throwError_1 = __webpack_require__(61);
-	var ObjectUnsubscribedError_1 = __webpack_require__(521);
+	var ObjectUnsubscribedError_1 = __webpack_require__(506);
 	var BehaviorSubject = (function (_super) {
 	    __extends(BehaviorSubject, _super);
 	    function BehaviorSubject(_value) {
@@ -68019,7 +67383,7 @@
 	//# sourceMappingURL=BehaviorSubject.js.map
 
 /***/ },
-/* 521 */
+/* 506 */
 /***/ function(module, exports) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -68043,20 +67407,20 @@
 	//# sourceMappingURL=ObjectUnsubscribedError.js.map
 
 /***/ },
-/* 522 */
+/* 507 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var publishReplay_1 = __webpack_require__(523);
+	var publishReplay_1 = __webpack_require__(508);
 	Observable_1.Observable.prototype.publishReplay = publishReplay_1.publishReplay;
 	//# sourceMappingURL=publishReplay.js.map
 
 /***/ },
-/* 523 */
+/* 508 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ReplaySubject_1 = __webpack_require__(524);
-	var multicast_1 = __webpack_require__(509);
+	var ReplaySubject_1 = __webpack_require__(509);
+	var multicast_1 = __webpack_require__(494);
 	function publishReplay(bufferSize, windowTime, scheduler) {
 	    if (bufferSize === void 0) { bufferSize = Number.POSITIVE_INFINITY; }
 	    if (windowTime === void 0) { windowTime = Number.POSITIVE_INFINITY; }
@@ -68066,7 +67430,7 @@
 	//# sourceMappingURL=publishReplay.js.map
 
 /***/ },
-/* 524 */
+/* 509 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -68141,20 +67505,20 @@
 	//# sourceMappingURL=ReplaySubject.js.map
 
 /***/ },
-/* 525 */
+/* 510 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var publishLast_1 = __webpack_require__(526);
+	var publishLast_1 = __webpack_require__(511);
 	Observable_1.Observable.prototype.publishLast = publishLast_1.publishLast;
 	//# sourceMappingURL=publishLast.js.map
 
 /***/ },
-/* 526 */
+/* 511 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var AsyncSubject_1 = __webpack_require__(392);
-	var multicast_1 = __webpack_require__(509);
+	var AsyncSubject_1 = __webpack_require__(377);
+	var multicast_1 = __webpack_require__(494);
 	function publishLast() {
 	    return multicast_1.multicast.call(this, new AsyncSubject_1.AsyncSubject());
 	}
@@ -68162,19 +67526,19 @@
 	//# sourceMappingURL=publishLast.js.map
 
 /***/ },
-/* 527 */
+/* 512 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var reduce_1 = __webpack_require__(528);
+	var reduce_1 = __webpack_require__(513);
 	Observable_1.Observable.prototype.reduce = reduce_1.reduce;
 	//# sourceMappingURL=reduce.js.map
 
 /***/ },
-/* 528 */
+/* 513 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var reduce_support_1 = __webpack_require__(529);
+	var reduce_support_1 = __webpack_require__(514);
 	function reduce(project, seed) {
 	    return this.lift(new reduce_support_1.ReduceOperator(project, seed));
 	}
@@ -68182,7 +67546,7 @@
 	//# sourceMappingURL=reduce.js.map
 
 /***/ },
-/* 529 */
+/* 514 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -68191,8 +67555,8 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var Subscriber_1 = __webpack_require__(59);
-	var tryCatch_1 = __webpack_require__(375);
-	var errorObject_1 = __webpack_require__(376);
+	var tryCatch_1 = __webpack_require__(360);
+	var errorObject_1 = __webpack_require__(361);
 	var ReduceOperator = (function () {
 	    function ReduceOperator(project, seed) {
 	        this.project = project;
@@ -68240,16 +67604,16 @@
 	//# sourceMappingURL=reduce-support.js.map
 
 /***/ },
-/* 530 */
+/* 515 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var repeat_1 = __webpack_require__(531);
+	var repeat_1 = __webpack_require__(516);
 	Observable_1.Observable.prototype.repeat = repeat_1.repeat;
 	//# sourceMappingURL=repeat.js.map
 
 /***/ },
-/* 531 */
+/* 516 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -68258,7 +67622,7 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var Subscriber_1 = __webpack_require__(59);
-	var empty_1 = __webpack_require__(378);
+	var empty_1 = __webpack_require__(363);
 	function repeat(count) {
 	    if (count === void 0) { count = -1; }
 	    if (count === 0) {
@@ -68346,16 +67710,16 @@
 	//# sourceMappingURL=repeat.js.map
 
 /***/ },
-/* 532 */
+/* 517 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var retry_1 = __webpack_require__(533);
+	var retry_1 = __webpack_require__(518);
 	Observable_1.Observable.prototype.retry = retry_1.retry;
 	//# sourceMappingURL=retry.js.map
 
 /***/ },
-/* 533 */
+/* 518 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -68444,16 +67808,16 @@
 	//# sourceMappingURL=retry.js.map
 
 /***/ },
-/* 534 */
+/* 519 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var retryWhen_1 = __webpack_require__(535);
+	var retryWhen_1 = __webpack_require__(520);
 	Observable_1.Observable.prototype.retryWhen = retryWhen_1.retryWhen;
 	//# sourceMappingURL=retryWhen.js.map
 
 /***/ },
-/* 535 */
+/* 520 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -68463,8 +67827,8 @@
 	};
 	var Subscriber_1 = __webpack_require__(59);
 	var Subject_1 = __webpack_require__(57);
-	var tryCatch_1 = __webpack_require__(375);
-	var errorObject_1 = __webpack_require__(376);
+	var tryCatch_1 = __webpack_require__(360);
+	var errorObject_1 = __webpack_require__(361);
 	function retryWhen(notifier) {
 	    return this.lift(new RetryWhenOperator(notifier, this));
 	}
@@ -68587,16 +67951,16 @@
 	//# sourceMappingURL=retryWhen.js.map
 
 /***/ },
-/* 536 */
+/* 521 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var sample_1 = __webpack_require__(537);
+	var sample_1 = __webpack_require__(522);
 	Observable_1.Observable.prototype.sample = sample_1.sample;
 	//# sourceMappingURL=sample.js.map
 
 /***/ },
-/* 537 */
+/* 522 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -68658,16 +68022,16 @@
 	//# sourceMappingURL=sample.js.map
 
 /***/ },
-/* 538 */
+/* 523 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var sampleTime_1 = __webpack_require__(539);
+	var sampleTime_1 = __webpack_require__(524);
 	Observable_1.Observable.prototype.sampleTime = sampleTime_1.sampleTime;
 	//# sourceMappingURL=sampleTime.js.map
 
 /***/ },
-/* 539 */
+/* 524 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -68676,7 +68040,7 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var Subscriber_1 = __webpack_require__(59);
-	var asap_1 = __webpack_require__(413);
+	var asap_1 = __webpack_require__(398);
 	function sampleTime(delay, scheduler) {
 	    if (scheduler === void 0) { scheduler = asap_1.asap; }
 	    return this.lift(new SampleTimeOperator(delay, scheduler));
@@ -68721,16 +68085,16 @@
 	//# sourceMappingURL=sampleTime.js.map
 
 /***/ },
-/* 540 */
+/* 525 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var scan_1 = __webpack_require__(541);
+	var scan_1 = __webpack_require__(526);
 	Observable_1.Observable.prototype.scan = scan_1.scan;
 	//# sourceMappingURL=scan.js.map
 
 /***/ },
-/* 541 */
+/* 526 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -68739,8 +68103,8 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var Subscriber_1 = __webpack_require__(59);
-	var tryCatch_1 = __webpack_require__(375);
-	var errorObject_1 = __webpack_require__(376);
+	var tryCatch_1 = __webpack_require__(360);
+	var errorObject_1 = __webpack_require__(361);
 	function scan(accumulator, seed) {
 	    return this.lift(new ScanOperator(accumulator, seed));
 	}
@@ -68797,19 +68161,19 @@
 	//# sourceMappingURL=scan.js.map
 
 /***/ },
-/* 542 */
+/* 527 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var share_1 = __webpack_require__(543);
+	var share_1 = __webpack_require__(528);
 	Observable_1.Observable.prototype.share = share_1.share;
 	//# sourceMappingURL=share.js.map
 
 /***/ },
-/* 543 */
+/* 528 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var multicast_1 = __webpack_require__(509);
+	var multicast_1 = __webpack_require__(494);
 	var Subject_1 = __webpack_require__(57);
 	function shareSubjectFactory() {
 	    return new Subject_1.Subject();
@@ -68822,16 +68186,16 @@
 	//# sourceMappingURL=share.js.map
 
 /***/ },
-/* 544 */
+/* 529 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var single_1 = __webpack_require__(545);
+	var single_1 = __webpack_require__(530);
 	Observable_1.Observable.prototype.single = single_1.single;
 	//# sourceMappingURL=single.js.map
 
 /***/ },
-/* 545 */
+/* 530 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -68840,9 +68204,9 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var Subscriber_1 = __webpack_require__(59);
-	var tryCatch_1 = __webpack_require__(375);
-	var errorObject_1 = __webpack_require__(376);
-	var EmptyError_1 = __webpack_require__(481);
+	var tryCatch_1 = __webpack_require__(360);
+	var errorObject_1 = __webpack_require__(361);
+	var EmptyError_1 = __webpack_require__(466);
 	function single(predicate) {
 	    return this.lift(new SingleOperator(predicate, this));
 	}
@@ -68906,16 +68270,16 @@
 	//# sourceMappingURL=single.js.map
 
 /***/ },
-/* 546 */
+/* 531 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var skip_1 = __webpack_require__(547);
+	var skip_1 = __webpack_require__(532);
 	Observable_1.Observable.prototype.skip = skip_1.skip;
 	//# sourceMappingURL=skip.js.map
 
 /***/ },
-/* 547 */
+/* 532 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -68954,16 +68318,16 @@
 	//# sourceMappingURL=skip.js.map
 
 /***/ },
-/* 548 */
+/* 533 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var skipUntil_1 = __webpack_require__(549);
+	var skipUntil_1 = __webpack_require__(534);
 	Observable_1.Observable.prototype.skipUntil = skipUntil_1.skipUntil;
 	//# sourceMappingURL=skipUntil.js.map
 
 /***/ },
-/* 549 */
+/* 534 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -69045,16 +68409,16 @@
 	//# sourceMappingURL=skipUntil.js.map
 
 /***/ },
-/* 550 */
+/* 535 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var skipWhile_1 = __webpack_require__(551);
+	var skipWhile_1 = __webpack_require__(536);
 	Observable_1.Observable.prototype.skipWhile = skipWhile_1.skipWhile;
 	//# sourceMappingURL=skipWhile.js.map
 
 /***/ },
-/* 551 */
+/* 536 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -69063,8 +68427,8 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var Subscriber_1 = __webpack_require__(59);
-	var tryCatch_1 = __webpack_require__(375);
-	var errorObject_1 = __webpack_require__(376);
+	var tryCatch_1 = __webpack_require__(360);
+	var errorObject_1 = __webpack_require__(361);
 	function skipWhile(predicate) {
 	    return this.lift(new SkipWhileOperator(predicate));
 	}
@@ -69107,23 +68471,23 @@
 	//# sourceMappingURL=skipWhile.js.map
 
 /***/ },
-/* 552 */
+/* 537 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var startWith_1 = __webpack_require__(553);
+	var startWith_1 = __webpack_require__(538);
 	Observable_1.Observable.prototype.startWith = startWith_1.startWith;
 	//# sourceMappingURL=startWith.js.map
 
 /***/ },
-/* 553 */
+/* 538 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var fromArray_1 = __webpack_require__(373);
-	var ScalarObservable_1 = __webpack_require__(374);
-	var empty_1 = __webpack_require__(378);
-	var concat_static_1 = __webpack_require__(386);
-	var isScheduler_1 = __webpack_require__(379);
+	var fromArray_1 = __webpack_require__(358);
+	var ScalarObservable_1 = __webpack_require__(359);
+	var empty_1 = __webpack_require__(363);
+	var concat_static_1 = __webpack_require__(371);
+	var isScheduler_1 = __webpack_require__(364);
 	function startWith() {
 	    var array = [];
 	    for (var _i = 0; _i < arguments.length; _i++) {
@@ -69151,19 +68515,19 @@
 	//# sourceMappingURL=startWith.js.map
 
 /***/ },
-/* 554 */
+/* 539 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var subscribeOn_1 = __webpack_require__(555);
+	var subscribeOn_1 = __webpack_require__(540);
 	Observable_1.Observable.prototype.subscribeOn = subscribeOn_1.subscribeOn;
 	//# sourceMappingURL=subscribeOn.js.map
 
 /***/ },
-/* 555 */
+/* 540 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var SubscribeOnObservable_1 = __webpack_require__(556);
+	var SubscribeOnObservable_1 = __webpack_require__(541);
 	function subscribeOn(scheduler, delay) {
 	    if (delay === void 0) { delay = 0; }
 	    return new SubscribeOnObservable_1.SubscribeOnObservable(this, delay, scheduler);
@@ -69172,7 +68536,7 @@
 	//# sourceMappingURL=subscribeOn.js.map
 
 /***/ },
-/* 556 */
+/* 541 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -69181,8 +68545,8 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var Observable_1 = __webpack_require__(58);
-	var asap_1 = __webpack_require__(413);
-	var isNumeric_1 = __webpack_require__(412);
+	var asap_1 = __webpack_require__(398);
+	var isNumeric_1 = __webpack_require__(397);
 	var SubscribeOnObservable = (function (_super) {
 	    __extends(SubscribeOnObservable, _super);
 	    function SubscribeOnObservable(source, delayTime, scheduler) {
@@ -69222,16 +68586,16 @@
 	//# sourceMappingURL=SubscribeOnObservable.js.map
 
 /***/ },
-/* 557 */
+/* 542 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var switch_1 = __webpack_require__(558);
+	var switch_1 = __webpack_require__(543);
 	Observable_1.Observable.prototype.switch = switch_1._switch;
 	//# sourceMappingURL=switch.js.map
 
 /***/ },
-/* 558 */
+/* 543 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -69239,8 +68603,8 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var OuterSubscriber_1 = __webpack_require__(381);
-	var subscribeToResult_1 = __webpack_require__(382);
+	var OuterSubscriber_1 = __webpack_require__(366);
+	var subscribeToResult_1 = __webpack_require__(367);
 	function _switch() {
 	    return this.lift(new SwitchOperator());
 	}
@@ -69296,16 +68660,16 @@
 	//# sourceMappingURL=switch.js.map
 
 /***/ },
-/* 559 */
+/* 544 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var switchMap_1 = __webpack_require__(560);
+	var switchMap_1 = __webpack_require__(545);
 	Observable_1.Observable.prototype.switchMap = switchMap_1.switchMap;
 	//# sourceMappingURL=switchMap.js.map
 
 /***/ },
-/* 560 */
+/* 545 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -69313,10 +68677,10 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var tryCatch_1 = __webpack_require__(375);
-	var errorObject_1 = __webpack_require__(376);
-	var OuterSubscriber_1 = __webpack_require__(381);
-	var subscribeToResult_1 = __webpack_require__(382);
+	var tryCatch_1 = __webpack_require__(360);
+	var errorObject_1 = __webpack_require__(361);
+	var OuterSubscriber_1 = __webpack_require__(366);
+	var subscribeToResult_1 = __webpack_require__(367);
 	function switchMap(project, resultSelector) {
 	    return this.lift(new SwitchMapOperator(project, resultSelector));
 	}
@@ -69396,16 +68760,16 @@
 	//# sourceMappingURL=switchMap.js.map
 
 /***/ },
-/* 561 */
+/* 546 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var switchMapTo_1 = __webpack_require__(562);
+	var switchMapTo_1 = __webpack_require__(547);
 	Observable_1.Observable.prototype.switchMapTo = switchMapTo_1.switchMapTo;
 	//# sourceMappingURL=switchMapTo.js.map
 
 /***/ },
-/* 562 */
+/* 547 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -69413,10 +68777,10 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var tryCatch_1 = __webpack_require__(375);
-	var errorObject_1 = __webpack_require__(376);
-	var OuterSubscriber_1 = __webpack_require__(381);
-	var subscribeToResult_1 = __webpack_require__(382);
+	var tryCatch_1 = __webpack_require__(360);
+	var errorObject_1 = __webpack_require__(361);
+	var OuterSubscriber_1 = __webpack_require__(366);
+	var subscribeToResult_1 = __webpack_require__(367);
 	function switchMapTo(observable, projectResult) {
 	    return this.lift(new SwitchMapToOperator(observable, projectResult));
 	}
@@ -69489,16 +68853,16 @@
 	//# sourceMappingURL=switchMapTo.js.map
 
 /***/ },
-/* 563 */
+/* 548 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var take_1 = __webpack_require__(564);
+	var take_1 = __webpack_require__(549);
 	Observable_1.Observable.prototype.take = take_1.take;
 	//# sourceMappingURL=take.js.map
 
 /***/ },
-/* 564 */
+/* 549 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -69507,8 +68871,8 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var Subscriber_1 = __webpack_require__(59);
-	var ArgumentOutOfRangeError_1 = __webpack_require__(565);
-	var empty_1 = __webpack_require__(378);
+	var ArgumentOutOfRangeError_1 = __webpack_require__(550);
+	var empty_1 = __webpack_require__(363);
 	function take(total) {
 	    if (total === 0) {
 	        return new empty_1.EmptyObservable();
@@ -69551,7 +68915,7 @@
 	//# sourceMappingURL=take.js.map
 
 /***/ },
-/* 565 */
+/* 550 */
 /***/ function(module, exports) {
 
 	var ArgumentOutOfRangeError = (function () {
@@ -69565,16 +68929,16 @@
 	//# sourceMappingURL=ArgumentOutOfRangeError.js.map
 
 /***/ },
-/* 566 */
+/* 551 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var takeUntil_1 = __webpack_require__(567);
+	var takeUntil_1 = __webpack_require__(552);
 	Observable_1.Observable.prototype.takeUntil = takeUntil_1.takeUntil;
 	//# sourceMappingURL=takeUntil.js.map
 
 /***/ },
-/* 567 */
+/* 552 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -69632,16 +68996,16 @@
 	//# sourceMappingURL=takeUntil.js.map
 
 /***/ },
-/* 568 */
+/* 553 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var takeWhile_1 = __webpack_require__(569);
+	var takeWhile_1 = __webpack_require__(554);
 	Observable_1.Observable.prototype.takeWhile = takeWhile_1.takeWhile;
 	//# sourceMappingURL=takeWhile.js.map
 
 /***/ },
-/* 569 */
+/* 554 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -69650,8 +69014,8 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var Subscriber_1 = __webpack_require__(59);
-	var tryCatch_1 = __webpack_require__(375);
-	var errorObject_1 = __webpack_require__(376);
+	var tryCatch_1 = __webpack_require__(360);
+	var errorObject_1 = __webpack_require__(361);
 	function takeWhile(predicate) {
 	    return this.lift(new TakeWhileOperator(predicate));
 	}
@@ -69690,16 +69054,16 @@
 	//# sourceMappingURL=takeWhile.js.map
 
 /***/ },
-/* 570 */
+/* 555 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var throttle_1 = __webpack_require__(571);
+	var throttle_1 = __webpack_require__(556);
 	Observable_1.Observable.prototype.throttle = throttle_1.throttle;
 	//# sourceMappingURL=throttle.js.map
 
 /***/ },
-/* 571 */
+/* 556 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -69709,9 +69073,9 @@
 	};
 	var fromPromise_1 = __webpack_require__(69);
 	var Subscriber_1 = __webpack_require__(59);
-	var tryCatch_1 = __webpack_require__(375);
-	var isPromise_1 = __webpack_require__(398);
-	var errorObject_1 = __webpack_require__(376);
+	var tryCatch_1 = __webpack_require__(360);
+	var isPromise_1 = __webpack_require__(383);
+	var errorObject_1 = __webpack_require__(361);
 	function throttle(durationSelector) {
 	    return this.lift(new ThrottleOperator(durationSelector));
 	}
@@ -69784,16 +69148,16 @@
 	//# sourceMappingURL=throttle.js.map
 
 /***/ },
-/* 572 */
+/* 557 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var throttleTime_1 = __webpack_require__(573);
+	var throttleTime_1 = __webpack_require__(558);
 	Observable_1.Observable.prototype.throttleTime = throttleTime_1.throttleTime;
 	//# sourceMappingURL=throttleTime.js.map
 
 /***/ },
-/* 573 */
+/* 558 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -69802,7 +69166,7 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var Subscriber_1 = __webpack_require__(59);
-	var asap_1 = __webpack_require__(413);
+	var asap_1 = __webpack_require__(398);
 	function throttleTime(delay, scheduler) {
 	    if (scheduler === void 0) { scheduler = asap_1.asap; }
 	    return this.lift(new ThrottleTimeOperator(delay, scheduler));
@@ -69848,16 +69212,16 @@
 	//# sourceMappingURL=throttleTime.js.map
 
 /***/ },
-/* 574 */
+/* 559 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var timeout_1 = __webpack_require__(575);
+	var timeout_1 = __webpack_require__(560);
 	Observable_1.Observable.prototype.timeout = timeout_1.timeout;
 	//# sourceMappingURL=timeout.js.map
 
 /***/ },
-/* 575 */
+/* 560 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -69867,7 +69231,7 @@
 	};
 	var Subscriber_1 = __webpack_require__(59);
 	var queue_1 = __webpack_require__(70);
-	var isDate_1 = __webpack_require__(426);
+	var isDate_1 = __webpack_require__(411);
 	function timeout(due, errorToSend, scheduler) {
 	    if (errorToSend === void 0) { errorToSend = null; }
 	    if (scheduler === void 0) { scheduler = queue_1.queue; }
@@ -69950,16 +69314,16 @@
 	//# sourceMappingURL=timeout.js.map
 
 /***/ },
-/* 576 */
+/* 561 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var timeoutWith_1 = __webpack_require__(577);
+	var timeoutWith_1 = __webpack_require__(562);
 	Observable_1.Observable.prototype.timeoutWith = timeoutWith_1.timeoutWith;
 	//# sourceMappingURL=timeoutWith.js.map
 
 /***/ },
-/* 577 */
+/* 562 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -69968,9 +69332,9 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var queue_1 = __webpack_require__(70);
-	var isDate_1 = __webpack_require__(426);
-	var OuterSubscriber_1 = __webpack_require__(381);
-	var subscribeToResult_1 = __webpack_require__(382);
+	var isDate_1 = __webpack_require__(411);
+	var OuterSubscriber_1 = __webpack_require__(366);
+	var subscribeToResult_1 = __webpack_require__(367);
 	function timeoutWith(due, withObservable, scheduler) {
 	    if (scheduler === void 0) { scheduler = queue_1.queue; }
 	    var absoluteTimeout = isDate_1.isDate(due);
@@ -70060,16 +69424,16 @@
 	//# sourceMappingURL=timeoutWith.js.map
 
 /***/ },
-/* 578 */
+/* 563 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var toArray_1 = __webpack_require__(579);
+	var toArray_1 = __webpack_require__(564);
 	Observable_1.Observable.prototype.toArray = toArray_1.toArray;
 	//# sourceMappingURL=toArray.js.map
 
 /***/ },
-/* 579 */
+/* 564 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -70108,7 +69472,7 @@
 	//# sourceMappingURL=toArray.js.map
 
 /***/ },
-/* 580 */
+/* 565 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
@@ -70117,16 +69481,16 @@
 	//# sourceMappingURL=toPromise.js.map
 
 /***/ },
-/* 581 */
+/* 566 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var window_1 = __webpack_require__(582);
+	var window_1 = __webpack_require__(567);
 	Observable_1.Observable.prototype.window = window_1.window;
 	//# sourceMappingURL=window.js.map
 
 /***/ },
-/* 582 */
+/* 567 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -70201,16 +69565,16 @@
 	//# sourceMappingURL=window.js.map
 
 /***/ },
-/* 583 */
+/* 568 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var windowCount_1 = __webpack_require__(584);
+	var windowCount_1 = __webpack_require__(569);
 	Observable_1.Observable.prototype.windowCount = windowCount_1.windowCount;
 	//# sourceMappingURL=windowCount.js.map
 
 /***/ },
-/* 584 */
+/* 569 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -70287,16 +69651,16 @@
 	//# sourceMappingURL=windowCount.js.map
 
 /***/ },
-/* 585 */
+/* 570 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var windowTime_1 = __webpack_require__(586);
+	var windowTime_1 = __webpack_require__(571);
 	Observable_1.Observable.prototype.windowTime = windowTime_1.windowTime;
 	//# sourceMappingURL=windowTime.js.map
 
 /***/ },
-/* 586 */
+/* 571 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -70306,7 +69670,7 @@
 	};
 	var Subscriber_1 = __webpack_require__(59);
 	var Subject_1 = __webpack_require__(57);
-	var asap_1 = __webpack_require__(413);
+	var asap_1 = __webpack_require__(398);
 	function windowTime(windowTimeSpan, windowCreationInterval, scheduler) {
 	    if (windowCreationInterval === void 0) { windowCreationInterval = null; }
 	    if (scheduler === void 0) { scheduler = asap_1.asap; }
@@ -70410,16 +69774,16 @@
 	//# sourceMappingURL=windowTime.js.map
 
 /***/ },
-/* 587 */
+/* 572 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var windowToggle_1 = __webpack_require__(588);
+	var windowToggle_1 = __webpack_require__(573);
 	Observable_1.Observable.prototype.windowToggle = windowToggle_1.windowToggle;
 	//# sourceMappingURL=windowToggle.js.map
 
 /***/ },
-/* 588 */
+/* 573 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -70430,8 +69794,8 @@
 	var Subscriber_1 = __webpack_require__(59);
 	var Subject_1 = __webpack_require__(57);
 	var Subscription_1 = __webpack_require__(63);
-	var tryCatch_1 = __webpack_require__(375);
-	var errorObject_1 = __webpack_require__(376);
+	var tryCatch_1 = __webpack_require__(360);
+	var errorObject_1 = __webpack_require__(361);
 	function windowToggle(openings, closingSelector) {
 	    return this.lift(new WindowToggleOperator(openings, closingSelector));
 	}
@@ -70549,16 +69913,16 @@
 	//# sourceMappingURL=windowToggle.js.map
 
 /***/ },
-/* 589 */
+/* 574 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var windowWhen_1 = __webpack_require__(590);
+	var windowWhen_1 = __webpack_require__(575);
 	Observable_1.Observable.prototype.windowWhen = windowWhen_1.windowWhen;
 	//# sourceMappingURL=windowWhen.js.map
 
 /***/ },
-/* 590 */
+/* 575 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -70569,8 +69933,8 @@
 	var Subscriber_1 = __webpack_require__(59);
 	var Subject_1 = __webpack_require__(57);
 	var Subscription_1 = __webpack_require__(63);
-	var tryCatch_1 = __webpack_require__(375);
-	var errorObject_1 = __webpack_require__(376);
+	var tryCatch_1 = __webpack_require__(360);
+	var errorObject_1 = __webpack_require__(361);
 	function windowWhen(closingSelector) {
 	    return this.lift(new WindowOperator(closingSelector));
 	}
@@ -70662,16 +70026,16 @@
 	//# sourceMappingURL=windowWhen.js.map
 
 /***/ },
-/* 591 */
+/* 576 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var withLatestFrom_1 = __webpack_require__(592);
+	var withLatestFrom_1 = __webpack_require__(577);
 	Observable_1.Observable.prototype.withLatestFrom = withLatestFrom_1.withLatestFrom;
 	//# sourceMappingURL=withLatestFrom.js.map
 
 /***/ },
-/* 592 */
+/* 577 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -70679,10 +70043,10 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var tryCatch_1 = __webpack_require__(375);
-	var errorObject_1 = __webpack_require__(376);
-	var OuterSubscriber_1 = __webpack_require__(381);
-	var subscribeToResult_1 = __webpack_require__(382);
+	var tryCatch_1 = __webpack_require__(360);
+	var errorObject_1 = __webpack_require__(361);
+	var OuterSubscriber_1 = __webpack_require__(366);
+	var subscribeToResult_1 = __webpack_require__(367);
 	/**
 	 * @param {Observable} observables the observables to get the latest values from.
 	 * @param {Function} [project] optional projection function for merging values together. Receives all values in order
@@ -70779,19 +70143,19 @@
 	//# sourceMappingURL=withLatestFrom.js.map
 
 /***/ },
-/* 593 */
+/* 578 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var zip_1 = __webpack_require__(594);
+	var zip_1 = __webpack_require__(579);
 	Observable_1.Observable.prototype.zip = zip_1.zipProto;
 	//# sourceMappingURL=zip.js.map
 
 /***/ },
-/* 594 */
+/* 579 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var zip_static_1 = __webpack_require__(428);
+	var zip_static_1 = __webpack_require__(413);
 	function zipProto() {
 	    var observables = [];
 	    for (var _i = 0; _i < arguments.length; _i++) {
@@ -70804,24 +70168,644 @@
 	//# sourceMappingURL=zip.js.map
 
 /***/ },
-/* 595 */
+/* 580 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var zipAll_1 = __webpack_require__(596);
+	var zipAll_1 = __webpack_require__(581);
 	Observable_1.Observable.prototype.zipAll = zipAll_1.zipAll;
 	//# sourceMappingURL=zipAll.js.map
 
 /***/ },
-/* 596 */
+/* 581 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var zip_support_1 = __webpack_require__(429);
+	var zip_support_1 = __webpack_require__(414);
 	function zipAll(project) {
 	    return this.lift(new zip_support_1.ZipOperator(project));
 	}
 	exports.zipAll = zipAll;
 	//# sourceMappingURL=zipAll.js.map
+
+/***/ },
+/* 582 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(6);
+	var HelloIonicPage = (function () {
+	    function HelloIonicPage(nav) {
+	        this.nav = nav;
+	    }
+	    HelloIonicPage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/hello-ionic/hello-ionic.html'
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
+	    ], HelloIonicPage);
+	    return HelloIonicPage;
+	    var _a;
+	})();
+	exports.HelloIonicPage = HelloIonicPage;
+
+
+/***/ },
+/* 583 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(6);
+	var tickets_1 = __webpack_require__(584);
+	/*
+	  Generated class for the QueuesPage page.
+
+	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+	  Ionic pages and navigation.
+	*/
+	var QueuesPage = (function () {
+	    function QueuesPage(nav) {
+	        this.nav = nav;
+	    }
+	    QueuesPage.prototype.itemTappedTL = function () { this.nav.push(tickets_1.TicketsPage); };
+	    QueuesPage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/queues/queues.html',
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
+	    ], QueuesPage);
+	    return QueuesPage;
+	    var _a;
+	})();
+	exports.QueuesPage = QueuesPage;
+
+
+/***/ },
+/* 584 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(6);
+	var ticket_details_1 = __webpack_require__(585);
+	var TicketsPage = (function () {
+	    function TicketsPage(nav, navParams) {
+	        this.nav = nav;
+	        // If we navigated to this page, we will have an item available as a nav param
+	        this.selectedItem = navParams.get('item');
+	        this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
+	            'american-football', 'boat', 'bluetooth', 'build'];
+	        this.items = [];
+	        for (var i = 1; i < 11; i++) {
+	            this.items.push({
+	                title: 'Item ' + i,
+	                note: 'This is item #' + i,
+	                icon: this.icons[Math.floor(Math.random() * this.icons.length)]
+	            });
+	        }
+	    }
+	    TicketsPage.prototype.itemTapped = function () { this.nav.push(ticket_details_1.TicketDetailsPage); };
+	    TicketsPage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/tickets/tickets.html',
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof ionic_1.NavParams !== 'undefined' && ionic_1.NavParams) === 'function' && _b) || Object])
+	    ], TicketsPage);
+	    return TicketsPage;
+	    var _a, _b;
+	})();
+	exports.TicketsPage = TicketsPage;
+
+
+/***/ },
+/* 585 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(6);
+	/*
+	  Generated class for the TicketDetailsPage page.
+
+	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+	  Ionic pages and navigation.
+	*/
+	var TicketDetailsPage = (function () {
+	    function TicketDetailsPage(nav, navParams) {
+	        this.nav = nav;
+	        this.pet = "Reply";
+	        // If we navigated to this page, we will have an item available as a nav param
+	        this.selectedItem = navParams.get('item');
+	    }
+	    TicketDetailsPage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/ticket-details/ticket-details.html',
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof ionic_1.NavParams !== 'undefined' && ionic_1.NavParams) === 'function' && _b) || Object])
+	    ], TicketDetailsPage);
+	    return TicketDetailsPage;
+	    var _a, _b;
+	})();
+	exports.TicketDetailsPage = TicketDetailsPage;
+
+
+/***/ },
+/* 586 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(6);
+	var invoice_details_1 = __webpack_require__(587);
+	/*
+	  Generated class for the InvoicesPage page.
+
+	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+	  Ionic pages and navigation.
+	*/
+	var InvoicesPage = (function () {
+	    function InvoicesPage(nav) {
+	        this.nav = nav;
+	    }
+	    InvoicesPage.prototype.itemTapped = function () { this.nav.push(invoice_details_1.InvoiceDetailsPage); };
+	    InvoicesPage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/invoices/invoices.html',
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
+	    ], InvoicesPage);
+	    return InvoicesPage;
+	    var _a;
+	})();
+	exports.InvoicesPage = InvoicesPage;
+
+
+/***/ },
+/* 587 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(6);
+	/*
+	  Generated class for the InvoiceDetailsPage page.
+
+	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+	  Ionic pages and navigation.
+	*/
+	var InvoiceDetailsPage = (function () {
+	    function InvoiceDetailsPage(nav) {
+	        this.nav = nav;
+	    }
+	    InvoiceDetailsPage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/invoice-details/invoice-details.html',
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
+	    ], InvoiceDetailsPage);
+	    return InvoiceDetailsPage;
+	    var _a;
+	})();
+	exports.InvoiceDetailsPage = InvoiceDetailsPage;
+
+
+/***/ },
+/* 588 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(6);
+	var account_details_1 = __webpack_require__(589);
+	/*
+	  Generated class for the AccountsPage page.
+
+	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+	  Ionic pages and navigation.
+	*/
+	var AccountsPage = (function () {
+	    function AccountsPage(nav) {
+	        this.nav = nav;
+	    }
+	    AccountsPage.prototype.itemTapped = function () { this.nav.push(account_details_1.AccountDetailsPage); };
+	    AccountsPage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/accounts/accounts.html',
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
+	    ], AccountsPage);
+	    return AccountsPage;
+	    var _a;
+	})();
+	exports.AccountsPage = AccountsPage;
+
+
+/***/ },
+/* 589 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(6);
+	/*
+	  Generated class for the AccountDetailsPage page.
+
+	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+	  Ionic pages and navigation.
+	*/
+	var AccountDetailsPage = (function () {
+	    function AccountDetailsPage(nav) {
+	        this.nav = nav;
+	    }
+	    AccountDetailsPage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/account-details/account-details.html',
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
+	    ], AccountDetailsPage);
+	    return AccountDetailsPage;
+	    var _a;
+	})();
+	exports.AccountDetailsPage = AccountDetailsPage;
+
+
+/***/ },
+/* 590 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(6);
+	var timelog_1 = __webpack_require__(591);
+	/*
+	  Generated class for the TimelogsPage page.
+
+	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+	  Ionic pages and navigation.
+	*/
+	var TimelogsPage = (function () {
+	    function TimelogsPage(nav) {
+	        this.nav = nav;
+	    }
+	    TimelogsPage.prototype.itemTapped = function () { this.nav.push(timelog_1.TimelogPage); };
+	    TimelogsPage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/timelogs/timelogs.html',
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
+	    ], TimelogsPage);
+	    return TimelogsPage;
+	    var _a;
+	})();
+	exports.TimelogsPage = TimelogsPage;
+
+
+/***/ },
+/* 591 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(6);
+	/*
+	  Generated class for the TimelogPage page.
+
+	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+	  Ionic pages and navigation.
+	*/
+	var TimelogPage = (function () {
+	    function TimelogPage(nav) {
+	        this.nav = nav;
+	    }
+	    TimelogPage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/timelog/timelog.html',
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
+	    ], TimelogPage);
+	    return TimelogPage;
+	    var _a;
+	})();
+	exports.TimelogPage = TimelogPage;
+
+
+/***/ },
+/* 592 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(6);
+	var api_data_1 = __webpack_require__(353);
+	var tickets_1 = __webpack_require__(584);
+	var queues_1 = __webpack_require__(583);
+	var account_details_1 = __webpack_require__(589);
+	/*
+	  Generated class for the DashboardPage page.
+
+	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+	  Ionic pages and navigation.
+	*/
+	var DashboardPage = (function () {
+	    function DashboardPage(nav, apiData) {
+	        var _this = this;
+	        this.nav = nav;
+	        this.posts = null;
+	        apiData.get().subscribe(function (data) { _this.posts = data.data.children; }, function (error) { console.log(error || 'Server error'); });
+	    }
+	    DashboardPage.prototype.itemTappedTL = function () { this.nav.push(tickets_1.TicketsPage); };
+	    DashboardPage.prototype.itemTappedQ = function () { this.nav.push(queues_1.QueuesPage); };
+	    DashboardPage.prototype.itemTappedAD = function () { this.nav.push(account_details_1.AccountDetailsPage); };
+	    DashboardPage.prototype.presentActionSheet = function () {
+	        var actionSheet = ionic_1.ActionSheet.create({
+	            title: '',
+	            buttons: [
+	                {
+	                    icon: 'create-outline',
+	                    text: 'Add Ticket',
+	                    handler: function () {
+	                        console.log('Destructive clicked');
+	                    }
+	                }, {
+	                    icon: 'md-time',
+	                    text: 'Add Time',
+	                    handler: function () {
+	                        console.log('Archive clicked');
+	                    }
+	                }, {
+	                    icon: 'card',
+	                    text: 'Add Invoice',
+	                    handler: function () {
+	                        console.log('Archive clicked');
+	                    }
+	                }, {
+	                    icon: 'calculator',
+	                    text: 'Add Expense',
+	                    handler: function () {
+	                        console.log('Archive clicked');
+	                    }
+	                }, {
+	                    icon: '',
+	                    text: 'Cancel',
+	                    style: 'cancel',
+	                    handler: function () {
+	                        console.log('Cancel clicked');
+	                    }
+	                }
+	            ]
+	        });
+	        this.nav.present(actionSheet);
+	    };
+	    DashboardPage.prototype.onPageWillLeave = function () {
+	        actionSheet && actionSheet.dismiss();
+	    };
+	    DashboardPage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/dashboard/dashboard.html',
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof api_data_1.ApiData !== 'undefined' && api_data_1.ApiData) === 'function' && _b) || Object])
+	    ], DashboardPage);
+	    return DashboardPage;
+	    var _a, _b;
+	})();
+	exports.DashboardPage = DashboardPage;
+
+
+/***/ },
+/* 593 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(6);
+	/*
+	  Generated class for the OrganizationsPage page.
+
+	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+	  Ionic pages and navigation.
+	*/
+	var OrganizationsPage = (function () {
+	    function OrganizationsPage(nav) {
+	        this.nav = nav;
+	    }
+	    OrganizationsPage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/organizations/organizations.html',
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
+	    ], OrganizationsPage);
+	    return OrganizationsPage;
+	    var _a;
+	})();
+	exports.OrganizationsPage = OrganizationsPage;
+
+
+/***/ },
+/* 594 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(6);
+	/*
+	  Generated class for the LoginPage page.
+
+	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+	  Ionic pages and navigation.
+	*/
+	var LoginPage = (function () {
+	    function LoginPage(nav) {
+	        this.nav = nav;
+	    }
+	    LoginPage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/login/login.html',
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
+	    ], LoginPage);
+	    return LoginPage;
+	    var _a;
+	})();
+	exports.LoginPage = LoginPage;
+
+
+/***/ },
+/* 595 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(6);
+	var ticket_details_1 = __webpack_require__(585);
+	var tickets_list_1 = __webpack_require__(596);
+	/*
+	  Generated class for the TabsPage page.
+
+	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+	  Ionic pages and navigation.
+	*/
+	var TabsPage = (function () {
+	    function TabsPage(nav) {
+	        this.nav = nav;
+	        this.tab1Root = tickets_list_1.TicketsListPage;
+	        this.tab2Root = ticket_details_1.TicketDetailsPage;
+	        this.tab3Root = tickets_list_1.TicketsListPage;
+	        this.tab4Root = ticket_details_1.TicketDetailsPage;
+	    }
+	    TabsPage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/tabs/tabs.html',
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
+	    ], TabsPage);
+	    return TabsPage;
+	    var _a;
+	})();
+	exports.TabsPage = TabsPage;
+
+
+/***/ },
+/* 596 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(6);
+	var ticket_details_1 = __webpack_require__(585);
+	var TicketsListPage = (function () {
+	    function TicketsListPage(nav, navParams) {
+	        this.nav = nav;
+	        // If we navigated to this page, we will have an item available as a nav param
+	        //this.selectedItem = navParams.get('item');
+	        this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
+	            'american-football', 'boat', 'bluetooth', 'build'];
+	        this.items = [];
+	        for (var i = 1; i < 11; i++) {
+	            this.items.push({
+	                title: 'Item ' + i,
+	                note: 'This is item #' + i,
+	                icon: this.icons[Math.floor(Math.random() * this.icons.length)]
+	            });
+	        }
+	    }
+	    TicketsListPage.prototype.itemTapped = function () { this.nav.push(ticket_details_1.TicketDetailsPage); };
+	    TicketsListPage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/tickets-list/tickets-list.html',
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof ionic_1.NavParams !== 'undefined' && ionic_1.NavParams) === 'function' && _b) || Object])
+	    ], TicketsListPage);
+	    return TicketsListPage;
+	    var _a, _b;
+	})();
+	exports.TicketsListPage = TicketsListPage;
+
 
 /***/ }
 /******/ ]);
