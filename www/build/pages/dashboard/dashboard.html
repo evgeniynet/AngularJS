@@ -12,9 +12,11 @@
 <ion-content class="dashboard">
     <ion-list>
         <ion-item *ngFor="#post of posts">
-            <img [src]="post.data.url" />
+            <h3>#{{post.number}} - {{post.subject}}</h3>
         </ion-item>
     </ion-list>
+    <!--tickets-list-component header="test1"></tickets-list-component-->
+    <!--predefined-card [card]=cardObject></ predefined-card-->
     <ion-list class="list" no-lines margin-top  (click)="itemTappedTL()">
         <div class="width51 left blue3">
     <ion-item class="mainStat itemTech">12</ion-item>

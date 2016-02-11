@@ -1,10 +1,8 @@
 import {Injectable} from 'angular2/core';
-import {Http, Headers, RequestOptions} from 'angular2/http';
+import {Http, Headers, RequestOptions, RequestMethod} from 'angular2/http';
 import {Observable} from 'rxjs/Observable';
-import {API_URL} from './config';
+import {ApiSite} from './config';
 import 'rxjs/Rx'
-
-let childURL = API_URL + 'r/gifs/new/.json?limit=3';
 
 @Injectable()
 export class ApiData {
@@ -13,13 +11,37 @@ export class ApiData {
     this.http = http;
   }
 
-  get() {
+    get(method, data, type) {
+    let userKey = localStorage.getItem("userKey"),
+        userOrgKey = localStorage.getItem('userOrgKey'),
+        userInstanceKey = localStorage.getItem('userInstanceKey');
+        userKey = "re36rym3mjqxm8ej2cscfajmxpsew33m";
+        userOrgKey = "zwoja4";
+        userInstanceKey = "ms2asm";
+        method = "tickets?limit=2"
+        data = {};
+        if (!userKey || !userOrgKey || !userInstanceKey || userKey.length != 32) {
+            console.log("Invalid organization!");
+            return;
+        }
+        if( !type ) type = 'GET';
     if (this.data) {
       // already loaded data
       //return Promise.resolve(this.data);
     }
 
-      return this.http.get(childURL)
+        let url = ApiSite + method;
+        let base64 = btoa(userOrgKey + '-' + userInstanceKey +':'+userKey);
+        var options = new RequestOptions({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + base64
+            }
+            method: RequestMethod.Get,
+            
+        });
+      return this.http.request(url, options)
           .map(res => this.processData(res.json()))
           .catch(this.handleError);
       

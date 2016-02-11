@@ -3222,9 +3222,9 @@
 	var timelogs_1 = __webpack_require__(590);
 	var tickets_1 = __webpack_require__(584);
 	var dashboard_1 = __webpack_require__(592);
-	var organizations_1 = __webpack_require__(593);
-	var login_1 = __webpack_require__(594);
-	var tabs_1 = __webpack_require__(595);
+	var organizations_1 = __webpack_require__(594);
+	var login_1 = __webpack_require__(595);
+	var tabs_1 = __webpack_require__(596);
 	var MyApp = (function () {
 	    function MyApp(app, platform, apiData) {
 	        // set up our app
@@ -61402,17 +61402,38 @@
 	var Observable_1 = __webpack_require__(58);
 	var config_1 = __webpack_require__(354);
 	__webpack_require__(355);
-	var childURL = config_1.API_URL + 'r/gifs/new/.json?limit=3';
 	var ApiData = (function () {
 	    function ApiData(http) {
 	        // inject the Http provider and set to this instance
 	        this.http = http;
 	    }
-	    ApiData.prototype.get = function () {
+	    ApiData.prototype.get = function (method, data, type) {
 	        var _this = this;
+	        var userKey = localStorage.getItem("userKey"), userOrgKey = localStorage.getItem('userOrgKey'), userInstanceKey = localStorage.getItem('userInstanceKey');
+	        userKey = "re36rym3mjqxm8ej2cscfajmxpsew33m";
+	        userOrgKey = "zwoja4";
+	        userInstanceKey = "ms2asm";
+	        method = "tickets?limit=2";
+	        data = {};
+	        if (!userKey || !userOrgKey || !userInstanceKey || userKey.length != 32) {
+	            console.log("Invalid organization!");
+	            return;
+	        }
+	        if (!type)
+	            type = 'GET';
 	        if (this.data) {
 	        }
-	        return this.http.get(childURL)
+	        var url = config_1.ApiSite + method;
+	        var base64 = btoa(userOrgKey + '-' + userInstanceKey + ':' + userKey);
+	        var options = new http_1.RequestOptions({
+	            headers: {
+	                'Accept': 'application/json',
+	                'Content-Type': 'application/json',
+	                'Authorization': 'Basic ' + base64
+	            },
+	            method: http_1.RequestMethod.Get,
+	        });
+	        return this.http.request(url, options)
 	            .map(function (res) { return _this.processData(res.json()); })
 	            .catch(this.handleError);
 	    };
@@ -61441,7 +61462,14 @@
 /* 354 */
 /***/ function(module, exports) {
 
-	exports.API_URL = "https://www.reddit.com/";
+	var Site = 'sherpadesk.com/';
+	exports.MobileSite = 'http://m.' + Site;
+	exports.AppSite = 'https://app.' + Site;
+	exports.ApiSite = 'http://api.' + Site;
+	exports.dontClearCache = false;
+	exports.isSD = true;
+	exports.year = "2015";
+	exports.appVersion = "40";
 
 
 /***/ },
@@ -70575,6 +70603,7 @@
 	};
 	var ionic_1 = __webpack_require__(6);
 	var api_data_1 = __webpack_require__(353);
+	var tickets_list_1 = __webpack_require__(593);
 	var tickets_1 = __webpack_require__(584);
 	var queues_1 = __webpack_require__(583);
 	var account_details_1 = __webpack_require__(589);
@@ -70589,7 +70618,7 @@
 	        var _this = this;
 	        this.nav = nav;
 	        this.posts = null;
-	        apiData.get().subscribe(function (data) { _this.posts = data.data.children; }, function (error) { console.log(error || 'Server error'); });
+	        apiData.get().subscribe(function (data) { _this.posts = data; }, function (error) { console.log(error || 'Server error'); });
 	    }
 	    DashboardPage.prototype.itemTappedTL = function () { this.nav.push(tickets_1.TicketsPage); };
 	    DashboardPage.prototype.itemTappedQ = function () { this.nav.push(queues_1.QueuesPage); };
@@ -70640,6 +70669,7 @@
 	    DashboardPage = __decorate([
 	        ionic_1.Page({
 	            templateUrl: 'build/pages/dashboard/dashboard.html',
+	            directives: [tickets_list_1.TicketsListComponent],
 	        }), 
 	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof api_data_1.ApiData !== 'undefined' && api_data_1.ApiData) === 'function' && _b) || Object])
 	    ], DashboardPage);
@@ -70651,6 +70681,44 @@
 
 /***/ },
 /* 593 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	//in case on using ionic "ion-card"
+	//import {IONIC_DIRECTIVES} from 'ionic/ionic';
+	var core_1 = __webpack_require__(8);
+	var TicketsListComponent = (function () {
+	    /*@Input()
+	    card : Card;*/
+	    function TicketsListComponent() {
+	        //this.header = "into";
+	    }
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', String)
+	    ], TicketsListComponent.prototype, "header", void 0);
+	    TicketsListComponent = __decorate([
+	        core_1.Component({
+	            selector: 'tickets-list-component',
+	            templateUrl: 'build/components/tickets-list.html',
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], TicketsListComponent);
+	    return TicketsListComponent;
+	})();
+	exports.TicketsListComponent = TicketsListComponent;
+
+
+/***/ },
+/* 594 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -70686,7 +70754,7 @@
 
 
 /***/ },
-/* 594 */
+/* 595 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -70722,7 +70790,7 @@
 
 
 /***/ },
-/* 595 */
+/* 596 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -70736,7 +70804,7 @@
 	};
 	var ionic_1 = __webpack_require__(6);
 	var ticket_details_1 = __webpack_require__(585);
-	var tickets_list_1 = __webpack_require__(596);
+	var tickets_list_1 = __webpack_require__(597);
 	/*
 	  Generated class for the TabsPage page.
 
@@ -70764,7 +70832,7 @@
 
 
 /***/ },
-/* 596 */
+/* 597 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
