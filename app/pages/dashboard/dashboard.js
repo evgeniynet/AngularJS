@@ -19,7 +19,7 @@ export class DashboardPage {
     constructor(nav: NavController, apiData: ApiData) {
     this.nav = nav;
     this.posts = null;
-        apiData.get().subscribe(data => {this.posts = data}, error => { console.log(error || 'Server error');});
+        apiData.getTicketsList().subscribe(data => {this.posts = data}, error => { console.log(error || 'Server error');}); 
   }
     
     itemTappedTL() {this.nav.push(TicketsPage);}

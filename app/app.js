@@ -27,9 +27,6 @@ class MyApp {
     this.app = app;
     this.platform = platform;
     this.initializeApp();
-    /*apiData.getChildren().then(child => {
-        console.log(child[0].data.url)
-    });*/
 
     // set our app's pages
     this.pages = [

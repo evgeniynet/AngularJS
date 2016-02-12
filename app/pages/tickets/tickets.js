@@ -3,6 +3,7 @@ import {TicketDetailsPage} from '../ticket-details/ticket-details';
 
 @Page({
   templateUrl: 'build/pages/tickets/tickets.html',
+    url: "/tickets",
 })
 export class TicketsPage {
   constructor(nav: NavController, navParams: NavParams) {
