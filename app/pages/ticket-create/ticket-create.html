@@ -8,14 +8,20 @@
   <ion-title>TicketCreate</ion-title>
 </ion-navbar>
 <ion-content padding class="ticket-create">
-    <ion-list class="list blue4" no-lines >
-    <button ion-item>Tech</button>
-    <button ion-item>bigWebApps</button>
-    <button ion-item>choose location</button>
-    <button ion-item>choose technician</button>
-    <button ion-item>choose a project</button>
-    <button ion-item>choose a class</button>
-        </ion-list>    
+     <ion-row class="list">
+     <ion-col class="blue4" width-90>
+    <button class="item-nocenter" ion-item item-left no-lines>Tech</button></ion-col>
+        <ion-col width-25 style="margin-top: -10px;"><button item-right secondary fab class="buttonTicket"><ion-icon class="button_circle2" name="md-add"></ion-icon></button></ion-col></ion-row>
+    <ion-row class="list">
+     <ion-col class="blue4"><button class="item-nocenter" ion-item width-90 no-lines>bigWebApps</button></ion-col></ion-row>
+    <ion-row class="list">
+     <ion-col class="blue4"><button class="item-nocenter" ion-item width-90 no-lines>choose location</button></ion-col></ion-row>
+    <ion-row class="list">
+     <ion-col class="blue4" width-90><button class="item-nocenter" ion-item item-left no-lines>choose technician</button></ion-col><ion-col width-25 style="margin-top: -10px;"><button item-right secondary fab class="buttonTicket"><ion-icon class="button_circle2" name="md-add"></ion-icon></button></ion-col></ion-row>
+    <ion-row class="list">
+     <ion-col class="blue4"><button class="item-nocenter" ion-item width-90 no-lines>choose a project</button></ion-col></ion-row>
+    <ion-row class="list">
+     <ion-col class="blue4"><button class="item-nocenter" ion-item width-90 no-lines>choose a class</button></ion-col></ion-row>
                 <br>
     <ion-card class="list">
   <ion-card-header>Subject</ion-card-header>

@@ -24,6 +24,8 @@ $colors: (
   primary:    #fff,
   secondary:  #42bd41,
     dark:       #489cd6,
+    light:      rgba(131,131,131,0.82),
+    danger:     #25b0e6,
   /*danger:     #f53d3d,
   light:      #f4f4f4,
   favorite:   #69BB7B*/
@@ -56,8 +58,7 @@ $item-ios-note-color: #aeacb4;
 $button-ios-border-radius: 3px;
 $checkbox-ios-icon-border-radius: 0px;
 $label-ios-text-color: $text-color;
-
-
+$segment-button-ios-border-radius: 0px;
 /*$background-color: #fff;
 $toolbar-background: #ffac30;
 $text-color: #000;

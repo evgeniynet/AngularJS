@@ -7,23 +7,42 @@
 <ion-navbar *navbar><button menuToggle><ion-icon name="menu"></ion-icon></button>
   <ion-title>TimelogCreate</ion-title>
 </ion-navbar>
-
 <ion-content padding class="timelog-create">
-    
     <ion-row class="list">
-    <ion-col width-33 class="blue4"><button class="width30" type="button"><ion-icon name="remove-outline"></ion-icon><i name="arrow-back-outline"></i></button></ion-col>
-    <ion-col width-33 class="blue4" center><button type="button">00</button></ion-col>
-    <ion-col width-33 class="blue4"><button><ion-icon name="ios-add"></ion-icon></button></ion-col>
+    <ion-col width-33 class="blue4">
+  <button class="width100" type="button"><ion-icon name="remove-outline"></ion-icon><i name="arrow-back-outline"></i></button>
+        </ion-col>
+    <ion-col width-33 class="blue3" center>
+ <button class="width100" type="button">00</button>
+        </ion-col>
+    <ion-col width-33 class="blue4">
+<button class="width100"><ion-icon name="ios-add">
+    </ion-icon></button>
+        </ion-col>
   </ion-row>
- 
     <ion-list class="list blue3" no-lines>
     <button block>Start Time</button>
     <button block>End Time</button>
         </ion-list>   
- <ion-list class="list blue4" no-lines >
-    <button ion-item>bigWebApps</button>
-    <button ion-item>choose a project</button>
-    <button ion-item>choose a task type</button>
+ <ion-list class="list blue4" no-lines>     
+     <ion-item class="blue4">
+      <ion-label>bigWebApps</ion-label>
+  <ion-select [(ngModel)]="toppings" multiple="true" cancelText="Nah" okText="Okay!">
+<ion-option value="Class1" checked="true"></ion-option>
+    </ion-select>
+</ion-item>
+     <ion-item class="blue4">
+     <ion-label>choose a project</ion-label>
+  <ion-select [(ngModel)]="toppings" multiple="true" cancelText="Nah" okText="Okay!">
+ <ion-option value="Class1" checked="true"></ion-option>
+    </ion-select>
+</ion-item>
+    <ion-item class="blue4">
+    <ion-label>choose a task type</ion-label>
+  <ion-select [(ngModel)]="toppings" multiple="true" cancelText="Nah" okText="Okay!">
+<ion-option value="Class1" checked="true"></ion-option>
+    </ion-select>
+</ion-item>
         </ion-list>    
                 <br>
        <ion-card class="list">
@@ -34,14 +53,10 @@
     <ion-label no-lines class="list">
           <i class="billable">
  <ion-icon class="ion-ios-radio-button-on"></ion-icon>
-          </i>
-        Billable
-      </ion-label>
-    
+          </i><p>Billable</p></ion-label>
     <ion-list no-lines>
         <div padding="">
       <button secondary block="" type="submit" class="disable-hover button button-default button-block">Update Time</button>
     </div>
     </ion-list>
-  
 </ion-content>
