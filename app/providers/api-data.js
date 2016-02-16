@@ -5,19 +5,6 @@ import {ApiSite} from './config';
 //import 'rxjs/Rx'
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-//import 'rxjs/add/operator/take';
-//import 'rxjs/add/operator/elementAt';
-
-String.prototype.addp = function(param, value) {
-    if (!value || !param)
-        return this;
-    var pos = this.indexOf(param + '=');
-    //if parameter exists
-    if (pos != -1)
-        return this.slice(0, pos + param.length) + '=' + value;
-    var ch = this.indexOf('?') > 0 ? '&' : '?';
-    return this + ch + param + '=' + value;
-};
 
 @Injectable()
 export class ApiData {
@@ -30,16 +17,6 @@ constructor(http: Http) {
     this.userKey = "re36rym3mjqxm8ej2cscfajmxpsew33m", //localStorage.getItem("userKey"),
         this.userOrgKey = "zwoja4", // localStorage.getItem('userOrgKey'),
         this.userInstanceKey = "ms2asm";// localStorage.getItem('userInstanceKey');
-}
-
-getTicketsList() {
-    let url = "tickets".addp("limit","3");
-    return this.get(url);
-}
-
-getQueueList(limit) {
-    let url = "queues".addp("sort_by","tickets_count");
-    return this.get(url).map((arr: Array<any>) => {arr.length = limit; return arr;});
 }
 
 request(method, data, type, headers) {

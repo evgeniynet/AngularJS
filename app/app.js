@@ -1,5 +1,6 @@
 import {App, IonicApp, Platform} from 'ionic/ionic';
 import {ApiData} from './providers/api-data';
+import {DataProvider} from './providers/data-provider';
 import {HelloIonicPage} from './pages/hello-ionic/hello-ionic';
 import {ListPage} from './pages/list/list';
 import {QueuesPage} from './pages/queues/queues';
@@ -15,7 +16,7 @@ import {TimelogCreatePage} from './pages/timelog-create/timelog-create';
 
 @App({
   templateUrl: 'build/app.html',
-    providers: [ApiData],
+    providers: [ApiData, DataProvider],
     config: {
     tabbarPlacement: 'top'
 }

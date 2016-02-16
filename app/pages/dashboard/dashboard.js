@@ -1,5 +1,5 @@
 import {Page, ActionSheet, NavController} from 'ionic/ionic';
-import {ApiData} from '../../providers/api-data';
+import {DataProvider} from '../../providers/data-provider';
 import {TicketsListComponent} from '../../components/tickets-list';
 import {TicketsPage} from '../tickets/tickets';
 import {QueuesPage} from '../queues/queues';
@@ -16,15 +16,14 @@ import {AccountDetailsPage} from '../account-details/account-details';
     directives: [TicketsListComponent],
 })
 export class DashboardPage {
-    constructor(nav: NavController, apiData: ApiData) {
+    constructor(nav: NavController, dataProvider: DataProvider) {
     this.nav = nav;
-    this.posts = null;
-        apiData.getTicketsList().subscribe(data => {this.posts = data}, error => { console.log(error || 'Server error');}); 
+    this.queues = null;
+        
+        dataProvider.getQueueList(3).subscribe(data => {this.queues = data}, error => { console.log(error || 'Server error');}); 
   }
     
     itemTappedTL() {this.nav.push(TicketsPage);}
-    
-    itemTappedQ() {this.nav.push(QueuesPage);}
     
     itemTappedAD() {this.nav.push(AccountDetailsPage);}
     

@@ -10,12 +10,7 @@
 </ion-navbar>
 
 <ion-content class="dashboard">
-    <ion-list>
-        <ion-item *ngFor="#post of posts">
-            <h3>#{{post.number}} - {{post.subject}}</h3>
-        </ion-item>
-    </ion-list>
-    <!--tickets-list-component header="test1"></tickets-list-component-->
+
     <!--predefined-card [card]=cardObject></ predefined-card-->
     <ion-list class="list" no-lines margin-top  (click)="itemTappedTL()">
         <div class="width51 left blue3">
@@ -34,15 +29,8 @@
          </div>
         <br>
          </ion-list>
-    <ion-list class="list" no-lines  (click)="itemTappedQ()">
-        <div class="blue1 left width75" style="margin-bottom: 60px;">
-   <ion-item>New Ticket</ion-item>
-        <br>
-          </div> 
-        <div class="blue2 right width25">
-           <ion-item>1</ion-item>
-                </div>
-</ion-list>
+    
+    <tickets-list-component [queues]="queues"></tickets-list-component>
     
     <ion-item no-lines>
         <div class="width35 left">

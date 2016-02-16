@@ -3215,16 +3215,17 @@
 	};
 	var ionic_1 = __webpack_require__(6);
 	var api_data_1 = __webpack_require__(353);
-	var hello_ionic_1 = __webpack_require__(582);
-	var queues_1 = __webpack_require__(583);
-	var invoices_1 = __webpack_require__(586);
-	var accounts_1 = __webpack_require__(588);
-	var timelogs_1 = __webpack_require__(590);
-	var tickets_1 = __webpack_require__(584);
-	var dashboard_1 = __webpack_require__(592);
-	var organizations_1 = __webpack_require__(594);
-	var login_1 = __webpack_require__(595);
-	var tabs_1 = __webpack_require__(596);
+	var data_provider_1 = __webpack_require__(361);
+	var hello_ionic_1 = __webpack_require__(362);
+	var queues_1 = __webpack_require__(363);
+	var invoices_1 = __webpack_require__(366);
+	var accounts_1 = __webpack_require__(368);
+	var timelogs_1 = __webpack_require__(370);
+	var tickets_1 = __webpack_require__(364);
+	var dashboard_1 = __webpack_require__(372);
+	var organizations_1 = __webpack_require__(374);
+	var login_1 = __webpack_require__(375);
+	var tabs_1 = __webpack_require__(376);
 	var MyApp = (function () {
 	    function MyApp(app, platform, apiData) {
 	        // set up our app
@@ -3280,7 +3281,7 @@
 	    MyApp = __decorate([
 	        ionic_1.App({
 	            templateUrl: 'build/app.html',
-	            providers: [api_data_1.ApiData],
+	            providers: [api_data_1.ApiData, data_provider_1.DataProvider],
 	            config: {
 	                tabbarPlacement: 'top'
 	            }
@@ -61399,20 +61400,8 @@
 	var Observable_1 = __webpack_require__(58);
 	var config_1 = __webpack_require__(354);
 	//import 'rxjs/Rx'
-	__webpack_require__(479);
-	__webpack_require__(425);
-	//import 'rxjs/add/operator/take';
-	//import 'rxjs/add/operator/elementAt';
-	String.prototype.addp = function (param, value) {
-	    if (!value || !param)
-	        return this;
-	    var pos = this.indexOf(param + '=');
-	    //if parameter exists
-	    if (pos != -1)
-	        return this.slice(0, pos + param.length) + '=' + value;
-	    var ch = this.indexOf('?') > 0 ? '&' : '?';
-	    return this + ch + param + '=' + value;
-	};
+	__webpack_require__(355);
+	__webpack_require__(359);
 	var ApiData = (function () {
 	    function ApiData(http) {
 	        // inject the Http provider and set to this instance
@@ -61421,14 +61410,6 @@
 	            this.userOrgKey = "zwoja4",
 	            this.userInstanceKey = "ms2asm"; // localStorage.getItem('userInstanceKey');
 	    }
-	    ApiData.prototype.getTicketsList = function () {
-	        var url = "tickets".addp("limit", "6");
-	        return this.get(url).map(function (arr) { arr.length = 2; return arr; });
-	    };
-	    ApiData.prototype.getQueueList = function (limit) {
-	        var url = "queues".addp("sort_by", "tickets_count");
-	        return this.get(url);
-	    };
 	    ApiData.prototype.request = function (method, data, type, headers) {
 	        var req = new http_1.Request({
 	            method: type || 'GET',
@@ -61486,15 +61467,77 @@
 
 
 /***/ },
-/* 355 */,
-/* 356 */,
-/* 357 */,
-/* 358 */,
-/* 359 */,
-/* 360 */
+/* 355 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var errorObject_1 = __webpack_require__(361);
+	var Observable_1 = __webpack_require__(58);
+	var map_1 = __webpack_require__(356);
+	Observable_1.Observable.prototype.map = map_1.map;
+	//# sourceMappingURL=map.js.map
+
+/***/ },
+/* 356 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var Subscriber_1 = __webpack_require__(59);
+	var tryCatch_1 = __webpack_require__(357);
+	var errorObject_1 = __webpack_require__(358);
+	/**
+	 * Similar to the well known `Array.prototype.map` function, this operator
+	 * applies a projection to each value and emits that projection in the returned observable
+	 *
+	 * @param {Function} project the function to create projection
+	 * @param {any} [thisArg] an optional argument to define what `this` is in the project function
+	 * @returns {Observable} a observable of projected values
+	 */
+	function map(project, thisArg) {
+	    if (typeof project !== 'function') {
+	        throw new TypeError('argument is not a function. Are you looking for `mapTo()`?');
+	    }
+	    return this.lift(new MapOperator(project, thisArg));
+	}
+	exports.map = map;
+	var MapOperator = (function () {
+	    function MapOperator(project, thisArg) {
+	        this.project = project;
+	        this.thisArg = thisArg;
+	    }
+	    MapOperator.prototype.call = function (subscriber) {
+	        return new MapSubscriber(subscriber, this.project, this.thisArg);
+	    };
+	    return MapOperator;
+	})();
+	var MapSubscriber = (function (_super) {
+	    __extends(MapSubscriber, _super);
+	    function MapSubscriber(destination, project, thisArg) {
+	        _super.call(this, destination);
+	        this.project = project;
+	        this.thisArg = thisArg;
+	        this.count = 0;
+	    }
+	    MapSubscriber.prototype._next = function (x) {
+	        var result = tryCatch_1.tryCatch(this.project).call(this.thisArg || this, x, this.count++);
+	        if (result === errorObject_1.errorObject) {
+	            this.error(errorObject_1.errorObject.e);
+	        }
+	        else {
+	            this.destination.next(result);
+	        }
+	    };
+	    return MapSubscriber;
+	})(Subscriber_1.Subscriber);
+	//# sourceMappingURL=map.js.map
+
+/***/ },
+/* 357 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var errorObject_1 = __webpack_require__(358);
 	var tryCatchTarget;
 	function tryCatcher() {
 	    try {
@@ -61514,86 +61557,23 @@
 	//# sourceMappingURL=tryCatch.js.map
 
 /***/ },
-/* 361 */
+/* 358 */
 /***/ function(module, exports) {
 
 	exports.errorObject = { e: {} };
 	//# sourceMappingURL=errorObject.js.map
 
 /***/ },
-/* 362 */,
-/* 363 */,
-/* 364 */,
-/* 365 */,
-/* 366 */,
-/* 367 */,
-/* 368 */,
-/* 369 */,
-/* 370 */,
-/* 371 */,
-/* 372 */,
-/* 373 */,
-/* 374 */,
-/* 375 */,
-/* 376 */,
-/* 377 */,
-/* 378 */,
-/* 379 */,
-/* 380 */,
-/* 381 */,
-/* 382 */,
-/* 383 */,
-/* 384 */,
-/* 385 */,
-/* 386 */,
-/* 387 */,
-/* 388 */,
-/* 389 */,
-/* 390 */,
-/* 391 */,
-/* 392 */,
-/* 393 */,
-/* 394 */,
-/* 395 */,
-/* 396 */,
-/* 397 */,
-/* 398 */,
-/* 399 */,
-/* 400 */,
-/* 401 */,
-/* 402 */,
-/* 403 */,
-/* 404 */,
-/* 405 */,
-/* 406 */,
-/* 407 */,
-/* 408 */,
-/* 409 */,
-/* 410 */,
-/* 411 */,
-/* 412 */,
-/* 413 */,
-/* 414 */,
-/* 415 */,
-/* 416 */,
-/* 417 */,
-/* 418 */,
-/* 419 */,
-/* 420 */,
-/* 421 */,
-/* 422 */,
-/* 423 */,
-/* 424 */,
-/* 425 */
+/* 359 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var catch_1 = __webpack_require__(426);
+	var catch_1 = __webpack_require__(360);
 	Observable_1.Observable.prototype.catch = catch_1._catch;
 	//# sourceMappingURL=catch.js.map
 
 /***/ },
-/* 426 */
+/* 360 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -61602,8 +61582,8 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var Subscriber_1 = __webpack_require__(59);
-	var tryCatch_1 = __webpack_require__(360);
-	var errorObject_1 = __webpack_require__(361);
+	var tryCatch_1 = __webpack_require__(357);
+	var errorObject_1 = __webpack_require__(358);
 	/**
 	 * Catches errors on the observable to be handled by returning a new observable or throwing an error.
 	 * @param {function} selector a function that takes as arguments `err`, which is the error, and `caught`, which
@@ -61663,227 +61643,60 @@
 	//# sourceMappingURL=catch.js.map
 
 /***/ },
-/* 427 */,
-/* 428 */,
-/* 429 */,
-/* 430 */,
-/* 431 */,
-/* 432 */,
-/* 433 */,
-/* 434 */,
-/* 435 */,
-/* 436 */,
-/* 437 */,
-/* 438 */,
-/* 439 */,
-/* 440 */,
-/* 441 */,
-/* 442 */,
-/* 443 */,
-/* 444 */,
-/* 445 */,
-/* 446 */,
-/* 447 */,
-/* 448 */,
-/* 449 */,
-/* 450 */,
-/* 451 */,
-/* 452 */,
-/* 453 */,
-/* 454 */,
-/* 455 */,
-/* 456 */,
-/* 457 */,
-/* 458 */,
-/* 459 */,
-/* 460 */,
-/* 461 */,
-/* 462 */,
-/* 463 */,
-/* 464 */,
-/* 465 */,
-/* 466 */,
-/* 467 */,
-/* 468 */,
-/* 469 */,
-/* 470 */,
-/* 471 */,
-/* 472 */,
-/* 473 */,
-/* 474 */,
-/* 475 */,
-/* 476 */,
-/* 477 */,
-/* 478 */,
-/* 479 */
+/* 361 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Observable_1 = __webpack_require__(58);
-	var map_1 = __webpack_require__(480);
-	Observable_1.Observable.prototype.map = map_1.map;
-	//# sourceMappingURL=map.js.map
-
-/***/ },
-/* 480 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
 	};
-	var Subscriber_1 = __webpack_require__(59);
-	var tryCatch_1 = __webpack_require__(360);
-	var errorObject_1 = __webpack_require__(361);
-	/**
-	 * Similar to the well known `Array.prototype.map` function, this operator
-	 * applies a projection to each value and emits that projection in the returned observable
-	 *
-	 * @param {Function} project the function to create projection
-	 * @param {any} [thisArg] an optional argument to define what `this` is in the project function
-	 * @returns {Observable} a observable of projected values
-	 */
-	function map(project, thisArg) {
-	    if (typeof project !== 'function') {
-	        throw new TypeError('argument is not a function. Are you looking for `mapTo()`?');
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(8);
+	var api_data_1 = __webpack_require__(353);
+	__webpack_require__(355);
+	String.prototype.addp = function (param, value) {
+	    if (!value || !param)
+	        return this;
+	    var pos = this.indexOf(param + '=');
+	    //if parameter exists
+	    if (pos != -1)
+	        return this.slice(0, pos + param.length) + '=' + value;
+	    var ch = this.indexOf('?') > 0 ? '&' : '?';
+	    return this + ch + param + '=' + value;
+	};
+	var DataProvider = (function () {
+	    function DataProvider(apiData) {
+	        // inject the Http provider and set to this instance
+	        this.apiData = apiData;
 	    }
-	    return this.lift(new MapOperator(project, thisArg));
-	}
-	exports.map = map;
-	var MapOperator = (function () {
-	    function MapOperator(project, thisArg) {
-	        this.project = project;
-	        this.thisArg = thisArg;
-	    }
-	    MapOperator.prototype.call = function (subscriber) {
-	        return new MapSubscriber(subscriber, this.project, this.thisArg);
+	    DataProvider.prototype.getTicketsList = function () {
+	        var url = "tickets".addp("limit", "3");
+	        return this.apiData.get(url);
 	    };
-	    return MapOperator;
+	    DataProvider.prototype.getQueueList = function (limit) {
+	        var url = "queues".addp("sort_by", "tickets_count");
+	        return this.apiData.get(url).map(function (arr) {
+	            if (arr.length && limit)
+	                arr.length = limit;
+	            return arr;
+	        });
+	    };
+	    DataProvider = __decorate([
+	        core_1.Injectable(), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof api_data_1.ApiData !== 'undefined' && api_data_1.ApiData) === 'function' && _a) || Object])
+	    ], DataProvider);
+	    return DataProvider;
+	    var _a;
 	})();
-	var MapSubscriber = (function (_super) {
-	    __extends(MapSubscriber, _super);
-	    function MapSubscriber(destination, project, thisArg) {
-	        _super.call(this, destination);
-	        this.project = project;
-	        this.thisArg = thisArg;
-	        this.count = 0;
-	    }
-	    MapSubscriber.prototype._next = function (x) {
-	        var result = tryCatch_1.tryCatch(this.project).call(this.thisArg || this, x, this.count++);
-	        if (result === errorObject_1.errorObject) {
-	            this.error(errorObject_1.errorObject.e);
-	        }
-	        else {
-	            this.destination.next(result);
-	        }
-	    };
-	    return MapSubscriber;
-	})(Subscriber_1.Subscriber);
-	//# sourceMappingURL=map.js.map
+	exports.DataProvider = DataProvider;
+
 
 /***/ },
-/* 481 */,
-/* 482 */,
-/* 483 */,
-/* 484 */,
-/* 485 */,
-/* 486 */,
-/* 487 */,
-/* 488 */,
-/* 489 */,
-/* 490 */,
-/* 491 */,
-/* 492 */,
-/* 493 */,
-/* 494 */,
-/* 495 */,
-/* 496 */,
-/* 497 */,
-/* 498 */,
-/* 499 */,
-/* 500 */,
-/* 501 */,
-/* 502 */,
-/* 503 */,
-/* 504 */,
-/* 505 */,
-/* 506 */,
-/* 507 */,
-/* 508 */,
-/* 509 */,
-/* 510 */,
-/* 511 */,
-/* 512 */,
-/* 513 */,
-/* 514 */,
-/* 515 */,
-/* 516 */,
-/* 517 */,
-/* 518 */,
-/* 519 */,
-/* 520 */,
-/* 521 */,
-/* 522 */,
-/* 523 */,
-/* 524 */,
-/* 525 */,
-/* 526 */,
-/* 527 */,
-/* 528 */,
-/* 529 */,
-/* 530 */,
-/* 531 */,
-/* 532 */,
-/* 533 */,
-/* 534 */,
-/* 535 */,
-/* 536 */,
-/* 537 */,
-/* 538 */,
-/* 539 */,
-/* 540 */,
-/* 541 */,
-/* 542 */,
-/* 543 */,
-/* 544 */,
-/* 545 */,
-/* 546 */,
-/* 547 */,
-/* 548 */,
-/* 549 */,
-/* 550 */,
-/* 551 */,
-/* 552 */,
-/* 553 */,
-/* 554 */,
-/* 555 */,
-/* 556 */,
-/* 557 */,
-/* 558 */,
-/* 559 */,
-/* 560 */,
-/* 561 */,
-/* 562 */,
-/* 563 */,
-/* 564 */,
-/* 565 */,
-/* 566 */,
-/* 567 */,
-/* 568 */,
-/* 569 */,
-/* 570 */,
-/* 571 */,
-/* 572 */,
-/* 573 */,
-/* 574 */,
-/* 575 */,
-/* 576 */,
-/* 577 */,
-/* 578 */,
-/* 579 */,
-/* 580 */,
-/* 581 */,
-/* 582 */
+/* 362 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61913,7 +61726,7 @@
 
 
 /***/ },
-/* 583 */
+/* 363 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61926,7 +61739,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	var tickets_1 = __webpack_require__(584);
+	var tickets_1 = __webpack_require__(364);
 	/*
 	  Generated class for the QueuesPage page.
 
@@ -61951,7 +61764,7 @@
 
 
 /***/ },
-/* 584 */
+/* 364 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61964,7 +61777,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	var ticket_details_1 = __webpack_require__(585);
+	var ticket_details_1 = __webpack_require__(365);
 	var TicketsPage = (function () {
 	    function TicketsPage(nav, navParams) {
 	        this.nav = nav;
@@ -61996,7 +61809,7 @@
 
 
 /***/ },
-/* 585 */
+/* 365 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62035,7 +61848,7 @@
 
 
 /***/ },
-/* 586 */
+/* 366 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62048,7 +61861,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	var invoice_details_1 = __webpack_require__(587);
+	var invoice_details_1 = __webpack_require__(367);
 	/*
 	  Generated class for the InvoicesPage page.
 
@@ -62073,7 +61886,7 @@
 
 
 /***/ },
-/* 587 */
+/* 367 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62109,7 +61922,7 @@
 
 
 /***/ },
-/* 588 */
+/* 368 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62122,7 +61935,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	var account_details_1 = __webpack_require__(589);
+	var account_details_1 = __webpack_require__(369);
 	/*
 	  Generated class for the AccountsPage page.
 
@@ -62147,7 +61960,7 @@
 
 
 /***/ },
-/* 589 */
+/* 369 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62183,7 +61996,7 @@
 
 
 /***/ },
-/* 590 */
+/* 370 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62196,7 +62009,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	var timelog_1 = __webpack_require__(591);
+	var timelog_1 = __webpack_require__(371);
 	/*
 	  Generated class for the TimelogsPage page.
 
@@ -62221,7 +62034,7 @@
 
 
 /***/ },
-/* 591 */
+/* 371 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62257,7 +62070,7 @@
 
 
 /***/ },
-/* 592 */
+/* 372 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62270,11 +62083,10 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	var api_data_1 = __webpack_require__(353);
-	var tickets_list_1 = __webpack_require__(593);
-	var tickets_1 = __webpack_require__(584);
-	var queues_1 = __webpack_require__(583);
-	var account_details_1 = __webpack_require__(589);
+	var data_provider_1 = __webpack_require__(361);
+	var tickets_list_1 = __webpack_require__(373);
+	var tickets_1 = __webpack_require__(364);
+	var account_details_1 = __webpack_require__(369);
 	/*
 	  Generated class for the DashboardPage page.
 
@@ -62282,14 +62094,13 @@
 	  Ionic pages and navigation.
 	*/
 	var DashboardPage = (function () {
-	    function DashboardPage(nav, apiData) {
+	    function DashboardPage(nav, dataProvider) {
 	        var _this = this;
 	        this.nav = nav;
-	        this.posts = null;
-	        apiData.getTicketsList().subscribe(function (data) { _this.posts = data; }, function (error) { console.log(error || 'Server error'); });
+	        this.queues = null;
+	        dataProvider.getQueueList(3).subscribe(function (data) { _this.queues = data; }, function (error) { console.log(error || 'Server error'); });
 	    }
 	    DashboardPage.prototype.itemTappedTL = function () { this.nav.push(tickets_1.TicketsPage); };
-	    DashboardPage.prototype.itemTappedQ = function () { this.nav.push(queues_1.QueuesPage); };
 	    DashboardPage.prototype.itemTappedAD = function () { this.nav.push(account_details_1.AccountDetailsPage); };
 	    DashboardPage.prototype.presentActionSheet = function () {
 	        var actionSheet = ionic_1.ActionSheet.create({
@@ -62339,7 +62150,7 @@
 	            templateUrl: 'build/pages/dashboard/dashboard.html',
 	            directives: [tickets_list_1.TicketsListComponent],
 	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof api_data_1.ApiData !== 'undefined' && api_data_1.ApiData) === 'function' && _b) || Object])
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof data_provider_1.DataProvider !== 'undefined' && data_provider_1.DataProvider) === 'function' && _b) || Object])
 	    ], DashboardPage);
 	    return DashboardPage;
 	    var _a, _b;
@@ -62348,7 +62159,7 @@
 
 
 /***/ },
-/* 593 */
+/* 373 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62361,32 +62172,37 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	//in case on using ionic "ion-card"
-	//import {IONIC_DIRECTIVES} from 'ionic/ionic';
+	var ionic_1 = __webpack_require__(6);
 	var core_1 = __webpack_require__(8);
+	var queues_1 = __webpack_require__(363);
 	var TicketsListComponent = (function () {
 	    /*@Input()
 	    card : Card;*/
-	    function TicketsListComponent() {
+	    function TicketsListComponent(nav) {
+	        this.nav = nav;
 	        //this.header = "into";
 	    }
+	    TicketsListComponent.prototype.itemTappedQ = function () { this.nav.push(queues_1.QueuesPage); };
 	    __decorate([
 	        core_1.Input(), 
-	        __metadata('design:type', String)
-	    ], TicketsListComponent.prototype, "header", void 0);
+	        __metadata('design:type', Array)
+	    ], TicketsListComponent.prototype, "queues", void 0);
 	    TicketsListComponent = __decorate([
 	        core_1.Component({
 	            selector: 'tickets-list-component',
 	            templateUrl: 'build/components/tickets-list.html',
+	            directives: [ionic_1.IONIC_DIRECTIVES]
 	        }), 
-	        __metadata('design:paramtypes', [])
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
 	    ], TicketsListComponent);
 	    return TicketsListComponent;
+	    var _a;
 	})();
 	exports.TicketsListComponent = TicketsListComponent;
 
 
 /***/ },
-/* 594 */
+/* 374 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62422,7 +62238,7 @@
 
 
 /***/ },
-/* 595 */
+/* 375 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62458,7 +62274,7 @@
 
 
 /***/ },
-/* 596 */
+/* 376 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62471,8 +62287,8 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	var ticket_details_1 = __webpack_require__(585);
-	var tickets_list_1 = __webpack_require__(597);
+	var ticket_details_1 = __webpack_require__(365);
+	var tickets_list_1 = __webpack_require__(377);
 	/*
 	  Generated class for the TabsPage page.
 
@@ -62500,7 +62316,7 @@
 
 
 /***/ },
-/* 597 */
+/* 377 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62513,7 +62329,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	var ticket_details_1 = __webpack_require__(585);
+	var ticket_details_1 = __webpack_require__(365);
 	var TicketsListPage = (function () {
 	    function TicketsListPage(nav, navParams) {
 	        this.nav = nav;
