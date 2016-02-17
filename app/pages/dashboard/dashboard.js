@@ -2,8 +2,8 @@ import {Page, ActionSheet, NavController} from 'ionic/ionic';
 import {DataProvider} from '../../providers/data-provider';
 import {TicketsListComponent} from '../../components/tickets-list';
 import {TicketsPage} from '../tickets/tickets';
-import {QueuesPage} from '../queues/queues';
 import {AccountDetailsPage} from '../account-details/account-details';
+import {MorePipe} from '../../pipes/more';
 
 /*
   Generated class for the DashboardPage page.
@@ -14,13 +14,32 @@ import {AccountDetailsPage} from '../account-details/account-details';
 @Page({
   templateUrl: 'build/pages/dashboard/dashboard.html',
     directives: [TicketsListComponent],
+    pipes: [MorePipe],
 })
 export class DashboardPage {
     constructor(nav: NavController, dataProvider: DataProvider) {
     this.nav = nav;
     this.queues = null;
+    this.accounts = null;
+    this.counts = {};
         
-        dataProvider.getQueueList(3).subscribe(data => {this.queues = data}, error => { console.log(error || 'Server error');}); 
+        dataProvider.getQueueList(3).subscribe(
+            data => {this.queues = data}, 
+            error => { 
+                console.log(error || 'Server error');}
+        ); 
+        
+        dataProvider.getAccountList(true).subscribe(
+            data => {this.accounts = data}, 
+            error => { 
+                console.log(error || 'Server error');}
+        ); 
+        
+        dataProvider.getTicketsCounts().subscribe(
+            data => {this.counts = data}, 
+            error => { 
+                console.log(error || 'Server error');}
+        ); 
   }
     
     itemTappedTL() {this.nav.push(TicketsPage);}

@@ -3215,17 +3215,17 @@
 	};
 	var ionic_1 = __webpack_require__(6);
 	var api_data_1 = __webpack_require__(353);
-	var data_provider_1 = __webpack_require__(361);
-	var hello_ionic_1 = __webpack_require__(362);
-	var queues_1 = __webpack_require__(363);
-	var invoices_1 = __webpack_require__(366);
-	var accounts_1 = __webpack_require__(368);
-	var timelogs_1 = __webpack_require__(370);
-	var tickets_1 = __webpack_require__(364);
-	var dashboard_1 = __webpack_require__(372);
-	var organizations_1 = __webpack_require__(374);
-	var login_1 = __webpack_require__(375);
-	var tabs_1 = __webpack_require__(376);
+	var data_provider_1 = __webpack_require__(362);
+	var hello_ionic_1 = __webpack_require__(363);
+	var queues_1 = __webpack_require__(364);
+	var invoices_1 = __webpack_require__(367);
+	var accounts_1 = __webpack_require__(369);
+	var timelogs_1 = __webpack_require__(371);
+	var tickets_1 = __webpack_require__(365);
+	var dashboard_1 = __webpack_require__(373);
+	var organizations_1 = __webpack_require__(376);
+	var login_1 = __webpack_require__(377);
+	var tabs_1 = __webpack_require__(378);
 	var MyApp = (function () {
 	    function MyApp(app, platform, apiData) {
 	        // set up our app
@@ -61399,11 +61399,13 @@
 	var http_1 = __webpack_require__(144);
 	var Observable_1 = __webpack_require__(58);
 	var config_1 = __webpack_require__(354);
+	var mocks_1 = __webpack_require__(355);
 	//import 'rxjs/Rx'
-	__webpack_require__(355);
-	__webpack_require__(359);
+	__webpack_require__(356);
+	__webpack_require__(360);
 	var ApiData = (function () {
 	    function ApiData(http) {
+	        this.mock = true;
 	        // inject the Http provider and set to this instance
 	        this.http = http;
 	        this.userKey = "re36rym3mjqxm8ej2cscfajmxpsew33m",
@@ -61421,7 +61423,23 @@
 	            .map(function (res) { return res.json(); })
 	            .catch(this.handleError);
 	    };
+	    ApiData.prototype.mock_get = function (method) {
+	        var arr = null;
+	        if (method.indexOf('accounts') != -1)
+	            arr = mocks_1.MOCK_ACCOUNTS;
+	        else if (method.indexOf('counts') != -1)
+	            arr = mocks_1.MOCK_COUNTS;
+	        else if (method.indexOf('queues') != -1)
+	            arr = mocks_1.MOCK_QUEUES;
+	        return Observable_1.Observable.create(function (observer) {
+	            observer.next(arr);
+	            observer.complete();
+	        });
+	    };
 	    ApiData.prototype.get = function (method, data, type) {
+	        if (this.mock) {
+	            return this.mock_get(method);
+	        }
 	        if (!this.userKey || !this.userOrgKey || !this.userInstanceKey || this.userKey.length != 32) {
 	            console.log("Invalid organization!");
 	            return;
@@ -61468,15 +61486,88 @@
 
 /***/ },
 /* 355 */
+/***/ function(module, exports) {
+
+	exports.MOCK_COUNTS = { new_messages: 1, open_all: 284, open_as_tech: 10, open_as_alttech: 2, open_as_user: 1001, onhold: 3, reminder: 0, parts_on_order: 0, unconfirmed: 45, waiting: 2 };
+	exports.MOCK_ACCOUNTS = [
+	    {
+	        "id": -1,
+	        "name": "SherpaDesk Support",
+	        "account_statistics": {
+	            "ticket_counts": {
+	                "open": 133,
+	                "closed": 2025,
+	                "hours": 27132,
+	                "total_invoiced_amount": 0,
+	                "total_non_invoiced_amount": 548,
+	                "total_billed_amount": 36992,
+	                "total_unbilled_amount": 0,
+	                "scheduled": 0,
+	                "followups": 0
+	            },
+	            "timelogs": 0,
+	            "invoices": 0,
+	            "hours": 27132,
+	            "expenses": 22
+	        }
+	    },
+	    {
+	        "id": 574,
+	        "name": "ACLU",
+	        "account_statistics": {
+	            "ticket_counts": {
+	                "open": 1,
+	                "closed": 45,
+	                "hours": 10,
+	                "total_invoiced_amount": 0,
+	                "total_non_invoiced_amount": 0,
+	                "total_billed_amount": 0,
+	                "total_unbilled_amount": 0,
+	                "scheduled": 0,
+	                "followups": 0
+	            },
+	            "timelogs": 0,
+	            "invoices": 0,
+	            "hours": 10,
+	            "expenses": 0
+	        }
+	    },
+	    {
+	        "id": 7744,
+	        "name": "Aiken County Schools",
+	        "account_statistics": {
+	            "ticket_counts": {
+	                "open": 0,
+	                "closed": 3,
+	                "hours": 6,
+	                "total_invoiced_amount": 0,
+	                "total_non_invoiced_amount": 0,
+	                "total_billed_amount": 0,
+	                "total_unbilled_amount": 0,
+	                "scheduled": 0,
+	                "followups": 0
+	            },
+	            "timelogs": 0,
+	            "invoices": 0,
+	            "hours": 6,
+	            "expenses": 0
+	        }
+	    }
+	];
+	exports.MOCK_QUEUES = [{ "id": "27", "fullname": "Pre-Development", "tickets_count": 98 }, { "id": "271", "fullname": "Future Consideration", "tickets_count": 76 }, { "id": "269", "fullname": "Website", "tickets_count": 2 }, { "id": "5", "fullname": "New Ticket", "tickets_count": 1 }, { "id": "272", "fullname": "Mobile App", "tickets_count": 0 }];
+
+
+/***/ },
+/* 356 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var map_1 = __webpack_require__(356);
+	var map_1 = __webpack_require__(357);
 	Observable_1.Observable.prototype.map = map_1.map;
 	//# sourceMappingURL=map.js.map
 
 /***/ },
-/* 356 */
+/* 357 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -61485,8 +61576,8 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var Subscriber_1 = __webpack_require__(59);
-	var tryCatch_1 = __webpack_require__(357);
-	var errorObject_1 = __webpack_require__(358);
+	var tryCatch_1 = __webpack_require__(358);
+	var errorObject_1 = __webpack_require__(359);
 	/**
 	 * Similar to the well known `Array.prototype.map` function, this operator
 	 * applies a projection to each value and emits that projection in the returned observable
@@ -61534,10 +61625,10 @@
 	//# sourceMappingURL=map.js.map
 
 /***/ },
-/* 357 */
+/* 358 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var errorObject_1 = __webpack_require__(358);
+	var errorObject_1 = __webpack_require__(359);
 	var tryCatchTarget;
 	function tryCatcher() {
 	    try {
@@ -61557,23 +61648,23 @@
 	//# sourceMappingURL=tryCatch.js.map
 
 /***/ },
-/* 358 */
+/* 359 */
 /***/ function(module, exports) {
 
 	exports.errorObject = { e: {} };
 	//# sourceMappingURL=errorObject.js.map
 
 /***/ },
-/* 359 */
+/* 360 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Observable_1 = __webpack_require__(58);
-	var catch_1 = __webpack_require__(360);
+	var catch_1 = __webpack_require__(361);
 	Observable_1.Observable.prototype.catch = catch_1._catch;
 	//# sourceMappingURL=catch.js.map
 
 /***/ },
-/* 360 */
+/* 361 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -61582,8 +61673,8 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var Subscriber_1 = __webpack_require__(59);
-	var tryCatch_1 = __webpack_require__(357);
-	var errorObject_1 = __webpack_require__(358);
+	var tryCatch_1 = __webpack_require__(358);
+	var errorObject_1 = __webpack_require__(359);
 	/**
 	 * Catches errors on the observable to be handled by returning a new observable or throwing an error.
 	 * @param {function} selector a function that takes as arguments `err`, which is the error, and `caught`, which
@@ -61643,7 +61734,7 @@
 	//# sourceMappingURL=catch.js.map
 
 /***/ },
-/* 361 */
+/* 362 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61657,7 +61748,7 @@
 	};
 	var core_1 = __webpack_require__(8);
 	var api_data_1 = __webpack_require__(353);
-	__webpack_require__(355);
+	__webpack_require__(356);
 	String.prototype.addp = function (param, value) {
 	    if (!value || !param)
 	        return this;
@@ -61674,15 +61765,34 @@
 	        this.apiData = apiData;
 	    }
 	    DataProvider.prototype.getTicketsList = function () {
-	        var url = "tickets".addp("limit", "3");
+	        var url = "tickets"; //.addp("limit","3");
+	        return this.apiData.get(url);
+	    };
+	    DataProvider.prototype.getTicketsCounts = function () {
+	        var url = "tickets/counts";
 	        return this.apiData.get(url);
 	    };
 	    DataProvider.prototype.getQueueList = function (limit) {
 	        var url = "queues".addp("sort_by", "tickets_count");
 	        return this.apiData.get(url).map(function (arr) {
-	            if (arr.length && limit)
+	            if (arr && limit)
 	                arr.length = limit;
 	            return arr;
+	        });
+	    };
+	    DataProvider.prototype.getAccountList = function (is_dashboard) {
+	        var url = "accounts";
+	        return this.apiData.get(url).map(function (arr) {
+	            var result = [];
+	            if (is_dashboard && arr) {
+	                arr.forEach(function (account) {
+	                    if (account.account_statistics.ticket_counts.open > 0)
+	                        result.push(account);
+	                });
+	            }
+	            else
+	                return arr;
+	            return result;
 	        });
 	    };
 	    DataProvider = __decorate([
@@ -61696,7 +61806,7 @@
 
 
 /***/ },
-/* 362 */
+/* 363 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61726,7 +61836,7 @@
 
 
 /***/ },
-/* 363 */
+/* 364 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61739,7 +61849,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	var tickets_1 = __webpack_require__(364);
+	var tickets_1 = __webpack_require__(365);
 	/*
 	  Generated class for the QueuesPage page.
 
@@ -61764,7 +61874,7 @@
 
 
 /***/ },
-/* 364 */
+/* 365 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61777,7 +61887,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	var ticket_details_1 = __webpack_require__(365);
+	var ticket_details_1 = __webpack_require__(366);
 	var TicketsPage = (function () {
 	    function TicketsPage(nav, navParams) {
 	        this.nav = nav;
@@ -61809,7 +61919,7 @@
 
 
 /***/ },
-/* 365 */
+/* 366 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61848,7 +61958,7 @@
 
 
 /***/ },
-/* 366 */
+/* 367 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61861,7 +61971,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	var invoice_details_1 = __webpack_require__(367);
+	var invoice_details_1 = __webpack_require__(368);
 	/*
 	  Generated class for the InvoicesPage page.
 
@@ -61886,7 +61996,7 @@
 
 
 /***/ },
-/* 367 */
+/* 368 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61922,7 +62032,7 @@
 
 
 /***/ },
-/* 368 */
+/* 369 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61935,7 +62045,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	var account_details_1 = __webpack_require__(369);
+	var account_details_1 = __webpack_require__(370);
 	/*
 	  Generated class for the AccountsPage page.
 
@@ -61960,7 +62070,7 @@
 
 
 /***/ },
-/* 369 */
+/* 370 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61996,7 +62106,7 @@
 
 
 /***/ },
-/* 370 */
+/* 371 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62009,7 +62119,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	var timelog_1 = __webpack_require__(371);
+	var timelog_1 = __webpack_require__(372);
 	/*
 	  Generated class for the TimelogsPage page.
 
@@ -62034,7 +62144,7 @@
 
 
 /***/ },
-/* 371 */
+/* 372 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62070,7 +62180,7 @@
 
 
 /***/ },
-/* 372 */
+/* 373 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62083,10 +62193,11 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	var data_provider_1 = __webpack_require__(361);
-	var tickets_list_1 = __webpack_require__(373);
-	var tickets_1 = __webpack_require__(364);
-	var account_details_1 = __webpack_require__(369);
+	var data_provider_1 = __webpack_require__(362);
+	var tickets_list_1 = __webpack_require__(374);
+	var tickets_1 = __webpack_require__(365);
+	var account_details_1 = __webpack_require__(370);
+	var more_1 = __webpack_require__(375);
 	/*
 	  Generated class for the DashboardPage page.
 
@@ -62098,7 +62209,17 @@
 	        var _this = this;
 	        this.nav = nav;
 	        this.queues = null;
-	        dataProvider.getQueueList(3).subscribe(function (data) { _this.queues = data; }, function (error) { console.log(error || 'Server error'); });
+	        this.accounts = null;
+	        this.counts = {};
+	        dataProvider.getQueueList(3).subscribe(function (data) { _this.queues = data; }, function (error) {
+	            console.log(error || 'Server error');
+	        });
+	        dataProvider.getAccountList(true).subscribe(function (data) { _this.accounts = data; }, function (error) {
+	            console.log(error || 'Server error');
+	        });
+	        dataProvider.getTicketsCounts().subscribe(function (data) { _this.counts = data; }, function (error) {
+	            console.log(error || 'Server error');
+	        });
 	    }
 	    DashboardPage.prototype.itemTappedTL = function () { this.nav.push(tickets_1.TicketsPage); };
 	    DashboardPage.prototype.itemTappedAD = function () { this.nav.push(account_details_1.AccountDetailsPage); };
@@ -62149,6 +62270,7 @@
 	        ionic_1.Page({
 	            templateUrl: 'build/pages/dashboard/dashboard.html',
 	            directives: [tickets_list_1.TicketsListComponent],
+	            pipes: [more_1.MorePipe],
 	        }), 
 	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof data_provider_1.DataProvider !== 'undefined' && data_provider_1.DataProvider) === 'function' && _b) || Object])
 	    ], DashboardPage);
@@ -62159,7 +62281,7 @@
 
 
 /***/ },
-/* 373 */
+/* 374 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62174,7 +62296,7 @@
 	//in case on using ionic "ion-card"
 	var ionic_1 = __webpack_require__(6);
 	var core_1 = __webpack_require__(8);
-	var queues_1 = __webpack_require__(363);
+	var queues_1 = __webpack_require__(364);
 	var TicketsListComponent = (function () {
 	    /*@Input()
 	    card : Card;*/
@@ -62202,7 +62324,45 @@
 
 
 /***/ },
-/* 374 */
+/* 375 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(8);
+	var MorePipe = (function () {
+	    function MorePipe() {
+	    }
+	    MorePipe.prototype.transform = function (value, args) {
+	        if (!value)
+	            return "";
+	        args = args.length ? args : [100];
+	        value = value || 0;
+	        var max = args[0];
+	        if (value >= max)
+	            value = (max - 1) + "<sup>+</sup>";
+	        return '<div class="item-inner"><ion-label>' + value + '</ion-label></div>';
+	    };
+	    MorePipe = __decorate([
+	        core_1.Pipe({
+	            name: 'More'
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], MorePipe);
+	    return MorePipe;
+	})();
+	exports.MorePipe = MorePipe;
+
+
+/***/ },
+/* 376 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62238,7 +62398,7 @@
 
 
 /***/ },
-/* 375 */
+/* 377 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62274,7 +62434,7 @@
 
 
 /***/ },
-/* 376 */
+/* 378 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62287,8 +62447,8 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	var ticket_details_1 = __webpack_require__(365);
-	var tickets_list_1 = __webpack_require__(377);
+	var ticket_details_1 = __webpack_require__(366);
+	var tickets_list_1 = __webpack_require__(379);
 	/*
 	  Generated class for the TabsPage page.
 
@@ -62316,7 +62476,7 @@
 
 
 /***/ },
-/* 377 */
+/* 379 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62329,7 +62489,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	var ticket_details_1 = __webpack_require__(365);
+	var ticket_details_1 = __webpack_require__(366);
 	var TicketsListPage = (function () {
 	    function TicketsListPage(nav, navParams) {
 	        this.nav = nav;

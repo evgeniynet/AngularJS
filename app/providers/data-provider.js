@@ -23,16 +23,37 @@ constructor(apiData: ApiData) {
 }
 
 getTicketsList() {
-    let url = "tickets".addp("limit","3");
+    let url = "tickets"; //.addp("limit","3");
+    return this.apiData.get(url);
+}
+    
+getTicketsCounts() {
+    let url = "tickets/counts";
     return this.apiData.get(url);
 }
 
 getQueueList(limit) {
     let url = "queues".addp("sort_by","tickets_count");
     return this.apiData.get(url).map((arr: Array<any>) => {
-        if (arr.length && limit)
+        if (arr && limit)
             arr.length = limit; 
         return arr;
+    });
+}
+    
+getAccountList(is_dashboard) {
+    let url = "accounts";
+    return this.apiData.get(url).map((arr: Array<any>) => {
+        let result = [];
+        if (is_dashboard && arr) {
+            arr.forEach((account) => {
+                if (account.account_statistics.ticket_counts.open > 0)
+                result.push(account);
+            });
+        }
+        else
+            return arr;
+        return result;
     });
 }
 
