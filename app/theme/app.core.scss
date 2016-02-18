@@ -71,6 +71,10 @@ p {
     margin: 0px !important;
 }
 
+.indent{
+padding-top: 30px;
+}
+
 scroll-content {
     overflow-y: auto;
 }
@@ -87,6 +91,43 @@ scroll-content {
 
 .select-icon .select-icon-inner {
     color: #fff;
+}
+
+.item-button {
+    font-size: 1.6rem;
+}
+
+.googleStripes {
+    list-style-type: none;
+    width: 100%;
+    height: 5px;
+    margin: auto;
+    padding-left: 0px;
+}
+
+.googleStripes li {
+    float: left;
+    width: 25%;
+    height: 100%;
+    background-color: olive;
+}
+
+.googleStripes li:nth-child(1) {
+    background-color: #e74c3c;
+    border-radius: 3px 0 0 0;
+}
+
+.googleStripes li:nth-child(2) {
+    background-color: #3498db;
+}
+
+.googleStripes li:nth-child(3) {
+    background-color: #27ae60;
+}
+
+.googleStripes li:nth-child(4) {
+    background-color: #f1c40f;
+    border-radius: 0 3px 0 0;
 }
 
 //color
@@ -114,6 +155,64 @@ scroll-content {
     display: block;
     margin: auto;
 }
+
+
+
+.table{
+text-align: center;
+}
+
+.table span.box1{
+    background-color: $grey;
+    width: 35%;
+    float: left;
+    height: 46px;
+    margin-bottom: 10px;
+}
+
+.table span.box2{
+    background-color: $grey;
+    width: 25%;
+    float: left;
+    height: 46px;
+    margin-bottom: 10px;
+}
+
+.table span.box3{
+    background-color: $grey;
+    width: 28%;
+    float: left;
+    height: 46px;
+    margin-bottom: 10px;
+}
+
+.table span.box4{
+    background-color: $blue2;
+    width: 12%;
+    float: right;
+    height: 46px;
+    margin-bottom: 10px;
+}
+
+.table span.box5{
+    background-color: $blue1;
+    width: 75%;
+    float: left;
+    height: 46px;
+    margin-top: 20px;
+}
+
+.table span.box6{
+    background-color: $blue2;
+    width: 25%;
+    float: right;
+    height: 46px;
+    margin-top: 20px;
+}
+
+.table span.box9{
+    background-color: $grey !important;
+    }
 
 //button
 
