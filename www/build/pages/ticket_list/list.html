@@ -1,0 +1,24 @@
+<ion-navbar *navbar>
+  <button menuToggle>
+    <ion-icon name="menu"></ion-icon>
+  </button>
+  <ion-title>Tickets</ion-title>
+</ion-navbar>
+
+<ion-content>
+     <ion-list>
+    <button ion-item *ngFor="#item of items" (click)="itemTapped($event, item)">
+      <ion-avatar item-left>
+      <img src="http://www.gravatar.com/avatar/8cf59c68bb835b9e03dcd09c0e620d5d?d=mm&s=80">
+    </ion-avatar>
+    <h2>Finn</h2>
+    <h3>Don't Know What To Do!</h3>
+    <p class="text_list">I've had a pretty messed up day. If we just I've had a pretty messed up day. If we just I've had a pretty messed up day. If we just...</p>
+    </button>
+  </ion-list>
+  <div *ngIf="selectedItem" padding>
+    You navigated here from <b>{{selectedItem.title}}</b>
+  </div>
+</ion-content>
+
+

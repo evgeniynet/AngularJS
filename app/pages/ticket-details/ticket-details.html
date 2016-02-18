@@ -10,7 +10,7 @@
 
 <ion-content padding class="ticket-details">
     
-      <ion-item style="background-color: #161E27;" no-lines>New Ticket</ion-item>
+      <ion-item class="itemTech blue3" no-lines>New Ticket</ion-item>
     <div class="tabsTicket">
   <ion-segment tabs [(ngModel)]="pet">
     <ion-segment-button value="Reply" class="nameTabs">
@@ -19,7 +19,7 @@
     <ion-segment-button value="Info" class="nameTabs">
       Info
     </ion-segment-button>
-    <ion-segment-button value="Options" class="nameTabs">
+    <ion-segment-button padding value="Options" class="nameTabs">
         Options
     </ion-segment-button>
     </ion-segment>
@@ -47,7 +47,7 @@
   <ion-list *ngSwitchWhen="'Info'" class="list" no-lines>
 <ion-list>
   <ion-item class="blue4">
-      <ion-label>Class:</ion-label>
+      <ion-label class="textLogin">Class:</ion-label>
   <ion-select [(ngModel)]="toppings" multiple="true" cancelText="Nah" okText="Okay!">
     <ion-option value="Class1" checked="true">Class1</ion-option>
     <ion-option value="Class2">Class2</ion-option>
@@ -58,7 +58,7 @@
 </ion-item>
     
     <ion-item class="blue4">
-      <ion-label>Level:</ion-label>
+      <ion-label class="textLogin">Level:</ion-label>
   <ion-select [(ngModel)]="toppings" multiple="true" cancelText="Nah" okText="Okay!">
     <ion-option value="Class1" checked="true">Level1</ion-option>
     <ion-option value="Class2">Level2</ion-option>
@@ -69,7 +69,7 @@
 </ion-item>
     
     <ion-item class="blue4">
-      <ion-label>Priority:</ion-label>
+      <ion-label class="textLogin">Priority:</ion-label>
   <ion-select [(ngModel)]="toppings" multiple="true" cancelText="Nah" okText="Okay!">
     <ion-option value="Class1" checked="true">Priority1</ion-option>
     <ion-option value="Class2">Priority2</ion-option>
@@ -80,7 +80,7 @@
 </ion-item>
     
     <ion-item class="blue4">
-      <ion-label>Tech:</ion-label>
+      <ion-label class="textLogin">Tech:</ion-label>
   <ion-select [(ngModel)]="toppings" multiple="true" cancelText="Nah" okText="Okay!">
     <ion-option value="Class1" checked="true">Tech1</ion-option>
     <ion-option value="Class2">Tech2</ion-option>
@@ -91,7 +91,7 @@
 </ion-item>
     
     <ion-item class="blue4">
-      <ion-label>choose location:</ion-label>
+      <ion-label class="textLogin">choose location:</ion-label>
   <ion-select [(ngModel)]="toppings" multiple="true" cancelText="Nah" okText="Okay!">
     <ion-option value="Class1" checked="true">choose location1</ion-option>
     <ion-option value="Class2">choose location2</ion-option>
@@ -102,7 +102,7 @@
 </ion-item>
     
     <ion-item class="blue4">
-      <ion-label>choose project:</ion-label>
+      <ion-label class="textLogin">choose project:</ion-label>
   <ion-select [(ngModel)]="toppings" multiple="true" cancelText="Nah" okText="Okay!">
     <ion-option value="Class1" checked="true"> project1</ion-option>
     <ion-option value="Class2">project2</ion-option>

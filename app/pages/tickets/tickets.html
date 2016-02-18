@@ -21,9 +21,9 @@
          <ion-list>
     <button class="item-nocenter" ion-item *ngFor="#item of items" (click)="itemTapped($event, item)">
     <ion-avatar padding item-left class="ticketImg">
-    <ion-note citem-left>#2030</ion-note>
+        <ion-note citem-left><h2>#2030</h2></ion-note>
       <img  src="http://www.gravatar.com/avatar/8cf59c68bb835b9e03dcd09c0e620d5d?d=mm&s=80">
-    <ion-note class="admin" item-left>test</ion-note> 
+        <ion-note class="admin" item-left><h2>test</h2></ion-note> 
     </ion-avatar>
         
     <h2>Finn</h2>
@@ -41,4 +41,4 @@
   
 </ion-content>
 
-<button item-right secondary fab fab-right fab-bottom><ion-icon name="md-add"></ion-icon></button>
+<button item-right secondary fab fab-right fab-bottom><ion-icon class="button_circle" name="md-add"></ion-icon></button>

@@ -1,0 +1,16 @@
+import {Page, NavController} from 'ionic/ionic';
+
+/*
+  Generated class for the ExpenseCreatePage page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+*/
+@Page({
+  templateUrl: 'build/pages/expense-create/expense-create.html',
+})
+export class ExpenseCreatePage {
+  constructor(nav: NavController) {
+    this.nav = nav;
+  }
+}

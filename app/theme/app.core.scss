@@ -11,6 +11,8 @@
 
 @import "../pages/item-details/item-details";
 
+//item
+
 .item {
     text-align: center;
     margin-top: 10px;
@@ -24,6 +26,13 @@
     margin-top: 0px !important;
 }
 
+.item-nocenter {
+    text-align: justify !important;
+    margin-top: 0px !important;  
+}
+
+
+// text/
 .text-left {
     text-align: left !important;
 }
@@ -32,9 +41,42 @@
     text-align: right !important;
 }
 
-.item-nocenter {
-    text-align: justify !important;
-    margin-top: 0px !important;  
+p {
+    color: $item-ios-paragraph-text-color;
+  }
+
+.textLogin {
+    text-align: left;
+    padding-left: 15px;
+}
+
+.tablText {
+    color: $label-ios-text-color;
+}
+
+.list{
+    width: 90%;
+    margin: 0 auto;
+ }
+
+.left{
+    float: left;
+}
+
+.right{
+    float: right;
+}
+
+.margin {
+    margin: 0px !important;
+}
+
+.indent{
+padding-top: 30px;
+}
+
+scroll-content {
+    overflow-y: auto;
 }
 
 .timeleft{
@@ -47,58 +89,48 @@
    border-color: $color-value;
 }
 
-p {
-    color: $item-ios-paragraph-text-color;
-  }
-
-.left {
-  float: left; }
-
-.grey > * {
-    background-color: $grey;
+.select-icon .select-icon-inner {
+    color: #fff;
 }
 
-scroll-content {
-    overflow-y: auto;
+.item-button {
+    font-size: 1.6rem;
 }
 
-    
-.menu-bg{
- background-color: $sherpa_bg; 
+.googleStripes {
+    list-style-type: none;
+    width: 100%;
+    height: 5px;
+    margin: auto;
+    padding-left: 0px;
 }
 
-//menu
-.ionFont {
-    font-size: 26px;
-    padding-right: 10px;
-     width: 40px;
-    height: 40px;
-    border: 2px solid rgba(255,255,255,0.4);
-    border-radius: 100%;
+.googleStripes li {
     float: left;
-    margin-right: 10px;
-    padding-left: 5px;
-    padding-top: 2px;
-    text-align: center;
+    width: 25%;
+    height: 100%;
+    background-color: olive;
 }
 
-.billable {
-    font-size: 26px;
-    height: 40px;
-    float: left;
-    margin-right: 10px;
-    padding-left: 5px;
-    padding-top: 12px;
+.googleStripes li:nth-child(1) {
+    background-color: #e74c3c;
+    border-radius: 3px 0 0 0;
 }
 
-.button {
-color: #fff;
+.googleStripes li:nth-child(2) {
+    background-color: #3498db;
 }
 
-.tablText {
-    color: $label-ios-text-color;
+.googleStripes li:nth-child(3) {
+    background-color: #27ae60;
 }
 
+.googleStripes li:nth-child(4) {
+    background-color: #f1c40f;
+    border-radius: 0 3px 0 0;
+}
+
+//color
 .blue1 > * {
     background-color: $blue1;
 }
@@ -115,26 +147,154 @@ color: #fff;
     background-color: $blue4;
 }
 
+.grey > * {
+    background-color: $grey;
+}
+
+.imglogo{
+    display: block;
+    margin: auto;
+}
+
+
+
+.table{
+text-align: center;
+}
+
+.table span.box1{
+    background-color: $grey;
+    width: 35%;
+    float: left;
+    height: 46px;
+    margin-bottom: 10px;
+}
+
+.table span.box2{
+    background-color: $grey;
+    width: 25%;
+    float: left;
+    height: 46px;
+    margin-bottom: 10px;
+}
+
+.table span.box3{
+    background-color: $grey;
+    width: 28%;
+    float: left;
+    height: 46px;
+    margin-bottom: 10px;
+}
+
+.table span.box4{
+    background-color: $blue2;
+    width: 12%;
+    float: right;
+    height: 46px;
+    margin-bottom: 10px;
+}
+
+.table span.box5{
+    background-color: $blue1;
+    width: 75%;
+    float: left;
+    height: 46px;
+    margin-top: 20px;
+}
+
+.table span.box6{
+    background-color: $blue2;
+    width: 25%;
+    float: right;
+    height: 46px;
+    margin-top: 20px;
+}
+
+.table span.box9{
+    background-color: $grey !important;
+    }
+
+//button
+
+.buttonTicket{
+    width: 50px;
+    height: 50px;
+}
+
+.button {
+color: #fff;
+}
+
+.button_circle {
+    font-size: 3.8em !important;
+}
+
+.button_circle2 {
+    font-size: 2.8em !important;
+}
+
+.billable {
+    font-size: 26px;
+    height: 40px;
+    float: left;
+    margin-right: 10px;
+    padding-left: 5px;
+    padding-top: 5px;
+}
+
+
+//menu
+.ionFont {
+    font-size: 26px;
+    padding-right: 10px;
+     width: 40px;
+    height: 40px;
+    border: 2px solid rgba(255,255,255,0.4);
+    border-radius: 100%;
+    float: left;
+    margin-right: 10px;
+    padding-left: 5px;
+    padding-top: 2px;
+    text-align: center;
+}
+
+.menu-bg{
+ background-color: $sherpa_bg; 
+}
+
+
+//invoice
+
+.invoiceCircle {
+    font-size: 2.3em !important;
+}
+
+.buttonInvoice {
+    width: 30px;
+    height: 30px;
+}
+
+.topInvoice {
+    top: 4px;
+}
+
 .activeBorder {
     border: 2px solid #88ddfa !important;
 }
 
-.list{
-    width: 90%;
-    margin: 0 auto;
- }
 
-.left{
-    float: left;
+//width
+
+.width100{
+    width: 100%;
 }
-
-.right{
-    float: right;
-}
-
 
 .width90{
     width: 90%;
+}
+
+.width80{
+    width: 80%;
 }
 
 .width75{
@@ -170,5 +330,5 @@ color: #fff;
 }
 
 .mainStat{
-font-size: 6.4rem;
+font-size: 6.15rem;
 }

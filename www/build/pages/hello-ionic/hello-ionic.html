@@ -5,23 +5,68 @@
 </ion-navbar>
 
 
-<ion-content class="getting-started">
+<ion-content padding class="getting-started">
     
-        <ion-row class="list">
+        <!--<ion-row class="list">
      <ion-col class="blue4" width-90>
-    <button ion-item item-left>Tech</button></ion-col>
-        <ion-col width-25><button item-right secondary fab><ion-icon name="md-add"></ion-icon></button></ion-col></ion-row>
+    <button class="item-nocenter" ion-item item-left no-lines>Tech</button></ion-col>
+        <ion-col width-25 style="margin-top: -10px;"><button item-right secondary fab class="buttonTicket"><ion-icon class="button_circle2" name="md-add"></ion-icon></button></ion-col></ion-row>
   
     <ion-row class="list">
-     <ion-col class="blue4"><button ion-item class="blue4" width-90>bigWebApps</button></ion-col></ion-row>
+     <ion-col class="blue4"><button class="item-nocenter" ion-item width-90 no-lines>bigWebApps</button></ion-col></ion-row>
     <ion-row class="list">
-     <ion-col class="blue4"><button ion-item class="blue4" width-90>choose location</button></ion-col></ion-row>
+     <ion-col class="blue4"><button class="item-nocenter" ion-item width-90 no-lines>choose location</button></ion-col></ion-row>
     <ion-row class="list">
-     <ion-col class="blue4"><button ion-item class="blue4" width-90>choose technician</button></ion-col></ion-row>
+     <ion-col class="blue4" width-90><button class="item-nocenter" ion-item item-left no-lines>choose technician</button></ion-col><ion-col width-25 style="margin-top: -10px;"><button item-right secondary fab class="buttonTicket"><ion-icon class="button_circle2" name="md-add"></ion-icon></button></ion-col></ion-row>
     <ion-row class="list">
-     <ion-col class="blue4"><button ion-item class="blue4" width-90>choose a project</button></ion-col></ion-row>
+     <ion-col class="blue4"><button class="item-nocenter" ion-item width-90 no-lines>choose a project</button></ion-col></ion-row>
     <ion-row class="list">
-     <ion-col class="blue4"><button ion-item class="blue4" width-90>choose a class</button></ion-col></ion-row>
+     <ion-col class="blue4"><button class="item-nocenter" ion-item width-90 no-lines>choose a class</button></ion-col></ion-row>-->
+    
+    <ion-row class="list"> 
+        <ion-item class="blue4  width90" no-lines>
+      <ion-label class="width90 textLogin">Tech</ion-label>
+  <ion-select>
+<ion-option value="Class1" checked="true"></ion-option>
+    </ion-select>
+            </ion-item>
+  <ion-col class="width12" style="margin-top: -7px;"><button item-right secondary fab class="buttonTicket"><ion-icon class="button_circle2" name="md-add"></ion-icon></button></ion-col></ion-row>
+        <ion-row class="list">
+     <ion-item class="blue4" no-lines>
+      <ion-label class="textLogin">bigWebApps</ion-label>
+  <ion-select [(ngModel)]="toppings" multiple="true" cancelText="Nah" okText="Okay!">
+<ion-option value="Class1" checked="true"></ion-option>
+    </ion-select>
+</ion-item></ion-row>
+    <ion-row class="list">
+     <ion-item class="blue4" no-lines>
+     <ion-label class="textLogin">choose location</ion-label>
+  <ion-select [(ngModel)]="toppings" multiple="true" cancelText="Nah" okText="Okay!">
+ <ion-option value="Class1" checked="true"></ion-option>
+    </ion-select>
+</ion-item></ion-row>
+    <ion-row class="list"> 
+        <ion-item class="blue4 width90" no-lines>
+      <ion-label class="width90 textLogin">choose technician</ion-label>
+  <ion-select>
+<ion-option value="Class1" checked="true"></ion-option>
+    </ion-select>
+            </ion-item>
+  <ion-col class="width12" style="margin-top: -7px;"><button item-right secondary fab class="buttonTicket"><ion-icon class="button_circle2" name="md-add"></ion-icon></button></ion-col></ion-row>
+    <ion-row class="list">
+        <ion-item class="blue4" no-lines>
+    <ion-label class="textLogin">choose a project</ion-label>
+  <ion-select [(ngModel)]="toppings" multiple="true" cancelText="Nah" okText="Okay!">
+<ion-option value="Class1" checked="true"></ion-option>
+    </ion-select>
+</ion-item></ion-row>
+    <ion-row class="list">
+        <ion-item class="blue4" no-lines>
+    <ion-label class="textLogin">choose a class</ion-label>
+  <ion-select [(ngModel)]="toppings" multiple="true" cancelText="Nah" okText="Okay!">
+<ion-option value="Class1" checked="true"></ion-option>
+    </ion-select>
+</ion-item></ion-row>
        
                 <br>
     <ion-card class="list">
@@ -38,10 +83,7 @@
       <button secondary block="" type="submit" class="disable-hover button button-default button-block">Add Ticket</button>
     </div>
     </ion-list>
-   
-    
-    
-    
+     
 <!--    <ion-list padding class="list blue4" no-lines>
     <button class="width30">+</button>
     <button class="blue3 width35">00</button>
