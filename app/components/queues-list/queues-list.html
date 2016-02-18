@@ -1,0 +1,6 @@
+<ion-list class="list" no-lines  (click)="itemTappedQ()">
+    <div *ngFor="#queue of queues" class="table">
+        <span class="box5">{{queue.fullname}}</span>
+        <span class="box6" [innerHTML]="queue.tickets_count | More"></span>
+    </div>
+</ion-list>

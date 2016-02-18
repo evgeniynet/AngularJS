@@ -5,14 +5,13 @@ import {Pipe} from 'angular2/core';
 })
 export class MorePipe {
     transform(value, args) {
-        if (!value)
-            return "";
-        args = args.length ? args :  [100]; 
+        args = args.length ? args :  [[100, "VV"]]; 
         value = value || 0;
-        let max = args[0]; 
+        let max = args[0][0]; 
+        let template = args[0][1] || "VV"; 
         if (value >= max)
         value = (max-1) + "<sup>+</sup>";
-        
-        return '<div class="item-inner"><ion-label>'+value+'</ion-label></div>';
+        value = template.replace("VV", value);
+        return value;
     }
 }

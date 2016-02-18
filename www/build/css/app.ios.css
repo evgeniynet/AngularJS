@@ -7339,6 +7339,9 @@ body {
   width: 24%;
   float: right; }
 
+.mainStat {
+  font-size: 7rem; }
+
 .sideStatsLeft {
   font-size: 1.9rem; }
 

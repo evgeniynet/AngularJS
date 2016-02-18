@@ -62191,6 +62191,7 @@
 	var ionic_1 = __webpack_require__(6);
 	var data_provider_1 = __webpack_require__(362);
 	var queues_list_1 = __webpack_require__(374);
+	var accounts_list_1 = __webpack_require__(378);
 	var tickets_1 = __webpack_require__(365);
 	var account_details_1 = __webpack_require__(370);
 	var more_1 = __webpack_require__(375);
@@ -62265,7 +62266,7 @@
 	    DashboardPage = __decorate([
 	        ionic_1.Page({
 	            templateUrl: 'build/pages/dashboard/dashboard.html',
-	            directives: [queues_list_1.QueuesListComponent],
+	            directives: [queues_list_1.QueuesListComponent, accounts_list_1.AccountsListComponent],
 	            pipes: [more_1.MorePipe],
 	        }), 
 	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof data_provider_1.DataProvider !== 'undefined' && data_provider_1.DataProvider) === 'function' && _b) || Object])
@@ -62309,7 +62310,7 @@
 	    QueuesListComponent = __decorate([
 	        core_1.Component({
 	            selector: 'queues-list',
-	            templateUrl: 'build/components/queues-list.html',
+	            templateUrl: 'build/components/queues-list/queues-list.html',
 	            directives: [ionic_1.IONIC_DIRECTIVES],
 	            pipes: [more_1.MorePipe],
 	        }), 
@@ -62339,14 +62340,14 @@
 	    function MorePipe() {
 	    }
 	    MorePipe.prototype.transform = function (value, args) {
-	        if (!value)
-	            return "";
-	        args = args.length ? args : [100];
+	        args = args.length ? args : [[100, "VV"]];
 	        value = value || 0;
-	        var max = args[0];
+	        var max = args[0][0];
+	        var template = args[0][1] || "VV";
 	        if (value >= max)
 	            value = (max - 1) + "<sup>+</sup>";
-	        return '<div class="item-inner"><ion-label>' + value + '</ion-label></div>';
+	        value = template.replace("VV", value);
+	        return value;
 	    };
 	    MorePipe = __decorate([
 	        core_1.Pipe({
@@ -62429,6 +62430,52 @@
 	    var _a;
 	})();
 	exports.LoginPage = LoginPage;
+
+
+/***/ },
+/* 378 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	//in case on using ionic "ion-card"
+	var ionic_1 = __webpack_require__(6);
+	var core_1 = __webpack_require__(8);
+	//import {QueuesPage} from '../../pages/queues/queues';
+	var more_1 = __webpack_require__(375);
+	var AccountsListComponent = (function () {
+	    /*@Input()
+	    card : Card;*/
+	    function AccountsListComponent(nav) {
+	        this.nav = nav;
+	        //this.header = "into";
+	    }
+	    AccountsListComponent.prototype.itemTappedQ = function () {
+	    };
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', Array)
+	    ], AccountsListComponent.prototype, "accounts", void 0);
+	    AccountsListComponent = __decorate([
+	        core_1.Component({
+	            selector: 'accounts-list',
+	            templateUrl: 'build/components/accounts-list/accounts-list.html',
+	            directives: [ionic_1.IONIC_DIRECTIVES],
+	            pipes: [more_1.MorePipe],
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
+	    ], AccountsListComponent);
+	    return AccountsListComponent;
+	    var _a;
+	})();
+	exports.AccountsListComponent = AccountsListComponent;
 
 
 /***/ }
