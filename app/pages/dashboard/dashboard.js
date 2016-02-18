@@ -1,6 +1,6 @@
 import {Page, ActionSheet, NavController} from 'ionic/ionic';
 import {DataProvider} from '../../providers/data-provider';
-import {TicketsListComponent} from '../../components/tickets-list';
+import {QueuesListComponent} from '../../components/queues-list';
 import {TicketsPage} from '../tickets/tickets';
 import {AccountDetailsPage} from '../account-details/account-details';
 import {MorePipe} from '../../pipes/more';
@@ -13,7 +13,7 @@ import {MorePipe} from '../../pipes/more';
 */
 @Page({
   templateUrl: 'build/pages/dashboard/dashboard.html',
-    directives: [TicketsListComponent],
+    directives: [QueuesListComponent],
     pipes: [MorePipe],
 })
 export class DashboardPage {

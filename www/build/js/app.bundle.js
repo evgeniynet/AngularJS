@@ -3225,7 +3225,6 @@
 	var dashboard_1 = __webpack_require__(373);
 	var organizations_1 = __webpack_require__(376);
 	var login_1 = __webpack_require__(377);
-	var tabs_1 = __webpack_require__(378);
 	var MyApp = (function () {
 	    function MyApp(app, platform, apiData) {
 	        // set up our app
@@ -3243,7 +3242,6 @@
 	            { title: 'Switch Org', component: organizations_1.OrganizationsPage, icon: "md-swap" },
 	            { title: 'Signout', component: login_1.LoginPage, icon: "md-log-in" },
 	            { title: 'Full App', component: hello_ionic_1.HelloIonicPage, icon: "md-share-alt" },
-	            { title: 'Tabs', component: tabs_1.TabsPage, icon: "md-share-alt" },
 	        ];
 	        // make HelloIonicPage the root (or first) page
 	        this.rootPage = dashboard_1.DashboardPage;
@@ -61425,12 +61423,10 @@
 	    };
 	    ApiData.prototype.mock_get = function (method) {
 	        var arr = null;
-	        if (method.indexOf('accounts') != -1)
-	            arr = mocks_1.MOCK_ACCOUNTS;
-	        else if (method.indexOf('counts') != -1)
-	            arr = mocks_1.MOCK_COUNTS;
-	        else if (method.indexOf('queues') != -1)
-	            arr = mocks_1.MOCK_QUEUES;
+	        var pos = method.indexOf('?');
+	        if (pos != -1)
+	            method = method.substring(0, pos);
+	        arr = mocks_1.MOCKS[method];
 	        return Observable_1.Observable.create(function (observer) {
 	            observer.next(arr);
 	            observer.complete();
@@ -61488,73 +61484,73 @@
 /* 355 */
 /***/ function(module, exports) {
 
-	exports.MOCK_COUNTS = { new_messages: 1, open_all: 284, open_as_tech: 10, open_as_alttech: 2, open_as_user: 1001, onhold: 3, reminder: 0, parts_on_order: 0, unconfirmed: 45, waiting: 2 };
-	exports.MOCK_ACCOUNTS = [
-	    {
-	        "id": -1,
-	        "name": "SherpaDesk Support",
-	        "account_statistics": {
-	            "ticket_counts": {
-	                "open": 133,
-	                "closed": 2025,
+	exports.MOCKS = { "tickets/counts": { new_messages: 1, open_all: 284, open_as_tech: 10, open_as_alttech: 2, open_as_user: 1001, onhold: 3, reminder: 0, parts_on_order: 0, unconfirmed: 45, waiting: 2 },
+	    "accounts": [
+	        {
+	            "id": -1,
+	            "name": "SherpaDesk Support",
+	            "account_statistics": {
+	                "ticket_counts": {
+	                    "open": 133,
+	                    "closed": 2025,
+	                    "hours": 27132,
+	                    "total_invoiced_amount": 0,
+	                    "total_non_invoiced_amount": 548,
+	                    "total_billed_amount": 36992,
+	                    "total_unbilled_amount": 0,
+	                    "scheduled": 0,
+	                    "followups": 0
+	                },
+	                "timelogs": 0,
+	                "invoices": 0,
 	                "hours": 27132,
-	                "total_invoiced_amount": 0,
-	                "total_non_invoiced_amount": 548,
-	                "total_billed_amount": 36992,
-	                "total_unbilled_amount": 0,
-	                "scheduled": 0,
-	                "followups": 0
-	            },
-	            "timelogs": 0,
-	            "invoices": 0,
-	            "hours": 27132,
-	            "expenses": 22
-	        }
-	    },
-	    {
-	        "id": 574,
-	        "name": "ACLU",
-	        "account_statistics": {
-	            "ticket_counts": {
-	                "open": 1,
-	                "closed": 45,
+	                "expenses": 22
+	            }
+	        },
+	        {
+	            "id": 574,
+	            "name": "ACLU",
+	            "account_statistics": {
+	                "ticket_counts": {
+	                    "open": 1,
+	                    "closed": 45,
+	                    "hours": 10,
+	                    "total_invoiced_amount": 0,
+	                    "total_non_invoiced_amount": 0,
+	                    "total_billed_amount": 0,
+	                    "total_unbilled_amount": 0,
+	                    "scheduled": 0,
+	                    "followups": 0
+	                },
+	                "timelogs": 0,
+	                "invoices": 0,
 	                "hours": 10,
-	                "total_invoiced_amount": 0,
-	                "total_non_invoiced_amount": 0,
-	                "total_billed_amount": 0,
-	                "total_unbilled_amount": 0,
-	                "scheduled": 0,
-	                "followups": 0
-	            },
-	            "timelogs": 0,
-	            "invoices": 0,
-	            "hours": 10,
-	            "expenses": 0
-	        }
-	    },
-	    {
-	        "id": 7744,
-	        "name": "Aiken County Schools",
-	        "account_statistics": {
-	            "ticket_counts": {
-	                "open": 0,
-	                "closed": 3,
+	                "expenses": 0
+	            }
+	        },
+	        {
+	            "id": 7744,
+	            "name": "Aiken County Schools",
+	            "account_statistics": {
+	                "ticket_counts": {
+	                    "open": 0,
+	                    "closed": 3,
+	                    "hours": 6,
+	                    "total_invoiced_amount": 0,
+	                    "total_non_invoiced_amount": 0,
+	                    "total_billed_amount": 0,
+	                    "total_unbilled_amount": 0,
+	                    "scheduled": 0,
+	                    "followups": 0
+	                },
+	                "timelogs": 0,
+	                "invoices": 0,
 	                "hours": 6,
-	                "total_invoiced_amount": 0,
-	                "total_non_invoiced_amount": 0,
-	                "total_billed_amount": 0,
-	                "total_unbilled_amount": 0,
-	                "scheduled": 0,
-	                "followups": 0
-	            },
-	            "timelogs": 0,
-	            "invoices": 0,
-	            "hours": 6,
-	            "expenses": 0
+	                "expenses": 0
+	            }
 	        }
-	    }
-	];
-	exports.MOCK_QUEUES = [{ "id": "27", "fullname": "Pre-Development", "tickets_count": 98 }, { "id": "271", "fullname": "Future Consideration", "tickets_count": 76 }, { "id": "269", "fullname": "Website", "tickets_count": 2 }, { "id": "5", "fullname": "New Ticket", "tickets_count": 1 }, { "id": "272", "fullname": "Mobile App", "tickets_count": 0 }];
+	    ],
+	    "queues": [{ "id": "27", "fullname": "Pre-Development", "tickets_count": 198 }, { "id": "271", "fullname": "Future Consideration", "tickets_count": 76 }, { "id": "269", "fullname": "Website", "tickets_count": 2 }, { "id": "5", "fullname": "New Ticket", "tickets_count": 1 }, { "id": "272", "fullname": "Mobile App", "tickets_count": 0 }] };
 
 
 /***/ },
@@ -62194,7 +62190,7 @@
 	};
 	var ionic_1 = __webpack_require__(6);
 	var data_provider_1 = __webpack_require__(362);
-	var tickets_list_1 = __webpack_require__(374);
+	var queues_list_1 = __webpack_require__(374);
 	var tickets_1 = __webpack_require__(365);
 	var account_details_1 = __webpack_require__(370);
 	var more_1 = __webpack_require__(375);
@@ -62269,7 +62265,7 @@
 	    DashboardPage = __decorate([
 	        ionic_1.Page({
 	            templateUrl: 'build/pages/dashboard/dashboard.html',
-	            directives: [tickets_list_1.TicketsListComponent],
+	            directives: [queues_list_1.QueuesListComponent],
 	            pipes: [more_1.MorePipe],
 	        }), 
 	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof data_provider_1.DataProvider !== 'undefined' && data_provider_1.DataProvider) === 'function' && _b) || Object])
@@ -62297,30 +62293,32 @@
 	var ionic_1 = __webpack_require__(6);
 	var core_1 = __webpack_require__(8);
 	var queues_1 = __webpack_require__(364);
-	var TicketsListComponent = (function () {
+	var more_1 = __webpack_require__(375);
+	var QueuesListComponent = (function () {
 	    /*@Input()
 	    card : Card;*/
-	    function TicketsListComponent(nav) {
+	    function QueuesListComponent(nav) {
 	        this.nav = nav;
 	        //this.header = "into";
 	    }
-	    TicketsListComponent.prototype.itemTappedQ = function () { this.nav.push(queues_1.QueuesPage); };
+	    QueuesListComponent.prototype.itemTappedQ = function () { this.nav.push(queues_1.QueuesPage); };
 	    __decorate([
 	        core_1.Input(), 
 	        __metadata('design:type', Array)
-	    ], TicketsListComponent.prototype, "queues", void 0);
-	    TicketsListComponent = __decorate([
+	    ], QueuesListComponent.prototype, "queues", void 0);
+	    QueuesListComponent = __decorate([
 	        core_1.Component({
-	            selector: 'tickets-list-component',
-	            templateUrl: 'build/components/tickets-list.html',
-	            directives: [ionic_1.IONIC_DIRECTIVES]
+	            selector: 'queues-list',
+	            templateUrl: 'build/components/queues-list.html',
+	            directives: [ionic_1.IONIC_DIRECTIVES],
+	            pipes: [more_1.MorePipe],
 	        }), 
 	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
-	    ], TicketsListComponent);
-	    return TicketsListComponent;
+	    ], QueuesListComponent);
+	    return QueuesListComponent;
 	    var _a;
 	})();
-	exports.TicketsListComponent = TicketsListComponent;
+	exports.QueuesListComponent = QueuesListComponent;
 
 
 /***/ },
@@ -62431,92 +62429,6 @@
 	    var _a;
 	})();
 	exports.LoginPage = LoginPage;
-
-
-/***/ },
-/* 378 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var ionic_1 = __webpack_require__(6);
-	var ticket_details_1 = __webpack_require__(366);
-	var tickets_list_1 = __webpack_require__(379);
-	/*
-	  Generated class for the TabsPage page.
-
-	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-	  Ionic pages and navigation.
-	*/
-	var TabsPage = (function () {
-	    function TabsPage(nav) {
-	        this.nav = nav;
-	        this.tab1Root = tickets_list_1.TicketsListPage;
-	        this.tab2Root = ticket_details_1.TicketDetailsPage;
-	        this.tab3Root = tickets_list_1.TicketsListPage;
-	        this.tab4Root = ticket_details_1.TicketDetailsPage;
-	    }
-	    TabsPage = __decorate([
-	        ionic_1.Page({
-	            templateUrl: 'build/pages/tabs/tabs.html',
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
-	    ], TabsPage);
-	    return TabsPage;
-	    var _a;
-	})();
-	exports.TabsPage = TabsPage;
-
-
-/***/ },
-/* 379 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var ionic_1 = __webpack_require__(6);
-	var ticket_details_1 = __webpack_require__(366);
-	var TicketsListPage = (function () {
-	    function TicketsListPage(nav, navParams) {
-	        this.nav = nav;
-	        // If we navigated to this page, we will have an item available as a nav param
-	        //this.selectedItem = navParams.get('item');
-	        this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
-	            'american-football', 'boat', 'bluetooth', 'build'];
-	        this.items = [];
-	        for (var i = 1; i < 11; i++) {
-	            this.items.push({
-	                title: 'Item ' + i,
-	                note: 'This is item #' + i,
-	                icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-	            });
-	        }
-	    }
-	    TicketsListPage.prototype.itemTapped = function () { this.nav.push(ticket_details_1.TicketDetailsPage); };
-	    TicketsListPage = __decorate([
-	        ionic_1.Page({
-	            templateUrl: 'build/pages/tickets-list/tickets-list.html',
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof ionic_1.NavParams !== 'undefined' && ionic_1.NavParams) === 'function' && _b) || Object])
-	    ], TicketsListPage);
-	    return TicketsListPage;
-	    var _a, _b;
-	})();
-	exports.TicketsListPage = TicketsListPage;
 
 
 /***/ }

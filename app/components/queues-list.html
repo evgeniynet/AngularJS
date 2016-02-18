@@ -4,6 +4,6 @@
         <br>
     </div> 
     <div class="blue2 right width25">
-        <ion-item *ngFor="#queue of queues">{{queue.tickets_count}}</ion-item>
+        <ion-item *ngFor="#queue of queues" [innerHTML]="queue.tickets_count | More"></ion-item>
     </div>
 </ion-list>

@@ -11,15 +11,14 @@
 
 <ion-content class="dashboard">
 
-    <!--predefined-card [card]=cardObject></ predefined-card-->
     <ion-list class="list" no-lines margin-top  (click)="itemTappedTL()">
         <div class="width51 left blue3">
             <ion-item class="mainStat itemTech">{{counts.open_as_tech}}</ion-item>
      <ion-item class="itemTech">As Tech</ion-item>
           </div>
         <div class="width24 right blue3">
-            <ion-item class="itemTech" [innerHTML]="counts.open_as_user | More:1000"></ion-item>
-            <ion-item class="itemTech">{{counts.open_as_alttech}}</ion-item>
+            <ion-item class="itemTech" [innerHTML]="counts.open_as_user | More"></ion-item>
+            <ion-item class="itemTech" [innerHTML]="counts.open_as_alttech | More"></ion-item>
             <ion-item class="itemTech" [innerHTML]="counts.open_all | More"></ion-item>
          </div>
         <div class="width24 right blue3">
@@ -30,7 +29,7 @@
         <br>
          </ion-list>
     
-    <tickets-list-component [queues]="queues"></tickets-list-component>
+    <queues-list [queues]="queues"></queues-list>
     
     <ion-item no-lines>
         <div class="width35 left">
