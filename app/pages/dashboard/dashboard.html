@@ -14,13 +14,13 @@
     
     <ion-list class="list height" no-lines margin-top  (click)="itemTappedTL()">
         <div class="width51 left blue3">
-    <ion-item class="mainStat itemTech">12</ion-item>
+            <ion-item class="mainStat itemTech">{{counts.open_as_tech}}</ion-item>
      <ion-item class="itemTech">As Tech</ion-item>
           </div>
         <div class="width24 right blue3">
-    <ion-item class="itemTech">1</ion-item>
-    <ion-item class="itemTech">10</ion-item>
-    <ion-item class="itemTech">34</ion-item>
+            <ion-item class="itemTech" [innerHTML]="counts.open_as_user | More:[100,'<div class=item-inner><ion-label>VV</ion-label></div>']"></ion-item>
+            <ion-item class="itemTech" [innerHTML]="counts.open_as_alttech | More:[100,'<div class=item-inner><ion-label>VV</ion-label></div>']"></ion-item>
+            <ion-item class="itemTech" [innerHTML]="counts.open_all | More:[100,'<div class=item-inner><ion-label>VV</ion-label></div>']"></ion-item>
          </div>
         <div class="width24 right blue3">
     <ion-item class="itemTech">As User</ion-item>
@@ -29,13 +29,10 @@
          </div>
         <br>
          </ion-list>
-    <ion-list class="list tableText"no-lines  (click)="itemTappedQ()">
-        <div class="table">
-           <span class="box5">New Ticket</span>
-           <span class="box6">1</span>
-                </div>
-</ion-list>
     
+    <queues-list [queues]="queues"></queues-list>
+    
+    <div *ngIf="accounts">
     <ion-item no-lines>
         <div class="width35 left">
    <ion-item></ion-item>
@@ -50,28 +47,9 @@
     <ion-item class="textTabl">Tkts</ion-item>
                 </div>
 </ion-item>
+    </div>
     
-    <ion-list class="list tableText" no-lines  (click)="itemTappedAD()">
-        <div class="table">
-     <span class="box1">New Ticket</span>
-     <span class="box2">7</span>
-     <span class="box3">150$</span>
-     <span class="box4">99</span>
-          </div>
-        <div class="table">
-     <span class="box1">New Ticket</span>
-     <span class="box2">7</span>
-     <span class="box3">150$</span>
-     <span class="box4">99</span>
-          </div>
-        <div class="table">
-     <span class="box1">New Ticket</span>
-     <span class="box2">7</span>
-     <span class="box3">150$</span>
-     <span class="box4">99</span>
-          </div>
-</ion-list>
+    <accounts-list [accounts]="accounts"></accounts-list>
   
 </ion-content>
-
-<button item-right secondary fab fab-right fab-bottom><ion-icon class="button_circle" name="md-add"></ion-icon></button>
+<button item-right secondary fab fab-right fab-bottom (click)="presentActionSheet()"><ion-icon name="md-add"></ion-icon></button>

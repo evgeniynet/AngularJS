@@ -1,11 +1,12 @@
-import {IonicApp, Page, NavController, NavParams} from 'ionic/ionic';
+import {Page, NavController, NavParams} from 'ionic/ionic';
 import {TicketDetailsPage} from '../ticket-details/ticket-details';
 
 @Page({
   templateUrl: 'build/pages/tickets/tickets.html',
+    url: "/tickets",
 })
 export class TicketsPage {
-  constructor(app: IonicApp, nav: NavController, navParams: NavParams) {
+  constructor(nav: NavController, navParams: NavParams) {
     this.nav = nav;
   
     // If we navigated to this page, we will have an item available as a nav param
