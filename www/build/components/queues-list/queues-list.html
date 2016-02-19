@@ -1,4 +1,4 @@
-<ion-list class="list" no-lines>
+<ion-list class="list tableText" no-lines>
     <div *ngFor="#queue of queues" class="table" (click)="goToQueueTicketsListPage(queue)">
         <span class="box5">{{queue.fullname}}</span>
         <span class="box6" [innerHTML]="queue.tickets_count | More"></span>

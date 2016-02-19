@@ -29,12 +29,6 @@
          </div>
         <br>
          </ion-list>
-    <ion-list class="list tableText"no-lines  (click)="itemTappedQ()">
-        <div class="table">
-           <span class="box5">New Ticket</span>
-           <span class="box6">1</span>
-                </div>
-</ion-list>
     
     <queues-list [queues]="queues"></queues-list>
     
@@ -56,27 +50,6 @@
     </div>
     
     <accounts-list [accounts]="accounts"></accounts-list>
-    
-    <ion-list class="list tableText" no-lines  (click)="itemTappedAD()">
-        <div class="table">
-     <span class="box1">New Ticket</span>
-     <span class="box2">7</span>
-     <span class="box3">150$</span>
-     <span class="box4">99</span>
-          </div>
-        <div class="table">
-     <span class="box1">New Ticket</span>
-     <span class="box2">7</span>
-     <span class="box3">150$</span>
-     <span class="box4">99</span>
-          </div>
-        <div class="table">
-     <span class="box1">New Ticket</span>
-     <span class="box2">7</span>
-     <span class="box3">150$</span>
-     <span class="box4">99</span>
-          </div>
-</ion-list>
   
 </ion-content>
 <button item-right secondary fab fab-right fab-bottom (click)="presentActionSheet()"><ion-icon name="md-add"></ion-icon></button>
