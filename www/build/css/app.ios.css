@@ -7426,7 +7426,9 @@ ion-list > .item:first-child {
   font-size: 1.9rem; }
 
 .itemTech {
-  margin-top: 0px !important; }
+  margin-top: 0px !important;
+  border-top-left-radius: 0px !important;
+  border-top-right-radius: 0px !important; }
 
 .item-nocenter {
   text-align: justify !important;

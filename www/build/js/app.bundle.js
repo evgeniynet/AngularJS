@@ -3224,6 +3224,7 @@
 	var organizations_1 = __webpack_require__(364);
 	var login_1 = __webpack_require__(365);
 	var tabs_1 = __webpack_require__(366);
+	var timelog_create_1 = __webpack_require__(368);
 	var MyApp = (function () {
 	    function MyApp(app, platform) {
 	        // set up our app
@@ -3244,7 +3245,7 @@
 	            { title: 'Tabs', component: tabs_1.TabsPage, icon: "md-share-alt" },
 	        ];
 	        // make HelloIonicPage the root (or first) page
-	        this.rootPage = dashboard_1.DashboardPage;
+	        this.rootPage = timelog_create_1.TimelogCreatePage;
 	    }
 	    MyApp.prototype.initializeApp = function () {
 	        this.platform.ready().then(function () {
@@ -61509,17 +61510,19 @@
 	  Ionic pages and navigation.
 	*/
 	var TicketDetailsPage = (function () {
-	    function TicketDetailsPage(nav) {
+	    function TicketDetailsPage(app, nav, navParams) {
 	        this.nav = nav;
+	        // If we navigated to this page, we will have an item available as a nav param
+	        this.selectedItem = navParams.get('item');
 	    }
 	    TicketDetailsPage = __decorate([
 	        ionic_1.Page({
 	            templateUrl: 'build/pages/ticket-details/ticket-details.html',
 	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.IonicApp !== 'undefined' && ionic_1.IonicApp) === 'function' && _a) || Object, (typeof (_b = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _b) || Object, (typeof (_c = typeof ionic_1.NavParams !== 'undefined' && ionic_1.NavParams) === 'function' && _c) || Object])
 	    ], TicketDetailsPage);
 	    return TicketDetailsPage;
-	    var _a;
+	    var _a, _b, _c;
 	})();
 	exports.TicketDetailsPage = TicketDetailsPage;
 
@@ -61944,6 +61947,42 @@
 	    var _a, _b, _c;
 	})();
 	exports.TicketsListPage = TicketsListPage;
+
+
+/***/ },
+/* 368 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(6);
+	/*
+	  Generated class for the TimelogCreatePage page.
+
+	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+	  Ionic pages and navigation.
+	*/
+	var TimelogCreatePage = (function () {
+	    function TimelogCreatePage(nav) {
+	        this.nav = nav;
+	    }
+	    TimelogCreatePage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/timelog-create/timelog-create.html',
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
+	    ], TimelogCreatePage);
+	    return TimelogCreatePage;
+	    var _a;
+	})();
+	exports.TimelogCreatePage = TimelogCreatePage;
 
 
 /***/ }
