@@ -7451,6 +7451,11 @@ p {
 .tablText {
   color: #fff; }
 
+.avatarText {
+  line-height: 0.5;
+  color: #c8c7cc;
+  font-size: 1.8rem; }
+
 .list {
   width: 90%;
   margin: 0 auto; }
@@ -7464,6 +7469,9 @@ p {
 .margin {
   margin: 0px !important; }
 
+.height {
+  height: 180px; }
+
 .indent {
   padding-top: 30px; }
 
@@ -7473,6 +7481,17 @@ scroll-content {
 .timeleft {
   width: 76%;
   float: left; }
+
+.img {
+  margin-bottom: 8px;
+  margin-left: 8px;
+  margin-top: 8px; }
+
+.img_padding {
+  padding-bottom: 10px; }
+
+.center {
+  text-align: center; }
 
 .segment-button {
   color: #fff;
@@ -7536,47 +7555,42 @@ scroll-content {
 .table span.box1 {
   background-color: rgba(224, 224, 224, 0.29);
   width: 35%;
-  float: left;
-  height: 46px;
-  margin-bottom: 10px; }
+  float: left; }
 
 .table span.box2 {
   background-color: rgba(224, 224, 224, 0.29);
   width: 25%;
-  float: left;
-  height: 46px;
-  margin-bottom: 10px; }
+  float: left; }
 
 .table span.box3 {
   background-color: rgba(224, 224, 224, 0.29);
   width: 28%;
   float: left;
-  height: 46px;
   margin-bottom: 10px; }
 
 .table span.box4 {
   background-color: #09c;
   width: 12%;
-  float: right;
-  height: 46px;
-  margin-bottom: 10px; }
+  float: right; }
 
 .table span.box5 {
   background-color: #25b0e6;
   width: 75%;
   float: left;
-  height: 46px;
-  margin-top: 20px; }
+  margin-bottom: 10px; }
 
 .table span.box6 {
   background-color: #09c;
   width: 25%;
   float: right;
-  height: 46px;
-  margin-top: 20px; }
+  margin-bottom: 10px; }
 
 .table span.box9 {
   background-color: rgba(224, 224, 224, 0.29) !important; }
+
+.tableText {
+  line-height: 2.4;
+  font-size: 2rem; }
 
 .buttonTicket {
   width: 50px;
@@ -7655,8 +7669,14 @@ scroll-content {
 .width25 {
   width: 25%; }
 
+.width17 {
+  width: 17%; }
+
 .width12 {
   width: 12%; }
+
+.width23 {
+  width: 23%; }
 
 .width24 {
   width: 24%; }

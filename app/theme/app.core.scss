@@ -24,6 +24,8 @@
 
 .itemTech {
     margin-top: 0px !important;
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
 }
 
 .item-nocenter {
@@ -54,6 +56,12 @@ p {
     color: $label-ios-text-color;
 }
 
+.avatarText{
+line-height: 0.5;
+    color: #c8c7cc;
+    font-size: 1.8rem;
+}
+
 .list{
     width: 90%;
     margin: 0 auto;
@@ -71,6 +79,10 @@ p {
     margin: 0px !important;
 }
 
+.height{
+height: 180px;
+}
+
 .indent{
 padding-top: 30px;
 }
@@ -83,6 +95,20 @@ scroll-content {
     width: 76%;
     float: left;
 }
+
+.img{
+    margin-bottom: 8px;
+    margin-left: 8px;
+    margin-top: 8px;
+}
+
+.img_padding{
+padding-bottom: 10px;
+}
+
+.center{
+    text-align: center;
+    }
 
 .segment-button{
    color: $segment-button-ios-bg-color-activated;
@@ -166,23 +192,18 @@ text-align: center;
     background-color: $grey;
     width: 35%;
     float: left;
-    height: 46px;
-    margin-bottom: 10px;
 }
 
 .table span.box2{
     background-color: $grey;
     width: 25%;
     float: left;
-    height: 46px;
-    margin-bottom: 10px;
 }
 
 .table span.box3{
     background-color: $grey;
     width: 28%;
     float: left;
-    height: 46px;
     margin-bottom: 10px;
 }
 
@@ -190,29 +211,30 @@ text-align: center;
     background-color: $blue2;
     width: 12%;
     float: right;
-    height: 46px;
-    margin-bottom: 10px;
 }
 
 .table span.box5{
     background-color: $blue1;
     width: 75%;
     float: left;
-    height: 46px;
-    margin-top: 20px;
+    margin-bottom: 10px;
 }
 
 .table span.box6{
     background-color: $blue2;
     width: 25%;
     float: right;
-    height: 46px;
-    margin-top: 20px;
+    margin-bottom: 10px;
 }
 
 .table span.box9{
     background-color: $grey !important;
     }
+
+.tableText{
+line-height: 2.4;
+        font-size: 2rem;
+}
 
 //button
 
@@ -321,13 +343,21 @@ color: #fff;
     width: 25%;
 }
 
+.width17{
+    width: 17%;
+}
+
 .width12{
     width: 12%;
 }
 
+.width23{
+    width: 23%;
+}
 .width24{
     width: 24%;
 }
+
 
 .mainStat{
 font-size: 6.15rem;
