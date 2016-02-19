@@ -18,25 +18,37 @@
   </ion-segment>
 </div>
 
-         <ion-list>
-    <button class="item-nocenter" ion-item *ngFor="#item of items" (click)="itemTapped($event, item)">
-    <ion-avatar padding item-left class="ticketImg">
-        <ion-note citem-left><h2>#2030</h2></ion-note>
-      <img  src="http://www.gravatar.com/avatar/8cf59c68bb835b9e03dcd09c0e620d5d?d=mm&s=80">
-        <ion-note class="admin" item-left><h2>test</h2></ion-note> 
-    </ion-avatar>
-        
-    <h2>Finn</h2>
-    <h3>Don't Know What To Do!</h3>
-    <p item-right>Mobile</p>
-
-        <!--        <p item-left class="text_list">test</p>-->
-    </button>
-        </ion-list>
-  <div *ngIf="selectedItem" padding>
-    You navigated here from <b>{{selectedItem.title}}</b>
-  </div>
     
+    
+    <ion-list _ngcontent-mqq-12="">
+    
+    <ion-item-sliding _ngcontent-mqq-12="">
+<ion-item _ngcontent-mqq-12="" class="item" style="">
+   <ion-avatar padding item-left class="ticketImg img_padding">
+       <li class="center avatarText">
+           <span citem-left>#2030</span>
+          <img class="img"  src="http://www.gravatar.com/avatar/8cf59c68bb835b9e03dcd09c0e620d5d?d=mm&s=80">
+       <span class="admin">test</span> </li>
+        </ion-avatar>
+    <li class="textLogin">
+    <h2>Finn</h2>
+        <h3>Don't Know What To Do!</h3></li>
+    <p item-right>Mobile</p>
+        </ion-item>
+        <ion-item-options _ngcontent-mqq-12="">
+        <button _ngcontent-mqq-12="" light="" class="disable-hover button button-default button-light">
+          <ion-icon _ngcontent-mqq-12="" ></ion-icon>
+          Add Response
+        </button>
+        
+        <button _ngcontent-mqq-12="" secondary="" class="disable-hover button button-default button-secondary">
+          <ion-icon _ngcontent-mqq-12=""aria-></ion-icon>
+          Close Ticket
+        </button>
+      </ion-item-options></ion-item-sliding>
+
+
+    </ion-list>
     
   
 </ion-content>
