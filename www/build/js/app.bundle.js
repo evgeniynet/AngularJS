@@ -3223,8 +3223,8 @@
 	var timelogs_1 = __webpack_require__(371);
 	var tickets_1 = __webpack_require__(365);
 	var dashboard_1 = __webpack_require__(373);
-	var organizations_1 = __webpack_require__(376);
-	var login_1 = __webpack_require__(377);
+	var organizations_1 = __webpack_require__(378);
+	var login_1 = __webpack_require__(379);
 	var MyApp = (function () {
 	    function MyApp(app, platform, apiData) {
 	        // set up our app
@@ -62191,10 +62191,10 @@
 	var ionic_1 = __webpack_require__(6);
 	var data_provider_1 = __webpack_require__(362);
 	var queues_list_1 = __webpack_require__(374);
-	var accounts_list_1 = __webpack_require__(378);
+	var accounts_list_1 = __webpack_require__(377);
 	var tickets_1 = __webpack_require__(365);
 	var account_details_1 = __webpack_require__(370);
-	var more_1 = __webpack_require__(375);
+	var more_1 = __webpack_require__(376);
 	/*
 	  Generated class for the DashboardPage page.
 
@@ -62290,11 +62290,10 @@
 	var __metadata = (this && this.__metadata) || function (k, v) {
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
-	//in case on using ionic "ion-card"
 	var ionic_1 = __webpack_require__(6);
 	var core_1 = __webpack_require__(8);
-	var queues_1 = __webpack_require__(364);
-	var more_1 = __webpack_require__(375);
+	var queue_tickets_list_1 = __webpack_require__(375);
+	var more_1 = __webpack_require__(376);
 	var QueuesListComponent = (function () {
 	    /*@Input()
 	    card : Card;*/
@@ -62302,7 +62301,9 @@
 	        this.nav = nav;
 	        //this.header = "into";
 	    }
-	    QueuesListComponent.prototype.itemTappedQ = function () { this.nav.push(queues_1.QueuesPage); };
+	    QueuesListComponent.prototype.goToQueueTicketsListPage = function (queue) {
+	        this.nav.push(queue_tickets_list_1.QueueTicketsListPage, queue);
+	    };
 	    __decorate([
 	        core_1.Input(), 
 	        __metadata('design:type', Array)
@@ -62324,6 +62325,44 @@
 
 /***/ },
 /* 375 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(6);
+	/*
+	  Generated class for the QueuesPage page.
+
+	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+	  Ionic pages and navigation.
+	*/
+	var QueueTicketsListPage = (function () {
+	    function QueueTicketsListPage(nav, navParams) {
+	        this.nav = nav;
+	        this.navParams = navParams;
+	        this.queue = this.navParams.data;
+	    }
+	    QueueTicketsListPage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/queue-tickets-list/queue-tickets-list.html',
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof ionic_1.NavParams !== 'undefined' && ionic_1.NavParams) === 'function' && _b) || Object])
+	    ], QueueTicketsListPage);
+	    return QueueTicketsListPage;
+	    var _a, _b;
+	})();
+	exports.QueueTicketsListPage = QueueTicketsListPage;
+
+
+/***/ },
+/* 376 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62361,7 +62400,53 @@
 
 
 /***/ },
-/* 376 */
+/* 377 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	//in case on using ionic "ion-card"
+	var ionic_1 = __webpack_require__(6);
+	var core_1 = __webpack_require__(8);
+	//import {QueuesPage} from '../../pages/queues/queues';
+	var more_1 = __webpack_require__(376);
+	var AccountsListComponent = (function () {
+	    /*@Input()
+	    card : Card;*/
+	    function AccountsListComponent(nav) {
+	        this.nav = nav;
+	        //this.header = "into";
+	    }
+	    AccountsListComponent.prototype.itemTappedQ = function () {
+	    };
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', Array)
+	    ], AccountsListComponent.prototype, "accounts", void 0);
+	    AccountsListComponent = __decorate([
+	        core_1.Component({
+	            selector: 'accounts-list',
+	            templateUrl: 'build/components/accounts-list/accounts-list.html',
+	            directives: [ionic_1.IONIC_DIRECTIVES],
+	            pipes: [more_1.MorePipe],
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
+	    ], AccountsListComponent);
+	    return AccountsListComponent;
+	    var _a;
+	})();
+	exports.AccountsListComponent = AccountsListComponent;
+
+
+/***/ },
+/* 378 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62397,7 +62482,7 @@
 
 
 /***/ },
-/* 377 */
+/* 379 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62430,52 +62515,6 @@
 	    var _a;
 	})();
 	exports.LoginPage = LoginPage;
-
-
-/***/ },
-/* 378 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	//in case on using ionic "ion-card"
-	var ionic_1 = __webpack_require__(6);
-	var core_1 = __webpack_require__(8);
-	//import {QueuesPage} from '../../pages/queues/queues';
-	var more_1 = __webpack_require__(375);
-	var AccountsListComponent = (function () {
-	    /*@Input()
-	    card : Card;*/
-	    function AccountsListComponent(nav) {
-	        this.nav = nav;
-	        //this.header = "into";
-	    }
-	    AccountsListComponent.prototype.itemTappedQ = function () {
-	    };
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', Array)
-	    ], AccountsListComponent.prototype, "accounts", void 0);
-	    AccountsListComponent = __decorate([
-	        core_1.Component({
-	            selector: 'accounts-list',
-	            templateUrl: 'build/components/accounts-list/accounts-list.html',
-	            directives: [ionic_1.IONIC_DIRECTIVES],
-	            pipes: [more_1.MorePipe],
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
-	    ], AccountsListComponent);
-	    return AccountsListComponent;
-	    var _a;
-	})();
-	exports.AccountsListComponent = AccountsListComponent;
 
 
 /***/ }

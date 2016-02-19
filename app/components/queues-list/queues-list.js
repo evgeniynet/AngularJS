@@ -1,7 +1,6 @@
-//in case on using ionic "ion-card"
 import {IONIC_DIRECTIVES, NavController, NavParams} from 'ionic/ionic';
 import {Component, Input, Output} from 'angular2/core';
-import {QueuesPage} from '../../pages/queues/queues';
+import {QueueTicketsListPage} from '../../pages/queue-tickets-list/queue-tickets-list';
 import {MorePipe} from '../../pipes/more';
 
 @Component({
@@ -24,6 +23,9 @@ card : Card;*/
          this.nav = nav;
     //this.header = "into";
 }
-     itemTappedQ() {this.nav.push(QueuesPage);}
+    
+     goToQueueTicketsListPage(queue) {
+         this.nav.push(QueueTicketsListPage, queue);
+     }
      
 }
