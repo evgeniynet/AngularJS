@@ -1,15 +1,27 @@
 <ion-list>
-    <button class="item-nocenter" ion-item *ngFor="#item of items" (click)="itemTapped($event, item)">
-        <ion-avatar padding class="ticketImg">
-            <ion-note citem-left>#2030</ion-note>
-            <img  src="http://www.gravatar.com/avatar/8cf59c68bb835b9e03dcd09c0e620d5d?d=mm&s=80">
-            <ion-note class="admin" item-left>test</ion-note> 
+    <ion-item-sliding *ngFor="#ticket of tickets"> <!--(click)="itemTapped($event, ticket)"-->
+    <ion-item class="item">
+        <ion-avatar padding item-left class="ticketImg img_padding">
+            <li class="center avatarText">
+                <span citem-left>{{ticket.number}}</span>
+                <img class="img"  src="http://www.gravatar.com/avatar/8cf59c68bb835b9e03dcd09c0e620d5d?d=mm&s=80">
+                <span class="admin">{{ticket.user_firstname}}  {{ticket.user_lastname}}</span> </li>
         </ion-avatar>
+        <li class="textLogin">
+            <h2>{{ticket.subject}}</h2>
+            <h3>{{ticket.initial_post}}</h3></li>
+        <p item-right>{{ticket.class_name}}</p>
+    </ion-item>
+    <ion-item-options>
+        <button class="disable-hover button button-default button-light">
+            <ion-icon></ion-icon>
+            Add Response
+        </button>
 
-        <h2>Finn</h2>
-        <h3>Don't Know What To Do!</h3>
-        <p item-right>Mobile</p>
-
-        <!--        <p item-left class="text_list">test</p>-->
-    </button>
+        <button secondary class="disable-hover button button-default button-secondary">
+            <ion-icon _ngcontent-mqq-12=""aria-></ion-icon>
+            Close Ticket
+        </button>
+    </ion-item-options>
+</ion-item-sliding>
 </ion-list>

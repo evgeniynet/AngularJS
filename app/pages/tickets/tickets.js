@@ -1,28 +1,24 @@
 import {Page, NavController, NavParams} from 'ionic/ionic';
+import {DataProvider} from '../../providers/data-provider';
 import {TicketDetailsPage} from '../ticket-details/ticket-details';
+import {TicketsListComponent} from '../../components/tickets-list/tickets-list';
+import {MorePipe} from '../../pipes/more';
 
 @Page({
   templateUrl: 'build/pages/tickets/tickets.html',
-    url: "/tickets",
+    directives: [TicketsListComponent],
+    pipes: [MorePipe],
 })
 export class TicketsPage {
-  constructor(nav: NavController, navParams: NavParams) {
+    constructor(nav: NavController, navParams: NavParams, dataProvider: DataProvider) {
     this.nav = nav;
+        this.tickets = null;
   
-    // If we navigated to this page, we will have an item available as a nav param
-      this.selectedItem = navParams.get('item');
-
-    this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
-    'american-football', 'boat', 'bluetooth', 'build'];
-
-    this.items = [];
-    for(let i = 1; i < 11; i++) {
-      this.items.push({
-        title: 'Item ' + i,
-        note: 'This is item #' + i,
-        icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-      });
-    }
+        dataProvider.getTicketsList().subscribe(
+            data => {this.tickets = data}, 
+            error => { 
+                console.log(error || 'Server error');}
+        ); 
   }
 
     itemTapped() {this.nav.push(TicketDetailsPage);}

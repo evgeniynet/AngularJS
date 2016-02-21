@@ -3214,19 +3214,19 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	var hello_ionic_1 = __webpack_require__(353);
-	var queues_1 = __webpack_require__(354);
-	var invoices_1 = __webpack_require__(357);
-	var accounts_1 = __webpack_require__(359);
-	var timelogs_1 = __webpack_require__(361);
-	var tickets_1 = __webpack_require__(355);
-	var dashboard_1 = __webpack_require__(363);
-	var organizations_1 = __webpack_require__(364);
-	var login_1 = __webpack_require__(365);
-	var tabs_1 = __webpack_require__(366);
-	var timelog_create_1 = __webpack_require__(368);
+	var api_data_1 = __webpack_require__(353);
+	var data_provider_1 = __webpack_require__(362);
+	var hello_ionic_1 = __webpack_require__(363);
+	var queues_1 = __webpack_require__(364);
+	var invoices_1 = __webpack_require__(367);
+	var accounts_1 = __webpack_require__(369);
+	var timelogs_1 = __webpack_require__(371);
+	var tickets_1 = __webpack_require__(365);
+	var dashboard_1 = __webpack_require__(373);
+	var organizations_1 = __webpack_require__(379);
+	var login_1 = __webpack_require__(380);
 	var MyApp = (function () {
-	    function MyApp(app, platform) {
+	    function MyApp(app, platform, apiData) {
 	        // set up our app
 	        this.app = app;
 	        this.platform = platform;
@@ -3242,10 +3242,9 @@
 	            { title: 'Switch Org', component: organizations_1.OrganizationsPage, icon: "md-swap" },
 	            { title: 'Signout', component: login_1.LoginPage, icon: "md-log-in" },
 	            { title: 'Full App', component: hello_ionic_1.HelloIonicPage, icon: "md-share-alt" },
-	            { title: 'Tabs', component: tabs_1.TabsPage, icon: "md-share-alt" },
 	        ];
 	        // make HelloIonicPage the root (or first) page
-	        this.rootPage = timelog_create_1.TimelogCreatePage;
+	        this.rootPage = dashboard_1.DashboardPage;
 	    }
 	    MyApp.prototype.initializeApp = function () {
 	        this.platform.ready().then(function () {
@@ -3268,23 +3267,27 @@
 	        });
 	    };
 	    MyApp.prototype.openPage = function (page) {
+	        var _this = this;
 	        // close the menu when clicking a link from the menu
-	        this.app.getComponent('leftMenu').close();
-	        // navigate to the new page if it is not the current page
 	        var nav = this.app.getComponent('nav');
-	        nav.setRoot(page.component);
+	        nav.setRoot(page.component).then(function () {
+	            // wait for the root page to be completely loaded
+	            // then close the menu
+	            _this.app.getComponent('leftMenu').close();
+	        });
 	    };
 	    MyApp = __decorate([
 	        ionic_1.App({
 	            templateUrl: 'build/app.html',
+	            providers: [api_data_1.ApiData, data_provider_1.DataProvider],
 	            config: {
 	                tabbarPlacement: 'top'
 	            }
 	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.IonicApp !== 'undefined' && ionic_1.IonicApp) === 'function' && _a) || Object, (typeof (_b = typeof ionic_1.Platform !== 'undefined' && ionic_1.Platform) === 'function' && _b) || Object])
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.IonicApp !== 'undefined' && ionic_1.IonicApp) === 'function' && _a) || Object, (typeof (_b = typeof ionic_1.Platform !== 'undefined' && ionic_1.Platform) === 'function' && _b) || Object, (typeof (_c = typeof api_data_1.ApiData !== 'undefined' && api_data_1.ApiData) === 'function' && _c) || Object])
 	    ], MyApp);
 	    return MyApp;
-	    var _a, _b;
+	    var _a, _b, _c;
 	})();
 
 
@@ -61390,6 +61393,429 @@
 	var __metadata = (this && this.__metadata) || function (k, v) {
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
+	var core_1 = __webpack_require__(8);
+	var http_1 = __webpack_require__(144);
+	var Observable_1 = __webpack_require__(58);
+	var config_1 = __webpack_require__(354);
+	var mocks_1 = __webpack_require__(355);
+	//import 'rxjs/Rx'
+	__webpack_require__(356);
+	__webpack_require__(360);
+	var ApiData = (function () {
+	    function ApiData(http) {
+	        this.mock = true;
+	        // inject the Http provider and set to this instance
+	        this.http = http;
+	        this.userKey = "re36rym3mjqxm8ej2cscfajmxpsew33m",
+	            this.userOrgKey = "zwoja4",
+	            this.userInstanceKey = "ms2asm"; // localStorage.getItem('userInstanceKey');
+	    }
+	    ApiData.prototype.request = function (method, data, type, headers) {
+	        var req = new http_1.Request({
+	            method: type || 'GET',
+	            url: config_1.ApiSite + method,
+	            headers: headers,
+	            body: JSON.stringify(data)
+	        });
+	        return this.http.request(req)
+	            .map(function (res) { return res.json(); })
+	            .catch(this.handleError);
+	    };
+	    ApiData.prototype.mock_get = function (method) {
+	        var arr = null;
+	        var pos = method.indexOf('?');
+	        if (pos != -1)
+	            method = method.substring(0, pos);
+	        arr = mocks_1.MOCKS[method];
+	        return Observable_1.Observable.create(function (observer) {
+	            observer.next(arr);
+	            observer.complete();
+	        });
+	    };
+	    ApiData.prototype.get = function (method, data, type) {
+	        if (this.mock) {
+	            return this.mock_get(method);
+	        }
+	        if (!this.userKey || !this.userOrgKey || !this.userInstanceKey || this.userKey.length != 32) {
+	            console.log("Invalid organization!");
+	            return;
+	        }
+	        var headers = new http_1.Headers({
+	            'Accept': 'application/json',
+	            'Content-Type': 'application/json',
+	            'Authorization': 'Basic ' + btoa(this.userOrgKey + '-' + this.userInstanceKey + ':' + this.userKey)
+	        });
+	        return this.request(method, data, type, headers);
+	    };
+	    ApiData.prototype.processData = function (data) {
+	        // just some good 'ol JS fun with objects and arrays
+	        // build up the data by linking speakers to sessions
+	        //console.log(JSON.stringify(data));
+	        return data;
+	    };
+	    ApiData.prototype.handleError = function (error) {
+	        //console.error(error);
+	        return Observable_1.Observable.throw(error.json().error || 'Server error');
+	    };
+	    ApiData = __decorate([
+	        core_1.Injectable(), 
+	        __metadata('design:paramtypes', [http_1.Http])
+	    ], ApiData);
+	    return ApiData;
+	})();
+	exports.ApiData = ApiData;
+
+
+/***/ },
+/* 354 */
+/***/ function(module, exports) {
+
+	var Site = 'sherpadesk.com/';
+	exports.MobileSite = 'http://m.' + Site;
+	exports.AppSite = 'https://app.' + Site;
+	exports.ApiSite = 'http://api.' + Site;
+	exports.dontClearCache = false;
+	exports.isSD = true;
+	exports.year = "2015";
+	exports.appVersion = "40";
+
+
+/***/ },
+/* 355 */
+/***/ function(module, exports) {
+
+	exports.MOCKS = { "tickets/counts": { new_messages: 1, open_all: 284, open_as_tech: 10, open_as_alttech: 2, open_as_user: 1001, onhold: 3, reminder: 0, parts_on_order: 0, unconfirmed: 45, waiting: 2 },
+	    "accounts": [
+	        {
+	            "id": -1,
+	            "name": "SherpaDesk Support",
+	            "account_statistics": {
+	                "ticket_counts": {
+	                    "open": 133,
+	                    "closed": 2025,
+	                    "hours": 27132,
+	                    "total_invoiced_amount": 0,
+	                    "total_non_invoiced_amount": 548,
+	                    "total_billed_amount": 36992,
+	                    "total_unbilled_amount": 0,
+	                    "scheduled": 0,
+	                    "followups": 0
+	                },
+	                "timelogs": 0,
+	                "invoices": 0,
+	                "hours": 27132,
+	                "expenses": 22
+	            }
+	        },
+	        {
+	            "id": 574,
+	            "name": "ACLU",
+	            "account_statistics": {
+	                "ticket_counts": {
+	                    "open": 1,
+	                    "closed": 45,
+	                    "hours": 10,
+	                    "total_invoiced_amount": 0,
+	                    "total_non_invoiced_amount": 0,
+	                    "total_billed_amount": 0,
+	                    "total_unbilled_amount": 0,
+	                    "scheduled": 0,
+	                    "followups": 0
+	                },
+	                "timelogs": 0,
+	                "invoices": 0,
+	                "hours": 10,
+	                "expenses": 0
+	            }
+	        },
+	        {
+	            "id": 7744,
+	            "name": "Aiken County Schools",
+	            "account_statistics": {
+	                "ticket_counts": {
+	                    "open": 0,
+	                    "closed": 3,
+	                    "hours": 6,
+	                    "total_invoiced_amount": 0,
+	                    "total_non_invoiced_amount": 0,
+	                    "total_billed_amount": 0,
+	                    "total_unbilled_amount": 0,
+	                    "scheduled": 0,
+	                    "followups": 0
+	                },
+	                "timelogs": 0,
+	                "invoices": 0,
+	                "hours": 6,
+	                "expenses": 0
+	            }
+	        }
+	    ],
+	    "queues": [{ "id": "27", "fullname": "Pre-Development", "tickets_count": 198 }, { "id": "271", "fullname": "Future Consideration", "tickets_count": 76 }, { "id": "269", "fullname": "Website", "tickets_count": 2 }, { "id": "5", "fullname": "New Ticket", "tickets_count": 1 }, { "id": "272", "fullname": "Mobile App", "tickets_count": 0 }],
+	    "tickets": [{ "id": 370928, "key": "4f5ijv", "sla_complete_date": null, "created_time": "2015-09-10T01:08:00.0000000", "updated_time": "2015-09-28T16:39:00.0000000", "closed_time": null, "number": 4384, "is_new_user_post": false, "is_new_tech_post": false, "prefix": "", "subject": "Logo and Banner Request for Salesforce", "support_group_name": "", "next_step": "", "resolution_category_id": null, "resolution_category_name": "", "support_group_id": null, "initial_post": "Hey Anastasiia!\r\n\r\nWe need a couple of variants of logos and banners for our SalesForce listing.\r\n\r\nHere is what we need.\r\n- High Resolution logo: PNG with a transparent background that is up to 10MB in size\r\n-Banner: a 1200 x 300 pixel PNG that is up to 1MB in size\r\n-Tile Image: a 280x205 pixel PNG file that is up to 300KB in size\r\n\r\nLet me know if you have any questions on this.  Thanks!", "user_id": 2, "user_firstname": "Patrick", "user_lastname": "Clements", "user_email": "patrick.clements@bigwebapps.com", "tech_id": 119130, "technician_firstname": "Anastasiia", "technician_lastname": "Chov", "technician_email": "nastya_01.88@mail.ru", "account_id": -1, "account_name": "SherpaDesk Support", "location_id": null, "location_name": "", "account_location_id": null, "account_location_name": "", "priority_id": 1, "priority_name": "General Inquiry", "level": 3, "level_name": "Active Plate", "status": "Open", "creation_category_id": null, "creation_category_name": "", "days_old_in_minutes": 237151, "days_old": "164d 16h 31m", "class_id": 268, "class_name": "SherpaDesk", "total_hours": 20.0000 }, { "id": 147987, "key": "sf8c0m", "sla_complete_date": null, "created_time": "2014-07-15T18:43:00.0000000", "updated_time": "2014-11-25T17:38:00.0000000", "closed_time": null, "number": 2315, "is_new_user_post": true, "is_new_tech_post": true, "prefix": "", "subject": "Email Links to Mobile App", "support_group_name": "", "next_step": "", "resolution_category_id": null, "resolution_category_name": "", "support_group_id": null, "initial_post": "This is my current concept to allow us easier access to the mobile app for testing.   I know this is not great but I don't have a better idea right now.\r\n\r\nI do not love the idea of doing redirects on the web to redirect to mobile or the app.<br><br>Following file was  uploaded: Mobile App Use and Test.png.", "user_id": 1, "user_firstname": "Jon", "user_lastname": "Vickers", "user_email": "jon.vickers@micajah.com", "tech_id": 1, "technician_firstname": "Jon", "technician_lastname": "Vickers", "technician_email": "jon.vickers@micajah.com", "account_id": -1, "account_name": "SherpaDesk Support", "location_id": 2, "location_name": "Atlanta", "account_location_id": 2, "account_location_name": "Atlanta", "priority_id": 3, "priority_name": "UI Improvements", "level": 3, "level_name": "Active Plate", "status": "Open", "creation_category_id": null, "creation_category_name": "", "days_old_in_minutes": 843776, "days_old": "585d 22h 56m", "class_id": 5298, "class_name": "SherpaDesk / Email", "total_hours": 2.0000 }]
+	};
+
+
+/***/ },
+/* 356 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Observable_1 = __webpack_require__(58);
+	var map_1 = __webpack_require__(357);
+	Observable_1.Observable.prototype.map = map_1.map;
+	//# sourceMappingURL=map.js.map
+
+/***/ },
+/* 357 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var Subscriber_1 = __webpack_require__(59);
+	var tryCatch_1 = __webpack_require__(358);
+	var errorObject_1 = __webpack_require__(359);
+	/**
+	 * Similar to the well known `Array.prototype.map` function, this operator
+	 * applies a projection to each value and emits that projection in the returned observable
+	 *
+	 * @param {Function} project the function to create projection
+	 * @param {any} [thisArg] an optional argument to define what `this` is in the project function
+	 * @returns {Observable} a observable of projected values
+	 */
+	function map(project, thisArg) {
+	    if (typeof project !== 'function') {
+	        throw new TypeError('argument is not a function. Are you looking for `mapTo()`?');
+	    }
+	    return this.lift(new MapOperator(project, thisArg));
+	}
+	exports.map = map;
+	var MapOperator = (function () {
+	    function MapOperator(project, thisArg) {
+	        this.project = project;
+	        this.thisArg = thisArg;
+	    }
+	    MapOperator.prototype.call = function (subscriber) {
+	        return new MapSubscriber(subscriber, this.project, this.thisArg);
+	    };
+	    return MapOperator;
+	})();
+	var MapSubscriber = (function (_super) {
+	    __extends(MapSubscriber, _super);
+	    function MapSubscriber(destination, project, thisArg) {
+	        _super.call(this, destination);
+	        this.project = project;
+	        this.thisArg = thisArg;
+	        this.count = 0;
+	    }
+	    MapSubscriber.prototype._next = function (x) {
+	        var result = tryCatch_1.tryCatch(this.project).call(this.thisArg || this, x, this.count++);
+	        if (result === errorObject_1.errorObject) {
+	            this.error(errorObject_1.errorObject.e);
+	        }
+	        else {
+	            this.destination.next(result);
+	        }
+	    };
+	    return MapSubscriber;
+	})(Subscriber_1.Subscriber);
+	//# sourceMappingURL=map.js.map
+
+/***/ },
+/* 358 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var errorObject_1 = __webpack_require__(359);
+	var tryCatchTarget;
+	function tryCatcher() {
+	    try {
+	        return tryCatchTarget.apply(this, arguments);
+	    }
+	    catch (e) {
+	        errorObject_1.errorObject.e = e;
+	        return errorObject_1.errorObject;
+	    }
+	}
+	function tryCatch(fn) {
+	    tryCatchTarget = fn;
+	    return tryCatcher;
+	}
+	exports.tryCatch = tryCatch;
+	;
+	//# sourceMappingURL=tryCatch.js.map
+
+/***/ },
+/* 359 */
+/***/ function(module, exports) {
+
+	exports.errorObject = { e: {} };
+	//# sourceMappingURL=errorObject.js.map
+
+/***/ },
+/* 360 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Observable_1 = __webpack_require__(58);
+	var catch_1 = __webpack_require__(361);
+	Observable_1.Observable.prototype.catch = catch_1._catch;
+	//# sourceMappingURL=catch.js.map
+
+/***/ },
+/* 361 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var Subscriber_1 = __webpack_require__(59);
+	var tryCatch_1 = __webpack_require__(358);
+	var errorObject_1 = __webpack_require__(359);
+	/**
+	 * Catches errors on the observable to be handled by returning a new observable or throwing an error.
+	 * @param {function} selector a function that takes as arguments `err`, which is the error, and `caught`, which
+	 *  is the source observable, in case you'd like to "retry" that observable by returning it again. Whatever observable
+	 *  is returned by the `selector` will be used to continue the observable chain.
+	 * @return {Observable} an observable that originates from either the source or the observable returned by the
+	 *  catch `selector` function.
+	 */
+	function _catch(selector) {
+	    var catchOperator = new CatchOperator(selector);
+	    var caught = this.lift(catchOperator);
+	    catchOperator.caught = caught;
+	    return caught;
+	}
+	exports._catch = _catch;
+	var CatchOperator = (function () {
+	    function CatchOperator(selector) {
+	        this.selector = selector;
+	    }
+	    CatchOperator.prototype.call = function (subscriber) {
+	        return new CatchSubscriber(subscriber, this.selector, this.caught);
+	    };
+	    return CatchOperator;
+	})();
+	var CatchSubscriber = (function (_super) {
+	    __extends(CatchSubscriber, _super);
+	    function CatchSubscriber(destination, selector, caught) {
+	        _super.call(this, null);
+	        this.destination = destination;
+	        this.selector = selector;
+	        this.caught = caught;
+	        this.lastSubscription = this;
+	        this.destination.add(this);
+	    }
+	    CatchSubscriber.prototype._next = function (value) {
+	        this.destination.next(value);
+	    };
+	    CatchSubscriber.prototype._error = function (err) {
+	        var result = tryCatch_1.tryCatch(this.selector)(err, this.caught);
+	        if (result === errorObject_1.errorObject) {
+	            this.destination.error(errorObject_1.errorObject.e);
+	        }
+	        else {
+	            this.lastSubscription.unsubscribe();
+	            this.lastSubscription = result.subscribe(this.destination);
+	        }
+	    };
+	    CatchSubscriber.prototype._complete = function () {
+	        this.lastSubscription.unsubscribe();
+	        this.destination.complete();
+	    };
+	    CatchSubscriber.prototype._unsubscribe = function () {
+	        this.lastSubscription.unsubscribe();
+	    };
+	    return CatchSubscriber;
+	})(Subscriber_1.Subscriber);
+	//# sourceMappingURL=catch.js.map
+
+/***/ },
+/* 362 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(8);
+	var api_data_1 = __webpack_require__(353);
+	__webpack_require__(356);
+	String.prototype.addp = function (param, value) {
+	    if (!value || !param)
+	        return this;
+	    var pos = this.indexOf(param + '=');
+	    //if parameter exists
+	    if (pos != -1)
+	        return this.slice(0, pos + param.length) + '=' + value;
+	    var ch = this.indexOf('?') > 0 ? '&' : '?';
+	    return this + ch + param + '=' + value;
+	};
+	var DataProvider = (function () {
+	    function DataProvider(apiData) {
+	        // inject the Http provider and set to this instance
+	        this.apiData = apiData;
+	    }
+	    DataProvider.prototype.getTicketsList = function () {
+	        var url = "tickets"; //.addp("limit","3");
+	        return this.apiData.get(url);
+	    };
+	    DataProvider.prototype.getTicketsCounts = function () {
+	        var url = "tickets/counts";
+	        return this.apiData.get(url);
+	    };
+	    DataProvider.prototype.getQueueList = function (limit) {
+	        var url = "queues".addp("sort_by", "tickets_count");
+	        return this.apiData.get(url).map(function (arr) {
+	            if (arr && limit)
+	                arr.length = limit;
+	            return arr;
+	        });
+	    };
+	    DataProvider.prototype.getAccountList = function (is_dashboard) {
+	        var url = "accounts";
+	        return this.apiData.get(url).map(function (arr) {
+	            var result = [];
+	            if (is_dashboard && arr) {
+	                arr.forEach(function (account) {
+	                    if (account.account_statistics.ticket_counts.open > 0)
+	                        result.push(account);
+	                });
+	            }
+	            else
+	                return arr;
+	            return result;
+	        });
+	    };
+	    DataProvider = __decorate([
+	        core_1.Injectable(), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof api_data_1.ApiData !== 'undefined' && api_data_1.ApiData) === 'function' && _a) || Object])
+	    ], DataProvider);
+	    return DataProvider;
+	    var _a;
+	})();
+	exports.DataProvider = DataProvider;
+
+
+/***/ },
+/* 363 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
 	var ionic_1 = __webpack_require__(6);
 	var HelloIonicPage = (function () {
 	    function HelloIonicPage(nav) {
@@ -61408,7 +61834,7 @@
 
 
 /***/ },
-/* 354 */
+/* 364 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61421,7 +61847,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	var tickets_1 = __webpack_require__(355);
+	var tickets_1 = __webpack_require__(365);
 	/*
 	  Generated class for the QueuesPage page.
 
@@ -61446,7 +61872,7 @@
 
 
 /***/ },
-/* 355 */
+/* 365 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61459,29 +61885,27 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	var ticket_details_1 = __webpack_require__(356);
+	var data_provider_1 = __webpack_require__(362);
+	var ticket_details_1 = __webpack_require__(366);
+	var tickets_list_1 = __webpack_require__(378);
+	var more_1 = __webpack_require__(376);
 	var TicketsPage = (function () {
-	    function TicketsPage(app, nav, navParams) {
+	    function TicketsPage(nav, navParams, dataProvider) {
+	        var _this = this;
 	        this.nav = nav;
-	        // If we navigated to this page, we will have an item available as a nav param
-	        this.selectedItem = navParams.get('item');
-	        this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
-	            'american-football', 'boat', 'bluetooth', 'build'];
-	        this.items = [];
-	        for (var i = 1; i < 11; i++) {
-	            this.items.push({
-	                title: 'Item ' + i,
-	                note: 'This is item #' + i,
-	                icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-	            });
-	        }
+	        this.tickets = null;
+	        dataProvider.getTicketsList().subscribe(function (data) { _this.tickets = data; }, function (error) {
+	            console.log(error || 'Server error');
+	        });
 	    }
 	    TicketsPage.prototype.itemTapped = function () { this.nav.push(ticket_details_1.TicketDetailsPage); };
 	    TicketsPage = __decorate([
 	        ionic_1.Page({
 	            templateUrl: 'build/pages/tickets/tickets.html',
+	            directives: [tickets_list_1.TicketsListComponent],
+	            pipes: [more_1.MorePipe],
 	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.IonicApp !== 'undefined' && ionic_1.IonicApp) === 'function' && _a) || Object, (typeof (_b = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _b) || Object, (typeof (_c = typeof ionic_1.NavParams !== 'undefined' && ionic_1.NavParams) === 'function' && _c) || Object])
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof ionic_1.NavParams !== 'undefined' && ionic_1.NavParams) === 'function' && _b) || Object, (typeof (_c = typeof data_provider_1.DataProvider !== 'undefined' && data_provider_1.DataProvider) === 'function' && _c) || Object])
 	    ], TicketsPage);
 	    return TicketsPage;
 	    var _a, _b, _c;
@@ -61490,7 +61914,7 @@
 
 
 /***/ },
-/* 356 */
+/* 366 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61510,8 +61934,9 @@
 	  Ionic pages and navigation.
 	*/
 	var TicketDetailsPage = (function () {
-	    function TicketDetailsPage(app, nav, navParams) {
+	    function TicketDetailsPage(nav, navParams) {
 	        this.nav = nav;
+	        this.pet = "Reply";
 	        // If we navigated to this page, we will have an item available as a nav param
 	        this.selectedItem = navParams.get('item');
 	    }
@@ -61519,16 +61944,16 @@
 	        ionic_1.Page({
 	            templateUrl: 'build/pages/ticket-details/ticket-details.html',
 	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.IonicApp !== 'undefined' && ionic_1.IonicApp) === 'function' && _a) || Object, (typeof (_b = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _b) || Object, (typeof (_c = typeof ionic_1.NavParams !== 'undefined' && ionic_1.NavParams) === 'function' && _c) || Object])
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof ionic_1.NavParams !== 'undefined' && ionic_1.NavParams) === 'function' && _b) || Object])
 	    ], TicketDetailsPage);
 	    return TicketDetailsPage;
-	    var _a, _b, _c;
+	    var _a, _b;
 	})();
 	exports.TicketDetailsPage = TicketDetailsPage;
 
 
 /***/ },
-/* 357 */
+/* 367 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61541,7 +61966,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	var invoice_details_1 = __webpack_require__(358);
+	var invoice_details_1 = __webpack_require__(368);
 	/*
 	  Generated class for the InvoicesPage page.
 
@@ -61566,7 +61991,7 @@
 
 
 /***/ },
-/* 358 */
+/* 368 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61602,7 +62027,7 @@
 
 
 /***/ },
-/* 359 */
+/* 369 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61615,7 +62040,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	var account_details_1 = __webpack_require__(360);
+	var account_details_1 = __webpack_require__(370);
 	/*
 	  Generated class for the AccountsPage page.
 
@@ -61640,7 +62065,7 @@
 
 
 /***/ },
-/* 360 */
+/* 370 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61676,7 +62101,7 @@
 
 
 /***/ },
-/* 361 */
+/* 371 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61689,7 +62114,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	var timelog_1 = __webpack_require__(362);
+	var timelog_1 = __webpack_require__(372);
 	/*
 	  Generated class for the TimelogsPage page.
 
@@ -61714,7 +62139,7 @@
 
 
 /***/ },
-/* 362 */
+/* 372 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61750,7 +62175,7 @@
 
 
 /***/ },
-/* 363 */
+/* 373 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61763,9 +62188,12 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	var tickets_1 = __webpack_require__(355);
-	var queues_1 = __webpack_require__(354);
-	var account_details_1 = __webpack_require__(360);
+	var data_provider_1 = __webpack_require__(362);
+	var queues_list_1 = __webpack_require__(374);
+	var accounts_list_1 = __webpack_require__(377);
+	var tickets_1 = __webpack_require__(365);
+	var account_details_1 = __webpack_require__(370);
+	var more_1 = __webpack_require__(376);
 	/*
 	  Generated class for the DashboardPage page.
 
@@ -61773,26 +62201,292 @@
 	  Ionic pages and navigation.
 	*/
 	var DashboardPage = (function () {
-	    function DashboardPage(nav) {
+	    function DashboardPage(nav, dataProvider) {
+	        var _this = this;
 	        this.nav = nav;
+	        this.queues = null;
+	        this.accounts = null;
+	        this.counts = {};
+	        dataProvider.getQueueList(3).subscribe(function (data) { _this.queues = data; }, function (error) {
+	            console.log(error || 'Server error');
+	        });
+	        dataProvider.getAccountList(true).subscribe(function (data) { _this.accounts = data; }, function (error) {
+	            console.log(error || 'Server error');
+	        });
+	        dataProvider.getTicketsCounts().subscribe(function (data) { _this.counts = data; }, function (error) {
+	            console.log(error || 'Server error');
+	        });
 	    }
 	    DashboardPage.prototype.itemTappedTL = function () { this.nav.push(tickets_1.TicketsPage); };
-	    DashboardPage.prototype.itemTappedQ = function () { this.nav.push(queues_1.QueuesPage); };
 	    DashboardPage.prototype.itemTappedAD = function () { this.nav.push(account_details_1.AccountDetailsPage); };
+	    DashboardPage.prototype.presentActionSheet = function () {
+	        var actionSheet = ionic_1.ActionSheet.create({
+	            title: '',
+	            buttons: [
+	                {
+	                    icon: 'create-outline',
+	                    text: 'Add Ticket',
+	                    handler: function () {
+	                        console.log('Destructive clicked');
+	                    }
+	                }, {
+	                    icon: 'md-time',
+	                    text: 'Add Time',
+	                    handler: function () {
+	                        console.log('Archive clicked');
+	                    }
+	                }, {
+	                    icon: 'card',
+	                    text: 'Add Invoice',
+	                    handler: function () {
+	                        console.log('Archive clicked');
+	                    }
+	                }, {
+	                    icon: 'calculator',
+	                    text: 'Add Expense',
+	                    handler: function () {
+	                        console.log('Archive clicked');
+	                    }
+	                }, {
+	                    icon: '',
+	                    text: 'Cancel',
+	                    style: 'cancel',
+	                    handler: function () {
+	                        console.log('Cancel clicked');
+	                    }
+	                }
+	            ]
+	        });
+	        this.nav.present(actionSheet);
+	    };
+	    DashboardPage.prototype.onPageWillLeave = function () {
+	        actionSheet && actionSheet.dismiss();
+	    };
 	    DashboardPage = __decorate([
 	        ionic_1.Page({
 	            templateUrl: 'build/pages/dashboard/dashboard.html',
+	            directives: [queues_list_1.QueuesListComponent, accounts_list_1.AccountsListComponent],
+	            pipes: [more_1.MorePipe],
 	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof data_provider_1.DataProvider !== 'undefined' && data_provider_1.DataProvider) === 'function' && _b) || Object])
 	    ], DashboardPage);
 	    return DashboardPage;
-	    var _a;
+	    var _a, _b;
 	})();
 	exports.DashboardPage = DashboardPage;
 
 
 /***/ },
-/* 364 */
+/* 374 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(6);
+	var core_1 = __webpack_require__(8);
+	var queue_tickets_list_1 = __webpack_require__(375);
+	var more_1 = __webpack_require__(376);
+	var QueuesListComponent = (function () {
+	    /*@Input()
+	    card : Card;*/
+	    function QueuesListComponent(nav) {
+	        this.nav = nav;
+	        //this.header = "into";
+	    }
+	    QueuesListComponent.prototype.goToQueueTicketsListPage = function (queue) {
+	        this.nav.push(queue_tickets_list_1.QueueTicketsListPage, queue);
+	    };
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', Array)
+	    ], QueuesListComponent.prototype, "queues", void 0);
+	    QueuesListComponent = __decorate([
+	        core_1.Component({
+	            selector: 'queues-list',
+	            templateUrl: 'build/components/queues-list/queues-list.html',
+	            directives: [ionic_1.IONIC_DIRECTIVES],
+	            pipes: [more_1.MorePipe],
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
+	    ], QueuesListComponent);
+	    return QueuesListComponent;
+	    var _a;
+	})();
+	exports.QueuesListComponent = QueuesListComponent;
+
+
+/***/ },
+/* 375 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(6);
+	/*
+	  Generated class for the QueuesPage page.
+
+	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+	  Ionic pages and navigation.
+	*/
+	var QueueTicketsListPage = (function () {
+	    function QueueTicketsListPage(nav, navParams) {
+	        this.nav = nav;
+	        this.navParams = navParams;
+	        this.queue = this.navParams.data;
+	    }
+	    QueueTicketsListPage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/queue-tickets-list/queue-tickets-list.html',
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof ionic_1.NavParams !== 'undefined' && ionic_1.NavParams) === 'function' && _b) || Object])
+	    ], QueueTicketsListPage);
+	    return QueueTicketsListPage;
+	    var _a, _b;
+	})();
+	exports.QueueTicketsListPage = QueueTicketsListPage;
+
+
+/***/ },
+/* 376 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(8);
+	var MorePipe = (function () {
+	    function MorePipe() {
+	    }
+	    MorePipe.prototype.transform = function (value, args) {
+	        args = args.length ? args : [[100, "VV"]];
+	        value = value || 0;
+	        var max = args[0][0];
+	        var template = args[0][1] || "VV";
+	        if (value >= max)
+	            value = (max - 1) + "<sup>+</sup>";
+	        value = template.replace("VV", value);
+	        return value;
+	    };
+	    MorePipe = __decorate([
+	        core_1.Pipe({
+	            name: 'More'
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], MorePipe);
+	    return MorePipe;
+	})();
+	exports.MorePipe = MorePipe;
+
+
+/***/ },
+/* 377 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	//in case on using ionic "ion-card"
+	var ionic_1 = __webpack_require__(6);
+	var core_1 = __webpack_require__(8);
+	//import {QueuesPage} from '../../pages/queues/queues';
+	var more_1 = __webpack_require__(376);
+	var AccountsListComponent = (function () {
+	    /*@Input()
+	    card : Card;*/
+	    function AccountsListComponent(nav) {
+	        this.nav = nav;
+	        //this.header = "into";
+	    }
+	    AccountsListComponent.prototype.itemTappedQ = function () {
+	    };
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', Array)
+	    ], AccountsListComponent.prototype, "accounts", void 0);
+	    AccountsListComponent = __decorate([
+	        core_1.Component({
+	            selector: 'accounts-list',
+	            templateUrl: 'build/components/accounts-list/accounts-list.html',
+	            directives: [ionic_1.IONIC_DIRECTIVES],
+	            pipes: [more_1.MorePipe],
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
+	    ], AccountsListComponent);
+	    return AccountsListComponent;
+	    var _a;
+	})();
+	exports.AccountsListComponent = AccountsListComponent;
+
+
+/***/ },
+/* 378 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(6);
+	var core_1 = __webpack_require__(8);
+	var ticket_details_1 = __webpack_require__(366);
+	var TicketsListComponent = (function () {
+	    function TicketsListComponent(nav, navParams) {
+	        this.nav = nav;
+	        this.navParams = navParams;
+	        //this.speaker = this.navParams.data;
+	    }
+	    TicketsListComponent.prototype.itemTapped = function () { this.nav.push(ticket_details_1.TicketDetailsPage); };
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', Array)
+	    ], TicketsListComponent.prototype, "tickets", void 0);
+	    TicketsListComponent = __decorate([
+	        core_1.Component({
+	            selector: 'tickets-list',
+	            templateUrl: 'build/components/tickets-list/tickets-list.html',
+	            directives: [ionic_1.IONIC_DIRECTIVES],
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof ionic_1.NavParams !== 'undefined' && ionic_1.NavParams) === 'function' && _b) || Object])
+	    ], TicketsListComponent);
+	    return TicketsListComponent;
+	    var _a, _b;
+	})();
+	exports.TicketsListComponent = TicketsListComponent;
+
+
+/***/ },
+/* 379 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61828,7 +62522,7 @@
 
 
 /***/ },
-/* 365 */
+/* 380 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61861,128 +62555,6 @@
 	    var _a;
 	})();
 	exports.LoginPage = LoginPage;
-
-
-/***/ },
-/* 366 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var ionic_1 = __webpack_require__(6);
-	var ticket_details_1 = __webpack_require__(356);
-	var tickets_list_1 = __webpack_require__(367);
-	/*
-	  Generated class for the TabsPage page.
-
-	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-	  Ionic pages and navigation.
-	*/
-	var TabsPage = (function () {
-	    function TabsPage(nav) {
-	        this.nav = nav;
-	        this.tab1Root = tickets_list_1.TicketsListPage;
-	        this.tab2Root = ticket_details_1.TicketDetailsPage;
-	        this.tab3Root = tickets_list_1.TicketsListPage;
-	        this.tab4Root = ticket_details_1.TicketDetailsPage;
-	    }
-	    TabsPage = __decorate([
-	        ionic_1.Page({
-	            templateUrl: 'build/pages/tabs/tabs.html',
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
-	    ], TabsPage);
-	    return TabsPage;
-	    var _a;
-	})();
-	exports.TabsPage = TabsPage;
-
-
-/***/ },
-/* 367 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var ionic_1 = __webpack_require__(6);
-	var ticket_details_1 = __webpack_require__(356);
-	var TicketsListPage = (function () {
-	    function TicketsListPage(app, nav, navParams) {
-	        this.nav = nav;
-	        // If we navigated to this page, we will have an item available as a nav param
-	        //this.selectedItem = navParams.get('item');
-	        this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
-	            'american-football', 'boat', 'bluetooth', 'build'];
-	        this.items = [];
-	        for (var i = 1; i < 11; i++) {
-	            this.items.push({
-	                title: 'Item ' + i,
-	                note: 'This is item #' + i,
-	                icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-	            });
-	        }
-	    }
-	    TicketsListPage.prototype.itemTapped = function () { this.nav.push(ticket_details_1.TicketDetailsPage); };
-	    TicketsListPage = __decorate([
-	        ionic_1.Page({
-	            templateUrl: 'build/pages/tickets-list/tickets-list.html',
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.IonicApp !== 'undefined' && ionic_1.IonicApp) === 'function' && _a) || Object, (typeof (_b = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _b) || Object, (typeof (_c = typeof ionic_1.NavParams !== 'undefined' && ionic_1.NavParams) === 'function' && _c) || Object])
-	    ], TicketsListPage);
-	    return TicketsListPage;
-	    var _a, _b, _c;
-	})();
-	exports.TicketsListPage = TicketsListPage;
-
-
-/***/ },
-/* 368 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var ionic_1 = __webpack_require__(6);
-	/*
-	  Generated class for the TimelogCreatePage page.
-
-	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-	  Ionic pages and navigation.
-	*/
-	var TimelogCreatePage = (function () {
-	    function TimelogCreatePage(nav) {
-	        this.nav = nav;
-	    }
-	    TimelogCreatePage = __decorate([
-	        ionic_1.Page({
-	            templateUrl: 'build/pages/timelog-create/timelog-create.html',
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
-	    ], TimelogCreatePage);
-	    return TimelogCreatePage;
-	    var _a;
-	})();
-	exports.TimelogCreatePage = TimelogCreatePage;
 
 
 /***/ }
