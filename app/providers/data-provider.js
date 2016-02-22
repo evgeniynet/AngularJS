@@ -22,8 +22,30 @@ constructor(apiData: ApiData) {
     this.apiData = apiData;
 }
 
-getTicketsList() {
-    let url = "tickets"; //.addp("limit","3");
+getTicketsList(tab, id) {
+    //"user","tech","alt","all"
+    let url = "";
+    switch (tab)
+    {
+        case "all": 
+            url = "tickets?status=allopen&query=all";
+            break;
+        case "alt":
+            url = "tickets?status=open&role=alt_tech";
+            break;
+        case "user":
+            url = "tickets?status=open,onhold&role=user";
+            break;
+        case "closed":
+            url = "tickets?status=closed&account="+id;
+            break;
+        case 'queue':
+            url = "queues/"+id;
+            break;
+        default:
+            url = "tickets?status=open&role="+tab;
+            break;
+    }
     return this.apiData.get(url);
 }
     

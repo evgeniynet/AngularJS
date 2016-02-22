@@ -1,12 +1,14 @@
 import {IONIC_DIRECTIVES, NavController, NavParams} from 'ionic/ionic';
 import {Component, Input, Output} from 'angular2/core';
 import {TicketDetailsPage} from '../../pages/ticket-details/ticket-details';
+import {GravatarPipe} from '../../pipes/gravatar';
 
 
 @Component({
     selector: 'tickets-list',
     templateUrl: 'build/components/tickets-list/tickets-list.html',
     directives: [IONIC_DIRECTIVES],
+    pipes: [GravatarPipe],
 })
 export class TicketsListComponent {
     @Input() tickets: Array;
