@@ -1,5 +1,6 @@
 import {Page, NavController} from 'ionic/ionic';
-import {AccountDetailsPage} from '../account-details/account-details';
+import {DataProvider} from '../../providers/data-provider';
+import {AccountsListComponent} from '../../components/accounts-list/accounts-list';
 
 /*
   Generated class for the AccountsPage page.
@@ -9,11 +10,17 @@ import {AccountDetailsPage} from '../account-details/account-details';
 */
 @Page({
   templateUrl: 'build/pages/accounts/accounts.html',
+  directives: [AccountsListComponent],
 })
 export class AccountsPage {
-  constructor(nav: NavController) {
+    constructor(nav: NavController, dataProvider: DataProvider) {
     this.nav = nav;
+    this.accounts = null;
+        
+    dataProvider.getAccountList().subscribe(
+            data => {this.accounts = data}, 
+            error => { 
+                console.log(error || 'Server error');}
+        ); 
   }
-    
-    itemTapped() {this.nav.push(AccountDetailsPage);}
 }

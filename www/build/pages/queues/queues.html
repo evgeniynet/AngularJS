@@ -10,11 +10,6 @@
 
 <ion-content class="queues" padding>
   
-    <ion-list class="list tableText"no-lines  (click)="itemTappedQ()">
-        <div class="table">
-           <span class="box5">New Ticket</span>
-           <span class="box6">1</span>
-                </div>
-</ion-list>
+    <queues-list [queues]="queues"></queues-list>
     
 </ion-content>

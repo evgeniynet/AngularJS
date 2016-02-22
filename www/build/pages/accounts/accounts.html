@@ -16,21 +16,8 @@
     <ion-segment-button>Projects</ion-segment-button>
   </ion-segment>
 </div>
-  <ion-list class="list indent tableText" no-lines (click)="itemTapped()">
-             <div class="table">
-     <span class="box5 box9">New Ticket</span>
-     <span class="box6">7</span>
-          </div>
-        <div class="table">
-     <span class="box5 box9">New Ticket</span>
-     <span class="box6">7</span>
-          </div>
-        <div class="table">
-     <span class="box5 box9">New Ticket</span>
-     <span class="box6">7</span>
-          </div>
-
-        </ion-list>
+ 
+        <accounts-list [accounts]="accounts"></accounts-list>
 
 </ion-content>
 <button item-right secondary fab fab-right fab-bottom><ion-icon name="md-add"></ion-icon></button>
