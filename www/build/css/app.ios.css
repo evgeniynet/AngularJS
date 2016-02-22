@@ -5613,12 +5613,12 @@ ion-thumbnail[item-right] {
   padding: 0 1px; }
 
 ion-avatar {
-  min-width: 3.6rem;
-  min-height: 3.6rem; }
+  min-width: 5rem;
+  min-height: 5rem; }
   ion-avatar img {
-    max-width: 3.6rem;
-    max-height: 3.6rem;
-    border-radius: 1.8rem; }
+    max-width: 5rem;
+    max-height: 5rem;
+    border-radius: 2.5rem; }
 
 ion-thumbnail {
   min-width: 5.6rem;
@@ -7453,7 +7453,9 @@ p {
 .avatarText {
   line-height: 0.5;
   color: #c8c7cc;
-  font-size: 1.8rem; }
+  font-size: 1.6rem;
+  height: 77px;
+  float: left; }
 
 .list {
   width: 90%;
@@ -7483,14 +7485,20 @@ scroll-content {
 
 .img {
   margin-bottom: 8px;
-  margin-left: 8px;
   margin-top: 8px; }
 
 .img_padding {
-  padding-bottom: 10px; }
+  padding-bottom: 10px;
+  width: 105px; }
+
+.admin {
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 19px;
+  text-overflow: clip; }
 
 .center {
-  text-align: center; }
+  text-align: -webkit-center; }
 
 .segment-button {
   color: #fff;
