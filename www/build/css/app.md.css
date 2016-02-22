@@ -8755,7 +8755,9 @@ p {
 .avatarText {
   line-height: 0.5;
   color: #c8c7cc;
-  font-size: 1.8rem; }
+  font-size: 1.6rem;
+  height: 77px;
+  float: left; }
 
 .list {
   width: 90%;
@@ -8785,14 +8787,20 @@ scroll-content {
 
 .img {
   margin-bottom: 8px;
-  margin-left: 8px;
   margin-top: 8px; }
 
 .img_padding {
-  padding-bottom: 10px; }
+  padding-bottom: 10px;
+  width: 105px; }
+
+.admin {
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 19px;
+  text-overflow: clip; }
 
 .center {
-  text-align: center; }
+  text-align: -webkit-center; }
 
 .segment-button {
   color: #fff;
