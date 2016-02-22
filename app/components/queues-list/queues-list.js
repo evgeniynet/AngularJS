@@ -1,6 +1,6 @@
 import {IONIC_DIRECTIVES, NavController, NavParams} from 'ionic/ionic';
 import {Component, Input, Output} from 'angular2/core';
-import {QueueTicketsListPage} from '../../pages/queue-tickets-list/queue-tickets-list';
+import {QueueTicketsPage} from '../../pages/queue-tickets/queue-tickets';
 import {MorePipe} from '../../pipes/more';
 
 @Component({
@@ -24,8 +24,8 @@ card : Card;*/
     //this.header = "into";
 }
     
-     goToQueueTicketsListPage(queue) {
-         this.nav.push(QueueTicketsListPage, queue);
+     goToQueueTicketsPage(queue) {
+         this.nav.push(QueueTicketsPage, queue);
      }
      
 }

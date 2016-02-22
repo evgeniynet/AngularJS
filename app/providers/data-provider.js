@@ -33,9 +33,6 @@ getTicketsList(tab, id) {
         case "alt":
             url = "tickets?status=open&role=alt_tech";
             break;
-        case "user":
-            url = "tickets?status=open,onhold&role=user";
-            break;
         case "closed":
             url = "tickets?status=closed&account="+id;
             break;
@@ -43,7 +40,8 @@ getTicketsList(tab, id) {
             url = "queues/"+id;
             break;
         default:
-            url = "tickets?status=open&role="+tab;
+        //case "user":
+            url = "tickets?status=open,onhold&role=user";
             break;
     }
     return this.apiData.get(url);
