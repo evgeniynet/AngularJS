@@ -8846,6 +8846,9 @@ scroll-content {
 .grey > * {
   background-color: rgba(224, 224, 224, 0.29); }
 
+.grey2 {
+  color: #dadada; }
+
 .imglogo {
   display: block;
   margin: auto; }
