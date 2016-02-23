@@ -1,5 +1,5 @@
 import {IONIC_DIRECTIVES, NavController, NavParams} from 'ionic/ionic';
-import {Component, Input, Output} from 'angular2/core';
+import {Component, Input} from 'angular2/core';
 import {TicketDetailsPage} from '../../pages/ticket-details/ticket-details';
 import {GravatarPipe} from '../../pipes/gravatar';
 
@@ -16,9 +16,13 @@ export class TicketsListComponent {
     constructor(nav: NavController, navParams: NavParams) {
         this.nav = nav;
         this.navParams = navParams;
+        this.tickets = [];
         //this.speaker = this.navParams.data;
     }
 
-    itemTapped() {this.nav.push(TicketDetailsPage);}
-
+    itemTapped(event, ticket) {
+        if (event.srcElement.tagName.toUpperCase() != "ION-ITEM-SLIDING") 
+        this.nav.push(TicketDetailsPage, ticket);
+    }
+     
 }

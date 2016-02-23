@@ -22,7 +22,7 @@ export class DashboardPage {
     this.nav = nav;
     this.queues = null;
     this.accounts = null;
-    this.counts = {};
+    this.counts = {open_as_tech: 0};
         
         dataProvider.getQueueList(3).subscribe(
             data => {this.queues = data}, 

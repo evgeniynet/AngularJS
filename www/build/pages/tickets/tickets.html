@@ -10,11 +10,11 @@
 
 <ion-content class="tickets">
     <div class="tabsTicket">
-  <ion-segment>
-      <ion-segment-button>User</ion-segment-button>
-    <ion-segment-button>Tech</ion-segment-button>
-    <ion-segment-button>Alt</ion-segment-button>
-    <ion-segment-button>All Open</ion-segment-button>
+        <ion-segment [(ngModel)]="ticket_tab" (change)="onSegmentChanged($event)">
+            <ion-segment-button  value="user">User</ion-segment-button>
+            <ion-segment-button value="tech">Tech</ion-segment-button>
+            <ion-segment-button value="alt">Alt</ion-segment-button>
+            <ion-segment-button value="all">All Open</ion-segment-button>
   </ion-segment>
 </div>
 

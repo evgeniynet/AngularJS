@@ -27,11 +27,17 @@ getTicketsList(tab, id) {
     let url = "";
     switch (tab)
     {
+        case "tech": 
+            url = "tickets?status=open&role=tech";
+            break;
         case "all": 
             url = "tickets?status=allopen&query=all";
             break;
         case "alt":
             url = "tickets?status=open&role=alt_tech";
+            break;
+        case "open":
+            url = "tickets?status=open&account="+id;
             break;
         case "closed":
             url = "tickets?status=closed&account="+id;

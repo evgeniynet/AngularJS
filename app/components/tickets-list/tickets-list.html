@@ -1,6 +1,6 @@
 <ion-list>
-    <ion-item-sliding *ngFor="#ticket of tickets"> <!--(click)="itemTapped($event, ticket)"-->
-    <ion-item class="item margin">
+    <ion-item-sliding *ngFor="#ticket of tickets" (click)="itemTapped($event, ticket)">
+        <ion-item class="item margin">
         <ion-avatar padding item-left class="ticketImg img_padding">
             <li class="center avatarText">
                 <span item-left>#{{ticket.number}}</span>

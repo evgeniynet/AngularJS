@@ -1,19 +1,17 @@
 import {Page, NavController, NavParams} from 'ionic/ionic';
+import {GravatarPipe} from '../../pipes/gravatar';
 
-/*
-  Generated class for the TicketDetailsPage page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Page({
   templateUrl: 'build/pages/ticket-details/ticket-details.html',
+    pipes: [GravatarPipe],
 })
 export class TicketDetailsPage {
     constructor(nav: NavController, navParams: NavParams) {
         this.nav = nav;
-        this.pet = "Reply";
+        this.details_tab = "Reply";
+        this.navParams = navParams;
         // If we navigated to this page, we will have an item available as a nav param
-        this.selectedItem = navParams.get('item');
+        this.ticket = {};
+        this.ticket = this.navParams.data;
     }
 }
