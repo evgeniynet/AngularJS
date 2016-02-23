@@ -3244,7 +3244,7 @@
 	            { title: 'Full App', component: hello_ionic_1.HelloIonicPage, icon: "md-share-alt" },
 	        ];
 	        // make HelloIonicPage the root (or first) page
-	        this.rootPage = dashboard_1.DashboardPage;
+	        this.rootPage = tickets_1.TicketsPage;
 	    }
 	    MyApp.prototype.initializeApp = function () {
 	        this.platform.ready().then(function () {
@@ -61766,11 +61766,17 @@
 	        //"user","tech","alt","all"
 	        var url = "";
 	        switch (tab) {
+	            case "tech":
+	                url = "tickets?status=open&role=tech";
+	                break;
 	            case "all":
 	                url = "tickets?status=allopen&query=all";
 	                break;
 	            case "alt":
 	                url = "tickets?status=open&role=alt_tech";
+	                break;
+	            case "open":
+	                url = "tickets?status=open&account=" + id;
 	                break;
 	            case "closed":
 	                url = "tickets?status=closed&account=" + id;
@@ -62002,9 +62008,13 @@
 	    function TicketsListComponent(nav, navParams) {
 	        this.nav = nav;
 	        this.navParams = navParams;
+	        this.tickets = [];
 	        //this.speaker = this.navParams.data;
 	    }
-	    TicketsListComponent.prototype.itemTapped = function () { this.nav.push(ticket_details_1.TicketDetailsPage); };
+	    TicketsListComponent.prototype.itemTapped = function (event, ticket) {
+	        if (event.srcElement.tagName.toUpperCase() != "ION-ITEM-SLIDING")
+	            this.nav.push(ticket_details_1.TicketDetailsPage, ticket);
+	    };
 	    __decorate([
 	        core_1.Input(), 
 	        __metadata('design:type', Array)
@@ -62038,22 +62048,20 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	/*
-	  Generated class for the TicketDetailsPage page.
-
-	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-	  Ionic pages and navigation.
-	*/
+	var gravatar_1 = __webpack_require__(369);
 	var TicketDetailsPage = (function () {
 	    function TicketDetailsPage(nav, navParams) {
 	        this.nav = nav;
-	        this.pet = "Reply";
+	        this.details_tab = "Reply";
+	        this.navParams = navParams;
 	        // If we navigated to this page, we will have an item available as a nav param
-	        this.selectedItem = navParams.get('item');
+	        this.ticket = {};
+	        this.ticket = this.navParams.data;
 	    }
 	    TicketDetailsPage = __decorate([
 	        ionic_1.Page({
 	            templateUrl: 'build/pages/ticket-details/ticket-details.html',
+	            pipes: [gravatar_1.GravatarPipe],
 	        }), 
 	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof ionic_1.NavParams !== 'undefined' && ionic_1.NavParams) === 'function' && _b) || Object])
 	    ], TicketDetailsPage);
@@ -62610,10 +62618,19 @@
 	        var _this = this;
 	        this.nav = nav;
 	        this.tickets = null;
+	        this.ticket_tab = "user";
+	        this.dataProvider = dataProvider;
 	        dataProvider.getTicketsList().subscribe(function (data) { _this.tickets = data; }, function (error) {
 	            console.log(error || 'Server error');
 	        });
 	    }
+	    TicketsPage.prototype.onSegmentChanged = function ($event) {
+	        var _this = this;
+	        var tab = $event.value;
+	        this.dataProvider.getTicketsList(tab).subscribe(function (data) { _this.tickets = data; }, function (error) {
+	            console.log(error || 'Server error');
+	        });
+	    };
 	    TicketsPage = __decorate([
 	        ionic_1.Page({
 	            templateUrl: 'build/pages/tickets/tickets.html',
@@ -62659,7 +62676,7 @@
 	        this.nav = nav;
 	        this.queues = null;
 	        this.accounts = null;
-	        this.counts = {};
+	        this.counts = { open_as_tech: 0 };
 	        dataProvider.getQueueList(3).subscribe(function (data) { _this.queues = data; }, function (error) {
 	            console.log(error || 'Server error');
 	        });

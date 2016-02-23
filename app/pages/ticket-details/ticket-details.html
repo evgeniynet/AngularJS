@@ -5,14 +5,14 @@
   Ionic pages and navigation.
 -->
 <ion-navbar *navbar><button menuToggle><ion-icon name="menu"></ion-icon></button>
-  <ion-title>TicketDetails</ion-title>
+    <ion-title>{{ticket.status}} | {{ticket.number}}</ion-title>
 </ion-navbar>
 
 <ion-content padding class="ticket-details">
     
-      <ion-item class="itemTech blue3" no-lines>New Ticket</ion-item>
+      <ion-item class="itemTech blue3" no-lines> {{ticket.subject}}</ion-item>
     <div class="tabsTicket">
-  <ion-segment tabs [(ngModel)]="pet">
+        <ion-segment tabs [(ngModel)]="details_tab">
     <ion-segment-button value="Reply" class="nameTabs">
       Reply
     </ion-segment-button>
@@ -24,17 +24,17 @@
     </ion-segment-button>
     </ion-segment>
 </div>
-    <div [ngSwitch]="pet">
+    <div [ngSwitch]="details_tab">
      <ion-list *ngSwitchWhen="'Reply'">
     <ion-item>
         <div></div>
     <h3 padding class="tech">test</h3> 
     <ion-avatar item-left class="ticketImg">
-      <img src="http://www.gravatar.com/avatar/8cf59c68bb835b9e03dcd09c0e620d5d?d=mm&s=80">
+        <img *ngIf="ticket.user_email" [alt]="ticket.user_firstname" class="img" [src]="ticket.user_email | Gravatar"/>
     </ion-avatar>
       
-    <p class="text">Don't Know What To Do!</p>
-    <p item-right class="text_list">Mobile</p>
+        <p class="text">{{ticket.initial_post}}</p>
+        <p item-right class="text_list">{{ticket.class_name}}</p>
         </ion-item>
     <ion-card>
   <ion-card-header>Add Response</ion-card-header>

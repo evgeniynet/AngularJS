@@ -1,7 +1,14 @@
+<<<<<<< HEAD
 <ion-list class="list">
     <ion-item-sliding *ngFor="#ticket of tickets"> <!--(click)="itemTapped($event, ticket)"-->
     <ion-item class="item margin">
         <ion-avatar padding item-left class="img_padding">
+=======
+<ion-list>
+    <ion-item-sliding *ngFor="#ticket of tickets" (click)="itemTapped($event, ticket)">
+        <ion-item class="item margin">
+        <ion-avatar padding item-left class="ticketImg img_padding">
+>>>>>>> 3280ee99fb6cea157dfcedd209b3dbbbc1512d08
             <li class="center avatarText">
                 <span class="margin" item-left>#{{ticket.number}}</span>
                 <img *ngIf="ticket.user_email" [alt]="ticket.user_firstname" class="img" [src]="ticket.user_email | Gravatar"/>
