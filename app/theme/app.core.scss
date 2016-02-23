@@ -189,7 +189,7 @@ scroll-content {
 }
 
 .grey2{
-color: $grey2;
+color: $grey2 !important;
 }
 
 .imglogo{
@@ -201,30 +201,31 @@ color: $grey2;
 
 .table{
 text-align: center;
-}
+    }
 
 .table span.box1{
     background-color: $grey;
     width: 35%;
     float: left;
+    padding-left: 15px;
 }
 
 .table span.box2{
     background-color: $grey;
-    width: 25%;
+    width: 23%;
     float: left;
 }
 
 .table span.box3{
     background-color: $grey;
-    width: 28%;
+    width: 23%;
     float: left;
     margin-bottom: 10px;
 }
 
 .table span.box4{
     background-color: $blue2;
-    width: 12%;
+    width: 18%;
     float: right;
 }
 
@@ -240,6 +241,13 @@ text-align: center;
     width: 25%;
     float: right;
     margin-bottom: 10px;
+}
+
+.table span.box7{
+    float: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .table span.box9{
@@ -358,6 +366,14 @@ color: #fff;
     width: 25%;
 }
 
+.width24{
+    width: 24%;
+}
+
+.width23{
+    width: 23%;
+}
+
 .width17{
     width: 17%;
 }
@@ -365,14 +381,6 @@ color: #fff;
 .width12{
     width: 12%;
 }
-
-.width23{
-    width: 23%;
-}
-.width24{
-    width: 24%;
-}
-
 
 .mainStat{
 font-size: 6.15rem;

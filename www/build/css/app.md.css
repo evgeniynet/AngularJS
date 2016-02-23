@@ -8855,7 +8855,7 @@ scroll-content {
   background-color: rgba(224, 224, 224, 0.29); }
 
 .grey2 {
-  color: #dadada; }
+  color: #dadada !important; }
 
 .imglogo {
   display: block;
@@ -8867,22 +8867,23 @@ scroll-content {
 .table span.box1 {
   background-color: rgba(224, 224, 224, 0.29);
   width: 35%;
-  float: left; }
+  float: left;
+  padding-left: 15px; }
 
 .table span.box2 {
   background-color: rgba(224, 224, 224, 0.29);
-  width: 25%;
+  width: 23%;
   float: left; }
 
 .table span.box3 {
   background-color: rgba(224, 224, 224, 0.29);
-  width: 28%;
+  width: 23%;
   float: left;
   margin-bottom: 10px; }
 
 .table span.box4 {
   background-color: #09c;
-  width: 12%;
+  width: 18%;
   float: right; }
 
 .table span.box5 {
@@ -8896,6 +8897,12 @@ scroll-content {
   width: 25%;
   float: right;
   margin-bottom: 10px; }
+
+.table span.box7 {
+  float: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; }
 
 .table span.box9 {
   background-color: rgba(224, 224, 224, 0.29) !important; }
@@ -8981,17 +8988,17 @@ scroll-content {
 .width25 {
   width: 25%; }
 
+.width24 {
+  width: 24%; }
+
+.width23 {
+  width: 23%; }
+
 .width17 {
   width: 17%; }
 
 .width12 {
   width: 12%; }
-
-.width23 {
-  width: 23%; }
-
-.width24 {
-  width: 24%; }
 
 .mainStat {
   font-size: 6.15rem; }
