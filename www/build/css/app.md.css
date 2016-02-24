@@ -9157,6 +9157,9 @@ p {
 .padding {
   padding: 0px !important; }
 
+.class_name {
+  margin-top: 6px !important; }
+
 .height {
   height: 180px; }
 
@@ -9187,6 +9190,9 @@ scroll-content {
 
 .subject-ticket {
   margin-left: 20px; }
+
+.subject {
+  background-color: rgba(0, 0, 0, 0.4); }
 
 .admin {
   -webkit-box-orient: vertical;
@@ -9361,6 +9367,13 @@ scroll-content {
 
 .menu-bg {
   background-color: #161E27; }
+
+.menu-text {
+  line-height: 2.2 !important;
+  font-size: 2rem !important; }
+
+.border {
+  border-bottom: 1px solid #dadada; }
 
 .invoiceCircle {
   font-size: 2.3em !important; }

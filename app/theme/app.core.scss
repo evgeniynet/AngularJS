@@ -87,6 +87,10 @@ line-height: 0.5;
     padding: 0px !important;
 }
 
+.class_name{
+    margin-top: 6px !important;
+}
+
 .height{
 height: 180px;
 }
@@ -125,6 +129,10 @@ scroll-content {
 
 .subject-ticket{
 margin-left: 20px;
+}
+
+.subject{
+background-color:rgba(0, 0, 0, 0.4);
 }
 
 .admin{
@@ -345,6 +353,14 @@ color: #fff;
  background-color: $sherpa_bg; 
 }
 
+.menu-text{
+     line-height: 2.2 !important;
+    font-size: 2rem !important; 
+}
+
+.border{
+    border-bottom: 1px solid $grey2;
+} 
 
 //invoice
 

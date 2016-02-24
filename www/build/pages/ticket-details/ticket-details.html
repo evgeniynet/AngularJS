@@ -9,7 +9,9 @@
 </ion-navbar>
 
 <ion-content class="ticket-details">
-        <ion-item class="itemTech blue3 padding subject-ticket text-left admin" no-lines> {{ticket.subject}}</ion-item>
+    <div class="subject">
+   <ion-item class="itemTech blue3 padding subject-ticket text-left admin" no-lines> {{ticket.subject}}</ion-item>
+    </div>
     <div class="tabsTicket">
         <ion-segment [(ngModel)]="details_tab">
     <ion-segment-button value="Reply">
