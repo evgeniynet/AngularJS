@@ -61403,7 +61403,7 @@
 	__webpack_require__(360);
 	var ApiData = (function () {
 	    function ApiData(http) {
-	        this.mock = false;
+	        this.mock = true;
 	        // inject the Http provider and set to this instance
 	        this.http = http;
 	        this.userKey = "re36rym3mjqxm8ej2cscfajmxpsew33m",
@@ -62054,7 +62054,6 @@
 	        this.nav = nav;
 	        this.details_tab = "Reply";
 	        this.navParams = navParams;
-	        // If we navigated to this page, we will have an item available as a nav param
 	        this.ticket = {};
 	        this.ticket = this.navParams.data;
 	    }
@@ -62493,7 +62492,7 @@
 	//in case on using ionic "ion-card"
 	var ionic_1 = __webpack_require__(6);
 	var core_1 = __webpack_require__(8);
-	//import {QueuesPage} from '../../pages/queues/queues';
+	var account_details_1 = __webpack_require__(381);
 	var more_1 = __webpack_require__(372);
 	var AccountsListComponent = (function () {
 	    /*@Input()
@@ -62502,7 +62501,8 @@
 	        this.nav = nav;
 	        //this.header = "into";
 	    }
-	    AccountsListComponent.prototype.itemTappedQ = function () {
+	    AccountsListComponent.prototype.itemTapped = function (event, account) {
+	        this.nav.push(account_details_1.AccountDetailsPage, account);
 	    };
 	    __decorate([
 	        core_1.Input(), 
@@ -62760,24 +62760,36 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	/*
-	  Generated class for the AccountDetailsPage page.
-
-	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-	  Ionic pages and navigation.
-	*/
+	var data_provider_1 = __webpack_require__(362);
+	var tickets_list_1 = __webpack_require__(367);
 	var AccountDetailsPage = (function () {
-	    function AccountDetailsPage(nav) {
+	    function AccountDetailsPage(nav, navParams, dataProvider) {
+	        var _this = this;
 	        this.nav = nav;
+	        this.details_tab = "Stat";
+	        this.navParams = navParams;
+	        // If we navigated to this page, we will have an item available as a nav param
+	        this.account = {
+	            "account_statistics": {
+	                "ticket_counts": {},
+	            }
+	        };
+	        this.account = this.navParams.data;
+	        this.tickets = null;
+	        this.dataProvider = dataProvider;
+	        this.dataProvider.getTicketsList("open", this.account.id).subscribe(function (data) { _this.tickets = data; }, function (error) {
+	            console.log(error || 'Server error');
+	        });
 	    }
 	    AccountDetailsPage = __decorate([
 	        ionic_1.Page({
 	            templateUrl: 'build/pages/account-details/account-details.html',
+	            directives: [tickets_list_1.TicketsListComponent],
 	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof ionic_1.NavParams !== 'undefined' && ionic_1.NavParams) === 'function' && _b) || Object, (typeof (_c = typeof data_provider_1.DataProvider !== 'undefined' && data_provider_1.DataProvider) === 'function' && _c) || Object])
 	    ], AccountDetailsPage);
 	    return AccountDetailsPage;
-	    var _a;
+	    var _a, _b, _c;
 	})();
 	exports.AccountDetailsPage = AccountDetailsPage;
 

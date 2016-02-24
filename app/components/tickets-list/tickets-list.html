@@ -9,7 +9,7 @@
         </ion-avatar>
         <li class="textLogin">
             <h2>{{ticket.subject}}</h2>
-            <h3 class="tickets">{{ticket.initial_post}}</h3></li>
+            <h3 class="tickets" [innerHTML]="ticket.initial_post"></h3></li>
             <h3 class="grey2 right">{{ticket.class_name}}</h3>
     </ion-item>
     <ion-item-options>

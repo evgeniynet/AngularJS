@@ -5,34 +5,40 @@
   Ionic pages and navigation.
 -->
 <ion-navbar *navbar><button menuToggle><ion-icon name="menu"></ion-icon></button>
-  <ion-title>AccountDetails</ion-title>
+  <ion-title>{{account.name}}</ion-title>
 </ion-navbar>
 
 <ion-content class="account-details">
   <div class="tabsTicket">
-  <ion-segment>
-      <ion-segment-button>Acc Stat</ion-segment-button>
-    <ion-segment-button>Info</ion-segment-button>
-    <ion-segment-button>Projects</ion-segment-button>
+      <ion-segment [(ngModel)]="details_tab">
+          <ion-segment-button  value="Stat">Acc Stat</ion-segment-button>
+          <ion-segment-button value="Info">Info</ion-segment-button>
+          <ion-segment-button value="Projects">Projects</ion-segment-button>
   </ion-segment>
 </div>  
-<ion-list padding class="list" no-lines>
+    <div [ngSwitch]="details_tab">
+        <div *ngSwitchWhen="'Stat'">
+            <ion-list padding class="list" no-lines style="height: 150px;">
         <div class="blue1 left width75">
    <ion-item> Open Tickets</ion-item>
   <ion-item>Invoices</ion-item>
   <ion-item>Expenses</ion-item>
-  <ion-item>Future Projects</ion-item>
+  <ion-item>Hours</ion-item>
     <br>
         </div>
         <div class="blue2 right width25">
-           <ion-item>1</ion-item>
-  <ion-item>20</ion-item>
-  <ion-item>30</ion-item>
-  <ion-item>34</ion-item>
+            <ion-item>{{account.account_statistics.ticket_counts.open}}</ion-item>
+            <ion-item>{{account.account_statistics.invoices}}</ion-item>
+            <ion-item>{{account.account_statistics.expenses}}$</ion-item>
+            <ion-item>{{account.account_statistics.hours}}</ion-item>
         </div>
 </ion-list>
     <br>
-     <ion-list>
+            <tickets-list [tickets]="tickets"></tickets-list>
+            
+        </div>
+        <br>
+        <ion-list *ngSwitchWhen="'Info'">
          <button ion-item class="item-nocenter">
     <ion-avatar padding item-left class="ticketImg">
     <ion-note citem-left class="number">#2030</ion-note>
@@ -42,6 +48,11 @@
     <h3>Don't Know What To Do!</h3>
     <p item-right >Mobile</p>
     </button>
+        </ion-list> 
+        <br>
+        <ion-list *ngSwitchWhen="'Projects'">
+      <h2>Project1</h2>
+    <p item-right >test</p>
         </ion-list>
-    
+    </div>
 </ion-content>

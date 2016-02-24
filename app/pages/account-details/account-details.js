@@ -1,16 +1,31 @@
-import {Page, NavController} from 'ionic/ionic';
+import {Page, NavController, NavParams} from 'ionic/ionic';
+import {DataProvider} from '../../providers/data-provider';
+import {TicketsListComponent} from '../../components/tickets-list/tickets-list';
 
-/*
-  Generated class for the AccountDetailsPage page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Page({
   templateUrl: 'build/pages/account-details/account-details.html',
+    directives: [TicketsListComponent],
 })
 export class AccountDetailsPage {
-  constructor(nav: NavController) {
+    constructor(nav: NavController, navParams: NavParams, dataProvider: DataProvider) {
     this.nav = nav;
+        this.details_tab = "Stat";
+        this.navParams = navParams;
+        // If we navigated to this page, we will have an item available as a nav param
+        this.account = {  
+            "account_statistics":{  
+                "ticket_counts":{  
+                },
+            }
+        };
+        this.account = this.navParams.data;
+        
+        this.tickets = null;
+        this.dataProvider = dataProvider;
+        this.dataProvider.getTicketsList("open", this.account.id).subscribe(
+            data => {this.tickets = data}, 
+            error => { 
+                console.log(error || 'Server error');}
+        ); 
   }
 }

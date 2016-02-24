@@ -10,7 +10,6 @@ export class TicketDetailsPage {
         this.nav = nav;
         this.details_tab = "Reply";
         this.navParams = navParams;
-        // If we navigated to this page, we will have an item available as a nav param
         this.ticket = {};
         this.ticket = this.navParams.data;
     }

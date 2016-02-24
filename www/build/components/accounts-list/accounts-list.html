@@ -1,5 +1,5 @@
-<ion-list class="list tableText" no-lines (click)="itemTappedQ()">
-    <div *ngFor="#account of accounts"  class="table">
+<ion-list class="list tableText" no-lines>
+    <div *ngFor="#account of accounts" (click)="itemTapped($event, account)" class="table">
         <span class="box1 box7">{{account.name}}</span>
         <span class="box2 box7" [innerHTML]="account.account_statistics.hours | More:[1000]"></span>
         <span class="box3 box7" [innerHTML]="account.account_statistics.expenses | More:[1000,'VV$']"></span>
