@@ -34,25 +34,92 @@
         </div>
 </ion-list>
     <br>
-            <tickets-list [tickets]="tickets"></tickets-list>
+   <ion-item class="item-button">OPEN TICKETS</ion-item>
+            
+   <tickets-list [tickets]="tickets"></tickets-list>
             
         </div>
         <br>
-        <ion-list *ngSwitchWhen="'Info'">
-         <button ion-item class="item-nocenter">
-    <ion-avatar padding item-left class="ticketImg">
-    <ion-note citem-left class="number">#2030</ion-note>
-      <img  src="http://www.gravatar.com/avatar/8cf59c68bb835b9e03dcd09c0e620d5d?d=mm&s=80">
-    </ion-avatar>
-      <h2>Finn</h2>
-    <h3>Don't Know What To Do!</h3>
-    <p item-right >Mobile</p>
-    </button>
+        <ion-list class="list" no-lines *ngSwitchWhen="'Info'">
+        <ion-item><h2 class="left width35 text-left">BWD Acct#</h2>
+     <h2 class="right width65"></h2>
+        </ion-item>
+        <ion-item>
+     <h2 class="left width35 text-left">Acc#</h2>
+     <h2 class="right width65"></h2>
+        </ion-item>
+        <ion-item>
+ <h2 class="left width35 text-left">Ref1#</h2>
+ <h2 class="right width65"></h2>
+        </ion-item>
+            <ion-item>
+ <h2 class="left width35 text-left">Ref2#</h2>
+ <h2 class="right width65"></h2>
+                </ion-item>
+                <ion-item>
+ <h2 class="left width35 text-left">Org/Indiv</h2>
+ <h2 class="right width65"></h2>
+                    </ion-item>
+                    <ion-item>
+ <h2 class="left width35 text-left">Acc Rep</h2>
+ <h2 class="right width65"></h2>
+          </ion-item>
+          <ion-item>
+ <h2 class="left width35 text-left">Internal location</h2>
+ <h2 class="right width65"></h2>
+          </ion-item>
+          <ion-item>
+ <h2 class="left width35 text-left">Email Suffix</h2>
+ <h2 class="right width65"></h2>
+         </ion-item>
+         <ion-item>
+ <h2 class="left width35 text-left">Address 1</h2>
+ <h2 class="right width65"></h2>
+         </ion-item>
+        <ion-item>
+ <h2 class="left width35 text-left">Address 2</h2>
+ <h2 class="right width65"></h2>
+       </ion-item>
+      <ion-item>
+ <h2 class="left width35 text-left">City</h2>
+ <h2 class="right width65"></h2>
+          </ion-item>
+       <ion-item>
+ <h2 class="left width35 text-left">Postal Code</h2>
+ <h2 class="right width65"></h2>
+          </ion-item>
+    <ion-item>
+ <h2 class="left width35 text-left">Country</h2>
+ <h2 class="right width65"></h2>
+        </ion-item>
+           <ion-item>
+ <h2 class="left width35 text-left">Phone 1</h2>
+ <h2 class="right width65"></h2>
+               </ion-item>
+               <ion-item>
+ <h2 class="left width35 text-left">Phone 2</h2>
+ <h2 class="right width65"></h2>
+               </ion-item>
         </ion-list> 
         <br>
-        <ion-list *ngSwitchWhen="'Projects'">
-      <h2>Project1</h2>
-    <p item-right >test</p>
+        
+        <ion-list class="list" *ngSwitchWhen="'Projects'">
+            <ion-item no-lines>
+    <p class="text width32 text-left left"></p>
+    <h2 class="width17 left text-right table_account">Open</h2> 
+    <h2 class="width17 left text-right table_account">Remain</h2> 
+     <h2 class="width17 left text-right table_account">Logged</h2> 
+    <h2 class="width17 right text-right table_account">Complete</h2>
+        </ion-item>
+            
+    <ion-item>
+    <p class="text width32 text-left left table_account">bigWebApps Support</p>
+    <h3 class="width17 left text-right">15</h3> 
+    <h3 class="width17 left text-right">35hr</h3> 
+     <h3 class="width17 left text-right">27hr</h3> 
+    <h3 class="width17 right text-right">46%</h3>
+        </ion-item>
+        
         </ion-list>
     </div>
 </ion-content>

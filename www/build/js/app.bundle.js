@@ -3220,9 +3220,9 @@
 	var queues_1 = __webpack_require__(364);
 	var invoices_1 = __webpack_require__(373);
 	var accounts_1 = __webpack_require__(375);
-	var timelogs_1 = __webpack_require__(378);
-	var tickets_1 = __webpack_require__(380);
-	var dashboard_1 = __webpack_require__(381);
+	var timelogs_1 = __webpack_require__(377);
+	var tickets_1 = __webpack_require__(379);
+	var dashboard_1 = __webpack_require__(380);
 	var organizations_1 = __webpack_require__(382);
 	var login_1 = __webpack_require__(383);
 	var MyApp = (function () {
@@ -62492,7 +62492,7 @@
 	//in case on using ionic "ion-card"
 	var ionic_1 = __webpack_require__(6);
 	var core_1 = __webpack_require__(8);
-	var account_details_1 = __webpack_require__(377);
+	var account_details_1 = __webpack_require__(381);
 	var more_1 = __webpack_require__(372);
 	var AccountsListComponent = (function () {
 	    /*@Input()
@@ -62537,55 +62537,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	var data_provider_1 = __webpack_require__(362);
-	var tickets_list_1 = __webpack_require__(367);
-	var AccountDetailsPage = (function () {
-	    function AccountDetailsPage(nav, navParams, dataProvider) {
-	        var _this = this;
-	        this.nav = nav;
-	        this.details_tab = "Stat";
-	        this.navParams = navParams;
-	        // If we navigated to this page, we will have an item available as a nav param
-	        this.account = {
-	            "account_statistics": {
-	                "ticket_counts": {},
-	            }
-	        };
-	        this.account = this.navParams.data;
-	        this.tickets = null;
-	        this.dataProvider = dataProvider;
-	        this.dataProvider.getTicketsList("open", this.account.id).subscribe(function (data) { _this.tickets = data; }, function (error) {
-	            console.log(error || 'Server error');
-	        });
-	    }
-	    AccountDetailsPage = __decorate([
-	        ionic_1.Page({
-	            templateUrl: 'build/pages/account-details/account-details.html',
-	            directives: [tickets_list_1.TicketsListComponent],
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof ionic_1.NavParams !== 'undefined' && ionic_1.NavParams) === 'function' && _b) || Object, (typeof (_c = typeof data_provider_1.DataProvider !== 'undefined' && data_provider_1.DataProvider) === 'function' && _c) || Object])
-	    ], AccountDetailsPage);
-	    return AccountDetailsPage;
-	    var _a, _b, _c;
-	})();
-	exports.AccountDetailsPage = AccountDetailsPage;
-
-
-/***/ },
-/* 378 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var ionic_1 = __webpack_require__(6);
-	var timelog_1 = __webpack_require__(379);
+	var timelog_1 = __webpack_require__(378);
 	/*
 	  Generated class for the TimelogsPage page.
 
@@ -62610,7 +62562,7 @@
 
 
 /***/ },
-/* 379 */
+/* 378 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62646,7 +62598,7 @@
 
 
 /***/ },
-/* 380 */
+/* 379 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62693,7 +62645,7 @@
 
 
 /***/ },
-/* 381 */
+/* 380 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62709,8 +62661,8 @@
 	var data_provider_1 = __webpack_require__(362);
 	var queues_list_1 = __webpack_require__(365);
 	var accounts_list_1 = __webpack_require__(376);
-	var tickets_1 = __webpack_require__(380);
-	var account_details_1 = __webpack_require__(377);
+	var tickets_1 = __webpack_require__(379);
+	var account_details_1 = __webpack_require__(381);
 	var more_1 = __webpack_require__(372);
 	/*
 	  Generated class for the DashboardPage page.
@@ -62792,6 +62744,54 @@
 	    var _a, _b;
 	})();
 	exports.DashboardPage = DashboardPage;
+
+
+/***/ },
+/* 381 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(6);
+	var data_provider_1 = __webpack_require__(362);
+	var tickets_list_1 = __webpack_require__(367);
+	var AccountDetailsPage = (function () {
+	    function AccountDetailsPage(nav, navParams, dataProvider) {
+	        var _this = this;
+	        this.nav = nav;
+	        this.details_tab = "Stat";
+	        this.navParams = navParams;
+	        // If we navigated to this page, we will have an item available as a nav param
+	        this.account = {
+	            "account_statistics": {
+	                "ticket_counts": {},
+	            }
+	        };
+	        this.account = this.navParams.data;
+	        this.tickets = null;
+	        this.dataProvider = dataProvider;
+	        this.dataProvider.getTicketsList("open", this.account.id).subscribe(function (data) { _this.tickets = data; }, function (error) {
+	            console.log(error || 'Server error');
+	        });
+	    }
+	    AccountDetailsPage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/account-details/account-details.html',
+	            directives: [tickets_list_1.TicketsListComponent],
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof ionic_1.NavParams !== 'undefined' && ionic_1.NavParams) === 'function' && _b) || Object, (typeof (_c = typeof data_provider_1.DataProvider !== 'undefined' && data_provider_1.DataProvider) === 'function' && _c) || Object])
+	    ], AccountDetailsPage);
+	    return AccountDetailsPage;
+	    var _a, _b, _c;
+	})();
+	exports.AccountDetailsPage = AccountDetailsPage;
 
 
 /***/ },

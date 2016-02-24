@@ -4323,6 +4323,20 @@ sup[danger],
 ion-icon[danger] {
   color: #25b0e6 !important; }
 
+h1[favorite], h2[favorite], h3[favorite], h4[favorite], h5[favorite], h6[favorite],
+p[favorite],
+span[favorite],
+a:not([button])[favorite],
+small[favorite],
+b[favorite],
+i[favorite],
+strong[favorite],
+em[favorite],
+sub[favorite],
+sup[favorite],
+ion-icon[favorite] {
+  color: #09c !important; }
+
 h1[tabs], h2[tabs], h3[tabs], h4[tabs], h5[tabs], h6[tabs],
 p[tabs],
 span[tabs],
@@ -4677,6 +4691,10 @@ ion-badge {
   background-color: #25b0e6;
   color: white; }
 
+.badge-favorite {
+  background-color: #09c;
+  color: white; }
+
 .badge-tabs {
   background-color: #34495e;
   color: white; }
@@ -4931,6 +4949,29 @@ a.button {
   .button-clear-danger:hover:not(.disable-hover) {
     color: #25b0e6; }
 
+.button-favorite {
+  color: white;
+  background-color: #09c; }
+  .button-favorite.activated {
+    background-color: #14a1d0; }
+
+.button-outline-favorite {
+  border-color: #0d9ecf;
+  color: #0d9ecf;
+  background-color: transparent; }
+  .button-outline-favorite.activated {
+    color: #34495e;
+    background-color: #0d9ecf; }
+
+.button-clear-favorite {
+  border-color: transparent;
+  background-color: transparent;
+  color: #09c; }
+  .button-clear-favorite.activated {
+    opacity: 0.4; }
+  .button-clear-favorite:hover:not(.disable-hover) {
+    color: #09c; }
+
 .button-tabs {
   color: white;
   background-color: #34495e; }
@@ -5162,6 +5203,12 @@ ion-checkbox[danger] .checkbox-checked {
   ion-checkbox[danger] .checkbox-checked .checkbox-inner {
     border-color: white; }
 
+ion-checkbox[favorite] .checkbox-checked {
+  background-color: #09c;
+  border-color: #09c; }
+  ion-checkbox[favorite] .checkbox-checked .checkbox-inner {
+    border-color: white; }
+
 ion-checkbox[tabs] .checkbox-checked {
   background-color: #34495e;
   border-color: #34495e; }
@@ -5237,6 +5284,10 @@ ion-chip > ion-icon[light] {
 
 ion-chip > ion-icon[danger] {
   background-color: #25b0e6;
+  color: white !important; }
+
+ion-chip > ion-icon[favorite] {
+  background-color: #09c;
   color: white !important; }
 
 ion-chip > ion-icon[tabs] {
@@ -5671,6 +5722,10 @@ ion-item-divider[danger] {
   background-color: #25b0e6;
   color: white; }
 
+ion-item-divider[favorite] {
+  background-color: #09c;
+  color: white; }
+
 ion-item-divider[tabs] {
   background-color: #34495e;
   color: white; }
@@ -5770,6 +5825,9 @@ ion-label[light] {
 
 ion-label[danger] {
   color: #25b0e6 !important; }
+
+ion-label[favorite] {
+  color: #09c !important; }
 
 ion-label[tabs] {
   color: #34495e !important; }
@@ -5977,6 +6035,11 @@ ion-radio[danger] .radio-checked {
   ion-radio[danger] .radio-checked .radio-inner {
     border-color: #25b0e6; }
 
+ion-radio[favorite] .radio-checked {
+  color: #09c; }
+  ion-radio[favorite] .radio-checked .radio-inner {
+    border-color: #09c; }
+
 ion-radio[tabs] .radio-checked {
   color: #34495e; }
   ion-radio[tabs] .radio-checked .radio-inner {
@@ -6157,6 +6220,14 @@ ion-searchbar[danger] .searchbar-ios-cancel {
 .toolbar[danger] ion-searchbar .searchbar-ios-cancel {
   color: white; }
 
+ion-searchbar[favorite] .searchbar-ios-cancel {
+  color: #09c; }
+  ion-searchbar[favorite] .searchbar-ios-cancel:hover:not(.disable-hover) {
+    color: #14a1d0; }
+
+.toolbar[favorite] ion-searchbar .searchbar-ios-cancel {
+  color: white; }
+
 ion-searchbar[tabs] .searchbar-ios-cancel {
   color: #34495e; }
   ion-searchbar[tabs] .searchbar-ios-cancel:hover:not(.disable-hover) {
@@ -6299,6 +6370,18 @@ ion-segment[danger] .segment-button {
 
 .toolbar[danger] .segment-button.segment-activated {
   color: #25b0e6; }
+
+ion-segment[favorite] .segment-button {
+  border-color: #09c;
+  color: #09c; }
+  ion-segment[favorite] .segment-button:hover:not(.segment-activated) {
+    background-color: rgba(0, 153, 204, 0.16); }
+  ion-segment[favorite] .segment-button.activated, ion-segment[favorite] .segment-button.segment-activated {
+    color: white;
+    background-color: #09c; }
+
+.toolbar[favorite] .segment-button.segment-activated {
+  color: #09c; }
 
 ion-segment[tabs] .segment-button {
   border-color: #34495e;
@@ -6656,6 +6739,15 @@ ion-tabs[danger] tabbar {
   ion-tabs[danger] tabbar .tab-button[aria-selected=true] {
     color: white; }
 
+ion-tabs[favorite] tabbar {
+  border-color: #007399;
+  background-color: #09c; }
+  ion-tabs[favorite] tabbar .tab-button {
+    color: white; }
+  ion-tabs[favorite] tabbar .tab-button:hover:not(.disable-hover),
+  ion-tabs[favorite] tabbar .tab-button[aria-selected=true] {
+    color: white; }
+
 ion-tabs[tabs] tabbar {
   border-color: #22303d;
   background-color: #34495e; }
@@ -6761,6 +6853,9 @@ ion-toggle[light] .toggle-checked {
 
 ion-toggle[danger] .toggle-checked {
   background-color: #25b0e6; }
+
+ion-toggle[favorite] .toggle-checked {
+  background-color: #09c; }
 
 ion-toggle[tabs] .toggle-checked {
   background-color: #34495e; }
@@ -7269,6 +7364,36 @@ ion-buttons[right] {
   .bar-button-solid-danger.activated {
     background-color: #22a2d4; }
 
+.toolbar[favorite] .toolbar-background {
+  background: #09c;
+  border-color: #007399; }
+
+.toolbar[favorite] .toolbar-title,
+.toolbar[favorite] .bar-button-default {
+  color: white; }
+
+.bar-button-favorite {
+  color: #09c;
+  background-color: transparent; }
+  .bar-button-favorite:hover:not(.disable-hover) {
+    color: #09c; }
+  .bar-button-favorite.activated {
+    opacity: 0.4; }
+
+.bar-button-outline-favorite {
+  border-color: #14a1d0;
+  color: #14a1d0;
+  background-color: transparent; }
+  .bar-button-outline-favorite.activated {
+    color: white;
+    background-color: #14a1d0; }
+
+.bar-button-solid-favorite {
+  color: white;
+  background-color: #09c; }
+  .bar-button-solid-favorite.activated {
+    background-color: #14a1d0; }
+
 .toolbar[tabs] .toolbar-background {
   background: #34495e;
   border-color: #22303d; }
@@ -7420,7 +7545,8 @@ ion-list > .item:first-child {
 
 .item {
   text-align: center;
-  margin-top: 10px; }
+  margin-top: 10px;
+  padding-left: 0px; }
 
 .item h2 {
   font-size: 1.9rem; }
@@ -7520,6 +7646,10 @@ scroll-content {
   overflow: hidden;
   line-height: 19px;
   text-overflow: ellipsis; }
+
+.container {
+  margin-bottom: 21px;
+  padding-top: 35px; }
 
 .center {
   text-align: -webkit-center; }
@@ -7632,6 +7762,11 @@ scroll-content {
   line-height: 2.4;
   font-size: 2rem; }
 
+.table_account {
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis; }
+
 .buttonTicket {
   width: 50px;
   height: 50px; }
@@ -7702,6 +7837,9 @@ scroll-content {
 
 .width35 {
   width: 35%; }
+
+.width32 {
+  width: 32%; }
 
 .width30 {
   width: 30%; }
