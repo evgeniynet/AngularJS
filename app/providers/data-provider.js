@@ -53,6 +53,11 @@ getTicketsList(tab, id) {
     return this.apiData.get(url);
 }
     
+    getTicketDetails(key) {
+        let url = `tickets/${key}`;
+        return this.apiData.get(url);
+    }
+    
 getTicketsCounts() {
     let url = "tickets/counts";
     return this.apiData.get(url);

@@ -32,7 +32,7 @@
     </ion-avatar>
     <h3 padding class="tech width65 left grey2">test</h3> 
         <p class="text_list grey2 date  width17">12/12/16</p> 
-        <p class="text margin left width90">{{ticket.initial_post}}</p>
+             <p class="text margin left width90" [innerHTML]="ticket.initial_post | Linebreaks"></p>
              <ion-item class="margin"><p item-right class="text_list grey2">{{ticket.class_name}}</p></ion-item>
         </ion-card-content>
     <ion-card class="width100 margin">
