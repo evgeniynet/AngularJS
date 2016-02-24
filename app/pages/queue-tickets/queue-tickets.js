@@ -1,10 +1,11 @@
-import {Page, NavController, NavParams} from 'ionic/ionic';
+import {Page, ActionSheet, NavController, NavParams} from 'ionic/ionic';
 import {DataProvider} from '../../providers/data-provider';
 import {TicketsListComponent} from '../../components/tickets-list/tickets-list';
+import {ActionButtonComponent} from '../../components/action-button/action-button';
 
 @Page({
     templateUrl: 'build/pages/queue-tickets/queue-tickets.html',
-    directives: [TicketsListComponent],
+    directives: [TicketsListComponent, ActionButtonComponent],
 })
 export class QueueTicketsPage {
     constructor(nav: NavController, navParams: NavParams, dataProvider: DataProvider) {

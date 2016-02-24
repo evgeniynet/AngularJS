@@ -1,16 +1,12 @@
-import {Page, NavController} from 'ionic/ionic';
+import {Page, ActionSheet, NavController} from 'ionic/ionic';
 import {TicketsPage} from '../tickets/tickets';
 import {DataProvider} from '../../providers/data-provider';
 import {QueuesListComponent} from '../../components/queues-list/queues-list';
-/*
-  Generated class for the QueuesPage page.
+import {ActionButtonComponent} from '../../components/action-button/action-button';
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Page({
   templateUrl: 'build/pages/queues/queues.html',
-    directives: [QueuesListComponent]
+    directives: [QueuesListComponent, ActionButtonComponent]
 })
 export class QueuesPage {
     constructor(nav: NavController, dataProvider: DataProvider) {

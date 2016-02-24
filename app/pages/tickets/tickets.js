@@ -1,10 +1,11 @@
-import {Page, NavController} from 'ionic/ionic';
+import {Page, ActionSheet, NavController} from 'ionic/ionic';
 import {DataProvider} from '../../providers/data-provider';
 import {TicketsListComponent} from '../../components/tickets-list/tickets-list';
+import {ActionButtonComponent} from '../../components/action-button/action-button';
 
 @Page({
   templateUrl: 'build/pages/tickets/tickets.html',
-    directives: [TicketsListComponent],
+    directives: [TicketsListComponent, ActionButtonComponent],
 })
 export class TicketsPage {
     constructor(nav: NavController, dataProvider: DataProvider) {

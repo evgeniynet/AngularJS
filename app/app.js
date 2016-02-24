@@ -13,6 +13,7 @@ import {OrganizationsPage} from './pages/organizations/organizations';
 import {LoginPage} from './pages/login/login';
 import {TimelogCreatePage} from './pages/timelog-create/timelog-create';
 
+
 @App({
   templateUrl: 'build/app.html',
     providers: [ApiData, DataProvider],
@@ -42,7 +43,7 @@ class MyApp {
     ];
       
     // make HelloIonicPage the root (or first) page
-        this.rootPage = TicketsPage;
+        this.rootPage = DashboardPage;
   }
 
   initializeApp() {

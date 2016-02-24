@@ -1,14 +1,10 @@
-import {Page, NavController} from 'ionic/ionic';
+import {Page, ActionSheet, NavController} from 'ionic/ionic';
 import {TimelogPage} from '../timelog/timelog';
+import {ActionButtonComponent} from '../../components/action-button/action-button';
 
-/*
-  Generated class for the TimelogsPage page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Page({
   templateUrl: 'build/pages/timelogs/timelogs.html',
+    directives: [ActionButtonComponent],
 })
 export class TimelogsPage {
   constructor(nav: NavController) {

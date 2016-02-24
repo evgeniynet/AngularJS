@@ -1,16 +1,12 @@
-import {Page, NavController} from 'ionic/ionic';
+import {Page, ActionSheet, NavController} from 'ionic/ionic';
 import {DataProvider} from '../../providers/data-provider';
 import {AccountsListComponent} from '../../components/accounts-list/accounts-list';
+import {ActionButtonComponent} from '../../components/action-button/action-button';
 
-/*
-  Generated class for the AccountsPage page.
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Page({
   templateUrl: 'build/pages/accounts/accounts.html',
-  directives: [AccountsListComponent],
+    directives: [AccountsListComponent, ActionButtonComponent],
 })
 export class AccountsPage {
     constructor(nav: NavController, dataProvider: DataProvider) {
