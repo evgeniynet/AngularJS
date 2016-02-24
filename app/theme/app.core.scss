@@ -86,7 +86,6 @@ line-height: 0.5;
     padding: 0px !important;
 }
 
-
 .height{
 height: 180px;
 }
@@ -123,6 +122,10 @@ scroll-content {
     width: 105px;
 }
 
+.subject-ticket{
+margin-left: 20px;
+}
+
 .admin{
 -webkit-box-orient: vertical;
     overflow: hidden;
@@ -140,7 +143,6 @@ scroll-content {
     overflow: hidden;
     line-height: 19px;
     text-overflow: ellipsis;
-    
 }
 
 .center{
@@ -222,8 +224,6 @@ color: $grey2 !important;
     display: block;
     margin: auto;
 }
-
-
 
 .table{
 text-align: center;

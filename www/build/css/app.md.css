@@ -8803,6 +8803,9 @@ scroll-content {
   padding-bottom: 10px;
   width: 105px; }
 
+.subject-ticket {
+  margin-left: 20px; }
+
 .admin {
   -webkit-box-orient: vertical;
   overflow: hidden;
