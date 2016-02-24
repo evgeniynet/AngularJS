@@ -8772,11 +8772,14 @@ p {
 .margin {
   margin: 0px !important; }
 
+.padding {
+  padding: 0px !important; }
+
 .height {
   height: 180px; }
 
-.indent {
-  padding-top: 30px; }
+.indent-bottom {
+  margin-bottom: 30px; }
 
 scroll-content {
   overflow-y: auto; }
@@ -8785,9 +8788,16 @@ scroll-content {
   width: 76%;
   float: left; }
 
+.date {
+  padding-bottom: 26px;
+  padding-top: 15px; }
+
 .img {
   margin-bottom: 8px;
   margin-top: 8px; }
+
+.img-top {
+  margin-top: 18px; }
 
 .img_padding {
   padding-bottom: 10px;
@@ -8799,11 +8809,21 @@ scroll-content {
   line-height: 19px;
   text-overflow: clip; }
 
+.tickets {
+  white-space: initial !important;
+  display: block;
+  display: -webkit-box;
+  width: 100%;
+  height: 50px;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 19px;
+  text-overflow: ellipsis; }
+
 .center {
   text-align: -webkit-center; }
 
 .segment-button {
-  color: #fff;
   border-color: #34495e; }
 
 .select-icon .select-icon-inner {
@@ -8969,6 +8989,9 @@ scroll-content {
 
 .width80 {
   width: 80%; }
+
+.width65 {
+  width: 65%; }
 
 .width75 {
   width: 75%; }

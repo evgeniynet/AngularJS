@@ -8,40 +8,41 @@
     <ion-title>{{ticket.status}} | {{ticket.number}}</ion-title>
 </ion-navbar>
 
-<ion-content padding class="ticket-details">
+<ion-content class="ticket-details">
     
-      <ion-item class="itemTech blue3" no-lines> {{ticket.subject}}</ion-item>
+      <ion-item class="itemTech blue3 padding" no-lines> {{ticket.subject}}</ion-item>
     <div class="tabsTicket">
-        <ion-segment tabs [(ngModel)]="details_tab">
-    <ion-segment-button value="Reply" class="nameTabs">
+        <ion-segment [(ngModel)]="details_tab">
+    <ion-segment-button value="Reply">
       Reply
     </ion-segment-button>
-    <ion-segment-button value="Info" class="nameTabs">
+    <ion-segment-button value="Info">
       Info
     </ion-segment-button>
-    <ion-segment-button value="Options" class="nameTabs">
+    <ion-segment-button value="Options">
         Options
     </ion-segment-button>
     </ion-segment>
 </div>
     <div [ngSwitch]="details_tab">
-     <ion-list *ngSwitchWhen="'Reply'">
-    <ion-item>
+     <ion-list padding class="list" *ngSwitchWhen="'Reply'">
+    <ion-card-content>
         <div></div>
-    <h3 padding class="tech">test</h3> 
-    <ion-avatar item-left class="ticketImg">
+        <ion-avatar class="ticketImg left">
         <img *ngIf="ticket.user_email" [alt]="ticket.user_firstname" class="img" [src]="ticket.user_email | Gravatar"/>
     </ion-avatar>
-      
-        <p class="text">{{ticket.initial_post}}</p>
-        <p item-right class="text_list">{{ticket.class_name}}</p>
-        </ion-item>
-    <ion-card>
+    <h3 padding class="tech width65 left grey2">test</h3> 
+        <p class="text_list grey2 date  width17">12/12/16</p> 
+        <p class="text left width90">{{ticket.initial_post}}</p>
+        <p item-right class="text_list grey2">{{ticket.class_name}}</p>
+        </ion-card-content>
+    <ion-card class="width100 margin">
   <ion-card-header>Add Response</ion-card-header>
   <ion-card-content>
     </ion-card-content>
 </ion-card>
-    <button secondary menuToggle class="button_reply">Reply</button>
+    <button secondary menuToggle
+            class="button_reply">Reply</button>
             </ion-list>
 <br>
   <ion-list *ngSwitchWhen="'Info'" class="list" no-lines>

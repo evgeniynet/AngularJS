@@ -82,12 +82,17 @@ line-height: 0.5;
     margin: 0px !important;
 }
 
+.padding {
+    padding: 0px !important;
+}
+
+
 .height{
 height: 180px;
 }
 
-.indent{
-padding-top: 30px;
+.indent-bottom{
+margin-bottom: 30px;
 }
 
 scroll-content {
@@ -99,10 +104,18 @@ scroll-content {
     float: left;
 }
 
+.date{
+    padding-bottom: 26px;
+    padding-top: 15px;
+}
+
 .img{
     margin-bottom: 8px;
-//    margin-left: 8px;
     margin-top: 8px;
+}
+
+.img-top{
+    margin-top: 18px;
 }
 
 .img_padding{
@@ -117,13 +130,26 @@ scroll-content {
     text-overflow: clip;
 }
 
+.tickets {
+    white-space: initial !important;
+        display: block;
+    display: -webkit-box;
+    width: 100%;
+    height: 50px;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 19px;
+    text-overflow: ellipsis;
+    
+}
+
 .center{
     text-align: -webkit-center;
     }
 
 .segment-button{
-   color: $segment-button-ios-bg-color-activated;
-   border-color: $color-value;
+// color: $segment-button-ios-bg-color-activated;
+ border-color: $color-value;
 }
 
 .select-icon .select-icon-inner {
@@ -341,6 +367,11 @@ color: #fff;
 .width80{
     width: 80%;
 }
+
+.width65{
+    width: 65%;
+}
+
 
 .width75{
     width: 75%;
