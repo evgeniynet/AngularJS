@@ -26,19 +26,8 @@
     </ion-segment>
 </div>
     <div [ngSwitch]="details_tab">
-     <div *ngSwitchWhen="'Reply'">
-         <ion-list padding class="list">
-         <ion-card-content class="container">
-        <div></div>
-        <ion-avatar class="ticketImg left">
-        <img *ngIf="ticket.user_email" [alt]="ticket.user_firstname" class="img" [src]="ticket.user_email | Gravatar"/>
-    </ion-avatar>
-    <h3 padding class="tech width65 left grey2">test</h3> 
-        <p class="text_list grey2 date  width17">12/12/16</p> 
-             <p class="text margin left width90" [innerHTML]="ticket.initial_post | Linebreaks"></p>
-             <ion-item class="margin"><p item-right class="text_list grey2">{{ticket.class_name}}</p></ion-item>
-        </ion-card-content>
-        </ion-list>
+     <div class="list" *ngSwitchWhen="'Reply'">
+         <posts-list [posts]="post1"></posts-list>
     <ion-card class="width100 margin">
   <ion-card-header>Add Response</ion-card-header>
   <ion-card-content>
@@ -48,8 +37,8 @@
             class="button_reply">Reply</button>
          
         <posts-list [posts]="posts"></posts-list>
-    </div>
-           
+        </div>
+               
 <br>
   <ion-list *ngSwitchWhen="'Info'" class="list" no-lines>
 <ion-list>

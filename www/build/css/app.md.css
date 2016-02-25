@@ -9087,9 +9087,8 @@ div.selection {
 
 .button_reply {
   float: right;
-  width: 16%;
-  min-height: 2em;
-  margin-right: 13px; }
+  width: 21%;
+  min-height: 2em; }
 
 .tech {
   text-align: center; }
@@ -9105,6 +9104,9 @@ ion-list > .item:first-child {
   text-align: center;
   margin-top: 10px;
   padding-left: 0px; }
+
+.item-inner {
+  padding-right: 0px; }
 
 .item h2 {
   font-size: 1.9rem; }
@@ -9131,6 +9133,9 @@ p {
   text-align: left;
   padding-left: 15px; }
 
+.tkts-table {
+  text-align: left; }
+
 .tablText {
   color: #fff; }
 
@@ -9140,6 +9145,12 @@ p {
   font-size: 1.6rem;
   height: 77px;
   float: left; }
+
+.dashboardRight {
+  margin-right: 0px; }
+
+.dashboard {
+  padding-left: 4px; }
 
 .list {
   width: 90%;
@@ -9218,6 +9229,9 @@ scroll-content {
 .center {
   text-align: -webkit-center; }
 
+.name {
+  line-height: 0.3; }
+
 .segment-button {
   border-color: #34495e; }
 
@@ -9283,7 +9297,8 @@ scroll-content {
   background-color: rgba(224, 224, 224, 0.29);
   width: 35%;
   float: left;
-  padding-left: 15px; }
+  padding-left: 15px;
+  text-align: left; }
 
 .table span.box2 {
   background-color: rgba(224, 224, 224, 0.29);
@@ -9324,12 +9339,16 @@ scroll-content {
 
 .tableText {
   line-height: 2.4;
-  font-size: 2rem; }
+  font-size: 1.9rem; }
 
 .table_account {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis; }
+
+.space {
+  white-space: nowrap !important;
+  overflow: visible; }
 
 .buttonTicket {
   width: 50px;
@@ -9369,8 +9388,8 @@ scroll-content {
   background-color: #161E27; }
 
 .menu-text {
-  line-height: 2.2 !important;
-  font-size: 2rem !important; }
+  line-height: 2.0 !important;
+  font-size: 2.2rem !important; }
 
 .border {
   border-bottom: 1px solid #dadada; }
@@ -9405,6 +9424,9 @@ scroll-content {
 
 .width51 {
   width: 51%; }
+
+.width50 {
+  width: 50%; }
 
 .width35 {
   width: 35%; }

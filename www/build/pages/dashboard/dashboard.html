@@ -14,19 +14,19 @@
     
     
     <ion-list class="list height" no-lines margin-top  (click)="itemTappedTL()">
-        <div class="width51 left blue3">
+        <div class="width50 left blue3">
             <ion-item class="mainStat itemTech">{{counts.open_as_tech}}</ion-item>
      <ion-item class="itemTech">As Tech</ion-item>
           </div>
-        <div class="width24 right blue3">
+        <div class="width17 right blue3">
             <ion-item class="itemTech" [innerHTML]="counts.open_as_user | More:[100,'<div class=item-inner><ion-label>VV</ion-label></div>']"></ion-item>
             <ion-item class="itemTech" [innerHTML]="counts.open_as_alttech | More:[100,'<div class=item-inner><ion-label>VV</ion-label></div>']"></ion-item>
             <ion-item class="itemTech" [innerHTML]="counts.open_all | More:[100,'<div class=item-inner><ion-label>VV</ion-label></div>']"></ion-item>
          </div>
-        <div class="width24 right blue3">
-    <ion-item class="itemTech">As User</ion-item>
-    <ion-item class="itemTech">Alt Tech</ion-item>
-    <ion-item class="itemTech">All Open</ion-item>
+ <div class="width32 right blue3">
+    <ion-item class="itemTech dashboardRight">As User</ion-item>
+    <ion-item class="itemTech dashboardRight">Alt Tech</ion-item>
+    <ion-item class="itemTech dashboardRight dashboard">All Open</ion-item>
          </div>
         <br>
          </ion-list>
@@ -40,13 +40,13 @@
    <ion-item></ion-item>
           </div>
         <div class="width25 left">
-    <ion-item class="grey2">Hours</ion-item>
+    <ion-item class="grey2 item-button">Hours</ion-item>
             </div>
-        <div class="width17 left">
-    <ion-item class="grey2">Expenses</ion-item>
+        <div class="width23 left space">
+    <ion-item class="grey2 item-button space">Expenses</ion-item>
             </div>
-        <div class="width23 right">
-    <ion-item class="grey2">Tkts</ion-item>
+        <div class="width17 right">
+    <ion-item class="grey2 item-button tkts-table">Tkts</ion-item>
                 </div>
              </ion-label>
 </ion-item>

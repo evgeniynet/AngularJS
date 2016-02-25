@@ -43,7 +43,6 @@ mock_get(method) {
     var pos = method.indexOf('?');
     if (pos != -1)
         method = method.substring(0, pos);
-    console.log(method);
     arr = MOCKS[method];
     return Observable.create(observer => {
         observer.next(arr);

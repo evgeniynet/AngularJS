@@ -18,9 +18,11 @@ export class TicketDetailsPage {
         this.ticket = this.navParams.data || {};
         this.details = {};
         this.posts = [];
+        this.post1=[];
          this.dataProvider.getTicketDetails(this.ticket.key).subscribe(
              data => {this.details = data;
-                      this.posts = data.ticketlogs;}, 
+                      this.posts = data.ticketlogs;
+                      this.post1 = [this.posts[0]];}, 
             error => { 
                 console.log(error || 'Server error');}
         ); 

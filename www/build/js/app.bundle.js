@@ -61429,7 +61429,6 @@
 	        var pos = method.indexOf('?');
 	        if (pos != -1)
 	            method = method.substring(0, pos);
-	        console.log(method);
 	        arr = mocks_1.MOCKS[method];
 	        return Observable_1.Observable.create(function (observer) {
 	            observer.next(arr);
@@ -62071,9 +62070,11 @@
 	        this.ticket = this.navParams.data || {};
 	        this.details = {};
 	        this.posts = [];
+	        this.post1 = [];
 	        this.dataProvider.getTicketDetails(this.ticket.key).subscribe(function (data) {
 	            _this.details = data;
 	            _this.posts = data.ticketlogs;
+	            _this.post1 = [_this.posts[0]];
 	        }, function (error) {
 	            console.log(error || 'Server error');
 	        });
