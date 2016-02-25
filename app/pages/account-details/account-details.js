@@ -1,6 +1,7 @@
 import {Page, NavController, NavParams} from 'ionic/ionic';
 import {DataProvider} from '../../providers/data-provider';
-import {TicketsListComponent, ActionButtonComponent} from '../../components/components';
+import {TicketsListComponent} from '../../components/tickets-list/tickets-list';
+import {ActionButtonComponent} from '../../components/action-button/action-button';
 
 @Page({
   templateUrl: 'build/pages/account-details/account-details.html',

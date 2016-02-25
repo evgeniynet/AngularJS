@@ -1,6 +1,6 @@
 import {Page, NavController, NavParams} from 'ionic/ionic';
 import {DataProvider} from '../../providers/data-provider';
-import {PostsListComponent} from '../../components/components';
+import {PostsListComponent} from '../../components/posts-list/posts-list';
 import {GravatarPipe, LinebreaksPipe} from '../../pipes/pipes';
 
 @Page({

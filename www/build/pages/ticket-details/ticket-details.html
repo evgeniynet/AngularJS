@@ -1,14 +1,22 @@
 
-<ion-navbar *navbar><button menuToggle><ion-icon name="menu"></ion-icon></button>
+<ion-navbar *navbar><button menuToggle><ion-icon name="menu"></ion-icon></button><p item-right class="text_list grey2">{{ticket.class_name}}</p>
     <ion-title>{{ticket.status}} | {{ticket.number}}</ion-title>
 </ion-navbar>
 
 <ion-content class="ticket-details">
     <div class="subject">
-   <ion-item class="itemTech blue3 padding subject-ticket text-left admin" no-lines> {{ticket.subject}}</ion-item>
+   <ion-item class="itemTech blue3 padding subject-ticket text-left admin width59 left" no-lines>
+       <span>{{ticket.subject}}</span>
+           </ion-item>
+        <ion-item class="left blue3 width35" no-lines>
+        <p class="text-right">Mobile</p>
+        <p class="text-right">Name</p>
+        <p class="text-right">2 days ago</p>
+            <p class="text-right">SLA: 02/27/2016 18:00</p></ion-item>
+        
     </div>
-    <div class="tabsTicket">
-        <ion-segment [(ngModel)]="details_tab">
+    <div class="subject">
+        <ion-segment class="tabsTicket"  [(ngModel)]="details_tab">
     <ion-segment-button value="Reply">
       Reply
     </ion-segment-button>
@@ -26,7 +34,10 @@
     <ion-card class="width100 margin">
   <ion-card-header>Add Response</ion-card-header>
   <ion-card-content>
-    </ion-card-content>
+<ion-item class="blue3" no-lines>
+    <ion-label></ion-label>
+    <ion-input type="text" value=""></ion-input>
+  </ion-item>    </ion-card-content>
 </ion-card>
     <button secondary menuToggle
             class="button_reply">Reply</button>
