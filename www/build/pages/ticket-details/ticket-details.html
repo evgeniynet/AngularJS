@@ -26,13 +26,13 @@
     </ion-segment>
 </div>
     <div [ngSwitch]="details_tab">
-     <ion-list padding class="list" *ngSwitchWhen="'Reply'">
+     <div class="list" *ngSwitchWhen="'Reply'">
          <ion-card-content class="container">
         <div></div>
         <ion-avatar class="ticketImg left">
         <img *ngIf="ticket.user_email" [alt]="ticket.user_firstname" class="img" [src]="ticket.user_email | Gravatar"/>
     </ion-avatar>
-    <h3 padding class="tech width65 left grey2">test</h3> 
+    <h3 padding class="tech width65 left grey2 name">test</h3> 
         <p class="text_list grey2 date  width17">12/12/16</p> 
              <p class="text margin left width90" [innerHTML]="ticket.initial_post | Linebreaks"></p>
              <ion-item class="margin"><p item-right class="text_list grey2">{{ticket.class_name}}</p></ion-item>
@@ -43,30 +43,21 @@
     </ion-card-content>
 </ion-card>
     <button secondary menuToggle
-            class="button_reply">Reply</button>
+            class="button_reply">Reply</button></div>
          
+        <div class="list">
          <ion-card-content class="container">
         <div></div>
         <ion-avatar class="ticketImg left">
         <img *ngIf="ticket.user_email" [alt]="ticket.user_firstname" class="img" [src]="ticket.user_email | Gravatar"/>
     </ion-avatar>
-    <h3 padding class="tech width65 left grey2">test</h3> 
+    <h3 padding class="tech width65 left grey2 name">test</h3> 
         <p class="text_list grey2 date  width17">12/12/16</p> 
         <p class="text margin left width90">{{ticket.initial_post}}</p>
              <ion-item class="margin"><p item-right class="text_list grey2">{{ticket.class_name}}</p></ion-item>
-        </ion-card-content>
+            </ion-card-content></div>
          
-         <ion-card-content>
-        <div></div>
-        <ion-avatar class="ticketImg left">
-        <img *ngIf="ticket.user_email" [alt]="ticket.user_firstname" class="img" [src]="ticket.user_email | Gravatar"/>
-    </ion-avatar>
-    <h3 padding class="tech width65 left grey2">test</h3> 
-        <p class="text_list grey2 date  width17">12/12/16</p> 
-        <p class="text left width90">{{ticket.initial_post}}</p>
-        <p item-right class="text_list grey2">{{ticket.class_name}}</p>
-        </ion-card-content>
-            </ion-list>
+               
 <br>
   <ion-list *ngSwitchWhen="'Info'" class="list" no-lines>
 <ion-list>
