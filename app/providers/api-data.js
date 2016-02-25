@@ -17,7 +17,8 @@ mock: boolean = false;
 constructor(http: Http) {
     // inject the Http provider and set to this instance
     this.http = http;
-    this.userKey = "7016f101312449f9af132fde519259e9" //"re36rym3mjqxm8ej2cscfajmxpsew33m"
+    this.userKey = //"7016f101312449f9af132fde519259e9"
+        "re36rym3mjqxm8ej2cscfajmxpsew33m"
         , 
         //localStorage.getItem("userKey"),
         this.userOrgKey = "zwoja4", // localStorage.getItem('userOrgKey'),

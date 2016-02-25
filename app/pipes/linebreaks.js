@@ -6,7 +6,7 @@ import {Pipe} from 'angular2/core';
 export class LinebreaksPipe {
     transform(value, args) {
         value = value || "";
-        value = value.replace(/&lt;br&gt;/gi, "\n").replace(/\n\s*\n/g, '\n').replace(/\n/g, "<br>");
+        value = value.replace(/&lt;br&gt;/gi, "\n").replace(/\r/g, '').replace(/\n\s*\n/g, '\n').replace(/\n/g, "<br>");
         return value;
     }
 }
