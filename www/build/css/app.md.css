@@ -9200,7 +9200,7 @@ scroll-content {
   width: 105px; }
 
 .subject-ticket {
-  margin-left: 20px; }
+  margin-left: 15px; }
 
 .subject {
   background-color: rgba(0, 0, 0, 0.4); }
@@ -9230,7 +9230,7 @@ scroll-content {
   text-align: -webkit-center; }
 
 .name {
-  line-height: 0.3; }
+  line-height: 1.0; }
 
 .segment-button {
   border-color: #34495e; }
@@ -9427,6 +9427,9 @@ scroll-content {
 
 .width50 {
   width: 50%; }
+
+.width59 {
+  width: 59%; }
 
 .width35 {
   width: 35%; }

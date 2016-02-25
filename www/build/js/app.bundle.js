@@ -3218,13 +3218,13 @@
 	var data_provider_1 = __webpack_require__(362);
 	var hello_ionic_1 = __webpack_require__(363);
 	var queues_1 = __webpack_require__(364);
-	var invoices_1 = __webpack_require__(376);
-	var accounts_1 = __webpack_require__(378);
-	var timelogs_1 = __webpack_require__(381);
-	var tickets_1 = __webpack_require__(383);
-	var dashboard_1 = __webpack_require__(384);
-	var organizations_1 = __webpack_require__(385);
-	var login_1 = __webpack_require__(386);
+	var invoices_1 = __webpack_require__(375);
+	var accounts_1 = __webpack_require__(377);
+	var timelogs_1 = __webpack_require__(380);
+	var tickets_1 = __webpack_require__(382);
+	var dashboard_1 = __webpack_require__(383);
+	var organizations_1 = __webpack_require__(384);
+	var login_1 = __webpack_require__(385);
 	var MyApp = (function () {
 	    function MyApp(app, platform, apiData) {
 	        // set up our app
@@ -61885,7 +61885,7 @@
 	var ionic_1 = __webpack_require__(6);
 	var data_provider_1 = __webpack_require__(362);
 	var queues_list_1 = __webpack_require__(365);
-	var action_button_1 = __webpack_require__(374);
+	var action_button_1 = __webpack_require__(373);
 	var QueuesPage = (function () {
 	    function QueuesPage(nav, dataProvider) {
 	        var _this = this;
@@ -61924,7 +61924,7 @@
 	var ionic_1 = __webpack_require__(6);
 	var core_1 = __webpack_require__(8);
 	var queue_tickets_1 = __webpack_require__(366);
-	var more_1 = __webpack_require__(375);
+	var more_1 = __webpack_require__(374);
 	var QueuesListComponent = (function () {
 	    /*@Input()
 	    card : Card;*/
@@ -61970,7 +61970,7 @@
 	var ionic_1 = __webpack_require__(6);
 	var data_provider_1 = __webpack_require__(362);
 	var tickets_list_1 = __webpack_require__(367);
-	var action_button_1 = __webpack_require__(374);
+	var action_button_1 = __webpack_require__(373);
 	var QueueTicketsPage = (function () {
 	    function QueueTicketsPage(nav, navParams, dataProvider) {
 	        var _this = this;
@@ -62010,8 +62010,8 @@
 	var ionic_1 = __webpack_require__(6);
 	var core_1 = __webpack_require__(8);
 	var ticket_details_1 = __webpack_require__(368);
-	var gravatar_1 = __webpack_require__(370);
-	var linebreaks_1 = __webpack_require__(373);
+	var gravatar_1 = __webpack_require__(369);
+	var linebreaks_1 = __webpack_require__(372);
 	var TicketsListComponent = (function () {
 	    function TicketsListComponent(nav, navParams) {
 	        this.nav = nav;
@@ -62057,9 +62057,9 @@
 	};
 	var ionic_1 = __webpack_require__(6);
 	var data_provider_1 = __webpack_require__(362);
-	var posts_list_1 = __webpack_require__(369);
-	var gravatar_1 = __webpack_require__(370);
-	var linebreaks_1 = __webpack_require__(373);
+	var posts_list_1 = __webpack_require__(386);
+	var gravatar_1 = __webpack_require__(369);
+	var linebreaks_1 = __webpack_require__(372);
 	var TicketDetailsPage = (function () {
 	    function TicketDetailsPage(nav, navParams, dataProvider) {
 	        var _this = this;
@@ -62106,48 +62106,8 @@
 	var __metadata = (this && this.__metadata) || function (k, v) {
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
-	var ionic_1 = __webpack_require__(6);
 	var core_1 = __webpack_require__(8);
-	//import {TicketDetailsPage} from '../../pages/ticket-details/ticket-details';
-	var gravatar_1 = __webpack_require__(370);
-	var linebreaks_1 = __webpack_require__(373);
-	var PostsListComponent = (function () {
-	    function PostsListComponent() {
-	        this.posts = [];
-	    }
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', Array)
-	    ], PostsListComponent.prototype, "posts", void 0);
-	    PostsListComponent = __decorate([
-	        core_1.Component({
-	            selector: 'posts-list',
-	            templateUrl: 'build/components/posts-list/posts-list.html',
-	            directives: [ionic_1.IONIC_DIRECTIVES],
-	            pipes: [gravatar_1.GravatarPipe, linebreaks_1.LinebreaksPipe],
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], PostsListComponent);
-	    return PostsListComponent;
-	})();
-	exports.PostsListComponent = PostsListComponent;
-
-
-/***/ },
-/* 370 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(8);
-	var md5Hex = __webpack_require__(371);
+	var md5Hex = __webpack_require__(370);
 	var GravatarPipe = (function () {
 	    function GravatarPipe() {
 	    }
@@ -62170,15 +62130,15 @@
 
 
 /***/ },
-/* 371 */
+/* 370 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	module.exports = __webpack_require__(372);
+	module.exports = __webpack_require__(371);
 
 
 /***/ },
-/* 372 */
+/* 371 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -62384,7 +62344,7 @@
 	}
 
 /***/ },
-/* 373 */
+/* 372 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62417,7 +62377,7 @@
 
 
 /***/ },
-/* 374 */
+/* 373 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62496,7 +62456,7 @@
 
 
 /***/ },
-/* 375 */
+/* 374 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62534,7 +62494,7 @@
 
 
 /***/ },
-/* 376 */
+/* 375 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62547,8 +62507,8 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	var invoice_details_1 = __webpack_require__(377);
-	var action_button_1 = __webpack_require__(374);
+	var invoice_details_1 = __webpack_require__(376);
+	var action_button_1 = __webpack_require__(373);
 	var InvoicesPage = (function () {
 	    function InvoicesPage(nav) {
 	        this.nav = nav;
@@ -62568,7 +62528,7 @@
 
 
 /***/ },
-/* 377 */
+/* 376 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62604,7 +62564,7 @@
 
 
 /***/ },
-/* 378 */
+/* 377 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62618,8 +62578,8 @@
 	};
 	var ionic_1 = __webpack_require__(6);
 	var data_provider_1 = __webpack_require__(362);
-	var accounts_list_1 = __webpack_require__(379);
-	var action_button_1 = __webpack_require__(374);
+	var accounts_list_1 = __webpack_require__(378);
+	var action_button_1 = __webpack_require__(373);
 	var AccountsPage = (function () {
 	    function AccountsPage(nav, dataProvider) {
 	        var _this = this;
@@ -62643,7 +62603,7 @@
 
 
 /***/ },
-/* 379 */
+/* 378 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62658,8 +62618,8 @@
 	//in case on using ionic "ion-card"
 	var ionic_1 = __webpack_require__(6);
 	var core_1 = __webpack_require__(8);
-	var account_details_1 = __webpack_require__(380);
-	var more_1 = __webpack_require__(375);
+	var account_details_1 = __webpack_require__(379);
+	var more_1 = __webpack_require__(374);
 	var AccountsListComponent = (function () {
 	    /*@Input()
 	    card : Card;*/
@@ -62690,7 +62650,7 @@
 
 
 /***/ },
-/* 380 */
+/* 379 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62705,7 +62665,7 @@
 	var ionic_1 = __webpack_require__(6);
 	var data_provider_1 = __webpack_require__(362);
 	var tickets_list_1 = __webpack_require__(367);
-	var action_button_1 = __webpack_require__(374);
+	var action_button_1 = __webpack_require__(373);
 	var AccountDetailsPage = (function () {
 	    function AccountDetailsPage(nav, navParams, dataProvider) {
 	        var _this = this;
@@ -62739,7 +62699,7 @@
 
 
 /***/ },
-/* 381 */
+/* 380 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62752,8 +62712,8 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	var timelog_1 = __webpack_require__(382);
-	var action_button_1 = __webpack_require__(374);
+	var timelog_1 = __webpack_require__(381);
+	var action_button_1 = __webpack_require__(373);
 	var TimelogsPage = (function () {
 	    function TimelogsPage(nav) {
 	        this.nav = nav;
@@ -62773,7 +62733,7 @@
 
 
 /***/ },
-/* 382 */
+/* 381 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62786,7 +62746,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	var action_button_1 = __webpack_require__(374);
+	var action_button_1 = __webpack_require__(373);
 	var TimelogPage = (function () {
 	    function TimelogPage(nav) {
 	        this.nav = nav;
@@ -62805,7 +62765,7 @@
 
 
 /***/ },
-/* 383 */
+/* 382 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62820,7 +62780,7 @@
 	var ionic_1 = __webpack_require__(6);
 	var data_provider_1 = __webpack_require__(362);
 	var tickets_list_1 = __webpack_require__(367);
-	var action_button_1 = __webpack_require__(374);
+	var action_button_1 = __webpack_require__(373);
 	var TicketsPage = (function () {
 	    function TicketsPage(nav, dataProvider) {
 	        var _this = this;
@@ -62853,7 +62813,7 @@
 
 
 /***/ },
-/* 384 */
+/* 383 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62868,11 +62828,11 @@
 	var ionic_1 = __webpack_require__(6);
 	var data_provider_1 = __webpack_require__(362);
 	var queues_list_1 = __webpack_require__(365);
-	var accounts_list_1 = __webpack_require__(379);
-	var action_button_1 = __webpack_require__(374);
-	var tickets_1 = __webpack_require__(383);
-	var account_details_1 = __webpack_require__(380);
-	var more_1 = __webpack_require__(375);
+	var accounts_list_1 = __webpack_require__(378);
+	var action_button_1 = __webpack_require__(373);
+	var tickets_1 = __webpack_require__(382);
+	var account_details_1 = __webpack_require__(379);
+	var more_1 = __webpack_require__(374);
 	/*
 	  Generated class for the DashboardPage page.
 
@@ -62913,7 +62873,7 @@
 
 
 /***/ },
-/* 385 */
+/* 384 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62949,7 +62909,7 @@
 
 
 /***/ },
-/* 386 */
+/* 385 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62982,6 +62942,46 @@
 	    var _a;
 	})();
 	exports.LoginPage = LoginPage;
+
+
+/***/ },
+/* 386 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(6);
+	var core_1 = __webpack_require__(8);
+	//import {TicketDetailsPage} from '../../pages/ticket-details/ticket-details';
+	var gravatar_1 = __webpack_require__(369);
+	var linebreaks_1 = __webpack_require__(372);
+	var PostsListComponent = (function () {
+	    function PostsListComponent() {
+	        this.posts = [];
+	    }
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', Array)
+	    ], PostsListComponent.prototype, "posts", void 0);
+	    PostsListComponent = __decorate([
+	        core_1.Component({
+	            selector: 'posts-list',
+	            templateUrl: 'build/components/posts-list/posts-list.html',
+	            directives: [ionic_1.IONIC_DIRECTIVES],
+	            pipes: [gravatar_1.GravatarPipe, linebreaks_1.LinebreaksPipe],
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], PostsListComponent);
+	    return PostsListComponent;
+	})();
+	exports.PostsListComponent = PostsListComponent;
 
 
 /***/ }
