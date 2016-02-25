@@ -1,7 +1,7 @@
 import {Injectable} from 'angular2/core';
 import {Http, Headers, RequestOptions, Request} from 'angular2/http';
 import {Observable} from 'rxjs/Observable';
-import {ApiSite} from './config';
+import {ApiSite, dontClearCache} from './config';
 import {MOCKS} from './mocks';
 //import 'rxjs/Rx'
 import 'rxjs/add/operator/map';
@@ -12,7 +12,7 @@ import 'rxjs/add/operator/catch';
 export class ApiData {
 
 userKey, userOrgKey, userInstanceKey: string; 
-mock: boolean = false;
+mock: boolean = dontClearCache;
 
 constructor(http: Http) {
     // inject the Http provider and set to this instance
@@ -43,6 +43,7 @@ mock_get(method) {
     var pos = method.indexOf('?');
     if (pos != -1)
         method = method.substring(0, pos);
+    console.log(method);
     arr = MOCKS[method];
     return Observable.create(observer => {
         observer.next(arr);
