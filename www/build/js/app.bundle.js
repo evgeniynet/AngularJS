@@ -3218,13 +3218,13 @@
 	var data_provider_1 = __webpack_require__(362);
 	var hello_ionic_1 = __webpack_require__(363);
 	var queues_1 = __webpack_require__(364);
-	var invoices_1 = __webpack_require__(376);
-	var accounts_1 = __webpack_require__(378);
-	var timelogs_1 = __webpack_require__(381);
-	var tickets_1 = __webpack_require__(383);
-	var dashboard_1 = __webpack_require__(384);
-	var organizations_1 = __webpack_require__(385);
-	var login_1 = __webpack_require__(386);
+	var invoices_1 = __webpack_require__(380);
+	var accounts_1 = __webpack_require__(382);
+	var timelogs_1 = __webpack_require__(383);
+	var tickets_1 = __webpack_require__(385);
+	var dashboard_1 = __webpack_require__(388);
+	var organizations_1 = __webpack_require__(389);
+	var login_1 = __webpack_require__(390);
 	var MyApp = (function () {
 	    function MyApp(app, platform, apiData) {
 	        // set up our app
@@ -61884,8 +61884,7 @@
 	};
 	var ionic_1 = __webpack_require__(6);
 	var data_provider_1 = __webpack_require__(362);
-	var queues_list_1 = __webpack_require__(365);
-	var action_button_1 = __webpack_require__(374);
+	var components_1 = __webpack_require__(365);
 	var QueuesPage = (function () {
 	    function QueuesPage(nav, dataProvider) {
 	        var _this = this;
@@ -61898,7 +61897,7 @@
 	    QueuesPage = __decorate([
 	        ionic_1.Page({
 	            templateUrl: 'build/pages/queues/queues.html',
-	            directives: [queues_list_1.QueuesListComponent, action_button_1.ActionButtonComponent]
+	            directives: [components_1.QueuesListComponent, components_1.ActionButtonComponent]
 	        }), 
 	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof data_provider_1.DataProvider !== 'undefined' && data_provider_1.DataProvider) === 'function' && _b) || Object])
 	    ], QueuesPage);
@@ -61912,6 +61911,20 @@
 /* 365 */
 /***/ function(module, exports, __webpack_require__) {
 
+	function __export(m) {
+	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+	}
+	__export(__webpack_require__(366));
+	__export(__webpack_require__(374));
+	__export(__webpack_require__(376));
+	__export(__webpack_require__(378));
+	__export(__webpack_require__(379));
+
+
+/***/ },
+/* 366 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -61923,8 +61936,8 @@
 	};
 	var ionic_1 = __webpack_require__(6);
 	var core_1 = __webpack_require__(8);
-	var queue_tickets_1 = __webpack_require__(366);
-	var more_1 = __webpack_require__(375);
+	var queue_tickets_1 = __webpack_require__(367);
+	var pipes_1 = __webpack_require__(368);
 	var QueuesListComponent = (function () {
 	    /*@Input()
 	    card : Card;*/
@@ -61944,7 +61957,7 @@
 	            selector: 'queues-list',
 	            templateUrl: 'build/components/queues-list/queues-list.html',
 	            directives: [ionic_1.IONIC_DIRECTIVES],
-	            pipes: [more_1.MorePipe],
+	            pipes: [pipes_1.MorePipe],
 	        }), 
 	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
 	    ], QueuesListComponent);
@@ -61952,46 +61965,6 @@
 	    var _a;
 	})();
 	exports.QueuesListComponent = QueuesListComponent;
-
-
-/***/ },
-/* 366 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var ionic_1 = __webpack_require__(6);
-	var data_provider_1 = __webpack_require__(362);
-	var tickets_list_1 = __webpack_require__(367);
-	var action_button_1 = __webpack_require__(374);
-	var QueueTicketsPage = (function () {
-	    function QueueTicketsPage(nav, navParams, dataProvider) {
-	        var _this = this;
-	        this.nav = nav;
-	        this.navParams = navParams;
-	        this.queue = this.navParams.data;
-	        dataProvider.getTicketsList("queue", this.queue.id).subscribe(function (data) { _this.tickets = data; }, function (error) {
-	            console.log(error || 'Server error');
-	        });
-	    }
-	    QueueTicketsPage = __decorate([
-	        ionic_1.Page({
-	            templateUrl: 'build/pages/queue-tickets/queue-tickets.html',
-	            directives: [tickets_list_1.TicketsListComponent, action_button_1.ActionButtonComponent],
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof ionic_1.NavParams !== 'undefined' && ionic_1.NavParams) === 'function' && _b) || Object, (typeof (_c = typeof data_provider_1.DataProvider !== 'undefined' && data_provider_1.DataProvider) === 'function' && _c) || Object])
-	    ], QueueTicketsPage);
-	    return QueueTicketsPage;
-	    var _a, _b, _c;
-	})();
-	exports.QueueTicketsPage = QueueTicketsPage;
 
 
 /***/ },
@@ -62008,89 +61981,41 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	var core_1 = __webpack_require__(8);
-	var ticket_details_1 = __webpack_require__(368);
-	var gravatar_1 = __webpack_require__(370);
-	var linebreaks_1 = __webpack_require__(373);
-	var TicketsListComponent = (function () {
-	    function TicketsListComponent(nav, navParams) {
+	var data_provider_1 = __webpack_require__(362);
+	var components_1 = __webpack_require__(365);
+	var QueueTicketsPage = (function () {
+	    function QueueTicketsPage(nav, navParams, dataProvider) {
+	        var _this = this;
 	        this.nav = nav;
 	        this.navParams = navParams;
-	        this.tickets = [];
-	        //this.speaker = this.navParams.data;
+	        this.queue = this.navParams.data;
+	        dataProvider.getTicketsList("queue", this.queue.id).subscribe(function (data) { _this.tickets = data; }, function (error) {
+	            console.log(error || 'Server error');
+	        });
 	    }
-	    TicketsListComponent.prototype.itemTapped = function (event, ticket) {
-	        if (event.srcElement.tagName.toUpperCase() != "ION-ITEM-SLIDING")
-	            this.nav.push(ticket_details_1.TicketDetailsPage, ticket);
-	    };
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', Array)
-	    ], TicketsListComponent.prototype, "tickets", void 0);
-	    TicketsListComponent = __decorate([
-	        core_1.Component({
-	            selector: 'tickets-list',
-	            templateUrl: 'build/components/tickets-list/tickets-list.html',
-	            directives: [ionic_1.IONIC_DIRECTIVES],
-	            pipes: [gravatar_1.GravatarPipe, linebreaks_1.LinebreaksPipe],
+	    QueueTicketsPage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/queue-tickets/queue-tickets.html',
+	            directives: [components_1.TicketsListComponent, components_1.ActionButtonComponent],
 	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof ionic_1.NavParams !== 'undefined' && ionic_1.NavParams) === 'function' && _b) || Object])
-	    ], TicketsListComponent);
-	    return TicketsListComponent;
-	    var _a, _b;
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof ionic_1.NavParams !== 'undefined' && ionic_1.NavParams) === 'function' && _b) || Object, (typeof (_c = typeof data_provider_1.DataProvider !== 'undefined' && data_provider_1.DataProvider) === 'function' && _c) || Object])
+	    ], QueueTicketsPage);
+	    return QueueTicketsPage;
+	    var _a, _b, _c;
 	})();
-	exports.TicketsListComponent = TicketsListComponent;
+	exports.QueueTicketsPage = QueueTicketsPage;
 
 
 /***/ },
 /* 368 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var ionic_1 = __webpack_require__(6);
-	var data_provider_1 = __webpack_require__(362);
-	var posts_list_1 = __webpack_require__(369);
-	var gravatar_1 = __webpack_require__(370);
-	var linebreaks_1 = __webpack_require__(373);
-	var TicketDetailsPage = (function () {
-	    function TicketDetailsPage(nav, navParams, dataProvider) {
-	        var _this = this;
-	        this.nav = nav;
-	        this.details_tab = "Reply";
-	        this.navParams = navParams;
-	        this.dataProvider = dataProvider;
-	        this.ticket = this.navParams.data || {};
-	        this.details = {};
-	        this.posts = [];
-	        this.post1 = [];
-	        this.dataProvider.getTicketDetails(this.ticket.key).subscribe(function (data) {
-	            _this.details = data;
-	            _this.posts = data.ticketlogs;
-	            _this.post1 = [_this.posts[0]];
-	        }, function (error) {
-	            console.log(error || 'Server error');
-	        });
-	    }
-	    TicketDetailsPage = __decorate([
-	        ionic_1.Page({
-	            templateUrl: 'build/pages/ticket-details/ticket-details.html',
-	            directives: [posts_list_1.PostsListComponent],
-	            pipes: [gravatar_1.GravatarPipe, linebreaks_1.LinebreaksPipe],
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof ionic_1.NavParams !== 'undefined' && ionic_1.NavParams) === 'function' && _b) || Object, (typeof (_c = typeof data_provider_1.DataProvider !== 'undefined' && data_provider_1.DataProvider) === 'function' && _c) || Object])
-	    ], TicketDetailsPage);
-	    return TicketDetailsPage;
-	    var _a, _b, _c;
-	})();
-	exports.TicketDetailsPage = TicketDetailsPage;
+	function __export(m) {
+	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+	}
+	__export(__webpack_require__(369));
+	__export(__webpack_require__(370));
+	__export(__webpack_require__(371));
 
 
 /***/ },
@@ -62106,31 +62031,29 @@
 	var __metadata = (this && this.__metadata) || function (k, v) {
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
-	var ionic_1 = __webpack_require__(6);
 	var core_1 = __webpack_require__(8);
-	//import {TicketDetailsPage} from '../../pages/ticket-details/ticket-details';
-	var gravatar_1 = __webpack_require__(370);
-	var linebreaks_1 = __webpack_require__(373);
-	var PostsListComponent = (function () {
-	    function PostsListComponent() {
-	        this.posts = [];
+	var MorePipe = (function () {
+	    function MorePipe() {
 	    }
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', Array)
-	    ], PostsListComponent.prototype, "posts", void 0);
-	    PostsListComponent = __decorate([
-	        core_1.Component({
-	            selector: 'posts-list',
-	            templateUrl: 'build/components/posts-list/posts-list.html',
-	            directives: [ionic_1.IONIC_DIRECTIVES],
-	            pipes: [gravatar_1.GravatarPipe, linebreaks_1.LinebreaksPipe],
+	    MorePipe.prototype.transform = function (value, args) {
+	        args = args.length ? args : [[100, "VV"]];
+	        value = value || 0;
+	        var max = args[0][0];
+	        var template = args[0][1] || "VV";
+	        if (value >= max)
+	            value = (max - 1) + "<sup>+</sup>";
+	        value = template.replace("VV", value);
+	        return value;
+	    };
+	    MorePipe = __decorate([
+	        core_1.Pipe({
+	            name: 'More'
 	        }), 
 	        __metadata('design:paramtypes', [])
-	    ], PostsListComponent);
-	    return PostsListComponent;
+	    ], MorePipe);
+	    return MorePipe;
 	})();
-	exports.PostsListComponent = PostsListComponent;
+	exports.MorePipe = MorePipe;
 
 
 /***/ },
@@ -62147,7 +62070,40 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(8);
-	var md5Hex = __webpack_require__(371);
+	var LinebreaksPipe = (function () {
+	    function LinebreaksPipe() {
+	    }
+	    LinebreaksPipe.prototype.transform = function (value, args) {
+	        value = value || "";
+	        value = value.replace(/&lt;br&gt;/gi, "\n").replace(/\r/g, '').replace(/\n\s*\n/g, '\n').replace(/\n/g, "<br>");
+	        return value;
+	    };
+	    LinebreaksPipe = __decorate([
+	        core_1.Pipe({
+	            name: 'Linebreaks'
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], LinebreaksPipe);
+	    return LinebreaksPipe;
+	})();
+	exports.LinebreaksPipe = LinebreaksPipe;
+
+
+/***/ },
+/* 371 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(8);
+	var md5Hex = __webpack_require__(372);
 	var GravatarPipe = (function () {
 	    function GravatarPipe() {
 	    }
@@ -62170,15 +62126,15 @@
 
 
 /***/ },
-/* 371 */
+/* 372 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	module.exports = __webpack_require__(372);
+	module.exports = __webpack_require__(373);
 
 
 /***/ },
-/* 372 */
+/* 373 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -62384,7 +62340,7 @@
 	}
 
 /***/ },
-/* 373 */
+/* 374 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62396,28 +62352,226 @@
 	var __metadata = (this && this.__metadata) || function (k, v) {
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
+	//in case on using ionic "ion-card"
+	var ionic_1 = __webpack_require__(6);
 	var core_1 = __webpack_require__(8);
-	var LinebreaksPipe = (function () {
-	    function LinebreaksPipe() {
+	var account_details_1 = __webpack_require__(375);
+	var pipes_1 = __webpack_require__(368);
+	var AccountsListComponent = (function () {
+	    /*@Input()
+	    card : Card;*/
+	    function AccountsListComponent(nav) {
+	        this.nav = nav;
+	        //this.header = "into";
 	    }
-	    LinebreaksPipe.prototype.transform = function (value, args) {
-	        value = value || "";
-	        value = value.replace(/&lt;br&gt;/gi, "\n").replace(/\r/g, '').replace(/\n\s*\n/g, '\n').replace(/\n/g, "<br>");
-	        return value;
+	    AccountsListComponent.prototype.itemTapped = function (event, account) {
+	        this.nav.push(account_details_1.AccountDetailsPage, account);
 	    };
-	    LinebreaksPipe = __decorate([
-	        core_1.Pipe({
-	            name: 'Linebreaks'
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', Array)
+	    ], AccountsListComponent.prototype, "accounts", void 0);
+	    AccountsListComponent = __decorate([
+	        core_1.Component({
+	            selector: 'accounts-list',
+	            templateUrl: 'build/components/accounts-list/accounts-list.html',
+	            directives: [ionic_1.IONIC_DIRECTIVES],
+	            pipes: [pipes_1.MorePipe],
 	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], LinebreaksPipe);
-	    return LinebreaksPipe;
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
+	    ], AccountsListComponent);
+	    return AccountsListComponent;
+	    var _a;
 	})();
-	exports.LinebreaksPipe = LinebreaksPipe;
+	exports.AccountsListComponent = AccountsListComponent;
 
 
 /***/ },
-/* 374 */
+/* 375 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(6);
+	var data_provider_1 = __webpack_require__(362);
+	var components_1 = __webpack_require__(365);
+	var AccountDetailsPage = (function () {
+	    function AccountDetailsPage(nav, navParams, dataProvider) {
+	        var _this = this;
+	        this.nav = nav;
+	        this.details_tab = "Stat";
+	        this.navParams = navParams;
+	        // If we navigated to this page, we will have an item available as a nav param
+	        this.account = {
+	            "account_statistics": {
+	                "ticket_counts": {},
+	            }
+	        };
+	        this.account = this.navParams.data;
+	        this.tickets = null;
+	        this.dataProvider = dataProvider;
+	        this.dataProvider.getTicketsList("open", this.account.id).subscribe(function (data) { _this.tickets = data; }, function (error) {
+	            console.log(error || 'Server error');
+	        });
+	    }
+	    AccountDetailsPage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/account-details/account-details.html',
+	            directives: [components_1.TicketsListComponent, components_1.ActionButtonComponent],
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof ionic_1.NavParams !== 'undefined' && ionic_1.NavParams) === 'function' && _b) || Object, (typeof (_c = typeof data_provider_1.DataProvider !== 'undefined' && data_provider_1.DataProvider) === 'function' && _c) || Object])
+	    ], AccountDetailsPage);
+	    return AccountDetailsPage;
+	    var _a, _b, _c;
+	})();
+	exports.AccountDetailsPage = AccountDetailsPage;
+
+
+/***/ },
+/* 376 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(6);
+	var core_1 = __webpack_require__(8);
+	var ticket_details_1 = __webpack_require__(377);
+	var pipes_1 = __webpack_require__(368);
+	var TicketsListComponent = (function () {
+	    function TicketsListComponent(nav, navParams) {
+	        this.nav = nav;
+	        this.navParams = navParams;
+	        this.tickets = [];
+	        //this.speaker = this.navParams.data;
+	    }
+	    TicketsListComponent.prototype.itemTapped = function (event, ticket) {
+	        if (event.srcElement.tagName.toUpperCase() != "ION-ITEM-SLIDING")
+	            this.nav.push(ticket_details_1.TicketDetailsPage, ticket);
+	    };
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', Array)
+	    ], TicketsListComponent.prototype, "tickets", void 0);
+	    TicketsListComponent = __decorate([
+	        core_1.Component({
+	            selector: 'tickets-list',
+	            templateUrl: 'build/components/tickets-list/tickets-list.html',
+	            directives: [ionic_1.IONIC_DIRECTIVES],
+	            pipes: [pipes_1.GravatarPipe, pipes_1.LinebreaksPipe],
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof ionic_1.NavParams !== 'undefined' && ionic_1.NavParams) === 'function' && _b) || Object])
+	    ], TicketsListComponent);
+	    return TicketsListComponent;
+	    var _a, _b;
+	})();
+	exports.TicketsListComponent = TicketsListComponent;
+
+
+/***/ },
+/* 377 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(6);
+	var data_provider_1 = __webpack_require__(362);
+	var components_1 = __webpack_require__(365);
+	var pipes_1 = __webpack_require__(368);
+	var TicketDetailsPage = (function () {
+	    function TicketDetailsPage(nav, navParams, dataProvider) {
+	        var _this = this;
+	        this.nav = nav;
+	        this.details_tab = "Reply";
+	        this.navParams = navParams;
+	        this.dataProvider = dataProvider;
+	        this.ticket = this.navParams.data || {};
+	        this.details = {};
+	        this.posts = [];
+	        this.post1 = [];
+	        this.dataProvider.getTicketDetails(this.ticket.key).subscribe(function (data) {
+	            _this.details = data;
+	            _this.post1 = [data.ticketlogs.shift()];
+	            _this.posts = data.ticketlogs;
+	        }, function (error) {
+	            console.log(error || 'Server error');
+	        });
+	    }
+	    TicketDetailsPage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/ticket-details/ticket-details.html',
+	            directives: [components_1.PostsListComponent],
+	            pipes: [pipes_1.GravatarPipe, pipes_1.LinebreaksPipe],
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof ionic_1.NavParams !== 'undefined' && ionic_1.NavParams) === 'function' && _b) || Object, (typeof (_c = typeof data_provider_1.DataProvider !== 'undefined' && data_provider_1.DataProvider) === 'function' && _c) || Object])
+	    ], TicketDetailsPage);
+	    return TicketDetailsPage;
+	    var _a, _b, _c;
+	})();
+	exports.TicketDetailsPage = TicketDetailsPage;
+
+
+/***/ },
+/* 378 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(6);
+	var core_1 = __webpack_require__(8);
+	//import {TicketDetailsPage} from '../../pages/ticket-details/ticket-details';
+	var pipes_1 = __webpack_require__(368);
+	var PostsListComponent = (function () {
+	    function PostsListComponent() {
+	        this.posts = [];
+	    }
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', Array)
+	    ], PostsListComponent.prototype, "posts", void 0);
+	    PostsListComponent = __decorate([
+	        core_1.Component({
+	            selector: 'posts-list',
+	            templateUrl: 'build/components/posts-list/posts-list.html',
+	            directives: [ionic_1.IONIC_DIRECTIVES],
+	            pipes: [pipes_1.GravatarPipe, pipes_1.LinebreaksPipe],
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], PostsListComponent);
+	    return PostsListComponent;
+	})();
+	exports.PostsListComponent = PostsListComponent;
+
+
+/***/ },
+/* 379 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62496,45 +62650,7 @@
 
 
 /***/ },
-/* 375 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(8);
-	var MorePipe = (function () {
-	    function MorePipe() {
-	    }
-	    MorePipe.prototype.transform = function (value, args) {
-	        args = args.length ? args : [[100, "VV"]];
-	        value = value || 0;
-	        var max = args[0][0];
-	        var template = args[0][1] || "VV";
-	        if (value >= max)
-	            value = (max - 1) + "<sup>+</sup>";
-	        value = template.replace("VV", value);
-	        return value;
-	    };
-	    MorePipe = __decorate([
-	        core_1.Pipe({
-	            name: 'More'
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], MorePipe);
-	    return MorePipe;
-	})();
-	exports.MorePipe = MorePipe;
-
-
-/***/ },
-/* 376 */
+/* 380 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62547,8 +62663,8 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	var invoice_details_1 = __webpack_require__(377);
-	var action_button_1 = __webpack_require__(374);
+	var invoice_details_1 = __webpack_require__(381);
+	var components_1 = __webpack_require__(365);
 	var InvoicesPage = (function () {
 	    function InvoicesPage(nav) {
 	        this.nav = nav;
@@ -62557,7 +62673,7 @@
 	    InvoicesPage = __decorate([
 	        ionic_1.Page({
 	            templateUrl: 'build/pages/invoices/invoices.html',
-	            directives: [action_button_1.ActionButtonComponent]
+	            directives: [components_1.ActionButtonComponent]
 	        }), 
 	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
 	    ], InvoicesPage);
@@ -62568,7 +62684,7 @@
 
 
 /***/ },
-/* 377 */
+/* 381 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62581,12 +62697,6 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	/*
-	  Generated class for the InvoiceDetailsPage page.
-
-	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-	  Ionic pages and navigation.
-	*/
 	var InvoiceDetailsPage = (function () {
 	    function InvoiceDetailsPage(nav) {
 	        this.nav = nav;
@@ -62604,175 +62714,6 @@
 
 
 /***/ },
-/* 378 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var ionic_1 = __webpack_require__(6);
-	var data_provider_1 = __webpack_require__(362);
-	var accounts_list_1 = __webpack_require__(379);
-	var action_button_1 = __webpack_require__(374);
-	var AccountsPage = (function () {
-	    function AccountsPage(nav, dataProvider) {
-	        var _this = this;
-	        this.nav = nav;
-	        this.accounts = null;
-	        dataProvider.getAccountList().subscribe(function (data) { _this.accounts = data; }, function (error) {
-	            console.log(error || 'Server error');
-	        });
-	    }
-	    AccountsPage = __decorate([
-	        ionic_1.Page({
-	            templateUrl: 'build/pages/accounts/accounts.html',
-	            directives: [accounts_list_1.AccountsListComponent, action_button_1.ActionButtonComponent],
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof data_provider_1.DataProvider !== 'undefined' && data_provider_1.DataProvider) === 'function' && _b) || Object])
-	    ], AccountsPage);
-	    return AccountsPage;
-	    var _a, _b;
-	})();
-	exports.AccountsPage = AccountsPage;
-
-
-/***/ },
-/* 379 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	//in case on using ionic "ion-card"
-	var ionic_1 = __webpack_require__(6);
-	var core_1 = __webpack_require__(8);
-	var account_details_1 = __webpack_require__(380);
-	var more_1 = __webpack_require__(375);
-	var AccountsListComponent = (function () {
-	    /*@Input()
-	    card : Card;*/
-	    function AccountsListComponent(nav) {
-	        this.nav = nav;
-	        //this.header = "into";
-	    }
-	    AccountsListComponent.prototype.itemTapped = function (event, account) {
-	        this.nav.push(account_details_1.AccountDetailsPage, account);
-	    };
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', Array)
-	    ], AccountsListComponent.prototype, "accounts", void 0);
-	    AccountsListComponent = __decorate([
-	        core_1.Component({
-	            selector: 'accounts-list',
-	            templateUrl: 'build/components/accounts-list/accounts-list.html',
-	            directives: [ionic_1.IONIC_DIRECTIVES],
-	            pipes: [more_1.MorePipe],
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
-	    ], AccountsListComponent);
-	    return AccountsListComponent;
-	    var _a;
-	})();
-	exports.AccountsListComponent = AccountsListComponent;
-
-
-/***/ },
-/* 380 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var ionic_1 = __webpack_require__(6);
-	var data_provider_1 = __webpack_require__(362);
-	var tickets_list_1 = __webpack_require__(367);
-	var action_button_1 = __webpack_require__(374);
-	var AccountDetailsPage = (function () {
-	    function AccountDetailsPage(nav, navParams, dataProvider) {
-	        var _this = this;
-	        this.nav = nav;
-	        this.details_tab = "Stat";
-	        this.navParams = navParams;
-	        // If we navigated to this page, we will have an item available as a nav param
-	        this.account = {
-	            "account_statistics": {
-	                "ticket_counts": {},
-	            }
-	        };
-	        this.account = this.navParams.data;
-	        this.tickets = null;
-	        this.dataProvider = dataProvider;
-	        this.dataProvider.getTicketsList("open", this.account.id).subscribe(function (data) { _this.tickets = data; }, function (error) {
-	            console.log(error || 'Server error');
-	        });
-	    }
-	    AccountDetailsPage = __decorate([
-	        ionic_1.Page({
-	            templateUrl: 'build/pages/account-details/account-details.html',
-	            directives: [tickets_list_1.TicketsListComponent, action_button_1.ActionButtonComponent],
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof ionic_1.NavParams !== 'undefined' && ionic_1.NavParams) === 'function' && _b) || Object, (typeof (_c = typeof data_provider_1.DataProvider !== 'undefined' && data_provider_1.DataProvider) === 'function' && _c) || Object])
-	    ], AccountDetailsPage);
-	    return AccountDetailsPage;
-	    var _a, _b, _c;
-	})();
-	exports.AccountDetailsPage = AccountDetailsPage;
-
-
-/***/ },
-/* 381 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var ionic_1 = __webpack_require__(6);
-	var timelog_1 = __webpack_require__(382);
-	var action_button_1 = __webpack_require__(374);
-	var TimelogsPage = (function () {
-	    function TimelogsPage(nav) {
-	        this.nav = nav;
-	    }
-	    TimelogsPage.prototype.itemTapped = function () { this.nav.push(timelog_1.TimelogPage); };
-	    TimelogsPage = __decorate([
-	        ionic_1.Page({
-	            templateUrl: 'build/pages/timelogs/timelogs.html',
-	            directives: [action_button_1.ActionButtonComponent],
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
-	    ], TimelogsPage);
-	    return TimelogsPage;
-	    var _a;
-	})();
-	exports.TimelogsPage = TimelogsPage;
-
-
-/***/ },
 /* 382 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -62786,22 +62727,28 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	var action_button_1 = __webpack_require__(374);
-	var TimelogPage = (function () {
-	    function TimelogPage(nav) {
+	var data_provider_1 = __webpack_require__(362);
+	var components_1 = __webpack_require__(365);
+	var AccountsPage = (function () {
+	    function AccountsPage(nav, dataProvider) {
+	        var _this = this;
 	        this.nav = nav;
+	        this.accounts = null;
+	        dataProvider.getAccountList().subscribe(function (data) { _this.accounts = data; }, function (error) {
+	            console.log(error || 'Server error');
+	        });
 	    }
-	    TimelogPage = __decorate([
+	    AccountsPage = __decorate([
 	        ionic_1.Page({
-	            templateUrl: 'build/pages/timelog/timelog.html',
-	            directives: [action_button_1.ActionButtonComponent]
+	            templateUrl: 'build/pages/accounts/accounts.html',
+	            directives: [components_1.AccountsListComponent, components_1.ActionButtonComponent],
 	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
-	    ], TimelogPage);
-	    return TimelogPage;
-	    var _a;
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof data_provider_1.DataProvider !== 'undefined' && data_provider_1.DataProvider) === 'function' && _b) || Object])
+	    ], AccountsPage);
+	    return AccountsPage;
+	    var _a, _b;
 	})();
-	exports.TimelogPage = TimelogPage;
+	exports.AccountsPage = AccountsPage;
 
 
 /***/ },
@@ -62818,9 +62765,75 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
+	var timelog_1 = __webpack_require__(384);
+	var components_1 = __webpack_require__(365);
+	var TimelogsPage = (function () {
+	    function TimelogsPage(nav) {
+	        this.nav = nav;
+	    }
+	    TimelogsPage.prototype.itemTapped = function () { this.nav.push(timelog_1.TimelogPage); };
+	    TimelogsPage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/timelogs/timelogs.html',
+	            directives: [components_1.ActionButtonComponent],
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
+	    ], TimelogsPage);
+	    return TimelogsPage;
+	    var _a;
+	})();
+	exports.TimelogsPage = TimelogsPage;
+
+
+/***/ },
+/* 384 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(6);
+	var components_1 = __webpack_require__(365);
+	var TimelogPage = (function () {
+	    function TimelogPage(nav) {
+	        this.nav = nav;
+	    }
+	    TimelogPage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/timelog/timelog.html',
+	            directives: [components_1.ActionButtonComponent]
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
+	    ], TimelogPage);
+	    return TimelogPage;
+	    var _a;
+	})();
+	exports.TimelogPage = TimelogPage;
+
+
+/***/ },
+/* 385 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(6);
 	var data_provider_1 = __webpack_require__(362);
-	var tickets_list_1 = __webpack_require__(367);
-	var action_button_1 = __webpack_require__(374);
+	var components_1 = __webpack_require__(365);
+	var modals_1 = __webpack_require__(386);
 	var TicketsPage = (function () {
 	    function TicketsPage(nav, dataProvider) {
 	        var _this = this;
@@ -62839,10 +62852,17 @@
 	            console.log(error || 'Server error');
 	        });
 	    };
+	    TicketsPage.prototype.openModal = function (characterNum) {
+	        var myModal = ionic_1.Modal.create(modals_1.BasicSelectModal, characterNum);
+	        myModal.onDismiss(function (data) {
+	            console.log(data);
+	        });
+	        this.nav.present(myModal);
+	    };
 	    TicketsPage = __decorate([
 	        ionic_1.Page({
 	            templateUrl: 'build/pages/tickets/tickets.html',
-	            directives: [tickets_list_1.TicketsListComponent, action_button_1.ActionButtonComponent],
+	            directives: [components_1.TicketsListComponent, components_1.ActionButtonComponent],
 	        }), 
 	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof data_provider_1.DataProvider !== 'undefined' && data_provider_1.DataProvider) === 'function' && _b) || Object])
 	    ], TicketsPage);
@@ -62853,7 +62873,94 @@
 
 
 /***/ },
-/* 384 */
+/* 386 */
+/***/ function(module, exports, __webpack_require__) {
+
+	function __export(m) {
+	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+	}
+	__export(__webpack_require__(387));
+
+
+/***/ },
+/* 387 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(6);
+	var BasicSelectModal = (function () {
+	    function BasicSelectModal(params, viewCtrl) {
+	        this.viewCtrl = viewCtrl;
+	        this.params = params;
+	        var characters = [
+	            {
+	                name: 'Gollum',
+	                quote: 'Sneaky little hobbitses!',
+	                image: 'img/avatar-gollum.jpg',
+	                items: [
+	                    { title: 'Race', note: 'Hobbit' },
+	                    { title: 'Culture', note: 'River Folk' },
+	                    { title: 'Alter Ego', note: 'Smeagol' },
+	                    { title: 'Race', note: 'Hobbit' },
+	                    { title: 'Culture', note: 'River Folk' },
+	                    { title: 'Alter Ego', note: 'Smeagol' },
+	                    { title: 'Race', note: 'Hobbit' },
+	                    { title: 'Culture', note: 'River Folk' },
+	                    { title: 'Alter Ego', note: 'Smeagol' },
+	                    { title: 'Race', note: 'Hobbit' },
+	                    { title: 'Culture', note: 'River Folk' },
+	                    { title: 'Alter Ego', note: 'Smeagol' },
+	                ]
+	            },
+	            {
+	                name: 'Frodo',
+	                quote: 'Go back, Sam! I\'m going to Mordor alone!',
+	                image: 'img/avatar-frodo.jpg',
+	                items: [
+	                    { title: 'Race', note: 'Hobbit' },
+	                    { title: 'Culture', note: 'Shire Folk' },
+	                    { title: 'Weapon', note: 'Sting' }
+	                ]
+	            },
+	            {
+	                name: 'Samwise Gamgee',
+	                quote: 'What we need is a few good taters.',
+	                image: 'img/avatar-samwise.jpg',
+	                items: [
+	                    { title: 'Race', note: 'Hobbit' },
+	                    { title: 'Culture', note: 'Shire Folk' },
+	                    { title: 'Nickname', note: 'Sam' }
+	                ]
+	            }
+	        ];
+	        this.character = characters[this.params.get('charNum')];
+	    }
+	    BasicSelectModal.prototype.dismiss = function (item) {
+	        //let data = { 'foo': 'bar' };
+	        this.viewCtrl.dismiss(item);
+	    };
+	    BasicSelectModal = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/modals/basic-select/basic-select.html',
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavParams !== 'undefined' && ionic_1.NavParams) === 'function' && _a) || Object, (typeof (_b = typeof ionic_1.ViewController !== 'undefined' && ionic_1.ViewController) === 'function' && _b) || Object])
+	    ], BasicSelectModal);
+	    return BasicSelectModal;
+	    var _a, _b;
+	})();
+	exports.BasicSelectModal = BasicSelectModal;
+
+
+/***/ },
+/* 388 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62867,18 +62974,10 @@
 	};
 	var ionic_1 = __webpack_require__(6);
 	var data_provider_1 = __webpack_require__(362);
-	var queues_list_1 = __webpack_require__(365);
-	var accounts_list_1 = __webpack_require__(379);
-	var action_button_1 = __webpack_require__(374);
-	var tickets_1 = __webpack_require__(383);
-	var account_details_1 = __webpack_require__(380);
-	var more_1 = __webpack_require__(375);
-	/*
-	  Generated class for the DashboardPage page.
-
-	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-	  Ionic pages and navigation.
-	*/
+	var components_1 = __webpack_require__(365);
+	var tickets_1 = __webpack_require__(385);
+	var account_details_1 = __webpack_require__(375);
+	var pipes_1 = __webpack_require__(368);
 	var DashboardPage = (function () {
 	    function DashboardPage(nav, dataProvider) {
 	        var _this = this;
@@ -62901,8 +63000,8 @@
 	    DashboardPage = __decorate([
 	        ionic_1.Page({
 	            templateUrl: 'build/pages/dashboard/dashboard.html',
-	            directives: [queues_list_1.QueuesListComponent, accounts_list_1.AccountsListComponent, action_button_1.ActionButtonComponent],
-	            pipes: [more_1.MorePipe],
+	            directives: [components_1.QueuesListComponent, components_1.AccountsListComponent, components_1.ActionButtonComponent],
+	            pipes: [pipes_1.MorePipe],
 	        }), 
 	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof data_provider_1.DataProvider !== 'undefined' && data_provider_1.DataProvider) === 'function' && _b) || Object])
 	    ], DashboardPage);
@@ -62913,7 +63012,7 @@
 
 
 /***/ },
-/* 385 */
+/* 389 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62926,12 +63025,6 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	/*
-	  Generated class for the OrganizationsPage page.
-
-	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-	  Ionic pages and navigation.
-	*/
 	var OrganizationsPage = (function () {
 	    function OrganizationsPage(nav) {
 	        this.nav = nav;
@@ -62949,7 +63042,7 @@
 
 
 /***/ },
-/* 386 */
+/* 390 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62962,12 +63055,6 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	/*
-	  Generated class for the LoginPage page.
-
-	  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-	  Ionic pages and navigation.
-	*/
 	var LoginPage = (function () {
 	    function LoginPage(nav) {
 	        this.nav = nav;

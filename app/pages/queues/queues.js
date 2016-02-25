@@ -1,8 +1,7 @@
-import {Page, ActionSheet, NavController} from 'ionic/ionic';
+import {Page, NavController} from 'ionic/ionic';
 import {TicketsPage} from '../tickets/tickets';
 import {DataProvider} from '../../providers/data-provider';
-import {QueuesListComponent} from '../../components/queues-list/queues-list';
-import {ActionButtonComponent} from '../../components/action-button/action-button';
+import {QueuesListComponent, ActionButtonComponent} from '../../components/components';
 
 @Page({
   templateUrl: 'build/pages/queues/queues.html',

@@ -1,5 +1,5 @@
-import {Page, ActionSheet, NavController} from 'ionic/ionic';
-import {ActionButtonComponent} from '../../components/action-button/action-button';
+import {Page, NavController} from 'ionic/ionic';
+import {ActionButtonComponent} from '../../components/components';
 
 @Page({
   templateUrl: 'build/pages/timelog/timelog.html',

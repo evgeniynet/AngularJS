@@ -1,26 +1,26 @@
-import {Page, ActionSheet, NavController} from 'ionic/ionic';
+import {Modal, Page, NavController} from 'ionic/ionic';
 import {DataProvider} from '../../providers/data-provider';
-import {TicketsListComponent} from '../../components/tickets-list/tickets-list';
-import {ActionButtonComponent} from '../../components/action-button/action-button';
+import {TicketsListComponent, ActionButtonComponent} from '../../components/components';
+import {BasicSelectModal} from '../modals/modals';
 
 @Page({
-  templateUrl: 'build/pages/tickets/tickets.html',
+    templateUrl: 'build/pages/tickets/tickets.html',
     directives: [TicketsListComponent, ActionButtonComponent],
 })
 export class TicketsPage {
     constructor(nav: NavController, dataProvider: DataProvider) {
-    this.nav = nav;
+        this.nav = nav;
         this.tickets = null;
-       this.ticket_tab = "user";
+        this.ticket_tab = "user";
         this.dataProvider = dataProvider;
-  
+
         dataProvider.getTicketsList().subscribe(
             data => {this.tickets = data}, 
             error => { 
                 console.log(error || 'Server error');}
         ); 
-  }
-    
+    }
+
     onSegmentChanged($event) {
         let tab = $event.value; this.dataProvider.getTicketsList(tab).subscribe(
             data => {this.tickets = data}, 
@@ -28,5 +28,13 @@ export class TicketsPage {
                 console.log(error || 'Server error');}
         ); 
     }
-    
+
+    openModal(characterNum) {
+        let myModal = Modal.create(BasicSelectModal, characterNum);
+        myModal.onDismiss(data => {
+            console.log(data);
+        });
+        this.nav.present(myModal);
+    }
+
 }

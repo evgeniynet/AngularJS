@@ -1,7 +1,6 @@
-import {Page, ActionSheet, NavController} from 'ionic/ionic';
+import {Page, NavController} from 'ionic/ionic';
 import {DataProvider} from '../../providers/data-provider';
-import {AccountsListComponent} from '../../components/accounts-list/accounts-list';
-import {ActionButtonComponent} from '../../components/action-button/action-button';
+import {AccountsListComponent, ActionButtonComponent} from '../../components/components';
 
 
 @Page({

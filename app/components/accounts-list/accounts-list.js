@@ -2,7 +2,7 @@
 import {IONIC_DIRECTIVES, NavController, NavParams} from 'ionic/ionic';
 import {Component, Input, Output} from 'angular2/core';
 import {AccountDetailsPage} from '../../pages/account-details/account-details';
-import {MorePipe} from '../../pipes/more';
+import {MorePipe} from '../../pipes/pipes';
 
 @Component({
     selector: 'accounts-list',

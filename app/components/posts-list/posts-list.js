@@ -1,8 +1,7 @@
 import {IONIC_DIRECTIVES} from 'ionic/ionic';
 import {Component, Input} from 'angular2/core';
 //import {TicketDetailsPage} from '../../pages/ticket-details/ticket-details';
-import {GravatarPipe} from '../../pipes/gravatar';
-import {LinebreaksPipe} from '../../pipes/linebreaks';
+import {GravatarPipe, LinebreaksPipe} from '../../pipes/pipes';
 
 
 @Component({

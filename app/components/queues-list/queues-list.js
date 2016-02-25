@@ -1,7 +1,7 @@
 import {IONIC_DIRECTIVES, NavController, NavParams} from 'ionic/ionic';
 import {Component, Input, Output} from 'angular2/core';
 import {QueueTicketsPage} from '../../pages/queue-tickets/queue-tickets';
-import {MorePipe} from '../../pipes/more';
+import {MorePipe} from '../../pipes/pipes';
 
 @Component({
     selector: 'queues-list',

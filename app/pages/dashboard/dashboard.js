@@ -1,18 +1,10 @@
-import {Page, ActionSheet, NavController} from 'ionic/ionic';
+import {Page, NavController} from 'ionic/ionic';
 import {DataProvider} from '../../providers/data-provider';
-import {QueuesListComponent} from '../../components/queues-list/queues-list';
-import {AccountsListComponent} from '../../components/accounts-list/accounts-list';
-import {ActionButtonComponent} from '../../components/action-button/action-button';
+import {QueuesListComponent, AccountsListComponent, ActionButtonComponent} from '../../components/components';
 import {TicketsPage} from '../tickets/tickets';
 import {AccountDetailsPage} from '../account-details/account-details';
-import {MorePipe} from '../../pipes/more';
+import {MorePipe} from '../../pipes/pipes';
 
-/*
-  Generated class for the DashboardPage page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Page({
   templateUrl: 'build/pages/dashboard/dashboard.html',
     directives: [QueuesListComponent, AccountsListComponent, ActionButtonComponent],

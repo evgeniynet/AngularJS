@@ -1,8 +1,7 @@
 import {Page, NavController, NavParams} from 'ionic/ionic';
 import {DataProvider} from '../../providers/data-provider';
-import {PostsListComponent} from '../../components/posts-list/posts-list';
-import {GravatarPipe} from '../../pipes/gravatar';
-import {LinebreaksPipe} from '../../pipes/linebreaks';
+import {PostsListComponent} from '../../components/components';
+import {GravatarPipe, LinebreaksPipe} from '../../pipes/pipes';
 
 @Page({
   templateUrl: 'build/pages/ticket-details/ticket-details.html',
@@ -21,8 +20,8 @@ export class TicketDetailsPage {
         this.post1=[];
          this.dataProvider.getTicketDetails(this.ticket.key).subscribe(
              data => {this.details = data;
-                      this.posts = data.ticketlogs;
-                      this.post1 = [this.posts[0]];}, 
+                      this.post1 = [data.ticketlogs.shift()];
+                      this.posts = data.ticketlogs;}, 
             error => { 
                 console.log(error || 'Server error');}
         ); 
