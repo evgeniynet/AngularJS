@@ -9100,6 +9100,112 @@ div.selection {
 ion-list > .item:first-child {
   border-top: 0px solid #c8c7cc; }
 
+.table_account {
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis; }
+
+.invoiceCircle {
+  font-size: 2.3em !important; }
+
+.buttonInvoice {
+  width: 30px;
+  height: 30px; }
+
+.topInvoice {
+  top: 4px; }
+
+.mainStat {
+  font-size: 6.15rem; }
+
+.dashboardRight {
+  margin-right: 0px; }
+
+.dashboard {
+  padding-left: 4px; }
+
+.googleStripes {
+  list-style-type: none;
+  width: 100%;
+  height: 5px;
+  margin: auto;
+  padding-left: 0px; }
+
+.googleStripes li {
+  float: left;
+  width: 25%;
+  height: 100%;
+  background-color: olive; }
+
+.googleStripes li:nth-child(1) {
+  background-color: #e74c3c;
+  border-radius: 3px 0 0 0; }
+
+.googleStripes li:nth-child(2) {
+  background-color: #3498db; }
+
+.googleStripes li:nth-child(3) {
+  background-color: #27ae60; }
+
+.googleStripes li:nth-child(4) {
+  background-color: #f1c40f;
+  border-radius: 0 3px 0 0; }
+
+.date {
+  padding-bottom: 26px;
+  padding-top: 15px; }
+
+.admin {
+  font-size: 1.3rem; }
+
+.ticketImg {
+  margin-top: 10px;
+  margin-bottom: 7px;
+  height: 94px; }
+
+.border {
+  border-bottom: 1px solid #dadada; }
+
+.img_padding {
+  padding-bottom: 10px;
+  width: 105px; }
+
+.avatarText {
+  line-height: 0.5;
+  color: #c8c7cc;
+  font-size: 1.6rem;
+  height: 77px;
+  float: left; }
+
+.tickets {
+  white-space: initial !important;
+  display: block;
+  display: -webkit-box;
+  width: 100%;
+  height: 50px;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 19px;
+  text-overflow: ellipsis; }
+
+.table span.box5 {
+  background-color: #25b0e6;
+  width: 75%;
+  float: left;
+  margin-bottom: 10px; }
+
+.table span.box6 {
+  background-color: #09c;
+  width: 25%;
+  float: right;
+  margin-bottom: 10px; }
+
+.table span.box7 {
+  float: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; }
+
 .item {
   text-align: center;
   margin-top: 10px;
@@ -9139,19 +9245,6 @@ p {
 .tablText {
   color: #fff; }
 
-.avatarText {
-  line-height: 0.5;
-  color: #c8c7cc;
-  font-size: 1.6rem;
-  height: 77px;
-  float: left; }
-
-.dashboardRight {
-  margin-right: 0px; }
-
-.dashboard {
-  padding-left: 4px; }
-
 .list {
   width: 90%;
   margin: 0 auto; }
@@ -9184,20 +9277,12 @@ scroll-content {
   width: 76%;
   float: left; }
 
-.date {
-  padding-bottom: 26px;
-  padding-top: 15px; }
-
 .img {
   margin-bottom: 8px;
   margin-top: 8px; }
 
 .img-top {
   margin-top: 18px; }
-
-.img_padding {
-  padding-bottom: 10px;
-  width: 105px; }
 
 .subject-ticket {
   margin-left: 15px; }
@@ -9210,17 +9295,6 @@ scroll-content {
   overflow: hidden;
   line-height: 19px;
   text-overflow: clip; }
-
-.tickets {
-  white-space: initial !important;
-  display: block;
-  display: -webkit-box;
-  width: 100%;
-  height: 50px;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  line-height: 19px;
-  text-overflow: ellipsis; }
 
 .container {
   margin-bottom: 21px;
@@ -9240,33 +9314,6 @@ scroll-content {
 
 .item-button {
   font-size: 1.6rem; }
-
-.googleStripes {
-  list-style-type: none;
-  width: 100%;
-  height: 5px;
-  margin: auto;
-  padding-left: 0px; }
-
-.googleStripes li {
-  float: left;
-  width: 25%;
-  height: 100%;
-  background-color: olive; }
-
-.googleStripes li:nth-child(1) {
-  background-color: #e74c3c;
-  border-radius: 3px 0 0 0; }
-
-.googleStripes li:nth-child(2) {
-  background-color: #3498db; }
-
-.googleStripes li:nth-child(3) {
-  background-color: #27ae60; }
-
-.googleStripes li:nth-child(4) {
-  background-color: #f1c40f;
-  border-radius: 0 3px 0 0; }
 
 .blue1 > * {
   background-color: #25b0e6; }
@@ -9316,18 +9363,6 @@ scroll-content {
   width: 18%;
   float: right; }
 
-.table span.box5 {
-  background-color: #25b0e6;
-  width: 75%;
-  float: left;
-  margin-bottom: 10px; }
-
-.table span.box6 {
-  background-color: #09c;
-  width: 25%;
-  float: right;
-  margin-bottom: 10px; }
-
 .table span.box7 {
   float: left;
   white-space: nowrap;
@@ -9340,11 +9375,6 @@ scroll-content {
 .tableText {
   line-height: 2.4;
   font-size: 1.9rem; }
-
-.table_account {
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis; }
 
 .space {
   white-space: nowrap !important;
@@ -9390,19 +9420,6 @@ scroll-content {
 .menu-text {
   line-height: 2.0 !important;
   font-size: 2.2rem !important; }
-
-.border {
-  border-bottom: 1px solid #dadada; }
-
-.invoiceCircle {
-  font-size: 2.3em !important; }
-
-.buttonInvoice {
-  width: 30px;
-  height: 30px; }
-
-.topInvoice {
-  top: 4px; }
 
 .activeBorder {
   border: 2px solid #88ddfa !important; }
@@ -9457,6 +9474,3 @@ scroll-content {
 
 .width12 {
   width: 12%; }
-
-.mainStat {
-  font-size: 6.15rem; }
