@@ -1,6 +1,7 @@
 import {Page, NavController, NavParams} from 'ionic/ionic';
 import {DataProvider} from '../../providers/data-provider';
 import {PostsListComponent} from '../../components/posts-list/posts-list';
+import {BasicSelectModal} from '../modals/modals';
 import {GravatarPipe, LinebreaksPipe} from '../../pipes/pipes';
 
 @Page({
@@ -25,5 +26,13 @@ export class TicketDetailsPage {
             error => { 
                 console.log(error || 'Server error');}
         ); 
+    }
+    
+    openModal(characterNum) {
+        let myModal = Modal.create(BasicSelectModal, characterNum);
+        myModal.onDismiss(data => {
+            console.log(data);
+        });
+        this.nav.present(myModal);
     }
 }

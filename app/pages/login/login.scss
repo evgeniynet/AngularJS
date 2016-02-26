@@ -1,3 +1,32 @@
-.login {
+.googleStripes {
+    list-style-type: none;
+    width: 100%;
+    height: 5px;
+    margin: auto;
+    padding-left: 0px;
+}
 
+.googleStripes li {
+    float: left;
+    width: 25%;
+    height: 100%;
+    background-color: olive;
+}
+
+.googleStripes li:nth-child(1) {
+    background-color: #e74c3c;
+    border-radius: 3px 0 0 0;
+}
+
+.googleStripes li:nth-child(2) {
+    background-color: #3498db;
+}
+
+.googleStripes li:nth-child(3) {
+    background-color: #27ae60;
+}
+
+.googleStripes li:nth-child(4) {
+    background-color: #f1c40f;
+    border-radius: 0 3px 0 0;
 }

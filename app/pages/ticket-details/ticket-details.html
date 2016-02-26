@@ -5,7 +5,7 @@
 
 <ion-content class="ticket-details">
     <div class="subject">
-   <ion-item class="itemTech blue3 padding subject-ticket text-left admin width59 left" no-lines>
+   <ion-item class="itemTech blue3 padding subject-ticket text-left width59 left" no-lines>
        <span>{{ticket.subject}}</span>
            </ion-item>
         <ion-item class="left blue3 width35" no-lines>
@@ -30,6 +30,21 @@
 </div>
     <div [ngSwitch]="details_tab">
      <div class="list" *ngSwitchWhen="'Reply'">
+         <ion-list>
+             <ion-list-header>
+                 Hobbits
+             </ion-list-header>
+             <a ion-item (click)="openModal({charNum: 0})">
+                 Gollum
+             </a>
+             <a ion-item (click)="openModal({charNum: 1})">
+                 Frodo Baggins
+             </a>
+             <a ion-item (click)="openModal({charNum: 2})">
+                 Sam
+             </a>
+         </ion-list>
+         
          <posts-list [posts]="post1"></posts-list>
     <ion-card class="width100 margin">
   <ion-card-header>Add Response</ion-card-header>

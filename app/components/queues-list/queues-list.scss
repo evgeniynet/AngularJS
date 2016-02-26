@@ -1,0 +1,20 @@
+.table span.box5{
+    background-color: $blue1;
+    width: 75%;
+    float: left;
+    margin-bottom: 10px;
+}
+
+.table span.box6{
+    background-color: $blue2;
+    width: 25%;
+    float: right;
+    margin-bottom: 10px;
+}
+
+.table span.box7{
+    float: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

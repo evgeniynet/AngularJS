@@ -1,7 +1,6 @@
 import {Modal, Page, NavController} from 'ionic/ionic';
 import {DataProvider} from '../../providers/data-provider';
 import {TicketsListComponent, ActionButtonComponent} from '../../components/components';
-import {BasicSelectModal} from '../modals/modals';
 
 @Page({
     templateUrl: 'build/pages/tickets/tickets.html',
@@ -28,13 +27,4 @@ export class TicketsPage {
                 console.log(error || 'Server error');}
         ); 
     }
-
-    openModal(characterNum) {
-        let myModal = Modal.create(BasicSelectModal, characterNum);
-        myModal.onDismiss(data => {
-            console.log(data);
-        });
-        this.nav.present(myModal);
-    }
-
 }
