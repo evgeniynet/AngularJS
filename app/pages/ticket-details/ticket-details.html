@@ -31,6 +31,18 @@
     <div [ngSwitch]="details_tab">
      <div class="list" *ngSwitchWhen="'Reply'">
          <ion-list>
+             <ion-item class="blue4">
+             <ion-label class="textLogin">Class:</ion-label>
+                 <ion-select [ngModel]="tclass">
+                 <ion-option value="0" checked="true">Support</ion-option>
+                 <ion-option value="1">Class2</ion-option>
+                 <ion-option value="2">Class2</ion-option>
+                 <ion-option value="3">Class3</ion-option>
+                 <ion-option value="4">Class4</ion-option><ion-option value="5">Class5</ion-option>
+             </ion-select>
+         </ion-item>
+         </ion-list>
+         <ion-list>
              <ion-list-header>
                  Hobbits
              </ion-list-header>
@@ -65,7 +77,7 @@
 <ion-list>
   <ion-item class="blue4">
       <ion-label class="textLogin">Class:</ion-label>
-  <ion-select [(ngModel)]="toppings" multiple="true" cancelText="Nah" okText="Okay!">
+  <ion-select [(ngModel)]="toppings1" multiple="true" cancelText="Nah" okText="Okay!">
     <ion-option value="Class1" checked="true">Class1</ion-option>
     <ion-option value="Class2">Class2</ion-option>
     <ion-option value="xcheese" checked="true">Class2</ion-option>
@@ -76,7 +88,7 @@
     
     <ion-item class="blue4">
       <ion-label class="textLogin">Level:</ion-label>
-  <ion-select [(ngModel)]="toppings" multiple="true" cancelText="Nah" okText="Okay!">
+  <ion-select [(ngModel)]="toppings2" multiple="true" cancelText="Nah" okText="Okay!">
     <ion-option value="Class1" checked="true">Level1</ion-option>
     <ion-option value="Class2">Level2</ion-option>
     <ion-option value="xcheese" checked="true">Level2</ion-option>
@@ -87,7 +99,7 @@
     
     <ion-item class="blue4">
       <ion-label class="textLogin">Priority:</ion-label>
-  <ion-select [(ngModel)]="toppings" multiple="true" cancelText="Nah" okText="Okay!">
+  <ion-select [(ngModel)]="toppings3" multiple="true" cancelText="Nah" okText="Okay!">
     <ion-option value="Class1" checked="true">Priority1</ion-option>
     <ion-option value="Class2">Priority2</ion-option>
     <ion-option value="xcheese" checked="true">Priority2</ion-option>
@@ -98,7 +110,7 @@
     
     <ion-item class="blue4">
       <ion-label class="textLogin">Tech:</ion-label>
-  <ion-select [(ngModel)]="toppings" multiple="true" cancelText="Nah" okText="Okay!">
+  <ion-select [(ngModel)]="toppings4" multiple="true" cancelText="Nah" okText="Okay!">
     <ion-option value="Class1" checked="true">Tech1</ion-option>
     <ion-option value="Class2">Tech2</ion-option>
     <ion-option value="xcheese" checked="true">Tech2</ion-option>
@@ -109,7 +121,7 @@
     
     <ion-item class="blue4">
       <ion-label class="textLogin">choose location:</ion-label>
-  <ion-select [(ngModel)]="toppings" multiple="true" cancelText="Nah" okText="Okay!">
+  <ion-select [(ngModel)]="toppings5" multiple="true" cancelText="Nah" okText="Okay!">
     <ion-option value="Class1" checked="true">choose location1</ion-option>
     <ion-option value="Class2">choose location2</ion-option>
     <ion-option value="xcheese" checked="true">choose location2</ion-option>
@@ -120,7 +132,7 @@
     
     <ion-item class="blue4">
       <ion-label class="textLogin">choose project:</ion-label>
-  <ion-select [(ngModel)]="toppings" multiple="true" cancelText="Nah" okText="Okay!">
+  <ion-select [(ngModel)]="toppings6" multiple="true" cancelText="Nah" okText="Okay!">
     <ion-option value="Class1" checked="true"> project1</ion-option>
     <ion-option value="Class2">project2</ion-option>
     <ion-option value="xcheese" checked="true">project2</ion-option>
@@ -143,13 +155,13 @@
                 <br>
                 <ion-item class="blue4 padding">
     <ion-label>Resolved</ion-label>
-  <ion-select [(ngModel)]="toppings" multiple="true" cancelText="Nah" okText="Okay!">
+  <ion-select [(ngModel)]="toppings7" multiple="true" cancelText="Nah" okText="Okay!">
 <ion-option value="Class1" checked="true"></ion-option>
     </ion-select>
 </ion-item>
              <ion-item class="blue4 padding">
     <ion-label>UnResolved</ion-label>
-  <ion-select [(ngModel)]="toppings" multiple="true" cancelText="Nah" okText="Okay!">
+  <ion-select [(ngModel)]="toppings8" multiple="true" cancelText="Nah" okText="Okay!">
 <ion-option value="Class1" checked="true"></ion-option>
     </ion-select>
 </ion-item>   

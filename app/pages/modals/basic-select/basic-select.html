@@ -14,10 +14,10 @@
 
     <ion-list>
         
-        <ion-item *ngFor="#item of character['items']" (click)="dismiss(item)">
-            {{item.title}}
+        <ion-item *ngFor="#item of items" (click)="dismiss(item)">
+            {{item.text}}
             <ion-note item-right>
-                {{item.note}}
+                {{item.value}}
             </ion-note>
         </ion-item>
 

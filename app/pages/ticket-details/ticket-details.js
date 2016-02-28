@@ -1,4 +1,4 @@
-import {Page, NavController, NavParams} from 'ionic/ionic';
+import {Page, NavController, NavParams, Modal} from 'ionic/ionic';
 import {DataProvider} from '../../providers/data-provider';
 import {PostsListComponent} from '../../components/posts-list/posts-list';
 import {BasicSelectModal} from '../modals/modals';
@@ -12,6 +12,7 @@ import {GravatarPipe, LinebreaksPipe} from '../../pipes/pipes';
 export class TicketDetailsPage {
     constructor(nav: NavController, navParams: NavParams, dataProvider: DataProvider) {
         this.nav = nav;
+        this.tclass = '1';
         this.details_tab = "Reply";
         this.navParams = navParams;
         this.dataProvider = dataProvider;
@@ -26,13 +27,30 @@ export class TicketDetailsPage {
             error => { 
                 console.log(error || 'Server error');}
         ); 
+        
+        this.list = [
+            { text: 'c0', value: '0' },
+            { text: 'c1', value: '1' },
+            { text: 'c2', value: '2' },
+            { text: 'c3 Ego', value: '3' },
+            { text: 'c4', value: '4' },
+            { text: 'c5', value: '5' },
+        ];
     }
     
     openModal(characterNum) {
-        let myModal = Modal.create(BasicSelectModal, characterNum);
+        let data1 = {};
+        data1.selected = this.tclass;
+        data1.items = this.list;
+        let myModal = Modal.create(BasicSelectModal, data1);
         myModal.onDismiss(data => {
             console.log(data);
+            this.tclass = data.value;
         });
         this.nav.present(myModal);
+    }
+    
+    ch(newValue) {
+        //this.tclass = newValue;
     }
 }

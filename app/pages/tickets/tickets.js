@@ -1,4 +1,4 @@
-import {Modal, Page, NavController} from 'ionic/ionic';
+import {Page, NavController} from 'ionic/ionic';
 import {DataProvider} from '../../providers/data-provider';
 import {TicketsListComponent, ActionButtonComponent} from '../../components/components';
 
