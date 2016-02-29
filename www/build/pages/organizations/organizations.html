@@ -1,15 +1,11 @@
 
-<ion-navbar *navbar><button menuToggle><ion-icon name="menu"></ion-icon></button>
-  <ion-title>Organizations</ion-title>
-</ion-navbar>
-
 <ion-content padding class="organizations">
     
     <ion-list class="list" no-lines>
  <img class="imglogo" src="img/logo.png">
          <div class="blue1">
 <ion-item>bigWebApps Support</ion-item>
-<ion-item>Future Projects</ion-item>
+             <ion-item  (click)="onSelectInst($event, {org: 'wer', inst: 'tyrbf'})">Future Projects</ion-item>
         </div>
          </ion-list>
     
