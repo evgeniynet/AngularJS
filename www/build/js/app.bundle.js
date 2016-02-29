@@ -63798,10 +63798,15 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(5);
+	var dashboard_1 = __webpack_require__(393);
 	var OrganizationsPage = (function () {
 	    function OrganizationsPage(nav) {
 	        this.nav = nav;
 	    }
+	    OrganizationsPage.prototype.onSelectInst = function (event, instance) {
+	        console.log(instance);
+	        this.nav.setRoot(dashboard_1.DashboardPage);
+	    };
 	    OrganizationsPage = __decorate([
 	        ionic_1.Page({
 	            templateUrl: 'build/pages/organizations/organizations.html',
@@ -63828,10 +63833,33 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(5);
+	var organizations_1 = __webpack_require__(394);
+	var signup_1 = __webpack_require__(396);
 	var LoginPage = (function () {
 	    function LoginPage(nav) {
 	        this.nav = nav;
+	        this.login = {};
+	        this.submitted = false;
 	    }
+	    LoginPage.prototype.onLogin = function (form) {
+	        this.submitted = true;
+	        if (form.valid) {
+	            this.nav.push(organizations_1.OrganizationsPage);
+	        }
+	        else
+	            this.doAlert();
+	    };
+	    LoginPage.prototype.onSignup = function () {
+	        this.nav.push(signup_1.SignupPage);
+	    };
+	    LoginPage.prototype.doAlert = function () {
+	        var alert = ionic_1.Alert.create({
+	            title: 'Error!',
+	            subTitle: 'Please enter login and password',
+	            buttons: ['Ok']
+	        });
+	        this.nav.present(alert);
+	    };
 	    LoginPage = __decorate([
 	        ionic_1.Page({
 	            templateUrl: 'build/pages/login/login.html',
@@ -63841,6 +63869,36 @@
 	    return LoginPage;
 	}());
 	exports.LoginPage = LoginPage;
+
+
+/***/ },
+/* 396 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(5);
+	var SignupPage = (function () {
+	    function SignupPage(nav) {
+	        this.nav = nav;
+	    }
+	    SignupPage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/signup/signup.html',
+	        }), 
+	        __metadata('design:paramtypes', [ionic_1.NavController])
+	    ], SignupPage);
+	    return SignupPage;
+	}());
+	exports.SignupPage = SignupPage;
 
 
 /***/ }
