@@ -1,15 +1,18 @@
 import {Page, NavController, Alert} from 'ionic-framework/ionic';
 import {OrganizationsPage} from '../organizations/organizations';
 import {SignupPage} from '../signup/signup';
+import {ToastsManager} from 'ng2-toastr/ng2-toastr';
 
 @Page({
   templateUrl: 'build/pages/login/login.html',
+  providers: [ToastsManager]
 })
 export class LoginPage {
-  constructor(nav: NavController) {
+    constructor(nav: NavController, toastr: ToastsManager) {
     this.nav = nav;
       this.login = {};
       this.submitted = false;
+        this.alert = toastr;
   }
 
     onLogin(form) {
@@ -19,19 +22,10 @@ export class LoginPage {
             this.nav.push(OrganizationsPage);
         }
         else
-            this.doAlert();
+            this.alert.error('Please enter email and password!', 'Oops!');
     }
 
     onSignup() {
         this.nav.push(SignupPage);
-    }
-    
-    doAlert() {
-        let alert = Alert.create({
-            title: 'Error!',
-            subTitle: 'Please enter login and password',
-            buttons: ['Ok']
-        });
-        this.nav.present(alert);
     }
 }
