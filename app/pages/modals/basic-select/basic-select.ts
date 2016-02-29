@@ -1,4 +1,4 @@
-import {NavController, NavParams, Page, Events, ViewController} from 'ionic/ionic';
+import {NavController, NavParams, Page, Events, ViewController} from 'ionic-framework/ionic';
 //import {Input} from 'angular2/core';
 
 @Page({

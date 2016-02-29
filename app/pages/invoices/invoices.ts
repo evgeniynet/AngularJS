@@ -1,4 +1,4 @@
-import {Page, NavController} from 'ionic/ionic';
+import {Page, NavController} from 'ionic-framework/ionic';
 import {InvoiceDetailsPage} from '../invoice-details/invoice-details';
 import {ActionButtonComponent} from '../../components/components';
 

@@ -1,4 +1,4 @@
-import {IONIC_DIRECTIVES, NavController, NavParams} from 'ionic/ionic';
+import {IONIC_DIRECTIVES, NavController, NavParams} from 'ionic-framework/ionic';
 import {Component, Input} from 'angular2/core';
 import {TicketDetailsPage} from '../../pages/ticket-details/ticket-details';
 import {GravatarPipe, LinebreaksPipe} from '../../pipes/pipes';

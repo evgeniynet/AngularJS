@@ -1,5 +1,5 @@
 //in case on using ionic "ion-card"
-import {Page, ActionSheet, IONIC_DIRECTIVES, NavController, NavParams} from 'ionic/ionic';
+import {Page, ActionSheet, IONIC_DIRECTIVES, NavController, NavParams} from 'ionic-framework/ionic';
 import {Component, Input, Output} from 'angular2/core';
 
 @Component({

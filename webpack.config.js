@@ -5,7 +5,6 @@ module.exports = {
   entry: [
     path.normalize('es6-shim/es6-shim.min'),
     'reflect-metadata',
-    'web-animations.min',
     path.normalize('zone.js/dist/zone-microtask'),
     path.resolve('app/app')
   ],
@@ -14,24 +13,21 @@ module.exports = {
     filename: 'app.bundle.js',
     pathinfo: false // show module paths in the bundle, handy for debugging
   },
+  devtool: 'source-map',
   module: {
-    loaders: [
-      {
-        test: /\.js$/,
-        loader: 'awesome-typescript',
-        query: {
-          doTypeCheck: false,
-          useWebpackText: true
-        },
-        include: path.resolve('app'),
-        exclude: /node_modules/
+    loaders: [{
+      test: /\.ts$/,
+      loader: 'awesome-typescript',
+      query: {
+        'doTypeCheck': false,
       },
-      {
-        test: /\.js$/,
-        include: path.resolve('node_modules/angular2'),
-        loader: 'strip-sourcemap'
-      }
-    ],
+      include: path.resolve('app'),
+      exclude: /node_modules/
+    }, {
+      test: /\.js$/,
+      include: path.resolve('node_modules/angular2'),
+      loader: 'strip-sourcemap'
+    }],
     noParse: [
       /es6-shim/,
       /reflect-metadata/,
@@ -41,9 +37,8 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'ionic': 'ionic-framework',
       'web-animations.min': path.normalize('ionic-framework/js/web-animations.min')
     },
-    extensions: ['', '.js']
+    extensions: ["", ".js", ".ts"]
   }
 };

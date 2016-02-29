@@ -1,4 +1,4 @@
-import {Page, NavController, NavParams, Modal} from 'ionic/ionic';
+import {Page, NavController, NavParams, Modal} from 'ionic-framework/ionic';
 import {DataProvider} from '../../providers/data-provider';
 import {PostsListComponent} from '../../components/posts-list/posts-list';
 import {BasicSelectModal} from '../modals/modals';

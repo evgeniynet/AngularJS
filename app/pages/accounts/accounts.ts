@@ -1,4 +1,4 @@
-import {Page, NavController} from 'ionic/ionic';
+import {Page, NavController} from 'ionic-framework/ionic';
 import {DataProvider} from '../../providers/data-provider';
 import {AccountsListComponent, ActionButtonComponent} from '../../components/components';
 

@@ -1,4 +1,4 @@
-import {App, IonicApp, Platform} from 'ionic/ionic';
+import {App, IonicApp, Platform} from 'ionic-framework/ionic';
 import {ApiData} from './providers/api-data';
 import {DataProvider} from './providers/data-provider';
 import {HelloIonicPage} from './pages/hello-ionic/hello-ionic';
