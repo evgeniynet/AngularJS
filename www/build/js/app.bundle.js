@@ -3188,21 +3188,24 @@
 	var ionic_1 = __webpack_require__(5);
 	var api_data_1 = __webpack_require__(358);
 	var data_provider_1 = __webpack_require__(367);
-	var hello_ionic_1 = __webpack_require__(368);
-	var queues_1 = __webpack_require__(369);
-	var invoices_1 = __webpack_require__(387);
-	var accounts_1 = __webpack_require__(389);
-	var timelogs_1 = __webpack_require__(390);
-	var tickets_1 = __webpack_require__(392);
-	var dashboard_1 = __webpack_require__(393);
-	var organizations_1 = __webpack_require__(394);
-	var login_1 = __webpack_require__(395);
+	var ng2_toastr_1 = __webpack_require__(368);
+	var hello_ionic_1 = __webpack_require__(373);
+	var queues_1 = __webpack_require__(374);
+	var invoices_1 = __webpack_require__(392);
+	var accounts_1 = __webpack_require__(394);
+	var timelogs_1 = __webpack_require__(395);
+	var tickets_1 = __webpack_require__(397);
+	var dashboard_1 = __webpack_require__(398);
+	var organizations_1 = __webpack_require__(399);
+	var login_1 = __webpack_require__(400);
 	var MyApp = (function () {
-	    function MyApp(app, platform, apiData) {
+	    function MyApp(app, platform, apiData, config) {
 	        // set up our app
 	        this.app = app;
 	        this.platform = platform;
 	        this.initializeApp();
+	        config.set("", "test", "1");
+	        config.test = { "2": 3 };
 	        // set our app's pages
 	        this.pages = [
 	            { title: 'Dashboard', component: dashboard_1.DashboardPage, icon: "speedometer" },
@@ -3251,12 +3254,12 @@
 	    MyApp = __decorate([
 	        ionic_1.App({
 	            templateUrl: 'build/app.html',
-	            providers: [api_data_1.ApiData, data_provider_1.DataProvider],
+	            providers: [api_data_1.ApiData, data_provider_1.DataProvider, ng2_toastr_1.ToastsManager],
 	            config: {
 	                tabbarPlacement: 'top'
 	            }
 	        }), 
-	        __metadata('design:paramtypes', [ionic_1.IonicApp, ionic_1.Platform, api_data_1.ApiData])
+	        __metadata('design:paramtypes', [ionic_1.IonicApp, ionic_1.Platform, api_data_1.ApiData, ionic_1.Config])
 	    ], MyApp);
 	    return MyApp;
 	}());
@@ -62629,6 +62632,246 @@
 /* 368 */
 /***/ function(module, exports, __webpack_require__) {
 
+	function __export(m) {
+	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+	}
+	__export(__webpack_require__(369));
+	__export(__webpack_require__(370));
+	__export(__webpack_require__(371));
+	__export(__webpack_require__(372));
+	//# sourceMappingURL=ng2-toastr.js.map
+
+/***/ },
+/* 369 */
+/***/ function(module, exports) {
+
+	var Toast = (function () {
+	    function Toast(type, message, title) {
+	        this.type = type;
+	        this.message = message;
+	        this.title = title;
+	    }
+	    return Toast;
+	})();
+	exports.Toast = Toast;
+	//# sourceMappingURL=toast.js.map
+
+/***/ },
+/* 370 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var __param = (this && this.__param) || function (paramIndex, decorator) {
+	    return function (target, key) { decorator(target, key, paramIndex); }
+	};
+	var core_1 = __webpack_require__(7);
+	var toast_container_component_1 = __webpack_require__(371);
+	var toast_options_1 = __webpack_require__(372);
+	var toast_1 = __webpack_require__(369);
+	var ToastsManager = (function () {
+	    function ToastsManager(loader, appRef, options) {
+	        this.loader = loader;
+	        this.appRef = appRef;
+	        this.options = {
+	            autoDismiss: true,
+	            toastLife: 3000,
+	        };
+	        this.index = 0;
+	        if (options) {
+	            Object.assign(this.options, options);
+	        }
+	    }
+	    ToastsManager.prototype.show = function (toast) {
+	        var _this = this;
+	        if (!this.container) {
+	            // a hack to get app element in shadow dom
+	            var appElement = this.appRef['_rootComponents'][0].location;
+	            var bindings = core_1.Injector.resolve([
+	                core_1.provide(toast_options_1.ToastOptions, { useValue: this.options })
+	            ]);
+	            this.loader.loadNextToLocation(toast_container_component_1.ToastContainer, appElement, bindings)
+	                .then(function (ref) {
+	                _this.container = ref;
+	                _this.setupToast(toast);
+	            });
+	        }
+	        else {
+	            this.setupToast(toast);
+	        }
+	    };
+	    ToastsManager.prototype.createTimeout = function (toastId) {
+	        var _this = this;
+	        setTimeout(function () {
+	            _this.clearToast(toastId);
+	        }, this.options.toastLife);
+	    };
+	    ToastsManager.prototype.setupToast = function (toast) {
+	        toast.id = ++this.index;
+	        this.container.instance.addToast(toast);
+	        if (this.options.autoDismiss) {
+	            this.createTimeout(toast.id);
+	        }
+	    };
+	    ToastsManager.prototype.clearToast = function (toastId) {
+	        if (this.container) {
+	            var instance = this.container.instance;
+	            instance.removeToast(toastId);
+	            if (!instance.anyToast()) {
+	                this.dispose();
+	            }
+	        }
+	    };
+	    ToastsManager.prototype.dispose = function () {
+	        this.container.dispose();
+	        this.container = null;
+	    };
+	    ToastsManager.prototype.error = function (message, title) {
+	        var toast = new toast_1.Toast('error', message, title);
+	        this.show(toast);
+	    };
+	    ToastsManager.prototype.info = function (message, title) {
+	        var toast = new toast_1.Toast('info', message, title);
+	        this.show(toast);
+	    };
+	    ToastsManager.prototype.success = function (message, title) {
+	        var toast = new toast_1.Toast('success', message, title);
+	        this.show(toast);
+	    };
+	    ToastsManager.prototype.warning = function (message, title) {
+	        var toast = new toast_1.Toast('warning', message, title);
+	        this.show(toast);
+	    };
+	    ToastsManager = __decorate([
+	        core_1.Injectable(),
+	        __param(2, core_1.Optional()),
+	        __param(2, core_1.Inject(toast_options_1.ToastOptions)), 
+	        __metadata('design:paramtypes', [core_1.DynamicComponentLoader, core_1.ApplicationRef, Object])
+	    ], ToastsManager);
+	    return ToastsManager;
+	})();
+	exports.ToastsManager = ToastsManager;
+	//# sourceMappingURL=toast-manager.js.map
+
+/***/ },
+/* 371 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var __param = (this && this.__param) || function (paramIndex, decorator) {
+	    return function (target, key) { decorator(target, key, paramIndex); }
+	};
+	var core_1 = __webpack_require__(7);
+	var toast_options_1 = __webpack_require__(372);
+	var ToastContainer = (function () {
+	    function ToastContainer(options) {
+	        this.position = 'absolute';
+	        this.messageClass = 'toast-message';
+	        this.titleClass = 'toast-title';
+	        this.positionClass = 'toast-top-right';
+	        this.toasts = [];
+	        this.maxShown = 5;
+	        this.autoDismiss = true;
+	        if (options) {
+	            Object.assign(this, options);
+	        }
+	    }
+	    ToastContainer.prototype.addToast = function (toast) {
+	        if (this.positionClass.indexOf('top') > 0) {
+	            this.toasts.push(toast);
+	            if (this.toasts.length > this.maxShown) {
+	                this.toasts.splice(0, (this.toasts.length - this.maxShown));
+	            }
+	        }
+	        else {
+	            this.toasts.unshift(toast);
+	            if (this.toasts.length > this.maxShown) {
+	                this.toasts.splice(this.maxShown, (this.toasts.length - this.maxShown));
+	            }
+	        }
+	    };
+	    ToastContainer.prototype.removeToast = function (toastId) {
+	        this.toasts = this.toasts.filter(function (toast) {
+	            return toast.id !== toastId;
+	        });
+	    };
+	    ToastContainer.prototype.dismiss = function (toast) {
+	        if (!this.autoDismiss) {
+	            this.removeToast(toast.id);
+	        }
+	    };
+	    ToastContainer.prototype.anyToast = function () {
+	        return this.toasts.length > 0;
+	    };
+	    ToastContainer.prototype.findToast = function (toastId) {
+	        for (var _i = 0, _a = this.toasts; _i < _a.length; _i++) {
+	            var toast = _a[_i];
+	            if (toast.id === toastId) {
+	                return toast;
+	            }
+	        }
+	        return null;
+	    };
+	    ToastContainer = __decorate([
+	        core_1.Component({
+	            selector: 'toast-container',
+	            template: "\n    <div id=\"toast-container\" [style.position]=\"position\" class=\"{{positionClass}}\">\n      <div *ngFor=\"#toast of toasts\" class=\"toast-{{toast.type}}\" (click)=\"dismiss(toast)\">\n        <div *ngIf=\"toast.title\" class=\"{{titleClass}}\">{{toast.title}}</div>\n        <div class=\"{{messageClass}}\">{{toast.message}}</div>\n      </div>\n    </div>\n    ",
+	        }),
+	        __param(0, core_1.Optional()),
+	        __param(0, core_1.Inject(toast_options_1.ToastOptions)), 
+	        __metadata('design:paramtypes', [Object])
+	    ], ToastContainer);
+	    return ToastContainer;
+	})();
+	exports.ToastContainer = ToastContainer;
+	//# sourceMappingURL=toast-container.component.js.map
+
+/***/ },
+/* 372 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(7);
+	var ToastOptions = (function () {
+	    function ToastOptions(options) {
+	        Object.assign(this, options);
+	    }
+	    ToastOptions = __decorate([
+	        core_1.Injectable(), 
+	        __metadata('design:paramtypes', [Object])
+	    ], ToastOptions);
+	    return ToastOptions;
+	})();
+	exports.ToastOptions = ToastOptions;
+	//# sourceMappingURL=toast-options.js.map
+
+/***/ },
+/* 373 */
+/***/ function(module, exports, __webpack_require__) {
+
 	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -62656,7 +62899,7 @@
 
 
 /***/ },
-/* 369 */
+/* 374 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -62671,7 +62914,7 @@
 	};
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(367);
-	var components_1 = __webpack_require__(370);
+	var components_1 = __webpack_require__(375);
 	var QueuesPage = (function () {
 	    function QueuesPage(nav, dataProvider) {
 	        var _this = this;
@@ -62694,22 +62937,22 @@
 
 
 /***/ },
-/* 370 */
+/* 375 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	function __export(m) {
 	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 	}
-	__export(__webpack_require__(371));
-	__export(__webpack_require__(385));
-	__export(__webpack_require__(373));
-	__export(__webpack_require__(375));
-	__export(__webpack_require__(384));
+	__export(__webpack_require__(376));
+	__export(__webpack_require__(390));
+	__export(__webpack_require__(378));
+	__export(__webpack_require__(380));
+	__export(__webpack_require__(389));
 
 
 /***/ },
-/* 371 */
+/* 376 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -62724,8 +62967,8 @@
 	};
 	var ionic_1 = __webpack_require__(5);
 	var core_1 = __webpack_require__(7);
-	var queue_tickets_1 = __webpack_require__(372);
-	var pipes_1 = __webpack_require__(376);
+	var queue_tickets_1 = __webpack_require__(377);
+	var pipes_1 = __webpack_require__(381);
 	var QueuesListComponent = (function () {
 	    /*@Input()
 	    card : Card;*/
@@ -62755,7 +62998,7 @@
 
 
 /***/ },
-/* 372 */
+/* 377 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -62770,8 +63013,8 @@
 	};
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(367);
-	var tickets_list_1 = __webpack_require__(373);
-	var action_button_1 = __webpack_require__(384);
+	var tickets_list_1 = __webpack_require__(378);
+	var action_button_1 = __webpack_require__(389);
 	var QueueTicketsPage = (function () {
 	    function QueueTicketsPage(nav, navParams, dataProvider) {
 	        var _this = this;
@@ -62795,7 +63038,7 @@
 
 
 /***/ },
-/* 373 */
+/* 378 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -62810,8 +63053,8 @@
 	};
 	var ionic_1 = __webpack_require__(5);
 	var core_1 = __webpack_require__(7);
-	var ticket_details_1 = __webpack_require__(374);
-	var pipes_1 = __webpack_require__(376);
+	var ticket_details_1 = __webpack_require__(379);
+	var pipes_1 = __webpack_require__(381);
 	var TicketsListComponent = (function () {
 	    function TicketsListComponent(nav, navParams) {
 	        this.nav = nav;
@@ -62842,7 +63085,7 @@
 
 
 /***/ },
-/* 374 */
+/* 379 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -62857,9 +63100,9 @@
 	};
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(367);
-	var posts_list_1 = __webpack_require__(375);
-	var modals_1 = __webpack_require__(382);
-	var pipes_1 = __webpack_require__(376);
+	var posts_list_1 = __webpack_require__(380);
+	var modals_1 = __webpack_require__(387);
+	var pipes_1 = __webpack_require__(381);
 	var TicketDetailsPage = (function () {
 	    function TicketDetailsPage(nav, navParams, dataProvider) {
 	        var _this = this;
@@ -62917,7 +63160,7 @@
 
 
 /***/ },
-/* 375 */
+/* 380 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -62933,7 +63176,7 @@
 	var ionic_1 = __webpack_require__(5);
 	var core_1 = __webpack_require__(7);
 	//import {TicketDetailsPage} from '../../pages/ticket-details/ticket-details';
-	var pipes_1 = __webpack_require__(376);
+	var pipes_1 = __webpack_require__(381);
 	var PostsListComponent = (function () {
 	    function PostsListComponent() {
 	        this.posts = [];
@@ -62957,20 +63200,20 @@
 
 
 /***/ },
-/* 376 */
+/* 381 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	function __export(m) {
 	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 	}
-	__export(__webpack_require__(377));
-	__export(__webpack_require__(378));
-	__export(__webpack_require__(379));
+	__export(__webpack_require__(382));
+	__export(__webpack_require__(383));
+	__export(__webpack_require__(384));
 
 
 /***/ },
-/* 377 */
+/* 382 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -63009,7 +63252,7 @@
 
 
 /***/ },
-/* 378 */
+/* 383 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -63043,7 +63286,7 @@
 
 
 /***/ },
-/* 379 */
+/* 384 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -63057,7 +63300,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(7);
-	var md5Hex = __webpack_require__(380);
+	var md5Hex = __webpack_require__(385);
 	var GravatarPipe = (function () {
 	    function GravatarPipe() {
 	    }
@@ -63080,15 +63323,15 @@
 
 
 /***/ },
-/* 380 */
+/* 385 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	module.exports = __webpack_require__(381);
+	module.exports = __webpack_require__(386);
 
 
 /***/ },
-/* 381 */
+/* 386 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -63294,18 +63537,18 @@
 	}
 
 /***/ },
-/* 382 */
+/* 387 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	function __export(m) {
 	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 	}
-	__export(__webpack_require__(383));
+	__export(__webpack_require__(388));
 
 
 /***/ },
-/* 383 */
+/* 388 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -63323,12 +63566,32 @@
 	var BasicSelectModal = (function () {
 	    function BasicSelectModal(params, viewCtrl) {
 	        this.viewCtrl = viewCtrl;
+	        this.searchQuery = '';
 	        this.params = params;
-	        this.items = this.params.data.items;
+	        this.name = "Class";
+	        this.data = this.params.data.items;
+	        this.items = this.data;
 	    }
 	    BasicSelectModal.prototype.dismiss = function (item) {
 	        //let data = { 'foo': 'bar' };
+	        item = item || {};
 	        this.viewCtrl.dismiss(item);
+	    };
+	    BasicSelectModal.prototype.getItems = function (searchbar) {
+	        // Reset items back to all of the items
+	        this.items = this.data;
+	        // set q to the value of the searchbar
+	        var q = searchbar.value;
+	        // if the value is an empty string don't filter the items
+	        if (q.trim() == '') {
+	            return;
+	        }
+	        this.items = this.items.filter(function (v) {
+	            if (v.text.toLowerCase().indexOf(q.toLowerCase()) > -1) {
+	                return true;
+	            }
+	            return false;
+	        });
 	    };
 	    BasicSelectModal = __decorate([
 	        ionic_1.Page({
@@ -63342,7 +63605,7 @@
 
 
 /***/ },
-/* 384 */
+/* 389 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -63421,7 +63684,7 @@
 
 
 /***/ },
-/* 385 */
+/* 390 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -63437,8 +63700,8 @@
 	//in case on using ionic "ion-card"
 	var ionic_1 = __webpack_require__(5);
 	var core_1 = __webpack_require__(7);
-	var account_details_1 = __webpack_require__(386);
-	var pipes_1 = __webpack_require__(376);
+	var account_details_1 = __webpack_require__(391);
+	var pipes_1 = __webpack_require__(381);
 	var AccountsListComponent = (function () {
 	    /*@Input()
 	    card : Card;*/
@@ -63468,7 +63731,7 @@
 
 
 /***/ },
-/* 386 */
+/* 391 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -63483,8 +63746,8 @@
 	};
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(367);
-	var tickets_list_1 = __webpack_require__(373);
-	var action_button_1 = __webpack_require__(384);
+	var tickets_list_1 = __webpack_require__(378);
+	var action_button_1 = __webpack_require__(389);
 	var AccountDetailsPage = (function () {
 	    function AccountDetailsPage(nav, navParams, dataProvider) {
 	        var _this = this;
@@ -63517,7 +63780,7 @@
 
 
 /***/ },
-/* 387 */
+/* 392 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -63531,8 +63794,8 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(5);
-	var invoice_details_1 = __webpack_require__(388);
-	var components_1 = __webpack_require__(370);
+	var invoice_details_1 = __webpack_require__(393);
+	var components_1 = __webpack_require__(375);
 	var InvoicesPage = (function () {
 	    function InvoicesPage(nav) {
 	        this.nav = nav;
@@ -63551,7 +63814,7 @@
 
 
 /***/ },
-/* 388 */
+/* 393 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -63581,7 +63844,7 @@
 
 
 /***/ },
-/* 389 */
+/* 394 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -63596,7 +63859,7 @@
 	};
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(367);
-	var components_1 = __webpack_require__(370);
+	var components_1 = __webpack_require__(375);
 	var AccountsPage = (function () {
 	    function AccountsPage(nav, dataProvider) {
 	        var _this = this;
@@ -63619,7 +63882,7 @@
 
 
 /***/ },
-/* 390 */
+/* 395 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -63633,8 +63896,8 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(5);
-	var timelog_1 = __webpack_require__(391);
-	var components_1 = __webpack_require__(370);
+	var timelog_1 = __webpack_require__(396);
+	var components_1 = __webpack_require__(375);
 	var TimelogsPage = (function () {
 	    function TimelogsPage(nav) {
 	        this.nav = nav;
@@ -63653,7 +63916,7 @@
 
 
 /***/ },
-/* 391 */
+/* 396 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -63667,7 +63930,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(5);
-	var components_1 = __webpack_require__(370);
+	var components_1 = __webpack_require__(375);
 	var TimelogPage = (function () {
 	    function TimelogPage(nav) {
 	        this.nav = nav;
@@ -63685,7 +63948,7 @@
 
 
 /***/ },
-/* 392 */
+/* 397 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -63700,10 +63963,12 @@
 	};
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(367);
-	var components_1 = __webpack_require__(370);
+	var components_1 = __webpack_require__(375);
 	var TicketsPage = (function () {
-	    function TicketsPage(nav, dataProvider) {
+	    function TicketsPage(nav, dataProvider, config) {
 	        var _this = this;
+	        console.log(config.get('test'));
+	        console.log(config.test);
 	        this.nav = nav;
 	        this.tickets = null;
 	        this.ticket_tab = "user";
@@ -63724,7 +63989,7 @@
 	            templateUrl: 'build/pages/tickets/tickets.html',
 	            directives: [components_1.TicketsListComponent, components_1.ActionButtonComponent],
 	        }), 
-	        __metadata('design:paramtypes', [ionic_1.NavController, data_provider_1.DataProvider])
+	        __metadata('design:paramtypes', [ionic_1.NavController, data_provider_1.DataProvider, ionic_1.Config])
 	    ], TicketsPage);
 	    return TicketsPage;
 	}());
@@ -63732,7 +63997,7 @@
 
 
 /***/ },
-/* 393 */
+/* 398 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -63747,10 +64012,10 @@
 	};
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(367);
-	var components_1 = __webpack_require__(370);
-	var tickets_1 = __webpack_require__(392);
-	var account_details_1 = __webpack_require__(386);
-	var pipes_1 = __webpack_require__(376);
+	var components_1 = __webpack_require__(375);
+	var tickets_1 = __webpack_require__(397);
+	var account_details_1 = __webpack_require__(391);
+	var pipes_1 = __webpack_require__(381);
 	var DashboardPage = (function () {
 	    function DashboardPage(nav, dataProvider) {
 	        var _this = this;
@@ -63784,7 +64049,7 @@
 
 
 /***/ },
-/* 394 */
+/* 399 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -63798,7 +64063,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(5);
-	var dashboard_1 = __webpack_require__(393);
+	var dashboard_1 = __webpack_require__(398);
 	var OrganizationsPage = (function () {
 	    function OrganizationsPage(nav) {
 	        this.nav = nav;
@@ -63819,7 +64084,7 @@
 
 
 /***/ },
-/* 395 */
+/* 400 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -63833,9 +64098,9 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(5);
-	var organizations_1 = __webpack_require__(394);
-	var signup_1 = __webpack_require__(396);
-	var ng2_toastr_1 = __webpack_require__(397);
+	var organizations_1 = __webpack_require__(399);
+	var signup_1 = __webpack_require__(401);
+	var ng2_toastr_1 = __webpack_require__(368);
 	var LoginPage = (function () {
 	    function LoginPage(nav, toastr) {
 	        this.nav = nav;
@@ -63857,7 +64122,6 @@
 	    LoginPage = __decorate([
 	        ionic_1.Page({
 	            templateUrl: 'build/pages/login/login.html',
-	            providers: [ng2_toastr_1.ToastsManager]
 	        }), 
 	        __metadata('design:paramtypes', [ionic_1.NavController, ng2_toastr_1.ToastsManager])
 	    ], LoginPage);
@@ -63867,7 +64131,7 @@
 
 
 /***/ },
-/* 396 */
+/* 401 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -63895,246 +64159,6 @@
 	}());
 	exports.SignupPage = SignupPage;
 
-
-/***/ },
-/* 397 */
-/***/ function(module, exports, __webpack_require__) {
-
-	function __export(m) {
-	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-	}
-	__export(__webpack_require__(398));
-	__export(__webpack_require__(399));
-	__export(__webpack_require__(400));
-	__export(__webpack_require__(401));
-	//# sourceMappingURL=ng2-toastr.js.map
-
-/***/ },
-/* 398 */
-/***/ function(module, exports) {
-
-	var Toast = (function () {
-	    function Toast(type, message, title) {
-	        this.type = type;
-	        this.message = message;
-	        this.title = title;
-	    }
-	    return Toast;
-	})();
-	exports.Toast = Toast;
-	//# sourceMappingURL=toast.js.map
-
-/***/ },
-/* 399 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var __param = (this && this.__param) || function (paramIndex, decorator) {
-	    return function (target, key) { decorator(target, key, paramIndex); }
-	};
-	var core_1 = __webpack_require__(7);
-	var toast_container_component_1 = __webpack_require__(400);
-	var toast_options_1 = __webpack_require__(401);
-	var toast_1 = __webpack_require__(398);
-	var ToastsManager = (function () {
-	    function ToastsManager(loader, appRef, options) {
-	        this.loader = loader;
-	        this.appRef = appRef;
-	        this.options = {
-	            autoDismiss: true,
-	            toastLife: 3000,
-	        };
-	        this.index = 0;
-	        if (options) {
-	            Object.assign(this.options, options);
-	        }
-	    }
-	    ToastsManager.prototype.show = function (toast) {
-	        var _this = this;
-	        if (!this.container) {
-	            // a hack to get app element in shadow dom
-	            var appElement = this.appRef['_rootComponents'][0].location;
-	            var bindings = core_1.Injector.resolve([
-	                core_1.provide(toast_options_1.ToastOptions, { useValue: this.options })
-	            ]);
-	            this.loader.loadNextToLocation(toast_container_component_1.ToastContainer, appElement, bindings)
-	                .then(function (ref) {
-	                _this.container = ref;
-	                _this.setupToast(toast);
-	            });
-	        }
-	        else {
-	            this.setupToast(toast);
-	        }
-	    };
-	    ToastsManager.prototype.createTimeout = function (toastId) {
-	        var _this = this;
-	        setTimeout(function () {
-	            _this.clearToast(toastId);
-	        }, this.options.toastLife);
-	    };
-	    ToastsManager.prototype.setupToast = function (toast) {
-	        toast.id = ++this.index;
-	        this.container.instance.addToast(toast);
-	        if (this.options.autoDismiss) {
-	            this.createTimeout(toast.id);
-	        }
-	    };
-	    ToastsManager.prototype.clearToast = function (toastId) {
-	        if (this.container) {
-	            var instance = this.container.instance;
-	            instance.removeToast(toastId);
-	            if (!instance.anyToast()) {
-	                this.dispose();
-	            }
-	        }
-	    };
-	    ToastsManager.prototype.dispose = function () {
-	        this.container.dispose();
-	        this.container = null;
-	    };
-	    ToastsManager.prototype.error = function (message, title) {
-	        var toast = new toast_1.Toast('error', message, title);
-	        this.show(toast);
-	    };
-	    ToastsManager.prototype.info = function (message, title) {
-	        var toast = new toast_1.Toast('info', message, title);
-	        this.show(toast);
-	    };
-	    ToastsManager.prototype.success = function (message, title) {
-	        var toast = new toast_1.Toast('success', message, title);
-	        this.show(toast);
-	    };
-	    ToastsManager.prototype.warning = function (message, title) {
-	        var toast = new toast_1.Toast('warning', message, title);
-	        this.show(toast);
-	    };
-	    ToastsManager = __decorate([
-	        core_1.Injectable(),
-	        __param(2, core_1.Optional()),
-	        __param(2, core_1.Inject(toast_options_1.ToastOptions)), 
-	        __metadata('design:paramtypes', [core_1.DynamicComponentLoader, core_1.ApplicationRef, Object])
-	    ], ToastsManager);
-	    return ToastsManager;
-	})();
-	exports.ToastsManager = ToastsManager;
-	//# sourceMappingURL=toast-manager.js.map
-
-/***/ },
-/* 400 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var __param = (this && this.__param) || function (paramIndex, decorator) {
-	    return function (target, key) { decorator(target, key, paramIndex); }
-	};
-	var core_1 = __webpack_require__(7);
-	var toast_options_1 = __webpack_require__(401);
-	var ToastContainer = (function () {
-	    function ToastContainer(options) {
-	        this.position = 'absolute';
-	        this.messageClass = 'toast-message';
-	        this.titleClass = 'toast-title';
-	        this.positionClass = 'toast-top-right';
-	        this.toasts = [];
-	        this.maxShown = 5;
-	        this.autoDismiss = true;
-	        if (options) {
-	            Object.assign(this, options);
-	        }
-	    }
-	    ToastContainer.prototype.addToast = function (toast) {
-	        if (this.positionClass.indexOf('top') > 0) {
-	            this.toasts.push(toast);
-	            if (this.toasts.length > this.maxShown) {
-	                this.toasts.splice(0, (this.toasts.length - this.maxShown));
-	            }
-	        }
-	        else {
-	            this.toasts.unshift(toast);
-	            if (this.toasts.length > this.maxShown) {
-	                this.toasts.splice(this.maxShown, (this.toasts.length - this.maxShown));
-	            }
-	        }
-	    };
-	    ToastContainer.prototype.removeToast = function (toastId) {
-	        this.toasts = this.toasts.filter(function (toast) {
-	            return toast.id !== toastId;
-	        });
-	    };
-	    ToastContainer.prototype.dismiss = function (toast) {
-	        if (!this.autoDismiss) {
-	            this.removeToast(toast.id);
-	        }
-	    };
-	    ToastContainer.prototype.anyToast = function () {
-	        return this.toasts.length > 0;
-	    };
-	    ToastContainer.prototype.findToast = function (toastId) {
-	        for (var _i = 0, _a = this.toasts; _i < _a.length; _i++) {
-	            var toast = _a[_i];
-	            if (toast.id === toastId) {
-	                return toast;
-	            }
-	        }
-	        return null;
-	    };
-	    ToastContainer = __decorate([
-	        core_1.Component({
-	            selector: 'toast-container',
-	            template: "\n    <div id=\"toast-container\" [style.position]=\"position\" class=\"{{positionClass}}\">\n      <div *ngFor=\"#toast of toasts\" class=\"toast-{{toast.type}}\" (click)=\"dismiss(toast)\">\n        <div *ngIf=\"toast.title\" class=\"{{titleClass}}\">{{toast.title}}</div>\n        <div class=\"{{messageClass}}\">{{toast.message}}</div>\n      </div>\n    </div>\n    ",
-	        }),
-	        __param(0, core_1.Optional()),
-	        __param(0, core_1.Inject(toast_options_1.ToastOptions)), 
-	        __metadata('design:paramtypes', [Object])
-	    ], ToastContainer);
-	    return ToastContainer;
-	})();
-	exports.ToastContainer = ToastContainer;
-	//# sourceMappingURL=toast-container.component.js.map
-
-/***/ },
-/* 401 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(7);
-	var ToastOptions = (function () {
-	    function ToastOptions(options) {
-	        Object.assign(this, options);
-	    }
-	    ToastOptions = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [Object])
-	    ], ToastOptions);
-	    return ToastOptions;
-	})();
-	exports.ToastOptions = ToastOptions;
-	//# sourceMappingURL=toast-options.js.map
 
 /***/ }
 /******/ ]);

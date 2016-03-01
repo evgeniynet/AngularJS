@@ -1,6 +1,7 @@
-import {App, IonicApp, Platform} from 'ionic-framework/ionic';
+import {App, IonicApp, Config, Platform} from 'ionic-framework/ionic';
 import {ApiData} from './providers/api-data';
 import {DataProvider} from './providers/data-provider';
+import {ToastsManager} from 'ng2-toastr/ng2-toastr';
 import {HelloIonicPage} from './pages/hello-ionic/hello-ionic';
 import {ListPage} from './pages/list/list';
 import {QueuesPage} from './pages/queues/queues';
@@ -16,18 +17,20 @@ import {TimelogCreatePage} from './pages/timelog-create/timelog-create';
 
 @App({
   templateUrl: 'build/app.html',
-    providers: [ApiData, DataProvider],
+    providers: [ApiData, DataProvider, ToastsManager],
     config: {
     tabbarPlacement: 'top'
 }
 })
 class MyApp {
-    constructor(app: IonicApp, platform: Platform, apiData: ApiData) {
+    constructor(app: IonicApp, platform: Platform, apiData: ApiData, config: Config) {
 
     // set up our app
     this.app = app;
     this.platform = platform;
     this.initializeApp();
+    //set config object
+    config.test = {"2":3};
 
     // set our app's pages
     this.pages = [

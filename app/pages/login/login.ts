@@ -5,7 +5,6 @@ import {ToastsManager} from 'ng2-toastr/ng2-toastr';
 
 @Page({
   templateUrl: 'build/pages/login/login.html',
-  providers: [ToastsManager]
 })
 export class LoginPage {
     constructor(nav: NavController, toastr: ToastsManager) {

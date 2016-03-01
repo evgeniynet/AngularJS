@@ -11,12 +11,36 @@ export class BasicSelectModal {
      viewCtrl: ViewController
     ) {
         this.viewCtrl = viewCtrl;
+        this.searchQuery = '';
         this.params = params;
-        this.items = this.params.data.items;
+        this.name = "Class";
+        this.data = this.params.data.items;
+        this.items = this.data;
     }
 
     dismiss(item) {
         //let data = { 'foo': 'bar' };
+        item = item || {};
         this.viewCtrl.dismiss(item);
+    }
+    
+    getItems(searchbar) {
+        // Reset items back to all of the items
+        this.items = this.data;
+
+        // set q to the value of the searchbar
+        var q = searchbar.value;
+
+        // if the value is an empty string don't filter the items
+        if (q.trim() == '') {
+            return;
+        }
+
+        this.items = this.items.filter((v) => {
+            if (v.text.toLowerCase().indexOf(q.toLowerCase()) > -1) {
+                return true;
+            }
+            return false;
+        })
     }
 }

@@ -1,4 +1,4 @@
-import {Page, NavController} from 'ionic-framework/ionic';
+import {Page, Config, NavController} from 'ionic-framework/ionic';
 import {DataProvider} from '../../providers/data-provider';
 import {TicketsListComponent, ActionButtonComponent} from '../../components/components';
 
@@ -7,7 +7,8 @@ import {TicketsListComponent, ActionButtonComponent} from '../../components/comp
     directives: [TicketsListComponent, ActionButtonComponent],
 })
 export class TicketsPage {
-    constructor(nav: NavController, dataProvider: DataProvider) {
+    constructor(nav: NavController, dataProvider: DataProvider, config: Config) {
+        //console.log(config.test);
         this.nav = nav;
         this.tickets = null;
         this.ticket_tab = "user";
