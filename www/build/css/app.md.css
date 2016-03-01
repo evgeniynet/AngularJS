@@ -9712,6 +9712,9 @@ ion-list > .item:first-child {
 .topInvoice {
   top: 4px; }
 
+.invoicelist {
+  border-radius: 14px; }
+
 .mainStat {
   font-size: 6.15rem; }
 
