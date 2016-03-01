@@ -42,7 +42,7 @@
              </ion-select>
          </ion-item>
          </ion-list>
-         <ion-list>
+         <ion-list class="list">
              <ion-list-header>
                  Hobbits
              </ion-list-header>
@@ -75,71 +75,56 @@
 <br>
   <ion-list *ngSwitchWhen="'Info'" class="list" no-lines>
 <ion-list>
-  <ion-item class="blue4">
-      <ion-label class="textLogin">Class:</ion-label>
-  <ion-select [(ngModel)]="toppings1" multiple="true" cancelText="Nah" okText="Okay!">
-    <ion-option value="Class1" checked="true">Class1</ion-option>
-    <ion-option value="Class2">Class2</ion-option>
-    <ion-option value="xcheese" checked="true">Class2</ion-option>
-    <ion-option value="Class3">Class3</ion-option>
-    <ion-option value="Class4">Class4</ion-option>
-    </ion-select>
-</ion-item>
     
-    <ion-item class="blue4">
-      <ion-label class="textLogin">Level:</ion-label>
-  <ion-select [(ngModel)]="toppings2" multiple="true" cancelText="Nah" okText="Okay!">
-    <ion-option value="Class1" checked="true">Level1</ion-option>
-    <ion-option value="Class2">Level2</ion-option>
-    <ion-option value="xcheese" checked="true">Level2</ion-option>
-    <ion-option value="Class3">Level3</ion-option>
-    <ion-option value="Class4">Level4</ion-option>
-    </ion-select>
-</ion-item>
+     <div class="list blue4" no-lines >
+    <button class="width100 button-icon-only">
+        <p class="textLogin">Class:</p>
+        <ion-label class="righd">Class</ion-label>
+        <ion-icon name="arrow-down"></ion-icon>
+        </button>
+        </div> 
     
-    <ion-item class="blue4">
-      <ion-label class="textLogin">Priority:</ion-label>
-  <ion-select [(ngModel)]="toppings3" multiple="true" cancelText="Nah" okText="Okay!">
-    <ion-option value="Class1" checked="true">Priority1</ion-option>
-    <ion-option value="Class2">Priority2</ion-option>
-    <ion-option value="xcheese" checked="true">Priority2</ion-option>
-    <ion-option value="Class3">Priority3</ion-option>
-    <ion-option value="Class4">Priority4</ion-option>
-    </ion-select>
-</ion-item>
     
-    <ion-item class="blue4">
-      <ion-label class="textLogin">Tech:</ion-label>
-  <ion-select [(ngModel)]="toppings4" multiple="true" cancelText="Nah" okText="Okay!">
-    <ion-option value="Class1" checked="true">Tech1</ion-option>
-    <ion-option value="Class2">Tech2</ion-option>
-    <ion-option value="xcheese" checked="true">Tech2</ion-option>
-    <ion-option value="Class3">Tech3</ion-option>
-    <ion-option value="Class4">Tech4</ion-option>
-    </ion-select>
-</ion-item>
+    <div class="list blue4" no-lines >
+    <button class="width100 button-icon-only">
+        <p class="textLogin">Level:</p>
+        <ion-label class="righd">Level</ion-label>
+        <ion-icon name="arrow-down"></ion-icon>
+        </button>
+        </div> 
     
-    <ion-item class="blue4">
-      <ion-label class="textLogin">choose location:</ion-label>
-  <ion-select [(ngModel)]="toppings5" multiple="true" cancelText="Nah" okText="Okay!">
-    <ion-option value="Class1" checked="true">choose location1</ion-option>
-    <ion-option value="Class2">choose location2</ion-option>
-    <ion-option value="xcheese" checked="true">choose location2</ion-option>
-    <ion-option value="Class3">choose location3</ion-option>
-    <ion-option value="Class4">choose location4</ion-option>
-    </ion-select>
-</ion-item>
+    <div class="list blue4" no-lines >
+    <button class="width100 button-icon-only">
+        <p class="textLogin">Priority:</p>
+        <ion-label class="righd">Priority</ion-label>
+        <ion-icon name="arrow-down"></ion-icon>
+        </button>
+        </div> 
     
-    <ion-item class="blue4">
-      <ion-label class="textLogin">choose project:</ion-label>
-  <ion-select [(ngModel)]="toppings6" multiple="true" cancelText="Nah" okText="Okay!">
-    <ion-option value="Class1" checked="true"> project1</ion-option>
-    <ion-option value="Class2">project2</ion-option>
-    <ion-option value="xcheese" checked="true">project2</ion-option>
-    <ion-option value="Class3">project3</ion-option>
-    <ion-option value="Class4">project4</ion-option>
-    </ion-select>
-</ion-item>
+    <div class="list blue4" no-lines >
+    <button class="width100 button-icon-only">
+        <p class="textLogin">Tech:</p>
+        <ion-label class="righd">Tech</ion-label>
+        <ion-icon name="arrow-down"></ion-icon>
+        </button>
+        </div>    
+    
+    <div class="list blue4" no-lines >
+    <button class="width100 button-icon-only">
+        <p class="textLogin">Choose location:</p>
+    <ion-label class="righd">Choose location</ion-label>
+        <ion-icon name="arrow-down"></ion-icon>
+        </button>
+        </div> 
+    
+    <div class="list blue4" no-lines >
+    <button class="width100 button-icon-only">
+        <p class="textLogin">Choose project:</p>
+    <ion-label class="righd">Choose project</ion-label>
+        <ion-icon name="arrow-down"></ion-icon>
+        </button>
+        </div>   
+    
 </ion-list>    
          <br>
         <div padding>
@@ -149,9 +134,9 @@
     <br>
     <ion-list *ngSwitchWhen="'Options'" class="list" no-lines>
       <button secondary block="" type="submit" class="disable-hover button button-default button-block">Add Time</button>
-      <button secondary block="" type="submit" class="disable-hover button button-default button-block">Add Expense</button>
-  <button favorite block>Transfer Ticket</button>
-   <button favorite block>Close Ticket</button>
+      <button secondary block="" type="submit" class="disable-hover button button-default button-block img-top">Add Expense</button>
+  <button favorite block class="img-top">Transfer Ticket</button>
+   <button favorite block class="img-top">Close Ticket</button>
                 <br>
                 <ion-item class="blue4 padding">
     <ion-label>Resolved</ion-label>

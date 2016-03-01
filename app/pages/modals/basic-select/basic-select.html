@@ -1,17 +1,17 @@
 <ion-toolbar>
-    <ion-buttons start style="flex-grow: 0;">
+    <ion-buttons start class="searchbar">
         <button (click)="dismiss()">
             <span primary>Cancel</span>
         </button>
     </ion-buttons>
-    <ion-searchbar [(ngModel)]="searchQuery" (input)="getItems($event)" [placeholder]="name" [hideCancelButton]="true"></ion-searchbar>
+    <ion-searchbar primary [(ngModel)]="searchQuery" (input)="getItems($event)" [placeholder]="name" [hideCancelButton]="true"></ion-searchbar>
     
 </ion-toolbar>
 
 
 <ion-content class="has-header">
 
-    <ion-list>
+    <ion-list class="list">
         
         <ion-item *ngFor="#item of items" (click)="dismiss(item)">
             {{item.text}}
@@ -19,7 +19,6 @@
                 {{item.value}}
             </ion-note>
         </ion-item>
-
 
     </ion-list>
 

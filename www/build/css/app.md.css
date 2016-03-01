@@ -9728,6 +9728,9 @@ ion-list > .item:first-child {
 .dashboard {
   padding-left: 4px; }
 
+.org {
+  margin-bottom: 18px; }
+
 .googleStripes {
   list-style-type: none;
   width: 100%;
@@ -10022,6 +10025,12 @@ button.toast-close-button {
   text-align: justify !important;
   margin-top: 0px !important; }
 
+.alert-button {
+  color: black; }
+
+.alert-radio[aria-checked=true] {
+  color: black; }
+
 .text-left {
   text-align: left !important; }
 
@@ -10069,6 +10078,12 @@ p {
 scroll-content {
   overflow-y: auto; }
 
+.searchbar {
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0; }
+
 .timeleft {
   width: 76%;
   float: left; }
@@ -10111,6 +10126,9 @@ scroll-content {
 .item-button {
   font-size: 1.6rem;
   height: 42px; }
+
+.button.activated {
+  background-color: #6AB7EC; }
 
 .blue1 > * {
   background-color: #25b0e6; }
