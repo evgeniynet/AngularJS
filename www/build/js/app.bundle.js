@@ -3204,7 +3204,7 @@
 	        this.app = app;
 	        this.platform = platform;
 	        this.initializeApp();
-	        config.set("", "test", "1");
+	        //set config object
 	        config.test = { "2": 3 };
 	        // set our app's pages
 	        this.pages = [
@@ -63967,8 +63967,7 @@
 	var TicketsPage = (function () {
 	    function TicketsPage(nav, dataProvider, config) {
 	        var _this = this;
-	        console.log(config.get('test'));
-	        console.log(config.test);
+	        //console.log(config.test);
 	        this.nav = nav;
 	        this.tickets = null;
 	        this.ticket_tab = "user";
