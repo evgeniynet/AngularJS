@@ -7760,6 +7760,10 @@ ion-list > .item:first-child {
 .invoicelist {
   border-radius: 14px; }
 
+.avatarInvoice {
+  max-width: 4rem;
+  max-height: 4rem; }
+
 .mainStat {
   font-size: 6.15rem; }
 
@@ -7795,6 +7799,12 @@ ion-list > .item:first-child {
 .googleStripes li:nth-child(4) {
   background-color: #f1c40f;
   border-radius: 0 3px 0 0; }
+
+.login-margin {
+  margin: 0px; }
+
+.img-padding {
+  padding-bottom: 20px; }
 
 .date {
   padding-bottom: 26px;
@@ -8144,7 +8154,8 @@ scroll-content {
   color: #fff; }
 
 .item-button {
-  font-size: 1.6rem; }
+  font-size: 1.6rem;
+  height: 42px; }
 
 .blue1 > * {
   background-color: #25b0e6; }
