@@ -57,30 +57,40 @@ export class TicketDetailsPage {
     }
     
     doRadio() {
-        let alert = Alert.create();
-        alert.setTitle('Lightsaber color');
+        let title="Class";
+        
+        let alert = Alert.create({
+            title: 'Choose '+title,
+            buttons: [
+                {
+                    text: 'Cancel',
+                    role: 'cancel',
+                    handler: () => {
+                        console.log('Cancel clicked');
+                    }
+                },
+                {
+                    text: 'Ok',
+                    handler: data => {
+                        //console.log('Radio data:', data);
+                        this.testRadioOpen = false;
+                        this.radio = data;
+                    }
+                }
+            ]
+        });
 
         alert.addInput({
             type: 'radio',
-            label: 'Blue',
-            value: 'blue',
+            label: 'c0',
+            value: '0',
             checked: true
         });
 
         alert.addInput({
             type: 'radio',
-            label: 'Green',
-            value: 'green'
-        });
-
-        alert.addButton('Cancel');
-        alert.addButton({
-            text: 'Ok',
-            handler: data => {
-                console.log('Radio data:', data);
-                this.testRadioOpen = false;
-                this.testRadioResult = data;
-            }
+            label: 'c1',
+            value: '1'
         });
 
         this.nav.present(alert).then(() => {

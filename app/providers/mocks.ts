@@ -3,7 +3,7 @@ export let MOCKS =
      { new_messages:1,open_all:284,open_as_tech:10,open_as_alttech:2,open_as_user:1001,onhold:3,reminder:0,parts_on_order:0,unconfirmed:45,waiting:2},
      
      "login": {
-         "api_token": "re36rym3mjqxm8ej2cscfajmxpsew33m"
+         "api_token": "re36rym3mjqxm8ej2cscfajmxpsew33!"
      },
      
      "organizations": [

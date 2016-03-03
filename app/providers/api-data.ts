@@ -7,6 +7,7 @@ import {MOCKS} from './mocks';
 //import 'rxjs/Rx'
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 
 
 @Injectable()
@@ -57,8 +58,7 @@ get(method, data, type) {
         inst = this.config.user.instance;// localStorage.getItem('userInstanceKey');
     
     if (!key || !org || !inst || key.length != 32) {
-        console.log("Invalid organization!");
-        return;
+        return this.handleError("Invalid organization!");
     }
 
     var headers = new Headers({
@@ -78,7 +78,9 @@ processData(data) {
 }
 
 handleError(error) {
-    //console.error(error);
-    return Observable.throw(error.json().error || 'Server error');
+    console.error(error);
+    if (error.constructor !== String)
+        error = (error || {}).json().error;
+    return Observable.throw(new Error(error));
 }
 }

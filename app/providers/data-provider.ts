@@ -24,23 +24,21 @@ constructor(apiData: ApiData) {
     
 checkLogin(username, password) {
         if(!username || !password) {
-            console.log("Please enter login and password!");
-            return;
+            return this.apiData.handleError("Please enter login and password!");
         }
         let url = "login";
         var headers = new Headers({
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         });
-        return this.request(url, 
+    return this.apiData.request(url, 
                             {"username": username, "password": password},
                             "POST", headers);
     }
     
 getOrganizations(token) {
-    if(!token || token != 32) {
-        console.log("Invalid token!");
-        return;
+    if(!token || token.length != 32) {
+        return this.apiData.handleError("Invalid token!");
     }
     let url = "organizations";
     var headers = new Headers({
@@ -48,7 +46,7 @@ getOrganizations(token) {
         'Content-Type': 'application/json',
         'Authorization': 'Basic ' + btoa(`x:${token}`)
     });
-    return this.request(url, "", "", headers);
+    return this.apiData.request(url, "", "", headers);
 }
     
 getConfig() {

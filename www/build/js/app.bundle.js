@@ -3223,7 +3223,7 @@
 	            { title: 'Full App', component: hello_ionic_1.HelloIonicPage, icon: "md-share-alt" },
 	        ];
 	        // make HelloIonicPage the root (or first) page
-	        this.rootPage = tickets_1.TicketsPage;
+	        this.rootPage = login_1.LoginPage;
 	    }
 	    MyApp.prototype.initializeApp = function () {
 	        this.platform.ready().then(function () {
@@ -62193,6 +62193,7 @@
 	//import 'rxjs/Rx'
 	__webpack_require__(361);
 	__webpack_require__(365);
+	__webpack_require__(402);
 	var ApiData = (function () {
 	    //userKey, userOrgKey, userInstanceKey: string; 
 	    //mock: boolean = dontClearCache;
@@ -62232,8 +62233,7 @@
 	        org = this.config.user.org, // localStorage.getItem('userOrgKey'),
 	        inst = this.config.user.instance; // localStorage.getItem('userInstanceKey');
 	        if (!key || !org || !inst || key.length != 32) {
-	            console.log("Invalid organization!");
-	            return;
+	            return this.handleError("Invalid organization!");
 	        }
 	        var headers = new http_1.Headers({
 	            'Accept': 'application/json',
@@ -62249,8 +62249,10 @@
 	        return data;
 	    };
 	    ApiData.prototype.handleError = function (error) {
-	        //console.error(error);
-	        return Observable_1.Observable.throw(error.json().error || 'Server error');
+	        console.error(error);
+	        if (error.constructor !== String)
+	            error = (error || {}).json().error;
+	        return Observable_1.Observable.throw(new Error(error));
 	    };
 	    ApiData = __decorate([
 	        core_1.Injectable(), 
@@ -62271,7 +62273,7 @@
 	exports.AppSite = 'https://app.' + Site;
 	exports.ApiSite = 'http://api.' + Site;
 	//offline
-	exports.dontClearCache = false;
+	exports.dontClearCache = true;
 	exports.isSD = true;
 	exports.year = "2015";
 	exports.appVersion = "40";
@@ -62284,7 +62286,7 @@
 	"use strict";
 	exports.MOCKS = { "tickets/counts": { new_messages: 1, open_all: 284, open_as_tech: 10, open_as_alttech: 2, open_as_user: 1001, onhold: 3, reminder: 0, parts_on_order: 0, unconfirmed: 45, waiting: 2 },
 	    "login": {
-	        "api_token": "re36rym3mjqxm8ej2cscfajmxpsew33m"
+	        "api_token": "re36rym3mjqxm8ej2cscfajmxpsew33!"
 	    },
 	    "organizations": [
 	        {
@@ -62672,20 +62674,18 @@
 	    }
 	    DataProvider.prototype.checkLogin = function (username, password) {
 	        if (!username || !password) {
-	            console.log("Please enter login and password!");
-	            return;
+	            return this.apiData.handleError("Please enter login and password!");
 	        }
 	        var url = "login";
 	        var headers = new Headers({
 	            'Accept': 'application/json',
 	            'Content-Type': 'application/json'
 	        });
-	        return this.request(url, { "username": username, "password": password }, "POST", headers);
+	        return this.apiData.request(url, { "username": username, "password": password }, "POST", headers);
 	    };
 	    DataProvider.prototype.getOrganizations = function (token) {
-	        if (!token || token != 32) {
-	            console.log("Invalid token!");
-	            return;
+	        if (!token || token.length != 32) {
+	            return this.apiData.handleError("Invalid token!");
 	        }
 	        var url = "organizations";
 	        var headers = new Headers({
@@ -62693,7 +62693,7 @@
 	            'Content-Type': 'application/json',
 	            'Authorization': 'Basic ' + btoa("x:" + token)
 	        });
-	        return this.request(url, "", "", headers);
+	        return this.apiData.request(url, "", "", headers);
 	    };
 	    DataProvider.prototype.getConfig = function () {
 	        var url = "config";
@@ -63300,27 +63300,37 @@
 	    };
 	    TicketDetailsPage.prototype.doRadio = function () {
 	        var _this = this;
-	        var alert = ionic_1.Alert.create();
-	        alert.setTitle('Lightsaber color');
+	        var title = "Class";
+	        var alert = ionic_1.Alert.create({
+	            title: 'Choose ' + title,
+	            buttons: [
+	                {
+	                    text: 'Cancel',
+	                    role: 'cancel',
+	                    handler: function () {
+	                        console.log('Cancel clicked');
+	                    }
+	                },
+	                {
+	                    text: 'Ok',
+	                    handler: function (data) {
+	                        //console.log('Radio data:', data);
+	                        _this.testRadioOpen = false;
+	                        _this.radio = data;
+	                    }
+	                }
+	            ]
+	        });
 	        alert.addInput({
 	            type: 'radio',
-	            label: 'Blue',
-	            value: 'blue',
+	            label: 'c0',
+	            value: '0',
 	            checked: true
 	        });
 	        alert.addInput({
 	            type: 'radio',
-	            label: 'Green',
-	            value: 'green'
-	        });
-	        alert.addButton('Cancel');
-	        alert.addButton({
-	            text: 'Ok',
-	            handler: function (data) {
-	                console.log('Radio data:', data);
-	                _this.testRadioOpen = false;
-	                _this.testRadioResult = data;
-	            }
+	            label: 'c1',
+	            value: '1'
 	        });
 	        this.nav.present(alert).then(function () {
 	            _this.testRadioOpen = true;
@@ -64195,12 +64205,15 @@
 	var account_details_1 = __webpack_require__(391);
 	var pipes_1 = __webpack_require__(381);
 	var DashboardPage = (function () {
-	    function DashboardPage(nav, dataProvider) {
+	    function DashboardPage(nav, config, dataProvider) {
 	        var _this = this;
 	        this.nav = nav;
+	        this.config = config;
+	        this.dataProvider = dataProvider;
 	        this.queues = null;
 	        this.accounts = null;
 	        this.counts = { open_as_tech: 0 };
+	        console.log(config.user);
 	        dataProvider.getQueueList(3).subscribe(function (data) { _this.queues = data; }, function (error) {
 	            console.log(error || 'Server error');
 	        });
@@ -64219,7 +64232,7 @@
 	            directives: [components_1.QueuesListComponent, components_1.AccountsListComponent, components_1.ActionButtonComponent],
 	            pipes: [pipes_1.MorePipe],
 	        }), 
-	        __metadata('design:paramtypes', [ionic_1.NavController, data_provider_1.DataProvider])
+	        __metadata('design:paramtypes', [ionic_1.NavController, ionic_1.Config, data_provider_1.DataProvider])
 	    ], DashboardPage);
 	    return DashboardPage;
 	}());
@@ -64241,20 +64254,34 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(5);
+	var data_provider_1 = __webpack_require__(367);
+	var ng2_toastr_1 = __webpack_require__(368);
 	var dashboard_1 = __webpack_require__(398);
 	var OrganizationsPage = (function () {
-	    function OrganizationsPage(nav) {
+	    function OrganizationsPage(nav, toastr, dataProvider, config) {
+	        var _this = this;
 	        this.nav = nav;
+	        this.alert = toastr;
+	        this.config = config;
+	        this.dataProvider = dataProvider;
+	        this.list = {};
+	        this.dataProvider.getOrganizations(this.config.user.key).subscribe(function (data) {
+	            _this.list = data;
+	        }, function (error) {
+	            console.log(error || 'Server error');
+	        });
 	    }
 	    OrganizationsPage.prototype.onSelectInst = function (event, instance) {
 	        console.log(instance);
+	        this.config.user.org = instance.org;
+	        this.config.user.instance = instance.inst;
 	        this.nav.setRoot(dashboard_1.DashboardPage);
 	    };
 	    OrganizationsPage = __decorate([
 	        ionic_1.Page({
 	            templateUrl: 'build/pages/organizations/organizations.html',
 	        }), 
-	        __metadata('design:paramtypes', [ionic_1.NavController])
+	        __metadata('design:paramtypes', [ionic_1.NavController, ng2_toastr_1.ToastsManager, data_provider_1.DataProvider, ionic_1.Config])
 	    ], OrganizationsPage);
 	    return OrganizationsPage;
 	}());
@@ -64276,20 +64303,29 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(5);
+	var data_provider_1 = __webpack_require__(367);
 	var organizations_1 = __webpack_require__(399);
 	var signup_1 = __webpack_require__(401);
 	var ng2_toastr_1 = __webpack_require__(368);
 	var LoginPage = (function () {
-	    function LoginPage(nav, toastr) {
+	    function LoginPage(nav, toastr, dataProvider, config) {
 	        this.nav = nav;
+	        this.alert = toastr;
+	        this.config = config;
+	        this.dataProvider = dataProvider;
 	        this.login = {};
 	        this.submitted = false;
-	        this.alert = toastr;
 	    }
 	    LoginPage.prototype.onLogin = function (form) {
+	        var _this = this;
 	        this.submitted = true;
 	        if (form.valid) {
-	            this.nav.push(organizations_1.OrganizationsPage);
+	            this.dataProvider.checkLogin(form.value.email, form.value.password).subscribe(function (data) {
+	                _this.config.user.key = data.api_token;
+	                _this.nav.push(organizations_1.OrganizationsPage);
+	            }, function (error) {
+	                console.log(error || 'Server error');
+	            });
 	        }
 	        else
 	            this.alert.error('Please enter email and password!', 'Oops!');
@@ -64301,7 +64337,7 @@
 	        ionic_1.Page({
 	            templateUrl: 'build/pages/login/login.html',
 	        }), 
-	        __metadata('design:paramtypes', [ionic_1.NavController, ng2_toastr_1.ToastsManager])
+	        __metadata('design:paramtypes', [ionic_1.NavController, ng2_toastr_1.ToastsManager, data_provider_1.DataProvider, ionic_1.Config])
 	    ], LoginPage);
 	    return LoginPage;
 	}());
@@ -64337,6 +64373,56 @@
 	}());
 	exports.SignupPage = SignupPage;
 
+
+/***/ },
+/* 402 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Observable_1 = __webpack_require__(56);
+	var throw_1 = __webpack_require__(403);
+	Observable_1.Observable.throw = throw_1.ErrorObservable.create;
+	//# sourceMappingURL=throw.js.map
+
+/***/ },
+/* 403 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var Observable_1 = __webpack_require__(56);
+	var ErrorObservable = (function (_super) {
+	    __extends(ErrorObservable, _super);
+	    function ErrorObservable(error, scheduler) {
+	        _super.call(this);
+	        this.error = error;
+	        this.scheduler = scheduler;
+	    }
+	    ErrorObservable.create = function (error, scheduler) {
+	        return new ErrorObservable(error, scheduler);
+	    };
+	    ErrorObservable.dispatch = function (_a) {
+	        var error = _a.error, subscriber = _a.subscriber;
+	        subscriber.error(error);
+	    };
+	    ErrorObservable.prototype._subscribe = function (subscriber) {
+	        var error = this.error;
+	        var scheduler = this.scheduler;
+	        if (scheduler) {
+	            subscriber.add(scheduler.schedule(ErrorObservable.dispatch, 0, {
+	                error: error, subscriber: subscriber
+	            }));
+	        }
+	        else {
+	            subscriber.error(error);
+	        }
+	    };
+	    return ErrorObservable;
+	})(Observable_1.Observable);
+	exports.ErrorObservable = ErrorObservable;
+	//# sourceMappingURL=throw.js.map
 
 /***/ }
 /******/ ]);

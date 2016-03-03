@@ -51,7 +51,7 @@ class MyApp {
     ];
       
     // make HelloIonicPage the root (or first) page
-        this.rootPage = TicketsPage;
+        this.rootPage = LoginPage;
   }
 
   initializeApp() {
