@@ -7764,6 +7764,15 @@ ion-list > .item:first-child {
   max-width: 4rem;
   max-height: 4rem; }
 
+.recipient {
+  min-width: 0rem;
+  min-height: 0rem;
+  margin-bottom: 0px;
+  height: 0px !important; }
+
+.email-invoice {
+  height: 28px !important; }
+
 .mainStat {
   font-size: 6.15rem; }
 
@@ -8074,7 +8083,10 @@ button.toast-close-button {
   color: black; }
 
 .alert-radio[aria-checked=true] {
-  color: black; }
+  color: #4290c5; }
+
+.alert-radio[aria-checked=true] .alert-radio-icon:after {
+  border-color: #000000; }
 
 .text-left {
   text-align: left !important; }

@@ -52,10 +52,12 @@ color: black;
 }
 
 .alert-radio[aria-checked=true] {
-    color: black
+    color: #4290c5;
 }
 
-
+.alert-radio[aria-checked=true] .alert-radio-icon:after{
+    border-color: #000000;
+}
 
 // text/
 .text-left {
