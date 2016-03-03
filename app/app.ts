@@ -29,8 +29,13 @@ class MyApp {
     this.app = app;
     this.platform = platform;
     this.initializeApp();
+    
     //set config object
-    config.test = {"2":3};
+    config.user = {
+    "key": "re36rym3mjqxm8ej2cscfajmxpsew33m",
+    "org" : "zwoja4",
+    "instance" : "ms2asm"
+    };
 
     // set our app's pages
     this.pages = [

@@ -8,7 +8,6 @@ import {TicketsListComponent, ActionButtonComponent} from '../../components/comp
 })
 export class TicketsPage {
     constructor(nav: NavController, dataProvider: DataProvider, config: Config) {
-        //console.log(config.test);
         this.nav = nav;
         this.tickets = null;
         this.ticket_tab = "user";

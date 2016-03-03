@@ -1,4 +1,5 @@
 import {Injectable} from 'angular2/core';
+import {Config} from 'ionic-framework/ionic';
 import {Http, Headers, RequestOptions, Request} from 'angular2/http';
 import {Observable} from 'rxjs/Observable';
 import {ApiSite, dontClearCache} from './config';
@@ -11,21 +12,20 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class ApiData {
 
-userKey, userOrgKey, userInstanceKey: string; 
-mock: boolean = dontClearCache;
+//userKey, userOrgKey, userInstanceKey: string; 
+//mock: boolean = dontClearCache;
 
-constructor(http: Http) {
+constructor(http: Http, config: Config) {
     // inject the Http provider and set to this instance
     this.http = http;
-    this.userKey = //"7016f101312449f9af132fde519259e9"
-        "re36rym3mjqxm8ej2cscfajmxpsew33m"
-        , 
-        //localStorage.getItem("userKey"),
-        this.userOrgKey = "zwoja4", // localStorage.getItem('userOrgKey'),
-        this.userInstanceKey = "ms2asm";// localStorage.getItem('userInstanceKey');
+    this.config = config;
 }
 
 request(method, data, type, headers) {
+    if (dontClearCache)
+    {
+        return this.mock_get(method);
+    }
     let req = new Request({
         method: type || 'GET',
         url: ApiSite + method,
@@ -51,11 +51,12 @@ mock_get(method) {
 }
 
 get(method, data, type) {
-    if (this.mock)
-    {
-        return this.mock_get(method);
-    }
-    if (!this.userKey || !this.userOrgKey || !this.userInstanceKey || this.userKey.length != 32) {
+    let key = this.config.user.key,
+        //localStorage.getItem("userKey"),
+        org = this.config.user.org, // localStorage.getItem('userOrgKey'),
+        inst = this.config.user.instance;// localStorage.getItem('userInstanceKey');
+    
+    if (!key || !org || !inst || key.length != 32) {
         console.log("Invalid organization!");
         return;
     }
@@ -63,7 +64,7 @@ get(method, data, type) {
     var headers = new Headers({
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': 'Basic ' + btoa(this.userOrgKey + '-' + this.userInstanceKey +':'+this.userKey)
+        'Authorization': 'Basic ' + btoa(`${org}-${inst}:${key}`)
     });
     return this.request(method, data, type, headers);
 

@@ -12,7 +12,7 @@ export class AccountsPage {
     this.nav = nav;
     this.accounts = null;
         
-    dataProvider.getAccountList().subscribe(
+    dataProvider.getAccountList(false, true, true).subscribe(
             data => {this.accounts = data}, 
             error => { 
                 console.log(error || 'Server error');}

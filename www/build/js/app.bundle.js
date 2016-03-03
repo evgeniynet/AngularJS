@@ -3205,7 +3205,11 @@
 	        this.platform = platform;
 	        this.initializeApp();
 	        //set config object
-	        config.test = { "2": 3 };
+	        config.user = {
+	            "key": "re36rym3mjqxm8ej2cscfajmxpsew33m",
+	            "org": "zwoja4",
+	            "instance": "ms2asm"
+	        };
 	        // set our app's pages
 	        this.pages = [
 	            { title: 'Dashboard', component: dashboard_1.DashboardPage, icon: "speedometer" },
@@ -62181,6 +62185,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(7);
+	var ionic_1 = __webpack_require__(5);
 	var http_1 = __webpack_require__(145);
 	var Observable_1 = __webpack_require__(56);
 	var config_1 = __webpack_require__(359);
@@ -62189,18 +62194,17 @@
 	__webpack_require__(361);
 	__webpack_require__(365);
 	var ApiData = (function () {
-	    function ApiData(http) {
-	        this.mock = config_1.dontClearCache;
+	    //userKey, userOrgKey, userInstanceKey: string; 
+	    //mock: boolean = dontClearCache;
+	    function ApiData(http, config) {
 	        // inject the Http provider and set to this instance
 	        this.http = http;
-	        this.userKey =
-	            "re36rym3mjqxm8ej2cscfajmxpsew33m"
-	            ,
-	                //localStorage.getItem("userKey"),
-	                this.userOrgKey = "zwoja4",
-	            this.userInstanceKey = "ms2asm"; // localStorage.getItem('userInstanceKey');
+	        this.config = config;
 	    }
 	    ApiData.prototype.request = function (method, data, type, headers) {
+	        if (config_1.dontClearCache) {
+	            return this.mock_get(method);
+	        }
 	        var req = new http_1.Request({
 	            method: type || 'GET',
 	            url: config_1.ApiSite + method,
@@ -62223,17 +62227,18 @@
 	        });
 	    };
 	    ApiData.prototype.get = function (method, data, type) {
-	        if (this.mock) {
-	            return this.mock_get(method);
-	        }
-	        if (!this.userKey || !this.userOrgKey || !this.userInstanceKey || this.userKey.length != 32) {
+	        var key = this.config.user.key, 
+	        //localStorage.getItem("userKey"),
+	        org = this.config.user.org, // localStorage.getItem('userOrgKey'),
+	        inst = this.config.user.instance; // localStorage.getItem('userInstanceKey');
+	        if (!key || !org || !inst || key.length != 32) {
 	            console.log("Invalid organization!");
 	            return;
 	        }
 	        var headers = new http_1.Headers({
 	            'Accept': 'application/json',
 	            'Content-Type': 'application/json',
-	            'Authorization': 'Basic ' + btoa(this.userOrgKey + '-' + this.userInstanceKey + ':' + this.userKey)
+	            'Authorization': 'Basic ' + btoa(org + "-" + inst + ":" + key)
 	        });
 	        return this.request(method, data, type, headers);
 	    };
@@ -62249,7 +62254,7 @@
 	    };
 	    ApiData = __decorate([
 	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [http_1.Http])
+	        __metadata('design:paramtypes', [http_1.Http, ionic_1.Config])
 	    ], ApiData);
 	    return ApiData;
 	}());
@@ -62266,7 +62271,7 @@
 	exports.AppSite = 'https://app.' + Site;
 	exports.ApiSite = 'http://api.' + Site;
 	//offline
-	exports.dontClearCache = true;
+	exports.dontClearCache = false;
 	exports.isSD = true;
 	exports.year = "2015";
 	exports.appVersion = "40";
@@ -62278,6 +62283,112 @@
 
 	"use strict";
 	exports.MOCKS = { "tickets/counts": { new_messages: 1, open_all: 284, open_as_tech: 10, open_as_alttech: 2, open_as_user: 1001, onhold: 3, reminder: 0, parts_on_order: 0, unconfirmed: 45, waiting: 2 },
+	    "login": {
+	        "api_token": "re36rym3mjqxm8ej2cscfajmxpsew33m"
+	    },
+	    "organizations": [
+	        {
+	            "key": "u0diuk",
+	            "name": "bigWebApps",
+	            "is_expired": false,
+	            "is_trial": false,
+	            "instances": [
+	                {
+	                    "key": "b95s6o",
+	                    "name": "Support",
+	                    "is_expired": false,
+	                    "is_trial": false
+	                }
+	            ]
+	        },
+	        {
+	            "key": "u0diu1",
+	            "name": "bigWebApps",
+	            "is_expired": true,
+	            "is_trial": false,
+	            "instances": [
+	                {
+	                    "key": "b95s61",
+	                    "name": "Support1",
+	                    "is_expired": false,
+	                    "is_trial": false
+	                }
+	            ]
+	        },
+	        {
+	            "key": "okriez",
+	            "name": "!testhow",
+	            "is_expired": false,
+	            "is_trial": true,
+	            "instances": [
+	                {
+	                    "key": "byk81d",
+	                    "name": "Main",
+	                    "is_expired": false,
+	                    "is_trial": false
+	                },
+	                {
+	                    "key": "byk811",
+	                    "name": "Second",
+	                    "is_expired": false,
+	                    "is_trial": false
+	                }
+	            ]
+	        }
+	    ],
+	    "config": {
+	        "is_onhold_status": false,
+	        "is_time_tracking": true,
+	        "is_freshbooks": false,
+	        "freshbooks_url": "https://micajah3.freshbooks.com",
+	        "is_parts_tracking": false,
+	        "is_project_tracking": true,
+	        "is_unassigned_queue": true,
+	        "is_location_tracking": true,
+	        "is_waiting_on_response": true,
+	        "is_invoice": true,
+	        "is_payments": true,
+	        "is_expenses": true,
+	        "is_class_tracking": true,
+	        "is_travel_costs": true,
+	        "is_priorities_general": true,
+	        "is_confirmation_tracking": true,
+	        "is_resolution_tracking": true,
+	        "is_ticket_levels": true,
+	        "is_account_manager": true,
+	        "is_require_ticket_initial_post": true,
+	        "is_ticket_require_closure_note": true,
+	        "is_asset_tracking": true,
+	        "assets": {
+	            "unique1_caption": "",
+	            "unique2_caption": "",
+	            "unique3_caption": "",
+	            "unique4_caption": "",
+	            "unique5_caption": "",
+	            "unique6_caption": "",
+	            "unique7_caption": ""
+	        },
+	        "timezone_offset": 2,
+	        "timezone_name": "FLE Standard Time",
+	        "currency": "$",
+	        "businessday_length": 540,
+	        "logo": "/mafsf.axd?d=aW5zdGFuY2UtbG9nby9jOTMzMWE1OWNiNzY0YjQyYmM2M2JhZDRhNTAwZTE4My9zaGVycGFkZXNrXzMxMHg5NS5wbmd8MzAwfDQ1fDB8YzkzMzFhNTljYjc2NGI0MmJjNjNiYWQ0YTUwMGUxODNw0",
+	        "user": {
+	            "account_name": "bigWebApps Support",
+	            "login_id": "51b348ac5ef34ecea7d043f0d2688634",
+	            "user_id": 1325,
+	            "email": "jtrue@mail.ru",
+	            "firstname": "Tech/Admin",
+	            "lastname": "Eugene",
+	            "is_techoradmin": true,
+	            "is_admin": true,
+	            "is_limit_assigned_tkts": false,
+	            "is_useworkdaystimer": false,
+	            "account_id": 0,
+	            "time_format": 1,
+	            "date_format": 0
+	        }
+	    },
 	    "accounts": [
 	        {
 	            "id": -1,
@@ -62559,6 +62670,35 @@
 	        // inject the Http provider and set to this instance
 	        this.apiData = apiData;
 	    }
+	    DataProvider.prototype.checkLogin = function (username, password) {
+	        if (!username || !password) {
+	            console.log("Please enter login and password!");
+	            return;
+	        }
+	        var url = "login";
+	        var headers = new Headers({
+	            'Accept': 'application/json',
+	            'Content-Type': 'application/json'
+	        });
+	        return this.request(url, { "username": username, "password": password }, "POST", headers);
+	    };
+	    DataProvider.prototype.getOrganizations = function (token) {
+	        if (!token || token != 32) {
+	            console.log("Invalid token!");
+	            return;
+	        }
+	        var url = "organizations";
+	        var headers = new Headers({
+	            'Accept': 'application/json',
+	            'Content-Type': 'application/json',
+	            'Authorization': 'Basic ' + btoa("x:" + token)
+	        });
+	        return this.request(url, "", "", headers);
+	    };
+	    DataProvider.prototype.getConfig = function () {
+	        var url = "config";
+	        return this.apiData.get(url);
+	    };
 	    DataProvider.prototype.getTicketsList = function (tab, id) {
 	        //"user","tech","alt","all"
 	        var url = "";
@@ -62604,8 +62744,12 @@
 	            return arr;
 	        });
 	    };
-	    DataProvider.prototype.getAccountList = function (is_dashboard) {
+	    DataProvider.prototype.getAccountList = function (is_dashboard, is_no_stat, is_open) {
 	        var url = "accounts";
+	        if (is_no_stat)
+	            url = url.addp("is_with_statistics", "false");
+	        if (is_open)
+	            url = url.addp("is_open_tickets", "true");
 	        return this.apiData.get(url).map(function (arr) {
 	            var result = [];
 	            if (is_dashboard && arr) {
@@ -62618,6 +62762,12 @@
 	                return arr;
 	            return result;
 	        });
+	    };
+	    DataProvider.prototype.getAccountDetails = function (id, is_no_stat) {
+	        var url = "accounts/" + id;
+	        if (is_no_stat)
+	            url = url.addp("is_with_statistics", "false");
+	        return this.apiData.get(url);
 	    };
 	    DataProvider = __decorate([
 	        core_1.Injectable(), 
@@ -63865,7 +64015,7 @@
 	        var _this = this;
 	        this.nav = nav;
 	        this.accounts = null;
-	        dataProvider.getAccountList().subscribe(function (data) { _this.accounts = data; }, function (error) {
+	        dataProvider.getAccountList(false, true, true).subscribe(function (data) { _this.accounts = data; }, function (error) {
 	            console.log(error || 'Server error');
 	        });
 	    }

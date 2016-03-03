@@ -21,6 +21,40 @@ constructor(apiData: ApiData) {
     // inject the Http provider and set to this instance
     this.apiData = apiData;
 }
+    
+checkLogin(username, password) {
+        if(!username || !password) {
+            console.log("Please enter login and password!");
+            return;
+        }
+        let url = "login";
+        var headers = new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        });
+        return this.request(url, 
+                            {"username": username, "password": password},
+                            "POST", headers);
+    }
+    
+getOrganizations(token) {
+    if(!token || token != 32) {
+        console.log("Invalid token!");
+        return;
+    }
+    let url = "organizations";
+    var headers = new Headers({
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Basic ' + btoa(`x:${token}`)
+    });
+    return this.request(url, "", "", headers);
+}
+    
+getConfig() {
+        let url = "config";
+        return this.apiData.get(url);
+    }
 
 getTicketsList(tab, id) {
     //"user","tech","alt","all"
@@ -72,8 +106,12 @@ getQueueList(limit) {
     });
 }
     
-getAccountList(is_dashboard) {
+getAccountList(is_dashboard, is_no_stat, is_open) {
     let url = "accounts";
+    if (is_no_stat) 
+        url = url.addp("is_with_statistics", "false");
+    if (is_open) 
+        url = url.addp("is_open_tickets", "true");
     return this.apiData.get(url).map((arr: Array<any>) => {
         let result = [];
         if (is_dashboard && arr) {
@@ -86,6 +124,13 @@ getAccountList(is_dashboard) {
             return arr;
         return result;
     });
+}   
+    
+getAccountDetails(id,is_no_stat) {
+    let url = `accounts/${id}`;
+    if (is_no_stat) 
+        url = url.addp("is_with_statistics", "false");
+    return this.apiData.get(url);
 }
 
 }
