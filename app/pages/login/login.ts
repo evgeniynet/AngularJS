@@ -1,4 +1,4 @@
-import {Page, NavController, Alert} from 'ionic-framework/ionic';
+import {Page, NavController} from 'ionic-framework/ionic';
 import {OrganizationsPage} from '../organizations/organizations';
 import {SignupPage} from '../signup/signup';
 import {ToastsManager} from 'ng2-toastr/ng2-toastr';

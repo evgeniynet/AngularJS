@@ -63258,6 +63258,7 @@
 	        var _this = this;
 	        this.nav = nav;
 	        this.tclass = '1';
+	        this.ticketclass = "c0";
 	        this.details_tab = "Reply";
 	        this.navParams = navParams;
 	        this.dataProvider = dataProvider;
@@ -63290,11 +63291,40 @@
 	        myModal.onDismiss(function (data) {
 	            console.log(data);
 	            _this.tclass = data.value;
+	            _this.ticketclass = data.text;
 	        });
 	        this.nav.present(myModal);
 	    };
 	    TicketDetailsPage.prototype.ch = function (newValue) {
 	        //this.tclass = newValue;
+	    };
+	    TicketDetailsPage.prototype.doRadio = function () {
+	        var _this = this;
+	        var alert = ionic_1.Alert.create();
+	        alert.setTitle('Lightsaber color');
+	        alert.addInput({
+	            type: 'radio',
+	            label: 'Blue',
+	            value: 'blue',
+	            checked: true
+	        });
+	        alert.addInput({
+	            type: 'radio',
+	            label: 'Green',
+	            value: 'green'
+	        });
+	        alert.addButton('Cancel');
+	        alert.addButton({
+	            text: 'Ok',
+	            handler: function (data) {
+	                console.log('Radio data:', data);
+	                _this.testRadioOpen = false;
+	                _this.testRadioResult = data;
+	            }
+	        });
+	        this.nav.present(alert).then(function () {
+	            _this.testRadioOpen = true;
+	        });
 	    };
 	    TicketDetailsPage = __decorate([
 	        ionic_1.Page({
@@ -64117,7 +64147,6 @@
 	var TicketsPage = (function () {
 	    function TicketsPage(nav, dataProvider, config) {
 	        var _this = this;
-	        //console.log(config.test);
 	        this.nav = nav;
 	        this.tickets = null;
 	        this.ticket_tab = "user";

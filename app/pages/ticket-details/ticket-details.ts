@@ -1,4 +1,4 @@
-import {Page, NavController, NavParams, Modal} from 'ionic-framework/ionic';
+import {Page, NavController, NavParams, Modal, Alert} from 'ionic-framework/ionic';
 import {DataProvider} from '../../providers/data-provider';
 import {PostsListComponent} from '../../components/posts-list/posts-list';
 import {BasicSelectModal} from '../modals/modals';
@@ -13,6 +13,7 @@ export class TicketDetailsPage {
     constructor(nav: NavController, navParams: NavParams, dataProvider: DataProvider) {
         this.nav = nav;
         this.tclass = '1';
+        this.ticketclass = "c0";
         this.details_tab = "Reply";
         this.navParams = navParams;
         this.dataProvider = dataProvider;
@@ -46,11 +47,44 @@ export class TicketDetailsPage {
         myModal.onDismiss(data => {
             console.log(data);
             this.tclass = data.value;
+            this.ticketclass = data.text;
         });
         this.nav.present(myModal);
     }
     
     ch(newValue) {
         //this.tclass = newValue;
+    }
+    
+    doRadio() {
+        let alert = Alert.create();
+        alert.setTitle('Lightsaber color');
+
+        alert.addInput({
+            type: 'radio',
+            label: 'Blue',
+            value: 'blue',
+            checked: true
+        });
+
+        alert.addInput({
+            type: 'radio',
+            label: 'Green',
+            value: 'green'
+        });
+
+        alert.addButton('Cancel');
+        alert.addButton({
+            text: 'Ok',
+            handler: data => {
+                console.log('Radio data:', data);
+                this.testRadioOpen = false;
+                this.testRadioResult = data;
+            }
+        });
+
+        this.nav.present(alert).then(() => {
+            this.testRadioOpen = true;
+        });
     }
 }

@@ -30,32 +30,6 @@
 </div>
     <div [ngSwitch]="details_tab">
      <div class="list" *ngSwitchWhen="'Reply'">
-         <ion-list>
-             <ion-item class="blue4">
-             <ion-label class="textLogin">Class:</ion-label>
-                 <ion-select [ngModel]="tclass">
-                 <ion-option value="0" checked="true">Support</ion-option>
-                 <ion-option value="1">Class2</ion-option>
-                 <ion-option value="2">Class2</ion-option>
-                 <ion-option value="3">Class3</ion-option>
-                 <ion-option value="4">Class4</ion-option><ion-option value="5">Class5</ion-option>
-             </ion-select>
-         </ion-item>
-         </ion-list>
-         <ion-list class="list">
-             <ion-list-header>
-                 Hobbits
-             </ion-list-header>
-             <a ion-item (click)="openModal({charNum: 0})">
-                 Gollum
-             </a>
-             <a ion-item (click)="openModal({charNum: 1})">
-                 Frodo Baggins
-             </a>
-             <a ion-item (click)="openModal({charNum: 2})">
-                 Sam
-             </a>
-         </ion-list>
          
          <posts-list [posts]="post1"></posts-list>
          
@@ -75,17 +49,30 @@
   <ion-list *ngSwitchWhen="'Info'" class="list" no-lines>
 <ion-list>
     
+    <ion-list>
+        <ion-item class="blue4">
+            <ion-label class="textLogin">Class:</ion-label>
+            <ion-select [ngModel]="tclass">
+                <ion-option value="0" checked="true">Support</ion-option>
+                <ion-option value="1">Class2</ion-option>
+                <ion-option value="2">Class2</ion-option>
+                <ion-option value="3">Class3</ion-option>
+                <ion-option value="4">Class4</ion-option><ion-option value="5">Class5</ion-option>
+            </ion-select>
+        </ion-item>
+    </ion-list>
+    
      <div class="list blue4" no-lines >
-    <button class="width100 button-icon-only">
+         <button (click)="openModal({charNum: 0})" class="width100 button-icon-only">
         <p class="textLogin">Class:</p>
-        <ion-label class="righd">Class</ion-label>
+        <ion-label class="righd">{{ticketclass}}</ion-label>
         <ion-icon name="arrow-down"></ion-icon>
         </button>
         </div> 
     
     
     <div class="list blue4" no-lines >
-    <button class="width100 button-icon-only">
+        <button (click)="doRadio()" class="width100 button-icon-only">
         <p class="textLogin">Level:</p>
         <ion-label class="righd">Level</ion-label>
         <ion-icon name="arrow-down"></ion-icon>
