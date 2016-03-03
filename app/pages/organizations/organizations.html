@@ -3,11 +3,14 @@
     
     <ion-list class="list" no-lines>
  <img class="imglogo" src="img/logo.png">
-         <div class="blue1">
-<ion-item>bigWebApps Support</ion-item>
-             <ion-item  (click)="onSelectInst($event, {org: 'wer', inst: 'tyrbf'})">Future Projects</ion-item>
+         <div> 
+      <ion-item class="blue1">bigWebApps Support</ion-item>
+      <ion-item class="blue2 org">Support</ion-item>
+        </div>
+        <div> 
+      <ion-item class="blue1" (click)="onSelectInst($event, {org: 'wer', inst: 'tyrbf'})">Future Projects</ion-item>
+      <ion-item class="blue2 org">Support</ion-item>
         </div>
          </ion-list>
-    
   
 </ion-content>

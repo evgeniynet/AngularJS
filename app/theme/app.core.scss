@@ -12,6 +12,7 @@
 @import "../pages/account-details/account-details";
 @import "../pages/invoice-details/invoice-details";
 @import "../pages/dashboard/dashboard";
+@import "../pages/organizations/organizations";
 @import "../pages/login/login";
 @import "../components/posts-list/posts-list";
 @import "../components/tickets-list/tickets-list";
@@ -46,6 +47,17 @@
     margin-top: 0px !important;  
 }
 
+.alert-button{
+color: black;
+}
+
+.alert-radio[aria-checked=true] {
+    color: #4290c5;
+}
+
+.alert-radio[aria-checked=true] .alert-radio-icon:after{
+    border-color: #000000;
+}
 
 // text/
 .text-left {
@@ -110,6 +122,10 @@ scroll-content {
     overflow-y: auto;
 }
 
+.searchbar{
+flex-grow: 0;
+}
+
 .timeleft{
     width: 76%;
     float: left;
@@ -163,6 +179,11 @@ background-color:rgba(0, 0, 0, 0.4);
 
 .item-button {
     font-size: 1.6rem;
+    height: 42px;
+}
+
+.button.activated{
+background-color: #6AB7EC;
 }
 
 //color
