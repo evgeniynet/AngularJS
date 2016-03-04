@@ -18,6 +18,7 @@ pipes: [MorePipe],
 
 export class AccountsListComponent {
     @Input() accounts: Array;
+    @Input() simple: boolean;
 /*@Input()
 card : Card;*/
      constructor(nav: NavController) {
