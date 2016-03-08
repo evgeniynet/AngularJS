@@ -19,8 +19,6 @@ export class DashboardPage {
     this.accounts = null;
     this.counts = {open_as_tech: 0};
         
-        console.log(config.current);
-        
         dataProvider.getQueueList(3).subscribe(
             data => {this.queues = data}, 
             error => { 

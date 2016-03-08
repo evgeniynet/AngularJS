@@ -62275,7 +62275,7 @@
 	exports.AppSite = 'https://app.' + Site;
 	exports.ApiSite = 'http://api.' + Site;
 	//offline
-	exports.dontClearCache = true;
+	exports.dontClearCache = false;
 	exports.isSD = true;
 	exports.year = "2015";
 	exports.appVersion = "40";
@@ -62707,6 +62707,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(7);
+	var http_1 = __webpack_require__(145);
 	var api_data_1 = __webpack_require__(358);
 	__webpack_require__(361);
 	String.prototype.addp = function (param, value) {
@@ -62729,18 +62730,19 @@
 	            return this.apiData.handleError("Please enter login and password!");
 	        }
 	        var url = "login";
-	        var headers = new Headers({
-	            'Accept': 'application/json',
-	            'Content-Type': 'application/json'
+	        var headers = new http_1.Headers({
+	            'Accept': 'application/json, text/javascript, */*',
+	            'Authorization': 'Basic ' + btoa(username + ":" + password)
 	        });
-	        return this.apiData.request(url, { "username": username, "password": password }, "POST", headers);
+	        console.log(headers);
+	        return this.apiData.request(url, "", "POST", headers);
 	    };
 	    DataProvider.prototype.getOrganizations = function (token) {
 	        if (!token || token.length != 32) {
 	            return this.apiData.handleError("Invalid token!");
 	        }
 	        var url = "organizations";
-	        var headers = new Headers({
+	        var headers = new http_1.Headers({
 	            'Accept': 'application/json',
 	            'Content-Type': 'application/json',
 	            'Authorization': 'Basic ' + btoa("x:" + token)
@@ -64502,6 +64504,8 @@
 	                _this.config.current.key = data.api_token;
 	                _this.nav.push(organizations_1.OrganizationsPage);
 	            }, function (error) {
+	                _this.alert.error('There was a problem with your login.  Please try again.', 'Oops!');
+	                _this.login.password = "";
 	                console.log(error || 'Server error');
 	            });
 	        }

@@ -24,6 +24,8 @@ export class LoginPage {
                     this.nav.push(OrganizationsPage);
                 }, 
                 error => { 
+                    this.alert.error('There was a problem with your login.  Please try again.', 'Oops!');
+                    this.login.password = "";
                     console.log(error || 'Server error');}
             ); 
         }

@@ -1,4 +1,5 @@
 import {Injectable} from 'angular2/core';
+import {Headers} from 'angular2/http';
 import {Observable} from 'rxjs/Observable';
 import {ApiData} from './api-data';
 import 'rxjs/add/operator/map';
@@ -26,13 +27,14 @@ checkLogin(username, password) {
         if(!username || !password) {
             return this.apiData.handleError("Please enter login and password!");
         }
+    
         let url = "login";
         var headers = new Headers({
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        });
+            'Accept': 'application/json, text/javascript, */*',
+        'Authorization': 'Basic ' + btoa(`${username}:${password}`)
+    });
     return this.apiData.request(url, 
-                            {"username": username, "password": password},
+                               "",
                             "POST", headers);
     }
     
