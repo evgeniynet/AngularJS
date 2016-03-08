@@ -1,3 +1,22 @@
-.ticket-details {
-
+.ticket-details{
+    white-space: initial !important;
+    height: 84px;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 24px;
+    text-overflow: ellipsis;
 }
+
+.subject-padding{
+    padding-top: 20px;
+}
+
+
+.response-ticket{
+    margin-bottom: 86px;
+}
+
+.avatar-ticket{
+    padding-right: 39px;
+}
+

@@ -1,10 +1,10 @@
-
 <ion-navbar *navbar><button menuToggle><ion-icon name="menu"></ion-icon></button>
   <ion-title>Tickets</ion-title>
 </ion-navbar>
 
 <ion-content class="tickets">
-    <div class="tabsTicket">
+    
+    <div class="tabsTicket alignment-bottom">
         <ion-segment [(ngModel)]="ticket_tab" (change)="onSegmentChanged($event)">
 <ion-segment-button  value="user">User</ion-segment-button>
 <ion-segment-button value="tech">Tech</ion-segment-button>
@@ -12,10 +12,9 @@
 <ion-segment-button value="all">All Open</ion-segment-button>
   </ion-segment>
 </div>    
-    
+    <ion-list class="list">
     <tickets-list [tickets]="tickets"></tickets-list>
-    
-  
+    </ion-list>
 </ion-content>
 
 <action-button></action-button>

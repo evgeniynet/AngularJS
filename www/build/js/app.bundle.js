@@ -3223,7 +3223,7 @@
 	            { title: 'Full App', component: hello_ionic_1.HelloIonicPage, icon: "md-share-alt" },
 	        ];
 	        // make HelloIonicPage the root (or first) page
-	        this.rootPage = login_1.LoginPage;
+	        this.rootPage = tickets_1.TicketsPage;
 	    }
 	    MyApp.prototype.initializeApp = function () {
 	        this.platform.ready().then(function () {

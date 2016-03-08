@@ -9771,7 +9771,28 @@ ion-list > .item:first-child {
   margin: 0px; }
 
 .img-padding {
-  padding-bottom: 20px; }
+  padding-bottom: 20px;
+  padding-top: 30px; }
+
+.login-text {
+  font-size: 1.5rem !important; }
+
+.ticket-details {
+  white-space: initial !important;
+  height: 84px;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 24px;
+  text-overflow: ellipsis; }
+
+.subject-padding {
+  padding-top: 20px; }
+
+.response-ticket {
+  margin-bottom: 86px; }
+
+.avatar-ticket {
+  padding-right: 39px; }
 
 .date {
   padding-bottom: 26px;
@@ -9809,6 +9830,9 @@ ion-list > .item:first-child {
   overflow: hidden;
   line-height: 19px;
   text-overflow: ellipsis; }
+
+.alignment {
+  margin-top: 7px; }
 
 .table span.box5 {
   background-color: #25b0e6;
@@ -10062,6 +10086,18 @@ p {
 .tablText {
   color: #fff; }
 
+.commentText {
+  background: rgba(0, 0, 0, 0.4);
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  border: none;
+  font-size: 16px;
+  padding: 10px;
+  resize: none;
+  height: 110px;
+  display: block;
+  margin-bottom: 10px; }
+
 .list {
   width: 90%;
   margin: 0 auto; }
@@ -10086,6 +10122,9 @@ p {
 
 .indent-bottom {
   margin-bottom: 30px; }
+
+.alignment-bottom {
+  margin-bottom: 10px; }
 
 scroll-content {
   overflow-y: auto; }
@@ -10116,12 +10155,14 @@ scroll-content {
 .admin {
   -webkit-box-orient: vertical;
   overflow: hidden;
-  line-height: 19px;
+  line-height: 20px;
   text-overflow: clip; }
 
+ion-label {
+  /* overflow: hidden; */ }
+
 .container {
-  margin-bottom: 21px;
-  padding-top: 35px; }
+  margin-bottom: 21px; }
 
 .center {
   text-align: -webkit-center; }
@@ -10207,6 +10248,11 @@ scroll-content {
   white-space: nowrap !important;
   overflow: visible; }
 
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; }
+
 .buttonTicket {
   width: 50px;
   height: 50px; }
@@ -10227,6 +10273,18 @@ scroll-content {
   margin-right: 10px;
   padding-left: 5px;
   padding-top: 5px; }
+
+.searchbar-input {
+  color: #FFF; }
+
+.searchbar-clear-icon {
+  background-image: url("img/close.png"); }
+
+.ticketImg {
+  height: 0px; }
+
+.item:last-child, ion-list > ion-item-sliding:last-child .item {
+  border-bottom: 0px; }
 
 .ionFont {
   font-size: 26px;

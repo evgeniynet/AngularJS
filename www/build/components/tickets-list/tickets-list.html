@@ -1,16 +1,17 @@
 <ion-list class="list width100" no-lines>
 <ion-item-sliding class="border" *ngFor="#ticket of tickets" (click)="itemTapped($event, ticket)"> 
     <ion-item  class="item margin">
-        <ion-avatar padding item-left class="img_padding margin">
+        <ion-avatar padding item-left class="img_padding margin avatar-ticket">
             <li class="center avatarText">
                 <span class="margin" item-left>#{{ticket.number}}</span>
                 <img *ngIf="ticket.user_email" [alt]="ticket.user_firstname" class="img" [src]="ticket.user_email | Gravatar"/>
                 <span class="admin">{{ticket.user_firstname}}  {{ticket.user_lastname}}</span> </li>
         </ion-avatar>
+        <div class="alignment">
         <li class="tkts-table">
-            <h2>{{ticket.subject}}</h2>
+            <h2 class="ellipsis">{{ticket.subject}}</h2>
             <h3 class="tickets" [innerHTML]="ticket.initial_post | Linebreaks"></h3></li>
-        <p class="grey2 right class_name">{{ticket.class_name}}</p>
+            <p class="grey2 right class_name">{{ticket.class_name}}</p></div>
     </ion-item>
     <ion-item-options>
         <button class="disable-hover button button-default button-light">

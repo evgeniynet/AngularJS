@@ -3,10 +3,10 @@
     <ion-title>{{ticket.status}} | {{ticket.number}}</ion-title>
 </ion-navbar>
 
-<ion-content class="ticket-details">
+<ion-content>
     <div class="subject">
    <ion-item class="itemTech blue3 padding subject-ticket text-left width59 left" no-lines>
-       <span>{{ticket.subject}}</span>
+       <span class="subject-padding ticket-details">{{ticket.subject}}</span>
            </ion-item>
         <ion-item class="left blue3 width35" no-lines>
         <p class="text-right">Mobile</p>
@@ -29,17 +29,13 @@
     </ion-segment>
 </div>
     <div [ngSwitch]="details_tab">
-     <div class="list" *ngSwitchWhen="'Reply'">
+     <div class="list img-top" *ngSwitchWhen="'Reply'">
          
          <posts-list [posts]="post1"></posts-list>
-         
-    <ion-card class="width100 margin">
-        <ion-input class="textLogin" type="text" placeholder="Add Response"></ion-input>
-  <ion-card-content></ion-card-content>
-          <ion-card-content></ion-card-content>
-</ion-card>
+         <div class="response-ticket">
+        <textarea class="width100 textLogin commentText" type="text" placeholder="Add Response"></textarea>
     <button secondary menuToggle
-            class="button_reply">Reply</button>
+            class="button_reply">Reply</button></div>
          
         <posts-list [posts]="posts"></posts-list>
          
@@ -112,13 +108,12 @@
         </div>   
     
 </ion-list>    
-         <br>
         <div class="list">
       <button secondary block="" type="submit" class="disable-hover button button-default button-block">Add Ticket</button>
     </div>
     </ion-list>
     <br>
-    <ion-list *ngSwitchWhen="'Options'" class="list" no-lines>
+    <ion-list *ngSwitchWhen="'Options'" class="list alignment-bottom" no-lines>
       <button secondary block="" type="submit" class="disable-hover button button-default button-block">Add Time</button>
       <button secondary block="" type="submit" class="disable-hover button button-default button-block img-top">Add Expense</button>
   <button favorite block class="img-top">Transfer Ticket</button>
@@ -142,11 +137,7 @@
           </i>
         <p>Confirm Now?</p>
             <br>
-            <ion-card class="width100 margin">
-  <ion-input class="textLogin" type="text" placeholder="Add closing comments"></ion-input>
-  <ion-card-content>
-    </ion-card-content>
-</ion-card>
+          <textarea class="width100 textLogin commentText" type="text" placeholder="Add closing comments"></textarea>
             <button secondary menuToggle
             class="button_reply width35 img-top">Close Ticket</button>
     </ion-label>

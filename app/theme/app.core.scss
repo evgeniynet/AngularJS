@@ -14,6 +14,7 @@
 @import "../pages/dashboard/dashboard";
 @import "../pages/organizations/organizations";
 @import "../pages/login/login";
+@import "../pages/ticket-details/ticket-details";
 @import "../components/posts-list/posts-list";
 @import "../components/tickets-list/tickets-list";
 @import "../components/queues-list/queues-list";
@@ -85,6 +86,20 @@ p {
     color: $label-ios-text-color;
 }
 
+
+.commentText{
+    background: $blue3;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    border: none;
+    font-size: 16px;
+    padding: 10px;
+    resize: none;
+    height: 110px;
+    display: block;
+    margin-bottom: 10px;
+}
+
 .list{
     width: 90%;
     margin: 0 auto;
@@ -116,6 +131,11 @@ height: 180px;
 
 .indent-bottom{
 margin-bottom: 30px;
+}
+
+
+.alignment-bottom{
+  margin-bottom: 10px;
 }
 
 scroll-content {
@@ -151,13 +171,18 @@ background-color:rgba(0, 0, 0, 0.4);
 .admin{
 -webkit-box-orient: vertical;
     overflow: hidden;
-    line-height: 19px;
+    line-height: 20px;
     text-overflow: clip;
+}
+
+ion-label {
+    /* overflow: hidden; */
+    
 }
 
 .container {
     margin-bottom: 21px;
-    padding-top: 35px;
+//    padding-top: 35px;
     }
 
 .center{
@@ -264,8 +289,14 @@ text-align: center;
 }
 
 .space{
- white-space: nowrap !important;
+        white-space: nowrap !important;
        overflow: visible;
+}
+
+.ellipsis{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 //button
@@ -296,6 +327,23 @@ color: #fff;
     padding-top: 5px;
 }
 
+
+.searchbar-input {
+    color: #FFF;
+   }
+
+.searchbar-clear-icon {
+    background-image: url("img/close.png");
+}
+
+.ticketImg {
+    height: 0px;
+}
+
+
+.item:last-child, ion-list > ion-item-sliding:last-child .item {
+    border-bottom: 0px;
+}
 
 //menu
 .ionFont {

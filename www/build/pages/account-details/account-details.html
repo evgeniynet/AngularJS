@@ -30,10 +30,10 @@
         </div>
 </ion-list>
     <br>
+ <ion-list class="list">
    <ion-item class="item-button">OPEN TICKETS</ion-item>
-            
    <tickets-list [tickets]="tickets"></tickets-list>
-            
+            </ion-list>
         </div>
         <br>
         <ion-list class="list" no-lines *ngSwitchWhen="'Info'">
@@ -125,7 +125,7 @@
           <ion-card-content></ion-card-content>
 </ion-card>
     <button secondary menuToggle
-            class="button_reply">Save Notes</button>
+            class="button_reply width28 img-top">Save Notes</button>
         </ion-list>
             <ion-list class="list" no-lines *ngSwitchWhen="'Files'">
         <ion-item><h2 class="left width35 text-left">file</h2>
