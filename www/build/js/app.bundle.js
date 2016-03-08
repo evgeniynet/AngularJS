@@ -64426,13 +64426,30 @@
 	        this.config = config;
 	        this.alert = this.config.alert;
 	        this.dataProvider = dataProvider;
-	        this.list = {};
+	        this.list = [];
 	        this.dataProvider.getOrganizations(this.config.current.key).subscribe(function (data) {
 	            _this.list = data;
 	        }, function (error) {
 	            console.log(error || 'Server error');
 	        });
 	    }
+	    OrganizationsPage.prototype.toggle = function (org) {
+	        var index = this.list.indexOf(org);
+	        for (var i = 0; i < this.list.length; i++) {
+	            if (i == index)
+	                this.list[i].expanded = this.list[i].expanded ? false : true;
+	            else if (this.list[i].expanded)
+	                this.list[i].expanded = false;
+	        }
+	    };
+	    OrganizationsPage.prototype.toggle1 = function (org) {
+	        this.list = this.list.forEach(function (d) {
+	            if (d == org)
+	                d.expanded = !d.expanded;
+	            else if (d.expanded)
+	                d.expanded = false;
+	        });
+	    };
 	    OrganizationsPage.prototype.onSelectInst = function (event, instance) {
 	        console.log(instance);
 	        this.config.current.org = instance.org;

@@ -11,7 +11,7 @@ export class OrganizationsPage {
         this.config = config;
         this.alert =         this.config.alert;
         this.dataProvider = dataProvider;
-        this.list = {};
+        this.list = [];
         
         this.dataProvider.getOrganizations(this.config.current.key).subscribe(
             data => {
@@ -21,6 +21,25 @@ export class OrganizationsPage {
                 console.log(error || 'Server error');}
         ); 
   }
+    
+    toggle(org){
+        var index = this.list.indexOf(org);
+        for (let i=0; i< this.list.length; i++) {
+            if (i == index)
+                this.list[i].expanded = this.list[i].expanded ? false : true;
+            else if (this.list[i].expanded)
+                this.list[i].expanded = false;
+        }
+    }
+    
+    toggle1(org){
+        this.list = this.list.forEach(d => {
+            if (d == org)
+                d.expanded = !d.expanded;
+            else if (d.expanded)
+                d.expanded = false;
+        });
+    }
     
     onSelectInst(event, instance) {
         console.log(instance);

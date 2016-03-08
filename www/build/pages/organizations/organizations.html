@@ -3,14 +3,11 @@
     
     <ion-list class="list" no-lines>
  <img class="imglogo" src="img/logo.png">
-         <div> 
-      <ion-item class="blue1">bigWebApps Support</ion-item>
-      <ion-item class="blue2 org">Support</ion-item>
+        <div *ngFor="#org of list"> 
+            <ion-item class="blue1" (click)="toggle(org)">{{org.name}}</ion-item>
+            <div *ngIf="org.expanded">
+                <ion-item *ngFor="#inst of org.instances" (click)="onSelectInst($event, {org: org.key, inst: inst.key})" class="blue2 org">{{inst.name}}</ion-item>
+            </div>
         </div>
-        <div> 
-            <ion-item class="blue1" (click)="onSelectInst($event, {org: 'zwoja4', inst: 'ms2asm'})">Future Projects</ion-item>
-      <ion-item class="blue2 org">Support</ion-item>
-        </div>
-         </ion-list>
-  
+    </ion-list>
 </ion-content>
