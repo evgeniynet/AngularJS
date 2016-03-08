@@ -52,10 +52,10 @@ mock_get(method) {
 }
 
 get(method, data, type) {
-    let key = this.config.user.key,
+    let key = this.config.current.key,
         //localStorage.getItem("userKey"),
-        org = this.config.user.org, // localStorage.getItem('userOrgKey'),
-        inst = this.config.user.instance;// localStorage.getItem('userInstanceKey');
+        org = this.config.current.org, // localStorage.getItem('userOrgKey'),
+        inst = this.config.current.instance;// localStorage.getItem('userInstanceKey');
     
     if (!key || !org || !inst || key.length != 32) {
         return this.handleError("Invalid organization!");

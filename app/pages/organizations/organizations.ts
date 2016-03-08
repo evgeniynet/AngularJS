@@ -1,20 +1,19 @@
 import {Page, Config, NavController} from 'ionic-framework/ionic';
 import {DataProvider} from '../../providers/data-provider';
-import {ToastsManager} from 'ng2-toastr/ng2-toastr';
 import {DashboardPage} from '../dashboard/dashboard';
 
 @Page({
   templateUrl: 'build/pages/organizations/organizations.html',
 })
 export class OrganizationsPage {
-    constructor(nav: NavController, toastr: ToastsManager, dataProvider: DataProvider, config: Config) {
+    constructor(nav: NavController, dataProvider: DataProvider, config: Config) {
     this.nav = nav;
-        this.alert = toastr;
         this.config = config;
+        this.alert =         this.config.alert;
         this.dataProvider = dataProvider;
         this.list = {};
         
-        this.dataProvider.getOrganizations(this.config.user.key).subscribe(
+        this.dataProvider.getOrganizations(this.config.current.key).subscribe(
             data => {
                 this.list = data;
             }, 
@@ -25,8 +24,8 @@ export class OrganizationsPage {
     
     onSelectInst(event, instance) {
         console.log(instance);
-        this.config.user.org = instance.org;
-        this.config.user.instance = instance.inst;
+        this.config.current.org = instance.org;
+        this.config.current.instance = instance.inst;
         this.nav.setRoot(DashboardPage);
     }
 }

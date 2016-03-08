@@ -9,10 +9,13 @@
        <span class="subject-padding ticket-details">{{ticket.subject}}</span>
            </ion-item>
         <ion-item class="left blue3 width35" no-lines>
-        <p class="text-right">Mobile</p>
-        <p class="text-right">Name</p>
-        <p class="text-right">2 days ago</p>
-            <p class="text-right">SLA: 02/27/2016 18:00</p></ion-item>
+        <p class="text-right">{{ticket.class_name}}</p>
+        <p *ngIf="'true'" class="text-right">{{ticket.location_name}}</p>
+        <p class="text-right">{{getFullName(ticket.technician_firstname || ticket.tech_firstname, ticket.technician_lastname || ticket.tech_lastname,  ticket.technician_email || ticket.tech_email)}}</p>
+        <p class="text-right">{{ticket.days_old_in_minutes | Daysold}}</p>
+        <p  *ngIf="ticket.misc_cost > 0" class="text-right">Expenses:  {{getCurrency(ticket.misc_cost)}}</p>
+        <p *ngIf="ticket.total_hours > 0" class="text-right">{{ticket.total_hours}} Hours</p>
+            <p *ngIf="ticket.sla_complete_date != null" class="text-right">SLA: {{setDate(ticket.sla_complete_date) | date: "MM/dd/yyyy HH:mm"}}</p></ion-item>
         
     </div>
     <div class="subject">

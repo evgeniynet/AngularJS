@@ -11,7 +11,7 @@ export class MorePipe {
         let template = args[0][1] || "VV"; 
         if (value >= max)
         value = (max-1) + "<sup>+</sup>";
-        value = template.replace("VV", value);
+        value = template.replace("VV", value.toString());
         return value;
     }
 }

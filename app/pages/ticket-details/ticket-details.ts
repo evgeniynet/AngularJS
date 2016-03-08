@@ -1,32 +1,39 @@
-import {Page, NavController, NavParams, Modal, Alert} from 'ionic-framework/ionic';
+import {Page, Config, NavController, NavParams, Modal, Alert} from 'ionic-framework/ionic';
 import {DataProvider} from '../../providers/data-provider';
 import {PostsListComponent} from '../../components/posts-list/posts-list';
 import {BasicSelectModal} from '../modals/modals';
-import {GravatarPipe, LinebreaksPipe} from '../../pipes/pipes';
+import {GravatarPipe, LinebreaksPipe, DaysoldPipe} from '../../pipes/pipes';
 
 @Page({
   templateUrl: 'build/pages/ticket-details/ticket-details.html',
     directives: [PostsListComponent],
-    pipes: [GravatarPipe, LinebreaksPipe],
+    pipes: [GravatarPipe, LinebreaksPipe, DaysoldPipe],
 })
 export class TicketDetailsPage {
-    constructor(nav: NavController, navParams: NavParams, dataProvider: DataProvider) {
+    constructor(nav: NavController, navParams: NavParams, dataProvider: DataProvider, config: Config) {
         this.nav = nav;
+        this.config = config;
+        this.alert = this.config.alert;
         this.tclass = '1';
         this.ticketclass = "c0";
         this.details_tab = "Reply";
         this.navParams = navParams;
         this.dataProvider = dataProvider;
-        this.ticket = this.navParams.data || {};
-        this.details = {};
+        this.ticket = (this.navParams || {}).data || {};
         this.posts = [];
         this.post1=[];
          this.dataProvider.getTicketDetails(this.ticket.key).subscribe(
-             data => {this.details = data;
+             data => {
+                 if (!data || !data.ticketlogs || data.ticketlogs == 0)
+                    { this.redirectOnEmpty();
+                     return;
+                    }
+                 this.ticket = data;
                       this.post1 = [data.ticketlogs.shift()];
                       this.posts = data.ticketlogs;}, 
             error => { 
-                console.log(error || 'Server error');}
+                console.log(error || 'Server error');
+            this.redirectOnEmpty();}
         ); 
         
         this.list = [
@@ -37,6 +44,14 @@ export class TicketDetailsPage {
             { text: 'c4', value: '4' },
             { text: 'c5', value: '5' },
         ];
+    }
+    
+    redirectOnEmpty(){
+        this.alert.error('Incorrect ticket. Going back...', 'Oops!');
+        
+        setTimeout(() => {
+  this.nav.pop();
+}, 3000);
     }
     
     openModal(characterNum) {
@@ -97,4 +112,40 @@ export class TicketDetailsPage {
             this.testRadioOpen = true;
         });
     }
+
+    //get the full name of the following options:firstname, lastname, email,name
+getFullName (firstname,lastname,email,name) {
+    var fname = "";
+    if (name)
+        fname = name + " ";
+    if (lastname)
+        fname += lastname + " ";
+    if (firstname)
+        fname += firstname + " ";
+    if (email && email.indexOf("@") > 0){
+        if (!fname.trim())
+            fname = email;
+        else if (name)
+            fname += " (" + email + ")";
+    }
+    return fname || "NoName";
+}
+    
+    getCurrency(value) {
+        if (!value)
+            value = "0";
+return this.config.current.currency + Number(value).toFixed(2).toString();
+    }
+    
+      get Anotherdate(){ 
+    return this.abc 
+  }
+  setDate(date) {
+    this.Anotherdate = date;
+    return this.Anotherdate;
+  }
+  set Anotherdate(date){ 
+    this.abc = new Date(date)
+  }
+
 }

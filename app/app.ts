@@ -23,18 +23,21 @@ import {TimelogCreatePage} from './pages/timelog-create/timelog-create';
 }
 })
 class MyApp {
-    constructor(app: IonicApp, platform: Platform, apiData: ApiData, config: Config) {
+    constructor(app: IonicApp, platform: Platform, apiData: ApiData, config: Config, toastr: ToastsManager) {
 
     // set up our app
     this.app = app;
     this.platform = platform;
     this.initializeApp();
+        
+    config.alert = toastr;
     
     //set config object
-    config.user = {
+    config.current = {
     "key": "re36rym3mjqxm8ej2cscfajmxpsew33m",
     "org" : "zwoja4",
-    "instance" : "ms2asm"
+    "instance" : "ms2asm",
+    currency: "$"
     };
 
     // set our app's pages

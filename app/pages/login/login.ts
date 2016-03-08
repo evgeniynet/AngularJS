@@ -2,16 +2,15 @@ import {Page, Config, NavController} from 'ionic-framework/ionic';
 import {DataProvider} from '../../providers/data-provider';
 import {OrganizationsPage} from '../organizations/organizations';
 import {SignupPage} from '../signup/signup';
-import {ToastsManager} from 'ng2-toastr/ng2-toastr';
 
 @Page({
   templateUrl: 'build/pages/login/login.html',
 })
 export class LoginPage {
-    constructor(nav: NavController, toastr: ToastsManager, dataProvider: DataProvider, config: Config) {
+    constructor(nav: NavController, dataProvider: DataProvider, config: Config) {
     this.nav = nav;
-        this.alert = toastr;
-        this.config = config;
+                this.config = config;
+        this.alert = this.config.alert;
         this.dataProvider = dataProvider;
       this.login = {};
       this.submitted = false;
@@ -21,7 +20,7 @@ export class LoginPage {
         this.submitted = true;
         if (form.valid) { this.dataProvider.checkLogin(form.value.email,form.value.password).subscribe(
                 data => {
-                    this.config.user.key =  data.api_token;
+                    this.config.current.key =  data.api_token;
                     this.nav.push(OrganizationsPage);
                 }, 
                 error => { 
