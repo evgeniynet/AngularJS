@@ -18,6 +18,7 @@ export class DashboardPage {
     this.queues = null;
     this.accounts = null;
     this.counts = {open_as_tech: 0};
+    var pager = {limit:5};
         
         dataProvider.getQueueList(3).subscribe(
             data => {this.queues = data}, 
@@ -25,7 +26,7 @@ export class DashboardPage {
                 console.log(error || 'Server error');}
         ); 
         
-        dataProvider.getAccountList(true, {limit:5}).subscribe(
+        dataProvider.getAccountList(true, pager).subscribe(
             data => {this.accounts = data}, 
             error => { 
                 console.log(error || 'Server error');}

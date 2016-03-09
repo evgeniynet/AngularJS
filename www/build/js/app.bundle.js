@@ -62284,7 +62284,7 @@
 	exports.AppSite = 'https://app.' + Site;
 	exports.ApiSite = 'http://api.' + Site;
 	//offline
-	exports.dontClearCache = true;
+	exports.dontClearCache = false;
 	exports.isSD = true;
 	exports.year = "2015";
 	exports.appVersion = "40";
@@ -63998,7 +63998,6 @@
 	        var files = args[0] || [];
 	        if (!value || !files || files.length == 0 || !(~value.indexOf("cid:") || ~value.indexOf("ollowing file")))
 	            return value;
-	        console.log(args);
 	        files.sort(function (a, b) {
 	            return b.name.length - a.name.length;
 	        });
@@ -64233,30 +64232,31 @@
 	var tickets_list_1 = __webpack_require__(380);
 	var action_button_1 = __webpack_require__(393);
 	var AccountDetailsPage = (function () {
-	    function AccountDetailsPage(nav, navParams, dataProvider) {
+	    function AccountDetailsPage(nav, navParams, dataProvider, config) {
 	        var _this = this;
 	        this.nav = nav;
+	        this.config = config;
 	        this.details_tab = "Stat";
 	        this.navParams = navParams;
 	        // If we navigated to this page, we will have an item available as a nav param
-	        this.account = {
-	            "account_statistics": {
-	                "ticket_counts": {},
-	            }
-	        };
-	        this.account = this.navParams.data;
+	        this.account = this.navParams.data || {};
 	        this.tickets = null;
 	        this.dataProvider = dataProvider;
 	        this.dataProvider.getTicketsList("open", this.account.id).subscribe(function (data) { _this.tickets = data; }, function (error) {
 	            console.log(error || 'Server error');
 	        });
 	    }
+	    AccountDetailsPage.prototype.getCurrency = function (value) {
+	        if (!value)
+	            value = "0";
+	        return this.config.current.currency + Number(value).toFixed(2).toString();
+	    };
 	    AccountDetailsPage = __decorate([
 	        ionic_1.Page({
 	            templateUrl: 'build/pages/account-details/account-details.html',
 	            directives: [tickets_list_1.TicketsListComponent, action_button_1.ActionButtonComponent],
 	        }), 
-	        __metadata('design:paramtypes', [ionic_1.NavController, ionic_1.NavParams, data_provider_1.DataProvider])
+	        __metadata('design:paramtypes', [ionic_1.NavController, ionic_1.NavParams, data_provider_1.DataProvider, ionic_1.Config])
 	    ], AccountDetailsPage);
 	    return AccountDetailsPage;
 	}());
@@ -64507,10 +64507,11 @@
 	        this.queues = null;
 	        this.accounts = null;
 	        this.counts = { open_as_tech: 0 };
+	        var pager = { limit: 5 };
 	        dataProvider.getQueueList(3).subscribe(function (data) { _this.queues = data; }, function (error) {
 	            console.log(error || 'Server error');
 	        });
-	        dataProvider.getAccountList(true, { limit: 5 }).subscribe(function (data) { _this.accounts = data; }, function (error) {
+	        dataProvider.getAccountList(true, pager).subscribe(function (data) { _this.accounts = data; }, function (error) {
 	            console.log(error || 'Server error');
 	        });
 	        dataProvider.getTicketsCounts().subscribe(function (data) { _this.counts = data; }, function (error) {

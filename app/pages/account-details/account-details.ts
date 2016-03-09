@@ -1,4 +1,4 @@
-import {Page, NavController, NavParams} from 'ionic-framework/ionic';
+import {Page, Config, NavController, NavParams} from 'ionic-framework/ionic';
 import {DataProvider} from '../../providers/data-provider';
 import {TicketsListComponent} from '../../components/tickets-list/tickets-list';
 import {ActionButtonComponent} from '../../components/action-button/action-button';
@@ -8,25 +8,13 @@ import {ActionButtonComponent} from '../../components/action-button/action-butto
     directives: [TicketsListComponent, ActionButtonComponent],
 })
 export class AccountDetailsPage {
-    constructor(nav: NavController, navParams: NavParams, dataProvider: DataProvider) {
+    constructor(nav: NavController, navParams: NavParams, dataProvider: DataProvider, config: Config) {
     this.nav = nav;
+        this.config = config;
         this.details_tab = "Stat";
         this.navParams = navParams;
         // If we navigated to this page, we will have an item available as a nav param
-        var account = {  
-            "name":"",
-            "account_statistics":{  
-                "ticket_counts":{  
-                    "open":0,
-                    "closed":0,
-                },
-                "timelogs":0,
-                "invoices":0,
-                "hours":0,
-                "expenses":0
-            }
-        };
-        this.account = this.navParams.data || account;
+        this.account = this.navParams.data || {};
         
         this.tickets = null;
         this.dataProvider = dataProvider;
@@ -36,4 +24,10 @@ export class AccountDetailsPage {
                 console.log(error || 'Server error');}
         ); 
   }
+    
+    getCurrency(value) {
+        if (!value)
+            value = "0";
+        return this.config.current.currency + Number(value).toFixed(2).toString();
+    }
 }
