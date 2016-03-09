@@ -34,13 +34,13 @@
     <div [ngSwitch]="details_tab">
      <div class="list img-top" *ngSwitchWhen="'Reply'">
          
-         <posts-list [posts]="post1"></posts-list>
+         <posts-list [posts]="post1" [attachments]="attachments"></posts-list>
          <div class="response-ticket">
         <textarea class="width100 textLogin commentText" type="text" placeholder="Add Response"></textarea>
     <button secondary menuToggle
             class="button_reply">Reply</button></div>
          
-        <posts-list [posts]="posts"></posts-list>
+         <posts-list [posts]="posts" [attachments]="attachments"></posts-list>
          
         </div>
                

@@ -29,6 +29,7 @@ export class TicketDetailsPage {
                      return;
                     }
                  this.ticket = data;
+                 this.attachments = data.attachments;
                       this.post1 = [data.ticketlogs.shift()];
                       this.posts = data.ticketlogs;}, 
             error => { 

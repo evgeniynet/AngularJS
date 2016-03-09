@@ -3193,13 +3193,13 @@
 	var ng2_toastr_1 = __webpack_require__(370);
 	var hello_ionic_1 = __webpack_require__(375);
 	var queues_1 = __webpack_require__(376);
-	var invoices_1 = __webpack_require__(395);
-	var accounts_1 = __webpack_require__(397);
-	var timelogs_1 = __webpack_require__(398);
-	var tickets_1 = __webpack_require__(400);
-	var dashboard_1 = __webpack_require__(401);
-	var organizations_1 = __webpack_require__(402);
-	var login_1 = __webpack_require__(403);
+	var invoices_1 = __webpack_require__(396);
+	var accounts_1 = __webpack_require__(398);
+	var timelogs_1 = __webpack_require__(399);
+	var tickets_1 = __webpack_require__(401);
+	var dashboard_1 = __webpack_require__(402);
+	var organizations_1 = __webpack_require__(403);
+	var login_1 = __webpack_require__(404);
 	var MyApp = (function () {
 	    function MyApp(app, platform, apiData, config, toastr) {
 	        // set up our app
@@ -62284,7 +62284,7 @@
 	exports.AppSite = 'https://app.' + Site;
 	exports.ApiSite = 'http://api.' + Site;
 	//offline
-	exports.dontClearCache = false;
+	exports.dontClearCache = true;
 	exports.isSD = true;
 	exports.year = "2015";
 	exports.appVersion = "40";
@@ -62474,7 +62474,7 @@
 	    "queues": [{ "id": "27", "fullname": "Pre-Development", "tickets_count": 198 }, { "id": "271", "fullname": "Future Consideration", "tickets_count": 76 }, { "id": "269", "fullname": "Website", "tickets_count": 2 }, { "id": "5", "fullname": "New Ticket", "tickets_count": 1 }, { "id": "272", "fullname": "Mobile App", "tickets_count": null }],
 	    "queues/27": [{ "id": 370928, "key": "4f5ijv", "sla_complete_date": null, "created_time": "2015-09-10T01:08:00.0000000", "updated_time": "2015-09-28T16:39:00.0000000", "closed_time": null, "number": 4384, "is_new_user_post": false, "is_new_tech_post": false, "prefix": "", "subject": "Logo and Banner Request for Salesforce", "support_group_name": "", "next_step": "", "resolution_category_id": null, "resolution_category_name": "", "support_group_id": null, "initial_post": "Hey Anastasiia!\r\n\r\nWe need a couple of variants of logos and banners for our SalesForce listing.\r\n\r\nHere is what we need.\r\n- High Resolution logo: PNG with a transparent background that is up to 10MB in size\r\n-Banner: a 1200 x 300 pixel PNG that is up to 1MB in size\r\n-Tile Image: a 280x205 pixel PNG file that is up to 300KB in size\r\n\r\nLet me know if you have any questions on this.  Thanks!", "user_id": 2, "user_firstname": "Patrick", "user_lastname": "Clements", "user_email": "patrick.clements@bigwebapps.com", "tech_id": 119130, "technician_firstname": "Anastasiia", "technician_lastname": "Chov", "technician_email": "nastya_01.88@mail.ru", "account_id": -1, "account_name": "SherpaDesk Support", "location_id": null, "location_name": "", "account_location_id": null, "account_location_name": "", "priority_id": 1, "priority_name": "General Inquiry", "level": 3, "level_name": "Active Plate", "status": "Open", "creation_category_id": null, "creation_category_name": "", "days_old_in_minutes": 237151, "days_old": "164d 16h 31m", "class_id": 268, "class_name": "SherpaDesk", "total_hours": 20.0000 }, { "id": 147987, "key": "sf8c0m", "sla_complete_date": "2014-07-15T18:43:00.0000000", "created_time": "2014-07-15T18:43:00.0000000", "updated_time": "2014-11-25T17:38:00.0000000", "closed_time": null, "number": 2315, "is_new_user_post": true, "is_new_tech_post": true, "prefix": "", "subject": "Email Links to Mobile App", "support_group_name": "", "next_step": "", "resolution_category_id": null, "resolution_category_name": "", "support_group_id": null, "initial_post": "This is my current concept to allow us easier access to the mobile app for testing.   I know this is not great but I don't have a better idea right now.\r\n\r\nI do not love the idea of doing redirects on the web to redirect to mobile or the app.<br><br>Following file was  uploaded: Mobile App Use and Test.png.", "user_id": 1, "user_firstname": "Jon", "user_lastname": "Vickers", "user_email": "jon.vickers@micajah.com", "tech_id": 1, "technician_firstname": "Jon", "technician_lastname": "Vickers", "technician_email": "jon.vickers@micajah.com", "account_id": -1, "account_name": "SherpaDesk Support", "location_id": 2, "location_name": "Atlanta", "account_location_id": 2, "account_location_name": "Atlanta", "priority_id": 3, "priority_name": "UI Improvements", "level": 3, "level_name": "Active Plate", "status": "Open", "creation_category_id": null, "creation_category_name": "", "days_old_in_minutes": 843776, "days_old": "585d 22h 56m", "class_id": 5298, "class_name": "SherpaDesk / Email", "total_hours": 0.0000 }],
 	    "tickets": [{ "id": 370928, "key": "4f5ijv", "sla_complete_date": null, "created_time": "2015-09-10T01:08:00.0000000", "updated_time": "2015-09-28T16:39:00.0000000", "closed_time": null, "number": 4384, "is_new_user_post": false, "is_new_tech_post": false, "prefix": "", "subject": "Logo and Banner Request for Salesforce", "support_group_name": "", "next_step": "", "resolution_category_id": null, "resolution_category_name": "", "support_group_id": null, "initial_post": "Hey Anastasiia!\r\n\r\nWe need a couple of variants of logos and banners for our SalesForce listing.\r\n\r\nHere is what we need.\r\n- High Resolution logo: PNG with a transparent background that is up to 10MB in size\r\n-Banner: a 1200 x 300 pixel PNG that is up to 1MB in size\r\n-Tile Image: a 280x205 pixel PNG file that is up to 300KB in size\r\n\r\nLet me know if you have any questions on this.  Thanks!", "user_id": 2, "user_firstname": "Patrick", "user_lastname": "Clements", "user_email": "patrick.clements@bigwebapps.com", "tech_id": 119130, "technician_firstname": "Anastasiia", "technician_lastname": "Chov", "technician_email": "nastya_01.88@mail.ru", "account_id": -1, "account_name": "SherpaDesk Support", "location_id": null, "location_name": "", "account_location_id": null, "account_location_name": "", "priority_id": 1, "priority_name": "General Inquiry", "level": 3, "level_name": "Active Plate", "status": "Open", "creation_category_id": null, "creation_category_name": "", "days_old_in_minutes": 237151, "days_old": "164d 16h 31m", "class_id": 268, "class_name": "SherpaDesk", "total_hours": 20.0000 }, { "id": 147987, "key": "sf8c0m", "sla_complete_date": null, "created_time": "2014-07-15T18:43:00.0000000", "updated_time": "2014-11-25T17:38:00.0000000", "closed_time": null, "number": 2315, "is_new_user_post": true, "is_new_tech_post": true, "prefix": "", "subject": "Email Links to Mobile App", "support_group_name": "", "next_step": "", "resolution_category_id": null, "resolution_category_name": "", "support_group_id": null, "initial_post": "This is my current concept to allow us easier access to the mobile app for testing.   I know this is not great but I don't have a better idea right now.\r\n\r\nI do not love the idea of doing redirects on the web to redirect to mobile or the app.<br><br>Following file was  uploaded: Mobile App Use and Test.png.", "user_id": 1, "user_firstname": "Jon", "user_lastname": "Vickers", "user_email": "jon.vickers@micajah.com", "tech_id": 1, "technician_firstname": "Jon", "technician_lastname": "Vickers", "technician_email": "jon.vickers@micajah.com", "account_id": -1, "account_name": "SherpaDesk Support", "location_id": 2, "location_name": "Atlanta", "account_location_id": 2, "account_location_name": "Atlanta", "priority_id": 3, "priority_name": "UI Improvements", "level": 3, "level_name": "Active Plate", "status": "Open", "creation_category_id": null, "creation_category_name": "", "days_old_in_minutes": 843776, "days_old": "585d 22h 56m", "class_id": 5298, "class_name": "SherpaDesk / Email", "total_hours": 2.0000 }],
-	    "tickets/4f5ijv": { "id": 409465, "key": "haohbb", "created_time": "2015-11-11T15:51:00.0000000", "closed_time": "2015-11-12T15:34:00.0000000", "request_completion_date": null, "is_waiting_on_response": false, "waiting_date": null, "waiting_minutes": 0, "followup_date": null, "sla_complete_date": "2015-11-12T09:57:00.0000000", "sla_response_date": "2015-11-12T09:57:00.0000000", "confirmed_date": null, "next_step_date": null, "updated_time": "2015-11-13T17:33:00.0000000", "organization_key": "2939b13ac393462b9ae8b9e4d99b521d", "department_key": 1, "is_deleted": false, "user_id": 3, "user_title": "", "user_firstname": "Mike", "user_lastname": "Clements", "user_email": "mike.clements@bigwebapps.com", "tech_id": 1, "tech_firstname": "Jon", "tech_lastname": "Vickers", "tech_email": "jon.vickers@micajah.com", "priority": 3, "priority_name": "Bug/Hard Error", "priority_id": 2, "user_created_id": 17927, "user_created_firstname": "Michael", "user_created_lastname": "Jasien", "user_created_email": "mike.jasien@sealandchem.com", "status": "Open", "location_id": 0, "location_name": "", "class_id": 1, "class_name": "General Inquiry", "project_id": 0, "project_name": "", "serial_number": "", "folder_id": 0, "folder_path": "", "creation_category_id": 0, "creation_category_name": "", "subject": "Error Creating New Ticket - Sea-Land Chemical", "note": "", "number": 4633, "prefix": "", "customfields_xml": "", "parts_cost": 0.0000, "labor_cost": 0.0000, "total_time_in_minutes": 0, "misc_cost": 10.1000, "travel_cost": 0.0000, "request_completion_note": "", "followup_note": "", "initial_response": true, "sla_complete_used": 523, "sla_response_used": -40522, "level": 3, "level_name": "Active Plate", "is_via_email_parser": true, "account_id": -1, "account_name": "SherpaDesk Support", "account_location_id": 0, "account_location_name": "", "resolution_category_id": 0, "resolution_category_name": "", "is_resolved": false, "confirmed_by_name": "", "is_confirmed": false, "confirmed_note": "", "support_group_id": 0, "support_group_name": "", "is_handle_by_callcentre": false, "submission_category": "Automated Email Parser", "is_user_inactive": false, "next_step": "", "total_hours": 10, "remaining_hours": 0.0000, "estimated_time": 0, "percentage_complete": 0, "workpad": "", "scheduled_ticket_id": 0, "kb": false, "kb_type": 0, "kb_publish_level": 0, "kb_search_desc": "", "kb_alternate_id": "", "kb_helpful_count": 0, "kb_portal_alias": "Getting Started", "initial_post": "Hi <mike.jasien@sealandchem.com>\r\n\r\nThis ticket was created via the email parser.", "is_sent_notification_email": true, "email_cc": "", "related_tickets_count": 0, "days_old_in_minutes": 152309, "days_old": "105d 18h 29m", "tech_type": "Administrator", "resolution_categories": [{ "name": "Duplicate Issue", "id": 15, "is_resolved": false, "is_active": true }, { "name": "End User Submission", "id": 16, "is_resolved": false, "is_active": true }, { "name": "No Longer Valid", "id": 17, "is_resolved": false, "is_active": true }, { "name": "No Response", "id": 18, "is_resolved": false, "is_active": true }, { "name": "Unable to Replicate", "id": 19, "is_resolved": false, "is_active": true }, { "name": "Unable to Resolve", "id": 20, "is_resolved": false, "is_active": true }], "users": [{ "user_id": 3, "user_fullname": "Mike Clements", "is_primary": true, "start_date": "2015-11-12T18:39:54.3900000", "stop_date": null }], "technicians": [{ "user_id": 1, "user_fullname": "Jon Vickers", "is_primary": true, "start_date": "2015-11-13T10:47:13.3300000", "stop_date": null }, { "user_id": 2, "user_fullname": "Patrick Clements", "is_primary": false, "start_date": "2015-11-13T17:31:29.9330000", "stop_date": null }], "ticketlogs": [{ "id": 1388373, "ticket_key": "haohbb", "user_id": 3, "user_email": "mike.clements@bigwebapps.com", "user_firstname": "Mike", "user_lastname": "Clements", "record_date": "2015-11-16T02:41:00.0000000", "log_type": "Response", "note": "Okay, think about a good long term solution because this will affect everyone that has multiple instances setup.\r\n\r\nThanks,\r\n\r\nMike Clements\r\nPhone: 866.996.1200 x 703\r\nmike.clements@bigwebapps.com\r\nbigWebApps", "ticket_time_id": 0, "sent_to": "Jon Vickers, Patrick Clements", "is_waiting": null, "sla_used": 0 }, { "id": 1388250, "ticket_key": "haohbb", "user_id": 1, "user_email": "jon.vickers@micajah.com", "user_firstname": "Jon", "user_lastname": "Vickers", "record_date": "2015-11-15T20:45:00.0000000", "log_type": "Response", "note": "Yes, I was asking Vladimir for clarification. I know we have a problem but I am trying to understand the best way to fix it.\r\n\r\nSome features like LDAP etc are org level features, I can’t decide if we should do the billing entirely at the ORG or  INSTANCE level", "ticket_time_id": 0, "sent_to": "Mike Clements, Patrick Clements", "is_waiting": null, "sla_used": 0 }, { "id": 1388033, "ticket_key": "haohbb", "user_id": 3, "user_email": "mike.clements@bigwebapps.com", "user_firstname": "Mike", "user_lastname": "Clements", "record_date": "2015-11-14T21:44:00.0000000", "log_type": "Response", "note": "Did you read this ticket?  There’s a problem with billing at the Org level.  Once instance had a CC associated to it and the other one didn’t.  So when the instance expired it locked up the active one.\r\n\r\nThanks,\r\n\r\nMike Clements\r\nPhone: 866.996.1200 x 703\r\nmike.clements@bigwebapps.com\r\nbigWebApps", "ticket_time_id": 0, "sent_to": "Jon Vickers, Patrick Clements", "is_waiting": null, "sla_used": 0 }, { "id": 1379430, "ticket_key": "haohbb", "user_id": 3, "user_email": "mike.clements@bigwebapps.com", "user_firstname": "Mike", "user_lastname": "Clements", "record_date": "2015-11-11T15:54:00.0000000", "log_type": "Response", "note": "Michael,\r\n\r\nIt looks like your service has expired.  Have you guys updated your credit card in the billing section lately?\r\n\r\nThank you,\r\n\r\nMike Clements\r\nPhone: 866.996.1200 x 703\r\nmike.clements@bigwebapps.com\r\nbigWebApps", "ticket_time_id": 0, "sent_to": "Michael Jasien, New Ticket Queue", "is_waiting": null, "sla_used": 3 }, { "id": 1379416, "ticket_key": "haohbb", "user_id": 17927, "user_email": "mike.jasien@sealandchem.com", "user_firstname": "Michael", "user_lastname": "Jasien", "record_date": "2015-11-11T15:51:00.0000000", "log_type": "Initial Post", "note": "Hi , any insight on why our helpdesk emails are bouncing?\r\n\r\nThanks,\r\nMike\r\n\r\n-----Original email parser.", "ticket_time_id": 0, "sent_to": "", "is_waiting": null, "sla_used": 0 }], "assets": [], "attachments": [{ "id": "tickets-tickets-files/409465/01D11C6FD2513520image001png.png", "name": "01D11C6FD2513520image001png.png", "url": "https://sherpadeskfiles.blob.core.windows.net/fe7f5617f00947e082232b1b2409b4e1p/tickets-tickets-files/409465/01D11C6FD2513520image001png.png", "date": "2015-11-11T15:58:18.0000000", "size": 32555 }, { "id": "tickets-tickets-files/409465/C7C3A4E0E2754D80AFD25F8C117998D5.png", "name": "C7C3A4E0E2754D80AFD25F8C117998D5.png", "url": "https://sherpadeskfiles.blob.core.windows.net/fe7f5617f00947e082232b1b2409b4e1p/tickets-tickets-files/409465/C7C3A4E0E2754D80AFD25F8C117998D5.png", "date": "2015-11-11T16:00:18.0000000", "size": 217029 }], "classes": [{ "name": "General Inquiry", "id": 1, "parent_id": 0, "hierarchy_level": 0, "sub": null, "is_lastchild": false, "is_restrict_to_techs": false, "is_active": true, "priority_id": 16, "level_override": 1 }], "BillRate": 0, "WaitingUsedBeforeReopen": 0 },
+	    "tickets/4f5ijv": { "id": 472187, "key": "xa1o2k", "created_time": "2016-03-01T17:14:00.0000000", "closed_time": "2016-03-02T14:26:00.0000000", "request_completion_date": null, "is_waiting_on_response": false, "waiting_date": null, "waiting_minutes": 0, "followup_date": null, "sla_complete_date": null, "sla_response_date": null, "confirmed_date": null, "next_step_date": null, "updated_time": "2016-03-03T16:46:00.0000000", "organization_key": "2939b13ac393462b9ae8b9e4d99b521d", "department_key": 1, "is_deleted": false, "user_id": 3, "user_title": "", "user_firstname": "Mike", "user_lastname": "Clements", "user_email": "mike.clements@bigwebapps.com", "tech_id": 270, "tech_firstname": "Eugene", "tech_lastname": "Tolmachov", "tech_email": "eugene@micajah.com", "priority": 4, "priority_name": "UI Improvements", "priority_id": 3, "user_created_id": 270, "user_created_firstname": "Eugene", "user_created_lastname": "Tolmachov", "user_created_email": "eugene@micajah.com", "status": "Open", "location_id": 3, "location_name": "Los Angeles", "class_id": 5300, "class_name": "SherpaDesk / Mobile", "project_id": 0, "project_name": "", "serial_number": "", "folder_id": 0, "folder_path": "", "creation_category_id": 0, "creation_category_name": "", "subject": "Mobile App - Access to Notes and Files", "note": "", "number": 5078, "prefix": "", "customfields_xml": "<root />", "parts_cost": 0.0000, "labor_cost": 0.0000, "total_time_in_minutes": 600, "misc_cost": 0.0000, "travel_cost": 0.0000, "request_completion_note": "", "followup_note": "", "initial_response": true, "sla_complete_used": 372, "sla_response_used": 0, "level": 3, "level_name": "Active Plate", "is_via_email_parser": false, "account_id": -1, "account_name": "SherpaDesk Support", "account_location_id": 3, "account_location_name": "Los Angeles", "resolution_category_id": 0, "resolution_category_name": "", "is_resolved": false, "confirmed_by_name": "", "is_confirmed": false, "confirmed_note": "", "support_group_id": 0, "support_group_name": "", "is_handle_by_callcentre": false, "submission_category": "", "is_user_inactive": false, "next_step": "", "total_hours": 10.0000, "remaining_hours": 0.0000, "estimated_time": 0, "percentage_complete": 0, "workpad": "", "scheduled_ticket_id": 0, "kb": false, "kb_type": 0, "kb_publish_level": 0, "kb_search_desc": "", "kb_alternate_id": "", "kb_helpful_count": 0, "kb_portal_alias": "Mobile", "initial_post": "Eugene,\r\n\r\nWe need to be able to access Notes and Files from the Account Manager section in the mobile.  Is this something you could add fairly easily to the mobile?\r\n\r\nThank you,<br><br>This ticket was entered by Eugene Tolmachov", "is_sent_notification_email": true, "email_cc": "", "related_tickets_count": 0, "days_old_in_minutes": 11365, "days_old": "7d 21h 25m", "tech_type": "Administrator", "resolution_categories": [{ "name": "Duplicate Issue", "id": 15, "is_resolved": false, "is_active": true }, { "name": "End User Submission", "id": 16, "is_resolved": false, "is_active": true }, { "name": "No Longer Valid", "id": 17, "is_resolved": false, "is_active": true }, { "name": "No Response", "id": 18, "is_resolved": false, "is_active": true }, { "name": "Unable to Replicate", "id": 19, "is_resolved": false, "is_active": true }, { "name": "Unable to Resolve", "id": 20, "is_resolved": false, "is_active": true }], "users": [{ "user_id": 3, "user_fullname": "Mike Clements", "is_primary": true, "start_date": "2016-03-01T17:14:04.0770000", "stop_date": null }], "technicians": [{ "user_id": 270, "user_fullname": "Eugene Tolmachov", "is_primary": true, "start_date": "2016-03-02T16:59:53.6930000", "stop_date": null }], "ticketlogs": [{ "id": 1646733, "ticket_key": "xa1o2k", "user_id": 270, "user_email": "eugene@micajah.com", "user_firstname": "Eugene", "user_lastname": "Tolmachov", "record_date": "2016-03-03T16:46:00.0000000", "log_type": "Response", "note": "native updated immediately also, app just show mobile site&lt;br&gt;", "ticket_time_id": 0, "sent_to": "Mike Clements", "is_waiting": false, "sla_used": 0 }, { "id": 1646697, "ticket_key": "xa1o2k", "user_id": 3, "user_email": "mike.clements@bigwebapps.com", "user_firstname": "Mike", "user_lastname": "Clements", "record_date": "2016-03-03T16:37:00.0000000", "log_type": "Response", "note": "Pat had added some additional comments as well, breaking out the Files and Nots into their own tab.\r\n\r\nAlso, when we do these updates I know the mobile site m.sherpadesk.com is immediately updated, but what about the native app?\r\n\r\nThanks,\r\n\r\nMike Clements\r\nPhone: 866.996.1200 x 703\r\nmike.clements@bigwebapps.com\r\nbigWebApps", "ticket_time_id": 0, "sent_to": "Eugene Tolmachov", "is_waiting": null, "sla_used": 0 }, { "id": 1645254, "ticket_key": "xa1o2k", "user_id": 270, "user_email": "eugene@micajah.com", "user_firstname": "Eugene", "user_lastname": "Tolmachov", "record_date": "2016-03-03T11:10:00.0000000", "log_type": "Response", "note": "yea, this is good,&lt;br&gt;ill do it", "ticket_time_id": 0, "sent_to": "Mike Clements", "is_waiting": false, "sla_used": 0 }, { "id": 1643104, "ticket_key": "xa1o2k", "user_id": 3, "user_email": "mike.clements@bigwebapps.com", "user_firstname": "Mike", "user_lastname": "Clements", "record_date": "2016-03-02T17:00:00.0000000", "log_type": "ReOpened", "note": "Ticket was ReOpened by Mike Clements.", "ticket_time_id": 0, "sent_to": "", "is_waiting": null, "sla_used": 0 }, { "id": 1643098, "ticket_key": "xa1o2k", "user_id": 3, "user_email": "mike.clements@bigwebapps.com", "user_firstname": "Mike", "user_lastname": "Clements", "record_date": "2016-03-02T16:59:00.0000000", "log_type": "Response", "note": "Eugene,\r\n\r\nThis looks pretty good.  Is there any way to fix the spacing on the notes?\r\n\r\nHere’s what it looks like on the web\r\n[cid:4078BF5AC2C94B6FBAA6FE3E4A74668A]\r\n\r\nHowever if you look at it on the mobile theres some weird spacing\r\n\r\n[cid:94881AE156B04D518CCF86474FD506BB]\r\nMike Clements\r\nPhone: 866.996.1200 x 703\r\nmike.clements@bigwebapps.com\r\nbigWebApps\r\n\r\nFollowing files were uploaded: 4078BF5A-C2C9-4B6F-BAA6-FE3E4A74668A.png, 94881AE1-56B0-4D51-8CCF-86474FD506BB.png", "ticket_time_id": 0, "sent_to": "Eugene Tolmachov", "is_waiting": null, "sla_used": 0 }, { "id": 1642226, "ticket_key": "xa1o2k", "user_id": 270, "user_email": "eugene@micajah.com", "user_firstname": "Eugene", "user_lastname": "Tolmachov", "record_date": "2016-03-02T14:27:00.0000000", "log_type": "Response", "note": "[cid:Copy9a97982650c5zip]", "ticket_time_id": 0, "sent_to": "Mike Clements", "is_waiting": false, "sla_used": 0 }, { "id": 1642224, "ticket_key": "xa1o2k", "user_id": 270, "user_email": "eugene@micajah.com", "user_firstname": "Eugene", "user_lastname": "Tolmachov", "record_date": "2016-03-02T14:26:00.0000000", "log_type": "Closed", "note": "done<br><br>Ticket was CLOSED by Eugene Tolmachov.<br>Eugene Tolmachov logged 10.00 hours (10 hours) as Software Dev task type.", "ticket_time_id": 0, "sent_to": "", "is_waiting": null, "sla_used": 0 }, { "id": 1639415, "ticket_key": "xa1o2k", "user_id": 3, "user_email": "mike.clements@bigwebapps.com", "user_firstname": "Mike", "user_lastname": "Clements", "record_date": "2016-03-01T17:14:00.0000000", "log_type": "Initial Post", "note": "Eugene,\r\n\r\nWe need to be able to access Notes and Files from the Account Manager section in the mobile.  Is this something you could add fairly easily to the mobile?\r\n\r\nThank you,<br><br>This ticket was entered by Eugene Tolmachov", "ticket_time_id": 0, "sent_to": "", "is_waiting": null, "sla_used": 0 }], "assets": [], "attachments": [{ "id": "tickets-tickets-files/472187/Copy9a97982650c5.zip", "name": "Copy9a97982650c5.zip", "url": "https://sherpadeskfiles.blob.core.windows.net/fe7f5617f00947e082232b1b2409b4e1p/tickets-tickets-files/472187/Copy9a97982650c5.zip", "date": "2016-03-02T14:26:36.0000000", "size": 74099 }, { "id": "tickets-tickets-files/472187/4078BF5A-C2C9-4B6F-BAA6-FE3E4A74668A.png", "name": "4078BF5A-C2C9-4B6F-BAA6-FE3E4A74668A.png", "url": "https://sherpadeskfiles.blob.core.windows.net/fe7f5617f00947e082232b1b2409b4e1p/tickets-tickets-files/472187/4078BF5A-C2C9-4B6F-BAA6-FE3E4A74668A.png", "date": "2016-03-02T16:59:22.0000000", "size": 71798 }, { "id": "tickets-tickets-files/472187/94881AE1-56B0-4D51-8CCF-86474FD506BB.png", "name": "94881AE1-56B0-4D51-8CCF-86474FD506BB.png", "url": "https://sherpadeskfiles.blob.core.windows.net/fe7f5617f00947e082232b1b2409b4e1p/tickets-tickets-files/472187/94881AE1-56B0-4D51-8CCF-86474FD506BB.png", "date": "2016-03-02T16:59:22.0000000", "size": 121846 }], "classes": [{ "name": "SherpaDesk", "id": 268, "parent_id": 0, "hierarchy_level": 0, "sub": null, "is_lastchild": false, "is_restrict_to_techs": false, "is_active": true, "priority_id": 0, "level_override": 0 }, { "name": "Mobile", "id": 5300, "parent_id": 268, "hierarchy_level": 1, "sub": null, "is_lastchild": true, "is_restrict_to_techs": true, "is_active": true, "priority_id": 0, "level_override": 0 }], "BillRate": 0, "WaitingUsedBeforeReopen": 0 },
 	};
 
 
@@ -63162,10 +63162,10 @@
 	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 	}
 	__export(__webpack_require__(378));
-	__export(__webpack_require__(393));
+	__export(__webpack_require__(394));
 	__export(__webpack_require__(380));
 	__export(__webpack_require__(382));
-	__export(__webpack_require__(392));
+	__export(__webpack_require__(393));
 
 
 /***/ },
@@ -63231,7 +63231,7 @@
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(369);
 	var tickets_list_1 = __webpack_require__(380);
-	var action_button_1 = __webpack_require__(392);
+	var action_button_1 = __webpack_require__(393);
 	var QueueTicketsPage = (function () {
 	    function QueueTicketsPage(nav, navParams, dataProvider) {
 	        var _this = this;
@@ -63318,7 +63318,7 @@
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(369);
 	var posts_list_1 = __webpack_require__(382);
-	var modals_1 = __webpack_require__(390);
+	var modals_1 = __webpack_require__(391);
 	var pipes_1 = __webpack_require__(383);
 	var TicketDetailsPage = (function () {
 	    function TicketDetailsPage(nav, navParams, dataProvider, config) {
@@ -63340,6 +63340,7 @@
 	                return;
 	            }
 	            _this.ticket = data;
+	            _this.attachments = data.attachments;
 	            _this.post1 = [data.ticketlogs.shift()];
 	            _this.posts = data.ticketlogs;
 	        }, function (error) {
@@ -63486,6 +63487,7 @@
 	var PostsListComponent = (function () {
 	    function PostsListComponent() {
 	        this.posts = [];
+	        this.attachments = [];
 	    }
 	    Object.defineProperty(PostsListComponent.prototype, "Anotherdate", {
 	        get: function () {
@@ -63505,12 +63507,16 @@
 	        core_1.Input(), 
 	        __metadata('design:type', Array)
 	    ], PostsListComponent.prototype, "posts", void 0);
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', Array)
+	    ], PostsListComponent.prototype, "attachments", void 0);
 	    PostsListComponent = __decorate([
 	        core_1.Component({
 	            selector: 'posts-list',
 	            templateUrl: 'build/components/posts-list/posts-list.html',
 	            directives: [ionic_1.IONIC_DIRECTIVES],
-	            pipes: [pipes_1.GravatarPipe, pipes_1.LinebreaksPipe, pipes_1.DaysoldPipe],
+	            pipes: [pipes_1.GravatarPipe, pipes_1.LinebreaksPipe, pipes_1.DaysoldPipe, pipes_1.FilesPipe],
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], PostsListComponent);
@@ -63531,6 +63537,7 @@
 	__export(__webpack_require__(385));
 	__export(__webpack_require__(386));
 	__export(__webpack_require__(389));
+	__export(__webpack_require__(390));
 
 
 /***/ },
@@ -63905,14 +63912,123 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	function __export(m) {
-	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-	}
-	__export(__webpack_require__(391));
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(7);
+	var isPhonegap = false;
+	var FileUrlHelper = {
+	    ReplaceAll: function (note, find, replace) {
+	        return note.split(find).join(replace);
+	    },
+	    checkURL: function (url) {
+	        if (!url)
+	            return false;
+	        return (url.trim().match(/(jpeg|jpg|gif|png)$/i) !== null);
+	    },
+	    matchKey: function (search, array) {
+	        for (var key in array) {
+	            if (key.indexOf(search) != -1) {
+	                return key;
+	            }
+	        }
+	        return "";
+	    },
+	    addUrls: function (note, files) {
+	        var length = files.length;
+	        var filearray = {};
+	        if (length) {
+	            var inlineImg = note.match(/\[cid:[^\[\]]*]/g);
+	            for (var i = 0; i < length; i++) {
+	                var name = files[i].name;
+	                note = FileUrlHelper.ReplaceAll(note, " " + name, files[i].is_deleted ? "" : FileUrlHelper.getFileLink(files[i].url, name));
+	                filearray['"' + name.substring(0, name.lastIndexOf(".")) + '"'] = files[i].url;
+	            }
+	            if (inlineImg) {
+	                for (var j = 0; j < inlineImg.length; j++) {
+	                    var filename = inlineImg[j].slice(5, -1);
+	                    if (filename.indexOf("_link_") >= 0) {
+	                        filename = filename.replace("_link_", "");
+	                    }
+	                    else {
+	                        filename = FileUrlHelper.matchKey(filename.slice(0, -3), filearray);
+	                        if (filename && typeof (filearray[filename]) !== 'undefined') {
+	                            filename = filearray[filename];
+	                        }
+	                        else
+	                            filename = "";
+	                    }
+	                    if (filename.length)
+	                        note = FileUrlHelper.ReplaceAll(note, inlineImg[j], FileUrlHelper.getFileLink(filename, inlineImg[j].slice(5, -1)));
+	                }
+	            }
+	            //note = note.replaceAll("Following file was ", "");
+	            if (length > 1) {
+	                //note = note.replaceAll("Following files were ", "");
+	                note = FileUrlHelper.ReplaceAll(note, "a>,", "a>");
+	            }
+	            //note = note.replaceAll("uploaded:", "");
+	            note = FileUrlHelper.ReplaceAll(note, "a>.", "a>");
+	        }
+	        return note;
+	    },
+	    //get file of the folllowing options: file, name
+	    getFileLink: function (file, name) {
+	        var img = "";
+	        if (FileUrlHelper.checkURL(file) || FileUrlHelper.checkURL(name))
+	            img = "<img class=\"attachment\" src=\"" + file + "\">";
+	        else
+	            img = "<i class='ion-android-document ion-3x ionColor'></i> &nbsp;" + (name || decodeURIComponent(file.split("/").slice(-1))) + "<p></p>";
+	        return "<p/><a class=\"comment_image_link\"" +
+	            (isPhonegap ? (" href=# onclick='openURL(\"" + file + "\")'>" + img + "</a>") :
+	                (" target=\"_blank\" href=\"" + file + "\">" + img + "</a>"));
+	    }
+	};
+	var FilesPipe = (function () {
+	    function FilesPipe() {
+	    }
+	    FilesPipe.prototype.transform = function (value, args) {
+	        value = value || "";
+	        var files = args[0] || [];
+	        if (!value || !files || files.length == 0 || !(~value.indexOf("cid:") || ~value.indexOf("ollowing file")))
+	            return value;
+	        console.log(args);
+	        files.sort(function (a, b) {
+	            return b.name.length - a.name.length;
+	        });
+	        value = FileUrlHelper.addUrls(value, files);
+	        return value;
+	    };
+	    FilesPipe = __decorate([
+	        core_1.Pipe({
+	            name: 'Files'
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], FilesPipe);
+	    return FilesPipe;
+	}());
+	exports.FilesPipe = FilesPipe;
 
 
 /***/ },
 /* 391 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	function __export(m) {
+	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+	}
+	__export(__webpack_require__(392));
+
+
+/***/ },
+/* 392 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -63969,7 +64085,7 @@
 
 
 /***/ },
-/* 392 */
+/* 393 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -64048,7 +64164,7 @@
 
 
 /***/ },
-/* 393 */
+/* 394 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -64064,7 +64180,7 @@
 	//in case on using ionic "ion-card"
 	var ionic_1 = __webpack_require__(5);
 	var core_1 = __webpack_require__(7);
-	var account_details_1 = __webpack_require__(394);
+	var account_details_1 = __webpack_require__(395);
 	var pipes_1 = __webpack_require__(383);
 	var AccountsListComponent = (function () {
 	    /*@Input()
@@ -64099,7 +64215,7 @@
 
 
 /***/ },
-/* 394 */
+/* 395 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -64115,7 +64231,7 @@
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(369);
 	var tickets_list_1 = __webpack_require__(380);
-	var action_button_1 = __webpack_require__(392);
+	var action_button_1 = __webpack_require__(393);
 	var AccountDetailsPage = (function () {
 	    function AccountDetailsPage(nav, navParams, dataProvider) {
 	        var _this = this;
@@ -64148,7 +64264,7 @@
 
 
 /***/ },
-/* 395 */
+/* 396 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -64162,7 +64278,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(5);
-	var invoice_details_1 = __webpack_require__(396);
+	var invoice_details_1 = __webpack_require__(397);
 	var components_1 = __webpack_require__(377);
 	var InvoicesPage = (function () {
 	    function InvoicesPage(nav) {
@@ -64182,7 +64298,7 @@
 
 
 /***/ },
-/* 396 */
+/* 397 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -64212,7 +64328,7 @@
 
 
 /***/ },
-/* 397 */
+/* 398 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -64250,7 +64366,7 @@
 
 
 /***/ },
-/* 398 */
+/* 399 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -64264,7 +64380,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(5);
-	var timelog_1 = __webpack_require__(399);
+	var timelog_1 = __webpack_require__(400);
 	var components_1 = __webpack_require__(377);
 	var TimelogsPage = (function () {
 	    function TimelogsPage(nav) {
@@ -64284,7 +64400,7 @@
 
 
 /***/ },
-/* 399 */
+/* 400 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -64316,7 +64432,7 @@
 
 
 /***/ },
-/* 400 */
+/* 401 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -64363,7 +64479,7 @@
 
 
 /***/ },
-/* 401 */
+/* 402 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -64379,8 +64495,8 @@
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(369);
 	var components_1 = __webpack_require__(377);
-	var tickets_1 = __webpack_require__(400);
-	var account_details_1 = __webpack_require__(394);
+	var tickets_1 = __webpack_require__(401);
+	var account_details_1 = __webpack_require__(395);
 	var pipes_1 = __webpack_require__(383);
 	var DashboardPage = (function () {
 	    function DashboardPage(nav, config, dataProvider) {
@@ -64394,7 +64510,7 @@
 	        dataProvider.getQueueList(3).subscribe(function (data) { _this.queues = data; }, function (error) {
 	            console.log(error || 'Server error');
 	        });
-	        dataProvider.getAccountList(true, { limit: 10 }).subscribe(function (data) { _this.accounts = data; }, function (error) {
+	        dataProvider.getAccountList(true, { limit: 5 }).subscribe(function (data) { _this.accounts = data; }, function (error) {
 	            console.log(error || 'Server error');
 	        });
 	        dataProvider.getTicketsCounts().subscribe(function (data) { _this.counts = data; }, function (error) {
@@ -64417,7 +64533,7 @@
 
 
 /***/ },
-/* 402 */
+/* 403 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -64432,8 +64548,8 @@
 	};
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(369);
-	var dashboard_1 = __webpack_require__(401);
-	var tickets_1 = __webpack_require__(400);
+	var dashboard_1 = __webpack_require__(402);
+	var tickets_1 = __webpack_require__(401);
 	var OrganizationsPage = (function () {
 	    function OrganizationsPage(nav, dataProvider, config) {
 	        var _this = this;
@@ -64495,7 +64611,7 @@
 
 
 /***/ },
-/* 403 */
+/* 404 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -64510,8 +64626,8 @@
 	};
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(369);
-	var organizations_1 = __webpack_require__(402);
-	var signup_1 = __webpack_require__(404);
+	var organizations_1 = __webpack_require__(403);
+	var signup_1 = __webpack_require__(405);
 	var LoginPage = (function () {
 	    function LoginPage(nav, dataProvider, config) {
 	        this.nav = nav;
@@ -64553,7 +64669,7 @@
 
 
 /***/ },
-/* 404 */
+/* 405 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";

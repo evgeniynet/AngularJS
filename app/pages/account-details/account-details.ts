@@ -13,13 +13,20 @@ export class AccountDetailsPage {
         this.details_tab = "Stat";
         this.navParams = navParams;
         // If we navigated to this page, we will have an item available as a nav param
-        this.account = {  
+        var account = {  
+            "name":"",
             "account_statistics":{  
                 "ticket_counts":{  
+                    "open":0,
+                    "closed":0,
                 },
+                "timelogs":0,
+                "invoices":0,
+                "hours":0,
+                "expenses":0
             }
         };
-        this.account = this.navParams.data;
+        this.account = this.navParams.data || account;
         
         this.tickets = null;
         this.dataProvider = dataProvider;
