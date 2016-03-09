@@ -7737,7 +7737,8 @@ div.selection {
 
 .text {
   font-size: 16px !important;
-  color: #fff !important; }
+  color: #fff !important;
+  line-height: 22px; }
 
 ion-list > .item:first-child {
   border-top: 0px solid #c8c7cc; }
@@ -7878,10 +7879,10 @@ ion-list > .item:first-child {
   display: block;
   display: -webkit-box;
   width: 100%;
-  height: 52px;
+  height: 60px;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  line-height: 19px !important;
+  line-height: 20px !important;
   text-overflow: ellipsis;
   color: #dadada; }
 
@@ -8209,7 +8210,7 @@ scroll-content {
 .admin {
   -webkit-box-orient: vertical;
   overflow: hidden;
-  line-height: 22px;
+  line-height: 25px;
   text-overflow: clip; }
 
 ion-label {
