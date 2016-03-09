@@ -1,6 +1,8 @@
 
 <ion-navbar *navbar><button menuToggle><ion-icon name="menu"></ion-icon></button><p item-right class="text_list grey2">{{ticket.class_name}}</p>
+    <div class="width59">
     <ion-title>{{ticket.status}} | {{ticket.number}}</ion-title>
+        <button danger class="right ticket-button"><ion-icon name="ios-redo"></ion-icon></button></div>
 </ion-navbar>
 
 <ion-content>
@@ -44,8 +46,7 @@
          
         </div>
                
-<br>
-  <ion-list *ngSwitchWhen="'Info'" class="list" no-lines>
+  <ion-list *ngSwitchWhen="'Info'" class="list general-alignment" no-lines>
 <ion-list>
     
     <ion-list>
@@ -115,8 +116,7 @@
       <button secondary block="" type="submit" class="disable-hover button button-default button-block">Add Ticket</button>
     </div>
     </ion-list>
-    <br>
-    <ion-list *ngSwitchWhen="'Options'" class="list alignment-bottom" no-lines>
+    <ion-list *ngSwitchWhen="'Options'" class="list general-alignment" no-lines>
       <button secondary block="" type="submit" class="disable-hover button button-default button-block">Add Time</button>
       <button secondary block="" type="submit" class="disable-hover button button-default button-block img-top">Add Expense</button>
   <button favorite block class="img-top">Transfer Ticket</button>

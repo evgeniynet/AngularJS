@@ -15,14 +15,14 @@
     <div [ngSwitch]="details_tab">
         <div *ngSwitchWhen="'Stat'">
             <ion-list padding class="list" no-lines style="height: 150px;">
-        <div class="blue1 left width75">
+        <div class="blue1 left width75 general-alignment2">
    <ion-item> Open Tickets</ion-item>
   <ion-item>Invoices</ion-item>
   <ion-item>Expenses</ion-item>
   <ion-item>Hours</ion-item>
     <br>
         </div>
-        <div class="blue2 right width25">
+        <div class="blue2 right width25 general-alignment2">
             <ion-item>{{account.account_statistics.ticket_counts.open}}</ion-item>
             <ion-item>{{account.account_statistics.invoices}}</ion-item>
             <ion-item>{{account.account_statistics.expenses}}$</ion-item>
@@ -37,7 +37,7 @@
         </div>
         <br>
         <ion-list class="list" no-lines *ngSwitchWhen="'Info'">
-        <ion-item><h2 class="left width35 text-left">BWD Acct#</h2>
+        <ion-item class="margin"><h2 class="left width35 text-left">BWD Acct#</h2>
      <h2 class="right width65"></h2>
         </ion-item>
         <ion-item>
@@ -97,10 +97,9 @@
  <h2 class="right width65"></h2>
                </ion-item>
         </ion-list> 
-        <br>
         
         <ion-list class="list" *ngSwitchWhen="'Projects'">
-            <ion-item no-lines>
+            <ion-item no-lines class="margin">
     <p class="text width32 text-left left"></p>
     <h2 class="width17 left text-right table_account">Open</h2> 
     <h2 class="width17 left text-right table_account">Remain</h2> 
@@ -118,17 +117,17 @@
         
         </ion-list>
         
-        <ion-list class="list" *ngSwitchWhen="'Notes'">
+        <ion-list class="list img-top" *ngSwitchWhen="'Notes'">
           <ion-card class="width100 margin">
         <ion-input class="textLogin" type="text" placeholder="Notes:"></ion-input>
   <ion-card-content></ion-card-content>
           <ion-card-content></ion-card-content>
 </ion-card>
     <button secondary menuToggle
-            class="button_reply width28 img-top">Save Notes</button>
+            class="button_reply width32 img-top">Save Notes</button>
         </ion-list>
             <ion-list class="list" no-lines *ngSwitchWhen="'Files'">
-        <ion-item><h2 class="left width35 text-left">file</h2>
+        <ion-item class="margin"><h2 class="left width35 text-left">file</h2>
      <h2 class="right width65">zip</h2>
         </ion-item>
             </ion-list>
