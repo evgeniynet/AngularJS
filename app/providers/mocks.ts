@@ -58,6 +58,9 @@ export let MOCKS =
      ],
      
      "config": {
+         "key": "re36rym3mjqxm8ej2cscfajmxpsew33m",
+         "org" : "zwoja4",
+         "instance" : "ms2asm",
          "is_onhold_status": false,
          "is_time_tracking": true,
          "is_freshbooks": false,

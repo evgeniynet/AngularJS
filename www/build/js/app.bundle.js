@@ -3188,6 +3188,8 @@
 	var ionic_1 = __webpack_require__(5);
 	var api_data_1 = __webpack_require__(358);
 	var data_provider_1 = __webpack_require__(369);
+	var config_1 = __webpack_require__(359);
+	var mocks_1 = __webpack_require__(360);
 	var ng2_toastr_1 = __webpack_require__(370);
 	var hello_ionic_1 = __webpack_require__(375);
 	var queues_1 = __webpack_require__(376);
@@ -3205,13 +3207,7 @@
 	        this.platform = platform;
 	        this.initializeApp();
 	        config.alert = toastr;
-	        //set config object
-	        config.current = {
-	            "key": "re36rym3mjqxm8ej2cscfajmxpsew33m",
-	            "org": "zwoja4",
-	            "instance": "ms2asm",
-	            currency: "$"
-	        };
+	        config.current = {};
 	        // set our app's pages
 	        this.pages = [
 	            { title: 'Dashboard', component: dashboard_1.DashboardPage, icon: "speedometer" },
@@ -3224,8 +3220,21 @@
 	            { title: 'Signout', component: login_1.LoginPage, icon: "md-log-in" },
 	            { title: 'Full App', component: hello_ionic_1.HelloIonicPage, icon: "md-share-alt" },
 	        ];
+	        var current = localStorage.current;
+	        //set test config object
+	        if (current && current != "undefined")
+	            config.current = JSON.parse(current);
+	        else if (config_1.dontClearCache)
+	            config.current = mocks_1.MOCKS["config"];
+	        else {
+	            this.rootPage = login_1.LoginPage;
+	            return;
+	        }
 	        // make HelloIonicPage the root (or first) page
-	        this.rootPage = tickets_1.TicketsPage;
+	        if (config.current.user.is_techoradmin)
+	            this.rootPage = dashboard_1.DashboardPage;
+	        else
+	            this.rootPage = tickets_1.TicketsPage;
 	    }
 	    MyApp.prototype.initializeApp = function () {
 	        this.platform.ready().then(function () {
@@ -62341,6 +62350,9 @@
 	        }
 	    ],
 	    "config": {
+	        "key": "re36rym3mjqxm8ej2cscfajmxpsew33m",
+	        "org": "zwoja4",
+	        "instance": "ms2asm",
 	        "is_onhold_status": false,
 	        "is_time_tracking": true,
 	        "is_freshbooks": false,
@@ -62734,7 +62746,6 @@
 	            'Accept': 'application/json, text/javascript, */*',
 	            'Authorization': 'Basic ' + btoa(username + ":" + password)
 	        });
-	        console.log(headers);
 	        return this.apiData.request(url, "", "POST", headers);
 	    };
 	    DataProvider.prototype.getOrganizations = function (token) {
@@ -62798,12 +62809,14 @@
 	            return arr;
 	        });
 	    };
-	    DataProvider.prototype.getAccountList = function (is_dashboard, is_no_stat, is_open) {
+	    DataProvider.prototype.getAccountList = function (is_dashboard, pager, is_no_stat, is_open) {
 	        var url = "accounts";
 	        if (is_no_stat)
 	            url = url.addp("is_with_statistics", "false");
 	        if (is_open)
 	            url = url.addp("is_open_tickets", "true");
+	        if (pager)
+	            url = url.addp("limit", pager.limit);
 	        return this.apiData.get(url).map(function (arr) {
 	            var result = [];
 	            if (is_dashboard && arr) {
@@ -64220,7 +64233,7 @@
 	        var _this = this;
 	        this.nav = nav;
 	        this.accounts = null;
-	        dataProvider.getAccountList(false, true, true).subscribe(function (data) { _this.accounts = data; }, function (error) {
+	        dataProvider.getAccountList(false, null, true, true).subscribe(function (data) { _this.accounts = data; }, function (error) {
 	            console.log(error || 'Server error');
 	        });
 	    }
@@ -64378,11 +64391,10 @@
 	        this.queues = null;
 	        this.accounts = null;
 	        this.counts = { open_as_tech: 0 };
-	        console.log(config.current);
 	        dataProvider.getQueueList(3).subscribe(function (data) { _this.queues = data; }, function (error) {
 	            console.log(error || 'Server error');
 	        });
-	        dataProvider.getAccountList(true).subscribe(function (data) { _this.accounts = data; }, function (error) {
+	        dataProvider.getAccountList(true, { limit: 10 }).subscribe(function (data) { _this.accounts = data; }, function (error) {
 	            console.log(error || 'Server error');
 	        });
 	        dataProvider.getTicketsCounts().subscribe(function (data) { _this.counts = data; }, function (error) {
@@ -64421,6 +64433,7 @@
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(369);
 	var dashboard_1 = __webpack_require__(401);
+	var tickets_1 = __webpack_require__(400);
 	var OrganizationsPage = (function () {
 	    function OrganizationsPage(nav, dataProvider, config) {
 	        var _this = this;
@@ -64432,6 +64445,8 @@
 	        this.dataProvider.getOrganizations(this.config.current.key).subscribe(function (data) {
 	            _this.list = data;
 	        }, function (error) {
+	            _this.alert.error(error || 'Server error', 'Oops!');
+	            //setTimeout(() => { this.nav.pop(); }, 3000);
 	            console.log(error || 'Server error');
 	        });
 	    }
@@ -64444,19 +64459,29 @@
 	                this.list[i].expanded = false;
 	        }
 	    };
-	    OrganizationsPage.prototype.toggle1 = function (org) {
-	        this.list = this.list.forEach(function (d) {
-	            if (d == org)
-	                d.expanded = !d.expanded;
-	            else if (d.expanded)
-	                d.expanded = false;
-	        });
-	    };
 	    OrganizationsPage.prototype.onSelectInst = function (event, instance) {
-	        console.log(instance);
+	        var _this = this;
 	        this.config.current.org = instance.org;
 	        this.config.current.instance = instance.inst;
-	        this.nav.setRoot(dashboard_1.DashboardPage);
+	        localStorage.current = JSON.stringify(this.config.current);
+	        this.dataProvider.getConfig().subscribe(function (data) {
+	            var key = _this.config.current.key;
+	            _this.config.current = data;
+	            _this.config.current.key = key;
+	            _this.config.current.org = instance.org;
+	            _this.config.current.instance = instance.inst;
+	            localStorage.current = JSON.stringify(_this.config.current);
+	            if (_this.config.current.user.is_techoradmin)
+	                _this.nav.setRoot(dashboard_1.DashboardPage);
+	            else
+	                _this.nav.setRoot(tickets_1.TicketsPage);
+	        }, function (error) {
+	            _this.alert.error(error || 'Server error', 'Oops!');
+	            setTimeout(function () {
+	                _this.nav.pop();
+	            }, 3000);
+	            console.log(error || 'Server error');
+	        });
 	    };
 	    OrganizationsPage = __decorate([
 	        ionic_1.Page({
@@ -64502,6 +64527,7 @@
 	        if (form.valid) {
 	            this.dataProvider.checkLogin(form.value.email, form.value.password).subscribe(function (data) {
 	                _this.config.current.key = data.api_token;
+	                localStorage.current = JSON.stringify(_this.config.current);
 	                _this.nav.push(organizations_1.OrganizationsPage);
 	            }, function (error) {
 	                _this.alert.error('There was a problem with your login.  Please try again.', 'Oops!');

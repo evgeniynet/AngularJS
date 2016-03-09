@@ -21,7 +21,7 @@ export class LoginPage {
         if (form.valid) { this.dataProvider.checkLogin(form.value.email,form.value.password).subscribe(
                 data => {
                     this.config.current.key =  data.api_token;
-                    this.nav.push(OrganizationsPage);
+                    localStorage.current = JSON.stringify(this.config.current); this.nav.push(OrganizationsPage);
                 }, 
                 error => { 
                     this.alert.error('There was a problem with your login.  Please try again.', 'Oops!');

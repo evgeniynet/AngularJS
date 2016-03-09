@@ -25,7 +25,7 @@ export class DashboardPage {
                 console.log(error || 'Server error');}
         ); 
         
-        dataProvider.getAccountList(true).subscribe(
+        dataProvider.getAccountList(true, {limit:5}).subscribe(
             data => {this.accounts = data}, 
             error => { 
                 console.log(error || 'Server error');}

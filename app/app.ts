@@ -1,6 +1,8 @@
 import {App, IonicApp, Config, Platform} from 'ionic-framework/ionic';
 import {ApiData} from './providers/api-data';
 import {DataProvider} from './providers/data-provider';
+import {dontClearCache} from './providers/config';
+import {MOCKS} from './providers/mocks';
 import {ToastsManager} from 'ng2-toastr/ng2-toastr';
 import {HelloIonicPage} from './pages/hello-ionic/hello-ionic';
 import {ListPage} from './pages/list/list';
@@ -31,15 +33,8 @@ class MyApp {
     this.initializeApp();
         
     config.alert = toastr;
-    
-    //set config object
-    config.current = {
-    "key": "re36rym3mjqxm8ej2cscfajmxpsew33m",
-    "org" : "zwoja4",
-    "instance" : "ms2asm",
-    currency: "$"
-    };
-
+    config.current = {};
+        
     // set our app's pages
     this.pages = [
         { title: 'Dashboard', component: DashboardPage, icon: "speedometer" },
@@ -52,9 +47,25 @@ class MyApp {
         { title: 'Signout', component: LoginPage, icon: "md-log-in" },
         { title: 'Full App', component: HelloIonicPage, icon: "md-share-alt" },
     ];
+        
+        var current = localStorage.current;
+
+        //set test config object
+        if (current && current != "undefined")
+            config.current = JSON.parse(current);
+        else if (dontClearCache)
+            config.current = MOCKS["config"];
+        else
+            {
+            this.rootPage = LoginPage;
+            return;
+            }
       
     // make HelloIonicPage the root (or first) page
-        this.rootPage = TicketsPage;
+        if (config.current.user.is_techoradmin)
+            this.rootPage = DashboardPage;
+        else
+            this.rootPage = TicketsPage; 
   }
 
   initializeApp() {

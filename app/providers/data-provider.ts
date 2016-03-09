@@ -106,12 +106,14 @@ getQueueList(limit) {
     });
 }
     
-getAccountList(is_dashboard, is_no_stat, is_open) {
+getAccountList(is_dashboard, pager, is_no_stat, is_open) {
     let url = "accounts";
     if (is_no_stat) 
         url = url.addp("is_with_statistics", "false");
     if (is_open) 
         url = url.addp("is_open_tickets", "true");
+    if (pager) 
+        url = url.addp("limit", pager.limit);
     return this.apiData.get(url).map((arr: Array<any>) => {
         let result = [];
         if (is_dashboard && arr) {
