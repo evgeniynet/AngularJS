@@ -62734,7 +62734,6 @@
 	            'Accept': 'application/json, text/javascript, */*',
 	            'Authorization': 'Basic ' + btoa(username + ":" + password)
 	        });
-	        console.log(headers);
 	        return this.apiData.request(url, "", "POST", headers);
 	    };
 	    DataProvider.prototype.getOrganizations = function (token) {
@@ -64378,7 +64377,6 @@
 	        this.queues = null;
 	        this.accounts = null;
 	        this.counts = { open_as_tech: 0 };
-	        console.log(config.current);
 	        dataProvider.getQueueList(3).subscribe(function (data) { _this.queues = data; }, function (error) {
 	            console.log(error || 'Server error');
 	        });
