@@ -767,7 +767,7 @@ ion-menu {
   right: auto;
   bottom: 0;
   left: 0;
-  width: 240px;
+  width: 260px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -799,7 +799,7 @@ ion-menu .backdrop {
 
 @media (max-width: 340px) {
   ion-menu {
-    width: 200px; } }
+    width: 220px; } }
 
 ion-menu[type=reveal].show-menu {
   -webkit-transform: translate3d(0px, 0px, 0px);
