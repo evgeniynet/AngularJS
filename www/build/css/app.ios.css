@@ -7774,6 +7774,9 @@ ion-list > .item:first-child {
 .email-invoice {
   height: 28px !important; }
 
+.display {
+  display: inline-block; }
+
 .mainStat {
   font-size: 6.15rem; }
 
@@ -8327,7 +8330,7 @@ ion-label {
 
 .space {
   white-space: nowrap !important;
-  overflow: visible; }
+  overflow: visible !important; }
 
 .ellipsis {
   white-space: nowrap;
