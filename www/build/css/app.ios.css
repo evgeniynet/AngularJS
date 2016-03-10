@@ -767,7 +767,7 @@ ion-menu {
   right: auto;
   bottom: 0;
   left: 0;
-  width: 304px;
+  width: 240px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -799,7 +799,7 @@ ion-menu .backdrop {
 
 @media (max-width: 340px) {
   ion-menu {
-    width: 264px; } }
+    width: 200px; } }
 
 ion-menu[type=reveal].show-menu {
   -webkit-transform: translate3d(0px, 0px, 0px);
@@ -7781,7 +7781,7 @@ ion-list > .item:first-child {
   margin-right: 0px; }
 
 .dashboard {
-  padding-left: 4px; }
+  padding-left: 4px !important; }
 
 .org {
   margin-top: 18px !important; }
@@ -7825,6 +7825,9 @@ ion-list > .item:first-child {
 
 .login-text {
   font-size: 1.5rem !important; }
+
+.text-google {
+  line-height: 2.1; }
 
 .ticket-details {
   white-space: initial !important;
@@ -8248,6 +8251,9 @@ ion-label {
 
 .button.activated {
   background-color: #6AB7EC; }
+
+.menu-content-reveal {
+  box-shadow: 0px 0px 0px 0px; }
 
 .blue1 > * {
   background-color: #25b0e6; }

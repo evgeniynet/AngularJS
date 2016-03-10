@@ -62284,7 +62284,7 @@
 	exports.AppSite = 'https://app.' + Site;
 	exports.ApiSite = 'http://api.' + Site;
 	//offline
-	exports.dontClearCache = false;
+	exports.dontClearCache = true;
 	exports.isSD = true;
 	exports.year = "2015";
 	exports.appVersion = "40";
