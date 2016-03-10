@@ -1,6 +1,7 @@
 import {IONIC_DIRECTIVES} from 'ionic-framework/ionic';
 import {Component, Input} from 'angular2/core';
 //import {TicketDetailsPage} from '../../pages/ticket-details/ticket-details';
+import {getFullName} from '../../directives/helpers';
 import {GravatarPipe, LinebreaksPipe, DaysoldPipe, FilesPipe} from '../../pipes/pipes';
 
 
@@ -19,14 +20,11 @@ export class PostsListComponent {
         this.attachments = [];
     }  
      
-  get Anotherdate(){ 
-    return this.abc 
-  }
-  setDate(date) {
-    this.Anotherdate = date;
-    return this.Anotherdate;
-  }
-  set Anotherdate(date){ 
-    this.abc = new Date(date)
+getFullName (firstname,lastname,email,name) {
+    return getFullName (firstname,lastname,email,name);
+}
+  
+     setDate(date) {
+      return new Date(date);
   }
 }

@@ -1,5 +1,6 @@
 import {Page, Config, NavController, NavParams, Modal, Alert} from 'ionic-framework/ionic';
 import {DataProvider} from '../../providers/data-provider';
+import {getCurrency, getFullName} from '../../directives/helpers';
 import {PostsListComponent} from '../../components/posts-list/posts-list';
 import {SelectListComponent} from '../../components/select-list/select-list';
 import {BasicSelectModal} from '../modals/modals';
@@ -85,39 +86,17 @@ export class TicketDetailsPage {
         //this.tclass = newValue;
     }
     
-    //get the full name of the following options:firstname, lastname, email,name
 getFullName (firstname,lastname,email,name) {
-    var fname = "";
-    if (name)
-        fname = name + " ";
-    if (lastname)
-        fname += lastname + " ";
-    if (firstname)
-        fname += firstname + " ";
-    if (email && email.indexOf("@") > 0){
-        if (!fname.trim())
-            fname = email;
-        else if (name)
-            fname += " (" + email + ")";
-    }
-    return fname || "NoName";
+    return getFullName (firstname,lastname,email,name);
 }
     
     getCurrency(value) {
-        if (!value)
-            value = "0";
-return this.config.current.currency + Number(value).toFixed(2).toString();
+        return getCurrency(value, this.config.current.currency);
     }
     
-      get Anotherdate(){ 
-    return this.abc 
-  }
   setDate(date) {
     this.Anotherdate = date;
     return this.Anotherdate;
-  }
-  set Anotherdate(date){ 
-    this.abc = new Date(date)
   }
 
 }

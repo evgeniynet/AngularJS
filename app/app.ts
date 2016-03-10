@@ -3,6 +3,7 @@ import {ApiData} from './providers/api-data';
 import {DataProvider} from './providers/data-provider';
 import {dontClearCache} from './providers/config';
 import {MOCKS} from './providers/mocks';
+import * as helpers from './directives/helpers';
 import {ToastsManager} from 'ng2-toastr/ng2-toastr';
 import {HelloIonicPage} from './pages/hello-ionic/hello-ionic';
 import {ListPage} from './pages/list/list';
@@ -61,6 +62,9 @@ class MyApp {
             return;
             }
       
+        //let nav = this.app.getComponent('nav');
+        //nav.setRoot(helpers.getPageFor(pageName), {}, { animate: false });
+        
         this.rootPage = TicketsPage;
         return;
     // make HelloIonicPage the root (or first) page

@@ -3230,6 +3230,8 @@
 	            this.rootPage = login_1.LoginPage;
 	            return;
 	        }
+	        //let nav = this.app.getComponent('nav');
+	        //nav.setRoot(helpers.getPageFor(pageName), {}, { animate: false });
 	        this.rootPage = tickets_1.TicketsPage;
 	        return;
 	        // make HelloIonicPage the root (or first) page
@@ -62476,7 +62478,7 @@
 	    "queues": [{ "id": "27", "fullname": "Pre-Development", "tickets_count": 198 }, { "id": "271", "fullname": "Future Consideration", "tickets_count": 76 }, { "id": "269", "fullname": "Website", "tickets_count": 2 }, { "id": "5", "fullname": "New Ticket", "tickets_count": 1 }, { "id": "272", "fullname": "Mobile App", "tickets_count": null }],
 	    "queues/27": [{ "id": 370928, "key": "4f5ijv", "sla_complete_date": null, "created_time": "2015-09-10T01:08:00.0000000", "updated_time": "2015-09-28T16:39:00.0000000", "closed_time": null, "number": 4384, "is_new_user_post": false, "is_new_tech_post": false, "prefix": "", "subject": "Logo and Banner Request for Salesforce", "support_group_name": "", "next_step": "", "resolution_category_id": null, "resolution_category_name": "", "support_group_id": null, "initial_post": "Hey Anastasiia!\r\n\r\nWe need a couple of variants of logos and banners for our SalesForce listing.\r\n\r\nHere is what we need.\r\n- High Resolution logo: PNG with a transparent background that is up to 10MB in size\r\n-Banner: a 1200 x 300 pixel PNG that is up to 1MB in size\r\n-Tile Image: a 280x205 pixel PNG file that is up to 300KB in size\r\n\r\nLet me know if you have any questions on this.  Thanks!", "user_id": 2, "user_firstname": "Patrick", "user_lastname": "Clements", "user_email": "patrick.clements@bigwebapps.com", "tech_id": 119130, "technician_firstname": "Anastasiia", "technician_lastname": "Chov", "technician_email": "nastya_01.88@mail.ru", "account_id": -1, "account_name": "SherpaDesk Support", "location_id": null, "location_name": "", "account_location_id": null, "account_location_name": "", "priority_id": 1, "priority_name": "General Inquiry", "level": 3, "level_name": "Active Plate", "status": "Open", "creation_category_id": null, "creation_category_name": "", "days_old_in_minutes": 237151, "days_old": "164d 16h 31m", "class_id": 268, "class_name": "SherpaDesk", "total_hours": 20.0000 }, { "id": 147987, "key": "sf8c0m", "sla_complete_date": "2014-07-15T18:43:00.0000000", "created_time": "2014-07-15T18:43:00.0000000", "updated_time": "2014-11-25T17:38:00.0000000", "closed_time": null, "number": 2315, "is_new_user_post": true, "is_new_tech_post": true, "prefix": "", "subject": "Email Links to Mobile App", "support_group_name": "", "next_step": "", "resolution_category_id": null, "resolution_category_name": "", "support_group_id": null, "initial_post": "This is my current concept to allow us easier access to the mobile app for testing.   I know this is not great but I don't have a better idea right now.\r\n\r\nI do not love the idea of doing redirects on the web to redirect to mobile or the app.<br><br>Following file was  uploaded: Mobile App Use and Test.png.", "user_id": 1, "user_firstname": "Jon", "user_lastname": "Vickers", "user_email": "jon.vickers@micajah.com", "tech_id": 1, "technician_firstname": "Jon", "technician_lastname": "Vickers", "technician_email": "jon.vickers@micajah.com", "account_id": -1, "account_name": "SherpaDesk Support", "location_id": 2, "location_name": "Atlanta", "account_location_id": 2, "account_location_name": "Atlanta", "priority_id": 3, "priority_name": "UI Improvements", "level": 3, "level_name": "Active Plate", "status": "Open", "creation_category_id": null, "creation_category_name": "", "days_old_in_minutes": 843776, "days_old": "585d 22h 56m", "class_id": 5298, "class_name": "SherpaDesk / Email", "total_hours": 0.0000 }],
 	    "tickets": [{ "id": 370928, "key": "4f5ijv", "sla_complete_date": null, "created_time": "2015-09-10T01:08:00.0000000", "updated_time": "2015-09-28T16:39:00.0000000", "closed_time": null, "number": 4384, "is_new_user_post": false, "is_new_tech_post": false, "prefix": "", "subject": "Logo and Banner Request for Salesforce", "support_group_name": "", "next_step": "", "resolution_category_id": null, "resolution_category_name": "", "support_group_id": null, "initial_post": "Hey Anastasiia!\r\n\r\nWe need a couple of variants of logos and banners for our SalesForce listing.\r\n\r\nHere is what we need.\r\n- High Resolution logo: PNG with a transparent background that is up to 10MB in size\r\n-Banner: a 1200 x 300 pixel PNG that is up to 1MB in size\r\n-Tile Image: a 280x205 pixel PNG file that is up to 300KB in size\r\n\r\nLet me know if you have any questions on this.  Thanks!", "user_id": 2, "user_firstname": "Patrick", "user_lastname": "Clements", "user_email": "patrick.clements@bigwebapps.com", "tech_id": 119130, "technician_firstname": "Anastasiia", "technician_lastname": "Chov", "technician_email": "nastya_01.88@mail.ru", "account_id": -1, "account_name": "SherpaDesk Support", "location_id": null, "location_name": "", "account_location_id": null, "account_location_name": "", "priority_id": 1, "priority_name": "General Inquiry", "level": 3, "level_name": "Active Plate", "status": "Open", "creation_category_id": null, "creation_category_name": "", "days_old_in_minutes": 237151, "days_old": "164d 16h 31m", "class_id": 268, "class_name": "SherpaDesk", "total_hours": 20.0000 }, { "id": 147987, "key": "sf8c0m", "sla_complete_date": null, "created_time": "2014-07-15T18:43:00.0000000", "updated_time": "2014-11-25T17:38:00.0000000", "closed_time": null, "number": 2315, "is_new_user_post": true, "is_new_tech_post": true, "prefix": "", "subject": "Email Links to Mobile App", "support_group_name": "", "next_step": "", "resolution_category_id": null, "resolution_category_name": "", "support_group_id": null, "initial_post": "This is my current concept to allow us easier access to the mobile app for testing.   I know this is not great but I don't have a better idea right now.\r\n\r\nI do not love the idea of doing redirects on the web to redirect to mobile or the app.<br><br>Following file was  uploaded: Mobile App Use and Test.png.", "user_id": 1, "user_firstname": "Jon", "user_lastname": "Vickers", "user_email": "jon.vickers@micajah.com", "tech_id": 1, "technician_firstname": "Jon", "technician_lastname": "Vickers", "technician_email": "jon.vickers@micajah.com", "account_id": -1, "account_name": "SherpaDesk Support", "location_id": 2, "location_name": "Atlanta", "account_location_id": 2, "account_location_name": "Atlanta", "priority_id": 3, "priority_name": "UI Improvements", "level": 3, "level_name": "Active Plate", "status": "Open", "creation_category_id": null, "creation_category_name": "", "days_old_in_minutes": 843776, "days_old": "585d 22h 56m", "class_id": 5298, "class_name": "SherpaDesk / Email", "total_hours": 2.0000 }],
-	    "tickets/4f5ijv": { "id": 472187, "key": "xa1o2k", "created_time": "2016-03-01T17:14:00.0000000", "closed_time": "2016-03-02T14:26:00.0000000", "request_completion_date": null, "is_waiting_on_response": false, "waiting_date": null, "waiting_minutes": 0, "followup_date": null, "sla_complete_date": null, "sla_response_date": null, "confirmed_date": null, "next_step_date": null, "updated_time": "2016-03-03T16:46:00.0000000", "organization_key": "2939b13ac393462b9ae8b9e4d99b521d", "department_key": 1, "is_deleted": false, "user_id": 3, "user_title": "", "user_firstname": "Mike", "user_lastname": "Clements", "user_email": "mike.clements@bigwebapps.com", "tech_id": 270, "tech_firstname": "Eugene", "tech_lastname": "Tolmachov", "tech_email": "eugene@micajah.com", "priority": 4, "priority_name": "UI Improvements", "priority_id": 3, "user_created_id": 270, "user_created_firstname": "Eugene", "user_created_lastname": "Tolmachov", "user_created_email": "eugene@micajah.com", "status": "Open", "location_id": 3, "location_name": "Los Angeles", "class_id": 5300, "class_name": "SherpaDesk / Mobile", "project_id": 0, "project_name": "", "serial_number": "", "folder_id": 0, "folder_path": "", "creation_category_id": 0, "creation_category_name": "", "subject": "Mobile App - Access to Notes and Files", "note": "", "number": 5078, "prefix": "", "customfields_xml": "<root />", "parts_cost": 0.0000, "labor_cost": 0.0000, "total_time_in_minutes": 600, "misc_cost": 0.0000, "travel_cost": 0.0000, "request_completion_note": "", "followup_note": "", "initial_response": true, "sla_complete_used": 372, "sla_response_used": 0, "level": 3, "level_name": "Active Plate", "is_via_email_parser": false, "account_id": -1, "account_name": "SherpaDesk Support", "account_location_id": 3, "account_location_name": "Los Angeles", "resolution_category_id": 0, "resolution_category_name": "", "is_resolved": false, "confirmed_by_name": "", "is_confirmed": false, "confirmed_note": "", "support_group_id": 0, "support_group_name": "", "is_handle_by_callcentre": false, "submission_category": "", "is_user_inactive": false, "next_step": "", "total_hours": 10.0000, "remaining_hours": 0.0000, "estimated_time": 0, "percentage_complete": 0, "workpad": "", "scheduled_ticket_id": 0, "kb": false, "kb_type": 0, "kb_publish_level": 0, "kb_search_desc": "", "kb_alternate_id": "", "kb_helpful_count": 0, "kb_portal_alias": "Mobile", "initial_post": "Eugene,\r\n\r\nWe need to be able to access Notes and Files from the Account Manager section in the mobile.  Is this something you could add fairly easily to the mobile?\r\n\r\nThank you,<br><br>This ticket was entered by Eugene Tolmachov", "is_sent_notification_email": true, "email_cc": "", "related_tickets_count": 0, "days_old_in_minutes": 11365, "days_old": "7d 21h 25m", "tech_type": "Administrator", "resolution_categories": [{ "name": "Duplicate Issue", "id": 15, "is_resolved": false, "is_active": true }, { "name": "End User Submission", "id": 16, "is_resolved": false, "is_active": true }, { "name": "No Longer Valid", "id": 17, "is_resolved": false, "is_active": true }, { "name": "No Response", "id": 18, "is_resolved": false, "is_active": true }, { "name": "Unable to Replicate", "id": 19, "is_resolved": false, "is_active": true }, { "name": "Unable to Resolve", "id": 20, "is_resolved": false, "is_active": true }], "users": [{ "user_id": 3, "user_fullname": "Mike Clements", "is_primary": true, "start_date": "2016-03-01T17:14:04.0770000", "stop_date": null }], "technicians": [{ "user_id": 270, "user_fullname": "Eugene Tolmachov", "is_primary": true, "start_date": "2016-03-02T16:59:53.6930000", "stop_date": null }], "ticketlogs": [{ "id": 1646733, "ticket_key": "xa1o2k", "user_id": 270, "user_email": "eugene@micajah.com", "user_firstname": "Eugene", "user_lastname": "Tolmachov", "record_date": "2016-03-03T16:46:00.0000000", "log_type": "Response", "note": "native updated immediately also, app just show mobile site&lt;br&gt;", "ticket_time_id": 0, "sent_to": "Mike Clements", "is_waiting": false, "sla_used": 0 }, { "id": 1646697, "ticket_key": "xa1o2k", "user_id": 3, "user_email": "mike.clements@bigwebapps.com", "user_firstname": "Mike", "user_lastname": "Clements", "record_date": "2016-03-03T16:37:00.0000000", "log_type": "Response", "note": "Pat had added some additional comments as well, breaking out the Files and Nots into their own tab.\r\n\r\nAlso, when we do these updates I know the mobile site m.sherpadesk.com is immediately updated, but what about the native app?\r\n\r\nThanks,\r\n\r\nMike Clements\r\nPhone: 866.996.1200 x 703\r\nmike.clements@bigwebapps.com\r\nbigWebApps", "ticket_time_id": 0, "sent_to": "Eugene Tolmachov", "is_waiting": null, "sla_used": 0 }, { "id": 1645254, "ticket_key": "xa1o2k", "user_id": 270, "user_email": "eugene@micajah.com", "user_firstname": "Eugene", "user_lastname": "Tolmachov", "record_date": "2016-03-03T11:10:00.0000000", "log_type": "Response", "note": "yea, this is good,&lt;br&gt;ill do it", "ticket_time_id": 0, "sent_to": "Mike Clements", "is_waiting": false, "sla_used": 0 }, { "id": 1643104, "ticket_key": "xa1o2k", "user_id": 3, "user_email": "mike.clements@bigwebapps.com", "user_firstname": "Mike", "user_lastname": "Clements", "record_date": "2016-03-02T17:00:00.0000000", "log_type": "ReOpened", "note": "Ticket was ReOpened by Mike Clements.", "ticket_time_id": 0, "sent_to": "", "is_waiting": null, "sla_used": 0 }, { "id": 1643098, "ticket_key": "xa1o2k", "user_id": 3, "user_email": "mike.clements@bigwebapps.com", "user_firstname": "Mike", "user_lastname": "Clements", "record_date": "2016-03-02T16:59:00.0000000", "log_type": "Response", "note": "Eugene,\r\n\r\nThis looks pretty good.  Is there any way to fix the spacing on the notes?\r\n\r\nHere’s what it looks like on the web\r\n[cid:4078BF5AC2C94B6FBAA6FE3E4A74668A]\r\n\r\nHowever if you look at it on the mobile theres some weird spacing\r\n\r\n[cid:94881AE156B04D518CCF86474FD506BB]\r\nMike Clements\r\nPhone: 866.996.1200 x 703\r\nmike.clements@bigwebapps.com\r\nbigWebApps\r\n\r\nFollowing files were uploaded: 4078BF5A-C2C9-4B6F-BAA6-FE3E4A74668A.png, 94881AE1-56B0-4D51-8CCF-86474FD506BB.png", "ticket_time_id": 0, "sent_to": "Eugene Tolmachov", "is_waiting": null, "sla_used": 0 }, { "id": 1642226, "ticket_key": "xa1o2k", "user_id": 270, "user_email": "eugene@micajah.com", "user_firstname": "Eugene", "user_lastname": "Tolmachov", "record_date": "2016-03-02T14:27:00.0000000", "log_type": "Response", "note": "[cid:Copy9a97982650c5zip]", "ticket_time_id": 0, "sent_to": "Mike Clements", "is_waiting": false, "sla_used": 0 }, { "id": 1642224, "ticket_key": "xa1o2k", "user_id": 270, "user_email": "eugene@micajah.com", "user_firstname": "Eugene", "user_lastname": "Tolmachov", "record_date": "2016-03-02T14:26:00.0000000", "log_type": "Closed", "note": "done<br><br>Ticket was CLOSED by Eugene Tolmachov.<br>Eugene Tolmachov logged 10.00 hours (10 hours) as Software Dev task type.", "ticket_time_id": 0, "sent_to": "", "is_waiting": null, "sla_used": 0 }, { "id": 1639415, "ticket_key": "xa1o2k", "user_id": 3, "user_email": "mike.clements@bigwebapps.com", "user_firstname": "Mike", "user_lastname": "Clements", "record_date": "2016-03-01T17:14:00.0000000", "log_type": "Initial Post", "note": "Eugene,\r\n\r\nWe need to be able to access Notes and Files from the Account Manager section in the mobile.  Is this something you could add fairly easily to the mobile?\r\n\r\nThank you,<br><br>This ticket was entered by Eugene Tolmachov", "ticket_time_id": 0, "sent_to": "", "is_waiting": null, "sla_used": 0 }], "assets": [], "attachments": [{ "id": "tickets-tickets-files/472187/Copy9a97982650c5.zip", "name": "Copy9a97982650c5.zip", "url": "https://sherpadeskfiles.blob.core.windows.net/fe7f5617f00947e082232b1b2409b4e1p/tickets-tickets-files/472187/Copy9a97982650c5.zip", "date": "2016-03-02T14:26:36.0000000", "size": 74099 }, { "id": "tickets-tickets-files/472187/4078BF5A-C2C9-4B6F-BAA6-FE3E4A74668A.png", "name": "4078BF5A-C2C9-4B6F-BAA6-FE3E4A74668A.png", "url": "https://sherpadeskfiles.blob.core.windows.net/fe7f5617f00947e082232b1b2409b4e1p/tickets-tickets-files/472187/4078BF5A-C2C9-4B6F-BAA6-FE3E4A74668A.png", "date": "2016-03-02T16:59:22.0000000", "size": 71798 }, { "id": "tickets-tickets-files/472187/94881AE1-56B0-4D51-8CCF-86474FD506BB.png", "name": "94881AE1-56B0-4D51-8CCF-86474FD506BB.png", "url": "https://sherpadeskfiles.blob.core.windows.net/fe7f5617f00947e082232b1b2409b4e1p/tickets-tickets-files/472187/94881AE1-56B0-4D51-8CCF-86474FD506BB.png", "date": "2016-03-02T16:59:22.0000000", "size": 121846 }], "classes": [{ "name": "SherpaDesk", "id": 268, "parent_id": 0, "hierarchy_level": 0, "sub": null, "is_lastchild": false, "is_restrict_to_techs": false, "is_active": true, "priority_id": 0, "level_override": 0 }, { "name": "Mobile", "id": 5300, "parent_id": 268, "hierarchy_level": 1, "sub": null, "is_lastchild": true, "is_restrict_to_techs": true, "is_active": true, "priority_id": 0, "level_override": 0 }], "BillRate": 0, "WaitingUsedBeforeReopen": 0 },
+	    "tickets/4f5ijv": { "id": 472187, "key": "xa1o2k", "created_time": "2016-03-01T17:14:00.0000000", "closed_time": "2016-03-02T14:26:00.0000000", "request_completion_date": null, "is_waiting_on_response": false, "waiting_date": null, "waiting_minutes": 0, "followup_date": null, "sla_complete_date": null, "sla_response_date": null, "confirmed_date": null, "next_step_date": null, "updated_time": "2016-03-03T16:46:00.0000000", "organization_key": "2939b13ac393462b9ae8b9e4d99b521d", "department_key": 1, "is_deleted": false, "user_id": 3, "user_title": "", "user_firstname": "Mike", "user_lastname": "Clements", "user_email": "mike.clements@bigwebapps.com", "tech_id": 270, "tech_firstname": "Eugene", "tech_lastname": "Tolmachov", "tech_email": "eugene@micajah.com", "priority": 4, "priority_name": "UI Improvements", "priority_id": 3, "user_created_id": 270, "user_created_firstname": "Eugene", "user_created_lastname": "Tolmachov", "user_created_email": "eugene@micajah.com", "status": "Open", "location_id": 3, "location_name": "Los Angeles", "class_id": 5300, "class_name": "SherpaDesk / Mobile", "project_id": 0, "project_name": "", "serial_number": "", "folder_id": 0, "folder_path": "", "creation_category_id": 0, "creation_category_name": "", "subject": "Mobile App - Access to Notes and Files", "note": "", "number": 5078, "prefix": "", "customfields_xml": "<root />", "parts_cost": 0.0000, "labor_cost": 0.0000, "total_time_in_minutes": 600, "misc_cost": 10.0000, "travel_cost": 0.0000, "request_completion_note": "", "followup_note": "", "initial_response": true, "sla_complete_used": 372, "sla_response_used": 0, "level": 3, "level_name": "Active Plate", "is_via_email_parser": false, "account_id": -1, "account_name": "SherpaDesk Support", "account_location_id": 3, "account_location_name": "Los Angeles", "resolution_category_id": 0, "resolution_category_name": "", "is_resolved": false, "confirmed_by_name": "", "is_confirmed": false, "confirmed_note": "", "support_group_id": 0, "support_group_name": "", "is_handle_by_callcentre": false, "submission_category": "", "is_user_inactive": false, "next_step": "", "total_hours": 10.0000, "remaining_hours": 0.0000, "estimated_time": 0, "percentage_complete": 0, "workpad": "", "scheduled_ticket_id": 0, "kb": false, "kb_type": 0, "kb_publish_level": 0, "kb_search_desc": "", "kb_alternate_id": "", "kb_helpful_count": 0, "kb_portal_alias": "Mobile", "initial_post": "Eugene,\r\n\r\nWe need to be able to access Notes and Files from the Account Manager section in the mobile.  Is this something you could add fairly easily to the mobile?\r\n\r\nThank you,<br><br>This ticket was entered by Eugene Tolmachov", "is_sent_notification_email": true, "email_cc": "", "related_tickets_count": 0, "days_old_in_minutes": 11365, "days_old": "7d 21h 25m", "tech_type": "Administrator", "resolution_categories": [{ "name": "Duplicate Issue", "id": 15, "is_resolved": false, "is_active": true }, { "name": "End User Submission", "id": 16, "is_resolved": false, "is_active": true }, { "name": "No Longer Valid", "id": 17, "is_resolved": false, "is_active": true }, { "name": "No Response", "id": 18, "is_resolved": false, "is_active": true }, { "name": "Unable to Replicate", "id": 19, "is_resolved": false, "is_active": true }, { "name": "Unable to Resolve", "id": 20, "is_resolved": false, "is_active": true }], "users": [{ "user_id": 3, "user_fullname": "Mike Clements", "is_primary": true, "start_date": "2016-03-01T17:14:04.0770000", "stop_date": null }], "technicians": [{ "user_id": 270, "user_fullname": "Eugene Tolmachov", "is_primary": true, "start_date": "2016-03-02T16:59:53.6930000", "stop_date": null }], "ticketlogs": [{ "id": 1646733, "ticket_key": "xa1o2k", "user_id": 270, "user_email": "eugene@micajah.com", "user_firstname": "Eugene", "user_lastname": "Tolmachov", "record_date": "2016-03-03T16:46:00.0000000", "log_type": "Response", "note": "native updated immediately also, app just show mobile site&lt;br&gt;", "ticket_time_id": 0, "sent_to": "Mike Clements", "is_waiting": false, "sla_used": 0 }, { "id": 1646697, "ticket_key": "xa1o2k", "user_id": 3, "user_email": "mike.clements@bigwebapps.com", "user_firstname": "Mike", "user_lastname": "Clements", "record_date": "2016-03-03T16:37:00.0000000", "log_type": "Response", "note": "Pat had added some additional comments as well, breaking out the Files and Nots into their own tab.\r\n\r\nAlso, when we do these updates I know the mobile site m.sherpadesk.com is immediately updated, but what about the native app?\r\n\r\nThanks,\r\n\r\nMike Clements\r\nPhone: 866.996.1200 x 703\r\nmike.clements@bigwebapps.com\r\nbigWebApps", "ticket_time_id": 0, "sent_to": "Eugene Tolmachov", "is_waiting": null, "sla_used": 0 }, { "id": 1645254, "ticket_key": "xa1o2k", "user_id": 270, "user_email": "eugene@micajah.com", "user_firstname": "Eugene", "user_lastname": "Tolmachov", "record_date": "2016-03-03T11:10:00.0000000", "log_type": "Response", "note": "yea, this is good,&lt;br&gt;ill do it", "ticket_time_id": 0, "sent_to": "Mike Clements", "is_waiting": false, "sla_used": 0 }, { "id": 1643104, "ticket_key": "xa1o2k", "user_id": 3, "user_email": "mike.clements@bigwebapps.com", "user_firstname": "Mike", "user_lastname": "Clements", "record_date": "2016-03-02T17:00:00.0000000", "log_type": "ReOpened", "note": "Ticket was ReOpened by Mike Clements.", "ticket_time_id": 0, "sent_to": "", "is_waiting": null, "sla_used": 0 }, { "id": 1643098, "ticket_key": "xa1o2k", "user_id": 3, "user_email": "mike.clements@bigwebapps.com", "user_firstname": "Mike", "user_lastname": "Clements", "record_date": "2016-03-02T16:59:00.0000000", "log_type": "Response", "note": "Eugene,\r\n\r\nThis looks pretty good.  Is there any way to fix the spacing on the notes?\r\n\r\nHere’s what it looks like on the web\r\n[cid:4078BF5AC2C94B6FBAA6FE3E4A74668A]\r\n\r\nHowever if you look at it on the mobile theres some weird spacing\r\n\r\n[cid:94881AE156B04D518CCF86474FD506BB]\r\nMike Clements\r\nPhone: 866.996.1200 x 703\r\nmike.clements@bigwebapps.com\r\nbigWebApps\r\n\r\nFollowing files were uploaded: 4078BF5A-C2C9-4B6F-BAA6-FE3E4A74668A.png, 94881AE1-56B0-4D51-8CCF-86474FD506BB.png", "ticket_time_id": 0, "sent_to": "Eugene Tolmachov", "is_waiting": null, "sla_used": 0 }, { "id": 1642226, "ticket_key": "xa1o2k", "user_id": 270, "user_email": "eugene@micajah.com", "user_firstname": "Eugene", "user_lastname": "Tolmachov", "record_date": "2016-03-02T14:27:00.0000000", "log_type": "Response", "note": "[cid:Copy9a97982650c5zip]", "ticket_time_id": 0, "sent_to": "Mike Clements", "is_waiting": false, "sla_used": 0 }, { "id": 1642224, "ticket_key": "xa1o2k", "user_id": 270, "user_email": "eugene@micajah.com", "user_firstname": "Eugene", "user_lastname": "Tolmachov", "record_date": "2016-03-02T14:26:00.0000000", "log_type": "Closed", "note": "done<br><br>Ticket was CLOSED by Eugene Tolmachov.<br>Eugene Tolmachov logged 10.00 hours (10 hours) as Software Dev task type.", "ticket_time_id": 0, "sent_to": "", "is_waiting": null, "sla_used": 0 }, { "id": 1639415, "ticket_key": "xa1o2k", "user_id": 3, "user_email": "mike.clements@bigwebapps.com", "user_firstname": "Mike", "user_lastname": "Clements", "record_date": "2016-03-01T17:14:00.0000000", "log_type": "Initial Post", "note": "Eugene,\r\n\r\nWe need to be able to access Notes and Files from the Account Manager section in the mobile.  Is this something you could add fairly easily to the mobile?\r\n\r\nThank you,<br><br>This ticket was entered by Eugene Tolmachov", "ticket_time_id": 0, "sent_to": "", "is_waiting": null, "sla_used": 0 }], "assets": [], "attachments": [{ "id": "tickets-tickets-files/472187/Copy9a97982650c5.zip", "name": "Copy9a97982650c5.zip", "url": "https://sherpadeskfiles.blob.core.windows.net/fe7f5617f00947e082232b1b2409b4e1p/tickets-tickets-files/472187/Copy9a97982650c5.zip", "date": "2016-03-02T14:26:36.0000000", "size": 74099 }, { "id": "tickets-tickets-files/472187/4078BF5A-C2C9-4B6F-BAA6-FE3E4A74668A.png", "name": "4078BF5A-C2C9-4B6F-BAA6-FE3E4A74668A.png", "url": "https://sherpadeskfiles.blob.core.windows.net/fe7f5617f00947e082232b1b2409b4e1p/tickets-tickets-files/472187/4078BF5A-C2C9-4B6F-BAA6-FE3E4A74668A.png", "date": "2016-03-02T16:59:22.0000000", "size": 71798 }, { "id": "tickets-tickets-files/472187/94881AE1-56B0-4D51-8CCF-86474FD506BB.png", "name": "94881AE1-56B0-4D51-8CCF-86474FD506BB.png", "url": "https://sherpadeskfiles.blob.core.windows.net/fe7f5617f00947e082232b1b2409b4e1p/tickets-tickets-files/472187/94881AE1-56B0-4D51-8CCF-86474FD506BB.png", "date": "2016-03-02T16:59:22.0000000", "size": 121846 }], "classes": [{ "name": "SherpaDesk", "id": 268, "parent_id": 0, "hierarchy_level": 0, "sub": null, "is_lastchild": false, "is_restrict_to_techs": false, "is_active": true, "priority_id": 0, "level_override": 0 }, { "name": "Mobile", "id": 5300, "parent_id": 268, "hierarchy_level": 1, "sub": null, "is_lastchild": true, "is_restrict_to_techs": true, "is_active": true, "priority_id": 0, "level_override": 0 }], "BillRate": 0, "WaitingUsedBeforeReopen": 0 },
 	};
 
 
@@ -63320,6 +63322,7 @@
 	};
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(369);
+	var helpers_1 = __webpack_require__(407);
 	var posts_list_1 = __webpack_require__(382);
 	var select_list_1 = __webpack_require__(391);
 	var pipes_1 = __webpack_require__(383);
@@ -63390,38 +63393,12 @@
 	    TicketDetailsPage.prototype.ch = function (newValue) {
 	        //this.tclass = newValue;
 	    };
-	    //get the full name of the following options:firstname, lastname, email,name
 	    TicketDetailsPage.prototype.getFullName = function (firstname, lastname, email, name) {
-	        var fname = "";
-	        if (name)
-	            fname = name + " ";
-	        if (lastname)
-	            fname += lastname + " ";
-	        if (firstname)
-	            fname += firstname + " ";
-	        if (email && email.indexOf("@") > 0) {
-	            if (!fname.trim())
-	                fname = email;
-	            else if (name)
-	                fname += " (" + email + ")";
-	        }
-	        return fname || "NoName";
+	        return helpers_1.getFullName(firstname, lastname, email, name);
 	    };
 	    TicketDetailsPage.prototype.getCurrency = function (value) {
-	        if (!value)
-	            value = "0";
-	        return this.config.current.currency + Number(value).toFixed(2).toString();
+	        return helpers_1.getCurrency(value, this.config.current.currency);
 	    };
-	    Object.defineProperty(TicketDetailsPage.prototype, "Anotherdate", {
-	        get: function () {
-	            return this.abc;
-	        },
-	        set: function (date) {
-	            this.abc = new Date(date);
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
 	    TicketDetailsPage.prototype.setDate = function (date) {
 	        this.Anotherdate = date;
 	        return this.Anotherdate;
@@ -63456,25 +63433,18 @@
 	var ionic_1 = __webpack_require__(5);
 	var core_1 = __webpack_require__(7);
 	//import {TicketDetailsPage} from '../../pages/ticket-details/ticket-details';
+	var helpers_1 = __webpack_require__(407);
 	var pipes_1 = __webpack_require__(383);
 	var PostsListComponent = (function () {
 	    function PostsListComponent() {
 	        this.posts = [];
 	        this.attachments = [];
 	    }
-	    Object.defineProperty(PostsListComponent.prototype, "Anotherdate", {
-	        get: function () {
-	            return this.abc;
-	        },
-	        set: function (date) {
-	            this.abc = new Date(date);
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
+	    PostsListComponent.prototype.getFullName = function (firstname, lastname, email, name) {
+	        return helpers_1.getFullName(firstname, lastname, email, name);
+	    };
 	    PostsListComponent.prototype.setDate = function (date) {
-	        this.Anotherdate = date;
-	        return this.Anotherdate;
+	        return new Date(date);
 	    };
 	    __decorate([
 	        core_1.Input(), 
@@ -63957,7 +63927,7 @@
 	        if (FileUrlHelper.checkURL(file) || FileUrlHelper.checkURL(name))
 	            img = "<img class=\"attachment\" src=\"" + file + "\">";
 	        else
-	            img = "<i class='ion-android-document ion-3x ionColor'></i> &nbsp;" + (name || decodeURIComponent(file.split("/").slice(-1))) + "<p></p>";
+	            img = "<ion-icon name=\"md-document\" role=img dark class=\"button_circle ion-md-document\" aria-label=\"md-document\"></ion-icon>&nbsp;" + (name || decodeURIComponent(file.split("/").slice(-1))) + "<p></p>";
 	        return "<p/><a class=\"comment_image_link\"" +
 	            (isPhonegap ? (" href=# onclick='openURL(\"" + file + "\")'>" + img + "</a>") :
 	                (" target=\"_blank\" href=\"" + file + "\">" + img + "</a>"));
@@ -64057,7 +64027,6 @@
 	                type: 'radio',
 	                label: item.name,
 	                value: item,
-	                checked: _this.list.selected === item.value
 	            });
 	        });
 	        this.nav.present(alert).then(function () {
@@ -64310,6 +64279,7 @@
 	};
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(369);
+	var helpers_1 = __webpack_require__(407);
 	var tickets_list_1 = __webpack_require__(380);
 	var action_button_1 = __webpack_require__(394);
 	var AccountDetailsPage = (function () {
@@ -64328,9 +64298,7 @@
 	        });
 	    }
 	    AccountDetailsPage.prototype.getCurrency = function (value) {
-	        if (!value)
-	            value = "0";
-	        return this.config.current.currency + Number(value).toFixed(2).toString();
+	        return helpers_1.getCurrency(value, this.config.current.currency);
 	    };
 	    AccountDetailsPage = __decorate([
 	        ionic_1.Page({
@@ -64778,6 +64746,83 @@
 	    return SignupPage;
 	}());
 	exports.SignupPage = SignupPage;
+
+
+/***/ },
+/* 407 */
+/***/ function(module, exports) {
+
+	"use strict";
+	function getCurrency(value, currency) {
+	    if (!value)
+	        value = "0";
+	    return currency + Number(value).toFixed(2).toString();
+	}
+	exports.getCurrency = getCurrency;
+	//get the full name of the following options:firstname, lastname, email,name
+	function getFullName(firstname, lastname, email, name) {
+	    var fname = "";
+	    if (name)
+	        fname = name + " ";
+	    if (lastname)
+	        fname += lastname + " ";
+	    if (firstname)
+	        fname += firstname + " ";
+	    if (email && email.indexOf("@") > 0) {
+	        if (!fname.trim())
+	            fname = email;
+	        else if (name)
+	            fname += " (" + email + ")";
+	    }
+	    return fname || "NoName";
+	}
+	exports.getFullName = getFullName;
+	function toTitleCase(str) {
+	    return str.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
+	}
+	exports.toTitleCase = toTitleCase;
+	function hasScrollbar() {
+	    if (typeof window.top.innerWidth === 'number') {
+	        return window.top.innerWidth > window.top.document.documentElement.clientWidth;
+	    }
+	    // rootElem for quirksmode
+	    var rootElem = window.top.document.documentElement || window.top.document.body;
+	    // Check overflow style property on body for fauxscrollbars
+	    var overflowStyle;
+	    if (typeof rootElem.currentStyle !== 'undefined') {
+	        overflowStyle = rootElem.currentStyle.overflow;
+	    }
+	    overflowStyle = overflowStyle || window.top.getComputedStyle(rootElem, '').overflow;
+	    // Also need to check the Y axis overflow
+	    var overflowYStyle;
+	    if (typeof rootElem.currentStyle !== 'undefined') {
+	        overflowYStyle = rootElem.currentStyle.overflowY;
+	    }
+	    overflowYStyle = overflowYStyle || window.top.getComputedStyle(rootElem, '').overflowY;
+	    var contentOverflows = rootElem.scrollHeight > rootElem.clientHeight;
+	    var overflowShown = /^(visible|auto)$/.test(overflowStyle) || /^(visible|auto)$/.test(overflowYStyle);
+	    var alwaysShowScroll = overflowStyle === 'scroll' || overflowYStyle === 'scroll';
+	    return (contentOverflows && overflowShown) || (alwaysShowScroll);
+	}
+	exports.hasScrollbar = hasScrollbar;
+	function debounce(func, wait, immediate) {
+	    var timeout;
+	    return function () {
+	        var context = this, args = arguments;
+	        var later = function () {
+	            timeout = null;
+	            if (!immediate)
+	                func.apply(context, args);
+	        };
+	        var callNow = immediate && !timeout;
+	        clearTimeout(timeout);
+	        timeout = setTimeout(later, wait);
+	        if (callNow)
+	            func.apply(context, args);
+	    };
+	}
+	exports.debounce = debounce;
+	;
 
 
 /***/ }
