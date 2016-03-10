@@ -9852,6 +9852,10 @@ ion-list > .item:first-child {
 .alignment {
   margin-top: 7px; }
 
+.icon-ticket {
+  vertical-align: middle;
+  line-height: 8px; }
+
 .table span.box5 {
   background-color: #25b0e6;
   width: 75%;
