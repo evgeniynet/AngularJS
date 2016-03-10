@@ -10304,7 +10304,7 @@ ion-label {
   color: #FFF; }
 
 .searchbar-clear-icon {
-  background-image: url("img/close.png"); }
+  background-image: url("../../img/close.png"); }
 
 .ticketImg {
   height: 0px; }

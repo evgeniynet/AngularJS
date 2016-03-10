@@ -13,7 +13,7 @@ export class BasicSelectModal {
         this.viewCtrl = viewCtrl;
         this.searchQuery = '';
         this.params = params;
-        this.name = "Class";
+        this.name = this.params.data.name;
         this.data = this.params.data.items;
         this.items = this.data;
     }
@@ -37,7 +37,7 @@ export class BasicSelectModal {
         }
 
         this.items = this.items.filter((v) => {
-            if (v.text.toLowerCase().indexOf(q.toLowerCase()) > -1) {
+            if (v.name.toLowerCase().indexOf(q.toLowerCase()) > -1) {
                 return true;
             }
             return false;

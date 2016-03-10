@@ -3193,13 +3193,13 @@
 	var ng2_toastr_1 = __webpack_require__(370);
 	var hello_ionic_1 = __webpack_require__(375);
 	var queues_1 = __webpack_require__(376);
-	var invoices_1 = __webpack_require__(396);
-	var accounts_1 = __webpack_require__(398);
-	var timelogs_1 = __webpack_require__(399);
-	var tickets_1 = __webpack_require__(401);
-	var dashboard_1 = __webpack_require__(402);
-	var organizations_1 = __webpack_require__(403);
-	var login_1 = __webpack_require__(404);
+	var invoices_1 = __webpack_require__(397);
+	var accounts_1 = __webpack_require__(399);
+	var timelogs_1 = __webpack_require__(400);
+	var tickets_1 = __webpack_require__(402);
+	var dashboard_1 = __webpack_require__(403);
+	var organizations_1 = __webpack_require__(404);
+	var login_1 = __webpack_require__(405);
 	var MyApp = (function () {
 	    function MyApp(app, platform, apiData, config, toastr) {
 	        // set up our app
@@ -3230,6 +3230,8 @@
 	            this.rootPage = login_1.LoginPage;
 	            return;
 	        }
+	        this.rootPage = tickets_1.TicketsPage;
+	        return;
 	        // make HelloIonicPage the root (or first) page
 	        if (config.current.user.is_techoradmin)
 	            this.rootPage = dashboard_1.DashboardPage;
@@ -62284,7 +62286,7 @@
 	exports.AppSite = 'https://app.' + Site;
 	exports.ApiSite = 'http://api.' + Site;
 	//offline
-	exports.dontClearCache = false;
+	exports.dontClearCache = true;
 	exports.isSD = true;
 	exports.year = "2015";
 	exports.appVersion = "40";
@@ -63162,10 +63164,11 @@
 	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 	}
 	__export(__webpack_require__(378));
-	__export(__webpack_require__(394));
+	__export(__webpack_require__(395));
 	__export(__webpack_require__(380));
 	__export(__webpack_require__(382));
-	__export(__webpack_require__(393));
+	__export(__webpack_require__(391));
+	__export(__webpack_require__(394));
 
 
 /***/ },
@@ -63231,7 +63234,7 @@
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(369);
 	var tickets_list_1 = __webpack_require__(380);
-	var action_button_1 = __webpack_require__(393);
+	var action_button_1 = __webpack_require__(394);
 	var QueueTicketsPage = (function () {
 	    function QueueTicketsPage(nav, navParams, dataProvider) {
 	        var _this = this;
@@ -63318,7 +63321,7 @@
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(369);
 	var posts_list_1 = __webpack_require__(382);
-	var modals_1 = __webpack_require__(391);
+	var select_list_1 = __webpack_require__(391);
 	var pipes_1 = __webpack_require__(383);
 	var TicketDetailsPage = (function () {
 	    function TicketDetailsPage(nav, navParams, dataProvider, config) {
@@ -63334,6 +63337,32 @@
 	        this.ticket = (this.navParams || {}).data || {};
 	        this.posts = [];
 	        this.post1 = [];
+	        var classes1 = [
+	            { name: 'c0', value: 0 },
+	            { name: 'c1', value: 1 },
+	            { name: 'c2', value: 2 },
+	            { name: 'c3 Ego', value: 3 },
+	            { name: 'c4', value: 4 },
+	            { name: 'c5', value: 5 },
+	            { name: 'c6', value: 6 },
+	        ];
+	        var levels1 = [
+	            { name: 'c0', value: 0 },
+	            { name: 'c1', value: 1 },
+	            { name: 'c2', value: 2 },
+	            { name: 'c3 Ego', value: 3 },
+	            { name: 'c4', value: 4 },
+	        ];
+	        this.classes = {};
+	        this.classes.name = "Class";
+	        this.classes.value = "c1";
+	        this.classes.selected = 1;
+	        this.classes.items = classes1;
+	        this.levels = {};
+	        this.levels.name = "Level";
+	        this.levels.value = "c2";
+	        this.levels.selected = 2;
+	        this.levels.items = levels1;
 	        this.dataProvider.getTicketDetails(this.ticket.key).subscribe(function (data) {
 	            if (!data || !data.ticketlogs || data.ticketlogs == 0) {
 	                _this.redirectOnEmpty();
@@ -63347,14 +63376,6 @@
 	            console.log(error || 'Server error');
 	            _this.redirectOnEmpty();
 	        });
-	        this.list = [
-	            { text: 'c0', value: '0' },
-	            { text: 'c1', value: '1' },
-	            { text: 'c2', value: '2' },
-	            { text: 'c3 Ego', value: '3' },
-	            { text: 'c4', value: '4' },
-	            { text: 'c5', value: '5' },
-	        ];
 	    }
 	    TicketDetailsPage.prototype.redirectOnEmpty = function () {
 	        var _this = this;
@@ -63363,59 +63384,11 @@
 	            _this.nav.pop();
 	        }, 3000);
 	    };
-	    TicketDetailsPage.prototype.openModal = function (characterNum) {
-	        var _this = this;
-	        var data1 = {};
-	        data1.selected = this.tclass;
-	        data1.items = this.list;
-	        var myModal = ionic_1.Modal.create(modals_1.BasicSelectModal, data1);
-	        myModal.onDismiss(function (data) {
-	            console.log(data);
-	            _this.tclass = data.value;
-	            _this.ticketclass = data.text;
-	        });
-	        this.nav.present(myModal);
+	    TicketDetailsPage.prototype.saveSelect = function (event) {
+	        console.log(event);
 	    };
 	    TicketDetailsPage.prototype.ch = function (newValue) {
 	        //this.tclass = newValue;
-	    };
-	    TicketDetailsPage.prototype.doRadio = function () {
-	        var _this = this;
-	        var title = "Class";
-	        var alert = ionic_1.Alert.create({
-	            title: 'Choose ' + title,
-	            buttons: [
-	                {
-	                    text: 'Cancel',
-	                    role: 'cancel',
-	                    handler: function () {
-	                        console.log('Cancel clicked');
-	                    }
-	                },
-	                {
-	                    text: 'Ok',
-	                    handler: function (data) {
-	                        //console.log('Radio data:', data);
-	                        _this.testRadioOpen = false;
-	                        _this.radio = data;
-	                    }
-	                }
-	            ]
-	        });
-	        alert.addInput({
-	            type: 'radio',
-	            label: 'c0',
-	            value: '0',
-	            checked: true
-	        });
-	        alert.addInput({
-	            type: 'radio',
-	            label: 'c1',
-	            value: '1'
-	        });
-	        this.nav.present(alert).then(function () {
-	            _this.testRadioOpen = true;
-	        });
 	    };
 	    //get the full name of the following options:firstname, lastname, email,name
 	    TicketDetailsPage.prototype.getFullName = function (firstname, lastname, email, name) {
@@ -63456,7 +63429,7 @@
 	    TicketDetailsPage = __decorate([
 	        ionic_1.Page({
 	            templateUrl: 'build/pages/ticket-details/ticket-details.html',
-	            directives: [posts_list_1.PostsListComponent],
+	            directives: [posts_list_1.PostsListComponent, select_list_1.SelectListComponent],
 	            pipes: [pipes_1.GravatarPipe, pipes_1.LinebreaksPipe, pipes_1.DaysoldPipe],
 	        }), 
 	        __metadata('design:paramtypes', [ionic_1.NavController, ionic_1.NavParams, data_provider_1.DataProvider, ionic_1.Config])
@@ -64020,14 +63993,122 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	function __export(m) {
-	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-	}
-	__export(__webpack_require__(392));
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(5);
+	var core_1 = __webpack_require__(7);
+	//import {TicketDetailsPage} from '../../pages/ticket-details/ticket-details';
+	var modals_1 = __webpack_require__(392);
+	var alertLimit = 5;
+	var SelectListComponent = (function () {
+	    function SelectListComponent(nav) {
+	        this.onChanged = new core_1.EventEmitter();
+	        this.nav = nav;
+	        this.list = [];
+	        this.selected = {};
+	    }
+	    SelectListComponent.prototype.open = function () {
+	        if (!this.list || !this.list.items || this.list.items.length == 0)
+	            return;
+	        if (this.list.items.length <= alertLimit)
+	            this.openRadio();
+	        else
+	            this.openModal();
+	    };
+	    SelectListComponent.prototype.emit_changed = function (value) {
+	        this.list.value = value.name;
+	        var data = {};
+	        data["'" + this.list.name + "'"] = value;
+	        this.onChanged.emit(data);
+	    };
+	    SelectListComponent.prototype.openRadio = function () {
+	        var _this = this;
+	        var title = this.list.name;
+	        var alert = ionic_1.Alert.create({
+	            title: 'Choose ' + title,
+	            buttons: [
+	                {
+	                    text: 'Cancel',
+	                    role: 'cancel',
+	                    handler: function () {
+	                        console.log('Cancel clicked');
+	                    }
+	                },
+	                {
+	                    text: 'OK',
+	                    handler: function (data) {
+	                        console.log('Radio data:', data);
+	                        _this.testRadioOpen = false;
+	                        _this.selected = data;
+	                        _this.emit_changed(data);
+	                    }
+	                }
+	            ]
+	        });
+	        this.list.items.forEach(function (item) {
+	            alert.addInput({
+	                type: 'radio',
+	                label: item.name,
+	                value: item,
+	                checked: _this.list.selected === item.value
+	            });
+	        });
+	        this.nav.present(alert).then(function () {
+	            _this.testRadioOpen = true;
+	        });
+	    };
+	    SelectListComponent.prototype.openModal = function () {
+	        var _this = this;
+	        var myModal = ionic_1.Modal.create(modals_1.BasicSelectModal, this.list);
+	        myModal.onDismiss(function (data) {
+	            if (data.name) {
+	                _this.selected = data;
+	                _this.emit_changed(data);
+	            }
+	        });
+	        this.nav.present(myModal);
+	    };
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', Array)
+	    ], SelectListComponent.prototype, "list", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', core_1.EventEmitter)
+	    ], SelectListComponent.prototype, "onChanged", void 0);
+	    SelectListComponent = __decorate([
+	        core_1.Component({
+	            selector: 'select-list',
+	            templateUrl: 'build/components/select-list/select-list.html',
+	            directives: [ionic_1.IONIC_DIRECTIVES]
+	        }), 
+	        __metadata('design:paramtypes', [ionic_1.NavController])
+	    ], SelectListComponent);
+	    return SelectListComponent;
+	}());
+	exports.SelectListComponent = SelectListComponent;
 
 
 /***/ },
 /* 392 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	function __export(m) {
+	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+	}
+	__export(__webpack_require__(393));
+
+
+/***/ },
+/* 393 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -64047,7 +64128,7 @@
 	        this.viewCtrl = viewCtrl;
 	        this.searchQuery = '';
 	        this.params = params;
-	        this.name = "Class";
+	        this.name = this.params.data.name;
 	        this.data = this.params.data.items;
 	        this.items = this.data;
 	    }
@@ -64066,7 +64147,7 @@
 	            return;
 	        }
 	        this.items = this.items.filter(function (v) {
-	            if (v.text.toLowerCase().indexOf(q.toLowerCase()) > -1) {
+	            if (v.name.toLowerCase().indexOf(q.toLowerCase()) > -1) {
 	                return true;
 	            }
 	            return false;
@@ -64084,7 +64165,7 @@
 
 
 /***/ },
-/* 393 */
+/* 394 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -64163,7 +64244,7 @@
 
 
 /***/ },
-/* 394 */
+/* 395 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -64179,7 +64260,7 @@
 	//in case on using ionic "ion-card"
 	var ionic_1 = __webpack_require__(5);
 	var core_1 = __webpack_require__(7);
-	var account_details_1 = __webpack_require__(395);
+	var account_details_1 = __webpack_require__(396);
 	var pipes_1 = __webpack_require__(383);
 	var AccountsListComponent = (function () {
 	    /*@Input()
@@ -64214,7 +64295,7 @@
 
 
 /***/ },
-/* 395 */
+/* 396 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -64230,7 +64311,7 @@
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(369);
 	var tickets_list_1 = __webpack_require__(380);
-	var action_button_1 = __webpack_require__(393);
+	var action_button_1 = __webpack_require__(394);
 	var AccountDetailsPage = (function () {
 	    function AccountDetailsPage(nav, navParams, dataProvider, config) {
 	        var _this = this;
@@ -64264,7 +64345,7 @@
 
 
 /***/ },
-/* 396 */
+/* 397 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -64278,7 +64359,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(5);
-	var invoice_details_1 = __webpack_require__(397);
+	var invoice_details_1 = __webpack_require__(398);
 	var components_1 = __webpack_require__(377);
 	var InvoicesPage = (function () {
 	    function InvoicesPage(nav) {
@@ -64298,7 +64379,7 @@
 
 
 /***/ },
-/* 397 */
+/* 398 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -64328,7 +64409,7 @@
 
 
 /***/ },
-/* 398 */
+/* 399 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -64366,7 +64447,7 @@
 
 
 /***/ },
-/* 399 */
+/* 400 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -64380,7 +64461,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(5);
-	var timelog_1 = __webpack_require__(400);
+	var timelog_1 = __webpack_require__(401);
 	var components_1 = __webpack_require__(377);
 	var TimelogsPage = (function () {
 	    function TimelogsPage(nav) {
@@ -64400,7 +64481,7 @@
 
 
 /***/ },
-/* 400 */
+/* 401 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -64432,7 +64513,7 @@
 
 
 /***/ },
-/* 401 */
+/* 402 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -64479,7 +64560,7 @@
 
 
 /***/ },
-/* 402 */
+/* 403 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -64495,8 +64576,8 @@
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(369);
 	var components_1 = __webpack_require__(377);
-	var tickets_1 = __webpack_require__(401);
-	var account_details_1 = __webpack_require__(395);
+	var tickets_1 = __webpack_require__(402);
+	var account_details_1 = __webpack_require__(396);
 	var pipes_1 = __webpack_require__(383);
 	var DashboardPage = (function () {
 	    function DashboardPage(nav, config, dataProvider) {
@@ -64534,7 +64615,7 @@
 
 
 /***/ },
-/* 403 */
+/* 404 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -64549,8 +64630,8 @@
 	};
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(369);
-	var dashboard_1 = __webpack_require__(402);
-	var tickets_1 = __webpack_require__(401);
+	var dashboard_1 = __webpack_require__(403);
+	var tickets_1 = __webpack_require__(402);
 	var OrganizationsPage = (function () {
 	    function OrganizationsPage(nav, dataProvider, config) {
 	        var _this = this;
@@ -64612,7 +64693,7 @@
 
 
 /***/ },
-/* 404 */
+/* 405 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -64627,8 +64708,8 @@
 	};
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(369);
-	var organizations_1 = __webpack_require__(403);
-	var signup_1 = __webpack_require__(405);
+	var organizations_1 = __webpack_require__(404);
+	var signup_1 = __webpack_require__(406);
 	var LoginPage = (function () {
 	    function LoginPage(nav, dataProvider, config) {
 	        this.nav = nav;
@@ -64670,7 +64751,7 @@
 
 
 /***/ },
-/* 405 */
+/* 406 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
