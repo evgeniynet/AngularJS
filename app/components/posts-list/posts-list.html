@@ -7,6 +7,7 @@
         <p padding class="tech width50 left grey2 name">{{post.user_firstname + " " + post.user_lastname}}</p> 
         <p class="text_list grey2 date  width30 text-right">{{setDate(post.record_date) | date: "yMMMdd"}}</p> 
         <p class="text margin left" [innerHTML]="post.note | Linebreaks| Files : attachments"></p>
+        <span><ion-icon item-left class="button_circle left" dark name="md-document"></ion-icon></span>
         <ion-item class="margin"><p item-right class="text_list grey2">{{post.log_type}}</p></ion-item>
     </ion-card-content>
 </div>
