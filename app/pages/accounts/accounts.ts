@@ -11,8 +11,9 @@ export class AccountsPage {
     constructor(nav: NavController, dataProvider: DataProvider) {
     this.nav = nav;
     this.accounts = null;
+    var pager = {limit:500};
         
-    dataProvider.getAccountList(false, null, true, true).subscribe(
+    dataProvider.getAccountList(false, pager, true, true).subscribe(
             data => {this.accounts = data}, 
             error => { 
                 console.log(error || 'Server error');}
