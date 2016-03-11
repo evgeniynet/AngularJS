@@ -25,3 +25,10 @@
     height: 1.8em;
     font-size: 1.3rem;
 }
+
+.text-avatar{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-top: 26px;
+}
