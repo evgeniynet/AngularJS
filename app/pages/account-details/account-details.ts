@@ -3,10 +3,12 @@ import {DataProvider} from '../../providers/data-provider';
 import {getCurrency} from '../../directives/helpers';
 import {TicketsListComponent} from '../../components/tickets-list/tickets-list';
 import {ActionButtonComponent} from '../../components/action-button/action-button';
+import {MorePipe} from '../../pipes/pipes';
 
 @Page({
   templateUrl: 'build/pages/account-details/account-details.html',
     directives: [TicketsListComponent, ActionButtonComponent],
+    pipes: [MorePipe],
 })
 export class AccountDetailsPage {
     constructor(nav: NavController, navParams: NavParams, dataProvider: DataProvider, config: Config) {
@@ -19,8 +21,15 @@ export class AccountDetailsPage {
         
         this.tickets = null;
         this.dataProvider = dataProvider;
+        
         this.dataProvider.getTicketsList("open", this.account.id).subscribe(
             data => {this.tickets = data}, 
+            error => { 
+                console.log(error || 'Server error');}
+        );
+        
+        this.dataProvider.getAccountDetails(this.account.id).subscribe(
+            data => {this.account = data}, 
             error => { 
                 console.log(error || 'Server error');}
         ); 

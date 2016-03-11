@@ -54,10 +54,11 @@ export class SelectListComponent {
                  {
                      text: 'OK',
                      handler: data => {
-                         console.log('Radio data:', data);
+                         if(data){
                          this.testRadioOpen = false;
                          this.selected = data;
                          this.emit_changed(data);
+                         }
                      }
                  }
              ]

@@ -1,7 +1,7 @@
 
 <ion-navbar *navbar><button menuToggle><ion-icon name="menu"></ion-icon></button>
-    <a>
-        <ion-title>{{ticket.status}} | {{ticket.number}}&nbsp;<ion-icon class="outline" name="ios-open-outline"></ion-icon></ion-title></a>
+    
+    <ion-title>{{ticket.status}} | <a>{{ticket.number}}&nbsp;<ion-icon class="outline" name="ios-open-outline"></ion-icon></a></ion-title>
 </ion-navbar>
 
 <ion-content>
@@ -51,42 +51,14 @@
     <select-list [list]="classes" (onChanged)='saveSelect($event)'></select-list>
     
     <select-list [list]="levels" (onChanged)='saveSelect($event)'></select-list>
-    
-    <div class="list blue4" no-lines >
-    <button class="width100 button-icon-only">
-        <p class="textLogin">Priority:</p>
-        <ion-label class="righd">Priority</ion-label>
-        <ion-icon name="arrow-down"></ion-icon>
-        </button>
-        </div> 
-    
-    <div class="list blue4" no-lines >
-    <button class="width100 button-icon-only">
-        <p class="textLogin">Tech:</p>
-        <ion-label class="righd">Tech</ion-label>
-        <ion-icon name="arrow-down"></ion-icon>
-        </button>
-        </div>    
-    
-    <div class="list blue4" no-lines >
-    <button class="width100 button-icon-only">
-        <p class="textLogin">Choose location:</p>
-    <ion-label class="righd">Choose location</ion-label>
-        <ion-icon name="arrow-down"></ion-icon>
-        </button>
-        </div> 
-    
-    <div class="list blue4" no-lines >
-    <button class="width100 button-icon-only">
-        <p class="textLogin">Choose project:</p>
-    <ion-label class="righd">Choose project</ion-label>
-        <ion-icon name="arrow-down"></ion-icon>
-        </button>
-        </div>   
+    <select-list [list]="priority" (onChanged)='saveSelect($event)'></select-list>
+    <select-list [list]="tech" (onChanged)='saveSelect($event)'></select-list>
+    <select-list [list]="location" (onChanged)='saveSelect($event)'></select-list>
+    <select-list [list]="project" (onChanged)='saveSelect($event)'></select-list>
     
 </ion-list>  
         <div class="list">
-      <button secondary block="" type="submit" class="disable-hover button button-default button-block">Add Ticket</button>
+      <button secondary block="" type="submit" class="disable-hover button button-default button-block">Update</button>
     </div>
     </ion-list>
     <ion-list *ngSwitchWhen="'Options'" class="list general-alignment" no-lines>
@@ -96,18 +68,11 @@
   <button favorite block class="general-alignment2">Transfer Ticket</button>
             <button favorite block class="general-alignment2">Close Ticket</button></div>
                 <br>
-                <div class="list blue4" no-lines >
-    <button class="width100 button-icon-only">
-        <ion-label class="textLogin">Resolved</ion-label>
-        <ion-icon name="arrow-down"></ion-icon>
-        </button>
-        </div> 
-             <div class="list blue4" no-lines >
-    <button class="width100 button-icon-only">
-        <ion-label class="textLogin">UnResolved</ion-label>
-        <ion-icon name="arrow-down"></ion-icon>
-        </button>
-        </div>    
+                
+        <select-list [list]="resolution" (onChanged)='saveSelect($event)'></select-list>
+        
+        <select-list [list]="resolution_category" (onChanged)='saveSelect($event)'></select-list>
+            
                 <ion-label no-lines class="list">
           <i class="billable">
  <ion-icon class="ion-ios-radio-button-on"></ion-icon>

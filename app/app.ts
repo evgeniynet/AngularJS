@@ -40,9 +40,9 @@ class MyApp {
     this.pages = [
         { title: 'Dashboard', component: DashboardPage, icon: "speedometer" },
         { title: 'Tickets', component: TicketsPage, icon: "create-outline" },
-        { title: 'Timelogs', component: TimelogsPage, icon: "md-time" },
+        //{ title: 'Timelogs', component: TimelogsPage, icon: "md-time" },
         { title: 'Accounts', component: AccountsPage, icon: "people" },
-        { title: 'Invoices', component: InvoicesPage, icon: "card" },
+        { title: 'Invoices', component: InvoicesPage, icon: "card" },        
         { title: 'Queues', component: QueuesPage, icon: "list-box-outline" },
         { title: 'Switch Org', component: OrganizationsPage, icon: "md-swap" },
         { title: 'Signout', component: LoginPage, icon: "md-log-in" },
@@ -65,8 +65,8 @@ class MyApp {
         //let nav = this.app.getComponent('nav');
         //nav.setRoot(helpers.getPageFor(pageName), {}, { animate: false });
         
-        this.rootPage = TicketsPage;
-        return;
+        //this.rootPage = TicketsPage;
+        //return;
     // make HelloIonicPage the root (or first) page
         if (config.current.user.is_techoradmin)
             this.rootPage = DashboardPage;

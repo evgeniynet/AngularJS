@@ -3195,11 +3195,10 @@
 	var queues_1 = __webpack_require__(376);
 	var invoices_1 = __webpack_require__(398);
 	var accounts_1 = __webpack_require__(400);
-	var timelogs_1 = __webpack_require__(401);
-	var tickets_1 = __webpack_require__(403);
-	var dashboard_1 = __webpack_require__(404);
-	var organizations_1 = __webpack_require__(405);
-	var login_1 = __webpack_require__(406);
+	var tickets_1 = __webpack_require__(401);
+	var dashboard_1 = __webpack_require__(402);
+	var organizations_1 = __webpack_require__(403);
+	var login_1 = __webpack_require__(404);
 	var MyApp = (function () {
 	    function MyApp(app, platform, apiData, config, toastr) {
 	        // set up our app
@@ -3212,7 +3211,7 @@
 	        this.pages = [
 	            { title: 'Dashboard', component: dashboard_1.DashboardPage, icon: "speedometer" },
 	            { title: 'Tickets', component: tickets_1.TicketsPage, icon: "create-outline" },
-	            { title: 'Timelogs', component: timelogs_1.TimelogsPage, icon: "md-time" },
+	            //{ title: 'Timelogs', component: TimelogsPage, icon: "md-time" },
 	            { title: 'Accounts', component: accounts_1.AccountsPage, icon: "people" },
 	            { title: 'Invoices', component: invoices_1.InvoicesPage, icon: "card" },
 	            { title: 'Queues', component: queues_1.QueuesPage, icon: "list-box-outline" },
@@ -3232,8 +3231,8 @@
 	        }
 	        //let nav = this.app.getComponent('nav');
 	        //nav.setRoot(helpers.getPageFor(pageName), {}, { animate: false });
-	        this.rootPage = tickets_1.TicketsPage;
-	        return;
+	        //this.rootPage = TicketsPage;
+	        //return;
 	        // make HelloIonicPage the root (or first) page
 	        if (config.current.user.is_techoradmin)
 	            this.rootPage = dashboard_1.DashboardPage;
@@ -62819,8 +62818,12 @@
 	            url = url.addp("is_with_statistics", "false");
 	        if (is_open)
 	            url = url.addp("is_open_tickets", "true");
-	        if (pager)
-	            url = url.addp("limit", pager.limit);
+	        if (pager) {
+	            if (pager.limit)
+	                url = url.addp("limit", pager.limit);
+	            if (pager.page)
+	                url = url.addp("page", pager.page);
+	        }
 	        return this.apiData.get(url).map(function (arr) {
 	            var result = [];
 	            if (is_dashboard && arr) {
@@ -63341,31 +63344,70 @@
 	        this.posts = [];
 	        this.post1 = [];
 	        var classes1 = [
-	            { name: 'c0', value: 0 },
-	            { name: 'c1', value: 1 },
-	            { name: 'c2', value: 2 },
-	            { name: 'c3 Ego', value: 3 },
-	            { name: 'c4', value: 4 },
-	            { name: 'c5', value: 5 },
-	            { name: 'c6', value: 6 },
+	            { name: 'General Inquiry', value: 0 },
+	            { name: 'API', value: 1 },
+	            { name: 'Helpdesk', value: 2 },
+	            { name: 'SherpaDesk', value: 3 },
+	            { name: 'Website', value: 4 },
+	            { name: 'Website 1', value: 5 },
+	            { name: 'Website', value: 6 },
 	        ];
 	        var levels1 = [
-	            { name: 'c0', value: 0 },
-	            { name: 'c1', value: 1 },
-	            { name: 'c2', value: 2 },
-	            { name: 'c3 Ego', value: 3 },
-	            { name: 'c4', value: 4 },
+	            { name: 'First Resolution', value: 0 },
+	            { name: 'Pre-Development', value: 1 },
+	            { name: 'Active Plate', value: 2 },
+	            { name: 'Testing', value: 3 },
+	        ];
+	        var resolution1 = [
+	            { name: 'Resolved', value: 0 },
+	            { name: 'UnResolved', value: 1 },
+	        ];
+	        var resolution_category1 = [
+	            { name: 'First Resolution', value: 0 },
+	            { name: 'Pre-Development', value: 1 },
+	            { name: 'Active Plate', value: 2 },
+	            { name: 'Testing', value: 3 },
 	        ];
 	        this.classes = {};
 	        this.classes.name = "Class";
-	        this.classes.value = "c1";
-	        this.classes.selected = 1;
+	        this.classes.value = "General Inquiry";
+	        this.classes.selected = 0;
 	        this.classes.items = classes1;
 	        this.levels = {};
 	        this.levels.name = "Level";
-	        this.levels.value = "c2";
-	        this.levels.selected = 2;
+	        this.levels.value = "Pre-Development";
+	        this.levels.selected = 1;
 	        this.levels.items = levels1;
+	        this.priority = {};
+	        this.priority.name = "Priority";
+	        this.priority.value = "Testing";
+	        this.priority.selected = 3;
+	        this.priority.items = levels1;
+	        this.tech = {};
+	        this.tech.name = "Tech";
+	        this.tech.value = "Testing";
+	        this.tech.selected = 3;
+	        this.tech.items = levels1;
+	        this.location = {};
+	        this.location.name = "Location";
+	        this.location.value = "Testing";
+	        this.location.selected = 3;
+	        this.location.items = levels1;
+	        this.project = {};
+	        this.project.name = "Project";
+	        this.project.value = "Testing";
+	        this.project.selected = 3;
+	        this.project.items = levels1;
+	        this.resolution = {};
+	        this.resolution.name = "Resolution";
+	        this.resolution.value = "Resolved";
+	        this.resolution.selected = 0;
+	        this.resolution.items = resolution1;
+	        this.resolution_category = {};
+	        this.resolution_category.name = "Category";
+	        this.resolution_category.value = "Testing";
+	        this.resolution_category.selected = 3;
+	        this.resolution_category.items = resolution_category1;
 	        this.dataProvider.getTicketDetails(this.ticket.key).subscribe(function (data) {
 	            if (!data || !data.ticketlogs || data.ticketlogs == 0) {
 	                _this.redirectOnEmpty();
@@ -64091,10 +64133,11 @@
 	                {
 	                    text: 'OK',
 	                    handler: function (data) {
-	                        console.log('Radio data:', data);
-	                        _this.testRadioOpen = false;
-	                        _this.selected = data;
-	                        _this.emit_changed(data);
+	                        if (data) {
+	                            _this.testRadioOpen = false;
+	                            _this.selected = data;
+	                            _this.emit_changed(data);
+	                        }
 	                    }
 	                }
 	            ]
@@ -64359,6 +64402,7 @@
 	var helpers_1 = __webpack_require__(382);
 	var tickets_list_1 = __webpack_require__(380);
 	var action_button_1 = __webpack_require__(395);
+	var pipes_1 = __webpack_require__(384);
 	var AccountDetailsPage = (function () {
 	    function AccountDetailsPage(nav, navParams, dataProvider, config) {
 	        var _this = this;
@@ -64373,6 +64417,9 @@
 	        this.dataProvider.getTicketsList("open", this.account.id).subscribe(function (data) { _this.tickets = data; }, function (error) {
 	            console.log(error || 'Server error');
 	        });
+	        this.dataProvider.getAccountDetails(this.account.id).subscribe(function (data) { _this.account = data; }, function (error) {
+	            console.log(error || 'Server error');
+	        });
 	    }
 	    AccountDetailsPage.prototype.getCurrency = function (value) {
 	        return helpers_1.getCurrency(value, this.config.current.currency);
@@ -64381,6 +64428,7 @@
 	        ionic_1.Page({
 	            templateUrl: 'build/pages/account-details/account-details.html',
 	            directives: [tickets_list_1.TicketsListComponent, action_button_1.ActionButtonComponent],
+	            pipes: [pipes_1.MorePipe],
 	        }), 
 	        __metadata('design:paramtypes', [ionic_1.NavController, ionic_1.NavParams, data_provider_1.DataProvider, ionic_1.Config])
 	    ], AccountDetailsPage);
@@ -64475,7 +64523,8 @@
 	        var _this = this;
 	        this.nav = nav;
 	        this.accounts = null;
-	        dataProvider.getAccountList(false, null, true, true).subscribe(function (data) { _this.accounts = data; }, function (error) {
+	        var pager = { limit: 500 };
+	        dataProvider.getAccountList(false, pager, true, true).subscribe(function (data) { _this.accounts = data; }, function (error) {
 	            console.log(error || 'Server error');
 	        });
 	    }
@@ -64493,72 +64542,6 @@
 
 /***/ },
 /* 401 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var ionic_1 = __webpack_require__(5);
-	var timelog_1 = __webpack_require__(402);
-	var components_1 = __webpack_require__(377);
-	var TimelogsPage = (function () {
-	    function TimelogsPage(nav) {
-	        this.nav = nav;
-	    }
-	    TimelogsPage.prototype.itemTapped = function () { this.nav.push(timelog_1.TimelogPage); };
-	    TimelogsPage = __decorate([
-	        ionic_1.Page({
-	            templateUrl: 'build/pages/timelogs/timelogs.html',
-	            directives: [components_1.ActionButtonComponent],
-	        }), 
-	        __metadata('design:paramtypes', [ionic_1.NavController])
-	    ], TimelogsPage);
-	    return TimelogsPage;
-	}());
-	exports.TimelogsPage = TimelogsPage;
-
-
-/***/ },
-/* 402 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var ionic_1 = __webpack_require__(5);
-	var components_1 = __webpack_require__(377);
-	var TimelogPage = (function () {
-	    function TimelogPage(nav) {
-	        this.nav = nav;
-	    }
-	    TimelogPage = __decorate([
-	        ionic_1.Page({
-	            templateUrl: 'build/pages/timelog/timelog.html',
-	            directives: [components_1.ActionButtonComponent]
-	        }), 
-	        __metadata('design:paramtypes', [ionic_1.NavController])
-	    ], TimelogPage);
-	    return TimelogPage;
-	}());
-	exports.TimelogPage = TimelogPage;
-
-
-/***/ },
-/* 403 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -64605,7 +64588,7 @@
 
 
 /***/ },
-/* 404 */
+/* 402 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -64621,7 +64604,7 @@
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(369);
 	var components_1 = __webpack_require__(377);
-	var tickets_1 = __webpack_require__(403);
+	var tickets_1 = __webpack_require__(401);
 	var account_details_1 = __webpack_require__(397);
 	var pipes_1 = __webpack_require__(384);
 	var DashboardPage = (function () {
@@ -64660,7 +64643,7 @@
 
 
 /***/ },
-/* 405 */
+/* 403 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -64675,8 +64658,8 @@
 	};
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(369);
-	var dashboard_1 = __webpack_require__(404);
-	var tickets_1 = __webpack_require__(403);
+	var dashboard_1 = __webpack_require__(402);
+	var tickets_1 = __webpack_require__(401);
 	var OrganizationsPage = (function () {
 	    function OrganizationsPage(nav, dataProvider, config) {
 	        var _this = this;
@@ -64738,7 +64721,7 @@
 
 
 /***/ },
-/* 406 */
+/* 404 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -64753,8 +64736,8 @@
 	};
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(369);
-	var organizations_1 = __webpack_require__(405);
-	var signup_1 = __webpack_require__(407);
+	var organizations_1 = __webpack_require__(403);
+	var signup_1 = __webpack_require__(405);
 	var LoginPage = (function () {
 	    function LoginPage(nav, dataProvider, config) {
 	        this.nav = nav;
@@ -64796,7 +64779,7 @@
 
 
 /***/ },
-/* 407 */
+/* 405 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";

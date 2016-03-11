@@ -112,8 +112,12 @@ getAccountList(is_dashboard, pager, is_no_stat, is_open) {
         url = url.addp("is_with_statistics", "false");
     if (is_open) 
         url = url.addp("is_open_tickets", "true");
-    if (pager) 
+    if (pager) {
+        if (pager.limit)
         url = url.addp("limit", pager.limit);
+        if (pager.page)
+        url = url.addp("page", pager.page);
+    }
     return this.apiData.get(url).map((arr: Array<any>) => {
         let result = [];
         if (is_dashboard && arr) {
