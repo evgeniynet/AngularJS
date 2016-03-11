@@ -1,8 +1,7 @@
 
-<ion-navbar *navbar><button menuToggle><ion-icon name="menu"></ion-icon></button><p item-right class="text_list grey2">{{ticket.class_name}}</p>
-    <div class="width59">
-    <ion-title>{{ticket.status}} | {{ticket.number}}</ion-title>
-        <button danger class="right ticket-button margin"><ion-icon name="ios-redo"></ion-icon></button></div>
+<ion-navbar *navbar><button menuToggle><ion-icon name="menu"></ion-icon></button>
+    <a>
+        <ion-title>{{ticket.status}} | {{ticket.number}}&nbsp;<ion-icon class="outline" name="ios-open-outline"></ion-icon></ion-title></a>
 </ion-navbar>
 
 <ion-content>
@@ -34,7 +33,7 @@
     </ion-segment>
 </div>
     <div [ngSwitch]="details_tab">
-     <div class="list img-top" *ngSwitchWhen="'Reply'">
+     <div class="list general-alignment2" *ngSwitchWhen="'Reply'">
          
          <posts-list [posts]="post1" [attachments]="attachments"></posts-list>
          <div class="response-ticket">
@@ -85,30 +84,31 @@
         </button>
         </div>   
     
-</ion-list>    
+</ion-list>  
         <div class="list">
       <button secondary block="" type="submit" class="disable-hover button button-default button-block">Add Ticket</button>
     </div>
     </ion-list>
     <ion-list *ngSwitchWhen="'Options'" class="list general-alignment" no-lines>
+        <div class="list">
       <button secondary block="" type="submit" class="disable-hover button button-default button-block">Add Time</button>
       <button secondary block="" type="submit" class="disable-hover button button-default button-block general-alignment2">Add Expense</button>
   <button favorite block class="general-alignment2">Transfer Ticket</button>
-   <button favorite block class="general-alignment2">Close Ticket</button>
+            <button favorite block class="general-alignment2">Close Ticket</button></div>
                 <br>
-                <ion-item class="blue4 padding">
-    <ion-label>Resolved</ion-label>
-  <ion-select [(ngModel)]="toppings7" multiple="true" cancelText="Nah" okText="Okay!">
-<ion-option value="Class1" checked="true"></ion-option>
-    </ion-select>
-</ion-item>
-             <ion-item class="blue4 padding">
-    <ion-label>UnResolved</ion-label>
-  <ion-select [(ngModel)]="toppings8" multiple="true" cancelText="Nah" okText="Okay!">
-<ion-option value="Class1" checked="true"></ion-option>
-    </ion-select>
-</ion-item>   
-                <ion-label no-lines>
+                <div class="list blue4" no-lines >
+    <button class="width100 button-icon-only">
+        <ion-label class="textLogin">Resolved</ion-label>
+        <ion-icon name="arrow-down"></ion-icon>
+        </button>
+        </div> 
+             <div class="list blue4" no-lines >
+    <button class="width100 button-icon-only">
+        <ion-label class="textLogin">UnResolved</ion-label>
+        <ion-icon name="arrow-down"></ion-icon>
+        </button>
+        </div>    
+                <ion-label no-lines class="list">
           <i class="billable">
  <ion-icon class="ion-ios-radio-button-on"></ion-icon>
           </i>

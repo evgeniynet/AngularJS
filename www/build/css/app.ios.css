@@ -4925,7 +4925,7 @@ a.button, a[button] {
   padding: 0 1em;
   height: 2.8em;
   font-size: 1.6rem;
-  border-radius: 3px;
+  border-radius: 0px;
   color: black;
   background-color: #fff; }
   .button:hover:not(.disable-hover) {
@@ -7832,6 +7832,10 @@ ion-list > .item:first-child {
 .text-google {
   line-height: 2.1; }
 
+.outline {
+  font-weight: bold;
+  font-size: 1.8rem; }
+
 .ticket-details {
   white-space: initial !important;
   height: 84px;
@@ -7875,7 +7879,7 @@ ion-list > .item:first-child {
   border-bottom: 1px solid #dadada; }
 
 .img_padding {
-  padding-bottom: 10px;
+  padding-bottom: 22px;
   width: 105px; }
 
 .avatarText {
@@ -8210,8 +8214,8 @@ scroll-content {
   float: left; }
 
 .img {
-  margin-bottom: 8px;
-  margin-top: 8px; }
+  margin-bottom: 7px;
+  margin-top: 15px; }
 
 .img-top {
   margin-top: 18px; }
@@ -8225,7 +8229,7 @@ scroll-content {
 .admin {
   -webkit-box-orient: vertical;
   overflow: hidden;
-  line-height: 25px;
+  line-height: 23px;
   text-overflow: clip; }
 
 ion-label {

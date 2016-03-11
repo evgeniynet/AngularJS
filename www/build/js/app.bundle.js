@@ -64057,7 +64057,6 @@
 	                type: 'radio',
 	                label: item.name,
 	                value: item,
-	                checked: _this.list.selected === item.value
 	            });
 	        });
 	        this.nav.present(alert).then(function () {
