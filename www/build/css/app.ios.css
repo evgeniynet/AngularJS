@@ -7858,9 +7858,15 @@ ion-list > .item:first-child {
   height: 1.8em;
   font-size: 1.3rem; }
 
+.text-avatar {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-top: 26px; }
+
 .date {
   padding-bottom: 26px;
-  padding-top: 15px; }
+  padding-top: 28px; }
 
 .attachment {
   max-width: 100%;
@@ -7884,7 +7890,7 @@ ion-list > .item:first-child {
 
 .avatarText {
   line-height: 0.5;
-  color: #c8c7cc;
+  color: #dadada;
   font-size: 1.6rem;
   height: 77px;
   float: left; }
@@ -8216,7 +8222,7 @@ scroll-content {
 
 .img {
   margin-bottom: 7px;
-  margin-top: 15px; }
+  margin-top: 13px; }
 
 .img-top {
   margin-top: 18px; }
@@ -8230,7 +8236,7 @@ scroll-content {
 .admin {
   -webkit-box-orient: vertical;
   overflow: hidden;
-  line-height: 23px;
+  line-height: 26px;
   text-overflow: clip; }
 
 ion-label {
