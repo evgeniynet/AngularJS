@@ -72,7 +72,7 @@ var FileUrlHelper = {
         if (FileUrlHelper.checkURL(file) || FileUrlHelper.checkURL(name))
             img = "<img class=\"attachment\" src=\"" + file + "\">";
         else
-            img = "<i class='ion-android-document ion-3x ionColor'></i> &nbsp;" + (name ||  decodeURIComponent(file.split("/").slice(-1))) + "<p></p>";
+            img = "<ion-icon name=\"md-document\" role=img dark class=\"button_circle ion-md-document\" aria-label=\"md-document\"></ion-icon>&nbsp;" + (name ||  decodeURIComponent(file.split("/").slice(-1))) + "<p></p>";
         return "<p/><a class=\"comment_image_link\"" + 
             (isPhonegap ? (" href=# onclick='openURL(\"" +file + "\")'>"+img+"</a>") :
              (" target=\"_blank\" href=\"" +file + "\">"+img + "</a>"));

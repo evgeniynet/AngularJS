@@ -1,5 +1,6 @@
 import {Page, Config, NavController, NavParams} from 'ionic-framework/ionic';
 import {DataProvider} from '../../providers/data-provider';
+import {getCurrency} from '../../directives/helpers';
 import {TicketsListComponent} from '../../components/tickets-list/tickets-list';
 import {ActionButtonComponent} from '../../components/action-button/action-button';
 
@@ -26,8 +27,6 @@ export class AccountDetailsPage {
   }
     
     getCurrency(value) {
-        if (!value)
-            value = "0";
-        return this.config.current.currency + Number(value).toFixed(2).toString();
+        return getCurrency(value, this.config.current.currency);
     }
 }
