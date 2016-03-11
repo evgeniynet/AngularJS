@@ -42,7 +42,7 @@ class MyApp {
         { title: 'Tickets', component: TicketsPage, icon: "create-outline" },
         //{ title: 'Timelogs', component: TimelogsPage, icon: "md-time" },
         { title: 'Accounts', component: AccountsPage, icon: "people" },
-        { title: 'Invoices', component: InvoicesPage, icon: "card" },        { title: 'Invoices', component: InvoicesPage, icon: "card" },
+        { title: 'Invoices', component: InvoicesPage, icon: "card" },        
         { title: 'Queues', component: QueuesPage, icon: "list-box-outline" },
         { title: 'Switch Org', component: OrganizationsPage, icon: "md-swap" },
         { title: 'Signout', component: LoginPage, icon: "md-log-in" },

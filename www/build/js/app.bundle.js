@@ -3213,7 +3213,7 @@
 	            { title: 'Tickets', component: tickets_1.TicketsPage, icon: "create-outline" },
 	            //{ title: 'Timelogs', component: TimelogsPage, icon: "md-time" },
 	            { title: 'Accounts', component: accounts_1.AccountsPage, icon: "people" },
-	            { title: 'Invoices', component: invoices_1.InvoicesPage, icon: "card" }, { title: 'Invoices', component: invoices_1.InvoicesPage, icon: "card" },
+	            { title: 'Invoices', component: invoices_1.InvoicesPage, icon: "card" },
 	            { title: 'Queues', component: queues_1.QueuesPage, icon: "list-box-outline" },
 	            { title: 'Switch Org', component: organizations_1.OrganizationsPage, icon: "md-swap" },
 	            { title: 'Signout', component: login_1.LoginPage, icon: "md-log-in" },
