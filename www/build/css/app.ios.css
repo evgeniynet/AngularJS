@@ -767,7 +767,7 @@ ion-menu {
   right: auto;
   bottom: 0;
   left: 0;
-  width: 260px;
+  width: 270px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -799,7 +799,7 @@ ion-menu .backdrop {
 
 @media (max-width: 340px) {
   ion-menu {
-    width: 220px; } }
+    width: 230px; } }
 
 ion-menu[type=reveal].show-menu {
   -webkit-transform: translate3d(0px, 0px, 0px);
@@ -8348,6 +8348,9 @@ ion-label {
   overflow: hidden;
   text-overflow: ellipsis; }
 
+.overflow {
+  overflow: visible !important; }
+
 .buttonTicket {
   width: 50px;
   height: 50px; }
@@ -8368,6 +8371,9 @@ ion-label {
   margin-right: 10px;
   padding-left: 5px;
   padding-top: 5px; }
+
+.button-icon-only ion-icon {
+  padding: 0 0.25em; }
 
 .searchbar-input {
   color: #FFF; }
@@ -8412,6 +8418,9 @@ ion-label {
 
 .width80 {
   width: 80%; }
+
+.width70 {
+  width: 70%; }
 
 .width65 {
   width: 65%; }

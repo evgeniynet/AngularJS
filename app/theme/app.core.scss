@@ -316,6 +316,10 @@ text-align: center;
     text-overflow: ellipsis;
 }
 
+.overflow{
+       overflow: visible !important;
+}
+
 //button
 
 .buttonTicket{
@@ -345,6 +349,10 @@ color: #fff;
 }
 
 
+.button-icon-only ion-icon {
+    padding: 0 0.25em;
+}
+
 .searchbar-input {
     color: #FFF;
    }
@@ -361,6 +369,7 @@ color: #fff;
 .item:last-child, ion-list > ion-item-sliding:last-child .item {
     border-bottom: 0px;
 }
+
 
 //menu
 .ionFont {
@@ -403,6 +412,10 @@ color: #fff;
 
 .width80{
     width: 80%;
+}
+
+.width70{
+    width: 70%;
 }
 
 .width65{
