@@ -7748,6 +7748,12 @@ ion-list > .item:first-child {
   overflow: hidden;
   text-overflow: ellipsis; }
 
+.note-account {
+  height: 40px;
+  background: #1F2C39;
+  margin-bottom: 15px;
+  padding: 10px; }
+
 .invoiceCircle {
   font-size: 2.3em !important; }
 

@@ -19,8 +19,6 @@ export class AccountDetailsPage {
         // If we navigated to this page, we will have an item available as a nav param
         this.account = this.navParams.data || {};
         
-        console.log(this.account);
-        
         this.tickets = null;
         this.projects = null;
         this.dataProvider = dataProvider;
@@ -32,7 +30,9 @@ export class AccountDetailsPage {
         );
         
         this.dataProvider.getAccountDetails(this.account.id).subscribe(
-            data => {this.account = data}, 
+            data => {
+                this.account = data;
+                    }, 
             error => { 
                 console.log(error || 'Server error');}
         ); 

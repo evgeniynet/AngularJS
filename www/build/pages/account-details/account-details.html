@@ -38,98 +38,107 @@
         <br>
         <ion-list class="list" no-lines *ngSwitchWhen="'Info'">
         <ion-item class="margin"><h2 class="left width35 text-left">BWD Acct#</h2>
-     <h2 class="right width65">{{account.bwd_number}}</h2>
+     <h2 class="right width50 tkts-table">{{account.bwd_number}}</h2>
         </ion-item>
         <ion-item>
      <h2 class="left width35 text-left">Acc#</h2>
-     <h2 class="right width65">{{account.number}}</h2>
+     <h2 class="right width50 tkts-table">{{account.number}}</h2>
         </ion-item>
         <ion-item>
  <h2 class="left width35 text-left">Ref1#</h2>
- <h2 class="right width65">{{account.ref1}}</h2>
+ <h2 class="right width50 tkts-table">{{account.ref1}}</h2>
         </ion-item>
             <ion-item>
  <h2 class="left width35 text-left">Ref2#</h2>
- <h2 class="right width65">{{account.ref2}}</h2>
+ <h2 class="right width50 tkts-table">{{account.ref2}}</h2>
                 </ion-item>
                 <ion-item>
  <h2 class="left width35 text-left">Org/Indiv</h2>
- <h2 class="right width65">{{account.is_organization}}</h2>
+ <h2 class="right width50 tkts-table">{{account.is_organization}}</h2>
                     </ion-item>
                     <ion-item>
  <h2 class="left width35 text-left">Acc Rep</h2>
- <h2 class="right width65">{{account.representative_name}}</h2>
+ <h2 class="right width50 tkts-table">{{account.representative_name}}</h2>
           </ion-item>
           <ion-item>
  <h2 class="left width35 text-left">Internal location</h2>
- <h2 class="right width65">{{account.internal_location_name}}</h2>
+ <h2 class="right width50 tkts-table">{{account.internal_location_name}}</h2>
           </ion-item>
           <ion-item>
  <h2 class="left width35 text-left">Email Suffix</h2>
- <h2 class="right width65">{{account.email_suffix}}</h2>
+ <h2 class="right width50 tkts-table">{{account.email_suffix}}</h2>
          </ion-item>
          <ion-item>
  <h2 class="left width35 text-left">Address 1</h2>
- <h2 class="right width65">{{account.address1}}</h2>
+ <h2 class="right width50 tkts-table">{{account.address1}}</h2>
          </ion-item>
         <ion-item>
  <h2 class="left width35 text-left">Address 2</h2>
- <h2 class="right width65">{{account.address2}}</h2>
+ <h2 class="right width50 tkts-table">{{account.address2}}</h2>
        </ion-item>
       <ion-item>
  <h2 class="left width35 text-left">City</h2>
- <h2 class="right width65">{{account.city}}</h2>
+ <h2 class="right width50 tkts-table">{{account.city}}</h2>
           </ion-item>
        <ion-item>
  <h2 class="left width35 text-left">Postal Code</h2>
- <h2 class="right width65">{{account.zipcode}}</h2>
+ <h2 class="right width50 tkts-table">{{account.zipcode}}</h2>
           </ion-item>
     <ion-item>
  <h2 class="left width35 text-left">Country</h2>
- <h2 class="right width65">{{account.country}}</h2>
+ <h2 class="right width50 tkts-table">{{account.country}}</h2>
         </ion-item>
            <ion-item>
  <h2 class="left width35 text-left">Phone 1</h2>
- <h2 class="right width65">{{account.phone1}}</h2>
+ <h2 class="right width50 tkts-table">{{account.phone1}}</h2>
                </ion-item>
                <ion-item>
  <h2 class="left width35 text-left">Phone 2</h2>
- <h2 class="right width65">{{account.phone2}}</h2>
+ <h2 class="right width50 tkts-table">{{account.phone2}}</h2>
                </ion-item>
         </ion-list> 
         
         <ion-list class="list" *ngSwitchWhen="'Projects'">
-            <ion-item no-lines class="margin">
+            
+            <div [hidden]="account.projects?.length" class="table grey2 menu-text">No Projects yet</div>
+            
+            <ion-item *ngIf="account.projects?.length" no-lines class="margin">
     <p class="text width32 text-left left"></p>
     <h2 class="width17 left text-right table_account">Open</h2> 
     <h2 class="width17 left text-right table_account">Remain</h2> 
      <h2 class="width17 left text-right table_account">Logged</h2> 
     <h2 class="width17 right text-right table_account">Complete</h2>
         </ion-item>
-            
-    <ion-item>
-    <p class="text width32 text-left left table_account">{{projects.name}}</p>
-    <h3 class="width17 left text-right">{{projects.open_tickets}}</h3> 
-    <h3 class="width17 left text-right">{{projects.remaining_hours}}</h3> 
-     <h3 class="width17 left text-right">{{projects.logged_hours}}</h3> 
-    <h3 class="width17 right text-right">{{projects.complete}}</h3>
+        
+           
+    <ion-item *ngFor="#project of account.projects">
+    <p class="text width32 text-left left table_account">{{project.name}}</p>
+    <h3 class="width17 left text-right">{{project.open_tickets}}</h3> 
+    <h3 class="width17 left text-right">{{project.remaining_hours}}</h3> 
+     <h3 class="width17 left text-right">{{project.logged_hours}}</h3> 
+    <h3 class="width17 right text-right">{{project.complete}}</h3>
         </ion-item>
+           
         
         </ion-list>
         
         <ion-list class="list img-top" *ngSwitchWhen="'Notes'">
-          <ion-card class="width100 margin">
-        <ion-input class="textLogin" type="text" placeholder="Notes:"></ion-input>
-  <ion-card-content></ion-card-content>
-          <ion-card-content></ion-card-content>
-</ion-card>
+            <div [hidden]="account.projects?.length" class="table grey2 menu-text">No Notes yet</div>
+            
+         <div class="width100 textLogin note-account" type="text">sherpadeskfiles.blob.core.windows.net</div>
+          
+              <textarea class="width100 textLogin commentText" type="text" placeholder="Notes:"></textarea>
     <button secondary menuToggle
             class="button_reply width32 img-top">Save Notes</button>
         </ion-list>
             <ion-list class="list" no-lines *ngSwitchWhen="'Files'">
-        <ion-item class="margin"><h2 class="left width35 text-left">file</h2>
-     <h2 class="right width65">zip</h2>
+                
+                 <div [hidden]="account.files?.length" class="table grey2 menu-text">No Files yet</div>
+    <ion-item *ngFor="#file of account.files">
+    <h2 class="left width35 text-left">{{file.name}}</h2>
+    <h2 class="right width65">{{file.open_tickets}}</h2> 
         </ion-item>
+
             </ion-list>
     </div>
 </ion-content>
