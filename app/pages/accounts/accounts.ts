@@ -1,4 +1,4 @@
-import {Page, NavController} from 'ionic-framework/ionic';
+import {Page, Config, NavController} from 'ionic-framework/ionic';
 import {DataProvider} from '../../providers/data-provider';
 import {AccountsListComponent, ActionButtonComponent} from '../../components/components';
 
@@ -8,13 +8,16 @@ import {AccountsListComponent, ActionButtonComponent} from '../../components/com
     directives: [AccountsListComponent, ActionButtonComponent],
 })
 export class AccountsPage {
-    constructor(nav: NavController, dataProvider: DataProvider) {
+    constructor(nav: NavController, config: Config, dataProvider: DataProvider) {
     this.nav = nav;
+        this.config = config;
     this.accounts = null;
     var pager = {limit:500};
         
     dataProvider.getAccountList(false, pager, true, true).subscribe(
-            data => {this.accounts = data}, 
+            data => {this.accounts = data;
+                     this.config.current.stat.accounts = data.length;
+                    }, 
             error => { 
                 console.log(error || 'Server error');}
         ); 

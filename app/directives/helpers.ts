@@ -1,3 +1,19 @@
+export function saveConfig(config, key, org, inst) {
+    config.stat = {};
+    config.key =  key || "";
+    config.org = org || "";
+    config.instance = inst || "";
+    localStorage.current = JSON.stringify(config); 
+}
+ 
+export function saveCache(url, data) {
+    localStorage.setItem(url, JSON.stringify(data || {})); 
+}
+    
+export function loadCache(url) {
+    return JSON.parse(localStorage.getItem(url)); 
+}
+ 
 export function getCurrency(value, currency) {
     if (!value)
         value = "0";

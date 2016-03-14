@@ -1,4 +1,5 @@
 import {Page, Config, NavController} from 'ionic-framework/ionic';
+import {saveConfig} from '../../directives/helpers';
 import {DataProvider} from '../../providers/data-provider';
 import {OrganizationsPage} from '../organizations/organizations';
 import {SignupPage} from '../signup/signup';
@@ -20,8 +21,8 @@ export class LoginPage {
         this.submitted = true;
         if (form.valid) { this.dataProvider.checkLogin(form.value.email,form.value.password).subscribe(
                 data => {
-                    this.config.current.key =  data.api_token;
-                    localStorage.current = JSON.stringify(this.config.current); this.nav.push(OrganizationsPage);
+                    saveConfig(this.config.current, data.api_token);
+                    this.nav.push(OrganizationsPage);
                 }, 
                 error => { 
                     this.alert.error('There was a problem with your login.  Please try again.', 'Oops!');

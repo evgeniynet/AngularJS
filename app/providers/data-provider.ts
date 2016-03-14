@@ -2,6 +2,7 @@ import {Injectable} from 'angular2/core';
 import {Headers} from 'angular2/http';
 import {Observable} from 'rxjs/Observable';
 import {ApiData} from './api-data';
+import * as helpers from '../directives/helpers';
 import 'rxjs/add/operator/map';
 
 String.prototype.addp = function(param, value) {

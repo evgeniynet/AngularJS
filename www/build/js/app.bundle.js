@@ -3195,11 +3195,11 @@
 	var queues_1 = __webpack_require__(376);
 	var invoices_1 = __webpack_require__(398);
 	var accounts_1 = __webpack_require__(400);
-	var timelogs_1 = __webpack_require__(406);
-	var tickets_1 = __webpack_require__(401);
-	var dashboard_1 = __webpack_require__(402);
-	var organizations_1 = __webpack_require__(403);
-	var login_1 = __webpack_require__(404);
+	var timelogs_1 = __webpack_require__(401);
+	var tickets_1 = __webpack_require__(403);
+	var dashboard_1 = __webpack_require__(404);
+	var organizations_1 = __webpack_require__(405);
+	var login_1 = __webpack_require__(406);
 	var MyApp = (function () {
 	    function MyApp(app, platform, apiData, config, toastr) {
 	        // set up our app
@@ -3230,9 +3230,10 @@
 	            this.rootPage = login_1.LoginPage;
 	            return;
 	        }
+	        //accounts, tickets statistics
+	        config.current.stat = {};
 	        // set first pages
-	        this.rootPage = accounts_1.AccountsPage;
-	        return;
+	        //this.rootPage = AccountsPage; return;
 	        if (config.current.user.is_techoradmin)
 	            this.rootPage = dashboard_1.DashboardPage;
 	        else
@@ -62292,7 +62293,7 @@
 	exports.AppSite = 'https://app.' + Site;
 	exports.ApiSite = 'http://api.' + Site;
 	//offline
-	exports.dontClearCache = true;
+	exports.dontClearCache = false;
 	exports.isSD = true;
 	exports.year = "2015";
 	exports.appVersion = "40";
@@ -62370,6 +62371,7 @@
 	        }
 	    ],
 	    "config": {
+	        stat: {},
 	        "key": "re36rym3mjqxm8ej2cscfajmxpsew33m",
 	        "org": "zwoja4",
 	        "instance": "ms2asm",
@@ -64146,6 +64148,22 @@
 /***/ function(module, exports) {
 
 	"use strict";
+	function saveConfig(config, key, org, inst) {
+	    config.stat = {};
+	    config.key = key || "";
+	    config.org = org || "";
+	    config.instance = inst || "";
+	    localStorage.current = JSON.stringify(config);
+	}
+	exports.saveConfig = saveConfig;
+	function saveCache(url, data) {
+	    localStorage.setItem(url, JSON.stringify(data || {}));
+	}
+	exports.saveCache = saveCache;
+	function loadCache(url) {
+	    return JSON.parse(localStorage.getItem(url));
+	}
+	exports.loadCache = loadCache;
 	function getCurrency(value, currency) {
 	    if (!value)
 	        value = "0";
@@ -65097,6 +65115,7 @@
 	        this.account = this.navParams.data || {};
 	        console.log(this.account);
 	        this.tickets = null;
+	        this.projects = null;
 	        this.dataProvider = dataProvider;
 	        this.dataProvider.getTicketsList("open", this.account.id).subscribe(function (data) { _this.tickets = data; }, function (error) {
 	            console.log(error || 'Server error');
@@ -65203,12 +65222,16 @@
 	var data_provider_1 = __webpack_require__(369);
 	var components_1 = __webpack_require__(377);
 	var AccountsPage = (function () {
-	    function AccountsPage(nav, dataProvider) {
+	    function AccountsPage(nav, config, dataProvider) {
 	        var _this = this;
 	        this.nav = nav;
+	        this.config = config;
 	        this.accounts = null;
 	        var pager = { limit: 500 };
-	        dataProvider.getAccountList(false, pager, true, true).subscribe(function (data) { _this.accounts = data; }, function (error) {
+	        dataProvider.getAccountList(false, pager, true, true).subscribe(function (data) {
+	            _this.accounts = data;
+	            _this.config.current.stat.accounts = data.length;
+	        }, function (error) {
 	            console.log(error || 'Server error');
 	        });
 	    }
@@ -65217,7 +65240,7 @@
 	            templateUrl: 'build/pages/accounts/accounts.html',
 	            directives: [components_1.AccountsListComponent, components_1.ActionButtonComponent],
 	        }), 
-	        __metadata('design:paramtypes', [ionic_1.NavController, data_provider_1.DataProvider])
+	        __metadata('design:paramtypes', [ionic_1.NavController, ionic_1.Config, data_provider_1.DataProvider])
 	    ], AccountsPage);
 	    return AccountsPage;
 	}());
@@ -65226,6 +65249,72 @@
 
 /***/ },
 /* 401 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(5);
+	var timelog_1 = __webpack_require__(402);
+	var components_1 = __webpack_require__(377);
+	var TimelogsPage = (function () {
+	    function TimelogsPage(nav) {
+	        this.nav = nav;
+	    }
+	    TimelogsPage.prototype.itemTapped = function () { this.nav.push(timelog_1.TimelogPage); };
+	    TimelogsPage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/timelogs/timelogs.html',
+	            directives: [components_1.ActionButtonComponent],
+	        }), 
+	        __metadata('design:paramtypes', [ionic_1.NavController])
+	    ], TimelogsPage);
+	    return TimelogsPage;
+	}());
+	exports.TimelogsPage = TimelogsPage;
+
+
+/***/ },
+/* 402 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(5);
+	var components_1 = __webpack_require__(377);
+	var TimelogPage = (function () {
+	    function TimelogPage(nav) {
+	        this.nav = nav;
+	    }
+	    TimelogPage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/timelog/timelog.html',
+	            directives: [components_1.ActionButtonComponent]
+	        }), 
+	        __metadata('design:paramtypes', [ionic_1.NavController])
+	    ], TimelogPage);
+	    return TimelogPage;
+	}());
+	exports.TimelogPage = TimelogPage;
+
+
+/***/ },
+/* 403 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -65272,7 +65361,7 @@
 
 
 /***/ },
-/* 402 */
+/* 404 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -65287,8 +65376,9 @@
 	};
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(369);
+	var helpers = __webpack_require__(382);
 	var components_1 = __webpack_require__(377);
-	var tickets_1 = __webpack_require__(401);
+	var tickets_1 = __webpack_require__(403);
 	var account_details_1 = __webpack_require__(397);
 	var pipes_1 = __webpack_require__(384);
 	var DashboardPage = (function () {
@@ -65296,18 +65386,31 @@
 	        var _this = this;
 	        this.nav = nav;
 	        this.config = config;
+	        var statistics = this.config.current.stat;
 	        this.dataProvider = dataProvider;
 	        this.queues = null;
-	        this.accounts = null;
+	        this.accounts = helpers.loadCache("dashaccounts");
 	        this.counts = { open_as_tech: 0 };
-	        var pager = { limit: 5 };
+	        var pager = { limit: (statistics.accounts + 5) || 500 };
 	        dataProvider.getQueueList(3).subscribe(function (data) { _this.queues = data; }, function (error) {
 	            console.log(error || 'Server error');
 	        });
-	        dataProvider.getAccountList(true, pager).subscribe(function (data) { _this.accounts = data; }, function (error) {
+	        if (!this.accounts || this.accounts.length == 0)
+	            dataProvider.getAccountList(true, pager, true, true).subscribe(function (data) {
+	                _this.accounts = data;
+	            }, function (error) {
+	                console.log(error || 'Server error');
+	            });
+	        dataProvider.getAccountList(true, pager).subscribe(function (data) {
+	            _this.accounts = data;
+	            helpers.saveCache("dashaccounts", data);
+	        }, function (error) {
 	            console.log(error || 'Server error');
 	        });
-	        dataProvider.getTicketsCounts().subscribe(function (data) { _this.counts = data; }, function (error) {
+	        dataProvider.getTicketsCounts().subscribe(function (data) {
+	            _this.counts = data;
+	            _this.config.current.stat.tickets = data;
+	        }, function (error) {
 	            console.log(error || 'Server error');
 	        });
 	    }
@@ -65327,7 +65430,7 @@
 
 
 /***/ },
-/* 403 */
+/* 405 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -65342,8 +65445,9 @@
 	};
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(369);
-	var dashboard_1 = __webpack_require__(402);
-	var tickets_1 = __webpack_require__(401);
+	var helpers_1 = __webpack_require__(382);
+	var dashboard_1 = __webpack_require__(404);
+	var tickets_1 = __webpack_require__(403);
 	var OrganizationsPage = (function () {
 	    function OrganizationsPage(nav, dataProvider, config) {
 	        var _this = this;
@@ -65373,14 +65477,10 @@
 	        var _this = this;
 	        this.config.current.org = instance.org;
 	        this.config.current.instance = instance.inst;
-	        localStorage.current = JSON.stringify(this.config.current);
 	        this.dataProvider.getConfig().subscribe(function (data) {
 	            var key = _this.config.current.key;
 	            _this.config.current = data;
-	            _this.config.current.key = key;
-	            _this.config.current.org = instance.org;
-	            _this.config.current.instance = instance.inst;
-	            localStorage.current = JSON.stringify(_this.config.current);
+	            helpers_1.saveConfig(_this.config.current, key, instance.org, instance.inst);
 	            if (_this.config.current.user.is_techoradmin)
 	                _this.nav.setRoot(dashboard_1.DashboardPage);
 	            else
@@ -65405,7 +65505,7 @@
 
 
 /***/ },
-/* 404 */
+/* 406 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -65419,9 +65519,10 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(5);
+	var helpers_1 = __webpack_require__(382);
 	var data_provider_1 = __webpack_require__(369);
-	var organizations_1 = __webpack_require__(403);
-	var signup_1 = __webpack_require__(405);
+	var organizations_1 = __webpack_require__(405);
+	var signup_1 = __webpack_require__(407);
 	var LoginPage = (function () {
 	    function LoginPage(nav, dataProvider, config) {
 	        this.nav = nav;
@@ -65436,8 +65537,7 @@
 	        this.submitted = true;
 	        if (form.valid) {
 	            this.dataProvider.checkLogin(form.value.email, form.value.password).subscribe(function (data) {
-	                _this.config.current.key = data.api_token;
-	                localStorage.current = JSON.stringify(_this.config.current);
+	                helpers_1.saveConfig(_this.config.current, data.api_token);
 	                _this.nav.push(organizations_1.OrganizationsPage);
 	            }, function (error) {
 	                _this.alert.error('There was a problem with your login.  Please try again.', 'Oops!');
@@ -65463,7 +65563,7 @@
 
 
 /***/ },
-/* 405 */
+/* 407 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -65490,72 +65590,6 @@
 	    return SignupPage;
 	}());
 	exports.SignupPage = SignupPage;
-
-
-/***/ },
-/* 406 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var ionic_1 = __webpack_require__(5);
-	var timelog_1 = __webpack_require__(407);
-	var components_1 = __webpack_require__(377);
-	var TimelogsPage = (function () {
-	    function TimelogsPage(nav) {
-	        this.nav = nav;
-	    }
-	    TimelogsPage.prototype.itemTapped = function () { this.nav.push(timelog_1.TimelogPage); };
-	    TimelogsPage = __decorate([
-	        ionic_1.Page({
-	            templateUrl: 'build/pages/timelogs/timelogs.html',
-	            directives: [components_1.ActionButtonComponent],
-	        }), 
-	        __metadata('design:paramtypes', [ionic_1.NavController])
-	    ], TimelogsPage);
-	    return TimelogsPage;
-	}());
-	exports.TimelogsPage = TimelogsPage;
-
-
-/***/ },
-/* 407 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var ionic_1 = __webpack_require__(5);
-	var components_1 = __webpack_require__(377);
-	var TimelogPage = (function () {
-	    function TimelogPage(nav) {
-	        this.nav = nav;
-	    }
-	    TimelogPage = __decorate([
-	        ionic_1.Page({
-	            templateUrl: 'build/pages/timelog/timelog.html',
-	            directives: [components_1.ActionButtonComponent]
-	        }), 
-	        __metadata('design:paramtypes', [ionic_1.NavController])
-	    ], TimelogPage);
-	    return TimelogPage;
-	}());
-	exports.TimelogPage = TimelogPage;
 
 
 /***/ }

@@ -1,5 +1,6 @@
 import {Page, Config, NavController} from 'ionic-framework/ionic';
 import {DataProvider} from '../../providers/data-provider';
+import * as helpers from '../../directives/helpers';
 import {QueuesListComponent, AccountsListComponent, ActionButtonComponent} from '../../components/components';
 import {TicketsPage} from '../tickets/tickets';
 import {AccountDetailsPage} from '../account-details/account-details';
@@ -14,37 +15,43 @@ export class DashboardPage {
     constructor(nav: NavController, config: Config, dataProvider: DataProvider) {
     this.nav = nav;
     this.config = config;
-    let statistics = this.config.current.stat || {};
+    var statistics = this.config.current.stat;
     this.dataProvider = dataProvider;
     this.queues = null;
-    this.accounts = null;
+    this.accounts = helpers.loadCache("dashaccounts");
+
     this.counts = {open_as_tech: 0};
         let pager = {limit: (statistics.accounts + 5) || 500};
-        console.log(pager);
         
         dataProvider.getQueueList(3).subscribe(
             data => {this.queues = data}, 
             error => { 
                 console.log(error || 'Server error');}
         ); 
-
-        dataProvider.getAccountList(false, pager, true, true).subscribe(
+        
+        if (!this.accounts || this.accounts.length ==0)
+        dataProvider.getAccountList(true, pager, true, true).subscribe(
             data => {
                     this.accounts = data;
-                     statistics.accounts = data.length;
                     }, 
             error => { 
                 console.log(error || 'Server error');}
         );   
         
         dataProvider.getAccountList(true, pager).subscribe(
-            data => {this.accounts = data}, 
+            data => {
+                this.accounts = data;
+                     helpers.saveCache("dashaccounts", data);
+                    }, 
             error => { 
                 console.log(error || 'Server error');}
         ); 
         
         dataProvider.getTicketsCounts().subscribe(
-            data => {this.counts = data}, 
+            data => {
+                    this.counts = data;
+                     this.config.current.stat.tickets = data;
+                    }, 
             error => { 
                 console.log(error || 'Server error');}
         ); 

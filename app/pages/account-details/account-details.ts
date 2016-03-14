@@ -22,6 +22,7 @@ export class AccountDetailsPage {
         console.log(this.account);
         
         this.tickets = null;
+        this.projects = null;
         this.dataProvider = dataProvider;
         
         this.dataProvider.getTicketsList("open", this.account.id).subscribe(

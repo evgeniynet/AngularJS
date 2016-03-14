@@ -62,9 +62,12 @@ class MyApp {
             this.rootPage = LoginPage;
             return;
             }
+        
+        //accounts, tickets statistics
+        config.current.stat = {};
+        
         // set first pages
-        this.rootPage = AccountsPage;
-        return;
+        //this.rootPage = AccountsPage; return;
       
         if (config.current.user.is_techoradmin)
             this.rootPage = DashboardPage;
