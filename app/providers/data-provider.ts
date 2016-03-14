@@ -107,18 +107,36 @@ getQueueList(limit) {
     });
 }
     
+getTimelogs(pager) {
+    let url = "time";
+    url = this.getPager(url, pager);
+    return this.apiData.get(url);
+}
+    
+getInvoices(account_id, pager) {
+    let url = "invoices".addp("account_id",account_id);
+    url = this.getPager(url, pager);
+    return this.apiData.get(url);
+}
+    
+getPager(url, pager)
+    {
+        if (pager) {
+            if (pager.limit)
+                url = url.addp("limit", pager.limit);
+            if (pager.page)
+                url = url.addp("page", pager.page);
+        }
+        return url;
+    }
+    
 getAccountList(is_dashboard, pager, is_no_stat, is_open) {
     let url = "accounts";
     if (is_no_stat) 
         url = url.addp("is_with_statistics", "false");
     if (is_open) 
         url = url.addp("is_open_tickets", "true");
-    if (pager) {
-        if (pager.limit)
-        url = url.addp("limit", pager.limit);
-        if (pager.page)
-        url = url.addp("page", pager.page);
-    }
+    url = this.getPager(url, pager);
     return this.apiData.get(url).map((arr: Array<any>) => {
         let result = [];
         if (is_dashboard && arr) {

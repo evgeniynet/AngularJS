@@ -62293,7 +62293,7 @@
 	exports.AppSite = 'https://app.' + Site;
 	exports.ApiSite = 'http://api.' + Site;
 	//offline
-	exports.dontClearCache = false;
+	exports.dontClearCache = true;
 	exports.isSD = true;
 	exports.year = "2015";
 	exports.appVersion = "40";
@@ -63162,7 +63162,277 @@
 	        ],
 	        "BillRate": 0,
 	        "WaitingUsedBeforeReopen": 0
-	    }
+	    },
+	    "time": [
+	        {
+	            "time_id": 39973,
+	            "project_name": "",
+	            "user_name": "Vladimir Gooz",
+	            "user_email": "vladimir.gooz@micajah.com",
+	            "user_id": 6,
+	            "note": "Testing and bug fixing before production deploment. Check error tracker on new bugs.",
+	            "date": "2016-03-11T16:49:00.0000000",
+	            "stop_time": "2016-03-11T16:49:00.0000000",
+	            "start_time": "2016-03-11T16:49:00.0000000",
+	            "hours": 4.0000,
+	            "fb_id": 0,
+	            "is_project_log": true,
+	            "ticket_id": 111,
+	            "task_type_id": 56,
+	            "task_type": "Software Dev",
+	            "project_id": 10,
+	            "account_id": -1,
+	            "ticket_number": 0,
+	            "account_name": "SherpaDesk Support",
+	            "ticket_subject": "",
+	            "invoice_id": 0,
+	            "billable": false,
+	            "invoice_pseudo_id": "",
+	            "qb_id": 0,
+	            "payment_id": 0,
+	            "contract_name": ""
+	        },
+	        {
+	            "time_id": 262415,
+	            "project_name": "",
+	            "user_name": "Igor Vladyka",
+	            "user_email": "igor.vladyka@micajah.com",
+	            "user_id": 57,
+	            "note": "sdgkljklagj dfgjldkjg   Bug in Time tab Bug in Time tab",
+	            "date": "2016-03-11T14:50:00.0000000",
+	            "stop_time": "2016-03-11T16:49:00.0000000",
+	            "start_time": "2016-03-11T16:49:00.0000000",
+	            "hours": 6.7600,
+	            "fb_id": 0,
+	            "is_project_log": false,
+	            "ticket_id": 464699,
+	            "task_type_id": 56,
+	            "task_type": "Software Dev",
+	            "project_id": 10,
+	            "account_id": -1,
+	            "ticket_number": 5036,
+	            "account_name": "SherpaDesk Support",
+	            "ticket_subject": "Avatar/Gravitar Bug in Time tab Bug in Time tab Bug in Time tab Bug in Time tab",
+	            "invoice_id": 10,
+	            "billable": true,
+	            "invoice_pseudo_id": "      ",
+	            "qb_id": 0,
+	            "payment_id": 0,
+	            "contract_name": "gdfg"
+	        },
+	        {
+	            "time_id": 262905,
+	            "project_name": "",
+	            "user_name": "Yura Yuriev",
+	            "user_email": "yura.yuriev@micajah.com",
+	            "user_id": 97,
+	            "note": "",
+	            "date": "2016-03-11T13:50:00.0000000",
+	            "stop_time": null,
+	            "start_time": null,
+	            "hours": 8.0000,
+	            "fb_id": 0,
+	            "is_project_log": false,
+	            "ticket_id": 470798,
+	            "task_type_id": 56,
+	            "task_type": "Software Dev",
+	            "project_id": 0,
+	            "account_id": -1,
+	            "ticket_number": 5071,
+	            "account_name": "SherpaDesk Support",
+	            "ticket_subject": "Azure Search Upgrades",
+	            "invoice_id": 0,
+	            "billable": true,
+	            "invoice_pseudo_id": "      ",
+	            "qb_id": 0,
+	            "payment_id": 0,
+	            "contract_name": ""
+	        },
+	        {
+	            "time_id": 262014,
+	            "project_name": "",
+	            "user_name": "Igor Vladyka",
+	            "user_email": "igor.vladyka@micajah.com",
+	            "user_id": 57,
+	            "note": "",
+	            "date": "2016-03-10T15:44:00.0000000",
+	            "stop_time": null,
+	            "start_time": null,
+	            "hours": 9.1500,
+	            "fb_id": 0,
+	            "is_project_log": false,
+	            "ticket_id": 475888,
+	            "task_type_id": 56,
+	            "task_type": "Software Dev",
+	            "project_id": 0,
+	            "account_id": -1,
+	            "ticket_number": 5116,
+	            "account_name": "SherpaDesk Support",
+	            "ticket_subject": "Permissions on Inviting Org and User",
+	            "invoice_id": 0,
+	            "billable": true,
+	            "invoice_pseudo_id": "      ",
+	            "qb_id": 0,
+	            "payment_id": 0,
+	            "contract_name": ""
+	        },
+	        {
+	            "time_id": 39857,
+	            "project_name": "",
+	            "user_name": "Igor Vladyka",
+	            "user_email": "igor.vladyka@micajah.com",
+	            "user_id": 57,
+	            "note": "Conversation with Yura Yuriev",
+	            "date": "2016-03-10T14:41:00.0000000",
+	            "stop_time": null,
+	            "start_time": null,
+	            "hours": 0.1700,
+	            "fb_id": 0,
+	            "is_project_log": true,
+	            "ticket_id": 0,
+	            "task_type_id": 56,
+	            "task_type": "Software Dev",
+	            "project_id": 0,
+	            "account_id": -1,
+	            "ticket_number": 0,
+	            "account_name": "SherpaDesk Support",
+	            "ticket_subject": "",
+	            "invoice_id": 0,
+	            "billable": true,
+	            "invoice_pseudo_id": "      ",
+	            "qb_id": 0,
+	            "payment_id": 0,
+	            "contract_name": ""
+	        }
+	    ],
+	    "invoices": [
+	        {
+	            "id": 1695,
+	            "key": "ihpw7d",
+	            "project_id": -1,
+	            "account_id": 3126,
+	            "customer": "Allsups",
+	            "date": "2016-02-08T22:06:00.0000000",
+	            "start_date": "2015-03-10T07:27:00.0000000",
+	            "end_date": "2015-03-13T15:05:00.0000000",
+	            "timelogs_count": 4,
+	            "total_hours": 12.8300,
+	            "amount": 256.6000,
+	            "travel_cost": 0.0000,
+	            "misc_cost": 0.0000,
+	            "total_cost": 256.6000,
+	            "adjustments": 0,
+	            "adjustments_note": null,
+	            "is_fb_exported": false,
+	            "is_qb_exported": false,
+	            "is_no_rate_plan": null,
+	            "account_name": "Allsups",
+	            "project_name": "",
+	            "qb_invoice_id": 0,
+	            "qb_customer_id": 330,
+	            "recipients": [
+	                {
+	                    "id": 18961,
+	                    "email": "nick.holmes@allsups.com",
+	                    "fullname": "Nick Holmes",
+	                    "phone": "",
+	                    "type": "user",
+	                    "is_accounting_contact": true
+	                },
+	                {
+	                    "id": 88490,
+	                    "email": "larry.lewis@allsups.com",
+	                    "fullname": "Larry Lewis",
+	                    "phone": "",
+	                    "type": "user",
+	                    "is_accounting_contact": true
+	                },
+	                {
+	                    "id": 14599,
+	                    "email": "chris.mccarty@allsups.com",
+	                    "fullname": "Chris McCarty",
+	                    "phone": "",
+	                    "type": "user",
+	                    "is_accounting_contact": true
+	                },
+	                {
+	                    "id": 79483,
+	                    "email": "linda.wilhite@allsups.com",
+	                    "fullname": "Linda Wilhite",
+	                    "phone": "",
+	                    "type": "user",
+	                    "is_accounting_contact": true
+	                }
+	            ],
+	            "time_logs": null,
+	            "travel_logs": null,
+	            "expenses": null,
+	            "retainers": null
+	        },
+	        {
+	            "id": 1693,
+	            "key": "ihpe7d",
+	            "project_id": -1,
+	            "account_id": 3126,
+	            "customer": "Allsups",
+	            "date": "2016-02-08T22:06:00.0000000",
+	            "start_date": "2015-03-10T07:27:00.0000000",
+	            "end_date": "2015-03-13T15:05:00.0000000",
+	            "timelogs_count": 5,
+	            "total_hours": 121.8300,
+	            "amount": 26.6000,
+	            "travel_cost": 10.0000,
+	            "misc_cost": 30.0000,
+	            "total_cost": 256.6000,
+	            "adjustments": 40,
+	            "adjustments_note": "ewfger",
+	            "is_fb_exported": false,
+	            "is_qb_exported": false,
+	            "is_no_rate_plan": null,
+	            "account_name": "Allsups",
+	            "project_name": "ergter",
+	            "qb_invoice_id": 0,
+	            "qb_customer_id": 330,
+	            "recipients": [
+	                {
+	                    "id": 18961,
+	                    "email": "nick.holmes@allsups.com",
+	                    "fullname": "Nick Holmes",
+	                    "phone": "",
+	                    "type": "user",
+	                    "is_accounting_contact": true
+	                },
+	                {
+	                    "id": 88490,
+	                    "email": "larry.lewis@allsups.com",
+	                    "fullname": "Larry Lewis",
+	                    "phone": "",
+	                    "type": "user",
+	                    "is_accounting_contact": true
+	                },
+	                {
+	                    "id": 14599,
+	                    "email": "chris.mccarty@allsups.com",
+	                    "fullname": "Chris McCarty",
+	                    "phone": "454",
+	                    "type": "user",
+	                    "is_accounting_contact": true
+	                },
+	                {
+	                    "id": 79483,
+	                    "email": "linda.wilhite@allsups.com",
+	                    "fullname": "Linda Wilhite",
+	                    "phone": "",
+	                    "type": "user",
+	                    "is_accounting_contact": true
+	                }
+	            ],
+	            "time_logs": null,
+	            "travel_logs": null,
+	            "expenses": null,
+	            "retainers": null
+	        }
+	    ]
 	};
 
 
@@ -63497,18 +63767,32 @@
 	            return arr;
 	        });
 	    };
-	    DataProvider.prototype.getAccountList = function (is_dashboard, pager, is_no_stat, is_open) {
-	        var url = "accounts";
-	        if (is_no_stat)
-	            url = url.addp("is_with_statistics", "false");
-	        if (is_open)
-	            url = url.addp("is_open_tickets", "true");
+	    DataProvider.prototype.getTimelogs = function (pager) {
+	        var url = "time";
+	        url = this.getPager(url, pager);
+	        return this.apiData.get(url);
+	    };
+	    DataProvider.prototype.getInvoices = function (account_id, pager) {
+	        var url = "invoices".addp("account_id", account_id);
+	        url = this.getPager(url, pager);
+	        return this.apiData.get(url);
+	    };
+	    DataProvider.prototype.getPager = function (url, pager) {
 	        if (pager) {
 	            if (pager.limit)
 	                url = url.addp("limit", pager.limit);
 	            if (pager.page)
 	                url = url.addp("page", pager.page);
 	        }
+	        return url;
+	    };
+	    DataProvider.prototype.getAccountList = function (is_dashboard, pager, is_no_stat, is_open) {
+	        var url = "accounts";
+	        if (is_no_stat)
+	            url = url.addp("is_with_statistics", "false");
+	        if (is_open)
+	            url = url.addp("is_open_tickets", "true");
+	        url = this.getPager(url, pager);
 	        return this.apiData.get(url).map(function (arr) {
 	            var result = [];
 	            if (is_dashboard && arr) {
@@ -65156,18 +65440,33 @@
 	};
 	var ionic_1 = __webpack_require__(5);
 	var invoice_details_1 = __webpack_require__(399);
-	var components_1 = __webpack_require__(377);
+	var data_provider_1 = __webpack_require__(369);
+	//import {TicketsListComponent} from '../../components/tickets-list/tickets-list';
+	var action_button_1 = __webpack_require__(395);
+	var pipes_1 = __webpack_require__(384);
 	var InvoicesPage = (function () {
-	    function InvoicesPage(nav) {
+	    function InvoicesPage(nav, dataProvider, config) {
+	        var _this = this;
 	        this.nav = nav;
+	        this.config = config;
+	        this.invoices = null;
+	        this.dataProvider = dataProvider;
+	        var pager = { limit: 5 };
+	        this.dataProvider.getInvoices(null, pager).subscribe(function (data) {
+	            _this.invoices = data;
+	            console.log(data);
+	        }, function (error) {
+	            console.log(error || 'Server error');
+	        });
 	    }
 	    InvoicesPage.prototype.itemTapped = function () { this.nav.push(invoice_details_1.InvoiceDetailsPage); };
 	    InvoicesPage = __decorate([
 	        ionic_1.Page({
 	            templateUrl: 'build/pages/invoices/invoices.html',
-	            directives: [components_1.ActionButtonComponent]
+	            directives: [action_button_1.ActionButtonComponent],
+	            pipes: [pipes_1.MorePipe],
 	        }), 
-	        __metadata('design:paramtypes', [ionic_1.NavController])
+	        __metadata('design:paramtypes', [ionic_1.NavController, data_provider_1.DataProvider, ionic_1.Config])
 	    ], InvoicesPage);
 	    return InvoicesPage;
 	}());
@@ -65262,19 +65561,32 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(5);
-	var timelog_1 = __webpack_require__(402);
-	var components_1 = __webpack_require__(377);
+	var data_provider_1 = __webpack_require__(369);
+	//import {TicketsListComponent} from '../../components/tickets-list/tickets-list';
+	var action_button_1 = __webpack_require__(395);
+	var pipes_1 = __webpack_require__(384);
 	var TimelogsPage = (function () {
-	    function TimelogsPage(nav) {
+	    function TimelogsPage(nav, dataProvider, config) {
+	        var _this = this;
 	        this.nav = nav;
+	        this.timelogs = null;
+	        this.dataProvider = dataProvider;
+	        var pager = { limit: 5 };
+	        this.dataProvider.getTimelogs(pager).subscribe(function (data) {
+	            _this.timelogs = data;
+	            console.log(data);
+	        }, function (error) {
+	            console.log(error || 'Server error');
+	        });
 	    }
-	    TimelogsPage.prototype.itemTapped = function () { this.nav.push(timelog_1.TimelogPage); };
+	    TimelogsPage.prototype.itemTapped = function () { this.nav.push(TimelogPage); };
 	    TimelogsPage = __decorate([
 	        ionic_1.Page({
 	            templateUrl: 'build/pages/timelogs/timelogs.html',
-	            directives: [components_1.ActionButtonComponent],
+	            directives: [action_button_1.ActionButtonComponent],
+	            pipes: [pipes_1.MorePipe],
 	        }), 
-	        __metadata('design:paramtypes', [ionic_1.NavController])
+	        __metadata('design:paramtypes', [ionic_1.NavController, data_provider_1.DataProvider, ionic_1.Config])
 	    ], TimelogsPage);
 	    return TimelogsPage;
 	}());
@@ -65282,38 +65594,7 @@
 
 
 /***/ },
-/* 402 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var ionic_1 = __webpack_require__(5);
-	var components_1 = __webpack_require__(377);
-	var TimelogPage = (function () {
-	    function TimelogPage(nav) {
-	        this.nav = nav;
-	    }
-	    TimelogPage = __decorate([
-	        ionic_1.Page({
-	            templateUrl: 'build/pages/timelog/timelog.html',
-	            directives: [components_1.ActionButtonComponent]
-	        }), 
-	        __metadata('design:paramtypes', [ionic_1.NavController])
-	    ], TimelogPage);
-	    return TimelogPage;
-	}());
-	exports.TimelogPage = TimelogPage;
-
-
-/***/ },
+/* 402 */,
 /* 403 */
 /***/ function(module, exports, __webpack_require__) {
 
