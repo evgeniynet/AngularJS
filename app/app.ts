@@ -67,7 +67,7 @@ class MyApp {
         config.current.stat = {};
         
         // set first pages
-        //this.rootPage = AccountsPage; return;
+        this.rootPage = HelloIonicPage; return;
       
         if (config.current.user.is_techoradmin)
             this.rootPage = DashboardPage;
