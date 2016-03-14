@@ -3195,6 +3195,7 @@
 	var queues_1 = __webpack_require__(376);
 	var invoices_1 = __webpack_require__(398);
 	var accounts_1 = __webpack_require__(400);
+	var timelogs_1 = __webpack_require__(406);
 	var tickets_1 = __webpack_require__(401);
 	var dashboard_1 = __webpack_require__(402);
 	var organizations_1 = __webpack_require__(403);
@@ -3211,7 +3212,7 @@
 	        this.pages = [
 	            { title: 'Dashboard', component: dashboard_1.DashboardPage, icon: "speedometer" },
 	            { title: 'Tickets', component: tickets_1.TicketsPage, icon: "create-outline" },
-	            //{ title: 'Timelogs', component: TimelogsPage, icon: "md-time" },
+	            { title: 'Timelogs', component: timelogs_1.TimelogsPage, icon: "md-time" },
 	            { title: 'Accounts', component: accounts_1.AccountsPage, icon: "people" },
 	            { title: 'Invoices', component: invoices_1.InvoicesPage, icon: "card" },
 	            { title: 'Queues', component: queues_1.QueuesPage, icon: "list-box-outline" },
@@ -3229,6 +3230,7 @@
 	            this.rootPage = login_1.LoginPage;
 	            return;
 	        }
+	        // set first pages
 	        this.rootPage = accounts_1.AccountsPage;
 	        return;
 	        if (config.current.user.is_techoradmin)
@@ -65488,6 +65490,72 @@
 	    return SignupPage;
 	}());
 	exports.SignupPage = SignupPage;
+
+
+/***/ },
+/* 406 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(5);
+	var timelog_1 = __webpack_require__(407);
+	var components_1 = __webpack_require__(377);
+	var TimelogsPage = (function () {
+	    function TimelogsPage(nav) {
+	        this.nav = nav;
+	    }
+	    TimelogsPage.prototype.itemTapped = function () { this.nav.push(timelog_1.TimelogPage); };
+	    TimelogsPage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/timelogs/timelogs.html',
+	            directives: [components_1.ActionButtonComponent],
+	        }), 
+	        __metadata('design:paramtypes', [ionic_1.NavController])
+	    ], TimelogsPage);
+	    return TimelogsPage;
+	}());
+	exports.TimelogsPage = TimelogsPage;
+
+
+/***/ },
+/* 407 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(5);
+	var components_1 = __webpack_require__(377);
+	var TimelogPage = (function () {
+	    function TimelogPage(nav) {
+	        this.nav = nav;
+	    }
+	    TimelogPage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/timelog/timelog.html',
+	            directives: [components_1.ActionButtonComponent]
+	        }), 
+	        __metadata('design:paramtypes', [ionic_1.NavController])
+	    ], TimelogPage);
+	    return TimelogPage;
+	}());
+	exports.TimelogPage = TimelogPage;
 
 
 /***/ }
