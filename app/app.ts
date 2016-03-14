@@ -41,7 +41,7 @@ class MyApp {
     this.pages = [
         { title: 'Dashboard', component: DashboardPage, icon: "speedometer" },
         { title: 'Tickets', component: TicketsPage, icon: "create-outline" },
-        //{ title: 'Timelogs', component: TimelogsPage, icon: "md-time" },
+        { title: 'Timelogs', component: TimelogsPage, icon: "md-time" },
         { title: 'Accounts', component: AccountsPage, icon: "people" },
         { title: 'Invoices', component: InvoicesPage, icon: "card" },        
         { title: 'Queues', component: QueuesPage, icon: "list-box-outline" },
@@ -62,7 +62,7 @@ class MyApp {
             this.rootPage = LoginPage;
             return;
             }
-        
+        // set first pages
         this.rootPage = AccountsPage;
         return;
       
