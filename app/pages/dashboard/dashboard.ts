@@ -14,17 +14,28 @@ export class DashboardPage {
     constructor(nav: NavController, config: Config, dataProvider: DataProvider) {
     this.nav = nav;
     this.config = config;
+    let statistics = this.config.current.stat || {};
     this.dataProvider = dataProvider;
     this.queues = null;
     this.accounts = null;
     this.counts = {open_as_tech: 0};
-    var pager = {limit:5};
+        let pager = {limit: (statistics.accounts + 5) || 500};
+        console.log(pager);
         
         dataProvider.getQueueList(3).subscribe(
             data => {this.queues = data}, 
             error => { 
                 console.log(error || 'Server error');}
         ); 
+
+        dataProvider.getAccountList(false, pager, true, true).subscribe(
+            data => {
+                    this.accounts = data;
+                     statistics.accounts = data.length;
+                    }, 
+            error => { 
+                console.log(error || 'Server error');}
+        );   
         
         dataProvider.getAccountList(true, pager).subscribe(
             data => {this.accounts = data}, 

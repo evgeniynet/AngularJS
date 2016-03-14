@@ -66,6 +66,7 @@ export let MOCKS =
             }
         ],
         "config": {
+            stat: {},
             "key": "re36rym3mjqxm8ej2cscfajmxpsew33m",
             "org": "zwoja4",
             "instance": "ms2asm",
