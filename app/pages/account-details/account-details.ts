@@ -19,6 +19,8 @@ export class AccountDetailsPage {
         // If we navigated to this page, we will have an item available as a nav param
         this.account = this.navParams.data || {};
         
+        console.log(this.account);
+        
         this.tickets = null;
         this.dataProvider = dataProvider;
         

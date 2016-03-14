@@ -1,4 +1,4 @@
-import {App, IonicApp, Config, Platform} from 'ionic-framework/ionic';
+import {App, IonicApp, Config, Platform, NavController, NavParams} from 'ionic-framework/ionic';
 import {ApiData} from './providers/api-data';
 import {DataProvider} from './providers/data-provider';
 import {dontClearCache} from './providers/config';
@@ -10,6 +10,7 @@ import {ListPage} from './pages/list/list';
 import {QueuesPage} from './pages/queues/queues';
 import {InvoicesPage} from './pages/invoices/invoices';
 import {AccountsPage} from './pages/accounts/accounts';
+import {AccountDetailsPage} from './pages/account-details/account-details';
 import {TimelogsPage} from './pages/timelogs/timelogs';
 import {TicketsPage} from './pages/tickets/tickets';
 import {DashboardPage} from './pages/dashboard/dashboard';
@@ -61,13 +62,10 @@ class MyApp {
             this.rootPage = LoginPage;
             return;
             }
-      
-        //let nav = this.app.getComponent('nav');
-        //nav.setRoot(helpers.getPageFor(pageName), {}, { animate: false });
         
-        //this.rootPage = TicketsPage;
-        //return;
-    // make HelloIonicPage the root (or first) page
+        this.rootPage = AccountsPage;
+        return;
+      
         if (config.current.user.is_techoradmin)
             this.rootPage = DashboardPage;
         else
@@ -77,7 +75,7 @@ class MyApp {
   initializeApp() {
     this.platform.ready().then(() => {
       console.log('Platform ready');
-
+        //this.testPage(AccountDetailsPage, MOCKS["accounts/-1"]);
       // The platform is now ready. Note: if this callback fails to fire, follow
       // the Troubleshooting guide for a number of possible solutions:
       //
@@ -96,13 +94,19 @@ class MyApp {
     });
   }
 
-  openPage(page) {
+  openPage(page, param) {
     // close the menu when clicking a link from the menu
       let nav = this.app.getComponent('nav');
-      nav.setRoot(page.component).then(() => {
+      nav.setRoot(page.component, param).then(() => {
           // wait for the root page to be completely loaded
           // then close the menu
           this.app.getComponent('leftMenu').close();
       });
+  }
+    
+    testPage(page, param) {
+    // close the menu when clicking a link from the menu
+      let nav = this.app.getComponent('nav');
+        nav.push(page, param);
   }
 }
