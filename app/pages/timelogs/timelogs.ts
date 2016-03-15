@@ -1,6 +1,6 @@
 import {Page, Config, NavController} from 'ionic-framework/ionic';
 import {DataProvider} from '../../providers/data-provider';
-//import {TicketsListComponent} from '../../components/tickets-list/tickets-list';
+import {TimelogPage} from '../timelog/timelog';
 import {ActionButtonComponent} from '../../components/action-button/action-button';
 import {MorePipe} from '../../pipes/pipes';
 

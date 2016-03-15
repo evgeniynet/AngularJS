@@ -188,7 +188,7 @@ export let MOCKS =
             }
         ],
         "accounts/-1": {
-            "id": 954,
+            "id": -1,
             "name": "Riwal",
             "note": "test",
             "is_active": true,
@@ -284,6 +284,113 @@ export let MOCKS =
                     "complete": 100,
                     "internal_client_manager": ""
                 }
+            ],
+            "assets": [
+
+            ],
+            "account_statistics": {
+                "ticket_counts": {
+                    "open": 17,
+                    "closed": 113,
+                    "hours": 73.7200,
+                    "total_invoiced_amount": 0.0000,
+                    "total_non_invoiced_amount": 0.0000,
+                    "total_billed_amount": 0.0000,
+                    "total_unbilled_amount": 0.0000,
+                    "scheduled": 0,
+                    "followups": 0
+                },
+                "timelogs": 3,
+                "invoices": 100,
+                "hours": 73.7200,
+                "expenses": 10.5
+            },
+            "primary_contact": {
+                "fullname": "Swart, Richard",
+                "address1": "1 Main St",
+                "address2": "",
+                "city": "Atlanta",
+                "state": "GA",
+                "zipcode": "30312",
+                "country": "USA",
+                "phone1": "404-849-7145",
+                "phone2": ""
+            },
+            "customfields": [
+
+            ]
+        },
+        "accounts/574": {
+            "id": 574,
+            "name": "Riwal 11",
+            "note": "test hdfh",
+            "is_active": true,
+            "is_organization": true,
+            "bwd_number": 1013,
+            "client_contract_id": 2,
+            "number": "123",
+            "ref1": "456",
+            "ref2": "456",
+            "representative_name": "Clements, Patrick",
+            "internal_location_name": "testqq",
+            "city": "Atlanta",
+            "state": "GA",
+            "zipcode": "30312",
+            "country": "USA",
+            "phone1": "404-849-7145",
+            "phone2": null,
+            "address1": "1 Main St",
+            "address2": null,
+            "email_suffix": "",
+            "fb_client_id": 0,
+            "qb_customer_id": 0,
+            "logo": "/mafsf.axd?d=aW5zdGFuY2UtbG9nby9mZTdmNTYxN2YwMDk0N2UwODIyMzJiMWIyNDA5YjRlMS9waW1ncHNoX2Z1bGxzaXplX2Rpc3RyLmpwZ3wzMDB8NDV8MHxmZTdmNTYxN2YwMDk0N2UwODIyMzJiMWIyNDA5YjRlMXA1",
+            "files": [
+                {
+                    "id": "accounts-accounts-files/-1/Account Page.png",
+                    "name": "Account Page.png",
+                    "url": "https://sherpadeskfiles.blob.core.windows.net/fe7f5617f00947e082232b1b2409b4e1/accounts-accounts-files/-1/Account Page.png?sv=2014-02-14&sr=b&sig=PZTmijmZy11w3DBaQXnpXfe%2FzJcn0MPi9rronVonINo%3D&se=2016-03-14T08%3A51%3A36Z&sp=r",
+                    "date": "2015-08-31T21:18:02.0000000",
+                    "size": 305040
+                }
+            ],
+            "locations": [
+                {
+                    "id": 2,
+                    "name": "Atlanta"
+                },
+                {
+                    "id": 3,
+                    "name": "Los Angeles"
+                }
+            ],
+            "users": [
+                {
+                    "id": 540,
+                    "email": "richard.swart@riwal.com",
+                    "fullname": "Richard Swart",
+                    "phone": "",
+                    "type": "user",
+                    "is_accounting_contact": false
+                },
+                {
+                    "id": 11099,
+                    "email": "nicolas.taillard@riwal.com",
+                    "fullname": "Nicolas Taillard",
+                    "phone": "",
+                    "type": "user",
+                    "is_accounting_contact": false
+                },
+                {
+                    "id": 1302,
+                    "email": "henk.van.veldhoven@riwal.com",
+                    "fullname": "Henk van Veldhoven",
+                    "phone": "0031886181827",
+                    "type": "user",
+                    "is_accounting_contact": false
+                }
+            ],
+            "projects": [
             ],
             "assets": [
 

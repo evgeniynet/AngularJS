@@ -4,7 +4,7 @@ import {DataProvider} from '../../providers/data-provider';
 
 @Page({
   templateUrl: 'build/pages/timelog/timelog.html',
-    directives: [ActionButtonComponent],
+    //directives: [ActionButtonComponent],
 })
 export class TimelogPage {
     constructor(nav: NavController, dataProvider: DataProvider, config: Config) {

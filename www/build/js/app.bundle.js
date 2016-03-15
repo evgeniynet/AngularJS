@@ -62494,7 +62494,7 @@
 	        }
 	    ],
 	    "accounts/-1": {
-	        "id": 954,
+	        "id": -1,
 	        "name": "Riwal",
 	        "note": "test",
 	        "is_active": true,
@@ -62591,6 +62591,108 @@
 	                "internal_client_manager": ""
 	            }
 	        ],
+	        "assets": [],
+	        "account_statistics": {
+	            "ticket_counts": {
+	                "open": 17,
+	                "closed": 113,
+	                "hours": 73.7200,
+	                "total_invoiced_amount": 0.0000,
+	                "total_non_invoiced_amount": 0.0000,
+	                "total_billed_amount": 0.0000,
+	                "total_unbilled_amount": 0.0000,
+	                "scheduled": 0,
+	                "followups": 0
+	            },
+	            "timelogs": 3,
+	            "invoices": 100,
+	            "hours": 73.7200,
+	            "expenses": 10.5
+	        },
+	        "primary_contact": {
+	            "fullname": "Swart, Richard",
+	            "address1": "1 Main St",
+	            "address2": "",
+	            "city": "Atlanta",
+	            "state": "GA",
+	            "zipcode": "30312",
+	            "country": "USA",
+	            "phone1": "404-849-7145",
+	            "phone2": ""
+	        },
+	        "customfields": []
+	    },
+	    "accounts/574": {
+	        "id": 574,
+	        "name": "Riwal 11",
+	        "note": "test hdfh",
+	        "is_active": true,
+	        "is_organization": true,
+	        "bwd_number": 1013,
+	        "client_contract_id": 2,
+	        "number": "123",
+	        "ref1": "456",
+	        "ref2": "456",
+	        "representative_name": "Clements, Patrick",
+	        "internal_location_name": "testqq",
+	        "city": "Atlanta",
+	        "state": "GA",
+	        "zipcode": "30312",
+	        "country": "USA",
+	        "phone1": "404-849-7145",
+	        "phone2": null,
+	        "address1": "1 Main St",
+	        "address2": null,
+	        "email_suffix": "",
+	        "fb_client_id": 0,
+	        "qb_customer_id": 0,
+	        "logo": "/mafsf.axd?d=aW5zdGFuY2UtbG9nby9mZTdmNTYxN2YwMDk0N2UwODIyMzJiMWIyNDA5YjRlMS9waW1ncHNoX2Z1bGxzaXplX2Rpc3RyLmpwZ3wzMDB8NDV8MHxmZTdmNTYxN2YwMDk0N2UwODIyMzJiMWIyNDA5YjRlMXA1",
+	        "files": [
+	            {
+	                "id": "accounts-accounts-files/-1/Account Page.png",
+	                "name": "Account Page.png",
+	                "url": "https://sherpadeskfiles.blob.core.windows.net/fe7f5617f00947e082232b1b2409b4e1/accounts-accounts-files/-1/Account Page.png?sv=2014-02-14&sr=b&sig=PZTmijmZy11w3DBaQXnpXfe%2FzJcn0MPi9rronVonINo%3D&se=2016-03-14T08%3A51%3A36Z&sp=r",
+	                "date": "2015-08-31T21:18:02.0000000",
+	                "size": 305040
+	            }
+	        ],
+	        "locations": [
+	            {
+	                "id": 2,
+	                "name": "Atlanta"
+	            },
+	            {
+	                "id": 3,
+	                "name": "Los Angeles"
+	            }
+	        ],
+	        "users": [
+	            {
+	                "id": 540,
+	                "email": "richard.swart@riwal.com",
+	                "fullname": "Richard Swart",
+	                "phone": "",
+	                "type": "user",
+	                "is_accounting_contact": false
+	            },
+	            {
+	                "id": 11099,
+	                "email": "nicolas.taillard@riwal.com",
+	                "fullname": "Nicolas Taillard",
+	                "phone": "",
+	                "type": "user",
+	                "is_accounting_contact": false
+	            },
+	            {
+	                "id": 1302,
+	                "email": "henk.van.veldhoven@riwal.com",
+	                "fullname": "Henk van Veldhoven",
+	                "phone": "0031886181827",
+	                "type": "user",
+	                "is_accounting_contact": false
+	            }
+	        ],
+	        "projects": [],
 	        "assets": [],
 	        "account_statistics": {
 	            "ticket_counts": {
@@ -65572,6 +65674,9 @@
 	        });
 	    }
 	    InvoicesPage.prototype.itemTapped = function () { this.nav.push(invoice_details_1.InvoiceDetailsPage); };
+	    InvoicesPage.prototype.setDate = function (date) {
+	        return new Date(date);
+	    };
 	    InvoicesPage = __decorate([
 	        ionic_1.Page({
 	            templateUrl: 'build/pages/invoices/invoices.html',
@@ -65674,7 +65779,7 @@
 	};
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(369);
-	//import {TicketsListComponent} from '../../components/tickets-list/tickets-list';
+	var timelog_1 = __webpack_require__(408);
 	var action_button_1 = __webpack_require__(396);
 	var pipes_1 = __webpack_require__(385);
 	var TimelogsPage = (function () {
@@ -65690,7 +65795,10 @@
 	            console.log(error || 'Server error');
 	        });
 	    }
-	    TimelogsPage.prototype.itemTapped = function () { this.nav.push(TimelogPage); };
+	    TimelogsPage.prototype.itemTapped = function () { this.nav.push(timelog_1.TimelogPage); };
+	    TimelogsPage.prototype.setDate = function (date) {
+	        return new Date(date);
+	    };
 	    TimelogsPage = __decorate([
 	        ionic_1.Page({
 	            templateUrl: 'build/pages/timelogs/timelogs.html',
@@ -65981,6 +66089,52 @@
 	    return SignupPage;
 	}());
 	exports.SignupPage = SignupPage;
+
+
+/***/ },
+/* 408 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(5);
+	var data_provider_1 = __webpack_require__(369);
+	//import {TicketsListComponent} from '../../components/tickets-list/tickets-list';
+	var TimelogPage = (function () {
+	    function TimelogPage(nav, dataProvider, config) {
+	        var _this = this;
+	        this.nav = nav;
+	        this.config = config;
+	        this.timelog = null;
+	        this.dataProvider = dataProvider;
+	        var pager = { limit: 5 };
+	        this.dataProvider.getTimelogs(pager).subscribe(function (data) {
+	            _this.timelogs = data;
+	            console.log(data);
+	        }, function (error) {
+	            console.log(error || 'Server error');
+	        });
+	    }
+	    TimelogPage.prototype.setDate = function (date) {
+	        return new Date(date);
+	    };
+	    TimelogPage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/timelog/timelog.html',
+	        }), 
+	        __metadata('design:paramtypes', [ionic_1.NavController, data_provider_1.DataProvider, ionic_1.Config])
+	    ], TimelogPage);
+	    return TimelogPage;
+	}());
+	exports.TimelogPage = TimelogPage;
 
 
 /***/ }
