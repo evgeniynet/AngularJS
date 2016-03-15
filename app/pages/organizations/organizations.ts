@@ -1,6 +1,7 @@
 import {Page, Config, NavController} from 'ionic-framework/ionic';
 import {DataProvider} from '../../providers/data-provider';
 import {saveConfig} from '../../directives/helpers';
+import {LoginPage} from '../login/login';
 import {DashboardPage} from '../dashboard/dashboard';
 import {TicketsPage} from '../tickets/tickets';
 
@@ -11,6 +12,8 @@ export class OrganizationsPage {
     constructor(nav: NavController, dataProvider: DataProvider, config: Config) {
     this.nav = nav;
         this.config = config;
+        
+        //partly logout
         localStorage.clear();
         localStorage.username = this.config.current.user.email;
         saveConfig(this.config.current, this.config.current.key);
@@ -65,7 +68,7 @@ export class OrganizationsPage {
             error => { 
                 this.alert.error(error || 'Server error', 'Oops!');
                 setTimeout(() => {
-                    this.nav.pop();
+                    this.nav.setRoot(TicketsPage);
                 }, 3000);
                 console.log(error || 'Server error');}
         ); 

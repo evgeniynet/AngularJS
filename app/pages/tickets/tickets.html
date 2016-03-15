@@ -3,7 +3,7 @@
 </ion-navbar>
 
 <ion-content class="tickets">
-    <div class="tabsTicket alignment-bottom">
+    <div *ngIf="config.current.user.is_techoradmin" class="tabsTicket alignment-bottom">
         <ion-segment [(ngModel)]="ticket_tab" (change)="onSegmentChanged($event)">
 <ion-segment-button  value="user">User</ion-segment-button>
 <ion-segment-button value="tech">Tech</ion-segment-button>

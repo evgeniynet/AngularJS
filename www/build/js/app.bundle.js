@@ -3230,12 +3230,12 @@
 	            this.rootPage = login_1.LoginPage;
 	            return;
 	        }
-	        if (!config.current.org || !config.current.inst) {
+	        //accounts, tickets statistics
+	        config.current.stat = {};
+	        if (!config.current.org || !config.current.instance) {
 	            this.rootPage = organizations_1.OrganizationsPage;
 	            return;
 	        }
-	        //accounts, tickets statistics
-	        config.current.stat = {};
 	        // set first pages
 	        this.rootPage = hello_ionic_1.HelloIonicPage;
 	        return;
@@ -65883,6 +65883,7 @@
 	    function TicketsPage(nav, dataProvider, config) {
 	        var _this = this;
 	        this.nav = nav;
+	        this.config = config;
 	        this.tickets = null;
 	        this.ticket_tab = "user";
 	        this.dataProvider = dataProvider;
@@ -66002,6 +66003,7 @@
 	        var _this = this;
 	        this.nav = nav;
 	        this.config = config;
+	        //partly logout
 	        localStorage.clear();
 	        localStorage.username = this.config.current.user.email;
 	        helpers_1.saveConfig(this.config.current, this.config.current.key);
@@ -66047,7 +66049,7 @@
 	        }, function (error) {
 	            _this.alert.error(error || 'Server error', 'Oops!');
 	            setTimeout(function () {
-	                _this.nav.pop();
+	                _this.nav.setRoot(tickets_1.TicketsPage);
 	            }, 3000);
 	            console.log(error || 'Server error');
 	        });
