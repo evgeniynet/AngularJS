@@ -21,4 +21,8 @@ export class TimelogPage {
                 console.log(error || 'Server error');}
         );
   }
+    
+     setDate(date) {
+      return new Date(date);
+  }
 }

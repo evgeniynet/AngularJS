@@ -5,28 +5,16 @@
 
 <ion-content padding class="invoices">
     
+<div [hidden]="invoices?.length" class="table grey2 menu-text">No Invoices</div>
     
     <ion-list padding  (click)="itemTapped()">
-    <ion-item class="margin">
-    <p class="width17 tkts-table left">Sep 3</p> 
-    <p class="text width80">bigWebApps Support</p>
-    <p item-right class="text">$99</p>
-        </ion-item>
-        <ion-item>
-    <p class="width17 tkts-table left">Sep 3</p> 
-    <p class="text width80">bigWebApps Support</p>
-    <p item-right class="text">$99</p>
-        </ion-item>
-       <ion-item>
-    <p class="width17 tkts-table left">Sep 3</p> 
-    <p class="text width80">bigWebApps Support</p>
-    <p item-right class="text">$99</p>
+    <ion-item class="margin" *ngFor="#invoice of invoices">
+    <p class="width17 tkts-table left">{{setDate(invoice.date) | date: "yMMMdd"}}</p> 
+    <p class="text width80">{{invoice.account_name}}</p>
+    <p item-right class="text">{{invoice.total_cost}}</p>
         </ion-item>
         </ion-list>
-   
-    
-    <div class="table grey2 menu-text">No Invoices</div>
-    
+       
 </ion-content>
 
 <action-button></action-button>

@@ -26,7 +26,7 @@
     <br>
     <ion-item padding>
         <br>
-    <h2 >Recipients</h2>
+    <h2>Recipients</h2>
         </ion-item>
     
     
@@ -35,27 +35,17 @@
         <div>
       <ion-avatar class="ticketImg left recipient width23">
       <img class="avatarInvoice class_name" src="http://www.gravatar.com/avatar/8cf59c68bb835b9e03dcd09c0e620d5d?d=mm&s=80">
+<!--          <img *ngIf="invoices.email" class="img" [src]="invoices.email | Gravatar"/>-->
             </ion-avatar></div>
         <ion-item class="blue3 width80 invoicelist right margin" no-lines>
-      <h3 class="width65 left">admin@mail.ru</h3>
+      <h3 class="width65 left">{{invoices.email}</h3>
     <button fab secondary class="buttonInvoice right topInvoice email-invoice">
       <ion-icon class="invoiceCircle" name="checkmark"></ion-icon>
     </button>
   </ion-item>
 </ion-list>
     
-    <ion-list class="list">
-      <ion-avatar class="ticketImg left recipient width23">
-      <img class="avatarInvoice class_name" src="http://www.gravatar.com/avatar/8cf59c68bb835b9e03dcd09c0e620d5d?d=mm&s=80">
-    </ion-avatar>
-        <ion-item class="blue3 width80 invoicelist right margin" no-lines>
-      <h3 class="width65 left">admin@mail.ru</h3>
-    <button fab secondary class="buttonInvoice right topInvoice email-invoice">
-      <ion-icon class="invoiceCircle" name="checkmark"></ion-icon>
-    </button>
-  </ion-item>
-</ion-list>
-    <div>
+        <div>
       <button secondary class="disable-hover button button-default button-block img-top display">Send</button>
     </div>
     
