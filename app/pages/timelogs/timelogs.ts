@@ -25,4 +25,8 @@ export class TimelogsPage {
         );
   }
     itemTapped() {this.nav.push(TimelogPage);}
+    
+     setDate(date) {
+      return new Date(date);
+  }
 }

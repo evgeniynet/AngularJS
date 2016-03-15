@@ -3,7 +3,6 @@
 </ion-navbar>
 
 <ion-content class="tickets">
-    
     <div class="tabsTicket alignment-bottom">
         <ion-segment [(ngModel)]="ticket_tab" (change)="onSegmentChanged($event)">
 <ion-segment-button  value="user">User</ion-segment-button>
@@ -12,6 +11,7 @@
 <ion-segment-button value="all">All Open</ion-segment-button>
   </ion-segment>
 </div>    
+<div [hidden]="tickets?.length" class="table grey2 menu-text">No Tickets</div>
     <ion-list class="list">
     <tickets-list [tickets]="tickets"></tickets-list>
     </ion-list>

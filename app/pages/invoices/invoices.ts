@@ -26,4 +26,8 @@ export class InvoicesPage {
         );
   }
     itemTapped() {this.nav.push(InvoiceDetailsPage);}
+    
+     setDate(date) {
+      return new Date(date);
+  }
 }

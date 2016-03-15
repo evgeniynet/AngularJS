@@ -3196,10 +3196,10 @@
 	var invoices_1 = __webpack_require__(398);
 	var accounts_1 = __webpack_require__(400);
 	var timelogs_1 = __webpack_require__(401);
-	var tickets_1 = __webpack_require__(403);
-	var dashboard_1 = __webpack_require__(404);
-	var organizations_1 = __webpack_require__(405);
-	var login_1 = __webpack_require__(406);
+	var tickets_1 = __webpack_require__(402);
+	var dashboard_1 = __webpack_require__(403);
+	var organizations_1 = __webpack_require__(404);
+	var login_1 = __webpack_require__(405);
 	var MyApp = (function () {
 	    function MyApp(app, platform, apiData, config, toastr) {
 	        // set up our app
@@ -65453,14 +65453,14 @@
 	        this.invoices = null;
 	        this.dataProvider = dataProvider;
 	        var pager = { limit: 5 };
-	        this.dataProvider.getInvoices(null, pager).subscribe(function (data) {
-	            _this.invoices = data;
-	            console.log(data);
-	        }, function (error) {
+	        this.dataProvider.getInvoices(null, pager).subscribe(function (data) { _this.invoices = data; }, function (error) {
 	            console.log(error || 'Server error');
 	        });
 	    }
 	    InvoicesPage.prototype.itemTapped = function () { this.nav.push(invoice_details_1.InvoiceDetailsPage); };
+	    InvoicesPage.prototype.setDate = function (date) {
+	        return new Date(date);
+	    };
 	    InvoicesPage = __decorate([
 	        ionic_1.Page({
 	            templateUrl: 'build/pages/invoices/invoices.html',
@@ -65575,12 +65575,14 @@
 	        var pager = { limit: 5 };
 	        this.dataProvider.getTimelogs(pager).subscribe(function (data) {
 	            _this.timelogs = data;
-	            console.log(data);
 	        }, function (error) {
 	            console.log(error || 'Server error');
 	        });
 	    }
 	    TimelogsPage.prototype.itemTapped = function () { this.nav.push(TimelogPage); };
+	    TimelogsPage.prototype.setDate = function (date) {
+	        return new Date(date);
+	    };
 	    TimelogsPage = __decorate([
 	        ionic_1.Page({
 	            templateUrl: 'build/pages/timelogs/timelogs.html',
@@ -65595,8 +65597,7 @@
 
 
 /***/ },
-/* 402 */,
-/* 403 */
+/* 402 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -65643,7 +65644,7 @@
 
 
 /***/ },
-/* 404 */
+/* 403 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -65660,7 +65661,7 @@
 	var data_provider_1 = __webpack_require__(369);
 	var helpers = __webpack_require__(382);
 	var components_1 = __webpack_require__(377);
-	var tickets_1 = __webpack_require__(403);
+	var tickets_1 = __webpack_require__(402);
 	var account_details_1 = __webpack_require__(397);
 	var pipes_1 = __webpack_require__(384);
 	var DashboardPage = (function () {
@@ -65712,7 +65713,7 @@
 
 
 /***/ },
-/* 405 */
+/* 404 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -65728,8 +65729,8 @@
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(369);
 	var helpers_1 = __webpack_require__(382);
-	var dashboard_1 = __webpack_require__(404);
-	var tickets_1 = __webpack_require__(403);
+	var dashboard_1 = __webpack_require__(403);
+	var tickets_1 = __webpack_require__(402);
 	var OrganizationsPage = (function () {
 	    function OrganizationsPage(nav, dataProvider, config) {
 	        var _this = this;
@@ -65787,7 +65788,7 @@
 
 
 /***/ },
-/* 406 */
+/* 405 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -65803,8 +65804,8 @@
 	var ionic_1 = __webpack_require__(5);
 	var helpers_1 = __webpack_require__(382);
 	var data_provider_1 = __webpack_require__(369);
-	var organizations_1 = __webpack_require__(405);
-	var signup_1 = __webpack_require__(407);
+	var organizations_1 = __webpack_require__(404);
+	var signup_1 = __webpack_require__(406);
 	var LoginPage = (function () {
 	    function LoginPage(nav, dataProvider, config) {
 	        this.nav = nav;
@@ -65845,7 +65846,7 @@
 
 
 /***/ },
-/* 407 */
+/* 406 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";

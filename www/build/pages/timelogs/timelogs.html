@@ -4,20 +4,20 @@
 </ion-navbar>
 
 <ion-content padding class="timelogs">
+    <div [hidden]="timelogs?.length" class="table grey2 menu-text">No Timelogs</div>
     <ion-list  (click)="itemTapped()">
-
-         <ion-item>
+         <ion-item *ngFor="#time of timelogs">
     <ion-avatar item-left>
       <img src="http://www.gravatar.com/avatar/8cf59c68bb835b9e03dcd09c0e620d5d?d=mm&s=80">
     </ion-avatar>
  <li class="text-left width65 left">
-    <h2>Patrick</h2>
-    <h3>test</h3>
-    <h3>#1329</h3></li>
+    <h2>{{time.user_name}}</h2>
+    <h3>{{time.ticket_subject}}</h3>
+    <h3>{{time.note}}</h3></li>
              <li class="right width35 margin">
-                 <ion-icon item-right name="time-outline"></ion-icon>
-              0.25   
-      <h3 class="center">jan 23/16</h3></li>
+    <ion-icon item-right name="time-outline"></ion-icon>
+              {{time.hours}}  
+      <h3 class="center">{{setDate(time.date) | date: "yMMMdd"}}</h3></li>
   </ion-item>
 
     </ion-list> 
