@@ -12,11 +12,11 @@
     </ion-avatar>
  <li class="text-left width65 left">
     <h2>{{time.user_name}}</h2>
-    <h3>{{time.ticket_subject}}</h3>
-    <h3>{{time.note}}</h3></li>
-             <li class="right width35 margin">
+    <h3 class="timelogs">{{time.note}}</h3>
+    <h3 class="timelogs">{{time.ticket_number}}</h3></li>
+             <li class="right width35 margin font-time">
     <ion-icon item-right name="time-outline"></ion-icon>
-              {{time.hours}}  
+                 <span class="">{{time.hours}}</span>  
       <h3 class="center">{{setDate(time.date) | date: "yMMMdd"}}</h3></li>
   </ion-item>
 

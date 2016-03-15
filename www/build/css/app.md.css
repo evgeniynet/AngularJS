@@ -9800,6 +9800,17 @@ ion-list > .item:first-child {
   font-weight: bold;
   font-size: 1.8rem; }
 
+.timelogs {
+  white-space: initial !important;
+  display: block;
+  display: -webkit-box;
+  width: 100%;
+  line-height: 20px !important;
+  color: #fff; }
+
+.font-time {
+  font-size: 14px; }
+
 .ticket-details {
   white-space: initial !important;
   height: 84px;
