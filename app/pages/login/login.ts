@@ -13,11 +13,11 @@ export class LoginPage {
                 this.config = config;
         
         //logout
+        this.login = {username: localStorage.username };
         localStorage.clear();
         config.current = {stat:{}};
         this.alert = this.config.alert;
         this.dataProvider = dataProvider;
-        this.login = {username: localStorage.username };
       this.submitted = false;
   }
 
@@ -30,7 +30,7 @@ export class LoginPage {
                     this.nav.push(OrganizationsPage);
                 }, 
                 error => { 
-                    this.alert.error('There was a problem with your login.  Please try again.', 'Oops!');
+                    this.alert.error('There was a problem with your login.  Check your login and password.', 'Oops!');
                     this.login.password = "";
                     console.log(error || 'Server error');}
             ); 
@@ -39,6 +39,10 @@ export class LoginPage {
             this.alert.error('Please enter email and password!', 'Oops!');
     }
 
+    onGoogleSignip() {
+        this.nav.push(SignupPage);
+    }
+    
     onSignup() {
         this.nav.push(SignupPage);
     }

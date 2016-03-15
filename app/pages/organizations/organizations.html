@@ -5,9 +5,9 @@
  <img class="imglogo img-padding" src="img/logo.png">
         <div *ngFor="#org of list"> 
             <ion-item [hidden]="!org.is_expired" class="blue1 org expired" (click)="alertOrg(org.name)">{{org.name}} (Expired)</ion-item>
-            <ion-item [hidden]="org.is_expired" class="blue1 org" (click)="toggle(org)">{{org.name}}</ion-item>
-            <div *ngIf="org.expanded">
-                <ion-item *ngFor="#inst of org.instances" (click)="onSelectInst($event, {org: org.key, inst: inst.key})" class="blue2 org2">{{inst.name}}</ion-item>
+            <ion-item [hidden]="org.is_expired" class="blue1 org" (click)="toggle(org)">{{org.name}}  {{org.instances.length == 1 ? org.instances[0].name : '' }}</ion-item>
+            <div *ngIf="org.expanded && org.instances.length > 1">
+                <ion-item *ngFor="#inst of org.instances" (click)="onSelectInst({org: org.key, inst: inst.key})" class="blue2 org2">{{inst.name}}</ion-item>
             </div>
         </div>
     </ion-list>

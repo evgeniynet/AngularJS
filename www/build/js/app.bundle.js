@@ -3230,6 +3230,10 @@
 	            this.rootPage = login_1.LoginPage;
 	            return;
 	        }
+	        if (!config.current.org || !config.current.inst) {
+	            this.rootPage = organizations_1.OrganizationsPage;
+	            return;
+	        }
 	        //accounts, tickets statistics
 	        config.current.stat = {};
 	        // set first pages
@@ -65998,8 +66002,9 @@
 	        var _this = this;
 	        this.nav = nav;
 	        this.config = config;
+	        localStorage.clear();
+	        localStorage.username = this.config.current.user.email;
 	        helpers_1.saveConfig(this.config.current, this.config.current.key);
-	        console.log(this.config.current);
 	        this.alert = this.config.alert;
 	        this.dataProvider = dataProvider;
 	        this.list = [];
@@ -66012,6 +66017,10 @@
 	        });
 	    }
 	    OrganizationsPage.prototype.toggle = function (org) {
+	        if (org.instances.length == 1) {
+	            this.onSelectInst({ org: org.key, inst: org.instances[0].key });
+	            return;
+	        }
 	        var index = this.list.indexOf(org);
 	        for (var i = 0; i < this.list.length; i++) {
 	            if (i == index)
@@ -66021,10 +66030,9 @@
 	        }
 	    };
 	    OrganizationsPage.prototype.alertOrg = function (name) {
-	        console.log(name);
 	        this.alert.error(name + " has expired or inactivated. Contact SherpaDesk for assistance. Email: support@sherpadesk.com Phone: +1 (866) 996-1200, then press 2", 'Oops!');
 	    };
-	    OrganizationsPage.prototype.onSelectInst = function (event, instance) {
+	    OrganizationsPage.prototype.onSelectInst = function (instance) {
 	        var _this = this;
 	        this.config.current.org = instance.org;
 	        this.config.current.instance = instance.inst;
@@ -66079,11 +66087,11 @@
 	        this.nav = nav;
 	        this.config = config;
 	        //logout
+	        this.login = { username: localStorage.username };
 	        localStorage.clear();
 	        config.current = { stat: {} };
 	        this.alert = this.config.alert;
 	        this.dataProvider = dataProvider;
-	        this.login = { username: localStorage.username };
 	        this.submitted = false;
 	    }
 	    LoginPage.prototype.onLogin = function (form) {
@@ -66095,13 +66103,16 @@
 	                localStorage.username = form.value.email || "";
 	                _this.nav.push(organizations_1.OrganizationsPage);
 	            }, function (error) {
-	                _this.alert.error('There was a problem with your login.  Please try again.', 'Oops!');
+	                _this.alert.error('There was a problem with your login.  Check your login and password.', 'Oops!');
 	                _this.login.password = "";
 	                console.log(error || 'Server error');
 	            });
 	        }
 	        else
 	            this.alert.error('Please enter email and password!', 'Oops!');
+	    };
+	    LoginPage.prototype.onGoogleSignip = function () {
+	        this.nav.push(signup_1.SignupPage);
 	    };
 	    LoginPage.prototype.onSignup = function () {
 	        this.nav.push(signup_1.SignupPage);
