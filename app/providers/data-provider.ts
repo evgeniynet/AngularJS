@@ -157,5 +157,18 @@ getAccountDetails(id,is_no_stat) {
         url = url.addp("is_with_statistics", "false");
     return this.apiData.get(url);
 }
+    
+
+    
+addTicket(data) {
+    let url = "tickets";
+    data.status =  "open";
+    return this.apiData.get(url, data, "POST");
+}
+    
+addTime(data) {
+    let url = `time/${id}`;
+    return this.apiData.get(url, data, "POST");
+}
 
 }

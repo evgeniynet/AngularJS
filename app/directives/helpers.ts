@@ -13,6 +13,82 @@ export function saveCache(url, data) {
 export function loadCache(url) {
     return JSON.parse(localStorage.getItem(url)); 
 }
+    
+    //global helper functions
+    function GooglelogOut(mess) {
+        if (!isExtension && !confirm("Do you want to stay logged in Google account?")) {
+            var logoutUrl = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=" + MobileSite;
+            document.location.href = MobileSite + "login.html".addUrlParam("f",mess);
+        }
+        else
+            window.location = "login.html" + mess;
+    }
+
+export function getInfo4Extension()
+{
+    if (isExtension)
+    {
+        var loginStr = "login?t=" + localStorage.getItem("userKey") +
+            "&o=" + localStorage.getItem('userOrgKey') +
+            "&i=" + localStorage.getItem('userInstanceKey'); 
+        window.top.postMessage(loginStr,"*");
+    }
+}
+
+export function fullapplink (classn, urlString){
+    if (isPhonegap) {
+        //alert("gap!");
+        $("."+classn).on('click', function (e) {
+            e.preventDefault();
+            openURLsystem(urlString);});
+    } else if (isExtension) {
+
+        $("."+classn).on('click', function (e) {
+            e.preventDefault();
+            //alert('Please register in new window and reopen Sherpadesk extension again.');
+            var origOpenFunc = window.__proto__.open;
+            origOpenFunc.apply(window, [urlString, "_blank"]); 
+        });
+    }
+    else
+    {
+        $("."+classn).attr("target", "_blank");
+        $("."+classn).attr("href", urlString);
+    }
+
+    return urlString;
+}
+
+//HTML encode
+export function htmlEscape(str) {
+    return String(str)
+        .replace(/&/g, '&amp;amp;')
+        .replace(/&quot;/g, '&amp;quot;')
+        .replace(/&apos;/g, '&amp;apos;')
+        .replace(/&lt;/g, '&amp;lt;')
+        .replace(/&gt;/g, '&amp;gt;')
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&apos;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+    //.replace(/\n/g, "<br />")
+    ;
+}
+
+//HTML decode
+export function symbolEscape(str) {
+    return String(str)
+    //.replace(/&lt;/g, '<')
+    // .replace(/&gt;/g, '>')
+    // .replace(/&quot;/g, '"')
+    // .replace(/&apos;/g, "'")
+    // .replace(/&/g, '&amp;')
+        .replace(/&lt;br&gt;/gi, "\n")
+        .replace(/<br\s*[\/]?>/gi, "\n")
+        .replace(/\n/g, "<p></p>");
+
+}
  
 export function getCurrency(value, currency) {
     if (!value)
