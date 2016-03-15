@@ -12,7 +12,9 @@ import {InvoicesPage} from './pages/invoices/invoices';
 import {AccountsPage} from './pages/accounts/accounts';
 import {AccountDetailsPage} from './pages/account-details/account-details';
 import {TimelogsPage} from './pages/timelogs/timelogs';
+import {TimelogCreatePage} from './pages/timelog-create/timelog-create';
 import {TicketsPage} from './pages/tickets/tickets';
+import {TicketCreatePage} from './pages/ticket-create/ticket-create';
 import {DashboardPage} from './pages/dashboard/dashboard';
 import {OrganizationsPage} from './pages/organizations/organizations';
 import {LoginPage} from './pages/login/login';
@@ -51,7 +53,7 @@ class MyApp {
     ];
         
         var current = localStorage.current;
-
+        
         //set test config object
         if (current && current != "undefined")
             config.current = JSON.parse(current);
@@ -63,11 +65,17 @@ class MyApp {
             return;
             }
         
-        //accounts, tickets statistics
+                //accounts, tickets statistics
         config.current.stat = {};
         
+        if (!config.current.org || !config.current.instance)
+        {
+            this.rootPage = OrganizationsPage;
+            return;
+        }
+        
         // set first pages
-        this.rootPage = HelloIonicPage; return;
+        this.rootPage = TicketCreatePage; return;
       
         if (config.current.user.is_techoradmin)
             this.rootPage = DashboardPage;
