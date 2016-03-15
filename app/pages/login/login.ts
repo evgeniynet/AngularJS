@@ -1,5 +1,5 @@
 import {Page, Config, NavController} from 'ionic-framework/ionic';
-import {saveConfig} from '../../directives/helpers';
+import {saveConfig, saveCache} from '../../directives/helpers';
 import {DataProvider} from '../../providers/data-provider';
 import {OrganizationsPage} from '../organizations/organizations';
 import {SignupPage} from '../signup/signup';
@@ -11,9 +11,13 @@ export class LoginPage {
     constructor(nav: NavController, dataProvider: DataProvider, config: Config) {
     this.nav = nav;
                 this.config = config;
+        
+        //logout
+        localStorage.clear();
+        config.current = {stat:{}};
         this.alert = this.config.alert;
         this.dataProvider = dataProvider;
-      this.login = {};
+        this.login = {username: localStorage.username };
       this.submitted = false;
   }
 
@@ -22,6 +26,7 @@ export class LoginPage {
         if (form.valid) { this.dataProvider.checkLogin(form.value.email,form.value.password).subscribe(
                 data => {
                     saveConfig(this.config.current, data.api_token);
+                    localStorage.username = form.value.email || "";
                     this.nav.push(OrganizationsPage);
                 }, 
                 error => { 

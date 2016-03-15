@@ -63,6 +63,12 @@ class MyApp {
             return;
             }
         
+        if (!config.current.org || !config.current.inst)
+        {
+            this.rootPage = OrganizationsPage;
+            return;
+        }
+        
         //accounts, tickets statistics
         config.current.stat = {};
         

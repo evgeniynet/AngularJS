@@ -3196,10 +3196,10 @@
 	var invoices_1 = __webpack_require__(399);
 	var accounts_1 = __webpack_require__(401);
 	var timelogs_1 = __webpack_require__(402);
-	var tickets_1 = __webpack_require__(403);
-	var dashboard_1 = __webpack_require__(404);
-	var organizations_1 = __webpack_require__(405);
-	var login_1 = __webpack_require__(406);
+	var tickets_1 = __webpack_require__(404);
+	var dashboard_1 = __webpack_require__(405);
+	var organizations_1 = __webpack_require__(406);
+	var login_1 = __webpack_require__(407);
 	var MyApp = (function () {
 	    function MyApp(app, platform, apiData, config, toastr) {
 	        // set up our app
@@ -65779,7 +65779,7 @@
 	};
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(369);
-	var timelog_1 = __webpack_require__(408);
+	var timelog_1 = __webpack_require__(403);
 	var action_button_1 = __webpack_require__(396);
 	var pipes_1 = __webpack_require__(385);
 	var TimelogsPage = (function () {
@@ -65828,6 +65828,52 @@
 	};
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(369);
+	//import {TicketsListComponent} from '../../components/tickets-list/tickets-list';
+	var TimelogPage = (function () {
+	    function TimelogPage(nav, dataProvider, config) {
+	        var _this = this;
+	        this.nav = nav;
+	        this.config = config;
+	        this.timelog = null;
+	        this.dataProvider = dataProvider;
+	        var pager = { limit: 5 };
+	        this.dataProvider.getTimelogs(pager).subscribe(function (data) {
+	            _this.timelogs = data;
+	            console.log(data);
+	        }, function (error) {
+	            console.log(error || 'Server error');
+	        });
+	    }
+	    TimelogPage.prototype.setDate = function (date) {
+	        return new Date(date);
+	    };
+	    TimelogPage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/timelog/timelog.html',
+	        }), 
+	        __metadata('design:paramtypes', [ionic_1.NavController, data_provider_1.DataProvider, ionic_1.Config])
+	    ], TimelogPage);
+	    return TimelogPage;
+	}());
+	exports.TimelogPage = TimelogPage;
+
+
+/***/ },
+/* 404 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(5);
+	var data_provider_1 = __webpack_require__(369);
 	var components_1 = __webpack_require__(378);
 	var TicketsPage = (function () {
 	    function TicketsPage(nav, dataProvider, config) {
@@ -65860,7 +65906,7 @@
 
 
 /***/ },
-/* 404 */
+/* 405 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -65877,7 +65923,7 @@
 	var data_provider_1 = __webpack_require__(369);
 	var helpers = __webpack_require__(383);
 	var components_1 = __webpack_require__(378);
-	var tickets_1 = __webpack_require__(403);
+	var tickets_1 = __webpack_require__(404);
 	var account_details_1 = __webpack_require__(398);
 	var pipes_1 = __webpack_require__(385);
 	var DashboardPage = (function () {
@@ -65929,7 +65975,7 @@
 
 
 /***/ },
-/* 405 */
+/* 406 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -65945,13 +65991,15 @@
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(369);
 	var helpers_1 = __webpack_require__(383);
-	var dashboard_1 = __webpack_require__(404);
-	var tickets_1 = __webpack_require__(403);
+	var dashboard_1 = __webpack_require__(405);
+	var tickets_1 = __webpack_require__(404);
 	var OrganizationsPage = (function () {
 	    function OrganizationsPage(nav, dataProvider, config) {
 	        var _this = this;
 	        this.nav = nav;
 	        this.config = config;
+	        helpers_1.saveConfig(this.config.current, this.config.current.key);
+	        console.log(this.config.current);
 	        this.alert = this.config.alert;
 	        this.dataProvider = dataProvider;
 	        this.list = [];
@@ -65971,6 +66019,10 @@
 	            else if (this.list[i].expanded)
 	                this.list[i].expanded = false;
 	        }
+	    };
+	    OrganizationsPage.prototype.alertOrg = function (name) {
+	        console.log(name);
+	        this.alert.error(name + " has expired or inactivated. Contact SherpaDesk for assistance. Email: support@sherpadesk.com Phone: +1 (866) 996-1200, then press 2", 'Oops!');
 	    };
 	    OrganizationsPage.prototype.onSelectInst = function (event, instance) {
 	        var _this = this;
@@ -66004,7 +66056,7 @@
 
 
 /***/ },
-/* 406 */
+/* 407 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -66020,15 +66072,18 @@
 	var ionic_1 = __webpack_require__(5);
 	var helpers_1 = __webpack_require__(383);
 	var data_provider_1 = __webpack_require__(369);
-	var organizations_1 = __webpack_require__(405);
-	var signup_1 = __webpack_require__(407);
+	var organizations_1 = __webpack_require__(406);
+	var signup_1 = __webpack_require__(408);
 	var LoginPage = (function () {
 	    function LoginPage(nav, dataProvider, config) {
 	        this.nav = nav;
 	        this.config = config;
+	        //logout
+	        localStorage.clear();
+	        config.current = { stat: {} };
 	        this.alert = this.config.alert;
 	        this.dataProvider = dataProvider;
-	        this.login = {};
+	        this.login = { username: localStorage.username };
 	        this.submitted = false;
 	    }
 	    LoginPage.prototype.onLogin = function (form) {
@@ -66037,6 +66092,7 @@
 	        if (form.valid) {
 	            this.dataProvider.checkLogin(form.value.email, form.value.password).subscribe(function (data) {
 	                helpers_1.saveConfig(_this.config.current, data.api_token);
+	                localStorage.username = form.value.email || "";
 	                _this.nav.push(organizations_1.OrganizationsPage);
 	            }, function (error) {
 	                _this.alert.error('There was a problem with your login.  Please try again.', 'Oops!');
@@ -66062,7 +66118,7 @@
 
 
 /***/ },
-/* 407 */
+/* 408 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -66089,52 +66145,6 @@
 	    return SignupPage;
 	}());
 	exports.SignupPage = SignupPage;
-
-
-/***/ },
-/* 408 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var ionic_1 = __webpack_require__(5);
-	var data_provider_1 = __webpack_require__(369);
-	//import {TicketsListComponent} from '../../components/tickets-list/tickets-list';
-	var TimelogPage = (function () {
-	    function TimelogPage(nav, dataProvider, config) {
-	        var _this = this;
-	        this.nav = nav;
-	        this.config = config;
-	        this.timelog = null;
-	        this.dataProvider = dataProvider;
-	        var pager = { limit: 5 };
-	        this.dataProvider.getTimelogs(pager).subscribe(function (data) {
-	            _this.timelogs = data;
-	            console.log(data);
-	        }, function (error) {
-	            console.log(error || 'Server error');
-	        });
-	    }
-	    TimelogPage.prototype.setDate = function (date) {
-	        return new Date(date);
-	    };
-	    TimelogPage = __decorate([
-	        ionic_1.Page({
-	            templateUrl: 'build/pages/timelog/timelog.html',
-	        }), 
-	        __metadata('design:paramtypes', [ionic_1.NavController, data_provider_1.DataProvider, ionic_1.Config])
-	    ], TimelogPage);
-	    return TimelogPage;
-	}());
-	exports.TimelogPage = TimelogPage;
 
 
 /***/ }

@@ -9753,6 +9753,9 @@ ion-list > .item:first-child {
 .org2 {
   margin-top: 10px; }
 
+.expired {
+  color: black !important; }
+
 .googleStripes {
   list-style-type: none;
   width: 100%;
