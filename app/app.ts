@@ -19,7 +19,7 @@ import {DashboardPage} from './pages/dashboard/dashboard';
 import {OrganizationsPage} from './pages/organizations/organizations';
 import {LoginPage} from './pages/login/login';
 import {TimelogCreatePage} from './pages/timelog-create/timelog-create';
-
+import {ExpenseCreatePage} from './pages/expense-create/expense-create';
 
 @App({
   templateUrl: 'build/app.html',
@@ -49,7 +49,7 @@ class MyApp {
         { title: 'Queues', component: QueuesPage, icon: "list-box-outline" },
         { title: 'Switch Org', component: OrganizationsPage, icon: "md-swap" },
         { title: 'Signout', component: LoginPage, icon: "md-log-in" },
-        { title: 'Full App', component: TimelogCreatePage, icon: "md-share-alt" },
+        { title: 'Full App', component: TicketCreatePage, icon: "md-share-alt" },
     ];
         
         var current = localStorage.current;
