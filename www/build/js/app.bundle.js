@@ -63920,6 +63920,15 @@
 	            url = url.addp("is_with_statistics", "false");
 	        return this.apiData.get(url);
 	    };
+	    DataProvider.prototype.addTicket = function (data) {
+	        var url = "tickets";
+	        data.status = "open";
+	        return this.apiData.get(url, data, "POST");
+	    };
+	    DataProvider.prototype.addTime = function (data) {
+	        var url = "time/" + id;
+	        return this.apiData.get(url, data, "POST");
+	    };
 	    DataProvider = __decorate([
 	        core_1.Injectable(), 
 	        __metadata('design:paramtypes', [api_data_1.ApiData])
@@ -64669,6 +64678,70 @@
 	    return JSON.parse(localStorage.getItem(url));
 	}
 	exports.loadCache = loadCache;
+	//global helper functions
+	function GooglelogOut(mess) {
+	    if (!isExtension && !confirm("Do you want to stay logged in Google account?")) {
+	        var logoutUrl = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=" + MobileSite;
+	        document.location.href = MobileSite + "login.html".addUrlParam("f", mess);
+	    }
+	    else
+	        window.location = "login.html" + mess;
+	}
+	function getInfo4Extension() {
+	    if (isExtension) {
+	        var loginStr = "login?t=" + localStorage.getItem("userKey") +
+	            "&o=" + localStorage.getItem('userOrgKey') +
+	            "&i=" + localStorage.getItem('userInstanceKey');
+	        window.top.postMessage(loginStr, "*");
+	    }
+	}
+	exports.getInfo4Extension = getInfo4Extension;
+	function fullapplink(classn, urlString) {
+	    if (isPhonegap) {
+	        //alert("gap!");
+	        $("." + classn).on('click', function (e) {
+	            e.preventDefault();
+	            openURLsystem(urlString);
+	        });
+	    }
+	    else if (isExtension) {
+	        $("." + classn).on('click', function (e) {
+	            e.preventDefault();
+	            //alert('Please register in new window and reopen Sherpadesk extension again.');
+	            var origOpenFunc = window.__proto__.open;
+	            origOpenFunc.apply(window, [urlString, "_blank"]);
+	        });
+	    }
+	    else {
+	        $("." + classn).attr("target", "_blank");
+	        $("." + classn).attr("href", urlString);
+	    }
+	    return urlString;
+	}
+	exports.fullapplink = fullapplink;
+	//HTML encode
+	function htmlEscape(str) {
+	    return String(str)
+	        .replace(/&/g, '&amp;amp;')
+	        .replace(/&quot;/g, '&amp;quot;')
+	        .replace(/&apos;/g, '&amp;apos;')
+	        .replace(/&lt;/g, '&amp;lt;')
+	        .replace(/&gt;/g, '&amp;gt;')
+	        .replace(/&/g, '&amp;')
+	        .replace(/"/g, '&quot;')
+	        .replace(/'/g, '&apos;')
+	        .replace(/</g, '&lt;')
+	        .replace(/>/g, '&gt;');
+	}
+	exports.htmlEscape = htmlEscape;
+	//HTML decode
+	function symbolEscape(str) {
+	    return String(str)
+	        .replace(/&lt;br&gt;/gi, "\n")
+	        .replace(/<br\s*[\/]?>/gi, "\n")
+	        .replace(/\n/g, "<p></p>");
+	}
+	exports.symbolEscape = symbolEscape;
 	function getCurrency(value, currency) {
 	    if (!value)
 	        value = "0";
@@ -65926,15 +65999,80 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(5);
+	var data_provider_1 = __webpack_require__(369);
+	var helpers_1 = __webpack_require__(383);
+	var select_list_1 = __webpack_require__(393);
 	var TicketCreatePage = (function () {
-	    function TicketCreatePage(nav) {
+	    function TicketCreatePage(nav, navParams, dataProvider, config) {
 	        this.nav = nav;
+	        this.config = config;
+	        this.alert = config.alert;
+	        this.navParams = navParams;
+	        this.ticket = this.navParams.data || {};
+	        //ticket.account_id
+	        this.classes = null;
+	        this.projects = null;
+	        this.dataProvider = dataProvider;
+	        this.ticket =
+	            {
+	                "subject": "",
+	                "initial_post": "",
+	                "class_id": 0,
+	                "account_id": 0,
+	                "location_id": 0,
+	                "user_id": this.config.current.user.is_techoradmin ? 0 : this.config.current.user.user_id,
+	                "tech_id": 0
+	            };
+	        var classes1 = [
+	            { name: 'General Inquiry', value: 0 },
+	            { name: 'API', value: 1 },
+	            { name: 'Helpdesk', value: 2 },
+	            { name: 'SherpaDesk', value: 3 },
+	            { name: 'Website', value: 4 },
+	            { name: 'Website 1', value: 5 },
+	            { name: 'Website', value: 6 },
+	        ];
+	        this.classes = {};
+	        this.classes.name = "Class";
+	        this.classes.value = "Default";
+	        this.classes.selected = 0;
+	        this.classes.items = classes1;
 	    }
+	    TicketCreatePage.prototype.saveSelect = function (event) {
+	        console.log(event);
+	    };
+	    TicketCreatePage.prototype.onSubmit = function (form) {
+	        var _this = this;
+	        //if (form.valid){
+	        var subject = helpers_1.htmlEscape(this.ticket.subject.trim());
+	        var post = helpers_1.htmlEscape(this.ticket.initial_post.trim());
+	        if (subject === "" || $("#addTicketTechs").val() === "" || selectedEditClass < 1) {
+	            this.alert.error("Please enter subject", 'Oops!');
+	        }
+	        else if (subject.length > 100) {
+	            this.alert.error("Subject should be less 100 chars!", 'Oops!');
+	        }
+	        else if (post.length > 5000) {
+	            this.alert.error("Details cannot be more than 5000 chars!", 'Oops!');
+	        }
+	        else {
+	            this.dataProvider.addTicket(this.ticket).subscribe(function (data) {
+	                _this.alert.success("", 'Ticket was Succesfully Created :)');
+	                setTimeout(function () {
+	                    _this.nav.pop();
+	                }, 3000);
+	            }, function (error) {
+	                console.log(error || 'Server error');
+	            });
+	        }
+	        //else this.alert.error('Please enter subject', 'Oops!');
+	    };
 	    TicketCreatePage = __decorate([
 	        ionic_1.Page({
 	            templateUrl: 'build/pages/ticket-create/ticket-create.html',
+	            directives: [select_list_1.SelectListComponent],
 	        }), 
-	        __metadata('design:paramtypes', [ionic_1.NavController])
+	        __metadata('design:paramtypes', [ionic_1.NavController, ionic_1.NavParams, data_provider_1.DataProvider, ionic_1.Config])
 	    ], TicketCreatePage);
 	    return TicketCreatePage;
 	}());
