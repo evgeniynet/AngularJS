@@ -3195,7 +3195,6 @@
 	var invoices_1 = __webpack_require__(401);
 	var accounts_1 = __webpack_require__(403);
 	var timelogs_1 = __webpack_require__(404);
-	var timelog_create_1 = __webpack_require__(406);
 	var tickets_1 = __webpack_require__(407);
 	var ticket_create_1 = __webpack_require__(408);
 	var dashboard_1 = __webpack_require__(409);
@@ -3219,7 +3218,7 @@
 	            { title: 'Queues', component: queues_1.QueuesPage, icon: "list-box-outline" },
 	            { title: 'Switch Org', component: organizations_1.OrganizationsPage, icon: "md-swap" },
 	            { title: 'Signout', component: login_1.LoginPage, icon: "md-log-in" },
-	            { title: 'Full App', component: timelog_create_1.TimelogCreatePage, icon: "md-share-alt" },
+	            { title: 'Full App', component: ticket_create_1.TicketCreatePage, icon: "md-share-alt" },
 	        ];
 	        var current = localStorage.current;
 	        //set test config object
@@ -66014,36 +66013,7 @@
 
 
 /***/ },
-/* 406 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var ionic_1 = __webpack_require__(5);
-	var TimelogCreatePage = (function () {
-	    function TimelogCreatePage(nav) {
-	        this.nav = nav;
-	    }
-	    TimelogCreatePage = __decorate([
-	        ionic_1.Page({
-	            templateUrl: 'build/pages/timelog-create/timelog-create.html',
-	        }), 
-	        __metadata('design:paramtypes', [ionic_1.NavController])
-	    ], TimelogCreatePage);
-	    return TimelogCreatePage;
-	}());
-	exports.TimelogCreatePage = TimelogCreatePage;
-
-
-/***/ },
+/* 406 */,
 /* 407 */
 /***/ function(module, exports, __webpack_require__) {
 

@@ -5,19 +5,17 @@
 
 <ion-content padding class="expense-create">
   
-    
-    <ion-card class="list">
-  <ion-card-header>Amount</ion-card-header>
-</ion-card>   
- <ion-list class="list blue4" no-lines >
+    <ion-list class="list" no-lines >
+    <textarea class="width100 textLogin commentText subject-create" type="text" placeholder="Amount"></textarea>   
+ <div class="blue4">
     <button ion-item>bigWebApps</button>
     <button ion-item>choose a project</button>
-        </ion-list>    
+        </div>    
                 <br>
        <textarea class="width100 textLogin commentText" type="text" placeholder="Note"></textarea>
     <br>
     <textarea class="width100 textLogin commentText subject-create" type="text" placeholder="Vendor"></textarea>
-    <textarea class="width100 textLogin commentText" type="text" placeholder="Internal Notes"></textarea>
+    <textarea class="width100 textLogin commentText subject-create" type="text" placeholder="Internal Notes"></textarea>
         <br>
     <ion-label no-lines class="list">
           <i class="billable">
@@ -25,9 +23,7 @@
           </i>
         <p>Billable</p>
       </ion-label>
-    
-    <ion-list no-lines>
-        <div padding="">
+        <div>
       <button secondary block="" type="submit" class="disable-hover button button-default button-block">Add Expense</button>
     </div>
     </ion-list>
