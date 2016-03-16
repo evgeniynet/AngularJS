@@ -1,9 +1,8 @@
-import {Page, Config, NavController, NavParams, Modal, Alert} from 'ionic-framework/ionic';
+import {Page, Config, NavController, NavParams} from 'ionic-framework/ionic';
 import {DataProvider} from '../../providers/data-provider';
 import {getCurrency, getFullName} from '../../directives/helpers';
 import {PostsListComponent} from '../../components/posts-list/posts-list';
 import {SelectListComponent} from '../../components/select-list/select-list';
-import {BasicSelectModal} from '../modals/modals';
 import {GravatarPipe, LinebreaksPipe, DaysoldPipe} from '../../pipes/pipes';
 
 @Page({
