@@ -18,15 +18,9 @@
         <ion-col class="blue4"><select-list [list]="classes" (onChanged)='saveSelect($event)'></select-list></ion-col></ion-row>
     <br>
     <form #addForm="ngForm" novalidate>
-<<<<<<< HEAD
-        <ion-card class="list">
-            <ion-input class="textLogin" type="text" [(ngModel)]="ticket.subject" placeholder="Subject" ngControl="text" #subject="ngForm" required></ion-input>
-            <p [hidden]="!addForm.valid" danger padding-left>
-=======
         <div class="list">
             <textarea class="width100 textLogin blue3" [(ngModel)]="ticket.subject" placeholder="Subject" ngControl="text" #subject="ngForm" required></textarea>
             <p [hidden]="subject.valid" danger padding-left>
->>>>>>> e626111a3593bc81fb73c399f509f19b325dd592
                 Subject is required
             </p>
         <br>

@@ -29,11 +29,11 @@ export class TicketCreatePage {
             {
             "subject" : "",
             "initial_post" : "",
-            "class_id" : 0,
-            "account_id" : 0,
-            "location_id": 0,
-            "user_id" : this.config.current.user.is_techoradmin ? 0 : this.config.current.user.user_id,
-            "tech_id" : 0
+            "class_id" : null,
+            "account_id" : -1,
+            "location_id": null,
+            "user_id" : this.config.current.user.is_techoradmin ? 1325 : this.config.current.user.user_id,
+            "tech_id" : 1325
         };
 
         let classes1 = [
