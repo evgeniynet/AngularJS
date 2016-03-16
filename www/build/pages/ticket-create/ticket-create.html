@@ -3,12 +3,9 @@
     <ion-title>TicketCreate</ion-title>
 </ion-navbar>
 <ion-content padding class="ticket-create">
-    <ion-row class="list">
-        <div>
-            <ion-col class="blue4" width-90>
-                <select-list [list]="classes" (onChanged)='saveSelect($event)'></select-list></ion-col>
-            <ion-col width-25 style="margin-top: -10px;"><button item-right secondary fab class="buttonTicket"><ion-icon class="button_circle2" name="md-add"></ion-icon></button></ion-col></div>
-    </ion-row>
+        <ion-row class="list">
+    <ion-col class="blue4" width-90><button class="item-nocenter" ion-item item-left no-lines>choose technician</button></ion-col><ion-col width-25 style="margin-top: -10px;"><button item-right secondary fab class="buttonTicket"><ion-icon class="button_circle2" name="md-add"></ion-icon></button></ion-col></ion-row>
+    
     <ion-row class="list">
         <ion-col class="blue4"><select-list url="accounts?is_with_statistics=false" [list]="accounts" (onChanged)='saveSelect($event)'></select-list></ion-col></ion-row>
     <ion-row class="list">
@@ -21,18 +18,21 @@
         <ion-col class="blue4"><select-list [list]="classes" (onChanged)='saveSelect($event)'></select-list></ion-col></ion-row>
     <br>
     <form #addForm="ngForm" novalidate>
+<<<<<<< HEAD
         <ion-card class="list">
             <ion-input class="textLogin" type="text" [(ngModel)]="ticket.subject" placeholder="Subject" ngControl="text" #subject="ngForm" required></ion-input>
             <p [hidden]="!addForm.valid" danger padding-left>
+=======
+        <div class="list">
+            <textarea class="width100 textLogin blue3" [(ngModel)]="ticket.subject" placeholder="Subject" ngControl="text" #subject="ngForm" required></textarea>
+            <p [hidden]="subject.valid" danger padding-left>
+>>>>>>> e626111a3593bc81fb73c399f509f19b325dd592
                 Subject is required
             </p>
-        </ion-card>
         <br>
-        <ion-card class="list">
-            <div class="response-ticket">
-                <textarea class="width100 textLogin commentText" type="text" [(ngModel)]="ticket.initial_post" ngControl="text" #note="ngForm" required placeholder="Add Note"></textarea>
+                <textarea class="width100 textLogin commentText" type="text" [(ngModel)]="ticket.initial_post" ngControl="text" #note="ngForm" required placeholder="Details..."></textarea>
+            
                 </div>
-        </ion-card>
         <ion-list no-lines>
             <div padding="">
                 <button secondary block (click)="onSubmit(addForm)"  type="submit" class="disable-hover button button-default button-block">Add Ticket</button>
