@@ -9836,6 +9836,9 @@ ion-list > .item:first-child {
   text-overflow: ellipsis;
   padding-top: 26px; }
 
+.subject-create {
+  height: 38px !important; }
+
 .list-tree {
   margin-top: 10px;
   margin-bottom: 5px; }
@@ -10243,6 +10246,9 @@ scroll-content {
 
 .subject-ticket {
   margin-left: 15px; }
+
+.subject-create {
+  height: 38px !important; }
 
 .subject {
   background-color: rgba(0, 0, 0, 0.4); }

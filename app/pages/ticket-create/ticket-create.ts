@@ -1,4 +1,5 @@
 import {Page, Config, NavController, NavParams} from 'ionic-framework/ionic';
+import { FORM_DIRECTIVES, Validators} from 'angular2/common';
 import {DataProvider} from '../../providers/data-provider';
 import {htmlEscape} from '../../directives/helpers';
 import {SelectListComponent} from '../../components/select-list/select-list';
