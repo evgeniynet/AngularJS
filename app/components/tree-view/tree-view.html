@@ -1,9 +1,9 @@
 <ul class="treenodes">
-    <li *ngFor="#node of Nodes" class="treenode">
+    <li *ngFor="#node of Nodes" class="treenode tree-class list-tree">
         <i [innerText]="node.isExpanded ? '\\/' : '>'" class="nodebutton fa fa-{{node.isExpanded ? 'minus' : 'plus'}}-square-o"
            (click)="onExpand(node)">>
         </i>
-
+<ion-icon name="ios-arrow-forward" role="img" class="button_circle2 nodebutton fa fa-{{node.isExpanded ? 'minus' : 'plus'}}-square-o" aria-label="arrow down"></ion-icon>
         <span class="nodetext {{node == SelectedNode ? 'bg-info' : ''}}"
               (click)="onSelectNode(node)">
             {{node.name}}

@@ -3192,14 +3192,15 @@
 	var mocks_1 = __webpack_require__(360);
 	var ng2_toastr_1 = __webpack_require__(370);
 	var hello_ionic_1 = __webpack_require__(375);
-	var queues_1 = __webpack_require__(376);
-	var invoices_1 = __webpack_require__(398);
-	var accounts_1 = __webpack_require__(400);
-	var timelogs_1 = __webpack_require__(401);
-	var tickets_1 = __webpack_require__(402);
-	var dashboard_1 = __webpack_require__(403);
-	var organizations_1 = __webpack_require__(404);
-	var login_1 = __webpack_require__(405);
+	var queues_1 = __webpack_require__(377);
+	var invoices_1 = __webpack_require__(399);
+	var accounts_1 = __webpack_require__(401);
+	var timelogs_1 = __webpack_require__(402);
+	var tickets_1 = __webpack_require__(404);
+	var ticket_create_1 = __webpack_require__(405);
+	var dashboard_1 = __webpack_require__(406);
+	var organizations_1 = __webpack_require__(407);
+	var login_1 = __webpack_require__(408);
 	var MyApp = (function () {
 	    function MyApp(app, platform, apiData, config, toastr) {
 	        // set up our app
@@ -3232,8 +3233,13 @@
 	        }
 	        //accounts, tickets statistics
 	        config.current.stat = {};
+	        if (!config.current.org || !config.current.instance) {
+	            this.rootPage = organizations_1.OrganizationsPage;
+	            return;
+	        }
 	        // set first pages
-	        //this.rootPage = AccountsPage; return;
+	        this.rootPage = ticket_create_1.TicketCreatePage;
+	        return;
 	        if (config.current.user.is_techoradmin)
 	            this.rootPage = dashboard_1.DashboardPage;
 	        else
@@ -64179,7 +64185,7 @@
 	};
 	var ionic_1 = __webpack_require__(5);
 	//import {NgClass} from 'angular2/common';
-	var tree_view_1 = __webpack_require__(407);
+	var tree_view_1 = __webpack_require__(376);
 	var HelloIonicPage = (function () {
 	    function HelloIonicPage(nav) {
 	        this.nav = nav;
@@ -64258,8 +64264,71 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(5);
+	var core_1 = __webpack_require__(7);
+	var TreeViewComponent = (function () {
+	    function TreeViewComponent() {
+	        this.onSelectedChanged = new core_1.EventEmitter();
+	        this.onRequestNodes = new core_1.EventEmitter();
+	    }
+	    TreeViewComponent.prototype.onSelectNode = function (node) {
+	        this.onSelectedChanged.emit(node);
+	    };
+	    TreeViewComponent.prototype.onExpand = function (node) {
+	        node.isExpanded = !node.isExpanded;
+	        if (node.isExpanded && (!node.children || node.children.length == 0)) {
+	            this.onRequestNodes.emit(parent);
+	        }
+	    };
+	    TreeViewComponent.prototype.onRequest = function (parent) {
+	        console.log("inner request");
+	        return;
+	    };
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', Array)
+	    ], TreeViewComponent.prototype, "Nodes", void 0);
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', Object)
+	    ], TreeViewComponent.prototype, "SelectedNode", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', core_1.EventEmitter)
+	    ], TreeViewComponent.prototype, "onSelectedChanged", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', core_1.EventEmitter)
+	    ], TreeViewComponent.prototype, "onRequestNodes", void 0);
+	    TreeViewComponent = __decorate([
+	        core_1.Component({
+	            selector: "tree-view",
+	            templateUrl: "build/components/tree-view/tree-view.html",
+	            directives: [TreeViewComponent, ionic_1.IONIC_DIRECTIVES]
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], TreeViewComponent);
+	    return TreeViewComponent;
+	}());
+	exports.TreeViewComponent = TreeViewComponent;
+
+
+/***/ },
+/* 377 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(369);
-	var components_1 = __webpack_require__(377);
+	var components_1 = __webpack_require__(378);
 	var QueuesPage = (function () {
 	    function QueuesPage(nav, dataProvider) {
 	        var _this = this;
@@ -64282,23 +64351,23 @@
 
 
 /***/ },
-/* 377 */
+/* 378 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	function __export(m) {
 	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 	}
-	__export(__webpack_require__(378));
+	__export(__webpack_require__(379));
+	__export(__webpack_require__(397));
+	__export(__webpack_require__(381));
+	__export(__webpack_require__(384));
+	__export(__webpack_require__(393));
 	__export(__webpack_require__(396));
-	__export(__webpack_require__(380));
-	__export(__webpack_require__(383));
-	__export(__webpack_require__(392));
-	__export(__webpack_require__(395));
 
 
 /***/ },
-/* 378 */
+/* 379 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -64313,8 +64382,8 @@
 	};
 	var ionic_1 = __webpack_require__(5);
 	var core_1 = __webpack_require__(7);
-	var queue_tickets_1 = __webpack_require__(379);
-	var pipes_1 = __webpack_require__(384);
+	var queue_tickets_1 = __webpack_require__(380);
+	var pipes_1 = __webpack_require__(385);
 	var QueuesListComponent = (function () {
 	    /*@Input()
 	    card : Card;*/
@@ -64344,7 +64413,7 @@
 
 
 /***/ },
-/* 379 */
+/* 380 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -64359,8 +64428,8 @@
 	};
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(369);
-	var tickets_list_1 = __webpack_require__(380);
-	var action_button_1 = __webpack_require__(395);
+	var tickets_list_1 = __webpack_require__(381);
+	var action_button_1 = __webpack_require__(396);
 	var QueueTicketsPage = (function () {
 	    function QueueTicketsPage(nav, navParams, dataProvider) {
 	        var _this = this;
@@ -64384,7 +64453,7 @@
 
 
 /***/ },
-/* 380 */
+/* 381 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -64399,8 +64468,8 @@
 	};
 	var ionic_1 = __webpack_require__(5);
 	var core_1 = __webpack_require__(7);
-	var ticket_details_1 = __webpack_require__(381);
-	var pipes_1 = __webpack_require__(384);
+	var ticket_details_1 = __webpack_require__(382);
+	var pipes_1 = __webpack_require__(385);
 	var TicketsListComponent = (function () {
 	    function TicketsListComponent(nav, navParams) {
 	        this.nav = nav;
@@ -64431,7 +64500,7 @@
 
 
 /***/ },
-/* 381 */
+/* 382 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -64446,10 +64515,10 @@
 	};
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(369);
-	var helpers_1 = __webpack_require__(382);
-	var posts_list_1 = __webpack_require__(383);
-	var select_list_1 = __webpack_require__(392);
-	var pipes_1 = __webpack_require__(384);
+	var helpers_1 = __webpack_require__(383);
+	var posts_list_1 = __webpack_require__(384);
+	var select_list_1 = __webpack_require__(393);
+	var pipes_1 = __webpack_require__(385);
 	var TicketDetailsPage = (function () {
 	    function TicketDetailsPage(nav, navParams, dataProvider, config) {
 	        var _this = this;
@@ -64580,7 +64649,7 @@
 
 
 /***/ },
-/* 382 */
+/* 383 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -64673,7 +64742,7 @@
 
 
 /***/ },
-/* 383 */
+/* 384 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -64689,8 +64758,8 @@
 	var ionic_1 = __webpack_require__(5);
 	var core_1 = __webpack_require__(7);
 	//import {TicketDetailsPage} from '../../pages/ticket-details/ticket-details';
-	var helpers_1 = __webpack_require__(382);
-	var pipes_1 = __webpack_require__(384);
+	var helpers_1 = __webpack_require__(383);
+	var pipes_1 = __webpack_require__(385);
 	var PostsListComponent = (function () {
 	    function PostsListComponent() {
 	        this.posts = [];
@@ -64725,22 +64794,22 @@
 
 
 /***/ },
-/* 384 */
+/* 385 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	function __export(m) {
 	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 	}
-	__export(__webpack_require__(385));
 	__export(__webpack_require__(386));
 	__export(__webpack_require__(387));
-	__export(__webpack_require__(390));
+	__export(__webpack_require__(388));
 	__export(__webpack_require__(391));
+	__export(__webpack_require__(392));
 
 
 /***/ },
-/* 385 */
+/* 386 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -64779,7 +64848,7 @@
 
 
 /***/ },
-/* 386 */
+/* 387 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -64813,7 +64882,7 @@
 
 
 /***/ },
-/* 387 */
+/* 388 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -64827,7 +64896,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(7);
-	var md5Hex = __webpack_require__(388);
+	var md5Hex = __webpack_require__(389);
 	var GravatarPipe = (function () {
 	    function GravatarPipe() {
 	    }
@@ -64850,15 +64919,15 @@
 
 
 /***/ },
-/* 388 */
+/* 389 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	module.exports = __webpack_require__(389);
+	module.exports = __webpack_require__(390);
 
 
 /***/ },
-/* 389 */
+/* 390 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -65064,7 +65133,7 @@
 	}
 
 /***/ },
-/* 390 */
+/* 391 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -65107,7 +65176,7 @@
 
 
 /***/ },
-/* 391 */
+/* 392 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -65215,7 +65284,7 @@
 
 
 /***/ },
-/* 392 */
+/* 393 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -65231,7 +65300,7 @@
 	var ionic_1 = __webpack_require__(5);
 	var core_1 = __webpack_require__(7);
 	//import {TicketDetailsPage} from '../../pages/ticket-details/ticket-details';
-	var modals_1 = __webpack_require__(393);
+	var modals_1 = __webpack_require__(394);
 	var alertLimit = 5;
 	var SelectListComponent = (function () {
 	    function SelectListComponent(nav) {
@@ -65323,18 +65392,18 @@
 
 
 /***/ },
-/* 393 */
+/* 394 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	function __export(m) {
 	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 	}
-	__export(__webpack_require__(394));
+	__export(__webpack_require__(395));
 
 
 /***/ },
-/* 394 */
+/* 395 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -65391,7 +65460,7 @@
 
 
 /***/ },
-/* 395 */
+/* 396 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -65470,7 +65539,7 @@
 
 
 /***/ },
-/* 396 */
+/* 397 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -65486,8 +65555,8 @@
 	//in case on using ionic "ion-card"
 	var ionic_1 = __webpack_require__(5);
 	var core_1 = __webpack_require__(7);
-	var account_details_1 = __webpack_require__(397);
-	var pipes_1 = __webpack_require__(384);
+	var account_details_1 = __webpack_require__(398);
+	var pipes_1 = __webpack_require__(385);
 	var AccountsListComponent = (function () {
 	    /*@Input()
 	    card : Card;*/
@@ -65521,7 +65590,7 @@
 
 
 /***/ },
-/* 397 */
+/* 398 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -65536,10 +65605,10 @@
 	};
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(369);
-	var helpers_1 = __webpack_require__(382);
-	var tickets_list_1 = __webpack_require__(380);
-	var action_button_1 = __webpack_require__(395);
-	var pipes_1 = __webpack_require__(384);
+	var helpers_1 = __webpack_require__(383);
+	var tickets_list_1 = __webpack_require__(381);
+	var action_button_1 = __webpack_require__(396);
+	var pipes_1 = __webpack_require__(385);
 	var AccountDetailsPage = (function () {
 	    function AccountDetailsPage(nav, navParams, dataProvider, config) {
 	        var _this = this;
@@ -65578,7 +65647,7 @@
 
 
 /***/ },
-/* 398 */
+/* 399 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -65592,11 +65661,11 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(5);
-	var invoice_details_1 = __webpack_require__(399);
+	var invoice_details_1 = __webpack_require__(400);
 	var data_provider_1 = __webpack_require__(369);
 	//import {TicketsListComponent} from '../../components/tickets-list/tickets-list';
-	var action_button_1 = __webpack_require__(395);
-	var pipes_1 = __webpack_require__(384);
+	var action_button_1 = __webpack_require__(396);
+	var pipes_1 = __webpack_require__(385);
 	var InvoicesPage = (function () {
 	    function InvoicesPage(nav, dataProvider, config) {
 	        var _this = this;
@@ -65627,7 +65696,7 @@
 
 
 /***/ },
-/* 399 */
+/* 400 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -65657,7 +65726,7 @@
 
 
 /***/ },
-/* 400 */
+/* 401 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -65672,7 +65741,7 @@
 	};
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(369);
-	var components_1 = __webpack_require__(377);
+	var components_1 = __webpack_require__(378);
 	var AccountsPage = (function () {
 	    function AccountsPage(nav, config, dataProvider) {
 	        var _this = this;
@@ -65700,7 +65769,7 @@
 
 
 /***/ },
-/* 401 */
+/* 402 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -65715,9 +65784,9 @@
 	};
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(369);
-	var timelog_1 = __webpack_require__(408);
-	var action_button_1 = __webpack_require__(395);
-	var pipes_1 = __webpack_require__(384);
+	var timelog_1 = __webpack_require__(403);
+	var action_button_1 = __webpack_require__(396);
+	var pipes_1 = __webpack_require__(385);
 	var TimelogsPage = (function () {
 	    function TimelogsPage(nav, dataProvider, config) {
 	        var _this = this;
@@ -65749,7 +65818,7 @@
 
 
 /***/ },
-/* 402 */
+/* 403 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -65764,11 +65833,58 @@
 	};
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(369);
-	var components_1 = __webpack_require__(377);
+	//import {TicketsListComponent} from '../../components/tickets-list/tickets-list';
+	var TimelogPage = (function () {
+	    function TimelogPage(nav, dataProvider, config) {
+	        var _this = this;
+	        this.nav = nav;
+	        this.config = config;
+	        this.timelog = null;
+	        this.dataProvider = dataProvider;
+	        var pager = { limit: 5 };
+	        this.dataProvider.getTimelogs(pager).subscribe(function (data) {
+	            _this.timelogs = data;
+	            console.log(data);
+	        }, function (error) {
+	            console.log(error || 'Server error');
+	        });
+	    }
+	    TimelogPage.prototype.setDate = function (date) {
+	        return new Date(date);
+	    };
+	    TimelogPage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/timelog/timelog.html',
+	        }), 
+	        __metadata('design:paramtypes', [ionic_1.NavController, data_provider_1.DataProvider, ionic_1.Config])
+	    ], TimelogPage);
+	    return TimelogPage;
+	}());
+	exports.TimelogPage = TimelogPage;
+
+
+/***/ },
+/* 404 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(5);
+	var data_provider_1 = __webpack_require__(369);
+	var components_1 = __webpack_require__(378);
 	var TicketsPage = (function () {
 	    function TicketsPage(nav, dataProvider, config) {
 	        var _this = this;
 	        this.nav = nav;
+	        this.config = config;
 	        this.tickets = null;
 	        this.ticket_tab = "user";
 	        this.dataProvider = dataProvider;
@@ -65796,7 +65912,37 @@
 
 
 /***/ },
-/* 403 */
+/* 405 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(5);
+	var TicketCreatePage = (function () {
+	    function TicketCreatePage(nav) {
+	        this.nav = nav;
+	    }
+	    TicketCreatePage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/ticket-create/ticket-create.html',
+	        }), 
+	        __metadata('design:paramtypes', [ionic_1.NavController])
+	    ], TicketCreatePage);
+	    return TicketCreatePage;
+	}());
+	exports.TicketCreatePage = TicketCreatePage;
+
+
+/***/ },
+/* 406 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -65811,11 +65957,11 @@
 	};
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(369);
-	var helpers = __webpack_require__(382);
-	var components_1 = __webpack_require__(377);
-	var tickets_1 = __webpack_require__(402);
-	var account_details_1 = __webpack_require__(397);
-	var pipes_1 = __webpack_require__(384);
+	var helpers = __webpack_require__(383);
+	var components_1 = __webpack_require__(378);
+	var tickets_1 = __webpack_require__(404);
+	var account_details_1 = __webpack_require__(398);
+	var pipes_1 = __webpack_require__(385);
 	var DashboardPage = (function () {
 	    function DashboardPage(nav, config, dataProvider) {
 	        var _this = this;
@@ -65865,7 +66011,7 @@
 
 
 /***/ },
-/* 404 */
+/* 407 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -65880,14 +66026,18 @@
 	};
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(369);
-	var helpers_1 = __webpack_require__(382);
-	var dashboard_1 = __webpack_require__(403);
-	var tickets_1 = __webpack_require__(402);
+	var helpers_1 = __webpack_require__(383);
+	var dashboard_1 = __webpack_require__(406);
+	var tickets_1 = __webpack_require__(404);
 	var OrganizationsPage = (function () {
 	    function OrganizationsPage(nav, dataProvider, config) {
 	        var _this = this;
 	        this.nav = nav;
 	        this.config = config;
+	        //partly logout
+	        localStorage.clear();
+	        localStorage.username = this.config.current.user.email;
+	        helpers_1.saveConfig(this.config.current, this.config.current.key);
 	        this.alert = this.config.alert;
 	        this.dataProvider = dataProvider;
 	        this.list = [];
@@ -65900,6 +66050,10 @@
 	        });
 	    }
 	    OrganizationsPage.prototype.toggle = function (org) {
+	        if (org.instances.length == 1) {
+	            this.onSelectInst({ org: org.key, inst: org.instances[0].key });
+	            return;
+	        }
 	        var index = this.list.indexOf(org);
 	        for (var i = 0; i < this.list.length; i++) {
 	            if (i == index)
@@ -65908,7 +66062,10 @@
 	                this.list[i].expanded = false;
 	        }
 	    };
-	    OrganizationsPage.prototype.onSelectInst = function (event, instance) {
+	    OrganizationsPage.prototype.alertOrg = function (name) {
+	        this.alert.error(name + " has expired or inactivated. Contact SherpaDesk for assistance. Email: support@sherpadesk.com Phone: +1 (866) 996-1200, then press 2", 'Oops!');
+	    };
+	    OrganizationsPage.prototype.onSelectInst = function (instance) {
 	        var _this = this;
 	        this.config.current.org = instance.org;
 	        this.config.current.instance = instance.inst;
@@ -65923,7 +66080,7 @@
 	        }, function (error) {
 	            _this.alert.error(error || 'Server error', 'Oops!');
 	            setTimeout(function () {
-	                _this.nav.pop();
+	                _this.nav.setRoot(tickets_1.TicketsPage);
 	            }, 3000);
 	            console.log(error || 'Server error');
 	        });
@@ -65940,7 +66097,7 @@
 
 
 /***/ },
-/* 405 */
+/* 408 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -65954,17 +66111,20 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(5);
-	var helpers_1 = __webpack_require__(382);
+	var helpers_1 = __webpack_require__(383);
 	var data_provider_1 = __webpack_require__(369);
-	var organizations_1 = __webpack_require__(404);
-	var signup_1 = __webpack_require__(406);
+	var organizations_1 = __webpack_require__(407);
+	var signup_1 = __webpack_require__(409);
 	var LoginPage = (function () {
 	    function LoginPage(nav, dataProvider, config) {
 	        this.nav = nav;
 	        this.config = config;
+	        //logout
+	        this.login = { username: localStorage.username };
+	        localStorage.clear();
+	        config.current = { stat: {} };
 	        this.alert = this.config.alert;
 	        this.dataProvider = dataProvider;
-	        this.login = {};
 	        this.submitted = false;
 	    }
 	    LoginPage.prototype.onLogin = function (form) {
@@ -65973,15 +66133,19 @@
 	        if (form.valid) {
 	            this.dataProvider.checkLogin(form.value.email, form.value.password).subscribe(function (data) {
 	                helpers_1.saveConfig(_this.config.current, data.api_token);
+	                localStorage.username = form.value.email || "";
 	                _this.nav.push(organizations_1.OrganizationsPage);
 	            }, function (error) {
-	                _this.alert.error('There was a problem with your login.  Please try again.', 'Oops!');
+	                _this.alert.error('There was a problem with your login.  Check your login and password.', 'Oops!');
 	                _this.login.password = "";
 	                console.log(error || 'Server error');
 	            });
 	        }
 	        else
 	            this.alert.error('Please enter email and password!', 'Oops!');
+	    };
+	    LoginPage.prototype.onGoogleSignip = function () {
+	        this.nav.push(signup_1.SignupPage);
 	    };
 	    LoginPage.prototype.onSignup = function () {
 	        this.nav.push(signup_1.SignupPage);
@@ -65998,7 +66162,7 @@
 
 
 /***/ },
-/* 406 */
+/* 409 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -66025,115 +66189,6 @@
 	    return SignupPage;
 	}());
 	exports.SignupPage = SignupPage;
-
-
-/***/ },
-/* 407 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var ionic_1 = __webpack_require__(5);
-	var core_1 = __webpack_require__(7);
-	var TreeViewComponent = (function () {
-	    function TreeViewComponent() {
-	        this.onSelectedChanged = new core_1.EventEmitter();
-	        this.onRequestNodes = new core_1.EventEmitter();
-	    }
-	    TreeViewComponent.prototype.onSelectNode = function (node) {
-	        this.onSelectedChanged.emit(node);
-	    };
-	    TreeViewComponent.prototype.onExpand = function (node) {
-	        node.isExpanded = !node.isExpanded;
-	        if (node.isExpanded && (!node.children || node.children.length == 0)) {
-	            this.onRequestNodes.emit(parent);
-	        }
-	    };
-	    TreeViewComponent.prototype.onRequest = function (parent) {
-	        console.log("inner request");
-	        return;
-	    };
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', Array)
-	    ], TreeViewComponent.prototype, "Nodes", void 0);
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', Object)
-	    ], TreeViewComponent.prototype, "SelectedNode", void 0);
-	    __decorate([
-	        core_1.Output(), 
-	        __metadata('design:type', core_1.EventEmitter)
-	    ], TreeViewComponent.prototype, "onSelectedChanged", void 0);
-	    __decorate([
-	        core_1.Output(), 
-	        __metadata('design:type', core_1.EventEmitter)
-	    ], TreeViewComponent.prototype, "onRequestNodes", void 0);
-	    TreeViewComponent = __decorate([
-	        core_1.Component({
-	            selector: "tree-view",
-	            templateUrl: "build/components/tree-view/tree-view.html",
-	            directives: [TreeViewComponent, ionic_1.IONIC_DIRECTIVES]
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], TreeViewComponent);
-	    return TreeViewComponent;
-	}());
-	exports.TreeViewComponent = TreeViewComponent;
-
-
-/***/ },
-/* 408 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var ionic_1 = __webpack_require__(5);
-	var data_provider_1 = __webpack_require__(369);
-	//import {TicketsListComponent} from '../../components/tickets-list/tickets-list';
-	var TimelogPage = (function () {
-	    function TimelogPage(nav, dataProvider, config) {
-	        var _this = this;
-	        this.nav = nav;
-	        this.config = config;
-	        this.timelog = null;
-	        this.dataProvider = dataProvider;
-	        var pager = { limit: 5 };
-	        this.dataProvider.getTimelogs(pager).subscribe(function (data) {
-	            _this.timelogs = data;
-	            console.log(data);
-	        }, function (error) {
-	            console.log(error || 'Server error');
-	        });
-	    }
-	    TimelogPage.prototype.setDate = function (date) {
-	        return new Date(date);
-	    };
-	    TimelogPage = __decorate([
-	        ionic_1.Page({
-	            templateUrl: 'build/pages/timelog/timelog.html',
-	        }), 
-	        __metadata('design:paramtypes', [ionic_1.NavController, data_provider_1.DataProvider, ionic_1.Config])
-	    ], TimelogPage);
-	    return TimelogPage;
-	}());
-	exports.TimelogPage = TimelogPage;
 
 
 /***/ }

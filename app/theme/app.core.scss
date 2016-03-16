@@ -16,6 +16,7 @@
 @import "../pages/login/login";
 @import "../pages/timelogs/timelogs";
 @import "../pages/ticket-details/ticket-details";
+@import "../components/tree-view/tree-view";
 @import "../components/posts-list/posts-list";
 @import "../components/tickets-list/tickets-list";
 @import "../components/queues-list/queues-list";
@@ -51,6 +52,10 @@
 
 .alert-button{
 color: black;
+}
+
+.alert-tappable {
+    font-size: 17px;
 }
 
 .alert-radio[aria-checked=true] {
@@ -222,6 +227,10 @@ background-color: #6AB7EC;
 
 .menu-content-reveal {
     box-shadow: 0px 0px 0px 0px;
+}
+
+.basic-margin{
+    margin-top: 0px !important;
 }
 
 //color

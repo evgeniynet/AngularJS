@@ -13,10 +13,10 @@
 
     <ion-list class="list">
         
-        <ion-item *ngFor="#item of items" (click)="dismiss(item)">
-            {{item.name}}
+        <ion-item class="basic-margin" *ngFor="#item of items" (click)="dismiss(item)">
+            <h2>{{item.name}}</h2>
             <ion-note item-right>
-                {{item.value}}
+                <h2>{{item.value}}</h2>
             </ion-note>
         </ion-item>
 

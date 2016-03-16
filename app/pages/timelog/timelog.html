@@ -3,6 +3,7 @@
   <ion-title>Timelog</ion-title>
 </ion-navbar>
 <ion-content padding class="timelog">
+    
     <ion-row class="list">
     <ion-col width-33 class="blue4">
   <button class="width100" type="button"><ion-icon name="remove-outline"></ion-icon><i name="arrow-back-outline"></i></button>
@@ -40,7 +41,10 @@
 </ion-item>
         </ion-list>    
                 <br>
-       <textarea class="width100 textLogin commentText" type="text" placeholder="Details..."></textarea>
+    <div *ngFor="#time of timelog">
+       <textarea class="width100 textLogin commentText" type="text" placeholder="Details...">{{time.note}}</textarea>
+                </div>
+
     <ion-label no-lines class="list">
           <i class="billable">
  <ion-icon class="ion-ios-radio-button-on"></ion-icon>
