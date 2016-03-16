@@ -9836,16 +9836,24 @@ ion-list > .item:first-child {
   text-overflow: ellipsis;
   padding-top: 26px; }
 
+.subject-create {
+  height: 38px !important; }
+
 .list-tree {
   margin-top: 10px;
   margin-bottom: 5px; }
+
+.button-arrow {
+  float: right;
+  line-height: 20px;
+  font-size: 1.8em !important; }
 
 .class-list ul {
   margin: 0;
   padding: 0;
   list-style-type: none;
   background-color: #34495e;
-  font-size: 17px; }
+  font-size: 1.6rem; }
 
 .class-list div {
   display: block;

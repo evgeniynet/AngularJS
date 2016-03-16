@@ -3197,9 +3197,10 @@
 	var accounts_1 = __webpack_require__(401);
 	var timelogs_1 = __webpack_require__(402);
 	var tickets_1 = __webpack_require__(404);
-	var dashboard_1 = __webpack_require__(406);
-	var organizations_1 = __webpack_require__(407);
-	var login_1 = __webpack_require__(408);
+	var ticket_create_1 = __webpack_require__(409);
+	var dashboard_1 = __webpack_require__(405);
+	var organizations_1 = __webpack_require__(406);
+	var login_1 = __webpack_require__(407);
 	var MyApp = (function () {
 	    function MyApp(app, platform, apiData, config, toastr) {
 	        // set up our app
@@ -3218,7 +3219,7 @@
 	            { title: 'Queues', component: queues_1.QueuesPage, icon: "list-box-outline" },
 	            { title: 'Switch Org', component: organizations_1.OrganizationsPage, icon: "md-swap" },
 	            { title: 'Signout', component: login_1.LoginPage, icon: "md-log-in" },
-	            { title: 'Full App', component: hello_ionic_1.HelloIonicPage, icon: "md-share-alt" },
+	            { title: 'Full App', component: ticket_create_1.TicketCreatePage, icon: "md-share-alt" },
 	        ];
 	        var current = localStorage.current;
 	        //set test config object
@@ -65984,8 +65985,7 @@
 
 
 /***/ },
-/* 405 */,
-/* 406 */
+/* 405 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -66054,7 +66054,7 @@
 
 
 /***/ },
-/* 407 */
+/* 406 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -66070,7 +66070,7 @@
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(369);
 	var helpers_1 = __webpack_require__(383);
-	var dashboard_1 = __webpack_require__(406);
+	var dashboard_1 = __webpack_require__(405);
 	var tickets_1 = __webpack_require__(404);
 	var OrganizationsPage = (function () {
 	    function OrganizationsPage(nav, dataProvider, config) {
@@ -66140,7 +66140,7 @@
 
 
 /***/ },
-/* 408 */
+/* 407 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -66156,8 +66156,8 @@
 	var ionic_1 = __webpack_require__(5);
 	var helpers_1 = __webpack_require__(383);
 	var data_provider_1 = __webpack_require__(369);
-	var organizations_1 = __webpack_require__(407);
-	var signup_1 = __webpack_require__(409);
+	var organizations_1 = __webpack_require__(406);
+	var signup_1 = __webpack_require__(408);
 	var LoginPage = (function () {
 	    function LoginPage(nav, dataProvider, config) {
 	        this.nav = nav;
@@ -66205,7 +66205,7 @@
 
 
 /***/ },
-/* 409 */
+/* 408 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -66232,6 +66232,101 @@
 	    return SignupPage;
 	}());
 	exports.SignupPage = SignupPage;
+
+
+/***/ },
+/* 409 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(5);
+	var data_provider_1 = __webpack_require__(369);
+	var helpers_1 = __webpack_require__(383);
+	var select_list_1 = __webpack_require__(393);
+	var TicketCreatePage = (function () {
+	    function TicketCreatePage(nav, navParams, dataProvider, config) {
+	        this.nav = nav;
+	        this.config = config;
+	        this.alert = config.alert;
+	        this.navParams = navParams;
+	        this.ticket = this.navParams.data || {};
+	        //ticket.account_id
+	        this.classes = null;
+	        this.projects = null;
+	        this.dataProvider = dataProvider;
+	        this.ticket =
+	            {
+	                "subject": "",
+	                "initial_post": "",
+	                "class_id": 0,
+	                "account_id": 0,
+	                "location_id": 0,
+	                "user_id": this.config.current.user.is_techoradmin ? 0 : this.config.current.user.user_id,
+	                "tech_id": 0
+	            };
+	        var classes1 = [
+	            { name: 'General Inquiry', value: 0 },
+	            { name: 'API', value: 1 },
+	            { name: 'Helpdesk', value: 2 },
+	            { name: 'SherpaDesk', value: 3 },
+	            { name: 'Website', value: 4 },
+	            { name: 'Website 1', value: 5 },
+	            { name: 'Website', value: 6 },
+	        ];
+	        this.classes = {};
+	        this.classes.name = "Class";
+	        this.classes.value = "Default";
+	        this.classes.selected = 0;
+	        this.classes.items = classes1;
+	    }
+	    TicketCreatePage.prototype.saveSelect = function (event) {
+	        console.log(event);
+	    };
+	    TicketCreatePage.prototype.onSubmit = function (form) {
+	        var _this = this;
+	        //if (form.valid){
+	        var subject = helpers_1.htmlEscape(this.ticket.subject.trim());
+	        var post = helpers_1.htmlEscape(this.ticket.initial_post.trim());
+	        if (subject === "" || $("#addTicketTechs").val() === "" || selectedEditClass < 1) {
+	            this.alert.error("Please enter subject", 'Oops!');
+	        }
+	        else if (subject.length > 100) {
+	            this.alert.error("Subject should be less 100 chars!", 'Oops!');
+	        }
+	        else if (post.length > 5000) {
+	            this.alert.error("Details cannot be more than 5000 chars!", 'Oops!');
+	        }
+	        else {
+	            this.dataProvider.addTicket(this.ticket).subscribe(function (data) {
+	                _this.alert.success("", 'Ticket was Succesfully Created :)');
+	                setTimeout(function () {
+	                    _this.nav.pop();
+	                }, 3000);
+	            }, function (error) {
+	                console.log(error || 'Server error');
+	            });
+	        }
+	        //else this.alert.error('Please enter subject', 'Oops!');
+	    };
+	    TicketCreatePage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/ticket-create/ticket-create.html',
+	            directives: [select_list_1.SelectListComponent],
+	        }), 
+	        __metadata('design:paramtypes', [ionic_1.NavController, ionic_1.NavParams, data_provider_1.DataProvider, ionic_1.Config])
+	    ], TicketCreatePage);
+	    return TicketCreatePage;
+	}());
+	exports.TicketCreatePage = TicketCreatePage;
 
 
 /***/ }
