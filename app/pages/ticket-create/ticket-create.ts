@@ -1,4 +1,5 @@
 import {Page, Config, NavController, NavParams} from 'ionic-framework/ionic';
+import { FORM_DIRECTIVES, Validators} from 'angular2/common';
 import {DataProvider} from '../../providers/data-provider';
 import {htmlEscape} from '../../directives/helpers';
 import {SelectListComponent} from '../../components/select-list/select-list';
@@ -15,8 +16,13 @@ export class TicketCreatePage {
         this.navParams = navParams;
         this.ticket = this.navParams.data || {};
         //ticket.account_id
+        
+        this.accounts = {
+            name: "Account", 
+            value: "Bigwebapps",
+            selected: -1,
+        };
 
-        this.classes = null;
         this.projects = null;
         this.dataProvider = dataProvider;
 
@@ -24,21 +30,21 @@ export class TicketCreatePage {
             {
             "subject" : "",
             "initial_post" : "",
-            "class_id" : 0,
-            "account_id" : 0,
-            "location_id": 0,
-            "user_id" : this.config.current.user.is_techoradmin ? 0 : this.config.current.user.user_id,
-            "tech_id" : 0
+            "class_id" : null,
+            "account_id" : -1,
+            "location_id": null,
+            "user_id" : this.config.current.user.is_techoradmin ? 1325 : this.config.current.user.user_id,
+            "tech_id" : 1325
         };
 
         let classes1 = [
-            { name: 'General Inquiry', value: 0 },
-            { name: 'API', value: 1 },
-            { name: 'Helpdesk', value: 2 },
-            { name: 'SherpaDesk', value: 3 },
-            { name: 'Website', value: 4 },
-            { name: 'Website 1', value: 5 },
-            { name: 'Website', value: 6 },
+            { name: 'General Inquiry', id: 0 },
+            { name: 'API', id: 1 },
+            { name: 'Helpdesk', id: 2 },
+            { name: 'SherpaDesk', id: 3 },
+            { name: 'Website', id: 4 },
+            { name: 'Website 1', id: 5 },
+            { name: 'Website', id: 6 },
         ];
 
         this.classes = {};
@@ -56,7 +62,7 @@ export class TicketCreatePage {
         //if (form.valid){
         var subject = htmlEscape(this.ticket.subject.trim());
         var post = htmlEscape(this.ticket.initial_post.trim());
-        if(subject === "" || $("#addTicketTechs").val() === "" || selectedEditClass < 1)
+        if(subject === "")// || $("#addTicketTechs").val() === "" || selectedEditClass < 1)
         {
             this.alert.error("Please enter subject", 'Oops!');
         }

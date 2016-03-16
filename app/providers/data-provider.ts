@@ -19,6 +19,16 @@ String.prototype.addp = function(param, value) {
 @Injectable()
 export class DataProvider {
 
+    _data;
+
+    get Cache() {
+        return this._data;
+    }
+
+    set Cache(value) {
+        this._data = value;
+    }
+
 constructor(apiData: ApiData) {
     // inject the Http provider and set to this instance
     this.apiData = apiData;
