@@ -10247,6 +10247,9 @@ scroll-content {
 .subject-ticket {
   margin-left: 15px; }
 
+.subject-create {
+  height: 38px !important; }
+
 .subject {
   background-color: rgba(0, 0, 0, 0.4); }
 

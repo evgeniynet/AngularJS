@@ -3,23 +3,26 @@
     <ion-title>TicketCreate</ion-title>
 </ion-navbar>
 <ion-content padding class="ticket-create">
-        <ion-row class="list">
-    <ion-col class="blue4" width-90><button class="item-nocenter" ion-item item-left no-lines>choose technician</button></ion-col><ion-col width-25 style="margin-top: -10px;"><button item-right secondary fab class="buttonTicket"><ion-icon class="button_circle2" name="md-add"></ion-icon></button></ion-col></ion-row>
-    
-    <ion-row class="list">
+            <div class="width100">
+        <ion-row>
+    <ion-col class="blue4"><select-list  [list]="classes" (onChanged)='saveSelect($event)'></select-list></ion-col><ion-col width-10 style="margin-top: -10px;"><button item-right secondary fab class="buttonTicket"><ion-icon class="button_circle2" name="md-add"></ion-icon></button></ion-col></ion-row>
+    <ion-row>
         <ion-col class="blue4"><select-list [list]="classes" (onChanged)='saveSelect($event)'></select-list></ion-col></ion-row>
-    <ion-row class="list">
+    <ion-row>
         <ion-col class="blue4"><select-list [list]="classes" (onChanged)='saveSelect($event)'></select-list></ion-col></ion-row>
-    <ion-row class="list">
-        <ion-col class="blue4" width-90><select-list [list]="classes" (onChanged)='saveSelect($event)'></select-list></ion-col><ion-col width-25 style="margin-top: -10px;"><button item-right secondary fab class="buttonTicket"><ion-icon class="button_circle2" name="md-add"></ion-icon></button></ion-col></ion-row>
-    <ion-row class="list">
+    <ion-row>
+        <ion-col class="blue4"><select-list [list]="classes" (onChanged)='saveSelect($event)'></select-list></ion-col><ion-col width-10 style="margin-top: -10px;"><button item-right secondary fab class="buttonTicket"><ion-icon class="button_circle2" name="md-add"></ion-icon></button></ion-col></ion-row>
+    <ion-row>
         <ion-col class="blue4"><select-list [list]="classes" (onChanged)='saveSelect($event)'></select-list></ion-col></ion-row>
-    <ion-row class="list">
+    <ion-row>
         <ion-col class="blue4"><select-list [list]="classes" (onChanged)='saveSelect($event)'></select-list></ion-col></ion-row>
+    </div>
     <br>
     <form #addForm="ngForm" novalidate>
-        <div class="list">
-            <textarea class="width100 textLogin blue3" [(ngModel)]="ticket.subject" placeholder="Subject" ngControl="text" #subject="ngForm" required></textarea>
+                <ion-list no-lines>
+                    <div>
+        <div class="list" >
+            <textarea class="width100 textLogin blue3 commentText subject-create" [(ngModel)]="ticket.subject" placeholder="Subject" ngControl="text" #subject="ngForm" required></textarea>
             <p [hidden]="subject.valid" danger padding-left>
                 Subject is required
             </p>
@@ -27,10 +30,11 @@
                 <textarea class="width100 textLogin commentText" type="text" [(ngModel)]="ticket.initial_post" ngControl="text" #note="ngForm" required placeholder="Details..."></textarea>
             
                 </div>
-        <ion-list no-lines>
-            <div padding="">
+            <br>
+            <div class="list" >
                 <button secondary block (click)="onSubmit(addForm)"  type="submit" class="disable-hover button button-default button-block">Add Ticket</button>
             </div>
+                        </div>
         </ion-list>
     </form>
 </ion-content>
