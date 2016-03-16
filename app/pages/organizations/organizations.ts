@@ -15,6 +15,7 @@ export class OrganizationsPage {
         
         //partly logout
         localStorage.clear();
+        if (this.config.current.user)
         localStorage.username = this.config.current.user.email;
         saveConfig(this.config.current, this.config.current.key);
         

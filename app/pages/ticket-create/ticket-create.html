@@ -10,7 +10,7 @@
             <ion-col width-25 style="margin-top: -10px;"><button item-right secondary fab class="buttonTicket"><ion-icon class="button_circle2" name="md-add"></ion-icon></button></ion-col></div>
     </ion-row>
     <ion-row class="list">
-        <ion-col class="blue4"><select-list [list]="classes" (onChanged)='saveSelect($event)'></select-list></ion-col></ion-row>
+        <ion-col class="blue4"><select-list url="accounts?is_with_statistics=false" [list]="accounts" (onChanged)='saveSelect($event)'></select-list></ion-col></ion-row>
     <ion-row class="list">
         <ion-col class="blue4"><select-list [list]="classes" (onChanged)='saveSelect($event)'></select-list></ion-col></ion-row>
     <ion-row class="list">
@@ -23,7 +23,7 @@
     <form #addForm="ngForm" novalidate>
         <ion-card class="list">
             <ion-input class="textLogin" type="text" [(ngModel)]="ticket.subject" placeholder="Subject" ngControl="text" #subject="ngForm" required></ion-input>
-            <p [hidden]="subject.valid" danger padding-left>
+            <p [hidden]="!addForm.valid" danger padding-left>
                 Subject is required
             </p>
         </ion-card>

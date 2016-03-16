@@ -3197,6 +3197,7 @@
 	var accounts_1 = __webpack_require__(401);
 	var timelogs_1 = __webpack_require__(402);
 	var tickets_1 = __webpack_require__(404);
+	var ticket_create_1 = __webpack_require__(405);
 	var dashboard_1 = __webpack_require__(406);
 	var organizations_1 = __webpack_require__(407);
 	var login_1 = __webpack_require__(408);
@@ -3237,7 +3238,8 @@
 	            return;
 	        }
 	        // set first pages
-	        this.rootPage = hello_ionic_1.HelloIonicPage;
+	        //this.rootPage = HelloIonicPage; return;
+	        this.rootPage = ticket_create_1.TicketCreatePage;
 	        return;
 	        if (config.current.user.is_techoradmin)
 	            this.rootPage = dashboard_1.DashboardPage;
@@ -62227,6 +62229,16 @@
 	        this.http = http;
 	        this.config = config;
 	    }
+	    Object.defineProperty(ApiData.prototype, "Cache", {
+	        get: function () {
+	            return this._data;
+	        },
+	        set: function (value) {
+	            this._data = value;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
 	    ApiData.prototype.request = function (method, data, type, headers) {
 	        if (config_1.dontClearCache) {
 	            return this.mock_get(method);
@@ -62294,11 +62306,11 @@
 
 	"use strict";
 	var Site = 'sherpadesk.com/';
-	exports.MobileSite = 'http://m.' + Site;
-	exports.AppSite = 'https://app.' + Site;
-	exports.ApiSite = 'http://api.' + Site;
+	exports.MobileSite = 'http://m0.' + Site;
+	exports.AppSite = 'https://app.beta.' + Site;
+	exports.ApiSite = 'http://api.beta.' + Site;
 	//offline
-	exports.dontClearCache = true;
+	exports.dontClearCache = false;
 	exports.isSD = true;
 	exports.year = "2015";
 	exports.appVersion = "40";
@@ -62377,9 +62389,12 @@
 	    ],
 	    "config": {
 	        stat: {},
-	        "key": "re36rym3mjqxm8ej2cscfajmxpsew33m",
-	        "org": "zwoja4",
-	        "instance": "ms2asm",
+	        "key": "2mzer2k5k0srgncebsizvfmip0isp2ii",
+	        "org": "u0diuk",
+	        "instance": "b95s6o",
+	        //"key": "re36rym3mjqxm8ej2cscfajmxpsew33m",
+	        //"org": "zwoja4",
+	        //"instance": "ms2asm",
 	        "is_onhold_status": false,
 	        "is_time_tracking": true,
 	        "is_freshbooks": false,
@@ -63802,6 +63817,16 @@
 	        // inject the Http provider and set to this instance
 	        this.apiData = apiData;
 	    }
+	    Object.defineProperty(DataProvider.prototype, "Cache", {
+	        get: function () {
+	            return this._data;
+	        },
+	        set: function (value) {
+	            this._data = value;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
 	    DataProvider.prototype.checkLogin = function (username, password) {
 	        if (!username || !password) {
 	            return this.apiData.handleError("Please enter login and password!");
@@ -64542,29 +64567,29 @@
 	        this.posts = [];
 	        this.post1 = [];
 	        var classes1 = [
-	            { name: 'General Inquiry', value: 0 },
-	            { name: 'API', value: 1 },
-	            { name: 'Helpdesk', value: 2 },
-	            { name: 'SherpaDesk', value: 3 },
-	            { name: 'Website', value: 4 },
-	            { name: 'Website 1', value: 5 },
-	            { name: 'Website', value: 6 },
+	            { name: 'General Inquiry', id: 0 },
+	            { name: 'API', id: 1 },
+	            { name: 'Helpdesk', id: 2 },
+	            { name: 'SherpaDesk', id: 3 },
+	            { name: 'Website', id: 4 },
+	            { name: 'Website 1', id: 5 },
+	            { name: 'Website', id: 6 },
 	        ];
 	        var levels1 = [
-	            { name: 'First Resolution', value: 0 },
-	            { name: 'Pre-Development', value: 1 },
-	            { name: 'Active Plate', value: 2 },
-	            { name: 'Testing', value: 3 },
+	            { name: 'First Resolution', id: 0 },
+	            { name: 'Pre-Development', id: 1 },
+	            { name: 'Active Plate', id: 2 },
+	            { name: 'Testing', id: 3 },
 	        ];
 	        var resolution1 = [
-	            { name: 'Resolved', value: 0 },
-	            { name: 'UnResolved', value: 1 },
+	            { name: 'Resolved', id: 0 },
+	            { name: 'UnResolved', id: 1 },
 	        ];
 	        var resolution_category1 = [
-	            { name: 'First Resolution', value: 0 },
-	            { name: 'Pre-Development', value: 1 },
-	            { name: 'Active Plate', value: 2 },
-	            { name: 'Testing', value: 3 },
+	            { name: 'First Resolution', id: 0 },
+	            { name: 'Pre-Development', id: 1 },
+	            { name: 'Active Plate', id: 2 },
+	            { name: 'Testing', id: 3 },
 	        ];
 	        this.classes = {};
 	        this.classes.name = "Class";
@@ -64640,8 +64665,7 @@
 	        return helpers_1.getCurrency(value, this.config.current.currency);
 	    };
 	    TicketDetailsPage.prototype.setDate = function (date) {
-	        this.Anotherdate = date;
-	        return this.Anotherdate;
+	        return new Date(date);
 	    };
 	    TicketDetailsPage = __decorate([
 	        ionic_1.Page({
@@ -65370,20 +65394,41 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(5);
+	var api_data_1 = __webpack_require__(358);
 	var core_1 = __webpack_require__(7);
 	//import {TicketDetailsPage} from '../../pages/ticket-details/ticket-details';
 	var modals_1 = __webpack_require__(394);
+	__webpack_require__(410);
 	var alertLimit = 5;
 	var SelectListComponent = (function () {
-	    function SelectListComponent(nav) {
+	    function SelectListComponent(nav, apiData) {
 	        this.onChanged = new core_1.EventEmitter();
 	        this.nav = nav;
+	        this.apiData = apiData;
 	        this.list = [];
+	        this.url = "";
 	        this.selected = {};
+	        if (this.list.items && this.list.items.length > 0)
+	            this.proceed_list();
 	    }
 	    SelectListComponent.prototype.open = function () {
-	        if (!this.list || !this.list.items || this.list.items.length == 0)
-	            return;
+	        var _this = this;
+	        if (!this.list.items || this.list.items.length == 0) {
+	            if (this.url) {
+	                //this.apiData.Cache = this.apiData.get(this.url).share();
+	                //this.apiData.Cache.subscribe(
+	                this.apiData.get(this.url).subscribe(function (data) {
+	                    _this.list.items = data;
+	                    _this.proceed_list();
+	                }, function (error) {
+	                    console.log(error || 'Server error');
+	                });
+	            }
+	        }
+	        else
+	            this.proceed_list();
+	    };
+	    SelectListComponent.prototype.proceed_list = function () {
 	        if (this.list.items.length <= alertLimit)
 	            this.openRadio();
 	        else
@@ -65447,6 +65492,10 @@
 	        __metadata('design:type', Array)
 	    ], SelectListComponent.prototype, "list", void 0);
 	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', String)
+	    ], SelectListComponent.prototype, "url", void 0);
+	    __decorate([
 	        core_1.Output(), 
 	        __metadata('design:type', core_1.EventEmitter)
 	    ], SelectListComponent.prototype, "onChanged", void 0);
@@ -65456,7 +65505,7 @@
 	            templateUrl: 'build/components/select-list/select-list.html',
 	            directives: [ionic_1.IONIC_DIRECTIVES]
 	        }), 
-	        __metadata('design:paramtypes', [ionic_1.NavController])
+	        __metadata('design:paramtypes', [ionic_1.NavController, api_data_1.ApiData])
 	    ], SelectListComponent);
 	    return SelectListComponent;
 	}());
@@ -65984,7 +66033,105 @@
 
 
 /***/ },
-/* 405 */,
+/* 405 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(5);
+	var data_provider_1 = __webpack_require__(369);
+	var helpers_1 = __webpack_require__(383);
+	var select_list_1 = __webpack_require__(393);
+	var TicketCreatePage = (function () {
+	    function TicketCreatePage(nav, navParams, dataProvider, config) {
+	        this.nav = nav;
+	        this.config = config;
+	        this.alert = config.alert;
+	        this.navParams = navParams;
+	        this.ticket = this.navParams.data || {};
+	        //ticket.account_id
+	        this.accounts = {
+	            name: "Account",
+	            value: "Bigwebapps",
+	            selected: -1,
+	        };
+	        this.projects = null;
+	        this.dataProvider = dataProvider;
+	        this.ticket =
+	            {
+	                "subject": "",
+	                "initial_post": "",
+	                "class_id": 0,
+	                "account_id": 0,
+	                "location_id": 0,
+	                "user_id": this.config.current.user.is_techoradmin ? 0 : this.config.current.user.user_id,
+	                "tech_id": 0
+	            };
+	        var classes1 = [
+	            { name: 'General Inquiry', id: 0 },
+	            { name: 'API', id: 1 },
+	            { name: 'Helpdesk', id: 2 },
+	            { name: 'SherpaDesk', id: 3 },
+	            { name: 'Website', id: 4 },
+	            { name: 'Website 1', id: 5 },
+	            { name: 'Website', id: 6 },
+	        ];
+	        this.classes = {};
+	        this.classes.name = "Class";
+	        this.classes.value = "Default";
+	        this.classes.selected = 0;
+	        this.classes.items = classes1;
+	    }
+	    TicketCreatePage.prototype.saveSelect = function (event) {
+	        console.log(event);
+	    };
+	    TicketCreatePage.prototype.onSubmit = function (form) {
+	        var _this = this;
+	        //if (form.valid){
+	        var subject = helpers_1.htmlEscape(this.ticket.subject.trim());
+	        var post = helpers_1.htmlEscape(this.ticket.initial_post.trim());
+	        if (subject === "") {
+	            this.alert.error("Please enter subject", 'Oops!');
+	        }
+	        else if (subject.length > 100) {
+	            this.alert.error("Subject should be less 100 chars!", 'Oops!');
+	        }
+	        else if (post.length > 5000) {
+	            this.alert.error("Details cannot be more than 5000 chars!", 'Oops!');
+	        }
+	        else {
+	            this.dataProvider.addTicket(this.ticket).subscribe(function (data) {
+	                _this.alert.success("", 'Ticket was Succesfully Created :)');
+	                setTimeout(function () {
+	                    _this.nav.pop();
+	                }, 3000);
+	            }, function (error) {
+	                console.log(error || 'Server error');
+	            });
+	        }
+	        //else this.alert.error('Please enter subject', 'Oops!');
+	    };
+	    TicketCreatePage = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/ticket-create/ticket-create.html',
+	            directives: [select_list_1.SelectListComponent],
+	        }), 
+	        __metadata('design:paramtypes', [ionic_1.NavController, ionic_1.NavParams, data_provider_1.DataProvider, ionic_1.Config])
+	    ], TicketCreatePage);
+	    return TicketCreatePage;
+	}());
+	exports.TicketCreatePage = TicketCreatePage;
+
+
+/***/ },
 /* 406 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -66079,7 +66226,8 @@
 	        this.config = config;
 	        //partly logout
 	        localStorage.clear();
-	        localStorage.username = this.config.current.user.email;
+	        if (this.config.current.user)
+	            localStorage.username = this.config.current.user.email;
 	        helpers_1.saveConfig(this.config.current, this.config.current.key);
 	        this.alert = this.config.alert;
 	        this.dataProvider = dataProvider;
@@ -66233,6 +66381,178 @@
 	}());
 	exports.SignupPage = SignupPage;
 
+
+/***/ },
+/* 410 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Observable_1 = __webpack_require__(56);
+	var share_1 = __webpack_require__(411);
+	Observable_1.Observable.prototype.share = share_1.share;
+	//# sourceMappingURL=share.js.map
+
+/***/ },
+/* 411 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var multicast_1 = __webpack_require__(412);
+	var Subject_1 = __webpack_require__(55);
+	function shareSubjectFactory() {
+	    return new Subject_1.Subject();
+	}
+	function share() {
+	    return multicast_1.multicast.call(this, shareSubjectFactory).refCount();
+	}
+	exports.share = share;
+	;
+	//# sourceMappingURL=share.js.map
+
+/***/ },
+/* 412 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var ConnectableObservable_1 = __webpack_require__(413);
+	function multicast(subjectOrSubjectFactory) {
+	    var subjectFactory;
+	    if (typeof subjectOrSubjectFactory === 'function') {
+	        subjectFactory = subjectOrSubjectFactory;
+	    }
+	    else {
+	        subjectFactory = function subjectFactory() {
+	            return subjectOrSubjectFactory;
+	        };
+	    }
+	    return new ConnectableObservable_1.ConnectableObservable(this, subjectFactory);
+	}
+	exports.multicast = multicast;
+	//# sourceMappingURL=multicast.js.map
+
+/***/ },
+/* 413 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var Observable_1 = __webpack_require__(56);
+	var Subscription_1 = __webpack_require__(61);
+	var Subscriber_1 = __webpack_require__(57);
+	var ConnectableObservable = (function (_super) {
+	    __extends(ConnectableObservable, _super);
+	    function ConnectableObservable(source, subjectFactory) {
+	        _super.call(this);
+	        this.source = source;
+	        this.subjectFactory = subjectFactory;
+	    }
+	    ConnectableObservable.prototype._subscribe = function (subscriber) {
+	        return this._getSubject().subscribe(subscriber);
+	    };
+	    ConnectableObservable.prototype._getSubject = function () {
+	        var subject = this.subject;
+	        if (subject && !subject.isUnsubscribed) {
+	            return subject;
+	        }
+	        return (this.subject = this.subjectFactory());
+	    };
+	    ConnectableObservable.prototype.connect = function () {
+	        var source = this.source;
+	        var subscription = this.subscription;
+	        if (subscription && !subscription.isUnsubscribed) {
+	            return subscription;
+	        }
+	        subscription = source.subscribe(this._getSubject());
+	        subscription.add(new ConnectableSubscription(this));
+	        return (this.subscription = subscription);
+	    };
+	    ConnectableObservable.prototype.refCount = function () {
+	        return new RefCountObservable(this);
+	    };
+	    return ConnectableObservable;
+	})(Observable_1.Observable);
+	exports.ConnectableObservable = ConnectableObservable;
+	var ConnectableSubscription = (function (_super) {
+	    __extends(ConnectableSubscription, _super);
+	    function ConnectableSubscription(connectable) {
+	        _super.call(this);
+	        this.connectable = connectable;
+	    }
+	    ConnectableSubscription.prototype._unsubscribe = function () {
+	        var connectable = this.connectable;
+	        connectable.subject = void 0;
+	        connectable.subscription = void 0;
+	        this.connectable = void 0;
+	    };
+	    return ConnectableSubscription;
+	})(Subscription_1.Subscription);
+	var RefCountObservable = (function (_super) {
+	    __extends(RefCountObservable, _super);
+	    function RefCountObservable(connectable, refCount) {
+	        if (refCount === void 0) { refCount = 0; }
+	        _super.call(this);
+	        this.connectable = connectable;
+	        this.refCount = refCount;
+	    }
+	    RefCountObservable.prototype._subscribe = function (subscriber) {
+	        var connectable = this.connectable;
+	        var refCountSubscriber = new RefCountSubscriber(subscriber, this);
+	        var subscription = connectable.subscribe(refCountSubscriber);
+	        if (!subscription.isUnsubscribed && ++this.refCount === 1) {
+	            refCountSubscriber.connection = this.connection = connectable.connect();
+	        }
+	        return subscription;
+	    };
+	    return RefCountObservable;
+	})(Observable_1.Observable);
+	var RefCountSubscriber = (function (_super) {
+	    __extends(RefCountSubscriber, _super);
+	    function RefCountSubscriber(destination, refCountObservable) {
+	        _super.call(this, null);
+	        this.destination = destination;
+	        this.refCountObservable = refCountObservable;
+	        this.connection = refCountObservable.connection;
+	        destination.add(this);
+	    }
+	    RefCountSubscriber.prototype._next = function (value) {
+	        this.destination.next(value);
+	    };
+	    RefCountSubscriber.prototype._error = function (err) {
+	        this._resetConnectable();
+	        this.destination.error(err);
+	    };
+	    RefCountSubscriber.prototype._complete = function () {
+	        this._resetConnectable();
+	        this.destination.complete();
+	    };
+	    RefCountSubscriber.prototype._resetConnectable = function () {
+	        var observable = this.refCountObservable;
+	        var obsConnection = observable.connection;
+	        var subConnection = this.connection;
+	        if (subConnection && subConnection === obsConnection) {
+	            observable.refCount = 0;
+	            obsConnection.unsubscribe();
+	            observable.connection = void 0;
+	            this.unsubscribe();
+	        }
+	    };
+	    RefCountSubscriber.prototype._unsubscribe = function () {
+	        var observable = this.refCountObservable;
+	        if (observable.refCount === 0) {
+	            return;
+	        }
+	        if (--observable.refCount === 0) {
+	            var obsConnection = observable.connection;
+	            var subConnection = this.connection;
+	            if (subConnection && subConnection === obsConnection) {
+	                obsConnection.unsubscribe();
+	                observable.connection = void 0;
+	            }
+	        }
+	    };
+	    return RefCountSubscriber;
+	})(Subscriber_1.Subscriber);
+	//# sourceMappingURL=ConnectableObservable.js.map
 
 /***/ }
 /******/ ]);

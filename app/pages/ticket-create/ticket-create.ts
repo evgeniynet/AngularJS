@@ -15,8 +15,13 @@ export class TicketCreatePage {
         this.navParams = navParams;
         this.ticket = this.navParams.data || {};
         //ticket.account_id
+        
+        this.accounts = {
+            name: "Account", 
+            value: "Bigwebapps",
+            selected: -1,
+        };
 
-        this.classes = null;
         this.projects = null;
         this.dataProvider = dataProvider;
 
@@ -32,13 +37,13 @@ export class TicketCreatePage {
         };
 
         let classes1 = [
-            { name: 'General Inquiry', value: 0 },
-            { name: 'API', value: 1 },
-            { name: 'Helpdesk', value: 2 },
-            { name: 'SherpaDesk', value: 3 },
-            { name: 'Website', value: 4 },
-            { name: 'Website 1', value: 5 },
-            { name: 'Website', value: 6 },
+            { name: 'General Inquiry', id: 0 },
+            { name: 'API', id: 1 },
+            { name: 'Helpdesk', id: 2 },
+            { name: 'SherpaDesk', id: 3 },
+            { name: 'Website', id: 4 },
+            { name: 'Website 1', id: 5 },
+            { name: 'Website', id: 6 },
         ];
 
         this.classes = {};
@@ -56,7 +61,7 @@ export class TicketCreatePage {
         //if (form.valid){
         var subject = htmlEscape(this.ticket.subject.trim());
         var post = htmlEscape(this.ticket.initial_post.trim());
-        if(subject === "" || $("#addTicketTechs").val() === "" || selectedEditClass < 1)
+        if(subject === "")// || $("#addTicketTechs").val() === "" || selectedEditClass < 1)
         {
             this.alert.error("Please enter subject", 'Oops!');
         }

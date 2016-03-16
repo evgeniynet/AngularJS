@@ -13,6 +13,16 @@ import 'rxjs/add/observable/throw';
 @Injectable()
 export class ApiData {
 
+    _data;
+
+    get Cache() {
+        return this._data;
+    }
+
+    set Cache(value) {
+        this._data = value;
+    }
+    
 //userKey, userOrgKey, userInstanceKey: string; 
 //mock: boolean = dontClearCache;
 
