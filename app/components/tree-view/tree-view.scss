@@ -1,27 +1,41 @@
-tree-view .treenodes {
-list-style-type: none;
-padding-left: 0;
+.list-tree{
+    margin-top: 10px;
+    margin-bottom: 5px;  
 }
 
-tree-view tree-view .treenodes {
-list-style-type: none;
-padding-left: 16px;
+.class-list ul
+{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    background-color: rgb(52, 73, 94);
+    font-size: 17px;
 }
 
-tree-view .nodebutton {
-cursor: pointer;
+.class-list div
+{
+    display: block;
+    color: #FFF;
+    background-color: #489CD6;
+    width: 100%;
+    padding: 15px 12px 15px 15px;
+    text-decoration: none;
+    border-bottom: 1px solid rgb(52, 73, 94)
 }
 
-tree-view .nodetext {
-padding-left: 3px;
-padding-right: 3px;
-cursor: pointer;
+ul {
+    list-style: none;
+    padding: 0;
+}
+ul .inner {
+    padding-left: 2em;
+    overflow: hidden;
 }
 
+.class-list li li div{
+    background-color: #2E86C2;
+}
 
-
-.tree-class{
-    padding-top: 14px;
-    padding-bottom: 14px;
-    padding-left: 15px
+.class-list li li li div{
+    background-color: rgba(46, 134, 194, 0.74);
 }
