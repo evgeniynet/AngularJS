@@ -17,35 +17,35 @@ export class HelloIonicPage {
       this.Nodes = [
           {
               id: 0
-              name: 'root1',
+              name: 'Root1',
               children: [
                   {
-                      name: 'child1',
+                      name: 'Child1',
                       id: 4,
               children: [
               {
-              name: 'child111',
+              name: 'Child111',
               id: 41
           }, {
-              name: 'child211',
+              name: 'Child211',
               id: 51,
           }
       ]
                   }, {
-                      name: 'child2',
+                      name: 'Child2',
                       id: 5,
                   }
               ]
           },
               {
               id: 1
-              name: 'root2',
+              name: 'Root2',
               children: [
                   {
-                      name: 'child21',
+                      name: 'Child21',
                       id: 4
                   }, {
-                      name: 'child22',
+                      name: 'Child22',
                       id: 5,
                   }
               ]

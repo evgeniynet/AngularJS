@@ -7,34 +7,14 @@
 
 <ion-content padding class="getting-started">
     
-    
-<!--    <div class="col-lg-3 list">
-        <div class="panel panel-info blue4 width90 list-tree tree-class">
-            <div class="panel-body">
-                <tree-view [Nodes]="Nodes"
-                           [SelectedNode]="selectedNode"
-                           (onSelectedChanged)="onSelectNode($event)"
-                           (onRequestNodes)="onRequest($event)">
-                </tree-view>
-            </div>
-        </div>
-    </div>-->
-    
-    
-    
-     <div class="panel-group list">
-        <div class="panel panel-info blue4 width90 tree-class">
-            <div class="panel-body">
-                <tree-view [Nodes]="Nodes"
-                           [SelectedNode]="selectedNode"
-                           (onSelectedChanged)="onSelectNode($event)"
-                           (onRequestNodes)="onRequest($event)">
-                </tree-view>
-            </div>
-        </div>
+
+    <div class="class-list list">
+        <tree-view [Nodes]="Nodes"
+                   [SelectedNode]="selectedNode"
+                   (onSelectedChanged)="onSelectNode($event)"
+                   (onRequestNodes)="onRequest($event)">
+        </tree-view>
     </div>
-    
-        
 
     <div class="class-list list">
 <ul>

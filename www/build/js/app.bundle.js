@@ -3197,7 +3197,6 @@
 	var accounts_1 = __webpack_require__(401);
 	var timelogs_1 = __webpack_require__(402);
 	var tickets_1 = __webpack_require__(404);
-	var ticket_create_1 = __webpack_require__(405);
 	var dashboard_1 = __webpack_require__(406);
 	var organizations_1 = __webpack_require__(407);
 	var login_1 = __webpack_require__(408);
@@ -3238,7 +3237,7 @@
 	            return;
 	        }
 	        // set first pages
-	        this.rootPage = ticket_create_1.TicketCreatePage;
+	        this.rootPage = hello_ionic_1.HelloIonicPage;
 	        return;
 	        if (config.current.user.is_techoradmin)
 	            this.rootPage = dashboard_1.DashboardPage;
@@ -63920,6 +63919,15 @@
 	            url = url.addp("is_with_statistics", "false");
 	        return this.apiData.get(url);
 	    };
+	    DataProvider.prototype.addTicket = function (data) {
+	        var url = "tickets";
+	        data.status = "open";
+	        return this.apiData.get(url, data, "POST");
+	    };
+	    DataProvider.prototype.addTime = function (data) {
+	        var url = "time/" + id;
+	        return this.apiData.get(url, data, "POST");
+	    };
 	    DataProvider = __decorate([
 	        core_1.Injectable(), 
 	        __metadata('design:paramtypes', [api_data_1.ApiData])
@@ -64192,35 +64200,35 @@
 	        this.Nodes = [
 	            {
 	                id: 0,
-	                name: 'root1',
+	                name: 'Root1',
 	                children: [
 	                    {
-	                        name: 'child1',
+	                        name: 'Child1',
 	                        id: 4,
 	                        children: [
 	                            {
-	                                name: 'child111',
+	                                name: 'Child111',
 	                                id: 41
 	                            }, {
-	                                name: 'child211',
+	                                name: 'Child211',
 	                                id: 51,
 	                            }
 	                        ]
 	                    }, {
-	                        name: 'child2',
+	                        name: 'Child2',
 	                        id: 5,
 	                    }
 	                ]
 	            },
 	            {
 	                id: 1,
-	                name: 'root2',
+	                name: 'Root2',
 	                children: [
 	                    {
-	                        name: 'child21',
+	                        name: 'Child21',
 	                        id: 4
 	                    }, {
-	                        name: 'child22',
+	                        name: 'Child22',
 	                        id: 5,
 	                    }
 	                ]
@@ -64669,6 +64677,70 @@
 	    return JSON.parse(localStorage.getItem(url));
 	}
 	exports.loadCache = loadCache;
+	//global helper functions
+	function GooglelogOut(mess) {
+	    if (!isExtension && !confirm("Do you want to stay logged in Google account?")) {
+	        var logoutUrl = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=" + MobileSite;
+	        document.location.href = MobileSite + "login.html".addUrlParam("f", mess);
+	    }
+	    else
+	        window.location = "login.html" + mess;
+	}
+	function getInfo4Extension() {
+	    if (isExtension) {
+	        var loginStr = "login?t=" + localStorage.getItem("userKey") +
+	            "&o=" + localStorage.getItem('userOrgKey') +
+	            "&i=" + localStorage.getItem('userInstanceKey');
+	        window.top.postMessage(loginStr, "*");
+	    }
+	}
+	exports.getInfo4Extension = getInfo4Extension;
+	function fullapplink(classn, urlString) {
+	    if (isPhonegap) {
+	        //alert("gap!");
+	        $("." + classn).on('click', function (e) {
+	            e.preventDefault();
+	            openURLsystem(urlString);
+	        });
+	    }
+	    else if (isExtension) {
+	        $("." + classn).on('click', function (e) {
+	            e.preventDefault();
+	            //alert('Please register in new window and reopen Sherpadesk extension again.');
+	            var origOpenFunc = window.__proto__.open;
+	            origOpenFunc.apply(window, [urlString, "_blank"]);
+	        });
+	    }
+	    else {
+	        $("." + classn).attr("target", "_blank");
+	        $("." + classn).attr("href", urlString);
+	    }
+	    return urlString;
+	}
+	exports.fullapplink = fullapplink;
+	//HTML encode
+	function htmlEscape(str) {
+	    return String(str)
+	        .replace(/&/g, '&amp;amp;')
+	        .replace(/&quot;/g, '&amp;quot;')
+	        .replace(/&apos;/g, '&amp;apos;')
+	        .replace(/&lt;/g, '&amp;lt;')
+	        .replace(/&gt;/g, '&amp;gt;')
+	        .replace(/&/g, '&amp;')
+	        .replace(/"/g, '&quot;')
+	        .replace(/'/g, '&apos;')
+	        .replace(/</g, '&lt;')
+	        .replace(/>/g, '&gt;');
+	}
+	exports.htmlEscape = htmlEscape;
+	//HTML decode
+	function symbolEscape(str) {
+	    return String(str)
+	        .replace(/&lt;br&gt;/gi, "\n")
+	        .replace(/<br\s*[\/]?>/gi, "\n")
+	        .replace(/\n/g, "<p></p>");
+	}
+	exports.symbolEscape = symbolEscape;
 	function getCurrency(value, currency) {
 	    if (!value)
 	        value = "0";
@@ -65912,36 +65984,7 @@
 
 
 /***/ },
-/* 405 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var ionic_1 = __webpack_require__(5);
-	var TicketCreatePage = (function () {
-	    function TicketCreatePage(nav) {
-	        this.nav = nav;
-	    }
-	    TicketCreatePage = __decorate([
-	        ionic_1.Page({
-	            templateUrl: 'build/pages/ticket-create/ticket-create.html',
-	        }), 
-	        __metadata('design:paramtypes', [ionic_1.NavController])
-	    ], TicketCreatePage);
-	    return TicketCreatePage;
-	}());
-	exports.TicketCreatePage = TicketCreatePage;
-
-
-/***/ },
+/* 405 */,
 /* 406 */
 /***/ function(module, exports, __webpack_require__) {
 
