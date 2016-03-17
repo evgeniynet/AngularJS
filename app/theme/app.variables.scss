@@ -35,18 +35,18 @@ $colors: (
 
 $grey: rgba(224, 224, 224, 0.29);
 $grey2: #dadada;
-$blue1: #25b0e6;
-$blue2: #09c;
+$blue1: map-get($colors, danger);
+$blue2: map-get($colors, favorite);
 $blue3: rgba(0,0,0,0.4);
-$blue4: #489cd6;
-$background-color: #34495e;
-$toolbar-background: #25b0e6;
-$text-color: #fff;
-$toolbar-border-color: #25b0e6;
-$toolbar-text-color: #fff;
+$blue4: map-get($colors, dark);
+$background-color: map-get($colors, tabs);
+$toolbar-background: $blue1;
+$text-color: map-get($colors, primary);
+$toolbar-border-color: $blue1;
+$toolbar-text-color: map-get($colors, primary);
 $toolbar-inactive-color: #000;
 $sherpa_bg: #161E27; 
-$headings-line-height: #34495e;
+$headings-line-height: map-get($colors, tabs);
 $font-size: 2rem;
 $card-ios-header-color: $text-color;
 $card-ios-background-color: $blue3;
@@ -61,8 +61,8 @@ $checkbox-ios-icon-border-radius: 0px;
 $label-ios-text-color: $text-color;
 $segment-button-ios-border-radius: 0px;
 $item-ios-avatar-size: 5rem;
-$searchbar-ios-input-search-icon-color: #fff;
-$searchbar-ios-input-placeholder-color: #fff;
+$searchbar-ios-input-search-icon-color: map-get($colors, primary);
+$searchbar-ios-input-placeholder-color: map-get($colors, primary);
 $menu-width: 270px;
 
 /*$background-color: #fff;

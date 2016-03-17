@@ -3195,11 +3195,11 @@
 	var invoices_1 = __webpack_require__(401);
 	var accounts_1 = __webpack_require__(403);
 	var timelogs_1 = __webpack_require__(404);
-	var tickets_1 = __webpack_require__(407);
-	var ticket_create_1 = __webpack_require__(408);
-	var dashboard_1 = __webpack_require__(409);
-	var organizations_1 = __webpack_require__(410);
-	var login_1 = __webpack_require__(411);
+	var tickets_1 = __webpack_require__(406);
+	var ticket_create_1 = __webpack_require__(407);
+	var dashboard_1 = __webpack_require__(408);
+	var organizations_1 = __webpack_require__(409);
+	var login_1 = __webpack_require__(410);
 	var MyApp = (function () {
 	    function MyApp(app, platform, apiData, config, toastr) {
 	        // set up our app
@@ -66013,8 +66013,7 @@
 
 
 /***/ },
-/* 406 */,
-/* 407 */
+/* 406 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -66062,7 +66061,7 @@
 
 
 /***/ },
-/* 408 */
+/* 407 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -66161,7 +66160,7 @@
 
 
 /***/ },
-/* 409 */
+/* 408 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -66178,7 +66177,7 @@
 	var data_provider_1 = __webpack_require__(369);
 	var helpers = __webpack_require__(381);
 	var components_1 = __webpack_require__(376);
-	var tickets_1 = __webpack_require__(407);
+	var tickets_1 = __webpack_require__(406);
 	var account_details_1 = __webpack_require__(400);
 	var pipes_1 = __webpack_require__(383);
 	var DashboardPage = (function () {
@@ -66230,7 +66229,7 @@
 
 
 /***/ },
-/* 410 */
+/* 409 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -66246,8 +66245,8 @@
 	var ionic_1 = __webpack_require__(5);
 	var data_provider_1 = __webpack_require__(369);
 	var helpers_1 = __webpack_require__(381);
-	var dashboard_1 = __webpack_require__(409);
-	var tickets_1 = __webpack_require__(407);
+	var dashboard_1 = __webpack_require__(408);
+	var tickets_1 = __webpack_require__(406);
 	var OrganizationsPage = (function () {
 	    function OrganizationsPage(nav, dataProvider, config) {
 	        var _this = this;
@@ -66317,7 +66316,7 @@
 
 
 /***/ },
-/* 411 */
+/* 410 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -66333,8 +66332,8 @@
 	var ionic_1 = __webpack_require__(5);
 	var helpers_1 = __webpack_require__(381);
 	var data_provider_1 = __webpack_require__(369);
-	var organizations_1 = __webpack_require__(410);
-	var signup_1 = __webpack_require__(412);
+	var organizations_1 = __webpack_require__(409);
+	var signup_1 = __webpack_require__(411);
 	var LoginPage = (function () {
 	    function LoginPage(nav, dataProvider, config) {
 	        this.nav = nav;
@@ -66382,7 +66381,7 @@
 
 
 /***/ },
-/* 412 */
+/* 411 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
