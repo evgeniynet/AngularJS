@@ -66906,20 +66906,21 @@
 	        config.current = { stat: {} };
 	        this.alert = this.config.alert;
 	        this.dataProvider = dataProvider;
-	        this.submitted = false;
 	    }
 	    LoginPage.prototype.onLogin = function (form) {
 	        var _this = this;
-	        this.submitted = true;
 	        if (form.valid) {
 	            this.dataProvider.checkLogin(form.value.email, form.value.password).subscribe(function (data) {
 	                helpers_1.saveConfig(_this.config.current, data.api_token);
 	                localStorage.username = form.value.email || "";
 	                _this.nav.push(organizations_1.OrganizationsPage);
 	            }, function (error) {
-	                _this.alert.error('There was a problem with your login.  Check your login and password.', 'Oops!');
+	                var message = 'There was a problem with your login.  Check your login and password.';
+	                if (form.value.email && ~form.value.email.indexOf("@gmail.com")) {
+	                    message = "Wrong Password, Google sign password is not neeeded";
+	                }
+	                _this.alert.error(message, 'Oops!');
 	                _this.login.password = "";
-	                console.log(error || 'Server error');
 	            });
 	        }
 	        else

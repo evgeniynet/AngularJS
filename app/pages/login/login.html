@@ -1,23 +1,18 @@
 <ion-content padding class="login">
-  <ion-list class="list">
+  <div class="list">
       <img class="imglogo img-padding" src="img/logo.png">
       <form #loginForm="ngForm" novalidate>
-  <ion-item class="blue3" no-lines>
-      <ion-input class="textLogin" type="email" [(ngModel)]="login.username" placeholder="email" ngControl="email" #username="ngForm" required></ion-input>
-      <p [hidden]="username.valid || submitted == false" danger padding-left>
-          Username is required
-      </p>
-  </ion-item>
-
-  <ion-item class="blue3" no-lines>
-      <ion-input class="textLogin" [(ngModel)]="login.password" placeholder="password" ngControl="password" type="password" #password="ngForm" required></ion-input>
-      <p [hidden]="password.valid || submitted == false" danger padding-left>
-          Password is required
-      </p>
-  </ion-item>
+  
+      <div class="tooltips">
+          <input class="width100 blue3 subject-create commentText" type="email" [(ngModel)]="login.username" placeholder="email" ngControl="email" #username="ngForm" required pattern="^[^@\s]+@[^@\s]+(\.[^@\s]+)+$"/>        
+          <span *ngIf="username.dirty && !username.valid">Valid Email is required</span></div>
+          <br>
+      <div class="tooltips">
+          <input class="width100 blue3 subject-create commentText" [(ngModel)]="login.password" placeholder="password" ngControl="password" type="password" #password="ngForm" required/>
+          <span *ngIf="password.dirty && !password.valid">Password is required</span></div>
         <br>
-      <ion-item no-lines padding>
-          <button class="login-margin" (click)="onLogin(loginForm)" type="submit" block secondary>Login</button>
+          <button class="login-margin"
+                  [disabled]="!loginForm.valid" (click)="onLogin(loginForm)" type="submit" block secondary>Login</button>
           <br>
           <div>
           <ul class="googleStripes">
@@ -27,7 +22,6 @@
               </div>
           <br>
   <button  (click)="onSignup()" block dark class="login-margin login-text">Start a New SherpaDesk Organization</button>
-          </ion-item>
       </form>
-</ion-list>
+    </div>
 </ion-content>

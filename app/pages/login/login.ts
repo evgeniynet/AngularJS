@@ -18,21 +18,24 @@ export class LoginPage {
         config.current = {stat:{}};
         this.alert = this.config.alert;
         this.dataProvider = dataProvider;
-      this.submitted = false;
   }
 
     onLogin(form) {
-        this.submitted = true;
         if (form.valid) { this.dataProvider.checkLogin(form.value.email,form.value.password).subscribe(
                 data => {
                     saveConfig(this.config.current, data.api_token);
                     localStorage.username = form.value.email || "";
                     this.nav.push(OrganizationsPage);
                 }, 
-                error => { 
-                    this.alert.error('There was a problem with your login.  Check your login and password.', 'Oops!');
+                error => {
+                    let message = 'There was a problem with your login.  Check your login and password.';
+                    
+                    if(form.value.email && ~form.value.email.indexOf("@gmail.com")){
+                        message = "Wrong Password, Google sign password is not neeeded";
+                    }
+                        this.alert.error(message, 'Oops!');
                     this.login.password = "";
-                    console.log(error || 'Server error');}
+                }
             ); 
         }
         else
