@@ -19,7 +19,7 @@
 
 .avatarText{
     line-height: 0.5;
-    color: #dadada;
+    color: $grey2;
     font-size: 1.6rem;
     height: 77px;
     float: left;
@@ -35,7 +35,7 @@
     overflow: hidden;
     line-height: 20px !important;
     text-overflow: ellipsis;
-    color: #dadada;
+    color: $grey2;
 }
 
 .alignment{

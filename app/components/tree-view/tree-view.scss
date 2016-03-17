@@ -14,19 +14,19 @@
     margin: 0;
     padding: 0;
     list-style-type: none;
-    background-color: rgb(52, 73, 94);
+    background-color: map-get($colors, tabs);
     font-size: 1.6rem;
 }
 
 .class-list div
 {
     display: block;
-    color: #FFF;
+    color: $text-color;
     background-color: map-get($colors, dark);
     width: 100%;
     padding: 15px 12px 15px 15px;
     text-decoration: none;
-    border-bottom: 1px solid rgb(52, 73, 94)
+    border-bottom: 1px solid map-get($colors, tabs);
 }
 
 ul {
@@ -39,9 +39,9 @@ ul .inner {
 }
 
 .class-list li li div{
-    background-color: #2E86C2;
+    background-color: $blue6;
 }
 
 .class-list li li li div{
-    background-color: rgba(46, 134, 194, 0.74);
+    background-color: $blue5;
 }

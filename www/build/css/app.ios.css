@@ -4352,6 +4352,20 @@ sup[favorite],
 ion-icon[favorite] {
   color: #09c !important; }
 
+h1[black1], h2[black1], h3[black1], h4[black1], h5[black1], h6[black1],
+p[black1],
+span[black1],
+a:not([button])[black1],
+small[black1],
+b[black1],
+i[black1],
+strong[black1],
+em[black1],
+sub[black1],
+sup[black1],
+ion-icon[black1] {
+  color: #000 !important; }
+
 h1[tabs], h2[tabs], h3[tabs], h4[tabs], h5[tabs], h6[tabs],
 p[tabs],
 span[tabs],
@@ -4618,6 +4632,12 @@ ion-checkbox[favorite] .checkbox-checked {
   ion-checkbox[favorite] .checkbox-checked .checkbox-inner {
     border-color: white; }
 
+ion-checkbox[black1] .checkbox-checked {
+  background-color: #000;
+  border-color: #000; }
+  ion-checkbox[black1] .checkbox-checked .checkbox-inner {
+    border-color: white; }
+
 ion-checkbox[tabs] .checkbox-checked {
   background-color: #34495e;
   border-color: #34495e; }
@@ -4841,6 +4861,10 @@ ion-badge {
 
 .badge-favorite {
   background-color: #09c;
+  color: white; }
+
+.badge-black1 {
+  background-color: #000;
   color: white; }
 
 .badge-tabs {
@@ -5130,6 +5154,29 @@ ion-button-effect {
   .button-clear-favorite:hover:not(.disable-hover) {
     color: #09c; }
 
+.button-black1 {
+  color: white;
+  background-color: #000; }
+  .button-black1.activated {
+    background-color: #141414; }
+
+.button-outline-black1 {
+  border-color: #0d0d0d;
+  color: #0d0d0d;
+  background-color: transparent; }
+  .button-outline-black1.activated {
+    color: #34495e;
+    background-color: #0d0d0d; }
+
+.button-clear-black1 {
+  border-color: transparent;
+  background-color: transparent;
+  color: #000; }
+  .button-clear-black1.activated {
+    opacity: 0.4; }
+  .button-clear-black1:hover:not(.disable-hover) {
+    color: #000; }
+
 .button-tabs {
   color: white;
   background-color: #34495e; }
@@ -5376,6 +5423,12 @@ ion-checkbox[favorite] .checkbox-checked {
   ion-checkbox[favorite] .checkbox-checked .checkbox-inner {
     border-color: white; }
 
+ion-checkbox[black1] .checkbox-checked {
+  background-color: #000;
+  border-color: #000; }
+  ion-checkbox[black1] .checkbox-checked .checkbox-inner {
+    border-color: white; }
+
 ion-checkbox[tabs] .checkbox-checked {
   background-color: #34495e;
   border-color: #34495e; }
@@ -5455,6 +5508,10 @@ ion-chip > ion-icon[danger] {
 
 ion-chip > ion-icon[favorite] {
   background-color: #09c;
+  color: white !important; }
+
+ion-chip > ion-icon[black1] {
+  background-color: #000;
   color: white !important; }
 
 ion-chip > ion-icon[tabs] {
@@ -5915,6 +5972,10 @@ ion-item-divider[favorite] {
   background-color: #09c;
   color: white; }
 
+ion-item-divider[black1] {
+  background-color: #000;
+  color: white; }
+
 ion-item-divider[tabs] {
   background-color: #34495e;
   color: white; }
@@ -6018,6 +6079,9 @@ ion-label[danger] {
 
 ion-label[favorite] {
   color: #09c !important; }
+
+ion-label[black1] {
+  color: #000 !important; }
 
 ion-label[tabs] {
   color: #34495e !important; }
@@ -6230,6 +6294,11 @@ ion-radio[favorite] .radio-checked {
   ion-radio[favorite] .radio-checked .radio-inner {
     border-color: #09c; }
 
+ion-radio[black1] .radio-checked {
+  color: #000; }
+  ion-radio[black1] .radio-checked .radio-inner {
+    border-color: #000; }
+
 ion-radio[tabs] .radio-checked {
   color: #34495e; }
   ion-radio[tabs] .radio-checked .radio-inner {
@@ -6418,6 +6487,14 @@ ion-searchbar[favorite] .searchbar-ios-cancel {
 .toolbar[favorite] ion-searchbar .searchbar-ios-cancel {
   color: white; }
 
+ion-searchbar[black1] .searchbar-ios-cancel {
+  color: #000; }
+  ion-searchbar[black1] .searchbar-ios-cancel:hover:not(.disable-hover) {
+    color: #141414; }
+
+.toolbar[black1] ion-searchbar .searchbar-ios-cancel {
+  color: white; }
+
 ion-searchbar[tabs] .searchbar-ios-cancel {
   color: #34495e; }
   ion-searchbar[tabs] .searchbar-ios-cancel:hover:not(.disable-hover) {
@@ -6596,6 +6673,20 @@ ion-segment[favorite] .segment-button {
 
 .toolbar[favorite] .segment-button.segment-activated {
   color: #09c; }
+
+ion-segment[black1] .segment-button {
+  border-color: #000;
+  color: #000; }
+  ion-segment[black1] .segment-button:hover:not(.segment-activated) {
+    background-color: rgba(0, 0, 0, 0.1); }
+  ion-segment[black1] .segment-button:active:not(.segment-activated) {
+    background-color: rgba(0, 0, 0, 0.16); }
+  ion-segment[black1] .segment-button.segment-activated {
+    color: white;
+    background-color: #000; }
+
+.toolbar[black1] .segment-button.segment-activated {
+  color: #000; }
 
 ion-segment[tabs] .segment-button {
   border-color: #34495e;
@@ -6964,6 +7055,15 @@ ion-tabs[favorite] tabbar {
   ion-tabs[favorite] tabbar .tab-button[aria-selected=true] {
     color: white; }
 
+ion-tabs[black1] tabbar {
+  border-color: black;
+  background-color: #000; }
+  ion-tabs[black1] tabbar .tab-button {
+    color: white; }
+  ion-tabs[black1] tabbar .tab-button:hover:not(.disable-hover),
+  ion-tabs[black1] tabbar .tab-button[aria-selected=true] {
+    color: white; }
+
 ion-tabs[tabs] tabbar {
   border-color: #22303d;
   background-color: #34495e; }
@@ -7072,6 +7172,9 @@ ion-toggle[danger] .toggle-checked {
 
 ion-toggle[favorite] .toggle-checked {
   background-color: #09c; }
+
+ion-toggle[black1] .toggle-checked {
+  background-color: #000; }
 
 ion-toggle[tabs] .toggle-checked {
   background-color: #34495e; }
@@ -7594,6 +7697,36 @@ ion-buttons[right] {
   .bar-button-solid-favorite.activated {
     background-color: #14a1d0; }
 
+.toolbar[black1] .toolbar-background {
+  background: #000;
+  border-color: black; }
+
+.toolbar[black1] .toolbar-title,
+.toolbar[black1] .bar-button-default {
+  color: white; }
+
+.bar-button-black1 {
+  color: #000;
+  background-color: transparent; }
+  .bar-button-black1:hover:not(.disable-hover) {
+    color: #000; }
+  .bar-button-black1.activated {
+    opacity: 0.4; }
+
+.bar-button-outline-black1 {
+  border-color: #141414;
+  color: #141414;
+  background-color: transparent; }
+  .bar-button-outline-black1.activated {
+    color: white;
+    background-color: #141414; }
+
+.bar-button-solid-black1 {
+  color: white;
+  background-color: #000; }
+  .bar-button-solid-black1.activated {
+    background-color: #141414; }
+
 .toolbar[tabs] .toolbar-background {
   background: #34495e;
   border-color: #22303d; }
@@ -7716,7 +7849,7 @@ div.selection {
   font-size: 12px; }
 
 .tabsTicket {
-  background: blue2; }
+  background: #09c; }
 
 .nameTabs {
   color: #fff !important;
@@ -7738,7 +7871,7 @@ div.selection {
   line-height: 22px; }
 
 ion-list > .item:first-child {
-  border-top: 0px solid #c8c7cc; }
+  border-top: 0px solid #dadada; }
 
 .table_account {
   -webkit-box-orient: vertical;
@@ -7747,7 +7880,7 @@ ion-list > .item:first-child {
 
 .note-account {
   height: 40px;
-  background: #1F2C39;
+  background: rgba(0, 0, 0, 0.4);
   margin-bottom: 15px;
   padding: 10px; }
 
@@ -7816,10 +7949,10 @@ ion-list > .item:first-child {
   border-radius: 3px 0 0 0; }
 
 .googleStripes li:nth-child(2) {
-  background-color: #3498db; }
+  background-color: #489cd6; }
 
 .googleStripes li:nth-child(3) {
-  background-color: #27ae60; }
+  background-color: #42bd41; }
 
 .googleStripes li:nth-child(4) {
   background-color: #f1c40f;
@@ -7905,7 +8038,7 @@ ion-list > .item:first-child {
 
 .class-list div {
   display: block;
-  color: #FFF;
+  color: #fff;
   background-color: #489cd6;
   width: 100%;
   padding: 15px 12px 15px 15px;
@@ -8202,16 +8335,16 @@ button.toast-close-button {
   margin-top: 0px !important; }
 
 .alert-button {
-  color: black; }
+  color: #000; }
 
 .alert-tappable {
   font-size: 17px; }
 
 .alert-radio[aria-checked=true] {
-  color: #4290c5; }
+  color: #2E86C2; }
 
 .alert-radio[aria-checked=true] .alert-radio-icon:after {
-  border-color: #000000; }
+  border-color: #000; }
 
 .text-left {
   text-align: left !important; }
@@ -8450,7 +8583,7 @@ ion-label {
   padding: 0 0.25em; }
 
 .searchbar-input {
-  color: #FFF; }
+  color: #fff; }
 
 .searchbar-clear-icon {
   background-image: url("../../img/close.png"); }
@@ -8466,7 +8599,7 @@ ion-label {
   padding-right: 10px;
   width: 40px;
   height: 40px;
-  border: 2px solid rgba(255, 255, 255, 0.4);
+  border: 2px solid rgba(224, 224, 224, 0.29);
   border-radius: 100%;
   float: left;
   margin-right: 10px;
@@ -8561,8 +8694,8 @@ div.tooltips span {
   padding-right: 6px;
   min-width: 140px;
   color: #a94442;
-  background: rgba(255, 255, 255, 0.8);
-  border: 2px solid #000000;
+  background: #dadada;
+  border: 2px solid #000;
   height: 33px;
   line-height: 30px;
   text-align: center;
@@ -8577,7 +8710,7 @@ div.tooltips span:before {
   margin-left: -12px;
   width: 0;
   height: 0;
-  border-bottom: 12px solid #000000;
+  border-bottom: 12px solid #000;
   border-right: 12px solid transparent;
   border-left: 12px solid transparent; }
 
@@ -8589,6 +8722,6 @@ div.tooltips span:after {
   margin-left: -8px;
   width: 0;
   height: 0;
-  border-bottom: 8px solid rgba(255, 255, 255, 0.85);
+  border-bottom: 8px solid #dadada;
   border-right: 8px solid transparent;
   border-left: 8px solid transparent; }
