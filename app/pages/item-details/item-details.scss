@@ -7,7 +7,7 @@ div.selection {
 
 
 .text_list{
-    color: #fff !important;
+    color: $text-color !important;
     -webkit-box-orient: vertical;
     overflow: hidden;
     line-height: 19px;
@@ -17,11 +17,11 @@ div.selection {
 }
 
 .tabsTicket{
-    background: blue2;
+    background: $blue2;
  }
 
 .nameTabs{
-    color: #fff !important;
+    color: $text-color !important;
     font-size: 15px;
     height: 37px;
     padding-top: 3px;
@@ -40,13 +40,13 @@ text-align: center;
 
 .text{
     font-size: 16px !important;
-    color: #fff !important;
+    color: $text-color !important;
     line-height: 22px;
 }
 
 
 ion-list > .item:first-child {
-    border-top: 0px solid #c8c7cc;
+    border-top: 0px solid $grey2;
 }
 
 

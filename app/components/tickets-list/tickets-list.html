@@ -1,4 +1,3 @@
-<ion-list class="list width100" no-lines>
 <ion-item-sliding class="border" *ngFor="#ticket of tickets" (click)="itemTapped($event, ticket)"> 
     <ion-item  class="item margin">
         <ion-avatar padding item-left class="img_padding margin avatar-ticket">
@@ -13,7 +12,7 @@
             <h3 class="tickets" [innerHTML]="ticket.initial_post | Linebreaks"></h3></li>
             <p class="grey2 right class_name">{{ticket.class_name}}</p></div>
     </ion-item>
-    <ion-item-options>
+    <div>
         <button class="disable-hover button button-default button-light">
             <ion-icon></ion-icon>
             Add Response
@@ -23,6 +22,5 @@
             <ion-icon _ngcontent-mqq-12=""aria-></ion-icon>
             Close Ticket
         </button>
-    </ion-item-options>
+    </div>
 </ion-item-sliding>
-</ion-list>

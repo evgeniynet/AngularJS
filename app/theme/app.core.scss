@@ -53,7 +53,7 @@
 }
 
 .alert-button{
-color: black;
+color: $black1;
 }
 
 .alert-tappable {
@@ -61,11 +61,11 @@ color: black;
 }
 
 .alert-radio[aria-checked=true] {
-    color: #4290c5;
+    color: $blue6;
 }
 
 .alert-radio[aria-checked=true] .alert-radio-icon:after{
-    border-color: #000000;
+    border-color: $black1;
 }
 
 // text/
@@ -177,7 +177,7 @@ margin-left: 15px;
 }
 
 .subject{
-background-color:rgba(0, 0, 0, 0.4);
+background-color:$blue3;
 }
 
 .admin{
@@ -219,7 +219,7 @@ ion-label {
 }
 
 .select-icon .select-icon-inner {
-    color: #fff;
+    color: $text-color;
 }
 
 .item-button {
@@ -374,7 +374,7 @@ color: #fff;
 }
 
 .searchbar-input {
-    color: #FFF;
+    color: $text-color;
    }
 
 .searchbar-clear-icon {
@@ -397,7 +397,7 @@ color: #fff;
     padding-right: 10px;
      width: 40px;
     height: 40px;
-    border: 2px solid rgba(255,255,255,0.4);
+    border: 2px solid $grey;
     border-radius: 100%;
     float: left;
     margin-right: 10px;
@@ -518,8 +518,8 @@ div.tooltips span {
     padding-right: 6px;
     min-width: 140px;
     color: $red;
-    background: rgba(255, 255, 255, 0.8);
-    border: 2px solid #000000;
+    background: $grey2;
+    border: 2px solid $black1;
     height: 33px;
     line-height: 30px;
     text-align: center;
@@ -533,7 +533,7 @@ div.tooltips span:before {
     left: 50%;
     margin-left: -12px;
     width: 0; height: 0;
-    border-bottom: 12px solid #000000;
+    border-bottom: 12px solid $black1;
     border-right: 12px solid transparent;
     border-left: 12px solid transparent;
 }
@@ -544,7 +544,7 @@ div.tooltips span:after {
     left: 50%;
     margin-left: -8px;
     width: 0; height: 0;
-    border-bottom: 8px solid rgba(255, 255, 255, 0.85);
+    border-bottom: 8px solid $grey2;
     border-right: 8px solid transparent;
     border-left: 8px solid transparent;
 }

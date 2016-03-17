@@ -14,20 +14,20 @@
 }
 
 .googleStripes li:nth-child(1) {
-    background-color: #e74c3c;
+    background-color: $red2;
     border-radius: 3px 0 0 0;
 }
 
 .googleStripes li:nth-child(2) {
-    background-color: #3498db;
+    background-color: map-get($colors, dark);
 }
 
 .googleStripes li:nth-child(3) {
-    background-color: #27ae60;
+    background-color: map-get($colors, secondary);
 }
 
 .googleStripes li:nth-child(4) {
-    background-color: #f1c40f;
+    background-color: $yellow;
     border-radius: 0 3px 0 0;
 }
 
