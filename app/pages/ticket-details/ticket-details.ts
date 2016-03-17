@@ -105,30 +105,32 @@ export class TicketDetailsPage {
         this.resolution_category.items = resolution_category1;
        
         
-        if (isFullInfo)
-            {
-                this.processDetails(data);
-            }
-       else 
-       { this.dataProvider.getTicketDetails(this.ticket.key).subscribe(
+        if (!isFullInfo)
+       { this.dataProvider.getTicketDetails(data.key).subscribe(
            data => this.processDetails(data), 
             error => { 
                 console.log(error || 'Server error');
             this.redirectOnEmpty();}
         ); 
             }
+        
+        this.processDetails(data, !isFullInfo);
     }
 
-    processDetails(data)
+    processDetails(data, isShortInfo)
     {
-        if (!data || !data.ticketlogs || data.ticketlogs == 0)
-        { this.redirectOnEmpty();
+        if (!isShortInfo && (!data || !data.ticketlogs || data.ticketlogs == 0))
+        { 
+            this.redirectOnEmpty();
          return;
         }
         this.ticket = data;
+        if (!isShortInfo)
+            {
         this.attachments = data.attachments;
         this.post1 = [data.ticketlogs.shift()];
         this.posts = data.ticketlogs;
+            }
     }
     
     redirectOnEmpty(){

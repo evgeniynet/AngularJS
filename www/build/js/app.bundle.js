@@ -65018,25 +65018,25 @@
 	        this.resolution_category.value = "Testing";
 	        this.resolution_category.selected = 3;
 	        this.resolution_category.items = resolution_category1;
-	        if (isFullInfo) {
-	            this.processDetails(data);
-	        }
-	        else {
-	            this.dataProvider.getTicketDetails(this.ticket.key).subscribe(function (data) { return _this.processDetails(data); }, function (error) {
+	        if (!isFullInfo) {
+	            this.dataProvider.getTicketDetails(data.key).subscribe(function (data) { return _this.processDetails(data); }, function (error) {
 	                console.log(error || 'Server error');
 	                _this.redirectOnEmpty();
 	            });
 	        }
+	        this.processDetails(data, !isFullInfo);
 	    }
-	    TicketDetailsPage.prototype.processDetails = function (data) {
-	        if (!data || !data.ticketlogs || data.ticketlogs == 0) {
+	    TicketDetailsPage.prototype.processDetails = function (data, isShortInfo) {
+	        if (!isShortInfo && (!data || !data.ticketlogs || data.ticketlogs == 0)) {
 	            this.redirectOnEmpty();
 	            return;
 	        }
 	        this.ticket = data;
-	        this.attachments = data.attachments;
-	        this.post1 = [data.ticketlogs.shift()];
-	        this.posts = data.ticketlogs;
+	        if (!isShortInfo) {
+	            this.attachments = data.attachments;
+	            this.post1 = [data.ticketlogs.shift()];
+	            this.posts = data.ticketlogs;
+	        }
 	    };
 	    TicketDetailsPage.prototype.redirectOnEmpty = function () {
 	        var _this = this;
