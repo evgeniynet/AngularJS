@@ -45,8 +45,7 @@
          
         </div>
                
-  <ion-list *ngSwitchWhen="'Info'" class="list general-alignment" no-lines>
-<ion-list>
+  <div *ngSwitchWhen="'Info'" class="list general-alignment">
     
     <select-list [list]="classes" (onChanged)='saveSelect($event)'></select-list>
     
@@ -57,24 +56,19 @@
     <select-list [list]="location" (onChanged)='saveSelect($event)'></select-list>
     <select-list [list]="project" (onChanged)='saveSelect($event)'></select-list>
     
-</ion-list>  
-        <div class="list">
-      <button secondary block="" type="submit" class="disable-hover button button-default button-block">Update</button>
+      <button secondary block="" type="submit" class=" img-top disable-hover button button-default button-block">Update</button>
     </div>
-    </ion-list>
-    <ion-list *ngSwitchWhen="'Options'" class="list general-alignment" no-lines>
-        <div class="list">
+    <div *ngSwitchWhen="'Options'" class="list general-alignment" no-lines>
       <button secondary block="" type="submit" class="disable-hover button button-default button-block">Add Time</button>
       <button secondary block="" type="submit" class="disable-hover button button-default button-block general-alignment2">Add Expense</button>
   <button favorite block class="general-alignment2">Transfer Ticket</button>
-            <button favorite block class="general-alignment2">Close Ticket</button></div>
+            <button favorite block class="general-alignment2">Close Ticket</button>
                 <br>
                 
         <select-list [list]="resolution" (onChanged)='saveSelect($event)'></select-list>
         
         <select-list [list]="resolution_category" (onChanged)='saveSelect($event)'></select-list>
             
-                <ion-label no-lines class="list">
           <i class="billable">
  <ion-icon class="ion-ios-radio-button-on"></ion-icon>
           </i>
@@ -83,7 +77,6 @@
           <textarea class="width100 textLogin commentText" type="text" placeholder="Add closing comments"></textarea>
             <button secondary menuToggle
             class="button_reply width35 img-top">Close Ticket</button>
-    </ion-label>
-                </ion-list>
+                </div>
     </div>
 </ion-content>

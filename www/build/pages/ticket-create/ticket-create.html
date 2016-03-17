@@ -3,24 +3,23 @@
     <ion-title>TicketCreate</ion-title>
 </ion-navbar>
 <ion-content padding class="ticket-create">
-    <div class="width100">
-        <ion-row>
-            <ion-col class="blue4"><select-list  [list]="classes" (onChanged)='saveSelect($event)'></select-list></ion-col><ion-col width-10 style="margin-top: -10px;"><button item-right secondary fab class="buttonTicket"><ion-icon class="button_circle2" name="md-add"></ion-icon></button></ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col class="blue4"><select-list url="accounts?is_with_statistics=false" [list]="accounts" (onChanged)='saveSelect($event)'></select-list>
+    <div class="list">
+        <ion-buttons>
+ <select-list class="left width90"  [list]="classes" (onChanged)='saveSelect($event)'></select-list>
+            <div class="width10"><button item-right secondary fab class="buttonTicket"><ion-icon class="button_circle2" name="md-add"></ion-icon></button>    </div>
+        </ion-buttons>
+        <ion-buttons>
+            <select-list url="accounts?is_with_statistics=false" [list]="accounts" (onChanged)='saveSelect($event)'></select-list>
                 <select-list [list]="classes" (onChanged)='saveSelect($event)'></select-list>
-                <select-list [list]="classes" (onChanged)='saveSelect($event)'></select-list></ion-col></ion-row>
-        <ion-row>
-            <ion-col class="blue4"><select-list  [list]="classes" (onChanged)='saveSelect($event)'></select-list></ion-col><ion-col width-10 style="margin-top: -10px;"><button item-right secondary fab class="buttonTicket"><ion-icon class="button_circle2" name="md-add"></ion-icon></button></ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col class="blue4"><select-list [list]="classes" (onChanged)='saveSelect($event)'></select-list><select-list [list]="classes" (onChanged)='saveSelect($event)'></select-list></ion-col></ion-row>
+                <select-list [list]="classes" (onChanged)='saveSelect($event)'></select-list></ion-buttons>
+        <ion-buttons>
+            <select-list class="width90 left" [list]="classes" (onChanged)='saveSelect($event)'></select-list><div width-10><button item-right secondary fab class="buttonTicket"><ion-icon class="button_circle2" name="md-add"></ion-icon></button></div>
+        </ion-buttons>
+        <ion-buttons>
+            <select-list [list]="classes" (onChanged)='saveSelect($event)'></select-list><select-list [list]="classes" (onChanged)='saveSelect($event)'></select-list></ion-buttons>
     </div>
     <br>
     <form #addForm="ngForm">
-        <ion-list no-lines>
-            <div>
                 <div class="list" >
                     <div class="tooltips"><input class="width100 blue3 subject-create commentText" [(ngModel)]="ticket.subject" placeholder="Subject"  ngControl="subject" #subject="ngForm" required maxlength="100"/>
                         <span *ngIf="subject.dirty && !subject.valid">Subject is required and less 100 chars</span></div>
@@ -32,7 +31,5 @@
                 <div class="list" >
                     <button [disabled]="!addForm.valid" secondary block (click)="onSubmit(addForm)"  type="submit" class="disable-hover button button-default button-block">Add Ticket</button>
                 </div>
-            </div>
-        </ion-list>
     </form>
 </ion-content>

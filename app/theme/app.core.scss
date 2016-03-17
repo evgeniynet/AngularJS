@@ -15,6 +15,7 @@
 @import "../pages/organizations/organizations";
 @import "../pages/login/login";
 @import "../pages/timelogs/timelogs";
+@import "../pages/timelog/timelog";
 @import "../pages/ticket-details/ticket-details";
 @import "../pages/ticket-create/ticket-create";
 @import "../components/tree-view/tree-view";
@@ -255,6 +256,10 @@ background-color: #6AB7EC;
     background-color: $blue4;
 }
 
+.blue41{
+    background-color: $blue4;
+}
+
 .grey > * {
     background-color: $grey;
 }
@@ -409,6 +414,11 @@ color: #fff;
      line-height: 2.0 !important;
     font-size: 2.2rem !important; 
 }
+
+.activeBorder {
+    border: 2px solid #88ddfa !important;
+}
+
 
 //width
 
