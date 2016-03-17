@@ -4,22 +4,22 @@
 </ion-navbar>
 <ion-content padding class="timelog">
     
-    <ion-row class="list">
-    <ion-col width-33 class="blue4">
-  <button class="width100" type="button"><ion-icon name="remove-outline"></ion-icon><i name="arrow-back-outline"></i></button>
-        </ion-col>
-    <ion-col width-33 class="blue3" center>
+    <div class="list">
+    <div class="blue4 left width30 button-timelog">
+  <button class="blue4 left" class="width100" type="button"><ion-icon name="remove-outline"></ion-icon><i name="arrow-back-outline"></i></button>
+        </div>
+    <div class="blue3 left width30 button-timelog">
  <button class="width100" type="button">00</button>
-        </ion-col>
-    <ion-col width-33 class="blue4">
+        </div>
+    <div class="blue4 right width30 button-timelog">
 <button class="width100"><ion-icon name="ios-add">
     </ion-icon></button>
-        </ion-col>
-  </ion-row>
-    <ion-list class="list blue3" no-lines>
+        </div>
+  </div>
+    <div class="list blue3" no-lines>
     <button block>Start Time</button>
     <button block>End Time</button>
-        </ion-list>   
+        </div>   
  <ion-list class="list blue4" no-lines>     
      <ion-item class="blue4">
       <ion-label>bigWebApps</ion-label>
@@ -45,15 +45,13 @@
        <textarea class="width100 textLogin commentText" type="text" placeholder="Details...">{{time.note}}</textarea>
                 </div>
 
-    <ion-label no-lines class="list">
+    <div no-lines class="list">
           <i class="billable">
  <ion-icon class="ion-ios-radio-button-on"></ion-icon>
-          </i><p>Billable</p></ion-label>
-    <ion-list no-lines class="list">
-        <div>
+          </i><p>Billable</p></div>
+        <div class="list img-top">
       <button secondary block="" type="submit" class="disable-hover button button-default button-block">Update Time</button>
     </div>
-    </ion-list>
 </ion-content>
 
 <action-button></action-button>

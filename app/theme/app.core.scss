@@ -15,6 +15,7 @@
 @import "../pages/organizations/organizations";
 @import "../pages/login/login";
 @import "../pages/timelogs/timelogs";
+@import "../pages/timelog/timelog";
 @import "../pages/ticket-details/ticket-details";
 @import "../pages/ticket-create/ticket-create";
 @import "../components/tree-view/tree-view";
@@ -255,6 +256,10 @@ background-color: #6AB7EC;
     background-color: $blue4;
 }
 
+.blue41{
+    background-color: $blue4;
+}
+
 .grey > * {
     background-color: $grey;
 }
@@ -487,4 +492,8 @@ color: #fff;
 
 .width12{
     width: 12%;
+}
+
+.width10{
+    width: 10%;
 }
