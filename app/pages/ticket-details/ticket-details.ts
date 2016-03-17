@@ -20,9 +20,8 @@ export class TicketDetailsPage {
         this.details_tab = "Reply";
         this.navParams = navParams;
         this.dataProvider = dataProvider;
-        this.ticket = (this.navParams || {}).data || {};
-        this.posts = [];
-        this.post1=[];
+        let data = (this.navParams || {}).data || {};
+        let isFullInfo = (data.ticketlogs && data.ticketlogs.length > 0);
         
         let classes1 = [
             { name: 'General Inquiry', id: 0 },
@@ -104,20 +103,32 @@ export class TicketDetailsPage {
         this.resolution_category.value = "Testing";
         this.resolution_category.selected = 3;
         this.resolution_category.items = resolution_category1;
-        this.dataProvider.getTicketDetails(this.ticket.key).subscribe(
-             data => {
-                 if (!data || !data.ticketlogs || data.ticketlogs == 0)
-                    { this.redirectOnEmpty();
-                     return;
-                    }
-                 this.ticket = data;
-                 this.attachments = data.attachments;
-                      this.post1 = [data.ticketlogs.shift()];
-                      this.posts = data.ticketlogs;}, 
+       
+        
+        if (isFullInfo)
+            {
+                this.processDetails(data);
+            }
+       else 
+       { this.dataProvider.getTicketDetails(this.ticket.key).subscribe(
+           data => this.processDetails(data), 
             error => { 
                 console.log(error || 'Server error');
             this.redirectOnEmpty();}
         ); 
+            }
+    }
+
+    processDetails(data)
+    {
+        if (!data || !data.ticketlogs || data.ticketlogs == 0)
+        { this.redirectOnEmpty();
+         return;
+        }
+        this.ticket = data;
+        this.attachments = data.attachments;
+        this.post1 = [data.ticketlogs.shift()];
+        this.posts = data.ticketlogs;
     }
     
     redirectOnEmpty(){

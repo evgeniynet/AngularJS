@@ -22,7 +22,8 @@
         <ion-list no-lines>
             <div>
                 <div class="list" >
-                    <textarea class="width100 textLogin blue3 commentText subject-create" [(ngModel)]="ticket.subject" [placeholder]="subject.dirty && !subject.valid ? 'Subject is required' : 'Subject'"  ngControl="subject" #subject="ngForm" required></textarea>
+                    <div class="tooltips"><input class="width100 blue3 subject-create commentText" [(ngModel)]="ticket.subject" placeholder="Subject"  ngControl="subject" #subject="ngForm" required maxlength="100"/>
+                        <span *ngIf="subject.dirty && !subject.valid">Subject is required and less 100 chars</span></div>
                     <br>
                     <textarea class="width100 textLogin commentText" type="text" [(ngModel)]="ticket.initial_post" ngControl="text" #note="ngForm"  placeholder="Details..."></textarea>
 

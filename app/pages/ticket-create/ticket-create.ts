@@ -3,6 +3,7 @@ import { FORM_DIRECTIVES, Validators} from 'angular2/common';
 import {DataProvider} from '../../providers/data-provider';
 import {htmlEscape} from '../../directives/helpers';
 import {SelectListComponent} from '../../components/select-list/select-list';
+import {TicketDetailsPage} from '../ticket-details/ticket-details';
 
 @Page({
     templateUrl: 'build/pages/ticket-create/ticket-create.html',
@@ -59,32 +60,20 @@ export class TicketCreatePage {
     }
 
     onSubmit(form) {
-        //if (form.valid){
+        if (form.valid){
         var subject = htmlEscape(this.ticket.subject.trim());
-        var post = htmlEscape(this.ticket.initial_post.trim());
-        if(subject === "")// || $("#addTicketTechs").val() === "" || selectedEditClass < 1)
-        {
-            this.alert.error("Please enter subject", 'Oops!');
-        }
-        else if (subject.length > 100){
-            this.alert.error("Subject should be less 100 chars!", 'Oops!');	
-        } 
-        else if (post.length > 5000) {
-            this.alert.error("Details cannot be more than 5000 chars!", 'Oops!');
-        }
-        else {
-            this.dataProvider.addTicket(this.ticket).subscribe(
+        var post = htmlEscape(this.ticket.initial_post.trim()).substr(0, 5000);
+        this.dataProvider.addTicket(this.ticket).subscribe(
                 data => {
                     this.alert.success("", 'Ticket was Succesfully Created :)');
                     setTimeout(() => {
-                        this.nav.pop();
+                        this.nav.push(TicketDetailsPage, data);
                     }, 3000); 
                 }, 
                 error => { 
                     console.log(error || 'Server error');}
             );
         }
-        //else this.alert.error('Please enter subject', 'Oops!');
     }
 }
 
