@@ -26,13 +26,13 @@ export class TreeModal {
     // обработка события смены выбранного узла
     onSelectNode(node: ITreeNode) {
         this.selectedNode = node;
-        //console.log(node);
+        console.log(node);
     }
 // обработка события вложенных узлов
 onRequest(parent: ITreeNode) {
     return;
     this.treeService.GetNodes(parent.id).subscribe(
-        res => parent.children = res,
+        res => parent.sub = res,
         error=> console.log(error));
 }
 

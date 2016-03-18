@@ -4,8 +4,11 @@ import {Component, Input, Output, EventEmitter} from 'angular2/core';
 export interface ITreeNode {
 id: number;
 name: string;
-children: Array<ITreeNode>;
+sub: Array<ITreeNode>;
 isExpanded: boolean;
+    is_active: boolean;
+    is_restrict_to_techs: boolean;
+    parent: string;
 }
 
 @Component({
@@ -20,7 +23,7 @@ export class TreeViewComponent {
 @Input() SelectedNode: ITreeNode;
 
 @Output() onSelectedChanged: EventEmitter<ITreeNode> = new EventEmitter();
-@Output() onRequestNodes: EventEmitter<ITreeNode> = new EventEmitter();
+//@Output() onRequestNodes: EventEmitter<ITreeNode> = new EventEmitter();
 
 constructor() { }
 
@@ -29,14 +32,14 @@ this.onSelectedChanged.emit(node);
 }
 
 onExpand(node: ITreeNode) {
-    if (!node.children)
+    if (!node.sub)
         return;
     
 node.isExpanded = !node.isExpanded;
 
-    if (node.isExpanded && (!node.children || node.children.length == 0)) {
-this.onRequestNodes.emit(parent);
-}
+   // if (node.isExpanded && (!node.sub || node.sub.length == 0)) {
+//this.onRequestNodes.emit(parent);
+//}
 }
  
  onRequest(parent: ITreeNode) {

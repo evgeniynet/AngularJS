@@ -5,7 +5,7 @@ import {Component, Input, Output, EventEmitter} from 'angular2/core';
 import {TreeModal} from '../../pages/modals/modals';
 import 'rxjs/add/operator/share';
 
-const alertLimit = 5;
+const alertLimit = 10;
 
 @Component({
     selector: 'class-list',
@@ -51,7 +51,16 @@ export class ClassListComponent {
      
      proceed_list()
      {
-         if (false && this.list.items.length <= alertLimit)
+         let is_plain = true;
+         this.list.items.forEach(item => {
+             if (item.sub)
+                 {
+                    is_plain = false;
+                    return;    
+                 }
+         });
+         
+         if (is_plain && this.list.items.length <= alertLimit)
              this.openRadio();
          else
              this.openModal();
@@ -59,9 +68,8 @@ export class ClassListComponent {
      
      emit_changed(value){
         this.list.value = value.name;
-        var data = {};
-         data["'Class'"] = value;
-     this.onChanged.emit(data);
+        value.type = "class";
+     this.onChanged.emit(value);
      }
      
      openRadio() {         

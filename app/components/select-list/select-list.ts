@@ -1,5 +1,6 @@
 import {IONIC_DIRECTIVES, NavController, Modal, Alert, Config} from 'ionic-framework/ionic';
 import {ApiData} from '../../providers/api-data';
+import {getFullName} from '../../directives/helpers';
 import {Component, Input, Output, EventEmitter} from 'angular2/core';
 //import {TicketDetailsPage} from '../../pages/ticket-details/ticket-details';
 import {BasicSelectModal} from '../../pages/modals/modals';
@@ -58,6 +59,15 @@ export class SelectListComponent {
      
      proceed_list()
      {
+         if (!this.list.items[0].name){
+         var results = [];
+         this.list.items.forEach(item => {
+             let name = getFullName(item.firstname,item.lastname,item.email, " ");
+             results.push({id: item.id, name: name});
+         });
+             this.list.items = results;
+         }
+         
          if (this.list.items.length <= alertLimit)
              this.openRadio();
          else
@@ -66,9 +76,8 @@ export class SelectListComponent {
      
      emit_changed(value){
         this.list.value = value.name;
-        var data = {};
-         data["'"+this.list.name+"'"] = value;
-     this.onChanged.emit(data);
+         value.type = this.list.name.toLowerCase();
+     this.onChanged.emit(value);
      }
      
      openRadio() {         

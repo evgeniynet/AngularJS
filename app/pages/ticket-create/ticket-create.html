@@ -5,21 +5,20 @@
 <ion-content padding class="ticket-create">
     <div class="list max-width700">
         <ion-buttons>
- <select-list class="left width90"  [list]="others" (onChanged)='saveSelect($event)'></select-list>
+            <select-list class="left width90" url="users" [list]="users" (onChanged)='saveSelect($event)'></select-list>
             <div class="width10"><button (click)="addUser('user')" item-right secondary fab class="buttonTicket"><ion-icon class="button_circle2" name="md-add"></ion-icon></button>    </div>
         </ion-buttons>
         <ion-buttons>
             <select-list url="accounts?is_with_statistics=false" [list]="accounts" (onChanged)='saveSelect($event)'></select-list>
             
-            <class-list [list]="classes" (onChanged)='saveSelect($event)'></class-list>
-            
-                <select-list [list]="others" (onChanged)='saveSelect($event)'></select-list>
-                <select-list [list]="others" (onChanged)='saveSelect($event)'></select-list></ion-buttons>
+            <select-list  url="locations"  [list]="locations" (onChanged)='saveSelect($event)'></select-list></ion-buttons>
         <ion-buttons>
-            <select-list class="width90 left" [list]="others" (onChanged)='saveSelect($event)'></select-list><div width-10><button (click)="addUser('tech')" item-right secondary fab class="buttonTicket"><ion-icon class="button_circle2" name="md-add"></ion-icon></button></div>
+            <select-list class="width90 left"  url="technicians"  [list]="technicians" (onChanged)='saveSelect($event)'></select-list><div width-10><button (click)="addUser('tech')" item-right secondary fab class="buttonTicket"><ion-icon class="button_circle2" name="md-add"></ion-icon></button></div>
         </ion-buttons>
         <ion-buttons>
-            <select-list [list]="others" (onChanged)='saveSelect($event)'></select-list><select-list [list]="others" (onChanged)='saveSelect($event)'></select-list></ion-buttons>
+            <select-list url="projects"  [list]="projects" (onChanged)='saveSelect($event)'></select-list>
+            <class-list [list]="classes" (onChanged)='saveSelect($event)'></class-list>
+        </ion-buttons>
     </div>
     <br>
     <form #addForm="ngForm">
