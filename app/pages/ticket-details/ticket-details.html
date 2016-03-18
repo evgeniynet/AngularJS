@@ -45,7 +45,7 @@
          
         </div>
                
-  <div *ngSwitchWhen="'Info'" class="list general-alignment">
+  <div *ngSwitchWhen="'Info'" class="list general-alignment max-width700">
     
     <select-list [list]="classes" (onChanged)='saveSelect($event)'></select-list>
     
@@ -58,7 +58,7 @@
     
       <button secondary block="" type="submit" class=" img-top disable-hover button button-default button-block">Update</button>
     </div>
-    <div *ngSwitchWhen="'Options'" class="list general-alignment" no-lines>
+    <div *ngSwitchWhen="'Options'" class="list general-alignment max-width700">
       <button secondary block="" type="submit" class="disable-hover button button-default button-block">Add Time</button>
       <button secondary block="" type="submit" class="disable-hover button button-default button-block general-alignment2">Add Expense</button>
   <button favorite block class="general-alignment2">Transfer Ticket</button>
