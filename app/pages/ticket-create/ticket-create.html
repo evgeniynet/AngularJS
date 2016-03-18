@@ -3,7 +3,7 @@
     <ion-title>TicketCreate</ion-title>
 </ion-navbar>
 <ion-content padding class="ticket-create">
-    <div class="list">
+    <div class="list max-width700">
         <ion-buttons>
  <select-list class="left width90"  [list]="classes" (onChanged)='saveSelect($event)'></select-list>
             <div class="width10"><button item-right secondary fab class="buttonTicket"><ion-icon class="button_circle2" name="md-add"></ion-icon></button>    </div>
@@ -20,15 +20,13 @@
     </div>
     <br>
     <form #addForm="ngForm">
-                <div class="list" >
+                <div class="list max-width700">
                     <div class="tooltips"><input class="width100 blue3 subject-create commentText" [(ngModel)]="ticket.subject" placeholder="Subject"  ngControl="subject" #subject="ngForm" required maxlength="100"/>
                         <span *ngIf="subject.dirty && !subject.valid">Subject is required and less 100 chars</span></div>
                     <br>
                     <textarea class="width100 textLogin commentText" type="text" [(ngModel)]="ticket.initial_post" ngControl="text" #note="ngForm"  placeholder="Details..."></textarea>
 
-                </div>
                 <br>
-                <div class="list" >
                     <button [disabled]="!addForm.valid" secondary block (click)="onSubmit(addForm)"  type="submit" class="disable-hover button button-default button-block">Add Ticket</button>
                 </div>
     </form>
