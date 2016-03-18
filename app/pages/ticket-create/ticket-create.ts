@@ -5,6 +5,7 @@ import {htmlEscape} from '../../directives/helpers';
 import {SelectListComponent} from '../../components/select-list/select-list';
 import {ClassListComponent} from '../../components/class-list/class-list';
 import {TicketDetailsPage} from '../ticket-details/ticket-details';
+import {AddUserPage} from '../add-user/add-user';
 
 @Page({
     templateUrl: 'build/pages/ticket-create/ticket-create.html',
@@ -120,6 +121,11 @@ onSubmit(form) {
                 console.log(error || 'Server error');}
         );
     }
+}
+
+addUser(type)
+{
+    this.nav.push(AddUserPage, type);
 }
 }
 
