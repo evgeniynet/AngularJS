@@ -4,7 +4,6 @@
 }
 
 .button-arrow{
-    float: right;
     line-height: 20px;
     font-size: 1.8em !important;;
 }
@@ -44,4 +43,8 @@ ul .inner {
 
 .class-list li li li div{
     background-color: $blue5;
+}
+
+.treeselect {
+    text-shadow: 0px 0px 4px #fff;
 }

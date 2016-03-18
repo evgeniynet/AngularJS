@@ -29,7 +29,9 @@ this.onSelectedChanged.emit(node);
 }
 
 onExpand(node: ITreeNode) {
-
+    if (!node.children)
+        return;
+    
 node.isExpanded = !node.isExpanded;
 
     if (node.isExpanded && (!node.children || node.children.length == 0)) {

@@ -2,19 +2,18 @@ import {IONIC_DIRECTIVES, NavController, Modal, Alert, Config} from 'ionic-frame
 import {ApiData} from '../../providers/api-data';
 import {Component, Input, Output, EventEmitter} from 'angular2/core';
 //import {TicketDetailsPage} from '../../pages/ticket-details/ticket-details';
-import {BasicSelectModal} from '../../pages/modals/modals';
+import {TreeModal} from '../../pages/modals/modals';
 import 'rxjs/add/operator/share';
 
 const alertLimit = 5;
 
 @Component({
-    selector: 'select-list',
-    templateUrl: 'build/components/select-list/select-list.html',
+    selector: 'class-list',
+    templateUrl: 'build/components/class-list/class-list.html',
     directives: [IONIC_DIRECTIVES]
 })
-export class SelectListComponent {
+export class ClassListComponent {
     @Input() list: Array;
-    @Input() url: string;
      @Output() onChanged: EventEmitter<any> = new EventEmitter();
 
      constructor(nav: NavController, apiData: ApiData, config: Config) {
@@ -22,30 +21,24 @@ export class SelectListComponent {
          this.config = config;
          this.apiData = apiData;
         this.list = {};
-         this.url = "";
          this.selected = {};
     }  
      
      open()
      {
          if (!this.list.items || this.list.items.length == 0){
-         if (this.url)
-         {
              //this.apiData.Cache = this.apiData.get(this.url).share();
              
              //this.apiData.Cache.subscribe(
-             this.apiData.get(this.url).subscribe(
+             this.apiData.get("classes").subscribe(
                  data => {
                      this.list.items = data;
                      this.proceed_list();
                  }, 
-                 error => {
-                     this.error("Cannot get " +this.list.name + " list! Error: " + error);
+                 error => { 
+                     this.error("Cannot get Classes list! Error: " + error);
                      console.log(error || 'Server error');}
              );
-         }
-             else
-                 this.error(this.list.name + 'list is empty!');
          }
          else
              this.proceed_list();
@@ -58,7 +51,7 @@ export class SelectListComponent {
      
      proceed_list()
      {
-         if (this.list.items.length <= alertLimit)
+         if (false && this.list.items.length <= alertLimit)
              this.openRadio();
          else
              this.openModal();
@@ -67,7 +60,7 @@ export class SelectListComponent {
      emit_changed(value){
         this.list.value = value.name;
         var data = {};
-         data["'"+this.list.name+"'"] = value;
+         data["'Class'"] = value;
      this.onChanged.emit(data);
      }
      
@@ -112,7 +105,7 @@ export class SelectListComponent {
      }
      
      openModal() {
-         let myModal = Modal.create(BasicSelectModal, this.list);
+         let myModal = Modal.create(TreeModal, this.list);
          myModal.onDismiss(data => {
              if (data.name) {
              this.selected = data;
