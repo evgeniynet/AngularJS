@@ -72,9 +72,23 @@ export class ClassListComponent {
      }
 
      emit_changed(value){
-         this.list.value = value.name;
+         value.name = this.findPath(" ", this.list.items, value.id);
+         //this.list.value = value.name;
          value.type = "class";
          this.onChanged.emit(value);
+     }
+     
+    findPath(path, array, id) {
+         if (typeof array != 'undefined' && array) {
+             for (var i = 0; i < array.length; i++) {
+                 if (array[i].id == id) return array[i].name;
+                 var path = this.findPath(path, array[i].sub, id);
+                 if (path != null) {
+                     return array[i].name + " / " + path;
+                 }
+             }
+         }
+         return null;
      }
 
      openRadio() {         
