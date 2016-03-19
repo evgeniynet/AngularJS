@@ -20,40 +20,51 @@ export class TicketCreatePage {
         this.changes = {};
         let he = this.config.current.user;
 
-        this.users = {
-            name: "User", 
-            value: getFullName(he.firstname, he.lastname, he.email),
-            selected: he.user_id,
-        };
+        let account_id = he.account_id || -1;
 
-        this.accounts = {
-            name: "Account", 
-            value: he.account_name,
-            selected: he.account_id || -1,
-        };
-
-        this.locations = {
-            name: "Location", 
-            value: "Default",
-            selected: 0,
-        };   
-
-        this.technicians = {
-            name: "Tech", 
-            value: "Default",
-            selected: 0,
-        };
-        
-        this.projects = {
-            name: "Project", 
-            value: "Default",
-            selected: 0,
-        };
-        
-        this.classes = {
-            name: "Class", 
-            value: "Default",
-            selected: 0,
+        this.selects = {
+            "user" : {
+                name: "User", 
+                value: getFullName(he.firstname, he.lastname, he.email),
+                selected: he.user_id,
+                url: "users",
+                hidden: false
+            },
+            "account" : {
+                name: "Account", 
+                value: he.account_name,
+                selected: account_id,
+                url: "accounts?is_with_statistics=false",
+                hidden: false
+            },
+            "location" : {
+                name: "Location", 
+                value: "Default",
+                selected: 0,
+                url: `locations?account=${account_id}`,
+                hidden: false
+            },
+            "technician" : {
+                name: "Tech", 
+                value: "Default",
+                selected: 0,
+                url: "technicians",
+                hidden: false
+            },
+            "project" : {
+                name: "Project", 
+                value: "Default",
+                selected: 0,
+                url: `projects?account=${account_id}&is_with_statistics=false`,
+                hidden: false
+            },
+            "class" : {
+                name: "Class", 
+                value: "Default",
+                selected: 0,
+                url: "classes",
+                hidden: false
+            }
         };
 
         this.dataProvider = dataProvider;
@@ -71,7 +82,21 @@ export class TicketCreatePage {
     }
 
     saveSelect(event){
-        this.changes[event.type] = {id: event.id, name: event.name};
+        let name = event.type;
+        this.selects[name].selected = event.id;
+        this.selects[name].value = event.name;
+        //change url on related lists
+        switch (name) {
+            case "account" :
+                this.selects.project.url = `projects?account=${event.id}&is_with_statistics=false`;
+                this.selects.project.value = "Default";
+                this.selects.project.selected = 0;
+
+                this.selects.location.url = `locations?account=${event.id}`;
+                this.selects.location.value = "Default";
+                this.selects.location.selected = 0;
+                break;
+        }
     }
 
     onSubmit(form) {

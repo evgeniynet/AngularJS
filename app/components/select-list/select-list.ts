@@ -15,27 +15,27 @@ const alertLimit = 5;
 })
 export class SelectListComponent {
     @Input() list: Array;
-    @Input() url: string;
+    //@Input() url: string;
      @Output() onChanged: EventEmitter<any> = new EventEmitter();
 
      constructor(nav: NavController, apiData: ApiData, config: Config) {
         this.nav = nav;
          this.config = config;
          this.apiData = apiData;
-        this.list = {};
-         this.url = "";
+         this.list = {};
+         //this.url = this.list.url;
          this.selected = {};
     }  
      
      open()
      {
          if (!this.list.items || this.list.items.length == 0){
-         if (this.url)
+         if (this.list.url)
          {
-             //this.apiData.Cache = this.apiData.get(this.url).share();
+             this.apiData.Cache = this.apiData.get(this.list.url).share();
              
-             //this.apiData.Cache.subscribe(
-             this.apiData.get(this.url).subscribe(
+             this.apiData.Cache.subscribe(
+             //this.apiData.get(this.list.url).subscribe(
                  data => {
                      this.list.items = data;
                      this.proceed_list();

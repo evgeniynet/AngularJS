@@ -17,61 +17,66 @@ export class ClassListComponent {
      @Output() onChanged: EventEmitter<any> = new EventEmitter();
 
      constructor(nav: NavController, apiData: ApiData, config: Config) {
-        this.nav = nav;
+         this.nav = nav;
          this.config = config;
          this.apiData = apiData;
-        this.list = {};
+         this.list = {};
          this.selected = {};
-    }  
-     
+     }  
+
      open()
      {
          if (!this.list.items || this.list.items.length == 0){
-             //this.apiData.Cache = this.apiData.get(this.url).share();
-             
-             //this.apiData.Cache.subscribe(
-             this.apiData.get("classes").subscribe(
-                 data => {
-                     this.list.items = data;
-                     this.proceed_list();
-                 }, 
-                 error => { 
-                     this.error("Cannot get Classes list! Error: " + error);
-                     console.log(error || 'Server error');}
-             );
+             if (this.list.url)
+             {
+                 this.apiData.Cache = this.apiData.get(this.list.url).share();
+
+                 this.apiData.Cache.subscribe(
+                     //this.apiData.get(this.list.url).subscribe(
+                     data => {
+                         this.list.items = data;
+                         this.proceed_list();
+                     }, 
+                     error => { 
+                         this.error("Cannot get Classes list! Error: " + error);
+                         console.log(error || 'Server error');}
+                 );
+             }
+             else
+                 this.error(this.list.name + 'list is empty!');
          }
          else
              this.proceed_list();
      }
-     
+
      error(message)
      {
          this.config.alert.error(message, 'Oops!');
      }
-     
+
      proceed_list()
      {
          let is_plain = true;
          this.list.items.forEach(item => {
              if (item.sub)
-                 {
-                    is_plain = false;
-                    return;    
-                 }
+             {
+                 is_plain = false;
+                 return;    
+             }
          });
-         
+
          if (is_plain && this.list.items.length <= alertLimit)
              this.openRadio();
          else
              this.openModal();
      }
-     
+
      emit_changed(value){
-        this.list.value = value.name;
-        value.type = "class";
-     this.onChanged.emit(value);
+         this.list.value = value.name;
+         value.type = "class";
+         this.onChanged.emit(value);
      }
-     
+
      openRadio() {         
          let title=this.list.name;
 
@@ -89,15 +94,15 @@ export class ClassListComponent {
                      text: 'OK',
                      handler: data => {
                          if(data){
-                         this.testRadioOpen = false;
-                         this.selected = data;
-                         this.emit_changed(data);
+                             this.testRadioOpen = false;
+                             this.selected = data;
+                             this.emit_changed(data);
                          }
                      }
                  }
              ]
          });
-         
+
          this.list.items.forEach(item => {
              alert.addInput({
                  type: 'radio',
@@ -111,16 +116,16 @@ export class ClassListComponent {
              this.testRadioOpen = true;
          });
      }
-     
+
      openModal() {
          let myModal = Modal.create(TreeModal, this.list);
          myModal.onDismiss(data => {
              if (data.name) {
-             this.selected = data;
-             this.emit_changed(data);
+                 this.selected = data;
+                 this.emit_changed(data);
              }
          });
          this.nav.present(myModal);
      }
-  
-}
+
+    }
