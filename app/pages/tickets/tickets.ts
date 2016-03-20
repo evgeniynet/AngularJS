@@ -10,7 +10,6 @@ export class TicketsPage {
     constructor(nav: NavController, dataProvider: DataProvider, config: Config) {
         this.nav = nav;
         this.config = config;
-        this.tickets = null;
         this.ticket_tab = "user";
         this.dataProvider = dataProvider;
 

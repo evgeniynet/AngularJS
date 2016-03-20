@@ -1,7 +1,6 @@
 import {Page, NavController, NavParams} from 'ionic-framework/ionic';
 import {DataProvider} from '../../providers/data-provider';
-import {TicketsListComponent} from '../../components/tickets-list/tickets-list';
-import {ActionButtonComponent} from '../../components/action-button/action-button';
+import {TicketsListComponent, ActionButtonComponent} from '../../components/components';
 
 @Page({
     templateUrl: 'build/pages/queue-tickets/queue-tickets.html',
@@ -12,6 +11,7 @@ export class QueueTicketsPage {
     this.nav = nav;
     this.navParams = navParams;
         this.queue = this.navParams.data;
+        this.tickets = [];
         
         dataProvider.getTicketsList("queue", this.queue.id).subscribe(
             data => {this.tickets = data}, 

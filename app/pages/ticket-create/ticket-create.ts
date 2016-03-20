@@ -44,7 +44,7 @@ export class TicketCreatePage {
                 url: `locations?account=${account_id}`,
                 hidden: false
             },
-            "technician" : {
+            "tech" : {
                 name: "Tech", 
                 value: "Default",
                 selected: 0,
@@ -91,7 +91,7 @@ export class TicketCreatePage {
                 this.selects.project.url = `projects?account=${event.id}&is_with_statistics=false`;
                 this.selects.project.value = "Default";
                 this.selects.project.selected = 0;
-
+                
                 this.selects.location.url = `locations?account=${event.id}`;
                 this.selects.location.value = "Default";
                 this.selects.location.selected = 0;
@@ -103,6 +103,12 @@ export class TicketCreatePage {
         if (form.valid){
             var subject = htmlEscape(this.ticket.subject.trim());
             var post = htmlEscape(this.ticket.initial_post.trim()).substr(0, 5000);
+            
+            this.ticket.class_id = this.selects.class.id;
+            this.ticket.account_id = this.selects.account.id;
+            this.ticket.location_id = this.selects.location.id;
+            this.ticket.tech_id = this.selects.tech.id;
+           
             this.dataProvider.addTicket(this.ticket).subscribe(
                 data => {
                     this.alert.success("", 'Ticket was Succesfully Created :)');

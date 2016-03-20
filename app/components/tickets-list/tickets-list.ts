@@ -1,5 +1,5 @@
 import {IONIC_DIRECTIVES, NavController, NavParams} from 'ionic-framework/ionic';
-import {Component, Input} from 'angular2/core';
+import {Component, Input, OnChanges} from 'angular2/core';
 import {TicketDetailsPage} from '../../pages/ticket-details/ticket-details';
 import {GravatarPipe, LinebreaksPipe} from '../../pipes/pipes';
 
@@ -14,11 +14,20 @@ export class TicketsListComponent {
     @Input() tickets: Array;
      
     constructor(nav: NavController, navParams: NavParams) {
+        this.is_empty = false;
         this.nav = nav;
         this.navParams = navParams;
-        this.tickets = [];
         //this.speaker = this.navParams.data;
     }
+     
+     ngOnChanges(event) {
+         if ("tickets" in event ) {
+             //TODO: add loading event
+             if (event.tickets.isFirstChange())
+                 return;
+            this.is_empty = !event.tickets.currentValue || event.tickets.currentValue.length == 0;
+     }
+     }
 
     itemTapped(event, ticket) {
         if (event.srcElement.tagName.toUpperCase() != "ION-ITEM-SLIDING") 

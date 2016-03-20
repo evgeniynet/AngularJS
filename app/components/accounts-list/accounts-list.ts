@@ -1,6 +1,6 @@
 //in case on using ionic "ion-card"
 import {IONIC_DIRECTIVES, NavController, NavParams} from 'ionic-framework/ionic';
-import {Component, Input, Output} from 'angular2/core';
+import {Component, Input, OnChanges} from 'angular2/core';
 import {AccountDetailsPage} from '../../pages/account-details/account-details';
 import {MorePipe} from '../../pipes/pipes';
 
@@ -11,21 +11,25 @@ directives: [IONIC_DIRECTIVES],
 pipes: [MorePipe],
 })
 
-/*export interface Card {
-    header:string;
-    description:string; 
-}*/
-
 export class AccountsListComponent {
     @Input() accounts: Array;
     @Input() simple: boolean;
-/*@Input()
-card : Card;*/
+
      constructor(nav: NavController) {
          this.nav = nav;
-    //this.header = "into";
+         this.is_empty = false;
 }
      itemTapped(event, account) {this.nav.push(AccountDetailsPage, account);
                    }
+     
+     ngOnChanges(event) {
+         if (!simple)
+             return;
+         if ("accounts" in event ) {
+             if (event.accounts.isFirstChange())
+                 return;
+             this.is_empty = !event.accounts.currentValue || event.accounts.currentValue.length == 0;
+         }
+     }
      
 }

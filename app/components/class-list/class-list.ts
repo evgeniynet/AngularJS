@@ -17,6 +17,7 @@ export class ClassListComponent {
      @Output() onChanged: EventEmitter<any> = new EventEmitter();
 
      constructor(nav: NavController, apiData: ApiData, config: Config) {
+         this.init = true;
          this.nav = nav;
          this.config = config;
          this.apiData = apiData;
@@ -25,14 +26,11 @@ export class ClassListComponent {
      }  
 
      open()
-     {
+     {  
          if (!this.list.items || this.list.items.length == 0){
              if (this.list.url)
              {
-                 this.apiData.Cache = this.apiData.get(this.list.url).share();
-
-                 this.apiData.Cache.subscribe(
-                     //this.apiData.get(this.list.url).subscribe(
+                 this.apiData.get(this.list.url).subscribe(
                      data => {
                          this.list.items = data;
                          this.proceed_list();
@@ -43,10 +41,12 @@ export class ClassListComponent {
                  );
              }
              else
-                 this.error(this.list.name + 'list is empty!');
+                 this.error(this.list.name + ' list is empty!');
          }
          else
+         {
              this.proceed_list();
+         }
      }
 
      error(message)
@@ -77,8 +77,8 @@ export class ClassListComponent {
          value.type = "class";
          this.onChanged.emit(value);
      }
-     
-    findPath(path, array, id) {
+
+     findPath(path, array, id) {
          if (typeof array != 'undefined' && array) {
              for (var i = 0; i < array.length; i++) {
                  if (array[i].id == id) return array[i].name;

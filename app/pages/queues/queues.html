@@ -4,9 +4,8 @@
 </ion-navbar>
 
 <ion-content class="queues" padding>
-    <div [hidden]="gueues?.length" class="table grey2 menu-text">No Queues</div>
   
-    <queues-list [queues]="queues"></queues-list>
+    <queues-list [queues]="queues" [simple]="true"></queues-list>
     
 </ion-content>
 

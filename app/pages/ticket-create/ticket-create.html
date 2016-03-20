@@ -12,7 +12,7 @@
             
             <select-list  [list]="selects.location" (onChanged)='saveSelect($event)'></select-list>
        
-            <select-list class="width90 left" [list]="selects.technician" (onChanged)='saveSelect($event)'></select-list><div width-10><button (click)="addUser('tech')" item-right secondary fab class="buttonTicket"><ion-icon class="button_circle2" name="md-add"></ion-icon></button></div>
+            <select-list class="width90 left" [list]="selects.tech" (onChanged)='saveSelect($event)'></select-list><div width-10><button (click)="addUser('tech')" item-right secondary fab class="buttonTicket"><ion-icon class="button_circle2" name="md-add"></ion-icon></button></div>
         
             
             <select-list [list]="selects.project" (onChanged)='saveSelect($event)'></select-list>

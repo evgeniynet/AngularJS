@@ -12,13 +12,14 @@ import {MorePipe} from '../../pipes/pipes';
 export class TimelogsPage {
     constructor(nav: NavController, dataProvider: DataProvider, config: Config) {
     this.nav = nav;
-        this.timelogs = null;
+        this.is_empty = false;
         this.dataProvider = dataProvider;
         let pager = {limit: 5};
 
         this.dataProvider.getTimelogs(pager).subscribe(
             data => {
                 this.timelogs = data;
+                this.is_empty = !data || data.length == 0;
                     }, 
             error => { 
                 console.log(error || 'Server error');}

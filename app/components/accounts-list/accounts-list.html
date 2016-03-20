@@ -6,3 +6,4 @@
         <span [ngClass]="{'box4 box7': !simple, 'box6': simple}" [innerHTML]="account.account_statistics.ticket_counts.open | More:[1000]"></span>
     </div>
 </ion-list>
+<div *ngIf="is_empty" class="table grey2 menu-text">No Accounts</div>

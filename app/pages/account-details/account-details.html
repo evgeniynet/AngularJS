@@ -30,12 +30,8 @@
         </div>
 </ion-list>
     <br>
- <ion-list class="list">
-   <ion-item class="item-button">OPEN TICKETS</ion-item>
-     <div [hidden]="tickets?.length" class="table grey2 menu-text">No Tickets</div>
+            <ion-item class="item-button">OPEN TICKETS</ion-item>
    <tickets-list [tickets]="tickets"></tickets-list>
-            </ion-list>
-        </div>
         <br>
         <ion-list class="list" no-lines *ngSwitchWhen="'Info'">
         <ion-item class="margin"><h2 class="left width35 text-left">BWD Acct#</h2>

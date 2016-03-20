@@ -19,6 +19,7 @@ export class SelectListComponent {
      @Output() onChanged: EventEmitter<any> = new EventEmitter();
 
      constructor(nav: NavController, apiData: ApiData, config: Config) {
+         this.init = true;
         this.nav = nav;
          this.config = config;
          this.apiData = apiData;
@@ -29,13 +30,12 @@ export class SelectListComponent {
      
      open()
      {
-         if (!this.list.items || this.list.items.length == 0){
          if (this.list.url)
          {
-             this.apiData.Cache = this.apiData.get(this.list.url).share();
+             //this.apiData.Cache = this.apiData.get(this.list.url).share();
              
-             this.apiData.Cache.subscribe(
-             //this.apiData.get(this.list.url).subscribe(
+             //this.apiData.Cache.subscribe(
+             this.apiData.get(this.list.url).subscribe(
                  data => {
                      this.list.items = data;
                      this.proceed_list();
@@ -45,11 +45,6 @@ export class SelectListComponent {
                      console.log(error || 'Server error');}
              );
          }
-             else
-                 this.error(this.list.name + 'list is empty!');
-         }
-         else
-             this.proceed_list();
      }
      
      error(message)
@@ -59,6 +54,11 @@ export class SelectListComponent {
      
      proceed_list()
      {
+         if (!this.list.items || this.list.items.length == 0)
+             {
+                 this.error(this.list.name + ' list is empty!');
+                 return;
+             }
          if (!this.list.items[0].name){
          var results = [];
          this.list.items.forEach(item => {

@@ -1,4 +1,5 @@
-<ion-item-sliding class="border" *ngFor="#ticket of tickets" (click)="itemTapped($event, ticket)"> 
+<ion-list class="list" no-lines>
+    <ion-item-sliding class="border" *ngFor="#ticket of tickets" (click)="itemTapped($event, ticket)"> 
     <ion-item  class="item margin">
         <ion-avatar padding item-left class="img_padding margin avatar-ticket">
             <li class="center avatarText">
@@ -24,3 +25,5 @@
         </button>
     </div>
 </ion-item-sliding>
+</ion-list>
+<div *ngIf="is_empty" class="table grey2 menu-text">No Tickets yet</div>
