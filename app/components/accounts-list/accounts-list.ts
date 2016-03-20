@@ -23,7 +23,7 @@ export class AccountsListComponent {
                    }
      
      ngOnChanges(event) {
-         if (!simple)
+         if (!this.simple)
              return;
          if ("accounts" in event ) {
              if (event.accounts.isFirstChange())

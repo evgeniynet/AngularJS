@@ -20,7 +20,7 @@ export class QueuesListComponent {
 }
      
      ngOnChanges(event) {
-         if (!simple)
+         if (!this.simple)
              return;
          if ("queues" in event ) {
              //TODO: add loading event
