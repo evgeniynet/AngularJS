@@ -19,15 +19,19 @@ export class AccountDetailsPage {
         // If we navigated to this page, we will have an item available as a nav param
         this.account = this.navParams.data || {};
         
-        this.tickets = null;
-        this.projects = null;
         this.dataProvider = dataProvider;
         
-        this.dataProvider.getTicketsList("open", this.account.id).subscribe(
-            data => {this.tickets = data}, 
-            error => { 
-                console.log(error || 'Server error');}
-        );
+        if (this.account.account_statistics.ticket_counts.open){
+            this.dataProvider.getTicketsList("open", this.account.id).subscribe(
+                data => {this.tickets = data}, 
+                error => { 
+                    console.log(error || 'Server error');}
+            );
+        }
+        else
+            setTimeout(() => {
+                this.tickets = [];
+            }, 0);
         
         this.dataProvider.getAccountDetails(this.account.id).subscribe(
             data => {

@@ -23,7 +23,7 @@ export class TicketsListComponent {
      ngOnChanges(event) {
          if ("tickets" in event ) {
              //TODO: add loading event
-             if (event.tickets.isFirstChange())
+            if (event.tickets.isFirstChange())
                  return;
             this.is_empty = !event.tickets.currentValue || event.tickets.currentValue.length == 0;
      }

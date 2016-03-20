@@ -1,6 +1,6 @@
 <ion-list class="list" no-lines>
-    <ion-item-sliding class="border" *ngFor="#ticket of tickets" (click)="itemTapped($event, ticket)"> 
-    <ion-item  class="item margin">
+    <ion-item-sliding class="border" *ngFor="#ticket of tickets"> 
+        <ion-item (click)="itemTapped($event, ticket)"  class="item margin">
         <ion-avatar padding item-left class="img_padding margin avatar-ticket">
             <li class="center avatarText">
                 <span class="margin" item-left><big>#{{ticket.number}}</big></span>
@@ -13,7 +13,7 @@
             <h3 class="tickets" [innerHTML]="ticket.initial_post | Linebreaks"></h3></li>
             <p class="grey2 right class_name">{{ticket.class_name}}</p></div>
     </ion-item>
-    <div>
+        <ion-item-options>
         <button class="disable-hover button button-default button-light">
             <ion-icon></ion-icon>
             Add Response
@@ -23,7 +23,7 @@
             <ion-icon _ngcontent-mqq-12=""aria-></ion-icon>
             Close Ticket
         </button>
-    </div>
-</ion-item-sliding>
+        </ion-item-options>
+    </ion-item-sliding>
 </ion-list>
 <div *ngIf="is_empty" class="table grey2 menu-text">No Tickets yet</div>

@@ -31,8 +31,10 @@
 </ion-list>
     <br>
             <ion-item class="item-button">OPEN TICKETS</ion-item>
-   <tickets-list [tickets]="tickets"></tickets-list>
-        <br>
+            <br>
+            <tickets-list [tickets]="tickets"></tickets-list>
+        </div>
+
         <ion-list class="list" no-lines *ngSwitchWhen="'Info'">
         <ion-item class="margin"><h2 class="left width35 text-left">BWD Acct#</h2>
      <h2 class="right width50 tkts-table">{{account.bwd_number}}</h2>
@@ -115,8 +117,6 @@
      <h3 class="width17 left text-right">{{project.logged_hours}}</h3> 
     <h3 class="width17 right text-right">{{project.complete}}</h3>
         </ion-item>
-           
-        
         </ion-list>
         
         <ion-list class="list img-top" *ngSwitchWhen="'Notes'">
@@ -139,6 +139,7 @@
 
             </ion-list>
     </div>
+
 </ion-content>
 
 <action-button></action-button>
