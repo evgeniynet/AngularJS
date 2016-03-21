@@ -1,5 +1,5 @@
 import {Injectable} from 'angular2/core';
-import {Config} from 'ionic-framework/ionic';
+import {Config, Events} from 'ionic-framework/ionic';
 import {Http, Headers, RequestOptions, Request} from 'angular2/http';
 import {Observable} from 'rxjs/Observable';
 import {ApiSite, dontClearCache} from './config';
@@ -26,10 +26,11 @@ export class ApiData {
 //userKey, userOrgKey, userInstanceKey: string; 
 //mock: boolean = dontClearCache;
 
-constructor(http: Http, config: Config) {
+    constructor(http: Http, config: Config, events: Events) {
     // inject the Http provider and set to this instance
     this.http = http;
     this.config = config;
+    this.events = events;
 }
 
 request(method, data, type, headers) {
@@ -46,7 +47,9 @@ request(method, data, type, headers) {
 
     return this.http.request(req)
         .map(res => res.json())
-        .catch(this.handleError);
+        .catch(error => {
+            return this.handleError(error);
+                        });
 }
 
 mock_get(method) {
@@ -68,7 +71,7 @@ get(method, data, type) {
         inst = this.config.current.instance;// localStorage.getItem('userInstanceKey');
     
     if (!key || !org || !inst || key.length != 32) {
-        return this.handleError("Invalid organization!");
+        return this.handleError("403: Invalid organization!");
     }
 
     var headers = new Headers({
@@ -89,6 +92,14 @@ processData(data) {
 
 handleError(error) {
     console.error(error);
+    /*if ((request.status == 403 && settings.url !== ApiSite + "organizations") || (request.status == 404 && settings.url === ApiSite + "config"))
+    {
+        logout(settings.url !== ApiSite + "login", request.statusText);
+    }*/
+    if (~(error.status || error).toString().indexOf("403"))
+        {
+            this.events.publish("login:failed", null);
+        }
     if (error.constructor !== String)
         error = (error || {}).json().error;
     return Observable.throw(new Error(error));

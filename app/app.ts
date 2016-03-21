@@ -1,4 +1,5 @@
-import {App, IonicApp, Config, Platform, NavController, NavParams} from 'ionic-framework/ionic';
+import {App, IonicApp, Config, Platform, NavController, NavParams, Events} from 'ionic-framework/ionic';
+import {OnInit, OnDestroy} from 'angular2/core';
 import {ApiData} from './providers/api-data';
 import {DataProvider} from './providers/data-provider';
 import {dontClearCache} from './providers/config';
@@ -29,11 +30,13 @@ import {ExpenseCreatePage} from './pages/expense-create/expense-create';
 }
 })
 class MyApp {
-    constructor(app: IonicApp, platform: Platform, apiData: ApiData, config: Config, toastr: ToastsManager) {
+    constructor(app: IonicApp, platform: Platform, apiData: ApiData, config: Config, toastr: ToastsManager, events: Events) {
 
     // set up our app
     this.app = app;
     this.platform = platform;
+    this.events = events;
+        this.config = config;
     this.initializeApp();
         
     config.alert = toastr;
@@ -109,11 +112,27 @@ class MyApp {
   openPage(page, param) {
     // close the menu when clicking a link from the menu
       let nav = this.app.getComponent('nav');
+
+      if (page.index) {
+          nav.setRoot(page.component || page, {tabIndex: page.index}).then(() => {
+              // wait for the root page to be completely loaded
+              // then close the menu
+              this.app.getComponent('leftMenu').close();
+          });
+      } else {
+          nav.setRoot(page.component || page).then(() => {
+              // wait for the root page to be completely loaded
+              // then close the menu
+              this.app.getComponent('leftMenu').close();
+          });
+      }
+      /*
+      let nav = this.app.getComponent('nav');
       nav.setRoot(page.component, param).then(() => {
           // wait for the root page to be completely loaded
           // then close the menu
           this.app.getComponent('leftMenu').close();
-      });
+      });*/
   }
     
     testPage(page, param) {
@@ -121,4 +140,24 @@ class MyApp {
       let nav = this.app.getComponent('nav');
         nav.push(page, param);
   }
+    
+    ngOnInit() {
+        this.subscribeToEvents();
+    }
+
+    ngOnDestroy() {
+        this.unsubscribeToEvents();
+    }
+    
+    subscribeToEvents() {
+        this.events.subscribe('login:failed', () => {
+            this.openPage(LoginPage);
+            //this.getNav().setRoot(TodosPage);
+        });
+    }
+
+    unsubscribeToEvents() {
+        this.events.unsubscribe('login:failed', null);
+    }
+
 }

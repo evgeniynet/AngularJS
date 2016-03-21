@@ -22,7 +22,9 @@ export class DashboardPage {
   }
     
     onPageLoaded()
-    {
+    {   
+        //this.config.current.org = "hgjh";
+        
         this.accounts = helpers.loadCache("dashaccounts");
 
         let statistics = this.config.current.stat;
@@ -62,7 +64,7 @@ export class DashboardPage {
         ); 
     }
     
-    itemTappedTL() {this.nav.push(TicketsPage);}
+    itemTappedTL() {  this.nav.push(TicketsPage);}
     
     itemTappedAD() {this.nav.push(AccountDetailsPage);}
 
