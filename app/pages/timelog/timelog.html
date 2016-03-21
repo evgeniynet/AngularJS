@@ -3,24 +3,23 @@
   <ion-title>Timelog</ion-title>
 </ion-navbar>
 <ion-content padding class="timelog">
-    
-    <div class="list img-top">
-    <div class="blue4 left width30 button-timelog">
-  <button class="blue4 left" class="width100" type="button"><ion-icon name="remove-outline"></ion-icon><i name="arrow-back-outline"></i></button>
+    <div class="list max-width700">
+    <div class="img-top">
+    <div class="left width30 button-timelog">
+  <button class="blue4 left width100" type="button"><ion-icon name="remove-outline"></ion-icon><i name="arrow-back-outline"></i></button>
         </div>
     <div class="blue3 left width30 button-timelog">
  <button class="width100" type="button">00</button>
         </div>
-    <div class="blue4 right width30 button-timelog">
-<button class="width100"><ion-icon name="ios-add">
-    </ion-icon></button>
+    <div class="right width30 button-timelog">
+<button class="width100 blue4"><ion-icon name="ios-add"></ion-icon></button>
         </div>
   </div>
-    <div class="list blue3">
+    <div class="blue3">
     <button block>Start Time</button>
     <button block>End Time</button>
         </div>   
- <ion-list class="list blue4" no-lines>     
+ <ion-list class="blue4 img-top" no-lines>     
      <ion-item class="blue4">
       <ion-label>bigWebApps</ion-label>
   <ion-select [(ngModel)]="toppings" multiple="true" cancelText="Nah" okText="Okay!">
@@ -45,12 +44,13 @@
        <textarea class="width100 textLogin commentText" type="text" placeholder="Details...">{{time.note}}</textarea>
                 </div>
 
-    <div class="list">
           <i class="billable">
  <ion-icon class="ion-ios-radio-button-on"></ion-icon>
-          </i><p>Billable</p></div>
-        <div class="list img-top">
+          </i>
+        <p>Billable</p>
+        <div class="img-top">
       <button secondary block="" type="submit" class="disable-hover button button-default button-block">Update Time</button>
+    </div>
     </div>
 </ion-content>
 

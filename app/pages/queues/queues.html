@@ -5,9 +5,9 @@
 
 <ion-content class="queues" padding>
     <div [hidden]="gueues?.length" class="table grey2 menu-text">No Queues</div>
-  
+  <div class="list max-width700">
     <queues-list [queues]="queues"></queues-list>
-    
+    </div>
 </ion-content>
 
 <action-button></action-button>

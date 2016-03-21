@@ -1,7 +1,7 @@
 
 <ion-content padding class="organizations">
     
-    <ion-list class="list" no-lines>
+    <ion-list class="list max-width" no-lines>
  <img class="imglogo img-padding" src="img/logo.png">
         <div *ngFor="#org of list"> 
             <ion-item [hidden]="!org.is_expired" class="blue1 org expired" (click)="alertOrg(org.name)">{{org.name}} (Expired)</ion-item>

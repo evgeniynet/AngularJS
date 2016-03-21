@@ -5,7 +5,7 @@
 
 <ion-content padding class="timelogs">
     <div [hidden]="timelogs?.length" class="table grey2 menu-text">No Timelogs yet</div>
-    <ion-list>
+    <ion-list class="list">
         <ion-item *ngFor="#time of timelogs" (click)="itemTapped()">
     <ion-avatar item-left>
       <img src="http://www.gravatar.com/avatar/8cf59c68bb835b9e03dcd09c0e620d5d?d=mm&s=80">
