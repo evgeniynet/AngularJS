@@ -1,4 +1,4 @@
-export let MOCKS = 
+export const MOCKS = 
     {
         "tickets/counts": {
             "new_messages": 1,

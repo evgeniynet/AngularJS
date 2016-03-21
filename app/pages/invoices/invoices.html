@@ -11,7 +11,7 @@
     <ion-item class="margin" *ngFor="#invoice of invoices">
     <p class="width38 tkts-table left">{{setDate(invoice.date) | date: "yMMMdd"}}</p> 
     <h2 class="width80 tkts-table">{{invoice.account_name}}</h2>
-    <p item-right class="text">{{invoice.total_cost}}</p>
+        <p item-right class="text">{{getCurrency(invoice.total_cost)}}</p>
         </ion-item>
         </ion-list>
        

@@ -13,7 +13,7 @@
  <li class="text-left width50 left">
     <h2>{{time.user_name}}</h2>
     <h3 class="timelogs">{{time.note}}</h3>
-    <h3 class="timelogs">{{time.ticket_number}}</h3></li>
+     <h3 class="timelogs" *ngIf="!time.is_project_log">{{"#"+time.ticket_number+": "+time.ticket_subject}}</h3></li>
              <li class="right width35 margin font-time">
     <ion-icon item-right name="time-outline"></ion-icon>
                  <span>{{time.hours}}</span>  

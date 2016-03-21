@@ -39,12 +39,10 @@ export function fullapplink (classn, urlString){
     if (isPhonegap) {
         //alert("gap!");
         $("."+classn).on('click', function (e) {
-            e.preventDefault();
             openURLsystem(urlString);});
     } else if (isExtension) {
 
         $("."+classn).on('click', function (e) {
-            e.preventDefault();
             //alert('Please register in new window and reopen Sherpadesk extension again.');
             var origOpenFunc = window.__proto__.open;
             origOpenFunc.apply(window, [urlString, "_blank"]); 
@@ -75,6 +73,84 @@ export function htmlEscape(str) {
     //.replace(/\n/g, "<br />")
     ;
 }
+    
+export const FileUrlHelper = {
+        isPhonegap : function () {return false;},
+        ReplaceAll : function (note, find, replace) {
+            return note.split(find).join(replace);
+        },
+
+        checkURL : function (url) {
+            if(!url) return false;
+            return(url.trim().match(/(jpeg|jpg|gif|png)$/i) !== null);
+        },
+
+        matchKey : function (search, array){
+            for(var key in array) {
+                if(key.indexOf(search) != -1) {
+                    return key;
+                }
+            }
+            return "";
+        },
+
+        addUrls : function (note, files)
+        {
+            var length = files.length;
+            var filearray = {};
+            if (length)
+            {
+                var inlineImg = note.match(/\[cid:[^\[\]]*]/g);
+                for(var i = 0; i < length; i++){
+                    var name = files[i].name;
+                    note = FileUrlHelper.ReplaceAll(note, " "+name, files[i].is_deleted ? "" :  FileUrlHelper.getFileLink(files[i].url,name));
+                    filearray['"'+name.substring(0, name.lastIndexOf("."))+'"'] = files[i].url;
+                }
+                if (inlineImg)
+                {
+                    for(var j = 0; j < inlineImg.length; j++){
+                        var filename = inlineImg[j].slice(5, -1); 
+                        if (filename.indexOf("_link_") >= 0)
+                        {
+                            filename = filename.replace("_link_", "");
+                        }
+                        else
+                        {
+                            filename = FileUrlHelper.matchKey(filename.slice(0, -3), filearray);
+                            if(filename && typeof(filearray[filename]) !== 'undefined' ) {
+                                filename = filearray[filename];
+                            }
+                            else
+                                filename = "";
+                        }
+                        if (filename.length)
+                            note = FileUrlHelper.ReplaceAll(note, inlineImg[j], FileUrlHelper.getFileLink(filename,inlineImg[j].slice(5, -1)));
+                    }
+                }
+                //note = note.replaceAll("Following file was ", "");
+                if (length > 1) {
+                    //note = note.replaceAll("Following files were ", "");
+                    note = FileUrlHelper.ReplaceAll(note, "a>,", "a>");
+                }
+                //note = note.replaceAll("uploaded:", "");
+                note = FileUrlHelper.ReplaceAll(note, "a>.", "a>");
+                //note += "<div class='attachmentBorder'></div>"; 
+            }
+            return note;
+        },
+        //get file of the folllowing options: file, name
+        getFileLink : function (file,name)
+        {
+            var img ="";
+            if (FileUrlHelper.checkURL(file) || FileUrlHelper.checkURL(name))
+                img = "<img class=\"attachment\" src=\"" + file + "\">";
+            else
+                img = "<ion-icon name=\"md-document\" role=img dark class=\"button_circle ion-md-document\" aria-label=\"md-document\"></ion-icon>&nbsp;" + (name ||  decodeURIComponent(file.split("/").slice(-1))) + "<p></p>";
+            return "<p/><a class=\"comment_image_link\"" + 
+                (FileUrlHelper.isPhonegap ? (" href=# onclick='openURL(\"" +file + "\")'>"+img+"</a>") :
+                 (" target=\"_blank\" href=\"" +file + "\">"+img + "</a>"));
+        }
+    };
 
 //HTML decode
 export function symbolEscape(str) {

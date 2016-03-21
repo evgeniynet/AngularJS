@@ -16,7 +16,11 @@ export class InvoicesPage {
         this.config = config;
         this.is_empty = false;
         this.dataProvider = dataProvider;
-        let pager = {limit: 5};
+  }
+    
+    onPageLoaded()
+    {
+        let pager = {limit: 50};
 
         this.dataProvider.getInvoices(null, pager).subscribe(
             data => {this.invoices = data;
@@ -24,10 +28,17 @@ export class InvoicesPage {
             error => { 
                 console.log(error || 'Server error');}
         );
-  }
-    itemTapped() {this.nav.push(InvoiceDetailsPage);}
+    }
+    
+    itemTapped() {
+        //TODO: uncomment this.nav.push(InvoiceDetailsPage);
+    }
     
      setDate(date) {
       return new Date(date);
   }
+    
+    getCurrency(value) {
+        return getCurrency(value, this.config.current.currency);
+    }
 }

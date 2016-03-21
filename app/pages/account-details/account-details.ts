@@ -1,6 +1,6 @@
 import {Page, Config, NavController, NavParams} from 'ionic-framework/ionic';
 import {DataProvider} from '../../providers/data-provider';
-import {getCurrency} from '../../directives/helpers';
+import {getCurrency, FileUrlHelper} from '../../directives/helpers';
 import {TicketsListComponent} from '../../components/tickets-list/tickets-list';
 import {ActionButtonComponent} from '../../components/action-button/action-button';
 import {MorePipe} from '../../pipes/pipes';
@@ -45,5 +45,9 @@ export class AccountDetailsPage {
     
     getCurrency(value) {
         return getCurrency(value, this.config.current.currency);
+    }
+    
+    getFileLink(file) {
+        return FileUrlHelper.getFileLink(file.url,file.name);
     }
 }

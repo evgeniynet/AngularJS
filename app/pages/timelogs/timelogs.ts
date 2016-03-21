@@ -14,18 +14,25 @@ export class TimelogsPage {
     this.nav = nav;
         this.is_empty = false;
         this.dataProvider = dataProvider;
-        let pager = {limit: 5};
+  }
+    
+    onPageLoaded()
+    {
+        let pager = {limit: 50};
 
         this.dataProvider.getTimelogs(pager).subscribe(
             data => {
                 this.timelogs = data;
                 this.is_empty = !data || data.length == 0;
-                    }, 
+            }, 
             error => { 
                 console.log(error || 'Server error');}
         );
-  }
-    itemTapped() {this.nav.push(TimelogPage);}
+    }
+    
+    itemTapped() {
+        //TODO: uncomment this.nav.push(TimelogPage);
+    }
     
      setDate(date) {
       return new Date(date);

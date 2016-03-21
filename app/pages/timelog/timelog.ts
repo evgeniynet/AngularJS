@@ -10,17 +10,20 @@ export class TimelogPage {
     constructor(nav: NavController, dataProvider: DataProvider, config: Config) {
     this.nav = nav;
         this.config = config;
-        this.timelog = null;
         this.dataProvider = dataProvider;
-        let pager = {limit: 5};
+  }
+    
+    onPageLoaded()
+    {
+        let pager = {limit: 50};
 
-        this.dataProvider.getTimelogs(pager).subscribe(
+        /*this.dataProvider.getTimelogs(pager).subscribe(
             data => {this.timelogs = data;
                      console.log(data);}, 
             error => { 
                 console.log(error || 'Server error');}
-        );
-  }
+        );*/
+    }
     
      setDate(date) {
       return new Date(date);
