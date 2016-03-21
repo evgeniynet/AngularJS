@@ -1,6 +1,5 @@
 .timelogs {
     white-space: initial !important;
-    display: block;
     display: -webkit-box;
     width: 100%;
     line-height: 20px !important;
@@ -10,3 +9,7 @@
 .font-time{
 font-size: 14px;
 }
+
+.white-space {
+    white-space: initial !important;
+    }

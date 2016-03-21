@@ -113,6 +113,13 @@ p {
     margin: 0 auto;
  }
 
+.max-width{
+max-width: 450px;}
+
+
+.max-width700{
+max-width: 700px;}
+
 .left{
     float: left;
 }
@@ -244,7 +251,7 @@ background-color: #6AB7EC;
     background-color: $blue1;
 }
 
-.blue2 > * {
+.blue2{
     background-color: $blue2;
 }
 
@@ -252,11 +259,7 @@ background-color: #6AB7EC;
     background-color: $blue3;
 }
   
-.blue4 > * {
-    background-color: $blue4;
-}
-
-.blue41{
+.blue4 {
     background-color: $blue4;
 }
 
@@ -266,6 +269,10 @@ background-color: #6AB7EC;
 
 .grey2{
 color: $grey2 !important;
+}
+
+.background-color{
+   background-color: $background-color;
 }
 
 .imglogo{
@@ -348,7 +355,7 @@ text-align: center;
 }
 
 .button {
-color: #fff;
+    color: $text-color;
 }
 
 .button_circle {
@@ -484,6 +491,10 @@ color: #fff;
 
 .width23{
     width: 23%;
+}
+
+.width20{
+    width: 20%;
 }
 
 .width17{

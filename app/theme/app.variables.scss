@@ -21,37 +21,30 @@
 // are different per mode.
 
 $colors: (
-  primary:    #fff,
-  secondary:  #42bd41,
-    dark:       #489cd6,
-    light:      rgba(131,131,131,0.82),
-    danger:     #25b0e6,
-    favorite:   #09c,
-  /*danger:     #f53d3d,
-  light:      #f4f4f4*/
-  tabs: #34495e
+    secondary:  #42bd41,
+    dark:       #489cd6
   );
 
 $red: #a94442;
 $red2: #e74c3c;
 $grey: rgba(224, 224, 224, 0.29);
 $grey2: #dadada;
-$blue1: map-get($colors, danger);
-$blue2: map-get($colors, favorite);
+$blue1: #25b0e6;
+$blue2: #09c;
 $blue3: rgba(0,0,0,0.4);
 $blue4: map-get($colors, dark);
 $blue5: rgba(46, 134, 194, 0.74);
 $blue6: #2E86C2;
 $yellow: #f1c40f;
 $black1: #000;
-$background-color: map-get($colors, tabs);
+$background-color: #34495e;
 $toolbar-background: $blue1;
-$text-color: map-get($colors, primary);
+$text-color: #fff;
 $toolbar-border-color: $blue1;
-$toolbar-text-color: map-get($colors, primary);
-$toolbar-inactive-color: #000;
+$toolbar-text-color: $text-color;
+$toolbar-inactive-color: $black1;
 $sherpa_bg: #161E27; 
-$headings-line-height: map-get($colors, tabs);
+$headings-line-height: $background-color;
 $font-size: 2rem;
 $card-ios-header-color: $text-color;
 $card-ios-background-color: $blue3;
@@ -66,8 +59,8 @@ $checkbox-ios-icon-border-radius: 0px;
 $label-ios-text-color: $text-color;
 $segment-button-ios-border-radius: 0px;
 $item-ios-avatar-size: 5rem;
-$searchbar-ios-input-search-icon-color: map-get($colors, primary);
-$searchbar-ios-input-placeholder-color: map-get($colors, primary);
+$searchbar-ios-input-search-icon-color: $text-color;
+$searchbar-ios-input-placeholder-color: $text-color;
 $menu-width: 270px;
 
 /*$background-color: #fff;
