@@ -26,7 +26,7 @@ export class AccountsListComponent {
          if (!this.simple)
              return;
          if ("accounts" in event ) {
-             if (event.accounts.isFirstChange())
+             if (event.accounts.isFirstChange() && event.accounts.currentValue !== null)
                  return;
              this.is_empty = !event.accounts.currentValue || event.accounts.currentValue.length == 0;
          }

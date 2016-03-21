@@ -12,17 +12,18 @@ export class QueueTicketsPage {
     this.nav = nav;
     this.navParams = navParams;
         this.queue = this.navParams.data;
-        
+  }
+    
+    onPageLoaded()
+    {
         if (this.queue.tickets_count){
-        dataProvider.getTicketsList("queue", this.queue.id).subscribe(
-            data => {this.tickets = data}, 
-            error => { 
-                console.log(error || 'Server error');}
-        ); 
+            dataProvider.getTicketsList("queue", this.queue.id).subscribe(
+                data => {this.tickets = data}, 
+                error => { 
+                    console.log(error || 'Server error');}
+            ); 
         }
         else
-            setTimeout(() => {
-                this.tickets = [];
-            }, 0);
-  }
+            this.tickets = null;
+    }
 }

@@ -12,7 +12,10 @@ export class TicketsPage {
         this.config = config;
         this.ticket_tab = "user";
         this.dataProvider = dataProvider;
-
+    }
+    
+    onPageLoaded()
+    {
         dataProvider.getTicketsList().subscribe(
             data => {this.tickets = data}, 
             error => { 

@@ -20,7 +20,10 @@ export class AccountDetailsPage {
         this.account = this.navParams.data || {};
         
         this.dataProvider = dataProvider;
-        
+  }
+    
+    onPageLoaded()
+    {
         if (this.account.account_statistics.ticket_counts.open){
             this.dataProvider.getTicketsList("open", this.account.id).subscribe(
                 data => {this.tickets = data}, 
@@ -29,18 +32,16 @@ export class AccountDetailsPage {
             );
         }
         else
-            setTimeout(() => {
-                this.tickets = [];
-            }, 0);
-        
+            this.tickets = null;
+
         this.dataProvider.getAccountDetails(this.account.id).subscribe(
             data => {
                 this.account = data;
-                    }, 
+            }, 
             error => { 
                 console.log(error || 'Server error');}
         ); 
-  }
+    }
     
     getCurrency(value) {
         return getCurrency(value, this.config.current.currency);

@@ -24,7 +24,7 @@ export class QueuesListComponent {
              return;
          if ("queues" in event ) {
              //TODO: add loading event
-             if (event.queues.isFirstChange())
+             if (event.queues.isFirstChange() && event.queues.currentValue !== null)
                  return;
              this.is_empty = !event.queues.currentValue || event.queues.currentValue.length == 0;
          }

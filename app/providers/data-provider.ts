@@ -112,7 +112,10 @@ getQueueList(limit) {
     let url = "queues".addp("sort_by","tickets_count");
     return this.apiData.get(url).map((arr: Array<any>) => {
         if (arr && limit)
-            arr.length = limit; 
+            {
+                arr = arr.filter(function(val) {
+                    return val.tickets_count > 0}).slice(0, limit); 
+            }
         return arr;
     });
 }
@@ -148,16 +151,11 @@ getAccountList(is_dashboard, pager, is_no_stat, is_open) {
         url = url.addp("is_open_tickets", "true");
     url = this.getPager(url, pager);
     return this.apiData.get(url).map((arr: Array<any>) => {
-        let result = [];
         if (is_dashboard && arr) {
-            arr.forEach((account) => {
-                if (account.account_statistics.ticket_counts.open > 0)
-                result.push(account);
-            });
+            arr = arr.filter(function(val) {
+                return val.account_statistics.ticket_counts.open > 0});
         }
-        else
-            return arr;
-        return result;
+        return arr;
     });
 }   
     
