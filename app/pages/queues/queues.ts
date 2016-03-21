@@ -10,11 +10,12 @@ import {QueuesListComponent, ActionButtonComponent} from '../../components/compo
 export class QueuesPage {
     constructor(nav: NavController, dataProvider: DataProvider) {
     this.nav = nav;
+        this.dataProvider = dataProvider;
   }
     
     onPageLoaded()
     {
-        dataProvider.getQueueList().subscribe(
+        this.dataProvider.getQueueList().subscribe(
             data => {this.queues = data
                     }, 
             error => { 

@@ -10,21 +10,18 @@ export class TicketsPage {
     constructor(nav: NavController, dataProvider: DataProvider, config: Config) {
         this.nav = nav;
         this.config = config;
-        this.ticket_tab = "user";
         this.dataProvider = dataProvider;
     }
     
     onPageLoaded()
     {
-        dataProvider.getTicketsList().subscribe(
-            data => {this.tickets = data}, 
-            error => { 
-                console.log(error || 'Server error');}
-        ); 
+        this.ticket_tab = "user";
+        this.onSegmentChanged({value: this.ticket_tab});
     }
 
     onSegmentChanged($event) {
-        let tab = $event.value; this.dataProvider.getTicketsList(tab).subscribe(
+        let tab = $event.value; 
+        this.dataProvider.getTicketsList(tab).subscribe(
             data => {this.tickets = data}, 
             error => { 
                 console.log(error || 'Server error');}

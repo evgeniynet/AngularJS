@@ -12,12 +12,13 @@ export class QueueTicketsPage {
     this.nav = nav;
     this.navParams = navParams;
         this.queue = this.navParams.data;
+        this.dataProvider = dataProvider;
   }
     
     onPageLoaded()
     {
         if (this.queue.tickets_count){
-            dataProvider.getTicketsList("queue", this.queue.id).subscribe(
+            this.dataProvider.getTicketsList("queue", this.queue.id).subscribe(
                 data => {this.tickets = data}, 
                 error => { 
                     console.log(error || 'Server error');}
