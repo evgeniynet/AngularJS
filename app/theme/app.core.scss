@@ -187,6 +187,10 @@ margin-left: 15px;
 background-color:$blue3;
 }
 
+.class-margin{
+    margin-bottom: 6px !important;
+}
+
 .admin{
 -webkit-box-orient: vertical;
     overflow: hidden;
@@ -392,7 +396,7 @@ text-align: center;
 
 
 .button-icon-only ion-icon {
-    padding: 0 0.25em;
+    padding: 0 0em;
 }
 
 .searchbar-input {
