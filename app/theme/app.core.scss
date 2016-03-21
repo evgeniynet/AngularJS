@@ -267,13 +267,24 @@ background-color: #6AB7EC;
     background-color: $grey;
 }
 
-.grey2{
+.grey2 {
 color: $grey2 !important;
 }
+
+.grey3 {
+background-color: $grey3 !important;
+}
+
+
 
 .background-color{
    background-color: $background-color;
 }
+
+.transparent{
+    background-color: transparent;
+}
+
 
 .imglogo{
     display: block;
@@ -345,6 +356,10 @@ text-align: center;
 
 .overflow{
        overflow: visible !important;
+}
+
+.space-initial{
+    white-space: initial !important;
 }
 
 //button
@@ -467,6 +482,10 @@ text-align: center;
 
 .width35{
     width: 35%;
+}
+
+.width38{
+    width: 38%;
 }
 
 .width32{

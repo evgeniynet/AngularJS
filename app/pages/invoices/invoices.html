@@ -9,8 +9,8 @@
     
     <ion-list padding  (click)="itemTapped()">
     <ion-item class="margin" *ngFor="#invoice of invoices">
-    <p class="width17 tkts-table left">{{setDate(invoice.date) | date: "yMMMdd"}}</p> 
-    <p class="text width80">{{invoice.account_name}}</p>
+    <p class="width38 tkts-table left">{{setDate(invoice.date) | date: "yMMMdd"}}</p> 
+    <h2 class="width80 tkts-table">{{invoice.account_name}}</h2>
     <p item-right class="text">{{invoice.total_cost}}</p>
         </ion-item>
         </ion-list>

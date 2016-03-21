@@ -6,7 +6,7 @@
         </ion-avatar>
         <p padding class="tech width50 left grey2 name text-avatar">{{getFullName(post.user_firstname, post.user_lastname, post.user_email)}}</p> 
         <p class="text_list grey2 date  width30 text-right">{{setDate(post.record_date) | date: "yMMMdd"}}</p> 
-        <p class="text margin left" [innerHTML]="post.note | Linebreaks| Files : attachments"></p>
+        <p class="text margin left width90" [innerHTML]="post.note | Linebreaks| Files : attachments"></p>
         <ion-item class="margin"><p item-right class="text_list grey2">{{post.log_type}}</p></ion-item>
     </ion-card-content>
 </div>
