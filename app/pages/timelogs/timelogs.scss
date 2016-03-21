@@ -1,6 +1,6 @@
 .timelogs {
     white-space: initial !important;
-    display: -webkit-box;
+//    display: -webkit-box;
     width: 100%;
     line-height: 20px !important;
     color: $text-color;
@@ -8,6 +8,10 @@
 
 .font-time{
 font-size: 14px;
+}
+
+.font-date{
+font-size: 1.2rem !important;
 }
 
 .white-space {
