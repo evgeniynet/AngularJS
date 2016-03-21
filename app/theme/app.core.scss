@@ -397,6 +397,8 @@ text-align: center;
 
 .searchbar-input {
     color: $text-color;
+    padding-left: 0px;
+    display: flex;
    }
 
 .searchbar-clear-icon {
