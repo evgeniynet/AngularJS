@@ -96,7 +96,10 @@ handleError(error) {
     {
         logout(settings.url !== ApiSite + "login", request.statusText);
     }*/
-    if (~(error.status || error).toString().indexOf("403"))
+    if (
+        ~(error.status || error).toString().indexOf("403")          ||
+       (error.status == 404 && (error._body || {}).toString().indexOf("User with token"))
+    )
         {
             this.events.publish("login:failed", null);
         }

@@ -12,13 +12,17 @@ export class LoginPage {
     this.nav = nav;
                 this.config = config;
         
-        //logout
-        this.login = {username: localStorage.username };
-        localStorage.clear();
-        config.current = {stat:{}};
         this.alert = this.config.alert;
         this.dataProvider = dataProvider;
   }
+    
+    onPageLoaded()
+    { 
+        //logout
+        this.login = {username: localStorage.username };
+        localStorage.clear();
+        this.config.current = {stat:{}};
+    }
 
     onLogin(form) {
         if (form.valid) { this.dataProvider.checkLogin(form.value.email,form.value.password).subscribe(

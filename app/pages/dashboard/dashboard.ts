@@ -17,14 +17,11 @@ export class DashboardPage {
     this.config = config;
     this.dataProvider = dataProvider;
     this.queues = null;
-    this.counts = {open_as_tech: 0};
-        
+    this.counts = {open_as_tech: 0};   
   }
     
     onPageLoaded()
-    {   
-        //this.config.current.org = "hgjh";
-        
+    {           
         this.accounts = helpers.loadCache("dashaccounts");
 
         let statistics = this.config.current.stat;
