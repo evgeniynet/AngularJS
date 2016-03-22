@@ -15,13 +15,12 @@ export class DashboardPage {
     constructor(nav: NavController, config: Config, dataProvider: DataProvider) {
     this.nav = nav;
     this.config = config;
-    this.dataProvider = dataProvider;
-    this.queues = null;
-    this.counts = {open_as_tech: 0};   
+    this.dataProvider = dataProvider;  
   }
     
     onPageLoaded()
     {           
+        this.counts = {open_as_tech: 0}; 
         this.accounts = helpers.loadCache("dashaccounts");
 
         let statistics = this.config.current.stat;
@@ -61,8 +60,8 @@ export class DashboardPage {
         ); 
     }
     
-    itemTappedTL() {  this.nav.push(TicketsPage);}
+    itemTappedTL(tab) {  this.nav.setRoot(TicketsPage, tab);}
     
-    itemTappedAD() {this.nav.push(AccountDetailsPage);}
+    itemTappedAD() {this.nav.setRoot(AccountDetailsPage);}
 
 }

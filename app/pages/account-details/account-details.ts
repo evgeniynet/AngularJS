@@ -15,15 +15,16 @@ export class AccountDetailsPage {
     this.nav = nav;
         this.config = config;
         this.details_tab = "Stat";
-        this.navParams = navParams;
-        // If we navigated to this page, we will have an item available as a nav param
-        this.account = this.navParams.data || {};
-        
+        this.navParams = navParams;        
         this.dataProvider = dataProvider;
   }
     
     onPageLoaded()
     {
+                // If we navigated to this page, we will have an item available as a nav param
+        this.account = this.navParams.data || {};
+        this.details_tab = "Stat";
+        
         if (this.account.account_statistics.ticket_counts.open){
             this.dataProvider.getTicketsList("open", this.account.id).subscribe(
                 data => {this.tickets = data}, 

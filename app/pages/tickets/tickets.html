@@ -11,7 +11,8 @@
 <ion-segment-button value="all">All Open</ion-segment-button>
   </ion-segment>
 </div>    
-    
+     <img *ngIf="busy" class="imglogo img-padding" src="img/loading2.gif">
+
     <tickets-list [tickets]="tickets"></tickets-list>
 
 </ion-content>

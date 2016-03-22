@@ -8,20 +8,20 @@
 <ion-content class="dashboard">
     
     
-    <ion-list class="list height" no-lines margin-top  (click)="itemTappedTL()">
-        <div class="width50 left blue3">
+    <ion-list class="list height" no-lines margin-top>
+        <div (click)="itemTappedTL({tab:'tech', count: counts.open_as_tech})" class="width50 left blue3">
             <ion-item class="mainStat itemTech">{{counts.open_as_tech}}</ion-item>
      <ion-item class="itemTech">As Tech</ion-item>
           </div>
         <div class="width17 right blue3">
-            <ion-item class="itemTech" [innerHTML]="counts.open_as_user | More:[100,'<div class=item-inner><ion-label>VV</ion-label></div>']"></ion-item>
-            <ion-item class="itemTech" [innerHTML]="counts.open_as_alttech | More:[100,'<div class=item-inner><ion-label>VV</ion-label></div>']"></ion-item>
-            <ion-item class="itemTech" [innerHTML]="counts.open_all | More:[100,'<div class=item-inner><ion-label>VV</ion-label></div>']"></ion-item>
+            <ion-item (click)="itemTappedTL({tab:'user', count: counts.open_as_user})" class="itemTech" [innerHTML]="counts.open_as_user | More:[100,'<div class=item-inner><ion-label>VV</ion-label></div>']"></ion-item>
+            <ion-item (click)="itemTappedTL({tab:'alt', count: counts.open_as_alttech})" class="itemTech" [innerHTML]="counts.open_as_alttech | More:[100,'<div class=item-inner><ion-label>VV</ion-label></div>']"></ion-item>
+            <ion-item (click)="itemTappedTL({tab:'all', count: counts.open_all})" class="itemTech" [innerHTML]="counts.open_all | More:[100,'<div class=item-inner><ion-label>VV</ion-label></div>']"></ion-item>
          </div>
  <div class="width32 right blue3">
-    <ion-item class="itemTech dashboardRight">As User</ion-item>
-    <ion-item class="itemTech dashboardRight">Alt Tech</ion-item>
-    <ion-item class="itemTech dashboardRight dashboard">All Open</ion-item>
+    <ion-item (click)="itemTappedTL({tab:'user', count: counts.open_as_user})" class="itemTech dashboardRight">As User</ion-item>
+    <ion-item (click)="itemTappedTL({tab:'alt', count: counts.open_as_alttech})" class="itemTech dashboardRight">Alt Tech</ion-item>
+    <ion-item (click)="itemTappedTL({tab:'all', count: counts.open_all})" class="itemTech dashboardRight dashboard">All Open</ion-item>
          </div>
         <br>
          </ion-list>
