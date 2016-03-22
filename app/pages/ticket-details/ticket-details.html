@@ -6,10 +6,10 @@
 
 <ion-content>
     <div class="subject">
-   <ion-item class="itemTech blue3 padding subject-ticket text-left width59 left" no-lines>
+   <ion-item class="itemTech blue3 padding subject-ticket text-left width50 left" no-lines>
        <span class="subject-padding ticket-details">{{ticket.subject}}</span>
            </ion-item>
-        <ion-item class="left blue3 width35" no-lines>
+        <ion-item class="left blue3 width45" no-lines>
         <p class="text-right grey2">{{ticket.class_name}}</p>
         <p *ngIf="'true'" class="text-right">{{ticket.location_name}}</p>
         <p class="text-right grey2">{{getFullName(ticket.technician_firstname || ticket.tech_firstname, ticket.technician_lastname || ticket.tech_lastname,  ticket.technician_email || ticket.tech_email)}}</p>
