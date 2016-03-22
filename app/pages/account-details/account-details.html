@@ -36,64 +36,64 @@
         </div>
 
         <ion-list class="list img-top" no-lines *ngSwitchWhen="'Info'">
-        <ion-item class="margin"><h2 class="left width35 text-left">BWD Acct#</h2>
-     <h2 class="right width50 tkts-table">{{account.bwd_number}}</h2>
+        <ion-item class="margin"><h3 class="left width35 text-left">BWD Acct#</h3>
+     <h3 class="right width50 tkts-table">{{account.bwd_number}}</h3>
         </ion-item>
-        <ion-item>
-     <h2 class="left width35 text-left">Acc#</h2>
-     <h2 class="right width50 tkts-table">{{account.number}}</h2>
+        <ion-item class="margin">
+     <h3 class="left width35 text-left">Acc#</h3>
+     <h3 class="right width50 tkts-table">{{account.number}}</h3>
         </ion-item>
-        <ion-item>
- <h2 class="left width35 text-left">Ref1#</h2>
- <h2 class="right width50 tkts-table">{{account.ref1}}</h2>
+        <ion-item class="margin">
+ <h3 class="left width35 text-left">Ref1#</h3>
+ <h3 class="right width50 tkts-table">{{account.ref1}}</h3>
         </ion-item>
-            <ion-item>
- <h2 class="left width35 text-left">Ref2#</h2>
- <h2 class="right width50 tkts-table">{{account.ref2}}</h2>
+            <ion-item class="margin">
+ <h3 class="left width35 text-left">Ref2#</h3>
+ <h3 class="right width50 tkts-table">{{account.ref2}}</h3>
                 </ion-item>
-                <ion-item>
- <h2 class="left width35 text-left">Org/Indiv</h2>
- <h2 class="right width50 tkts-table">{{account.is_organization ? "Organization" : "Individual"}}</h2>
+                <ion-item class="margin">
+ <h3 class="left width35 text-left">Org/Indiv</h3>
+ <h3 class="right width50 tkts-table">{{account.is_organization ? "Organization" : "Individual"}}</h3>
                     </ion-item>
-                    <ion-item>
- <h2 class="left width35 text-left">Acc Rep</h2>
- <h2 class="right width50 tkts-table">{{account.representative_name}}</h2>
+                    <ion-item class="margin">
+ <h3 class="left width35 text-left">Acc Rep</h3>
+ <h3 class="right width50 tkts-table">{{account.representative_name}}</h3>
           </ion-item>
-          <ion-item>
- <h2 class="left width35 text-left">Internal location</h2>
- <h2 class="right width50 tkts-table">{{account.internal_location_name}}</h2>
+          <ion-item class="margin">
+ <h3 class="left width35 text-left space-initial">Internal location</h3>
+ <h3 class="right width50 tkts-table">{{account.internal_location_name}}</h3>
           </ion-item>
-          <ion-item>
- <h2 class="left width35 text-left">Email Suffix</h2>
- <h2 class="right width50 tkts-table">{{account.email_suffix}}</h2>
+          <ion-item class="margin">
+ <h3 class="left width35 text-left">Email Suffix</h3>
+ <h3 class="right width50 tkts-table">{{account.email_suffix}}</h3>
          </ion-item>
-         <ion-item>
- <h2 class="left width35 text-left">Address 1</h2>
- <h2 class="right width50 tkts-table">{{account.address1}}</h2>
+         <ion-item class="margin">
+ <h3 class="left width35 text-left">Address 1</h3>
+ <h3 class="right width50 tkts-table">{{account.address1}}</h3>
          </ion-item>
-        <ion-item>
- <h2 class="left width35 text-left">Address 2</h2>
- <h2 class="right width50 tkts-table">{{account.address2}}</h2>
+        <ion-item class="margin">
+ <h3 class="left width35 text-left">Address 2</h3>
+ <h3 class="right width50 tkts-table">{{account.address2}}</h3>
        </ion-item>
-      <ion-item>
- <h2 class="left width35 text-left">City</h2>
- <h2 class="right width50 tkts-table">{{account.city}}</h2>
+      <ion-item class="margin">
+ <h3 class="left width35 text-left">City</h3>
+ <h3 class="right width50 tkts-table">{{account.city}}</h3>
           </ion-item>
-       <ion-item>
- <h2 class="left width35 text-left">Postal Code</h2>
- <h2 class="right width50 tkts-table">{{account.zipcode}}</h2>
+       <ion-item class="margin">
+ <h3 class="left width35 text-left">Postal Code</h3>
+ <h3 class="right width50 tkts-table">{{account.zipcode}}</h3>
           </ion-item>
-    <ion-item>
- <h2 class="left width35 text-left">Country</h2>
- <h2 class="right width50 tkts-table">{{account.country}}</h2>
+    <ion-item class="margin">
+ <h3 class="left width35 text-left">Country</h3>
+ <h3 class="right width50 tkts-table">{{account.country}}</h3>
         </ion-item>
-           <ion-item>
- <h2 class="left width35 text-left">Phone 1</h2>
- <h2 class="right width50 tkts-table">{{account.phone1}}</h2>
+           <ion-item class="margin">
+ <h3 class="left width35 text-left">Phone 1</h3>
+ <h3 class="right width50 tkts-table">{{account.phone1}}</h3>
                </ion-item>
-               <ion-item>
- <h2 class="left width35 text-left">Phone 2</h2>
- <h2 class="right width50 tkts-table">{{account.phone2}}</h2>
+               <ion-item class="margin">
+ <h3 class="left width35 text-left">Phone 2</h3>
+ <h3 class="right width50 tkts-table">{{account.phone2}}</h3>
                </ion-item>
         </ion-list> 
         
@@ -103,10 +103,10 @@
             
             <ion-item *ngIf="account.projects?.length" no-lines class="margin">
     <p class="text width32 text-left left"></p>
-    <h2 class="width17 left table table_account">Open</h2>
-            <h2 class="width17 left table table_account">Logged</h2>
-    <h2 class="width17 left table table_account">Remain</h2>  
-    <h2 class="width17 right table table_account">Complete</h2>
+    <h3 class="width17 left table table_account">Open</h3>
+            <h3 class="width17 left table table_account">Logged</h3>
+    <h3 class="width17 left table table_account">Remain</h3>  
+    <h3 class="width17 right table table_account">Complete</h3>
         </ion-item>
         
            
@@ -132,8 +132,8 @@
                 
                  <div [hidden]="account.files?.length" class="table grey2 menu-text">No Files yet</div>
     <ion-item *ngFor="#file of account.files">
-        <div class="left width70" [innerHTML]="getFileLink(file)" ></div>
-    <h2 class="right width30 text-left">{{file.name}}</h2>
+        <div class="left width59" [innerHTML]="getFileLink(file)"></div>
+    <h3 class="right width38 text-left space-initial">{{file.name}}</h3>
         </ion-item>
 
             </ion-list>
