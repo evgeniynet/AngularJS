@@ -14,15 +14,15 @@
 </div>  
     <div [ngSwitch]="details_tab">
         <div *ngSwitchWhen="'Stat'">
-            <ion-list padding class="list" no-lines style="height: 150px;">
-        <div class="blue1 left width70 general-alignment2">
+            <ion-list class="list img-top" no-lines style="height: 150px;">
+        <div class="blue1 left width65 general-alignment2">
   <ion-item class="textLogin">Open Tickets</ion-item>
   <ion-item class="textLogin">Invoices</ion-item>
   <ion-item class="textLogin">Expenses</ion-item>
   <ion-item class="textLogin">Hours</ion-item>
     <br>
         </div>
-        <div class="right width30 general-alignment2 space">
+        <div class="right width35 general-alignment2 space">
             <ion-item class="blue2">{{account.account_statistics.ticket_counts.open || 0}}</ion-item>
             <ion-item class="blue2">{{account.account_statistics.invoices || 0}}</ion-item>
             <ion-item class="blue2">{{getCurrency(account.account_statistics.expenses)}}</ion-item>
@@ -30,7 +30,7 @@
         </div>
 </ion-list>
     <br>
-<ion-item class="item-button list">OPEN TICKETS</ion-item>
+<ion-item class="item-button list padding">OPEN TICKETS</ion-item>
             <br>
             <tickets-list [tickets]="tickets"></tickets-list>
             <action-button></action-button>
