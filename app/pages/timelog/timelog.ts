@@ -15,9 +15,7 @@ export class TimelogPage {
     
     onPageLoaded()
     {
-        let pager = {limit: 50};
-
-        /*this.dataProvider.getTimelogs(pager).subscribe(
+        /*this.dataProvider.getTimelogs().subscribe(
             data => {this.timelogs = data;
                      console.log(data);}, 
             error => { 

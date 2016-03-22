@@ -20,7 +20,7 @@ export class InvoicesPage {
     
     onPageLoaded()
     {
-        let pager = {limit: 50};
+        let pager = {limit: 25};
 
         this.dataProvider.getInvoices(null, pager).subscribe(
             data => {this.invoices = data;

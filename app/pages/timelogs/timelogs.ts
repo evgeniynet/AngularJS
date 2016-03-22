@@ -18,7 +18,7 @@ export class TimelogsPage {
     
     onPageLoaded()
     {
-        let pager = {limit: 50};
+        let pager = {limit: 25};
 
         this.dataProvider.getTimelogs(pager).subscribe(
             data => {
