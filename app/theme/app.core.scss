@@ -141,7 +141,7 @@ max-width: 700px;}
 }
 
 .height{
-height: 180px;
+height: 138px;
 }
 
 .indent-bottom{
@@ -185,6 +185,10 @@ margin-left: 15px;
 
 .subject{
 background-color:$blue3;
+}
+
+.class-margin{
+    margin-bottom: 6px !important;
 }
 
 .admin{
@@ -463,12 +467,16 @@ text-align: center;
     width: 70%;
 }
 
-.width65{
-    width: 65%;
-}
-
 .width75{
     width: 75%;
+}
+
+.width59{
+    width: 59%;
+}
+
+.width65{
+    width: 65%;
 }
 
 .width51{
@@ -479,8 +487,8 @@ text-align: center;
     width: 50%;
 }
 
-.width59{
-    width: 59%;
+.width45{
+    width: 45%;
 }
 
 .width35{

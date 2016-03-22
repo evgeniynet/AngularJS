@@ -6,10 +6,10 @@
 
 <ion-content>
     <div class="subject">
-   <ion-item class="itemTech blue3 padding subject-ticket text-left width59 left" no-lines>
+   <ion-item class="itemTech blue3 padding subject-ticket text-left width50 left" no-lines>
        <span class="subject-padding ticket-details">{{ticket.subject}}</span>
            </ion-item>
-        <ion-item class="left blue3 width35" no-lines>
+        <ion-item class="left blue3 width45" no-lines>
         <p class="text-right grey2">{{ticket.class_name}}</p>
         <p *ngIf="'true'" class="text-right">{{ticket.location_name}}</p>
         <p class="text-right grey2">{{getFullName(ticket.technician_firstname || ticket.tech_firstname, ticket.technician_lastname || ticket.tech_lastname,  ticket.technician_email || ticket.tech_email)}}</p>
@@ -59,10 +59,10 @@
       <button secondary block="" type="submit" class=" img-top disable-hover button button-default button-block">Update</button>
     </div>
     <div *ngSwitchWhen="'Options'" class="list general-alignment max-width700">
-      <button secondary block="" type="submit" class="disable-hover button button-default button-block">Add Time</button>
-      <button secondary block="" type="submit" class="disable-hover button button-default button-block general-alignment2">Add Expense</button>
-  <button block class="general-alignment2 blue2">Transfer Ticket</button>
-            <button block class="general-alignment2 blue2">Close Ticket</button>
+      <button secondary block="" type="submit" class="disable-hover button button-default button-block class-margin">Add Time</button>
+      <button secondary block="" type="submit" class="disable-hover button button-default button-block general-alignment2 class-margin">Add Expense</button>
+  <button block class="general-alignment2 blue2 class-margin">Transfer Ticket</button>
+            <button block class="general-alignment2 blue2 class-margin">Close Ticket</button>
                 <br>
                 
         <select-list [list]="resolution" (onChanged)='saveSelect($event)'></select-list>

@@ -2,17 +2,17 @@
 <ion-navbar *navbar><button menuToggle><ion-icon name="menu"></ion-icon></button>
     <ion-title>TicketCreate</ion-title>
 </ion-navbar>
-<ion-content padding class="ticket-create">
-    <div class="list max-width700">
+<ion-content padding>
+    <div class="list max-width700 img-top">
         
-            <select-list class="left width90" [list]="selects.user" (onChanged)='saveSelect($event)'></select-list>
-            <div class="width10"><button (click)="addUser('user')" item-right secondary fab class="buttonTicket"><ion-icon class="button_circle2" name="md-add"></ion-icon></button>    </div>
+            <select-list class="left button-calc" [list]="selects.user" (onChanged)='saveSelect($event)'></select-list>
+            <div class="width10"><button (click)="addUser('user')" secondary fab class="buttonTicket button-ticket"><ion-icon class="button_circle2" name="md-add"></ion-icon></button>    </div>
         
             <select-list [list]="selects.account" (onChanged)='saveSelect($event)'></select-list>
             
             <select-list  [list]="selects.location" (onChanged)='saveSelect($event)'></select-list>
        
-            <select-list class="width90 left" [list]="selects.tech" (onChanged)='saveSelect($event)'></select-list><div width-10><button (click)="addUser('tech')" item-right secondary fab class="buttonTicket"><ion-icon class="button_circle2" name="md-add"></ion-icon></button></div>
+            <select-list class=" left button-calc" [list]="selects.tech" (onChanged)='saveSelect($event)'></select-list><div width-10><button (click)="addUser('tech')" secondary fab class="buttonTicket button-ticket"><ion-icon class="button_circle2" name="md-add"></ion-icon></button></div>
         
             
             <select-list [list]="selects.project" (onChanged)='saveSelect($event)'></select-list>

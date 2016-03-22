@@ -25,9 +25,9 @@
          </div>
         <br>
          </ion-list>
-    
+    <ion-list class="list">
     <queues-list [queues]="queues"></queues-list>
-    
+    </ion-list>
     <div *ngIf="accounts">
     <ion-item no-lines>
          <ion-label class="margin">
@@ -46,9 +46,9 @@
              </ion-label>
 </ion-item>
     </div>
-    
+    <ion-list class="list">
     <accounts-list [accounts]="accounts"></accounts-list>
-  
+    </ion-list>
 </ion-content>
 
 <action-button></action-button>
