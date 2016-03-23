@@ -4,20 +4,20 @@
 </ion-navbar>
 <ion-content padding>
     <div class="list max-width700 img-top">
-        
-            <select-list class="left button-calc" [list]="selects.user" (onChanged)='saveSelect($event)'></select-list>
-            <div class="width10"><button (click)="addUser('user')" secondary fab class="buttonTicket button-ticket"><ion-icon class="button_circle2" name="md-add"></ion-icon></button>    </div>
-        
-            <select-list [list]="selects.account" (onChanged)='saveSelect($event)'></select-list>
-            
-            <select-list  [list]="selects.location" (onChanged)='saveSelect($event)'></select-list>
-       
-            <select-list class=" left button-calc" [list]="selects.tech" (onChanged)='saveSelect($event)'></select-list><div width-10><button (click)="addUser('tech')" secondary fab class="buttonTicket button-ticket"><ion-icon class="button_circle2" name="md-add"></ion-icon></button></div>
-        
-            
-            <select-list [list]="selects.project" (onChanged)='saveSelect($event)'></select-list>
-            <class-list [list]="selects.class" (onChanged)='saveSelect($event)'></class-list>
-        
+
+        <select-list class="left button-calc" [list]="selects.user" (onChanged)='saveSelect($event)' [preload]="true"></select-list>
+        <div class="width10"><button (click)="addUser('user')" secondary fab class="buttonTicket button-ticket"><ion-icon class="button_circle2" name="md-add"></ion-icon></button>    </div>
+
+        <select-list [list]="selects.account" [preload]="true" (onChanged)='saveSelect($event)'></select-list>
+
+        <select-list  [list]="selects.location" [preload]="true" (onChanged)='saveSelect($event)'></select-list>
+
+        <select-list class=" left button-calc" [list]="selects.tech" [preload]="true" (onChanged)='saveSelect($event)'></select-list><div width-10><button (click)="addUser('tech')" secondary fab class="buttonTicket button-ticket"><ion-icon class="button_circle2" name="md-add"></ion-icon></button></div>
+
+
+        <select-list [list]="selects.project" [preload]="true" (onChanged)='saveSelect($event)'></select-list>
+        <class-list [preload]="true" [list]="selects.class" (onChanged)='saveSelect($event)'></class-list>
+
     </div>
     <br>
     <form #addForm="ngForm">

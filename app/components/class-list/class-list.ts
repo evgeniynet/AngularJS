@@ -1,7 +1,6 @@
 import {IONIC_DIRECTIVES, NavController, Modal, Alert, Config} from 'ionic-framework/ionic';
 import {ApiData} from '../../providers/api-data';
-import {Component, Input, Output, EventEmitter} from 'angular2/core';
-//import {TicketDetailsPage} from '../../pages/ticket-details/ticket-details';
+import {Component, Input, Output, EventEmitter, OnInit} from 'angular2/core';
 import {TreeModal} from '../../pages/modals/modals';
 import 'rxjs/add/operator/share';
 
@@ -14,6 +13,7 @@ const alertLimit = 10;
 })
 export class ClassListComponent {
     @Input() list: Array;
+    @Input() preload: boolean;
      @Output() onChanged: EventEmitter<any> = new EventEmitter();
 
      constructor(nav: NavController, apiData: ApiData, config: Config) {
@@ -24,6 +24,16 @@ export class ClassListComponent {
          this.list = {};
          this.selected = {};
      }  
+     
+     ngOnInit() {
+         if (this.list.url)
+         {
+             if (this.preload)
+             {
+                 this.open();
+             }
+         }
+     }
 
      open()
      {  
@@ -33,7 +43,11 @@ export class ClassListComponent {
                  this.apiData.get(this.list.url).subscribe(
                      data => {
                          this.list.items = data;
-                         this.proceed_list();
+                         if (!this.preload)
+                         {
+                             this.proceed_list();
+                         }
+                         this.preload = false;
                      }, 
                      error => { 
                          this.error("Cannot get Classes list! Error: " + error);
