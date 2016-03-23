@@ -19,7 +19,11 @@ export class TicketCreatePage {
         this.config = config;
         this.alert = config.alert;
         this.navParams = navParams;
-        this.changes = {};
+        this.dataProvider = dataProvider;
+    }
+    
+    onPageLoaded()
+    {
         let he = this.config.current.user;
 
         let account_id = he.account_id || -1;
@@ -68,8 +72,6 @@ export class TicketCreatePage {
                 hidden: false
             }
         };
-
-        this.dataProvider = dataProvider;
 
         this.ticket =
             {
