@@ -1,6 +1,7 @@
 //in case on using ionic "ion-card"
-import {Page, ActionSheet, IONIC_DIRECTIVES, NavController, NavParams} from 'ionic-framework/ionic';
-import {Component, Input, Output} from 'angular2/core';
+import {Page, ActionSheet, IONIC_DIRECTIVES, NavController, NavParams, Modal, Config} from 'ionic-framework/ionic';
+import {Component, Input, Output, EventEmitter, OnInit, OnDestroy} from 'angular2/core';
+import {TicketCreatePage} from '../../pages/modals/modals';
 
 @Component({
     selector: 'action-button',
@@ -9,13 +10,24 @@ directives: [IONIC_DIRECTIVES],
 })
 
 export class ActionButtonComponent {
-    //@Input() accounts: Array;
-     constructor(nav: NavController) {
+
+    constructor(nav: NavController, config: Config) {
          this.nav = nav;
-    //this.header = "into";
+        this.config = config;
 }
+    
+    openModal() {
+        let myModal = Modal.create(TicketCreatePage, null);
+        myModal.onDismiss(data => {
+            console.log("close create");
+        });
+        this.nav.present(myModal);
+    }
+    
     presentActionSheet() {
-        let actionSheet = ActionSheet.create({
+        this.openModal();
+        return;
+        this.actionSheet = ActionSheet.create({
             title: '',
             buttons: [
                 {
@@ -52,11 +64,11 @@ export class ActionButtonComponent {
                 }
             ]
         });
-        this.nav.present(actionSheet);
+        this.nav.present(this.actionSheet);
     }
 
-    onPageWillLeave() {
-        actionSheet && actionSheet.dismiss();
+    ngOnDestroy() {
+        this.actionSheet && this.actionSheet.dismiss();
     }
      
 }

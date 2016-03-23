@@ -15,7 +15,7 @@ import {AccountDetailsPage} from './pages/account-details/account-details';
 import {TimelogsPage} from './pages/timelogs/timelogs';
 import {TimelogCreatePage} from './pages/timelog-create/timelog-create';
 import {TicketsPage} from './pages/tickets/tickets';
-import {TicketCreatePage} from './pages/ticket-create/ticket-create';
+import {TicketCreatePage} from './pages/modals/ticket-create/ticket-create';
 import {DashboardPage} from './pages/dashboard/dashboard';
 import {OrganizationsPage} from './pages/organizations/organizations';
 import {LoginPage} from './pages/login/login';

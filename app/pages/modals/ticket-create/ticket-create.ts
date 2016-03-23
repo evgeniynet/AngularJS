@@ -1,19 +1,21 @@
-import {Page, Config, NavController, NavParams} from 'ionic-framework/ionic';
+import {Page, Config, NavController, NavParams, Events, ViewController} from 'ionic-framework/ionic';
 import { FORM_DIRECTIVES, Validators} from 'angular2/common';
-import {DataProvider} from '../../providers/data-provider';
-import {htmlEscape, getFullName} from '../../directives/helpers';
-import {SelectListComponent} from '../../components/select-list/select-list';
-import {ClassListComponent} from '../../components/class-list/class-list';
-import {TicketDetailsPage} from '../ticket-details/ticket-details';
-import {AddUserPage} from '../add-user/add-user';
+import {DataProvider} from '../../../providers/data-provider';
+import {htmlEscape, getFullName} from '../../../directives/helpers';
+import {SelectListComponent} from '../../../components/select-list/select-list';
+import {ClassListComponent} from '../../../components/class-list/class-list';
+import {TicketDetailsPage} from '../../ticket-details/ticket-details';
+import {AddUserPage} from '../../add-user/add-user';
 
 @Page({
-    templateUrl: 'build/pages/ticket-create/ticket-create.html',
-    directives: [SelectListComponent, ClassListComponent],
+    templateUrl: 'build/pages/modals/ticket-create/ticket-create.html',
+    directives: [ ClassListComponent],
 })
 export class TicketCreatePage {
-    constructor(nav: NavController, navParams: NavParams, dataProvider: DataProvider, config: Config) {
+    constructor(nav: NavController, navParams: NavParams, dataProvider: DataProvider, config: Config,
+                 viewCtrl: ViewController) {
         this.nav = nav;
+        this.viewCtrl = viewCtrl;
         this.config = config;
         this.alert = config.alert;
         this.navParams = navParams;
@@ -80,6 +82,10 @@ export class TicketCreatePage {
             "tech_id" : 1325
         };
     }
+    
+    dismissPage() {
+        this.viewCtrl.dismiss();
+    }
 
     saveSelect(event){
         let name = event.type;
@@ -113,7 +119,8 @@ export class TicketCreatePage {
                 data => {
                     this.alert.success("", 'Ticket was Succesfully Created :)');
                     setTimeout(() => {
-                        this.nav.push(TicketDetailsPage, data);
+                        this.dismissPage();
+                        //this.nav.push(TicketDetailsPage, data);
                     }, 3000); 
                 }, 
                 error => { 
