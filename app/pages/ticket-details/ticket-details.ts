@@ -1,7 +1,7 @@
 import {Page, Config, NavController, NavParams} from 'ionic-framework/ionic';
 import { FORM_DIRECTIVES, Validators} from 'angular2/common';
 import {DataProvider} from '../../providers/data-provider';
-import {getCurrency, getFullName} from '../../directives/helpers';
+import {getCurrency, getFullName, fullapplink} from '../../directives/helpers';
 import {PostsListComponent} from '../../components/posts-list/posts-list';
 import {SelectListComponent} from '../../components/select-list/select-list';
 import {ClassListComponent} from '../../components/class-list/class-list';
@@ -20,17 +20,63 @@ export class TicketDetailsPage {
         this.navParams = navParams;
         this.dataProvider = dataProvider;
         this.ticket = {};
+    }
 
+    onPageLoaded()
+    {
+        let he = this.config.current.user;
+        this.details_tab = "Reply";
+        let data = (this.navParams || {}).data || {};
+        let account_id = -1;
+        
+        this.selects = {
+            "location" : {
+                name: "Location", 
+                value: data.location_name,
+                selected: data.location_id,
+                url: `locations?account=${account_id}`,
+                hidden: false
+            },
+            "tech" : {
+                name: "Tech", 
+                value: getFullName(data.technician_firstname || data.tech_firstname, data.technician_lastname || data.tech_lastname,  data.technician_email || data.tech_email),
+                selected: data.tech_id,
+                url: "technicians",
+                hidden: false
+            },
+            "project" : {
+                name: "Project", 
+                value: data.project_name,
+                selected: data.project_id,
+                url: `projects?account=${account_id}&is_with_statistics=false`,
+                hidden: false
+            },
+            "level" : {
+                name: "Level", 
+                value: data.level+ " - " +data.level_name,
+                selected: data.level,
+                url: "levels",
+                hidden: false
+            },
+            "priority" : {
+                name: "Project", 
+                value: data.priority + " - " + data.priority_name,
+                selected: data.priority_id,
+                url: "priorities",
+                hidden: false
+            },
+            "class" : {
+                name: "Class", 
+                value: data.class_name,
+                selected: data.class_id,
+                url: "classes",
+                hidden: false
+            }
+        };
+        
         let resolution1 = [
             { name: 'Resolved', id: 0 },
             { name: 'UnResolved', id: 1 },
-        ];
-
-        let resolution_category1 = [
-            { name: 'First Resolution', id: 0 },
-            { name: 'Pre-Development', id: 1 },
-            { name: 'Active Plate', id: 2 },
-            { name: 'Testing', id: 3 },
         ];
 
         this.resolution = {};
@@ -44,60 +90,9 @@ export class TicketDetailsPage {
         this.resolution_category.name = "Category";
         this.resolution_category.value = "Testing";
         this.resolution_category.selected = 3;
-        this.resolution_category.items = resolution_category1;
-    }
-
-    onPageLoaded()
-    {
-        let he = this.config.current.user;
-        this.details_tab = "Reply";
-        let data = (this.navParams || {}).data || {};
-        let account_id = -1;
-        
-        this.selects = {
-            "location" : {
-                name: "Location", 
-                value: "Default",
-                selected: 0,
-                url: `locations?account=${account_id}`,
-                hidden: false
-            },
-            "tech" : {
-                name: "Tech", 
-                value: "Default",
-                selected: 0,
-                url: "technicians",
-                hidden: false
-            },
-            "project" : {
-                name: "Project", 
-                value: "Default",
-                selected: 0,
-                url: `projects?account=${account_id}&is_with_statistics=false`,
-                hidden: false
-            },
-            "level" : {
-                name: "Level", 
-                value: "Default",
-                selected: 0,
-                url: "levels",
-                hidden: false
-            },
-            "priority" : {
-                name: "Project", 
-                value: "Default",
-                selected: 0,
-                url: "priorities",
-                hidden: false
-            },
-            "class" : {
-                name: "Class", 
-                value: "Default",
-                selected: 0,
-                url: "classes",
-                hidden: false
-            }
-        };
+        this.resolution_category.items =
+            resolution1;
+        //returnData.resolution_categories;
 
         /*this.ticket =
             {
@@ -183,6 +178,10 @@ export class TicketDetailsPage {
         //this.tclass = newValue;
     }
 
+    getFullapplink(ticketkey) {
+        return fullapplink("site", ticketkey, "inst","org");
+    }
+    
     getFullName (firstname,lastname,email,name) {
         return getFullName (firstname,lastname,email,name);
     }

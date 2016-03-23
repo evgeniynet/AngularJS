@@ -34,8 +34,23 @@ export function getInfo4Extension()
         window.top.postMessage(loginStr,"*");
     }
 }
+    
+    String.prototype.addp = function(param, value) {
+        if (!value || !param)
+            return this;
+        var pos = this.indexOf(param + '=');
+        //if parameter exists
+        if (pos != -1)
+            return this.slice(0, pos + param.length) + '=' + value;
+        var ch = this.indexOf('?') > 0 ? '&' : '?';
+        return this + ch + param + '=' + value;
+    };
 
-export function fullapplink (classn, urlString){
+    export function fullapplink (site, ticketkey, inst,org){
+        return site.addp("tkt",ticketkey)
+        .addp("dept",inst)
+        .addp("org",org);
+        /*
     if (isPhonegap) {
         //alert("gap!");
         $("."+classn).on('click', function (e) {
@@ -55,6 +70,7 @@ export function fullapplink (classn, urlString){
     }
 
     return urlString;
+    */
 }
 
 //HTML encode

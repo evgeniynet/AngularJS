@@ -1,7 +1,7 @@
 
 <ion-navbar *navbar><button menuToggle><ion-icon name="menu"></ion-icon></button>
     
-    <ion-title>{{ticket.status}} | <a>{{ticket.number}}&nbsp;<ion-icon class="outline" name="ios-open-outline"></ion-icon></a></ion-title>
+    <ion-title>{{ticket.status}} | <a [href]="getFullapplink(ticket.key)">{{ticket.number}}&nbsp;<ion-icon class="outline" name="ios-open-outline"></ion-icon></a></ion-title>
 </ion-navbar>
 
 <ion-content>

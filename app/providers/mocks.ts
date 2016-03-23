@@ -678,6 +678,8 @@ export const MOCKS =
         "client_manager": ""
     }
 ],
+        "priorities" : [{"id":11,"name":"Low priority","priority_level":1,"description":""},{"id":1,"name":"Bug/Hard Error","priority_level":2,"description":""},{"id":5,"name":"System Impaired","priority_level":3,"description":""},{"id":6,"name":"System Completely Down","priority_level":4,"description":""},{"id":13,"name":"SLA 0 0","priority_level":5,"description":""},{"id":12,"name":"Normal","priority_level":6,"description":""},{"id":18,"name":"New NO SLA","priority_level":7,"description":""}],
+        "levels" : [{"id":1,"name":"1 - Incoming Requests","description":""},{"id":2,"name":"2 - Working On It","description":""},{"id":3,"name":"3 - Ready for Test","description":""}],
         "locations" : [
             {
                 "id": 13,
