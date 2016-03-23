@@ -10,6 +10,7 @@
 @import "../pages/hello-ionic/hello-ionic";
 @import "../pages/item-details/item-details";
 @import "../pages/account-details/account-details";
+@import "../pages/invoices/invoices";
 @import "../pages/invoice-details/invoice-details";
 @import "../pages/dashboard/dashboard";
 @import "../pages/organizations/organizations";
@@ -476,12 +477,16 @@ text-align: center;
     width: 75%;
 }
 
-.width59{
-    width: 59%;
-}
-
 .width65{
     width: 65%;
+}
+
+.width62{
+    width: 62%;
+}
+
+.width59{
+    width: 59%;
 }
 
 .width51{
