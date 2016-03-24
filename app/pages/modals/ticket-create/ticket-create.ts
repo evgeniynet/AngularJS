@@ -2,14 +2,14 @@ import {Page, Config, NavController, NavParams, Events, ViewController} from 'io
 import { FORM_DIRECTIVES, Validators} from 'angular2/common';
 import {DataProvider} from '../../../providers/data-provider';
 import {htmlEscape, getFullName} from '../../../directives/helpers';
-import {SelectListComponent} from '../../../components/select-list/select-list';
 import {ClassListComponent} from '../../../components/class-list/class-list';
+import {SelectListComponent} from '../../../components/select-list/select-list';
 import {TicketDetailsPage} from '../../ticket-details/ticket-details';
 import {AddUserPage} from '../../add-user/add-user';
 
 @Page({
     templateUrl: 'build/pages/modals/ticket-create/ticket-create.html',
-    directives: [ ClassListComponent],
+    directives: [ClassListComponent, SelectListComponent],
 })
 export class TicketCreatePage {
     constructor(nav: NavController, navParams: NavParams, dataProvider: DataProvider, config: Config,
