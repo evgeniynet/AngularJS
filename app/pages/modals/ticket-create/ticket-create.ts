@@ -1,5 +1,6 @@
-import {Page, Config, NavController, NavParams, Events, ViewController} from 'ionic-framework/ionic';
-import { FORM_DIRECTIVES, Validators} from 'angular2/common';
+import {Page, Config, NavController, NavParams, ViewController} from 'ionic-framework/ionic';
+import {forwardRef} from 'angular2/core';
+import {FORM_DIRECTIVES, Validators} from 'angular2/common';
 import {DataProvider} from '../../../providers/data-provider';
 import {htmlEscape, getFullName} from '../../../directives/helpers';
 import {ClassListComponent} from '../../../components/class-list/class-list';
@@ -9,7 +10,7 @@ import {AddUserPage} from '../../add-user/add-user';
 
 @Page({
     templateUrl: 'build/pages/modals/ticket-create/ticket-create.html',
-    directives: [ClassListComponent, SelectListComponent],
+    directives: [ClassListComponent, forwardRef(() => SelectListComponent)],
 })
 export class TicketCreatePage {
     constructor(nav: NavController, navParams: NavParams, dataProvider: DataProvider, config: Config,
