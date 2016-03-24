@@ -2,6 +2,9 @@
 import {Page, ActionSheet, IONIC_DIRECTIVES, NavController, NavParams, Modal, Config} from 'ionic-framework/ionic';
 import {Component, Input, Output, EventEmitter, OnInit, OnDestroy} from 'angular2/core';
 import {TicketCreatePage} from '../../pages/modals/modals';
+import {TimelogCreatePage} from '../../pages/timelog-create/timelog-create';
+import {ExpenseCreatePage} from '../../pages/expense-create/expense-create';
+import {InvoiceDetailsPage} from '../../pages/invoice-details/invoice-details';
 
 @Component({
     selector: 'action-button',
@@ -23,8 +26,9 @@ export class ActionButtonComponent {
         //this.data = {'tech': { id: queue.id, name: queue.fullname + ' Queue'};
     }
     
-    openModal() {
-        let myModal = Modal.create(TicketCreatePage, this.data);
+    openModal(page) {
+        this.ngOnDestroy();
+        let myModal = Modal.create(page, this.data);
         myModal.onDismiss(data => {
             console.log("close create");
         });
@@ -32,8 +36,6 @@ export class ActionButtonComponent {
     }
     
     presentActionSheet() {
-        this.openModal();
-        return;
         this.actionSheet = ActionSheet.create({
             title: '',
             buttons: [
@@ -41,25 +43,25 @@ export class ActionButtonComponent {
                     icon: 'create-outline',
                     text: 'Add Ticket',
                     handler: () => {
-                        console.log('Destructive clicked');
+                        this.openModal(TicketCreatePage);
                     }
                 },{
                     icon: 'md-time',
                     text: 'Add Time',
                     handler: () => {
-                        console.log('Archive clicked');
+                        this.openModal(TimelogCreatePage);
                     }
                 },{
                     icon: 'card',
                     text: 'Add Invoice',
                     handler: () => {
-                        console.log('Archive clicked');
+                        this.openModal(InvoiceDetailsPage);
                     }
                 },{
                     icon: 'calculator',
                     text: 'Add Expense',
                     handler: () => {
-                        console.log('Archive clicked');
+                        this.openModal(ExpenseCreatePage);
                     }
                 },{
                     icon: '',

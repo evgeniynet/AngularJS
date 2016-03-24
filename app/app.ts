@@ -52,7 +52,7 @@ class MyApp {
         { title: 'Queues', component: QueuesPage, icon: "list-box-outline" },
         { title: 'Switch Org', component: OrganizationsPage, icon: "md-swap" },
         { title: 'Signout', component: LoginPage, icon: "md-log-in" },
-        { title: 'Full App', component: TicketCreatePage, icon: "md-share-alt" },
+        { title: 'Full App', component: HelloIonicPage, icon: "md-share-alt" },
     ];
         
         var current = localStorage.current;
@@ -80,7 +80,7 @@ class MyApp {
         // set first pages
         //this.rootPage = HelloIonicPage; return;
         //this.rootPage = TicketCreatePage; return;
-        this.rootPage = TicketsPage; return;
+        //this.rootPage = TicketsPage; return;
       
         if (config.current.user.is_techoradmin)
             this.rootPage = DashboardPage;

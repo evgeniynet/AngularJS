@@ -27,9 +27,9 @@ export class TicketCreatePage {
     {
         this.he = this.config.current.user;
 
-        let data = (this.navParams || {}).data || {};
+        this.data = (this.navParams || {}).data || {};
 
-        let account_id = (data.accounts || {}).id || this.he.account_id || -1;
+        let account_id = (this.data.accounts || {}).id || this.he.account_id || -1;
 
         this.selects = {
             "user" : {
@@ -64,15 +64,15 @@ export class TicketCreatePage {
 
         this.selects.tech = {
             name: "Tech", 
-            value: (data.tech || {}).name || "Default",
-            selected: (data.tech || {}).id || 0,
+            value: (this.data.tech || {}).name || "Default",
+            selected: (this.data.tech || {}).id || 0,
             url: "technicians",
             hidden: false
         };
 
         this.selects.account = {
             name: "Account", 
-            value: (data.account || {}).name || this.he.account_name,
+            value: (this.data.account || {}).name || this.he.account_name,
             selected: account_id,
             url: "accounts?is_with_statistics=false",
             hidden: false
@@ -134,7 +134,9 @@ export class TicketCreatePage {
                     this.alert.success("", 'Ticket was Succesfully Created :)');
                     setTimeout(() => {
                         this.dismissPage();
-                        //this.nav.push(TicketDetailsPage, data);
+                        
+                        if(!this.data.tech && !this.data.accont)
+                        this.nav.push(TicketDetailsPage, data);
                     }, 3000); 
                 }, 
                 error => { 
