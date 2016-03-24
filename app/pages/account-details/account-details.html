@@ -33,7 +33,7 @@
 <ion-item class="item-button list padding">OPEN TICKETS</ion-item>
             <br>
             <tickets-list [tickets]="tickets"></tickets-list>
-            <action-button></action-button>
+            <action-button [data]="{'account': { id: account.id, name: account.name}}"></action-button>
         </div>
 
         <ion-list class="list img-top" no-lines *ngSwitchWhen="'Info'">

@@ -11,13 +11,20 @@ directives: [IONIC_DIRECTIVES],
 
 export class ActionButtonComponent {
 
+    @Input() data: any;
+
     constructor(nav: NavController, config: Config) {
          this.nav = nav;
         this.config = config;
 }
     
+    ngOnInit() {
+        //console.log(this.data);
+        //this.data = {'tech': { id: queue.id, name: queue.fullname + ' Queue'};
+    }
+    
     openModal() {
-        let myModal = Modal.create(TicketCreatePage, null);
+        let myModal = Modal.create(TicketCreatePage, this.data);
         myModal.onDismiss(data => {
             console.log("close create");
         });

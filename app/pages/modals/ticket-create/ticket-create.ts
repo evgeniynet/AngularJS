@@ -22,26 +22,21 @@ export class TicketCreatePage {
         this.navParams = navParams;
         this.dataProvider = dataProvider;
     }
-    
+
     onPageLoaded()
     {
-        let he = this.config.current.user;
+        this.he = this.config.current.user;
 
-        let account_id = he.account_id || -1;
+        let data = (this.navParams || {}).data || {};
+
+        let account_id = (data.accounts || {}).id || this.he.account_id || -1;
 
         this.selects = {
             "user" : {
                 name: "User", 
-                value: getFullName(he.firstname, he.lastname, he.email),
-                selected: he.user_id,
+                value: getFullName(this.he.firstname, this.he.lastname, this.he.email),
+                selected: this.he.user_id,
                 url: "users",
-                hidden: false
-            },
-            "account" : {
-                name: "Account", 
-                value: he.account_name,
-                selected: account_id,
-                url: "accounts?is_with_statistics=false",
                 hidden: false
             },
             "location" : {
@@ -49,13 +44,6 @@ export class TicketCreatePage {
                 value: "Default",
                 selected: 0,
                 url: `locations?account=${account_id}`,
-                hidden: false
-            },
-            "tech" : {
-                name: "Tech", 
-                value: "Default",
-                selected: 0,
-                url: "technicians",
                 hidden: false
             },
             "project" : {
@@ -74,18 +62,34 @@ export class TicketCreatePage {
             }
         };
 
+        this.selects.tech = {
+            name: "Tech", 
+            value: (data.tech || {}).name || "Default",
+            selected: (data.tech || {}).id || 0,
+            url: "technicians",
+            hidden: false
+        };
+
+        this.selects.account = {
+            name: "Account", 
+            value: (data.account || {}).name || this.he.account_name,
+            selected: account_id,
+            url: "accounts?is_with_statistics=false",
+            hidden: false
+        };
+
         this.ticket =
             {
             "subject" : "",
             "initial_post" : "",
             "class_id" : null,
-            "account_id" : -1,
+            "account_id" : account_id,
             "location_id": null,
-            "user_id" : this.config.current.user.is_techoradmin ? 1325 : this.config.current.user.user_id,
-            "tech_id" : 1325
+            "user_id" : this.he.user_id,
+            "tech_id" : 0
         };
     }
-    
+
     dismissPage() {
         this.viewCtrl.dismiss();
     }
@@ -100,7 +104,7 @@ export class TicketCreatePage {
                 this.selects.project.url = `projects?account=${event.id}&is_with_statistics=false`;
                 this.selects.project.value = "Default";
                 this.selects.project.selected = 0;
-                
+
                 this.selects.location.url = `locations?account=${event.id}`;
                 this.selects.location.value = "Default";
                 this.selects.location.selected = 0;
@@ -109,15 +113,22 @@ export class TicketCreatePage {
     }
 
     onSubmit(form) {
+        /*if (!this.selects.tech.id)
+            {
+                this.alert.error('Please select technician...', 'Oops!');
+                return;
+            }
+            */
         if (form.valid){
             var subject = htmlEscape(this.ticket.subject.trim());
             var post = htmlEscape(this.ticket.initial_post.trim()).substr(0, 5000);
-            
+
             this.ticket.class_id = this.selects.class.id;
             this.ticket.account_id = this.selects.account.id;
             this.ticket.location_id = this.selects.location.id;
+            this.ticket.user_id = this.he.is_techoradmin ? this.selects.user.id : this.he.user_id;
             this.ticket.tech_id = this.selects.tech.id;
-           
+
             this.dataProvider.addTicket(this.ticket).subscribe(
                 data => {
                     this.alert.success("", 'Ticket was Succesfully Created :)');
