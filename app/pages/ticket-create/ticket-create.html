@@ -2,8 +2,8 @@
 <ion-navbar *navbar><button menuToggle><ion-icon name="menu"></ion-icon></button>
     <ion-title>TicketCreate</ion-title>
 </ion-navbar>
-<ion-content padding>
-    <div class="list max-width700 img-top">
+<ion-content>
+    <div class="list max-width700 general-alignment">
         
             <select-list class="left button-calc" [list]="selects.user" (onChanged)='saveSelect($event)'></select-list>
             <div class="width10"><button (click)="addUser('user')" secondary fab class="buttonTicket button-ticket"><ion-icon class="button_circle2" name="md-add"></ion-icon></button>    </div>
