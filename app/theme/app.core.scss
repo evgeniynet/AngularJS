@@ -95,6 +95,9 @@ p {
     color: $label-ios-text-color;
 }
 
+.text-decor{
+     text-decoration: none;
+}
 
 .commentText{
     background: $blue3;
@@ -203,10 +206,12 @@ background-color:$blue3;
 
 .admin{
     -webkit-box-orient: vertical;
-    line-height: 26px;
-    text-overflow: clip;
     width: 70px;
     text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 15px;
+    padding-top: 8px;
 }
 
 ion-label {

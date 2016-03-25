@@ -5,20 +5,20 @@
 
 <ion-content>
     <div *ngIf="is_empty" class="table grey2 menu-text">No Timelogs yet</div>
-    <ion-list class="list" no-lines>
-        <ion-item *ngFor="#time of timelogs" (click)="itemTapped()" class="img-top">
+    <ion-list class="list img-top" no-lines>
+        <ion-item *ngFor="#time of timelogs" (click)="itemTapped()" class="general-alignment2">
     <ion-avatar item-left>
       <img src="http://www.gravatar.com/avatar/8cf59c68bb835b9e03dcd09c0e620d5d?d=mm&s=80">
     </ion-avatar>
             <div>
- <li class="text-left width62 left">
+ <li class="text-left width70 left">
     <h2 class="ellipsis">{{time.user_name}}</h2>
     <h3 class="timelogs">{{time.note}}</h3>
-     <h3 class="timelogs" *ngIf="!time.is_project_log">{{"#"+time.ticket_number+": "+time.ticket_subject}}</h3></li></div>
-      <li class="right width35 margin font-time">
+     <h3 class="timelogs" *ngIf="!time.is_project_log">{{"#"+time.ticket_number+": "+time.ticket_subject}}</h3></li>
+      <li class="right width20 margin font-time">
     <ion-icon class="margin" item-right name="time-outline"></ion-icon>
                  <span>{{time.hours}}</span>  
-      <h3 class="center font-date space-initial">{{setDate(time.date) | date: "yMMMdd"}}</h3></li>
+      <h3 class="center font-date space-initial">{{setDate(time.date) | date: "yMMMdd"}}</h3></li></div>
   </ion-item>
 
     </ion-list> 

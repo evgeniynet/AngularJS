@@ -5,13 +5,13 @@
             <li class="center avatarText">
                 <span class="margin" item-left><big>#{{ticket.number}}</big></span>
                 <img *ngIf="ticket.user_email" [alt]="ticket.user_firstname" class="img" [src]="ticket.user_email | Gravatar"/>
-                <span class="admin">{{ticket.user_firstname}}  {{ticket.user_lastname}}</span> </li>
+                <p class="admin">{{ticket.user_firstname}}  {{ticket.user_lastname}}</p> </li>
         </ion-avatar>
         <div class="alignment">
         <li class="tkts-table">
-       <h2 class="ellipsis"><ion-icon dark name="mail-outline" class="icon-ticket"></ion-icon>&nbsp;{{ticket.subject}}</h2>
-            <h3 class="tickets" [innerHTML]="ticket.initial_post | Linebreaks"></h3></li>
-            <p class="grey2 right class_name space-initial text-right">{{ticket.class_name}}</p></div>
+       <h2 class="ellipsis ticket-subject"><ion-icon dark name="mail-outline" class="icon-ticket"></ion-icon>&nbsp;{{ticket.subject}}</h2>
+            <h3 class="tickets" [innerHTML]="ticket.initial_post | Linebreaks"></h3>
+            <p class="grey2 right class_name space-initial text-right">{{ticket.class_name}}</p></li></div>
     </ion-item>
         <ion-item-options>
         <button class="grey3 disable-hover button button-default">
