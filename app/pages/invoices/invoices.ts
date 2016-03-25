@@ -30,8 +30,8 @@ export class InvoicesPage {
         );
     }
     
-    itemTapped() {
-        //TODO: uncomment this.nav.push(InvoiceDetailsPage);
+    itemTapped(item) {
+        this.nav.push(InvoiceDetailsPage, item);
     }
     
      setDate(date) {

@@ -2,7 +2,7 @@
 import {Page, ActionSheet, IONIC_DIRECTIVES, NavController, NavParams, Modal, Config} from 'ionic-framework/ionic';
 import {Component, Input, Output, EventEmitter, OnInit, OnDestroy} from 'angular2/core';
 import {TicketCreatePage} from '../../pages/modals/modals';
-import {TimelogCreatePage} from '../../pages/timelog-create/timelog-create';
+import {TimelogPage} from '../../pages/timelog/timelog';
 import {ExpenseCreatePage} from '../../pages/expense-create/expense-create';
 import {InvoiceDetailsPage} from '../../pages/invoice-details/invoice-details';
 
@@ -50,7 +50,7 @@ export class ActionButtonComponent {
                     icon: 'md-time',
                     text: 'Add Time',
                     handler: () => {
-                        this.openModal(TimelogCreatePage);
+                        this.openModal(TimelogPage);
                     }
                 },{
                     icon: 'card',
