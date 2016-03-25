@@ -14,9 +14,9 @@ import {AddUserPage} from '../../add-user/add-user';
 })
 export class TicketCreatePage {
     constructor(nav: NavController, navParams: NavParams, dataProvider: DataProvider, config: Config,
-                 viewCtrl: ViewController) {
+                 private viewCtrl: ViewController) {
         this.nav = nav;
-        this.viewCtrl = viewCtrl;
+        //this.viewCtrl = viewCtrl;
         this.config = config;
         this.alert = config.alert;
         this.navParams = navParams;

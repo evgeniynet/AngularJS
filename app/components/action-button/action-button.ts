@@ -27,16 +27,17 @@ export class ActionButtonComponent {
     }
     
     openModal(page) {
-        this.ngOnDestroy();
+        setTimeout( () => {
         let myModal = Modal.create(page, this.data);
         myModal.onDismiss(data => {
             console.log("close create");
         });
         this.nav.present(myModal);
+        }, 200);
     }
     
     presentActionSheet() {
-        this.actionSheet = ActionSheet.create({
+        let actionSheet = ActionSheet.create({
             title: '',
             buttons: [
                 {
@@ -73,11 +74,14 @@ export class ActionButtonComponent {
                 }
             ]
         });
-        this.nav.present(this.actionSheet);
+
+        //setTimeout( () => {
+            this.nav.present(actionSheet);
+        //});
     }
 
-    ngOnDestroy() {
-        this.actionSheet && this.actionSheet.dismiss();
-    }
+    /*ngOnDestroy() {
+        actionSheet && actionSheet.dismiss();
+    }*/
      
 }
