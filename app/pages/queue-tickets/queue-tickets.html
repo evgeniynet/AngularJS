@@ -7,6 +7,8 @@
   
     <tickets-list [tickets]="tickets"></tickets-list>
     
+    <action-button [data]="{'tech': { id: queue.id, name: 'Queue ' + queue.fullname}}"></action-button>
+    
 </ion-content>
 
-<action-button [data]="{'tech': { id: queue.id, name: 'Queue ' + queue.fullname}}"></action-button>
+

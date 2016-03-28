@@ -11,7 +11,8 @@
           <ion-segment-button value="Notes">Notes</ion-segment-button>
           <ion-segment-button value="Files">Files</ion-segment-button>
   </ion-segment>
-</div>  
+</div> 
+<action-button [data]="{'account': { id: account.id, name: account.name}}"></action-button> 
     <div [ngSwitch]="details_tab">
         <div *ngSwitchWhen="'Stat'">
             <ion-list class="list img-top" no-lines style="height: 150px;">
@@ -33,7 +34,6 @@
 <ion-item class="item-button list padding">OPEN TICKETS</ion-item>
             <br>
             <tickets-list [tickets]="tickets"></tickets-list>
-            <action-button [data]="{'account': { id: account.id, name: account.name}}"></action-button>
         </div>
 
         <ion-list class="list img-top" no-lines *ngSwitchWhen="'Info'">
