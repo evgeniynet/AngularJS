@@ -155,7 +155,7 @@ class MyApp {
     
     subscribeToEvents() {
         this.events.subscribe('login:failed', () => {
-            this.openPage(LoginPage);
+            //this.openPage(LoginPage);
             //this.getNav().setRoot(TodosPage);
         });
     }
