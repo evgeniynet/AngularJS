@@ -2085,10 +2085,10 @@ export const MOCKS =
                         "is_accounting_contact": true
                     }
                 ],
-                "time_logs": null,
-                "travel_logs": null,
-                "expenses": null,
-                "retainers": null
+                "time_logs": 5,
+                "travel_logs": 10,
+                "expenses": 15,
+                "retainers": 20
             },
             {
                 "id": 1693,
