@@ -1,44 +1,29 @@
 
 <ion-navbar *navbar><button menuToggle><ion-icon name="menu"></ion-icon></button>
-  <ion-title>Timelog</ion-title>
+  <ion-title>Timelog #{{time.time_id}}</ion-title>
 </ion-navbar>
-<ion-content padding class="timelog">
+<ion-content class="timelog">
     <div class="list max-width700">
     <div class="img-top">
     <div class="left width30 button-timelog">
-  <button class="blue4 left width100" type="button"><ion-icon name="remove-outline"></ion-icon><i name="arrow-back-outline"></i></button>
+  <button class="width100 blue4"><ion-icon name="remove-outline"></ion-icon></button>
         </div>
     <div class="blue3 left width30 button-timelog">
- <button class="width100" type="button">00</button>
+ <button class="width100" type="button"><ion-input class="timelog-input width100 right margin" type="number" placeholder="00"></ion-input></button>
         </div>
-    <div class="right width30 button-timelog">
+    <div class="right width30 button-timelog dashboardRight">
 <button class="width100 blue4"><ion-icon name="ios-add"></ion-icon></button>
         </div>
   </div>
     <div class="blue3">
-    <button block>Start Time</button>
-    <button block>End Time</button>
+    <button block>Start Time {{time.start_time}}</button>
+    <button block>End Time {{time.stop_time}}</button>
         </div>   
- <ion-list class="blue4 img-top" no-lines>     
-     <ion-item class="blue4">
-      <ion-label>bigWebApps</ion-label>
-  <ion-select [(ngModel)]="toppings" multiple="true" cancelText="Nah" okText="Okay!">
-<ion-option value="Class1" checked="true"></ion-option>
-    </ion-select>
-</ion-item>
-     <ion-item class="blue4">
-     <ion-label>choose a project</ion-label>
-  <ion-select [(ngModel)]="toppings" multiple="true" cancelText="Nah" okText="Okay!">
- <ion-option value="Class1" checked="true"></ion-option>
-    </ion-select>
-</ion-item>
-    <ion-item class="blue4">
-    <ion-label>choose a task type</ion-label>
-  <ion-select [(ngModel)]="toppings" multiple="true" cancelText="Nah" okText="Okay!">
-<ion-option value="Class1" checked="true"></ion-option>
-    </ion-select>
-</ion-item>
-        </ion-list>    
+ <div class="blue4 img-top" no-lines>     
+    
+     <select-list [list]="selects.project" [preload]="true" (onChanged)='saveSelect($event)'></select-list>
+    <class-list [list]="selects.class" (onChanged)='saveSelect($event)'></class-list>
+        </div>    
                 <br>
     <div *ngFor="#time of timelog">
        <textarea class="width100 textLogin commentText" type="text" placeholder="Details...">{{time.note}}</textarea>

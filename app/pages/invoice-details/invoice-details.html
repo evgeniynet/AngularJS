@@ -1,27 +1,31 @@
 
 <ion-navbar *navbar><button menuToggle><ion-icon name="menu"></ion-icon></button>
-  <ion-title>InvoiceDetails</ion-title>
+  <ion-title>InvoiceDetails {{setDate(invoice.date) | date: "yMMMdd"}}</ion-title>
 </ion-navbar>
 
 <ion-content padding class="invoice-details">
+ <ion-item>
+    <p item-right class="text_list">{{setDate(invoice.date) | date: "yMMMdd"}}</p>
+        </ion-item>
+  <ion-item no-lines class="width75 left"><h2 item-left>Time</h2></ion-item>
+    <ion-item no-lines class="width24 left"><h2 item-right>{{invoice.time_logs}}</h2>
+        </ion-item>
     
-    <ion-item>
-    <p item-right class="text_list">Jen 12</p>
+    <ion-item no-lines class="width75 left"><h2 item-left>Travel</h2>
         </ion-item>
-  <ion-item no-lines class="width35 left"><h2 item-left>Time</h2></ion-item>
-    <ion-item no-lines class="width12 right"><h2 item-right>00</h2>
+    <ion-item no-lines class="width24 left"><h2 item-right>{{invoice.travel_logs}}</h2>
         </ion-item>
-    <ion-item no-lines class="width12 left"><h2 item-right>$00</h2>
+    <ion-item no-lines class="width75 left"><h2 item-left>Expenses</h2>
         </ion-item>
-    <ion-item no-lines><h2 item-left>Travel</h2>
+    <ion-item no-lines class="width24 left"><h2 item-right>{{invoice.expenses}}</h2>
         </ion-item>
-    <ion-item no-lines><h2 item-left>Expenses</h2>
+    <ion-item no-lines class="width75 left"><h2 item-left>Adjustments</h2>
         </ion-item>
-    <ion-item no-lines><h2 item-left>Adjustments</h2>
+    <ion-item no-lines class="width24 left"><h2 item-right>{{getCurrency(invoice.adjustments)}}</h2>
         </ion-item>
     
     <ion-item class="width28 right">
-    <h3 item-right>$00</h3>
+    <h3 item-right>{{getCurrency(invoice.amount)}}</h3>
         </ion-item>
     <br>
     <ion-item padding>
@@ -29,24 +33,25 @@
     <h2>Recipients</h2>
         </ion-item>
     
-    
+  
     
     <ion-list class="list">
+        <div *ngFor="#recipient of invoice.recipients">
         <div>
       <ion-avatar class="ticketImg left recipient width23">
-      <img class="avatarInvoice class_name" src="http://www.gravatar.com/avatar/8cf59c68bb835b9e03dcd09c0e620d5d?d=mm&s=80">
-<!--          <img *ngIf="invoices.email" class="img" [src]="invoices.email | Gravatar"/>-->
+   <img class="avatarInvoice class_name" *ngIf="recipient.email" [alt]="recipient.fullname" [src]="recipient.email | Gravatar"/>
             </ion-avatar></div>
+        
         <ion-item class="blue3 width80 invoicelist right margin" no-lines>
-      <h3 class="width65 left">email</h3>
+      <h3 class="width65 left">{{recipient.email}}</h3>
     <button fab secondary class="buttonInvoice right topInvoice email-invoice">
       <ion-icon class="invoiceCircle" name="checkmark"></ion-icon>
     </button>
   </ion-item>
+        </div>
 </ion-list>
     
         <div>
       <button secondary class="disable-hover button button-default button-block img-top display">Send</button>
     </div>
-    
 </ion-content>

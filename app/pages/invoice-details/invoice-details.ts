@@ -1,8 +1,10 @@
 import {Page, NavController, NavParams, Config} from 'ionic-framework/ionic';
 import {getCurrency} from '../../directives/helpers';
+import {GravatarPipe} from '../../pipes/pipes';
 
 @Page({
   templateUrl: 'build/pages/invoice-details/invoice-details.html',
+    pipes: [GravatarPipe],
 })
 export class InvoiceDetailsPage {
     constructor(nav: NavController, navParams: NavParams, config : Config) {

@@ -25,6 +25,57 @@ export class TimelogPage {
             error => { 
                 console.log(error || 'Server error');}
         );*/
+        
+         let he = this.config.current.user;
+        this.details_tab = "Reply";
+        let data = (this.navParams || {}).data || {};
+        let account_id = -1;
+        
+        this.selects = {
+            "location" : {
+                name: "Location", 
+                value: data.location_name,
+                selected: data.location_id,
+                url: `locations?account=${account_id}`,
+                hidden: false
+            },
+            "tech" : {
+                name: "Tech", 
+                value: getFullName(data.technician_firstname || data.tech_firstname, data.technician_lastname || data.tech_lastname,  data.technician_email || data.tech_email),
+                selected: data.tech_id,
+                url: "technicians",
+                hidden: false
+            },
+            "project" : {
+                name: "Project", 
+                value: data.project_name,
+                selected: data.project_id,
+                url: `projects?account=${account_id}&is_with_statistics=false`,
+                hidden: false
+            },
+            "level" : {
+                name: "Level", 
+                value: data.level+ " - " +data.level_name,
+                selected: data.level,
+                url: "levels",
+                hidden: false
+            },
+            "priority" : {
+                name: "Project", 
+                value: data.priority + " - " + data.priority_name,
+                selected: data.priority_id,
+                url: "priorities",
+                hidden: false
+            },
+            "class" : {
+                name: "Class", 
+                value: data.class_name,
+                selected: data.class_id,
+                url: "classes",
+                hidden: false
+            }
+        };
+        
     }
     
      setDate(date) {
