@@ -1,4 +1,4 @@
-import {Page, NavController} from 'ionic-framework/ionic';
+import {Page, NavController} from 'ionic-angular';
 import {TicketsPage} from '../tickets/tickets';
 import {DataProvider} from '../../providers/data-provider';
 import {QueuesListComponent, ActionButtonComponent} from '../../components/components';

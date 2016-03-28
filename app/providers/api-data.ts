@@ -1,5 +1,5 @@
 import {Injectable} from 'angular2/core';
-import {Config, Events} from 'ionic-framework/ionic';
+import {Config, Events} from 'ionic-angular';
 import {Http, Headers, RequestOptions, Request} from 'angular2/http';
 import {Observable} from 'rxjs/Observable';
 import {ApiSite, dontClearCache} from './config';

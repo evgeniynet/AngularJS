@@ -1,4 +1,4 @@
-import {Page, NavController, ViewController} from 'ionic-framework/ionic';
+import {Page, NavController, ViewController} from 'ionic-angular';
 
 @Page({
   templateUrl: 'build/pages/timelog-create/timelog-create.html',

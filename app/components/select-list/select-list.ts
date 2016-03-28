@@ -1,4 +1,4 @@
-import {IONIC_DIRECTIVES, NavController, Modal, Alert, Config} from 'ionic-framework/ionic';
+import {IONIC_DIRECTIVES, NavController, Modal, Alert, Config} from 'ionic-angular';
 import {ApiData} from '../../providers/api-data';
 import {getFullName} from '../../directives/helpers';
 import {Component, Input, Output, EventEmitter, OnInit} from 'angular2/core';

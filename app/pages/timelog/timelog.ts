@@ -1,4 +1,4 @@
-import {Page, Config, NavController, NavParams, ViewController} from 'ionic-framework/ionic';
+import {Page, Config, NavController, NavParams, ViewController} from 'ionic-angular';
 import {forwardRef} from 'angular2/core';
 import {DataProvider} from '../../providers/data-provider';
 import {ClassListComponent} from '../../components/class-list/class-list';

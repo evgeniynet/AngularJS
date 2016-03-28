@@ -1,4 +1,4 @@
-import {Page, Config, NavController} from 'ionic-framework/ionic';
+import {Page, Config, NavController} from 'ionic-angular';
 import {DataProvider} from '../../providers/data-provider';
 import {TimelogPage} from '../timelog/timelog';
 import {ActionButtonComponent} from '../../components/action-button/action-button';

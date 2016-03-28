@@ -1,4 +1,4 @@
-import {Page, NavController, NavParams, Config} from 'ionic-framework/ionic';
+import {Page, NavController, NavParams, Config} from 'ionic-angular';
 import {getCurrency} from '../../directives/helpers';
 
 @Page({

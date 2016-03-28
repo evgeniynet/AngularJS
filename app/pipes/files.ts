@@ -13,7 +13,8 @@ export class FilesPipe {
         
         var files = args[0] || [];   
         
-        if (!value || !files || files.length == 0 || ! (~value.indexOf("cid:") || ~value.indexOf("ollowing file")) return value;
+        if (!value || !files || files.length == 0 || 
+            ! (~value.indexOf("cid:") || ~value.indexOf("ollowing file"))) return value;
         
         files.sort(function(a, b){
             return b.name.length - a.name.length;

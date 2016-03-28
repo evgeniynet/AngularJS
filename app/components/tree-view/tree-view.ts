@@ -1,4 +1,4 @@
-import {IONIC_DIRECTIVES, NavController, NavParams} from 'ionic-framework/ionic';
+import {IONIC_DIRECTIVES, NavController, NavParams} from 'ionic-angular';
 import {Component, Input, Output, EventEmitter} from 'angular2/core';
 
 export interface ITreeNode {

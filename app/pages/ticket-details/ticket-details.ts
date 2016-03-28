@@ -1,4 +1,4 @@
-import {Page, Config, NavController, NavParams} from 'ionic-framework/ionic';
+import {Page, Config, NavController, NavParams} from 'ionic-angular';
 import { FORM_DIRECTIVES, Validators} from 'angular2/common';
 import {DataProvider} from '../../providers/data-provider';
 import {getCurrency, getFullName, fullapplink} from '../../directives/helpers';

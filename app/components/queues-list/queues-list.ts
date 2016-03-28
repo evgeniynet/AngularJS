@@ -1,4 +1,4 @@
-import {IONIC_DIRECTIVES, NavController, NavParams} from 'ionic-framework/ionic';
+import {IONIC_DIRECTIVES, NavController, NavParams} from 'ionic-angular';
 import {Component, Input, OnChanges} from 'angular2/core';
 import {QueueTicketsPage} from '../../pages/queue-tickets/queue-tickets';
 import {MorePipe} from '../../pipes/pipes';

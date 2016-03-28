@@ -1,5 +1,5 @@
 //in case on using ionic "ion-card"
-import {IONIC_DIRECTIVES, NavController, NavParams} from 'ionic-framework/ionic';
+import {IONIC_DIRECTIVES, NavController, NavParams} from 'ionic-angular';
 import {Component, Input, OnChanges} from 'angular2/core';
 import {AccountDetailsPage} from '../../pages/account-details/account-details';
 import {MorePipe} from '../../pipes/pipes';

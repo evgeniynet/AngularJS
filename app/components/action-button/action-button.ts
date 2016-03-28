@@ -1,5 +1,5 @@
 //in case on using ionic "ion-card"
-import {Page, ActionSheet, IONIC_DIRECTIVES, NavController, NavParams, Modal, Config} from 'ionic-framework/ionic';
+import {Page, ActionSheet, IONIC_DIRECTIVES, NavController, NavParams, Modal, Config} from 'ionic-angular';
 import {Component, Input, Output, EventEmitter, OnInit, OnDestroy} from 'angular2/core';
 import {TicketCreatePage} from '../../pages/modals/modals';
 import {TimelogPage} from '../../pages/timelog/timelog';
@@ -33,7 +33,7 @@ export class ActionButtonComponent {
             console.log("close create");
         });
         this.nav.present(myModal);
-        }, 200);
+        }, 500);
     }
     
     presentActionSheet() {

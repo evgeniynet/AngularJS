@@ -1,4 +1,4 @@
-import {Page, Config, NavController} from 'ionic-framework/ionic';
+import {Page, Config, NavController} from 'ionic-angular';
 import {InvoiceDetailsPage} from '../invoice-details/invoice-details';
 import {DataProvider} from '../../providers/data-provider';
 import {getCurrency} from '../../directives/helpers';

@@ -1,4 +1,4 @@
-import {Page, Config, NavController} from 'ionic-framework/ionic';
+import {Page, Config, NavController} from 'ionic-angular';
 import {saveConfig, saveCache} from '../../directives/helpers';
 import {DataProvider} from '../../providers/data-provider';
 import {OrganizationsPage} from '../organizations/organizations';
