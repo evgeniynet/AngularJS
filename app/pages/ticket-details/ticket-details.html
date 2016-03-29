@@ -36,10 +36,13 @@
      <div class="list general-alignment2" *ngSwitchWhen="'Reply'">
          
          <posts-list [posts]="post1" [attachments]="attachments"></posts-list>
-         <div class="response-ticket">
-        <textarea class="width100 textLogin commentText" type="text" placeholder="Add Response"></textarea>
+         <form #addForm="ngForm" class="response-ticket">
+         <div class="tooltips">
+        <textarea class="width100 textLogin commentText" [(ngModel)]="ticketnote" type="text" placeholder="Add Response" ngControl="note" #note="ngForm" required maxlength="4000"></textarea>
+        <span *ngIf="note.dirty && !note.valid">Response is required and less 5000 chars</span></div>
     <button secondary menuToggle
-            class="button_reply">Reply</button></div>
+            class="button_reply" [disabled]="!addForm.valid" (click)="onSubmit(addForm)"  type="submit">Reply</button>
+            </form>
          
          <posts-list [posts]="posts" [attachments]="attachments"></posts-list>
          

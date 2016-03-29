@@ -5,17 +5,6 @@ import {ApiData} from './api-data';
 import * as helpers from '../directives/helpers';
 import 'rxjs/add/operator/map';
 
-String.prototype.addp = function(param, value) {
-    if (!value || !param)
-        return this;
-    var pos = this.indexOf(param + '=');
-    //if parameter exists
-    if (pos != -1)
-        return this.slice(0, pos + param.length) + '=' + value;
-    var ch = this.indexOf('?') > 0 ? '&' : '?';
-    return this + ch + param + '=' + value;
-};
-
 @Injectable()
 export class DataProvider {
 
@@ -29,9 +18,8 @@ export class DataProvider {
         this._data = value;
     }
 
-constructor(apiData: ApiData) {
-    // inject the Http provider and set to this instance
-    this.apiData = apiData;
+constructor(private apiData: ApiData) {
+
 }
     
 checkLogin(username, password) {
@@ -173,9 +161,17 @@ addTicket(data) {
     data.status =  "open";
     return this.apiData.get(url, data, "POST");
 }
+
+addTicketPost(id, note) {
+    let url = `tickets/${id}`;
+    let data = { "action": "response", 
+        "note_text": note,
+        };
+    return this.apiData.get(url, data, "POST");
+}
     
 addTime(data) {
-    let url = `time/${id}`;
+    let url = `time/${data.id}`;
     return this.apiData.get(url, data, "POST");
 }
 

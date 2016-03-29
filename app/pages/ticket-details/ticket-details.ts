@@ -1,7 +1,7 @@
 import {Page, Config, NavController, NavParams} from 'ionic-angular';
-import { FORM_DIRECTIVES, Validators} from 'angular2/common';
+import {FORM_DIRECTIVES, Validators} from 'angular2/common';
 import {DataProvider} from '../../providers/data-provider';
-import {getCurrency, getFullName, fullapplink} from '../../directives/helpers';
+import {htmlEscape, getCurrency, getFullName, fullapplink} from '../../directives/helpers';
 import {PostsListComponent} from '../../components/posts-list/posts-list';
 import {SelectListComponent} from '../../components/select-list/select-list';
 import {ClassListComponent} from '../../components/class-list/class-list';
@@ -22,57 +22,56 @@ export class TicketDetailsPage {
         this.ticket = {};
     }
 
-    onPageLoaded()
-    {
+    onPageLoaded() {
         let he = this.config.current.user;
         this.details_tab = "Reply";
         let data = (this.navParams || {}).data || {};
         let account_id = -1;
         this.selects = {
-            "location" : {
-                name: "Location", 
+            "location": {
+                name: "Location",
                 value: data.location_name,
                 selected: data.location_id,
                 url: `locations?account=${account_id}`,
                 hidden: false
             },
-            "tech" : {
-                name: "Tech", 
-                value: getFullName(data.technician_firstname || data.tech_firstname, data.technician_lastname || data.tech_lastname,  data.technician_email || data.tech_email),
+            "tech": {
+                name: "Tech",
+                value: getFullName(data.technician_firstname || data.tech_firstname, data.technician_lastname || data.tech_lastname, data.technician_email || data.tech_email),
                 selected: data.tech_id,
                 url: "technicians",
                 hidden: false
             },
-            "project" : {
-                name: "Project", 
+            "project": {
+                name: "Project",
                 value: data.project_name,
                 selected: data.project_id,
                 url: `projects?account=${account_id}&is_with_statistics=false`,
                 hidden: false
             },
-            "level" : {
-                name: "Level", 
-                value: data.level+ " - " +data.level_name,
+            "level": {
+                name: "Level",
+                value: data.level + " - " + data.level_name,
                 selected: data.level,
                 url: "levels",
                 hidden: false
             },
-            "priority" : {
-                name: "Priority", 
+            "priority": {
+                name: "Priority",
                 value: (data.priority || 1) + " - " + data.priority_name,
                 selected: data.priority_id,
                 url: "priorities",
                 hidden: false
             },
-            "class" : {
-                name: "Class", 
+            "class": {
+                name: "Class",
                 value: data.class_name,
                 selected: data.class_id,
                 url: "classes",
                 hidden: false
             }
         };
-        
+
         let resolution1 = [
             { name: 'Resolved', id: 0 },
             { name: 'UnResolved', id: 1 },
@@ -91,19 +90,7 @@ export class TicketDetailsPage {
         this.resolution_category.selected = 3;
         this.resolution_category.items =
             resolution1;
-        //returnData.resolution_categories;
-
-        /*this.ticket =
-            {
-            "subject" : "",
-            "initial_post" : "",
-            "class_id" : null,
-            "account_id" : -1,
-            "location_id": null,
-            "user_id" : this.config.current.user.is_techoradmin ? 1325 : this.config.current.user.user_id,
-            "tech_id" : 1325
-        };
-        */
+        this.ticketnote = "";
         
         let isFullInfo = (data.ticketlogs && data.ticketlogs.length > 0);
 
@@ -153,22 +140,25 @@ export class TicketDetailsPage {
         this.selects[name].value = event.name;
     }
     
-    onUpdate() {
-            this.ticket.class_id = this.selects.class.id;
-            this.ticket.account_id = this.selects.account.id;
-            this.ticket.location_id = this.selects.location.id;
-            this.ticket.tech_id = this.selects.tech.id;
+    onSubmit(form) {
+        if (form.valid) {
+            var post = htmlEscape(this.ticketnote.trim()).substr(0, 5000);
 
-            this.dataProvider.addTicket(this.ticket).subscribe(
+            this.dataProvider.addTicketPost(this.ticket.id, post).subscribe(
                 data => {
-                    this.alert.success("", 'Ticket was Succesfully Created :)');
-                    setTimeout(() => {
-                        this.nav.push(TicketDetailsPage, data);
-                    }, 3000); 
-                }, 
-                error => { 
-                    console.log(error || 'Server error');}
+                    this.alert.success("", 'Note added :)');
+                    /*setTimeout(() => {
+                        this.dismissPage();
+
+                        if (!this.data.tech && !this.data.account)
+                            this.nav.push(TicketDetailsPage, data);
+                    }, 3000);*/
+                },
+                error => {
+                    console.log(error || 'Server error');
+                }
             );
+        }
     }
 
 
