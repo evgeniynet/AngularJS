@@ -4,7 +4,7 @@
 
 <ion-content class="tickets">
     <div *ngIf="config.current.user.is_techoradmin" class="tabsTicket alignment-bottom">
-        <ion-segment [(ngModel)]="ticket_tab" (change)="onSegmentChanged($event)">
+        <ion-segment [ngModel]="ticket_tab" (change)="onSegmentChanged($event)">
 <ion-segment-button  value="user">User</ion-segment-button>
 <ion-segment-button value="tech">Tech</ion-segment-button>
 <ion-segment-button value="alt">Alt</ion-segment-button>
@@ -16,6 +16,7 @@
     <tickets-list [tickets]="tickets"></tickets-list>
 
 
-<action-button></action-button>
+
 
 </ion-content>
+<action-button></action-button>

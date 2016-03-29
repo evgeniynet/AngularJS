@@ -14,13 +14,11 @@ import {InvoicesPage} from './pages/invoices/invoices';
 import {AccountsPage} from './pages/accounts/accounts';
 import {AccountDetailsPage} from './pages/account-details/account-details';
 import {TimelogsPage} from './pages/timelogs/timelogs';
-import {TimelogCreatePage} from './pages/timelog-create/timelog-create';
 import {TicketsPage} from './pages/tickets/tickets';
 import {TicketCreatePage} from './pages/modals/ticket-create/ticket-create';
 import {DashboardPage} from './pages/dashboard/dashboard';
 import {OrganizationsPage} from './pages/organizations/organizations';
 import {LoginPage} from './pages/login/login';
-import {TimelogCreatePage} from './pages/timelog-create/timelog-create';
 import {ExpenseCreatePage} from './pages/expense-create/expense-create';
 
 @App({
@@ -31,13 +29,9 @@ import {ExpenseCreatePage} from './pages/expense-create/expense-create';
 }
 })
 class MyApp {
-    constructor(app: IonicApp, platform: Platform, apiData: ApiData, config: Config, toastr: ToastsManager, events: Events, private menu: MenuController) {
+    constructor(private app: IonicApp, private platform: Platform, private config: Config, private toastr: ToastsManager, private events: Events, private menu: MenuController) {
 
     // set up our app
-    this.app = app;
-    this.platform = platform;
-    this.events = events;
-        this.config = config;
     this.initializeApp();
         
     config.alert = toastr;
@@ -80,7 +74,6 @@ class MyApp {
         
         // set first pages
         //this.rootPage = HelloIonicPage; return;
-        //this.rootPage = TicketCreatePage; return;
         //this.rootPage = TicketsPage; return;
       
         if (config.current.user.is_techoradmin)

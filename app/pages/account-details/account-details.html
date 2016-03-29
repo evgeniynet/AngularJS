@@ -5,14 +5,14 @@
 <ion-content class="account-details">
   <div class="tabsTicket">
       <ion-segment [(ngModel)]="details_tab">
-          <ion-segment-button  value="Stat">Acc Stat</ion-segment-button>
+          <ion-segment-button value="Stat">Acc Stat</ion-segment-button>
           <ion-segment-button value="Info">Info</ion-segment-button>
           <ion-segment-button value="Projects">Projects</ion-segment-button>
           <ion-segment-button value="Notes">Notes</ion-segment-button>
           <ion-segment-button value="Files">Files</ion-segment-button>
   </ion-segment>
 </div> 
-<action-button [data]="{'account': { id: account.id, name: account.name}}"></action-button> 
+
     <div [ngSwitch]="details_tab">
         <div *ngSwitchWhen="'Stat'">
             <ion-list class="list img-top" no-lines style="height: 150px;">
@@ -140,3 +140,4 @@
     </div>
 
 </ion-content>
+<action-button [data]="{'account': { id: account.id, name: account.name}}"></action-button> 
