@@ -29,7 +29,7 @@ export class TicketCreatePage {
 
         this.data = (this.navParams || {}).data || {};
 
-        let account_id = (this.data.accounts || {}).id || this.he.account_id || -1;
+        let account_id = (this.data.account || {}).id || this.he.account_id || -1;
 
         this.selects = {
             "user" : {
@@ -135,7 +135,7 @@ export class TicketCreatePage {
                     setTimeout(() => {
                         this.dismissPage();
                         
-                        if(!this.data.tech && !this.data.accont)
+                        if(!this.data.tech && !this.data.account)
                         this.nav.push(TicketDetailsPage, data);
                     }, 3000); 
                 }, 

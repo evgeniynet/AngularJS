@@ -140,9 +140,7 @@ export class ClassListComponent {
              });
          });
 
-         this.nav.present(alert).then(() => {
-             this.testRadioOpen = true;
-         });
+         this.nav.present(alert);
      }
 
      openModal() {
@@ -153,7 +151,9 @@ export class ClassListComponent {
                  this.emit_changed(data);
              }
          });
-         this.nav.present(myModal);
+         setTimeout(() => {
+             this.nav.present(myModal);
+         }, 500);
      }
 
     }

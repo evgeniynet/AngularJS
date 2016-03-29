@@ -136,9 +136,8 @@ export class SelectListComponent {
              });
          });
 
-         this.nav.present(alert).then(() => {
-             this.testRadioOpen = true;
-         });
+         this.nav.present(alert);
+         //.then(() => { this.testRadioOpen = true;});
      }
 
      openModal() {
@@ -149,7 +148,9 @@ export class SelectListComponent {
                  this.emit_changed(data);
              }
          });
-         this.nav.present(myModal);
+         setTimeout(() => {
+             this.nav.present(myModal);
+         }, 500);
      }
 
     }

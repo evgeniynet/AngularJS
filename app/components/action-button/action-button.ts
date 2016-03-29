@@ -27,11 +27,10 @@ export class ActionButtonComponent {
     }
     
     openModal(page) {
-        setTimeout( () => {
+        
         let myModal = Modal.create(page, this.data);
-        myModal.onDismiss(data => {
-            console.log("close create");
-        });
+        //myModal.onDismiss(data => { console.log("close create");});
+        setTimeout(() => {
         this.nav.present(myModal);
         }, 500);
     }
