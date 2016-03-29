@@ -28,7 +28,6 @@ export class TicketDetailsPage {
         this.details_tab = "Reply";
         let data = (this.navParams || {}).data || {};
         let account_id = -1;
-        
         this.selects = {
             "location" : {
                 name: "Location", 
@@ -59,8 +58,8 @@ export class TicketDetailsPage {
                 hidden: false
             },
             "priority" : {
-                name: "Project", 
-                value: data.priority + " - " + data.priority_name,
+                name: "Priority", 
+                value: (data.priority || 1) + " - " + data.priority_name,
                 selected: data.priority_id,
                 url: "priorities",
                 hidden: false

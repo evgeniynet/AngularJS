@@ -24,41 +24,43 @@ export class ClassListComponent {
          this.list = {};
          this.selected = {};
      }  
-     
+
      ngOnInit() {
-         if (this.list.url)
-         {
-             if (this.preload)
-             {
-                 this.open();
+         if (this.list.url) {
+             this.url = this.list.url;
+             //this.apiData.Cache = this.apiData.get(this.list.url).share();
+             if (this.preload) {
+                 this.loadData();
              }
          }
      }
 
-     open()
-     {  
-         if (!this.list.items || this.list.items.length == 0){
-             if (this.list.url)
-             {
+     open() {
+         this.loadData(true);
+     }
+
+     loadData(show) {
+         if (this.url != this.list.url || !this.list.items || this.list.items.length == 0) {
+             if (this.list.url) {
+                 //this.apiData.Cache.subscribe(
                  this.apiData.get(this.list.url).subscribe(
                      data => {
                          this.list.items = data;
-                         if (!this.preload)
-                         {
+                         if (show) {
                              this.proceed_list();
                          }
-                         this.preload = false;
-                     }, 
-                     error => { 
-                         this.error("Cannot get Classes list! Error: " + error);
-                         console.log(error || 'Server error');}
+                         this.url = this.list.url;
+                     },
+                     error => {
+                         this.error("Cannot get " + this.list.name + " list! Error: " + error);
+                         console.log(error || 'Server error');
+                     }
                  );
              }
              else
                  this.error(this.list.name + ' list is empty!');
          }
-         else
-         {
+         else if (show) {
              this.proceed_list();
          }
      }
@@ -70,14 +72,13 @@ export class ClassListComponent {
 
      proceed_list()
      {
-         let is_plain = true;
-         this.list.items.forEach(item => {
-             if (item.sub)
-             {
-                 is_plain = false;
-                 return;    
-             }
-         });
+         if (!this.list.items || this.list.items.length == 0)
+         {
+             this.error(this.list.name + ' list is empty!');
+             return;
+         }
+
+         let is_plain = !this.list.items.filter((v) => { return v.sub });
 
          if (is_plain && this.list.items.length <= alertLimit)
              this.openRadio();

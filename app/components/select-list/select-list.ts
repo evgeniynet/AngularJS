@@ -33,13 +33,18 @@ export class SelectListComponent {
              //this.apiData.Cache = this.apiData.get(this.list.url).share();
              if (this.preload)
              {
-                 this.open();
+                 this.loadData();
              }
          }
      }
 
      open()
      {
+         this.loadData(true);
+      }
+
+      loadData (show)
+      {
          if (this.url != this.list.url || !this.list.items || this.list.items.length == 0){
          if (this.list.url)
          {
@@ -47,11 +52,10 @@ export class SelectListComponent {
                 this.apiData.get(this.list.url).subscribe(
                  data => {
                      this.list.items = data;
-                     if (!this.preload)
+                     if (show)
                          {
                          this.proceed_list();
                          }
-                     this.preload = false;
                      this.url = this.list.url;
                  }, 
                  error => {
@@ -62,8 +66,7 @@ export class SelectListComponent {
              else
                  this.error(this.list.name + ' list is empty!');
          }
-         else
-         {
+         else if (show) {
              this.proceed_list();
          }
      }

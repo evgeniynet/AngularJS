@@ -47,17 +47,17 @@
                
   <div *ngSwitchWhen="'Info'" class="list general-alignment max-width700">
     
-      <class-list [list]="selects.class" (onChanged)='saveSelect($event)'></class-list>
+      <class-list [preload]="true" [list]="selects.class" (onChanged)='saveSelect($event)'></class-list>
     
-      <select-list [list]="selects.level" (onChanged)='saveSelect($event)'></select-list>
+      <select-list [preload]="true" [list]="selects.level" (onChanged)='saveSelect($event)'></select-list>
     
-      <select-list [list]="selects.priority" (onChanged)='saveSelect($event)'></select-list>
+      <select-list [preload]="true" [list]="selects.priority" (onChanged)='saveSelect($event)'></select-list>
       
-      <select-list [list]="selects.tech" (onChanged)='saveSelect($event)'></select-list>
+      <select-list [preload]="true" [list]="selects.tech" (onChanged)='saveSelect($event)'></select-list>
       
-      <select-list [list]="selects.location" (onChanged)='saveSelect($event)'></select-list>
+      <select-list [preload]="true" [list]="selects.location" (onChanged)='saveSelect($event)'></select-list>
       
-      <select-list [list]="selects.project" (onChanged)='saveSelect($event)'></select-list>
+      <select-list [preload]="true" [list]="selects.project" (onChanged)='saveSelect($event)'></select-list>
     
       <button secondary block (click)="onUpdate()" type="submit" class="img-top disable-hover button button-default button-block">Update</button>
     </div>
