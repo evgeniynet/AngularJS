@@ -18,7 +18,7 @@ export class DashboardPage {
     this.dataProvider = dataProvider;  
   }
     
-    onPageLoaded()
+    onPageWillEnter()
     {           
         this.counts = {open_as_tech: 0}; 
         this.accounts = helpers.loadCache("dashaccounts");

@@ -15,7 +15,7 @@ export class QueueTicketsPage {
         this.dataProvider = dataProvider;
   }
     
-    onPageLoaded()
+    onPageWillEnter()
     {
         if (this.queue.tickets_count){
             this.dataProvider.getTicketsList("queue", this.queue.id).subscribe(
