@@ -16,13 +16,12 @@ export class TicketsPage {
         
     }
     
-    onPageLoaded()
+    onPageWillEnter()
     {
         let tickets = (this.navParams || {}).data || {};
         tickets.tab = this.config.current.user.is_techoradmin ? 
             (tickets.tab || "tech") : "user";
         this.ticket_tab = tickets.tab;
-        
         this.onSegmentChanged({value: this.ticket_tab, count: tickets.count});
     }
 
