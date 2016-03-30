@@ -4,8 +4,8 @@
 
 <ion-content class="account-details">
   <div class="tabsTicket">
-      <ion-segment [(ngModel)]="details_tab">
-          <ion-segment-button value="Stat">Acc Stat</ion-segment-button>
+      <ion-segment  class="position-button" [(ngModel)]="details_tab">
+          <ion-segment-button  value="Stat">Acc Stat</ion-segment-button>
           <ion-segment-button value="Info">Info</ion-segment-button>
           <ion-segment-button value="Projects">Projects</ion-segment-button>
           <ion-segment-button value="Notes">Notes</ion-segment-button>
@@ -16,14 +16,14 @@
     <div [ngSwitch]="details_tab">
         <div *ngSwitchWhen="'Stat'">
             <ion-list class="list img-top" no-lines style="height: 150px;">
-        <div class="blue1 left width65 general-alignment2">
+        <div class="blue1 left width65 general-alignment">
   <ion-item class="textLogin">Open Tickets</ion-item>
   <ion-item class="textLogin">Invoices</ion-item>
   <ion-item class="textLogin">Expenses</ion-item>
   <ion-item class="textLogin">Hours</ion-item>
     <br>
         </div>
-        <div class="right width35 general-alignment2 space">
+        <div class="right width35 general-alignment space">
             <ion-item class="blue2">{{account.account_statistics.ticket_counts.open || 0}}</ion-item>
             <ion-item class="blue2">{{account.account_statistics.invoices || 0}}</ion-item>
             <ion-item class="blue2">{{getCurrency(account.account_statistics.expenses)}}</ion-item>
@@ -36,7 +36,7 @@
             <tickets-list [tickets]="tickets"></tickets-list>
         </div>
 
-        <ion-list class="list img-top" no-lines *ngSwitchWhen="'Info'">
+        <ion-list class="list margin-top45" no-lines *ngSwitchWhen="'Info'">
         <ion-item class="margin"><h3 class="left width35 text-left">BWD Acct#</h3>
      <h3 class="right width50 tkts-table">{{account.bwd_number}}</h3>
         </ion-item>
@@ -98,7 +98,7 @@
                </ion-item>
         </ion-list> 
         
-        <ion-list class="list img-top" *ngSwitchWhen="'Projects'">
+        <ion-list class="list margin-top45" *ngSwitchWhen="'Projects'">
             
             <div [hidden]="account.projects?.length" class="table grey2 menu-text">No Projects yet</div>
             
@@ -120,7 +120,7 @@
         </ion-item>
         </ion-list>
         
-        <ion-list class="list general-alignment max-width700" *ngSwitchWhen="'Notes'">
+        <ion-list class="list margin-top63 max-width700" *ngSwitchWhen="'Notes'">
             
             <div *ngIf="account.note?.length" class="width100 textLogin note-account" [innerHTML]="account.note" type="text"></div>
           
@@ -128,7 +128,7 @@
     <button secondary 
             class="button_reply width32 img-top">Save Notes</button>
         </ion-list>
-            <ion-list class="list img-top" no-lines *ngSwitchWhen="'Files'">
+            <ion-list class="list margin-top45" no-lines *ngSwitchWhen="'Files'">
                 
                  <div [hidden]="account.files?.length" class="table grey2 menu-text">No Files yet</div>
     <ion-item *ngFor="#file of account.files">
