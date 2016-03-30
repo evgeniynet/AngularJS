@@ -31,7 +31,7 @@ export class TicketDetailsPage {
         this.selects = {
             "location": {
                 name: "Location",
-                value: data.location_name,
+                value: data.location_name || "( Not Set )",
                 selected: data.location_id,
                 url: `locations?account=${account_id}`,
                 hidden: false
@@ -45,28 +45,28 @@ export class TicketDetailsPage {
             },
             "project": {
                 name: "Project",
-                value: data.project_name,
+                value: data.project_name || "( Not Set )",
                 selected: data.project_id,
                 url: `projects?account=${account_id}&is_with_statistics=false`,
                 hidden: false
             },
             "level": {
                 name: "Level",
-                value: data.level + " - " + data.level_name,
+                value: data.level_name ? (data.level + " - " + data.level_name) : "( Not Set )",
                 selected: data.level,
                 url: "levels",
                 hidden: false
             },
             "priority": {
                 name: "Priority",
-                value: (data.priority || 1) + " - " + data.priority_name,
+                value: data.priority_name ? (data.priority + " - " + data.priority_name) : "( Not Set )",
                 selected: data.priority_id,
                 url: "priorities",
                 hidden: false
             },
             "class": {
                 name: "Class",
-                value: data.class_name,
+                value: data.class_name || "( Not Set )",
                 selected: data.class_id,
                 url: "classes",
                 hidden: false

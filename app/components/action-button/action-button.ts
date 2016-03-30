@@ -3,6 +3,7 @@ import {Page, ActionSheet, IONIC_DIRECTIVES, NavController, NavParams, Modal, Co
 import {Component, Input, Output, EventEmitter, OnInit, OnDestroy} from 'angular2/core';
 import {TicketCreatePage} from '../../pages/modals/modals';
 import {TimelogPage} from '../../pages/timelog/timelog';
+import {TicketDetailsPage} from '../../pages/ticket-details/ticket-details';
 import {ExpenseCreatePage} from '../../pages/expense-create/expense-create';
 import {InvoiceDetailsPage} from '../../pages/invoice-details/invoice-details';
 
@@ -19,6 +20,7 @@ export class ActionButtonComponent {
     constructor(nav: NavController, config: Config) {
          this.nav = nav;
         this.config = config;
+        this.data = {};
 }
     
     ngOnInit() {
@@ -27,16 +29,22 @@ export class ActionButtonComponent {
     }
     
     openModal(page) {
-        
         let myModal = Modal.create(page, this.data);
-        //myModal.onDismiss(data => { console.log("close create");});
+        myModal.onDismiss(data1 => { 
+            //console.log(this.nav);
+            //console.log(this.data);
+            if (data1 && !this.data.tech && !this.data.account)
+                setTimeout(() => {
+                    this.nav.push(TicketDetailsPage, data1);
+                }, 500);
+        });
         setTimeout(() => {
         this.nav.present(myModal);
         }, 500);
     }
     
     presentActionSheet() {
-        let actionSheet = ActionSheet.create({
+        this.actionSheet = ActionSheet.create({
             title: '',
             buttons: [
                 {
@@ -75,12 +83,12 @@ export class ActionButtonComponent {
         });
 
         //setTimeout( () => {
-            this.nav.present(actionSheet);
+            this.nav.present(this.actionSheet);
         //});
     }
 
-    /*ngOnDestroy() {
-        actionSheet && actionSheet.dismiss();
-    }*/
+    ngOnDestroy() {
+        this.actionSheet && this.actionSheet.dismiss();
+    }
      
 }

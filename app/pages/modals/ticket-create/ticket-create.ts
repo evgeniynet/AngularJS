@@ -90,8 +90,8 @@ export class TicketCreatePage {
         };
     }
 
-    dismissPage() {
-        this.viewCtrl.dismiss();
+    dismissPage(data) {
+        this.viewCtrl.dismiss(data);
     }
 
     saveSelect(event){
@@ -123,20 +123,17 @@ export class TicketCreatePage {
             var subject = htmlEscape(this.ticket.subject.trim());
             var post = htmlEscape(this.ticket.initial_post.trim()).substr(0, 5000);
 
-            this.ticket.class_id = this.selects.class.id;
-            this.ticket.account_id = this.selects.account.id;
-            this.ticket.location_id = this.selects.location.id;
-            this.ticket.user_id = this.he.is_techoradmin ? this.selects.user.id : this.he.user_id;
-            this.ticket.tech_id = this.selects.tech.id;
+            this.ticket.class_id = this.selects.class.selected;
+            this.ticket.account_id = this.selects.account.selected;
+            this.ticket.location_id = this.selects.location.selected;
+            this.ticket.user_id = this.he.is_techoradmin ? this.selects.user.selected : this.he.user_id;
+            this.ticket.tech_id = this.selects.tech.selected;
 
             this.dataProvider.addTicket(this.ticket).subscribe(
                 data => {
                     this.alert.success("", 'Ticket was Succesfully Created :)');
                     setTimeout(() => {
-                        this.dismissPage();
-                        
-                        if(!this.data.tech && !this.data.account)
-                        this.nav.push(TicketDetailsPage, data);
+                        this.dismissPage(data);
                     }, 3000); 
                 }, 
                 error => { 
