@@ -125,7 +125,7 @@
             <div *ngIf="account.note?.length" class="width100 textLogin note-account" [innerHTML]="account.note" type="text"></div>
           
               <textarea [value]="account.note" class="width100 textLogin commentText" type="text" placeholder="Notes:"></textarea>
-    <button secondary menuToggle
+    <button secondary 
             class="button_reply width32 img-top">Save Notes</button>
         </ion-list>
             <ion-list class="list img-top" no-lines *ngSwitchWhen="'Files'">

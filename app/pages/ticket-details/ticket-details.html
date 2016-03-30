@@ -36,11 +36,11 @@
      <div class="list general-alignment2" *ngSwitchWhen="'Reply'">
          
          <posts-list [posts]="post1" [attachments]="attachments"></posts-list>
-         <form #addForm="ngForm" class="response-ticket">
+         <form *ngIf="active" #addForm="ngForm" class="response-ticket">
          <div class="tooltips">
         <textarea class="width100 textLogin commentText" [(ngModel)]="ticketnote" type="text" placeholder="Add Response" ngControl="note" #note="ngForm" required maxlength="4000"></textarea>
-        <span *ngIf="note.dirty && !note.valid">Response is required and less 5000 chars</span></div>
-    <button secondary menuToggle
+        <span [hidden]="note.valid || note.untouched">Response is required and less 5000 chars</span></div>
+    <button secondary 
             class="button_reply" [disabled]="!addForm.valid" (click)="onSubmit(addForm)"  type="submit">Reply</button>
             </form>
          
@@ -81,7 +81,7 @@
         <p>Confirm Now?</p>
             <br>
           <textarea class="width100 textLogin commentText" type="text" placeholder="Add closing comments"></textarea>
-            <button secondary menuToggle
+            <button secondary 
             class="button_reply width35 img-top">Close Ticket</button>
                 </div>
     </div>

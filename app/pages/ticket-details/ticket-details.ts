@@ -23,6 +23,7 @@ export class TicketDetailsPage {
     }
 
     onPageLoaded() {
+        this.active = true;
         let he = this.config.current.user;
         this.details_tab = "Reply";
         let data = (this.navParams || {}).data || {};
@@ -94,18 +95,24 @@ export class TicketDetailsPage {
         
         let isFullInfo = (data.ticketlogs && data.ticketlogs.length > 0);
 
-        if (!isFullInfo)
-        {            this.dataProvider.getTicketDetails(data.key).subscribe(
-            data => {
-                this.processDetails(data);
-            }, 
-            error => { 
-                console.log(error || 'Server error');
-                this.redirectOnEmpty();}
-        ); 
-        }
+        this.getPosts(data.key, !isFullInfo);
 
         this.processDetails(data, !isFullInfo);
+    }
+
+    getPosts(key, isShortInfo)
+    {
+        if (isShortInfo) {
+            this.dataProvider.getTicketDetails(key).subscribe(
+                data => {
+                    this.processDetails(data);
+                },
+                error => {
+                    console.log(error || 'Server error');
+                    this.redirectOnEmpty();
+                }
+            );
+        }
     }
 
     processDetails(data, isShortInfo)
@@ -147,12 +154,10 @@ export class TicketDetailsPage {
             this.dataProvider.addTicketPost(this.ticket.id, post).subscribe(
                 data => {
                     this.alert.success("", 'Note added :)');
-                    /*setTimeout(() => {
-                        this.dismissPage();
-
-                        if (!this.data.tech && !this.data.account)
-                            this.nav.push(TicketDetailsPage, data);
-                    }, 3000);*/
+                    this.ticketnote = "";
+                    this.active = false;
+                    setTimeout(() => this.active = true, 0);
+                    this.getPosts(this.ticket.key, true);
                 },
                 error => {
                     console.log(error || 'Server error');
