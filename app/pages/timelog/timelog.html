@@ -19,7 +19,7 @@
     <button block>Start Time {{time.start_time}}</button>
     <button block>End Time {{time.stop_time}}</button>
         </div>   
- <div class="blue4 img-top" no-lines>     
+ <div class="img-top">     
     
      <select-list [list]="selects.project" [preload]="true" (onChanged)='saveSelect($event)'></select-list>
     <class-list [list]="selects.class" (onChanged)='saveSelect($event)'></class-list>

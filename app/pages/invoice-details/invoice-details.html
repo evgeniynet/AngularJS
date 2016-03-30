@@ -23,9 +23,9 @@
         </ion-item>
     <ion-item no-lines class="width24 left"><h2 item-right>{{getCurrency(invoice.adjustments)}}</h2>
         </ion-item>
-    
-    <ion-item class="width28 right">
-    <h3 item-right>{{getCurrency(invoice.amount)}}</h3>
+    <ion-item class="width45 right basic-margin"></ion-item>
+    <ion-item no-lines>
+    <h2 item-right class="font-invoice">{{getCurrency(invoice.amount)}}</h2>
         </ion-item>
     <br>
     <ion-item padding>
@@ -43,7 +43,7 @@
             </ion-avatar></div>
         
         <ion-item class="blue3 width80 invoicelist right margin" no-lines>
-      <h3 class="width65 left">{{recipient.email}}</h3>
+      <h3 class="width65 left textLogin">{{recipient.email}}</h3>
     <button fab secondary class="buttonInvoice right topInvoice email-invoice">
       <ion-icon class="invoiceCircle" name="checkmark"></ion-icon>
     </button>

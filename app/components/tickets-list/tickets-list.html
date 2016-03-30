@@ -3,7 +3,7 @@
         <ion-item (click)="itemTapped($event, ticket)"  class="item margin">
         <ion-avatar padding item-left class="img_padding margin admin padding-left">
             <li class="center avatarText">
-                <span class="margin" item-left><big>#{{ticket.number}}</big></span>
+                <span class="margin text-bold" item-left>#{{ticket.number}}</span>
                 <img *ngIf="ticket.user_email" [alt]="ticket.user_firstname" class="img" [src]="ticket.user_email | Gravatar"/>
                 <p class="admin">{{ticket.user_firstname}}  {{ticket.user_lastname}}</p> </li>
         </ion-avatar>

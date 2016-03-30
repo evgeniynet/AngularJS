@@ -91,6 +91,10 @@ p {
     text-align: left;
 }
 
+.text-bold{
+    font-weight: bold;
+}
+
 .tablText {
     color: $label-ios-text-color;
 }
@@ -251,6 +255,24 @@ margin-right: 0px;
 .segment-button{
 // color: $segment-button-ios-bg-color-activated;
  border-color: $color-value;
+        background-color: $blue2;
+}
+
+.position-button{
+    position: fixed !important;
+    z-index: 1;
+}
+
+.margin-top45{
+    margin-top: 45px;
+}
+
+.margin-top63{
+    margin-top: 63px;
+}
+
+.margin-bottom38{
+    margin-bottom: 38px;
 }
 
 .select-icon .select-icon-inner {
@@ -264,6 +286,10 @@ margin-right: 0px;
 
 .button.activated{
 background-color: #6AB7EC;
+}
+
+.action-but{
+    padding-left: 0.23em !important;
 }
 
 .menu-content-reveal {
@@ -420,7 +446,7 @@ text-align: center;
 
 
 .button-icon-only ion-icon {
-    padding: 0 0.25em;
+    padding: 0 0.2em;
 }
 
 .searchbar-input {
