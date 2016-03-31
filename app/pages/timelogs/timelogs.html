@@ -17,7 +17,7 @@
      <h3 class="timelogs" *ngIf="!time.is_project_log">{{"#"+time.ticket_number+": "+time.ticket_subject}}</h3></li>
       <li class="right width20 margin font-time">
     <ion-icon class="margin" item-right name="time-outline"></ion-icon>
-                 <span>{{time.hours}}</span>  
+                 <span>{{time.hours| number:'1.2-2'}}</span>  
       <h3 class="center font-date space-initial">{{setDate(time.date) | date: "yMMMdd"}}</h3></li></div>
   </ion-item>
 

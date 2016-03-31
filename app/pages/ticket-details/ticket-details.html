@@ -35,7 +35,7 @@
     <div [ngSwitch]="details_tab">
      <div class="list general-alignment2" *ngSwitchWhen="'Reply'">
          
-         <posts-list [posts]="post1" [attachments]="attachments"></posts-list>
+         <posts-list [posts]="posts | slice:-1" [attachments]="attachments"></posts-list>
          <form *ngIf="active" #addForm="ngForm" class="response-ticket">
          <div class="tooltips">
         <textarea class="width100 textLogin commentText" [(ngModel)]="ticketnote" type="text" placeholder="Add Response" ngControl="note" #note="ngForm" required maxlength="4000"></textarea>
@@ -44,7 +44,7 @@
             class="button_reply" [disabled]="!addForm.valid" (click)="onSubmit(addForm)"  type="submit">Reply</button>
             </form>
          
-         <posts-list [posts]="posts" [attachments]="attachments"></posts-list>
+         <posts-list [posts]="posts | slice:0:-1" [attachments]="attachments"></posts-list>
          
         </div>
                

@@ -104,8 +104,10 @@ export const MOCKS =
                 "unique6_caption": "",
                 "unique7_caption": ""
             },
-            "timezone_offset": 2,
-            "timezone_name": "FLE Standard Time",
+            "time_hour_increment": -1,
+            "time_minimum_time": -1,
+            "timezone_offset": -5,
+            "timezone_name": "Eastern Standard Time",
             "currency": "$",
             "businessday_length": 540,
             "logo": "/mafsf.axd?d=aW5zdGFuY2UtbG9nby9jOTMzMWE1OWNiNzY0YjQyYmM2M2JhZDRhNTAwZTE4My9zaGVycGFkZXNrXzMxMHg5NS5wbmd8MzAwfDQ1fDB8YzkzMzFhNTljYjc2NGI0MmJjNjNiYWQ0YTUwMGUxODNw0",

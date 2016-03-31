@@ -1,6 +1,7 @@
 
 <ion-navbar *navbar><button menuToggle><ion-icon name="menu"></ion-icon></button>
-  <ion-title>Timelog #{{time.time_id}}</ion-title>
+  <ion-title [hidden]="!time.time_id">Add Time</ion-title>
+  <ion-title [hidden]="time.time_id">Timelog #{{time.time_id}} by {{time.user_name}} @ {{setDate(time.date) | date: "MM/dd/yyyy HH:mm"}}</ion-title>
 </ion-navbar>
 <ion-content class="timelog">
     <div class="list max-width700">
@@ -9,32 +10,44 @@
   <button class="width100 blue4"><ion-icon name="remove-outline"></ion-icon></button>
         </div>
     <div class="blue3 left width30 button-timelog">
- <button class="width100" type="button"><ion-input class="timelog-input width100 right margin" type="number" placeholder="00"></ion-input></button>
+ <button class="width100" type="button"><ion-input class="timelog-input width100 right margin" type="number">{{time.hours | number:'1.2-2'}}</ion-input></button>
         </div>
     <div class="right width30 button-timelog dashboardRight">
 <button class="width100 blue4"><ion-icon name="ios-add"></ion-icon></button>
         </div>
   </div>
     <div class="blue3">
-    <button block>Start Time {{time.start_time}}</button>
-    <button block>End Time {{time.stop_time}}</button>
+    <button block>Start Time {{setDate(time.start_time) | date: "MM/dd/yyyy HH:mm"}}</button>
+    <button block>End Time {{setDate(time.stop_time) | date: "MM/dd/yyyy HH:mm"}}</button>
         </div>   
  <div class="img-top">     
     
-     <select-list [list]="selects.project" [preload]="true" (onChanged)='saveSelect($event)'></select-list>
-    <class-list [list]="selects.class" (onChanged)='saveSelect($event)'></class-list>
+     <select-list [list]="selects.account" [preload]="true" (onChanged)='saveSelect($event)'></select-list> 
+
+     <select-list [list]="selects.project" [preload]="true" (onChanged)='saveSelect($event)'></select-list> 
+
+     <select-list [list]="selects.ticket" [preload]="true" (onChanged)='saveSelect($event)'></select-list>
+
+     <select-list [list]="selects.type" [preload]="true" (onChanged)='saveSelect($event)'></select-list>
+
         </div>    
                 <br>
-    <div *ngFor="#time of timelog">
-       <textarea class="width100 textLogin commentText" type="text" placeholder="Details...">{{time.note}}</textarea>
-                </div>
+                <form #addForm="ngForm">
+                <div class="tooltips">
+                       <textarea class="width100 textLogin commentText" type="text" placeholder="I completed..."
+                       [(ngModel)]="timenote"
+                       ngControl="note" #note="ngForm" required maxlength="4000">{{time.note}}</textarea>
+                       <span [hidden]="note.valid || note.untouched">Note is required and less 5000 chars</span></div>
+                
 
           <i class="billable">
  <ion-icon class="ion-ios-radio-button-on"></ion-icon>
           </i>
         <p>Billable</p>
         <div class="img-top">
-            <button  (click)="close()" secondary block="" type="submit" class="disable-hover button button-default button-block">Update Time</button>
+            <button  (click)="close()" secondary block type="submit" class="disable-hover button button-default button-block"
+            [disabled]="!addForm.valid" (click)="onSubmit(addForm)">{{time.time_id ? 'Update' : 'Add'}} Time</button>
     </div>
+    </form>
     </div>
 </ion-content>

@@ -128,7 +128,7 @@ export class TicketDetailsPage {
         if (!isShortInfo)
         {
             this.attachments = data.attachments;
-            this.post1 = [data.ticketlogs.shift()];
+            //this.post1 = [data.ticketlogs.shift()];
             this.posts = data.ticketlogs;
         }
     }
@@ -164,12 +164,6 @@ export class TicketDetailsPage {
                 }
             );
         }
-    }
-
-
-
-    ch(newValue) {
-        //this.tclass = newValue;
     }
 
     getFullapplink(ticketkey) {
