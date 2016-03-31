@@ -55,7 +55,7 @@ getConfig() {
         return this.apiData.get(url);
     }
 
-getTicketsList(tab, id) {
+getTicketsList(tab, id, pager) {
     //"user","tech","alt","all"
     let url = "";
     switch (tab)
@@ -83,6 +83,7 @@ getTicketsList(tab, id) {
             url = "tickets?status=open,onhold&role=user";
             break;
     }
+    url = this.getPager(url, pager);
     return this.apiData.get(url);
 }
     

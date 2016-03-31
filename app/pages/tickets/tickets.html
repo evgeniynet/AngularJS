@@ -2,7 +2,7 @@
   <ion-title>Tickets</ion-title>
 </ion-navbar>
 
-<ion-content class="tickets">
+<div class="tickets mycontent">
     <div *ngIf="config.current.user.is_techoradmin" class="tabsTicket margin-bottom38">
         <ion-segment  class="position-button" [(ngModel)]="ticket_tab" (change)="onSegmentChanged($event)">
 <ion-segment-button  value="user">User</ion-segment-button>
@@ -14,9 +14,6 @@
      <img *ngIf="busy" class="imglogo img-padding" src="img/loading2.gif">
 
     <tickets-list [tickets]="tickets"></tickets-list>
-
-
-
-
-</ion-content>
+    
+</div>
 <action-button></action-button>
