@@ -5,11 +5,11 @@
 </ion-navbar>
 
 <ion-content>
-    <div class="subject">
-   <ion-item class="itemTech blue3 padding subject-ticket text-left width50 left" no-lines>
+    <div class="subject position-subject">
+   <ion-item class="itemTech subject padding subject-ticket text-left width50 left" no-lines>
        <span class="subject-padding ticket-details">{{ticket.subject}}</span>
            </ion-item>
-        <ion-item class="left blue3 width45" no-lines>
+        <ion-item class="left subject width45" no-lines>
         <p class="text-right grey2">{{ticket.class_name}}</p>
         <p *ngIf="'true'" class="text-right">{{ticket.location_name}}</p>
         <p class="text-right grey2">{{getFullName(ticket.technician_firstname || ticket.tech_firstname, ticket.technician_lastname || ticket.tech_lastname,  ticket.technician_email || ticket.tech_email)}}</p>
@@ -20,7 +20,7 @@
         
     </div>
     <div class="subject">
-        <ion-segment class="tabsTicket"  [(ngModel)]="details_tab">
+        <ion-segment class="tabsTicket margin-top113 position-button"  [(ngModel)]="details_tab">
     <ion-segment-button value="Reply">
       Reply
     </ion-segment-button>
@@ -33,7 +33,7 @@
     </ion-segment>
 </div>
     <div [ngSwitch]="details_tab">
-     <div class="list general-alignment2" *ngSwitchWhen="'Reply'">
+     <div class="list margin-top147" *ngSwitchWhen="'Reply'">
          
          <posts-list [posts]="posts | slice:-1" [attachments]="attachments"></posts-list>
          <form *ngIf="active" #addForm="ngForm" class="response-ticket">
@@ -48,7 +48,7 @@
          
         </div>
                
-  <div *ngSwitchWhen="'Info'" class="list general-alignment max-width700">
+  <div *ngSwitchWhen="'Info'" class="list margin-top180 max-width700">
     
       <class-list [preload]="true" [list]="selects.class" (onChanged)='saveSelect($event)'></class-list>
     
@@ -64,7 +64,7 @@
     
       <button secondary block (click)="onUpdate()" type="submit" class="img-top disable-hover button button-default button-block">Update</button>
     </div>
-    <div *ngSwitchWhen="'Options'" class="list general-alignment max-width700">
+    <div *ngSwitchWhen="'Options'" class="list margin-top180 max-width700">
       <button secondary block="" type="submit" class="disable-hover button button-default button-block class-margin">Add Time</button>
       <button secondary block="" type="submit" class="disable-hover button button-default button-block general-alignment2 class-margin">Add Expense</button>
   <button block class="general-alignment2 blue2 class-margin">Transfer Ticket</button>

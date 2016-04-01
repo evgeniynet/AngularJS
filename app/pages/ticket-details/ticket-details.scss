@@ -11,7 +11,6 @@
     padding-top: 20px;
 }
 
-
 .response-ticket{
     margin-bottom: 86px;
 }
@@ -31,4 +30,11 @@
     overflow: hidden;
     text-overflow: ellipsis;
     padding-top: 26px;
+}
+
+.position-subject{
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    height: 18%;
 }
