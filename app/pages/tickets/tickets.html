@@ -4,16 +4,16 @@
 
 <div class="tickets mycontent">
     <div *ngIf="config.current.user.is_techoradmin" class="tabsTicket margin-bottom38">
-        <ion-segment  class="position-button" [(ngModel)]="ticket_tab" (change)="onSegmentChanged($event)">
+        <ion-segment  class="position-button" [(ngModel)]="ticket_tab">
 <ion-segment-button  value="user">User</ion-segment-button>
 <ion-segment-button value="tech">Tech</ion-segment-button>
 <ion-segment-button value="alt">Alt</ion-segment-button>
 <ion-segment-button value="all">All Open</ion-segment-button>
   </ion-segment>
 </div>    
-     <img *ngIf="busy" class="imglogo img-padding" src="img/loading2.gif">
-
-    <tickets-list [tickets]="tickets"></tickets-list>
-    
+    <tickets-list [hidden]="ticket_tab != 'user'" [mode]="'user'" [count]="counts.user"></tickets-list>
+    <tickets-list [hidden]="ticket_tab != 'tech'" [mode]="'tech'" [count]="counts.tech"></tickets-list>
+    <tickets-list [hidden]="ticket_tab != 'alt'" [mode]="'alt'" [count]="counts.alt"></tickets-list>
+    <tickets-list [hidden]="ticket_tab != 'all'" [mode]="'all'" [count]="counts.all"></tickets-list>
 </div>
 <action-button></action-button>

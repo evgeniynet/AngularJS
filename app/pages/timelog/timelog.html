@@ -1,7 +1,7 @@
 
 <ion-navbar *navbar><button menuToggle><ion-icon name="menu"></ion-icon></button>
-  <ion-title [hidden]="!time.time_id">Add Time</ion-title>
-  <ion-title [hidden]="time.time_id">Timelog #{{time.time_id}} by {{time.user_name}} @ {{setDate(time.date) | date: "MM/dd/yyyy HH:mm"}}</ion-title>
+  <ion-title [hidden]="time.time_id">Add Time</ion-title>
+  <ion-title [hidden]="!time.time_id">Timelog #{{time.time_id}} by {{time.user_name}} @ {{setDate(time.date) | date: "MM/dd/yyyy HH:mm"}}</ion-title>
 </ion-navbar>
 <ion-content class="timelog">
     <div class="list max-width700">
@@ -10,7 +10,8 @@
   <button class="width100 blue4"><ion-icon name="remove-outline"></ion-icon></button>
         </div>
     <div class="blue3 left width30 button-timelog">
- <button class="width100" type="button"><ion-input class="timelog-input width100 right margin" type="number">{{time.hours | number:'1.2-2'}}</ion-input></button>
+    <button class="width100" type="button">
+ <ion-input class="timelog-input width100 right margin" [value]="time.hours | number:'1.2-2'" type="number"></ion-input></button>
         </div>
     <div class="right width30 button-timelog dashboardRight">
 <button class="width100 blue4"><ion-icon name="ios-add"></ion-icon></button>
@@ -41,7 +42,7 @@
                 
 
           <i class="billable">
- <ion-icon class="ion-ios-radio-button-on"></ion-icon>
+ <ion-icon class="{{'ion-ios-radio-button-'+( true ? 'on' : 'off')}}"></ion-icon>
           </i>
         <p>Billable</p>
         <div class="img-top">

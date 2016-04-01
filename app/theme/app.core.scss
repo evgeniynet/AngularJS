@@ -661,3 +661,20 @@ div.tooltips span:after {
     -ms-flex: 1;
     flex: 1;
 }
+
+ion-spinner {
+    * {
+      stroke: $text-color;
+    }
+
+    &.spinner-circles circle,
+    &.spinner-bubbles circle,
+    &.spinner-dots circle {
+      fill: $text-color;
+    }
+  }
+
+ .infinite-loading-text
+ {
+    color: $text-color;
+ }

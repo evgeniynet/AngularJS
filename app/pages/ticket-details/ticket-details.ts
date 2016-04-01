@@ -13,13 +13,9 @@ import {GravatarPipe, LinebreaksPipe, DaysoldPipe} from '../../pipes/pipes';
     pipes: [GravatarPipe, LinebreaksPipe, DaysoldPipe],
 })
 export class TicketDetailsPage {
-    constructor(nav: NavController, navParams: NavParams, dataProvider: DataProvider, config: Config) {
-        this.nav = nav;
-        this.config = config;
-        this.alert = this.config.alert;
-        this.navParams = navParams;
-        this.dataProvider = dataProvider;
+    constructor(private nav: NavController, private navParams: NavParams, private dataProvider: DataProvider, private config: Config) {
         this.ticket = {};
+        this.posts = [];
     }
 
     onPageLoaded() {
@@ -128,7 +124,6 @@ export class TicketDetailsPage {
         if (!isShortInfo)
         {
             this.attachments = data.attachments;
-            //this.post1 = [data.ticketlogs.shift()];
             this.posts = data.ticketlogs;
         }
     }

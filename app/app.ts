@@ -75,6 +75,7 @@ class MyApp {
         // set first pages
         //this.rootPage = HelloIonicPage; return;
         this.rootPage = TicketsPage; return;
+        //this.rootPage = TimelogsPage; return;
       
         if (config.current.user.is_techoradmin)
             this.rootPage = DashboardPage;
