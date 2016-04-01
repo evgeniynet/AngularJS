@@ -13,9 +13,9 @@
             <div>
  <li class="text-left width70 left">
     <h2 class="ellipsis">{{time.user_name}}</h2>
-     <h3 class="timelogs" [innerHTML]="time.note | Linebreaks"></h3>
-     <h3 class="timelogs" *ngIf="!time.is_project_log">{{"#"+time.ticket_number+": "+time.ticket_subject}}</h3></li>
-      <li class="right width20 margin font-time">
+     <h3 class="timelogs ellipsis" [innerHTML]="time.note | Linebreaks"></h3>
+     <h3 class="timelogs ellipsis" *ngIf="!time.is_project_log">{{"#"+time.ticket_number+": "+time.ticket_subject}}</h3></li>
+      <li class="right width21 margin font-time">
     <ion-icon class="margin" item-right name="time-outline"></ion-icon>
                  <span>{{time.hours}}</span>  
       <h3 class="center font-date space-initial">{{setDate(time.date) | date: "yMMMdd"}}</h3></li></div>

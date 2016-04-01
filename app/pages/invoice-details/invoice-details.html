@@ -8,16 +8,16 @@
     <p item-right class="text_list">{{setDate(invoice.date) | date: "yMMMdd"}}</p>
         </ion-item>
   <ion-item no-lines class="width75 left"><h2 item-left>Time</h2></ion-item>
-    <ion-item no-lines class="width24 left"><h2 item-right>{{invoice.time_logs}}</h2>
+    <ion-item no-lines class="width24 left"><h2 item-right>{{getCurrency(invoice.time_logs)}}</h2>
         </ion-item>
     
     <ion-item no-lines class="width75 left"><h2 item-left>Travel</h2>
         </ion-item>
-    <ion-item no-lines class="width24 left"><h2 item-right>{{invoice.travel_logs}}</h2>
+    <ion-item no-lines class="width24 left"><h2 item-right>{{getCurrency(invoice.travel_logs)}}</h2>
         </ion-item>
     <ion-item no-lines class="width75 left"><h2 item-left>Expenses</h2>
         </ion-item>
-    <ion-item no-lines class="width24 left"><h2 item-right>{{invoice.expenses}}</h2>
+    <ion-item no-lines class="width24 left"><h2 item-right>{{getCurrency(invoice.expenses)}}</h2>
         </ion-item>
     <ion-item no-lines class="width75 left"><h2 item-left>Adjustments</h2>
         </ion-item>
