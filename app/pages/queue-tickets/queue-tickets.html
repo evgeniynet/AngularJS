@@ -3,12 +3,12 @@
     <ion-title>Tickets @ {{queue.fullname}} Queue</ion-title>
 </ion-navbar>
 
-<ion-content padding class="queues">
+<div padding class="queues mycontent">
   
-    <tickets-list [tickets]="tickets"></tickets-list>
+    <tickets-list [mode]="['queue', queue.id]" [count]="queue.tickets_count"></tickets-list>
     
 
     
-</ion-content>
+</div>
     <action-button [data]="{'tech': { id: queue.id, name: 'Queue ' + queue.fullname}}"></action-button>
 

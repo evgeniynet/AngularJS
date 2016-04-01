@@ -12,7 +12,7 @@ import {GravatarPipe, LinebreaksPipe} from '../../pipes/pipes';
     pipes: [GravatarPipe, LinebreaksPipe],
 })
 export class TicketsListComponent {
-    @Input() mode: string;
+    @Input() mode: Array;
     @Input() count: number;
     tickets: Array;
      
@@ -40,20 +40,7 @@ export class TicketsListComponent {
                  this.busy = true;
              }, 500);
 
-             this.dataProvider.getTicketsList(this.mode).subscribe(
-                 data => {
-                     this.tickets = data;
-                     this.count = data.length;
-                     this.is_empty = !data.length;
-                     clearTimeout(timer);
-                     this.busy = false;
-                 },
-                 error => {
-                     clearTimeout(timer);
-                     this.busy = false;
-                     console.log(error || 'Server error');
-                 }
-             );
+             this.getTickets(null, timer);
          }
          else
          {
@@ -66,6 +53,34 @@ export class TicketsListComponent {
         this.nav.push(TicketDetailsPage, ticket);
     }
 
+    getTickets(infiniteScroll, timer)
+    {
+        this.dataProvider.getTicketsList(this.mode[0], this.mode[1], this.pager).subscribe(
+            data => {
+                if (timer) {
+                    this.is_empty = !data.length;
+                    clearTimeout(timer);
+                    this.busy = false;
+                    this.tickets = data;
+                }
+                else
+                    this.tickets.push(...data);
+                if (infiniteScroll){
+                    infiniteScroll.enable(data.length == 25);
+                    infiniteScroll.complete();
+                }
+                this.count = data.length;
+            },
+            error => {
+                if (timer) {
+                    clearTimeout(timer);
+                    this.busy = false;
+                }
+                console.log(error || 'Server error');
+            }
+        );
+    }
+
 
     doInfinite(infiniteScroll) {
         if (this.is_empty || this.count < 25)
@@ -74,21 +89,7 @@ export class TicketsListComponent {
             infiniteScroll.complete();
             return;
          }
-    console.log('Begin async operation');
-    this.pager.page += 1; 
-    this.dataProvider.getTicketsList(this.mode, "", this.pager).subscribe(
-        data => {
-            this.tickets.push(...data);
-            //console.log(this.tickets);
-            if (data.length < 25) {
-                infiniteScroll.enable(false);
-            }
-            console.log('Async operation has ended');
-            infiniteScroll.complete();
-        },
-        error => {
-            console.log(error || 'Server error');
-        }
-    );
+        this.pager.page += 1; 
+        this.getTickets(infiniteScroll);
   }
 }

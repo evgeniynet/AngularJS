@@ -33,7 +33,7 @@
     <br>
 <ion-item class="item-button list padding">OPEN TICKETS</ion-item>
             <br>
-            <tickets-list [tickets]="tickets"></tickets-list>
+            <tickets-list [mode]="['open', account.id]" [count]="account.account_statistics.ticket_counts.open"></tickets-list>
         </div>
 
         <ion-list class="list margin-top45" no-lines *ngSwitchWhen="'Info'">

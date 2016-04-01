@@ -11,12 +11,8 @@ import {MorePipe} from '../../pipes/pipes';
     pipes: [MorePipe],
 })
 export class AccountDetailsPage {
-    constructor(nav: NavController, navParams: NavParams, dataProvider: DataProvider, config: Config) {
-    this.nav = nav;
-        this.config = config;
+    constructor(private nav: NavController, private navParams: NavParams, private dataProvider: DataProvider, private config: Config) {
         this.details_tab = "Stat";
-        this.navParams = navParams;        
-        this.dataProvider = dataProvider;
   }
     
     onPageWillEnter()
@@ -24,16 +20,6 @@ export class AccountDetailsPage {
                 // If we navigated to this page, we will have an item available as a nav param
         this.account = this.navParams.data || {};
         this.details_tab = "Stat";
-        
-        if (this.account.account_statistics.ticket_counts.open){
-            this.dataProvider.getTicketsList("open", this.account.id).subscribe(
-                data => {this.tickets = data}, 
-                error => { 
-                    console.log(error || 'Server error');}
-            );
-        }
-        else
-            this.tickets = null;
 
         this.dataProvider.getAccountDetails(this.account.id).subscribe(
             data => {

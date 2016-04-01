@@ -11,9 +11,9 @@
 <ion-segment-button value="all">All Open</ion-segment-button>
   </ion-segment>
 </div>    
-    <tickets-list [hidden]="ticket_tab != 'user'" [mode]="'user'" [count]="counts.user"></tickets-list>
-    <tickets-list [hidden]="ticket_tab != 'tech'" [mode]="'tech'" [count]="counts.tech"></tickets-list>
-    <tickets-list [hidden]="ticket_tab != 'alt'" [mode]="'alt'" [count]="counts.alt"></tickets-list>
-    <tickets-list [hidden]="ticket_tab != 'all'" [mode]="'all'" [count]="counts.all"></tickets-list>
+    <tickets-list [hidden]="ticket_tab != 'user'" [mode]="['user']" [count]="counts.user"></tickets-list>
+    <tickets-list [hidden]="ticket_tab != 'tech'" [mode]="['tech']" [count]="counts.tech"></tickets-list>
+    <tickets-list [hidden]="ticket_tab != 'alt'" [mode]="['alt']" [count]="counts.alt"></tickets-list>
+    <tickets-list [hidden]="ticket_tab != 'all'" [mode]="['all']" [count]="counts.all"></tickets-list>
 </div>
 <action-button></action-button>
