@@ -13,14 +13,10 @@ import {AddUserPage} from '../../add-user/add-user';
     directives: [ClassListComponent, forwardRef(() => SelectListComponent)],
 })
 export class TicketCreatePage {
-    constructor(nav: NavController, navParams: NavParams, dataProvider: DataProvider, config: Config,
+    constructor(private nav: NavController, private navParams: NavParams, private dataProvider: DataProvider, private config: Config,
                  private viewCtrl: ViewController) {
-        this.nav = nav;
         //this.viewCtrl = viewCtrl;
-        this.config = config;
         this.alert = config.alert;
-        this.navParams = navParams;
-        this.dataProvider = dataProvider;
     }
 
     onPageLoaded()

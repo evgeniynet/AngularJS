@@ -14,6 +14,7 @@ import {InvoicesPage} from './pages/invoices/invoices';
 import {AccountsPage} from './pages/accounts/accounts';
 import {AccountDetailsPage} from './pages/account-details/account-details';
 import {TimelogsPage} from './pages/timelogs/timelogs';
+import {TimelogPage} from './pages/timelog/timelog';
 import {TicketsPage} from './pages/tickets/tickets';
 import {TicketCreatePage} from './pages/modals/ticket-create/ticket-create';
 import {DashboardPage} from './pages/dashboard/dashboard';
@@ -74,8 +75,9 @@ class MyApp {
         
         // set first pages
         //this.rootPage = HelloIonicPage; return;
-        this.rootPage = TicketsPage; return;
+        //this.rootPage = TicketsPage; return;
         //this.rootPage = TimelogsPage; return;
+        this.rootPage = TimelogPage; return;
       
         if (config.current.user.is_techoradmin)
             this.rootPage = DashboardPage;

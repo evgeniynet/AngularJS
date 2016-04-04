@@ -2155,5 +2155,37 @@ export const MOCKS =
                 "expenses": null,
                 "retainers": null
             }
+        ],
+        "task_types": [
+            {
+                "id": 3,
+                "name": "Development",
+                "fb_task_type_id": 0,
+                "qb_service_id": 0
+            },
+            {
+                "id": 1,
+                "name": "Support",
+                "fb_task_type_id": 0,
+                "qb_service_id": 0
+            },
+            {
+                "id": 2,
+                "name": "Training",
+                "fb_task_type_id": 27384,
+                "qb_service_id": 0
+            },
+            {
+                "id": 12,
+                "name": "UI Design",
+                "fb_task_type_id": 0,
+                "qb_service_id": 0
+            },
+            {
+                "id": 24,
+                "name": "Vacation",
+                "fb_task_type_id": 0,
+                "qb_service_id": 0
+            }
         ]
     };
