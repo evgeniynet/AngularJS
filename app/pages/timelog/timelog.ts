@@ -18,7 +18,20 @@ import 'rxjs/add/operator/next';
     directives: [ClassListComponent, forwardRef(() => SelectListComponent)],
 })
 export class TimelogPage {
+
+    inc : Number;
+
     constructor(private nav: NavController, private navParams: NavParams, private dataProvider: DataProvider, private config: Config, private view: ViewController) {
+    }
+
+    decrement()
+    {
+        this.timecount = this.timecount > this.inc ? this.timecount - this.inc : 0;
+    }
+
+    increment()
+    {
+        this.timecount += this.inc;
     }
     
     onPageLoaded()
@@ -29,29 +42,9 @@ export class TimelogPage {
         this.mintime = this.config.current.time_minimum_time || 0.25;
         this.mintime = this.mintime > 0 ? this.mintime : 0.25;
 
-        const decrementCounter$ = Observable.create(observer => {
-            this.decrement = () => { observer.next(); };
-        });
-        const incrementCounter$ = Observable.create(observer => {
-            this.increment = () => { observer.next(); };
-        });
+        this.inc = this.config.current.time_hour_increment > 0 ? this.config.current.time_hour_increment : 0.25;
 
-        const inc = this.config.current.time_hour_increment > 0 ? this.config.current.time_hour_increment : 0.25;
-        const neg_inc = -Math.abs(inc);
-
-
-        // set up the intent
-        const intent$ = Observable.merge(
-            decrementCounter$.map(() => (neg_inc)),
-            incrementCounter$.map(() => inc)
-            );
-
-        // declare how the intent is transformed into a model
-        this.timecount = intent$.startWith(this.time.hours || this.mintime)
-                            .scan((currentCount, value) => {
-            let val = currentCount + value;
-            return val > 0 ? val : 0;
-        });
+        this.timecount = this.time.hours || this.mintime;
 
         this.timenote = this.time.note || "";
         this.he = this.config.current.user;
@@ -128,7 +121,7 @@ export class TimelogPage {
         //{ "ticket" : localStorage.getItem('ticketNumber') } 
         //{ "account" : account, "project": project } 
         //edat = JSON.stringify(new Date(dat2));
-        console.log({ test : this.timecount });
+
         if (this.timecount < this.mintime)
         {
             this.config.alert.error("Oops!", "Not enough time");
@@ -141,16 +134,7 @@ export class TimelogPage {
         }
         if (form.valid) {
             var note = htmlEscape(this.timenote.trim()).substr(0, 5000);
-            var hours = 0;
 
-            this.timecount.subscribe(
-                data => {
-                    hours = data;
-                },
-                error => {
-                    console.log(error || 'Server error');
-                }
-            );
             var isEdit = !!this.time.time_id;
             //TODO if other user changes what id should I write?  
             let data = {
@@ -161,7 +145,7 @@ export class TimelogPage {
                 "account_id": this.selects.account.selected,
                 "note_text": note,
                 "task_type_id": this.selects.tasktype.selected,
-                "hours": hours,
+                "hours": this.timecount,
                 "is_billable": this.isbillable,
                 "date": "", //TODO add date select dat1 ? sdat : "",
                 "start_date": "",//dat1 ? sdat : "",

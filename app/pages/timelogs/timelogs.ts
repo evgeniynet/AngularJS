@@ -16,7 +16,7 @@ export class TimelogsPage {
         this.dataProvider = dataProvider;
   }
     
-    onPageLoaded()
+    onPageWillEnter()
     {
         let pager = {limit: 25};
 
