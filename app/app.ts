@@ -21,6 +21,7 @@ import {DashboardPage} from './pages/dashboard/dashboard';
 import {OrganizationsPage} from './pages/organizations/organizations';
 import {LoginPage} from './pages/login/login';
 import {ExpenseCreatePage} from './pages/expense-create/expense-create';
+import {ExpensesPage} from './pages/expenses/expenses';
 
 @App({
   templateUrl: 'build/app.html',
@@ -76,7 +77,8 @@ class MyApp {
         
         // set first pages
         //this.rootPage = HelloIonicPage; return;
-        this.rootPage = TicketsPage; return;
+        //this.rootPage = TicketsPage; return;
+        this.rootPage = ExpensesPage; return;
         //this.rootPage = TimelogsPage; return;
         //this.rootPage = TimelogPage; return;
       

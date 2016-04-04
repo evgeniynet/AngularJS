@@ -17,7 +17,7 @@
      <h3 class="timelogs ellipsis" *ngIf="!time.is_project_log">{{"#"+time.ticket_number+": "+time.ticket_subject}}</h3></li>
       <li class="right width21 margin font-time text-right">
     
-    <span class="font-hours">{{time.hours| number:'1.2-2'}}</span>  
+    <span class="font-hours">{{getCurrency(time.hours)}}</span>  
       </li></div>
   </ion-item>
 
