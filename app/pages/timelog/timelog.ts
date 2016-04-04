@@ -13,7 +13,7 @@ import 'rxjs/add/operator/scan';
 import 'rxjs/add/operator/next';
 */
 @Page({
-  templateUrl: 'build/pages/timelog/timelog.html',
+    templateUrl: 'build/pages/timelog/timelog.html',
     directives: [ClassListComponent, forwardRef(() => SelectListComponent)],
 })
 export class TimelogPage {
@@ -40,58 +40,58 @@ export class TimelogPage {
         const intent$ = Observable.merge(
             decrementCounter$.map(() => (neg_inc)),
             incrementCounter$.map(() => inc)
-        );
+            );
 
         // declare how the intent is transformed into a model
         this.count = intent$
-            .startWith(this.time.hours || 0)
-            .scan((currentCount, value) => {
-                let val = currentCount + value;
-                return val > 0 ? val : 0;
-            });
+        .startWith(this.time.hours || 0)
+        .scan((currentCount, value) => {
+            let val = currentCount + value;
+            return val > 0 ? val : 0;
+        });
 
         /*this.dataProvider.getTimelogs().subscribe(
             data => {this.timelogs = data;
                      console.log(data);}, 
             error => { 
                 console.log(error || 'Server error');}
-        );*/
-        
-        this.he = this.config.current.user;
+                );*/
+                
+                this.he = this.config.current.user;
 
-        let account_id = this.time.account_id || this.he.account_id || -1;
-        let project_id = this.time.project_id || 0;
+                let account_id = this.time.account_id || this.he.account_id || -1;
+                let project_id = this.time.project_id || 0;
 
-        this.selects = {
-            "account" : {
-                name: "Account", 
-                value: (this.time.account || {}).name || this.he.account_name,
-                selected: account_id,
-                url: "accounts?is_with_statistics=false",
-                hidden: false
-            },
-            "project" : {
-                name: "Project", 
-                value: this.time.project_name || "Default",
-                selected: project_id,
-                url: `projects?account=${account_id}&is_with_statistics=false`,
-                hidden: false
-            },
-            "ticket" : {
-                name: "Ticket", 
-                value: this.time.ticket_number ? `#${this.time.ticket_number} : ${this.time.ticket_subject}` : "Choose Ticket",
-                selected: this.time.ticket_number || 0,
-                url: `tickets?status=open&account=${account_id}&project=${project_id}`,
-                hidden: this.time.is_project_log || false
-            },
-            "tasktype" : {
-                name: "Task Type", 
-                value: this.task_type || "Default",
-                selected: this.time.task_type_id || 0,
-                url: `task_types?account=${account_id}&project=${project_id}`,
-                hidden: false
-            }
-        };
+                this.selects = {
+                    "account" : {
+                        name: "Account", 
+                        value: (this.time.account || {}).name || this.he.account_name,
+                        selected: account_id,
+                        url: "accounts?is_with_statistics=false",
+                        hidden: false
+                    },
+                    "project" : {
+                        name: "Project", 
+                        value: this.time.project_name || "Default",
+                        selected: project_id,
+                        url: `projects?account=${account_id}&is_with_statistics=false`,
+                        hidden: false
+                    },
+                    "ticket" : {
+                        name: "Ticket", 
+                        value: this.time.ticket_number ? `#${this.time.ticket_number} : ${this.time.ticket_subject}` : "Choose Ticket",
+                        selected: this.time.ticket_number || 0,
+                        url: `tickets?status=open&account=${account_id}&project=${project_id}`,
+                        hidden: this.time.is_project_log || false
+                    },
+                    "tasktype" : {
+                        name: "Task Type", 
+                        value: this.task_type || "Default",
+                        selected: this.time.task_type_id || 0,
+                        url: `task_types?account=${account_id}&project=${project_id}`,
+                        hidden: false
+                    }
+                };
 
         //{ "ticket" : localStorage.getItem('ticketNumber') } 
         //{ "account" : account, "project": project } 
@@ -117,45 +117,45 @@ export class TimelogPage {
                         backFunction();
                     }
                     */
-             
-    }
-    
-    saveSelect(event){
-        let name = event.type;
-        let account_id = this.selects.account.selected;
+                    
+                }
+                
+                saveSelect(event){
+                    let name = event.type;
+                    let account_id = this.selects.account.selected;
         //change url on related lists
         switch (name) {
             case "account":
-                if (this.selects.account.selected === event.id) {
-                    break;
-                }
-                this.selects.project.url = `projects?account=${event.id}&is_with_statistics=false`;
-                this.selects.project.value = "Default";
-                this.selects.project.selected = 0;
-                account_id = event.id;
-                this.selects.ticket.hidden = false;
-                this.selects.project.hidden = false;
-            case "project" :
-                if (this.selects.project.selected === event.id)
-                {
-                    break;
-                }
-                this.selects.ticket.hidden = false;
-                this.selects.ticket.url = `tickets?status=open&account=${account_id}&project=${event.id}`,
-                this.selects.ticket.value = "Default";
-                this.selects.ticket.selected = 0;
-                this.selects.tasktype.url = `task_types?account=${account_id}&project=${event.id}`,
-                this.selects.tasktype.value = "Default";
-                this.selects.tasktype.selected = 0;
+            if (this.selects.account.selected === event.id) {
                 break;
+            }
+            this.selects.project.url = `projects?account=${event.id}&is_with_statistics=false`;
+            this.selects.project.value = "Default";
+            this.selects.project.selected = 0;
+            account_id = event.id;
+            this.selects.ticket.hidden = false;
+            this.selects.project.hidden = false;
+            case "project" :
+            if (this.selects.project.selected === event.id)
+            {
+                break;
+            }
+            this.selects.ticket.hidden = false;
+            this.selects.ticket.url = `tickets?status=open&account=${account_id}&project=${event.id}`,
+            this.selects.ticket.value = "Default";
+            this.selects.ticket.selected = 0;
+            this.selects.tasktype.url = `task_types?account=${account_id}&project=${event.id}`,
+            this.selects.tasktype.value = "Default";
+            this.selects.tasktype.selected = 0;
+            break;
         }
         this.selects[name].selected = event.id;
         this.selects[name].value = event.name;
     }
 
-     setDate(date) {
-      return date ? new Date(date) : null;
-  }
+    setDate(date) {
+        return date ? new Date(date) : null;
+    }
     
     close() {
         this.view.dismiss();

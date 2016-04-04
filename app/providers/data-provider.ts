@@ -171,9 +171,9 @@ addTicketPost(id, note) {
     return this.apiData.get(url, data, "POST");
 }
     
-addTime(data) {
+addTime(data, method) {
     let url = `time/${data.id}`;
-    return this.apiData.get(url, data, "POST");
+    return this.apiData.get(url, data, method);
 }
 
 }
