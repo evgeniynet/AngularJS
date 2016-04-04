@@ -6,6 +6,9 @@ module.exports = {
     path.normalize('es6-shim/es6-shim.min'),
     'reflect-metadata',
     path.normalize('zone.js/dist/zone-microtask'),
+    'intl/index.js',
+    'intl/locale-data/jsonp/ru.js', // Russian locale
+    'intl/locale-data/jsonp/en.js', // English locale
     path.resolve('app/app')
   ],
   output: {
@@ -13,8 +16,14 @@ module.exports = {
     filename: 'app.bundle.js',
     pathinfo: false // show module paths in the bundle, handy for debugging
   },
-  //devtool: 'source-map',
+  //devtool: 'hidden-source-map',
   module: {
+    /*preLoaders: [
+      {
+        test: /\.js$/,
+        loader: "source-map-loader"
+      }
+    ],*/
     loaders: [{
       test: /\.ts$/,
       loader: 'awesome-typescript',

@@ -80,7 +80,7 @@ class MyApp {
         //this.rootPage = TicketsPage; return;
         //this.rootPage = ExpensesPage; return;
         //this.rootPage = TimelogsPage; return;
-        this.rootPage = TimelogPage; return;
+        //this.rootPage = TimelogPage; return;
       
         if (config.current.user.is_techoradmin)
             this.rootPage = DashboardPage;

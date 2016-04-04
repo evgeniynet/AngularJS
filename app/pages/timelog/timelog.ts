@@ -4,15 +4,7 @@ import {htmlEscape} from '../../directives/helpers';
 import {DataProvider} from '../../providers/data-provider';
 import {ClassListComponent} from '../../components/class-list/class-list';
 import {SelectListComponent} from '../../components/select-list/select-list';
-import {Observable} from 'rxjs/Observable';
-//TODO remove all operators
-import 'rxjs/Rx';
-/*import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/startWith';
-import 'rxjs/add/operator/merge';
-import 'rxjs/add/operator/scan';
-import 'rxjs/add/operator/next';
-*/
+
 @Page({
     templateUrl: 'build/pages/timelog/timelog.html',
     directives: [ClassListComponent, forwardRef(() => SelectListComponent)],
