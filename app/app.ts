@@ -25,6 +25,7 @@ import {ExpenseCreatePage} from './pages/expense-create/expense-create';
 @App({
   templateUrl: 'build/app.html',
     providers: [ApiData, DataProvider, ToastsManager],
+    prodMode : false,
     config: {
     tabbarPlacement: 'top'
 }
@@ -75,9 +76,9 @@ class MyApp {
         
         // set first pages
         //this.rootPage = HelloIonicPage; return;
-        //this.rootPage = TicketsPage; return;
+        this.rootPage = TicketsPage; return;
         //this.rootPage = TimelogsPage; return;
-        this.rootPage = TimelogPage; return;
+        //this.rootPage = TimelogPage; return;
       
         if (config.current.user.is_techoradmin)
             this.rootPage = DashboardPage;

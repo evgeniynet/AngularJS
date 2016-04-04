@@ -1,3 +1,5 @@
+import * as Config from '../providers/config';
+
 export function saveConfig(config, key, org, inst) {
     config.stat = {};
     config.key =  key || "";
@@ -47,7 +49,7 @@ export function getInfo4Extension()
     };
 
     export function fullapplink (site, ticketkey, inst,org){
-        return site.addp("tkt",ticketkey)
+        return Config.AppSite.addp("tkt", ticketkey)
         .addp("dept",inst)
         .addp("org",org);
         /*
@@ -91,7 +93,7 @@ export function htmlEscape(str) {
 }
     
 export const FileUrlHelper = {
-        isPhonegap : function () {return false;},
+        isPhonegap : function () {return Config.isPhonegap;},
         ReplaceAll : function (note, find, replace) {
             return note.split(find).join(replace);
         },
@@ -163,8 +165,9 @@ export const FileUrlHelper = {
             else
                 img = "<ion-icon name=\"md-document\" role=img dark class=\"button_circle ion-md-document\" aria-label=\"md-document\"></ion-icon>&nbsp;" + (name ||  decodeURIComponent(file.split("/").slice(-1))) + "<p></p>";
             return "<p/><a class=\"comment_image_link\"" + 
-                (FileUrlHelper.isPhonegap ? (" href=# onclick='openURL(\"" +file + "\")'>"+img+"</a>") :
+                (!FileUrlHelper.isPhonegap ? (" href=# onclick='openURL(\"" +file + "\")'>"+img+"</a>") :
                  (" target=\"_blank\" href=\"" +file + "\">"+img + "</a>"));
+                //TODO: revert !FileUrlHelper.isPhonegap to FileUrlHelper.isPhonegap
         }
     };
 
