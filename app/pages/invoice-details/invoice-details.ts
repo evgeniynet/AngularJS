@@ -15,7 +15,7 @@ export class InvoiceDetailsPage {
   }
     
     setDate(date) {
-        return new Date(date);
+        return date ? new Date(date) : null;
     }
     
     getCurrency(value) {

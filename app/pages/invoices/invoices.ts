@@ -34,9 +34,9 @@ export class InvoicesPage {
         this.nav.push(InvoiceDetailsPage, item);
     }
     
-     setDate(date) {
-      return new Date(date);
-  }
+  setDate(date) {
+        return date ? new Date(date) : null;
+    }
     
     getCurrency(value) {
         return getCurrency(value, this.config.current.currency);

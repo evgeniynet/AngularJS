@@ -94,7 +94,7 @@ export class SelectListComponent {
                      name = getFullName(item.firstname, item.lastname, item.email, " ");
                  //if tickets
                  else if (item.number)
-                     name = `#${item.number} : ${item.subject}`;
+                     name = `#${item.number}: ${item.subject}`;
                  results.push({id: item.id, name: name});
              });
          this.list.items = results;

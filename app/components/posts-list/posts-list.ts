@@ -24,7 +24,7 @@ getFullName (firstname,lastname,email,name) {
     return getFullName (firstname,lastname,email,name);
 }
   
-     setDate(date) {
-      return new Date(date);
-  }
+setDate(date) {
+  return date ? new Date(date) : null;
+}
 }

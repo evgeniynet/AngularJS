@@ -11,7 +11,7 @@
         </div>
     <div class="blue3 left width30 button-timelog">
     <button class="width100" type="button">
- <ion-input class="timelog-input width100 right margin" [value]="count | async | number:'1.2-2'" type="number"></ion-input></button>
+ <ion-input class="timelog-input width100 right margin" [value]="timecount | async | number:'1.2-2'" type="number"></ion-input></button>
         </div>
     <div (click)="increment()" class="right width30 button-timelog dashboardRight">
 <button class="width100 blue4"><ion-icon name="ios-add"></ion-icon></button>
@@ -37,8 +37,8 @@
                 <div class="tooltips">
                        <textarea class="width100 textLogin commentText" type="text" placeholder="I completed..."
                        [(ngModel)]="timenote"
-                       ngControl="note" #note="ngForm" required maxlength="4000">{{time.note}}</textarea>
-                       <span [hidden]="note.valid || note.untouched">Note is required and less 5000 chars</span></div>
+                       ngControl="note" #note="ngForm" maxlength="4000">{{time.note}}</textarea>
+                       <!--span [hidden]="note.valid || note.untouched">Note is required and less 5000 chars</span--></div>
                 
 
           <ion-item no-lines class="left toggle-width">

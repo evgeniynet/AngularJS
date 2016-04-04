@@ -51,9 +51,9 @@ export class ExpenseCreatePage {
         
     }
     
-     setDate(date) {
-      return new Date(date);
-  }
+    setDate(date) {
+        return date ? new Date(date) : null;
+    }
     
     close() {
         this.view.dismiss();

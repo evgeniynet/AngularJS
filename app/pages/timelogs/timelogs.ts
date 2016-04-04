@@ -34,7 +34,7 @@ export class TimelogsPage {
         this.nav.push(TimelogPage, time);
     }
     
-     setDate(date) {
-      return new Date(date);
-  }
+    setDate(date) {
+        return date ? new Date(date) : null;
+    }
 }
