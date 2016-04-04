@@ -41,10 +41,10 @@
                        <span [hidden]="note.valid || note.untouched">Note is required and less 5000 chars</span></div>
                 
 
-          <i class="billable">
- <ion-icon class="{{'ion-ios-radio-button-'+( true ? 'on' : 'off')}}"></ion-icon>
-          </i>
-        <p>Billable</p>
+          <ion-item no-lines class="left toggle-width">
+      <ion-toggle class="toggle" value="foo" checked="true"></ion-toggle>
+    </ion-item>
+        <p class="left width30 text-toggle">Billable</p>
         <div class="img-top">
             <button  (click)="close()" secondary block type="submit" class="disable-hover button button-default button-block"
             [disabled]="!addForm.valid" (click)="onSubmit(addForm)">{{time.time_id ? 'Update' : 'Add'}} Time</button>
