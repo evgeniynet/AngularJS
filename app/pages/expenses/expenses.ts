@@ -13,7 +13,7 @@ import {GravatarPipe, MorePipe, LinebreaksPipe} from '../../pipes/pipes';
 export class ExpensesPage {
     constructor(private nav: NavController, private dataProvider: DataProvider, private config: Config) {
         this.is_empty = false;
-  }
+    }
     
     onPageLoaded()
     {
@@ -26,18 +26,18 @@ export class ExpensesPage {
             }, 
             error => { 
                 console.log(error || 'Server error');}
-        );
+                );
     }
     
     itemTapped(time) {
         this.nav.push(ExpenseCreatePage, time);
     }
     
-     setDate(date) {
-      return new Date(date);
-  }
+    setDate(date) {
+        return new Date(date);
+    }
 
-     getCurrency(value) {
-         return getCurrency(value, this.config.current.currency);
-     }
+    getCurrency(value) {
+        return getCurrency(value, this.config.current.currency);
+    }
 }

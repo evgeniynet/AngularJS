@@ -6,17 +6,17 @@ import {DashboardPage} from '../dashboard/dashboard';
 import {TicketsPage} from '../tickets/tickets';
 
 @Page({
-  templateUrl: 'build/pages/organizations/organizations.html',
+    templateUrl: 'build/pages/organizations/organizations.html',
 })
 export class OrganizationsPage {
     constructor(nav: NavController, dataProvider: DataProvider, config: Config) {
-    this.nav = nav;
+        this.nav = nav;
         this.config = config;
         
         //partly logout
         localStorage.clear();
         if (this.config.current.user)
-        localStorage.username = this.config.current.user.email;
+            localStorage.username = this.config.current.user.email;
         saveConfig(this.config.current, this.config.current.key);
         
         this.alert = this.config.alert;
@@ -31,15 +31,15 @@ export class OrganizationsPage {
                 this.alert.error(error || 'Server error', 'Oops!');
                 //setTimeout(() => { this.nav.pop(); }, 3000);
                 console.log(error || 'Server error');}
-        ); 
-  }
-    
+                ); 
+    }
+
     toggle(org){
         if (org.instances.length == 1)
-            {
-        this.onSelectInst({org: org.key, inst: org.instances[0].key});
-                return;
-            }
+        {
+            this.onSelectInst({org: org.key, inst: org.instances[0].key});
+            return;
+        }
         var index = this.list.indexOf(org);
         for (let i=0; i< this.list.length; i++) {
             if (i == index)
@@ -62,7 +62,7 @@ export class OrganizationsPage {
                 this.config.current = data;
                 saveConfig(this.config.current, key, instance.org, instance.inst);
                 if (this.config.current.user.is_techoradmin)
-                this.nav.setRoot(DashboardPage);
+                    this.nav.setRoot(DashboardPage);
                 else
                     this.nav.setRoot(TicketsPage);     
             }, 
@@ -72,6 +72,6 @@ export class OrganizationsPage {
                     this.nav.setRoot(TicketsPage);
                 }, 3000);
                 console.log(error || 'Server error');}
-        ); 
+                ); 
     }
 }
