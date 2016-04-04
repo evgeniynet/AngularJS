@@ -69,6 +69,19 @@ color: $black1;
     border-color: $black1;
 }
 
+
+.toggle-icon:before{
+    background-color: #ccc;
+}
+
+.toggle-inner{
+     background-color: #F9FAFB;
+}
+
+.toggle-checked {
+    background-color: #489CD6;
+}
+
 // text/
 .text-left {
     text-align: left !important;
@@ -260,7 +273,7 @@ margin-right: 0px;
 
 .position-button{
     position: fixed !important;
-    z-index: 1;
+    z-index: 3;
 }
 
 .margin-top45{
@@ -291,6 +304,9 @@ margin-right: 0px;
     margin-bottom: 38px;
 }
 
+.margin-bottom31{
+    margin-bottom: 31px;
+}
 .select-icon .select-icon-inner {
     color: $text-color;
 }

@@ -75,10 +75,10 @@
         
         <select-list [list]="resolution_category" (onChanged)='saveSelect($event)'></select-list>
             
-          <i class="billable">
- <ion-icon class="ion-ios-radio-button-on"></ion-icon>
-          </i>
-        <p>Confirm Now?</p>
+    <ion-item no-lines class="left toggle-width">
+      <ion-toggle class="toggle" value="foo" checked="true"></ion-toggle>
+    </ion-item>
+        <p class="left width30 text-toggle">Confirm Now?</p>
             <br>
           <textarea class="width100 textLogin commentText" type="text" placeholder="Add closing comments"></textarea>
             <button secondary 

@@ -13,18 +13,26 @@
   </ion-segment>
 </div> 
 
+    
+    
     <div [ngSwitch]="details_tab">
         <div *ngSwitchWhen="'Stat'">
             <ion-list class="list img-top" no-lines style="height: 150px;">
-        <div class="blue1 left width65 general-alignment">
-  <ion-item class="textLogin">Open Tickets</ion-item>
+                <div class="padding-top50">
+      <ion-segment [(ngModel)]="tabsTicket">
+          <ion-segment-button class="button-open" value="Open">Open Tickets</ion-segment-button>
+          <ion-segment-button class="button-open" value="Close">Close Tickets</ion-segment-button>
+          </ion-segment>
+</div>
+        <div class="blue1 left width65">
+<!--  <ion-item class="textLogin">Open Tickets</ion-item>-->
   <ion-item class="textLogin">Invoices</ion-item>
   <ion-item class="textLogin">Expenses</ion-item>
   <ion-item class="textLogin">Hours</ion-item>
     <br>
         </div>
-        <div class="right width35 general-alignment space">
-            <ion-item class="blue2">{{account.account_statistics.ticket_counts.open || 0}}</ion-item>
+        <div class="right width35">
+<!--            <ion-item class="blue2">{{account.account_statistics.ticket_counts.open || 0}}</ion-item>-->
             <ion-item class="blue2">{{account.account_statistics.invoices || 0}}</ion-item>
             <ion-item class="blue2">{{getCurrency(account.account_statistics.expenses)}}</ion-item>
             <ion-item class="blue2" [innerHTML]="account.account_statistics.hours | More:[10000,'<div class=item-inner><ion-label>VV</ion-label></div>']"></ion-item>
