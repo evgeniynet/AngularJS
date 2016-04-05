@@ -1,4 +1,4 @@
-import {Page, Config, NavController} from 'ionic-angular';
+import {Page, Config, NavController, NavParams} from 'ionic-angular';
 import {DataProvider} from '../../providers/data-provider';
 import {TimelogPage} from '../timelog/timelog';
 import {ActionButtonComponent} from '../../components/action-button/action-button';
@@ -10,24 +10,71 @@ import {GravatarPipe, MorePipe, LinebreaksPipe} from '../../pipes/pipes';
     pipes: [GravatarPipe, MorePipe, LinebreaksPipe],
 })
 export class TimelogsPage {
-    constructor(nav: NavController, dataProvider: DataProvider, config: Config) {
-    this.nav = nav;
+
+    count: number;
+    is_empty: boolean;
+    busy: boolean;
+    params: Object;
+    pager: Object;
+    timelogs: Array;
+
+
+    constructor(private nav: NavController, private dataProvider: DataProvider, private config: Config, private navParams: NavParams) {
         this.is_empty = false;
-        this.dataProvider = dataProvider;
   }
     
     onPageWillEnter()
     {
-        let pager = {limit: 25};
+        this.params = this.navParams.data || {};
+        this.pager = { page: 0 };
 
-        this.dataProvider.getTimelogs(pager).subscribe(
+        if (this.params.count !== 0) {
+            var timer = setTimeout(() => {
+                this.busy = true;
+            }, 500);
+
+            this.getItems(null, timer);
+        }
+        else
+            this.is_empty = false;
+    }
+
+
+    getItems(infiniteScroll, timer) {
+        this.dataProvider.getTimelogs(this.pager).subscribe(
             data => {
-                this.timelogs = data;
-                this.is_empty = !data || data.length == 0;
-            }, 
-            error => { 
-                console.log(error || 'Server error');}
+                if (timer) {
+                    this.is_empty = !data.length;
+                    clearTimeout(timer);
+                    this.busy = false;
+                    this.timelogs = data;
+                }
+                else
+                    this.timelogs.push(...data);
+                if (infiniteScroll) {
+                    infiniteScroll.enable(data.length == 25);
+                    infiniteScroll.complete();
+                }
+                this.count = data.length;
+            },
+            error => {
+                if (timer) {
+                    clearTimeout(timer);
+                    this.busy = false;
+                }
+                console.log(error || 'Server error');
+            }
         );
+    }
+
+    doInfinite(infiniteScroll) {
+        if (this.is_empty || this.count < 25) {
+            infiniteScroll.enable(false);
+            infiniteScroll.complete();
+            return;
+        }
+        this.pager.page += 1;
+        this.getItems(infiniteScroll, null);
     }
     
     itemTapped(time) {

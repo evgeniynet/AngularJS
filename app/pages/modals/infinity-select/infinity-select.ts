@@ -1,4 +1,4 @@
-import {NavController, NavParams, Page, Events, Config, ViewController} from 'ionic-angular';
+import {NavController, NavParams, Page, Config, ViewController} from 'ionic-angular';
 import {DataProvider} from '../../../providers/data-provider';
 import {getFullName} from '../../../directives/helpers';
 
