@@ -18,20 +18,14 @@
     <div [ngSwitch]="details_tab">
         <div *ngSwitchWhen="'Stat'">
             <ion-list class="list img-top" no-lines style="height: 150px;">
-                <div class="padding-top50">
-      <ion-segment [(ngModel)]="tabsTicket">
-          <ion-segment-button class="button-open" value="Open">Open Tickets</ion-segment-button>
-          <ion-segment-button class="button-open" value="Close">Close Tickets</ion-segment-button>
-          </ion-segment>
-</div>
-        <div class="blue1 left width65">
+        <div class="blue1 left width65 general-alignment">
 <!--  <ion-item class="textLogin">Open Tickets</ion-item>-->
   <ion-item class="textLogin">Invoices</ion-item>
   <ion-item class="textLogin">Expenses</ion-item>
   <ion-item class="textLogin">Hours</ion-item>
     <br>
         </div>
-        <div class="right width35">
+        <div class="right width35 general-alignment">
 <!--            <ion-item class="blue2">{{account.account_statistics.ticket_counts.open || 0}}</ion-item>-->
             <ion-item class="blue2">{{account.account_statistics.invoices || 0}}</ion-item>
             <ion-item class="blue2">{{getCurrency(account.account_statistics.expenses)}}</ion-item>
@@ -39,7 +33,12 @@
         </div>
 </ion-list>
     <br>
-<ion-item class="item-button list padding">OPEN TICKETS</ion-item>
+<div class="margin-top63 list">
+      <ion-segment [(ngModel)]="tabsTicket">
+          <ion-segment-button class="button-open" value="Open">Open Tickets</ion-segment-button>
+          <ion-segment-button class="button-open" value="Close">Close Tickets</ion-segment-button>
+          </ion-segment>
+</div>
             <br>
             <tickets-list [mode]="['open', account.id]" [count]="account.account_statistics.ticket_counts.open"></tickets-list>
         </div>
