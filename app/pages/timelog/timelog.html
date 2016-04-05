@@ -9,10 +9,9 @@
     <div class="left width30 button-timelog">
   <button class="width100 blue4"><ion-icon name="remove-outline"></ion-icon></button>
         </div>
-    <div class="blue3 left width30 button-timelog">
-    <button class="width100" type="button">
- <ion-input class="timelog-input width100 right margin" [value]="(time.hours || 0) | number:'1.2-2'" type="number"></ion-input></button>
-        </div>
+    <ion-item no-lines class="blue3 left width30 button-timelog margin-top4">
+ <ion-input class="timelog-input width100 right margin table" [value]="(time.hours || 0) | number:'1.2-2'" type="number"></ion-input>
+        </ion-item>
     <div class="right width30 button-timelog dashboardRight">
 <button class="width100 blue4"><ion-icon name="ios-add"></ion-icon></button>
         </div>

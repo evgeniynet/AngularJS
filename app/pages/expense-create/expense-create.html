@@ -15,12 +15,10 @@
     <textarea class="width100 textLogin commentText subject-create" type="text" placeholder="Vendor"></textarea>
     <textarea class="width100 textLogin commentText subject-create" type="text" placeholder="Internal Notes"></textarea>
         <br>
-    <ion-label no-lines>
-          <i class="billable">
- <ion-icon class="ion-ios-radio-button-on"></ion-icon>
-          </i>
-        <p>Billable</p>
-      </ion-label>
+    <ion-item no-lines class="left toggle-width">
+      <ion-toggle class="toggle" value="foo" checked="true"></ion-toggle>
+    </ion-item>
+        <p class="left width30 text-toggle">Billable</p>
         <div>
       <button (click)="close()" secondary block="" type="submit" class="disable-hover button button-default button-block">Add Expense</button>
     </div>
