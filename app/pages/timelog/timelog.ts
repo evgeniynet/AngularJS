@@ -64,7 +64,7 @@ export class TimelogPage {
                 value: this.time.ticket_number ? `#${this.time.ticket_number}: ${this.time.ticket_subject}` : "Choose",
                 selected: this.time.ticket_number || 0,
                 url: `tickets?status=open&account=${account_id}&project=${project_id}`,
-                hidden: this.time.is_project_log || false
+                hidden: this.time.is_project_log || this.time.task_type_id || false
             },
             "tasktype" : {
                 name: "Task Type", 
@@ -96,10 +96,13 @@ export class TimelogPage {
             {
                 break;
             }
+            // dont change ticket on edit
+            if (!this.time.task_type_id){
             this.selects.ticket.hidden = false;
             this.selects.ticket.url = `tickets?status=open&account=${account_id}&project=${event.id}`,
             this.selects.ticket.value = "Default";
             this.selects.ticket.selected = 0;
+            }
             this.selects.tasktype.url = `task_types?account=${account_id}&project=${event.id}`,
             this.selects.tasktype.value = "Default";
             this.selects.tasktype.selected = 0;
