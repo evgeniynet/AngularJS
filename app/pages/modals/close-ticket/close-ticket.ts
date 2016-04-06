@@ -33,42 +33,42 @@ export class CloseTicketModal {
         ];
 
         this.categories = [
-            {
-                "name": "Duplicate Issue",
-                "id": 4,
-                "is_resolved": false,
-                "is_active": true
-            },
-            {
-                "name": "No Longer Valid",
-                "id": 5,
-                "is_resolved": false,
-                "is_active": true
-            },
-            {
-                "name": "Test resolution category",
-                "id": 6,
-                "is_resolved": false,
-                "is_active": false
-            },
-            {
-                "name": "On Site",
-                "id": 1,
-                "is_resolved": true,
-                "is_active": true
-            },
-            {
-                "name": "Phone",
-                "id": 2,
-                "is_resolved": true,
-                "is_active": true
-            },
-            {
-                "name": "Remote Support",
-                "id": 3,
-                "is_resolved": true,
-                "is_active": true
-            }
+        {
+            "name": "Duplicate Issue",
+            "id": 4,
+            "is_resolved": false,
+            "is_active": true
+        },
+        {
+            "name": "No Longer Valid",
+            "id": 5,
+            "is_resolved": false,
+            "is_active": true
+        },
+        {
+            "name": "Test resolution category",
+            "id": 6,
+            "is_resolved": false,
+            "is_active": false
+        },
+        {
+            "name": "On Site",
+            "id": 1,
+            "is_resolved": true,
+            "is_active": true
+        },
+        {
+            "name": "Phone",
+            "id": 2,
+            "is_resolved": true,
+            "is_active": true
+        },
+        {
+            "name": "Remote Support",
+            "id": 3,
+            "is_resolved": true,
+            "is_active": true
+        }
         ];
 
         this.selects = {
@@ -105,8 +105,8 @@ export class CloseTicketModal {
             this.selects.category.value = "Choose";
             this.selects.category.selected = 0;
             this.selects.category.items = this.selects.resolution.selected ?
-                                            this.categories.filter(v => v.is_resolved)
-                                            : this.categories.filter(v => !v.is_resolved);
+            this.categories.filter(v => v.is_resolved)
+            : this.categories.filter(v => !v.is_resolved);
             this.selects.category.hidden = !this.selects.category.items.length;
         }
     }

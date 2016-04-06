@@ -16,7 +16,7 @@ import {AccountDetailsPage} from './pages/account-details/account-details';
 import {TimelogsPage} from './pages/timelogs/timelogs';
 import {TimelogPage} from './pages/timelog/timelog';
 import {TicketsPage} from './pages/tickets/tickets';
-import {TicketCreatePage} from './pages/modals/ticket-create/ticket-create';
+import {TicketCreatePage, CloseTicketModal} from './pages/modals/modals';
 import {DashboardPage} from './pages/dashboard/dashboard';
 import {OrganizationsPage} from './pages/organizations/organizations';
 import {LoginPage} from './pages/login/login';
@@ -77,10 +77,12 @@ class MyApp {
         
         // set first pages
         //this.rootPage = HelloIonicPage; return;
-        //this.rootPage = TicketsPage; return;
+        this.rootPage = TicketsPage; return;
         //this.rootPage = ExpensesPage; return;
         //this.rootPage = TimelogsPage; return;
         //this.rootPage = TimelogPage; return;
+        //this.rootPage = AccountsPage; return;
+        //this.rootPage = CloseTicketModal; return;
       
         if (config.current.user.is_techoradmin)
             this.rootPage = DashboardPage;
