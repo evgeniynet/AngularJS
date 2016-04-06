@@ -35,7 +35,7 @@ export class CloseTicketModal {
         {
             "name": "Duplicate Issue",
             "id": 15,
-            "is_resolved": true,
+            "is_resolved": false,
             "is_active": true
         },
         {
@@ -86,6 +86,7 @@ export class CloseTicketModal {
                 items: this.categories.filter((v) => { return v.is_resolved })
             }
         };
+        this.selects.category.hidden = !this.selects.category.items.length;
     }
 
     dismiss() {
@@ -105,6 +106,7 @@ export class CloseTicketModal {
             this.selects.category.items = this.selects.resolution.value == "Resolved" ?
                                             this.categories.filter((v) => { return v.is_resolved })
                                             : this.categories.filter((v) => { return !v.is_resolved });
+            this.selects.category.hidden = !this.selects.category.items.length;
         }
     }
     
