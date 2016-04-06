@@ -1,7 +1,8 @@
-import {IONIC_DIRECTIVES, NavController, NavParams, Config} from 'ionic-angular';
+import {IONIC_DIRECTIVES, NavController, NavParams, Config, Modal} from 'ionic-angular';
 import {Component, Input, OnChanges, OnInit} from 'angular2/core';
 import {DataProvider} from '../../providers/data-provider';
 import {TicketDetailsPage} from '../../pages/ticket-details/ticket-details';
+import {CloseTicketModal} from '../../pages/modals/modals';
 import {GravatarPipe, LinebreaksPipe} from '../../pipes/pipes';
 
 
@@ -48,9 +49,11 @@ export class TicketsListComponent {
          }
     }
 
-    itemTapped(event, ticket) {
-        if (event.srcElement.tagName.toUpperCase() != "ION-ITEM-SLIDING") 
+     itemTapped(event, ticket, slidingItem) {
+        if (event.srcElement.tagName.toUpperCase() != "ION-ITEM-SLIDING") {
+            slidingItem.close();
         this.nav.push(TicketDetailsPage, ticket);
+    }
     }
 
     getTickets(infiniteScroll, timer)
@@ -79,6 +82,17 @@ export class TicketsListComponent {
                 console.log(error || 'Server error');
             }
         );
+    }
+
+    closeTicket(key, slidingItem) {
+        slidingItem.close();
+        let myModal = Modal.create(CloseTicketModal, key);
+        myModal.onDismiss(data => {
+            console.log(data);
+        });
+        setTimeout(() => {
+            this.nav.present(myModal);
+        }, 500);
     }
 
 

@@ -19,7 +19,7 @@ export class TicketDetailsPage {
         this.posts = [];
     }
 
-    onPageLoaded() {
+    onPageWillEnter() {
         this.active = true;
         let he = this.config.current.user;
         this.details_tab = "Reply";
