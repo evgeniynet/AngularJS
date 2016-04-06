@@ -68,21 +68,7 @@
       <button secondary block="" type="submit" class="disable-hover button button-default button-block class-margin">Add Time</button>
       <button secondary block="" type="submit" class="disable-hover button button-default button-block general-alignment2 class-margin">Add Expense</button>
   <button block class="general-alignment2 blue2 class-margin">Transfer Ticket</button>
-            <button block class="general-alignment2 blue2 class-margin">Close Ticket</button>
-                <br>
-                
-        <select-list [list]="resolution" (onChanged)='saveSelect($event)'></select-list>
-        
-        <select-list [list]="resolution_category" (onChanged)='saveSelect($event)'></select-list>
-            
-    <ion-item no-lines class="left toggle-width">
-      <ion-toggle class="toggle" value="foo" checked="true"></ion-toggle>
-    </ion-item>
-        <p class="left width30 text-toggle">Confirm Now?</p>
-            <br>
-          <textarea class="width100 textLogin commentText" type="text" placeholder="Add closing comments"></textarea>
-            <button secondary 
-            class="button_reply width35 img-top">Close Ticket</button>
+            <button block (click)="closeTicket(ticket.key)" class="general-alignment2 blue2 class-margin">Close Ticket</button>
                 </div>
     </div>
 </ion-content>

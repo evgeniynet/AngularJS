@@ -26,7 +26,7 @@ export class DataProvider {
         if(!username || !password) {
             return this.apiData.handleError("Please enter login and password!");
         }
-        
+
         let url = "login";
         var headers = new Headers({
             'Content-Type': 'text/plain;charset=UTF-8',
@@ -176,6 +176,11 @@ addTicketPost(id, note) {
     "note_text": note,
 };
 return this.apiData.get(url, data, "POST");
+}
+
+closeOpenTicket(id, data) {
+    let url = `tickets/${id}`;
+    return this.apiData.get(url, data, "PUT");
 }
 
 addTime(id, data, method) {

@@ -1,5 +1,10 @@
 
 <ion-navbar *navbar>
+<ion-buttons [hidden]="'false'" start class="searchbar">
+        <button (click)="close()">
+            <span primary>Cancel</span>
+        </button>
+    </ion-buttons>
   <ion-title>ExpenseCreate</ion-title>
 </ion-navbar>
 

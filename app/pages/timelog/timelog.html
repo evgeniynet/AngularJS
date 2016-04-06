@@ -1,5 +1,10 @@
 
 <ion-navbar *navbar><button menuToggle><ion-icon name="menu"></ion-icon></button>
+<ion-buttons [hidden]="time.time_id" start class="searchbar">
+        <button (click)="close()">
+            <span primary>Cancel</span>
+        </button>
+    </ion-buttons>
   <ion-title [hidden]="time.time_id">Add Time</ion-title>
   <ion-title [hidden]="!time.time_id">Timelog #{{time.time_id}} by {{time.user_name}} @ {{setDate(time.date) | date: "MM/dd/yyyy HH:mm"}}</ion-title>
 </ion-navbar>

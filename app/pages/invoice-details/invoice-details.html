@@ -1,5 +1,10 @@
 
-<ion-navbar *navbar><button menuToggle><ion-icon name="menu"></ion-icon></button>
+<ion-navbar *navbar><button [hidden]="!invoice.date" menuToggle><ion-icon name="menu"></ion-icon></button>
+<ion-buttons [hidden]="invoice.date" start class="searchbar">
+        <button (click)="close()">
+            <span primary>Cancel</span>
+        </button>
+    </ion-buttons>
   <ion-title>InvoiceDetails {{setDate(invoice.date) | date: "yMMMdd"}}</ion-title>
 </ion-navbar>
 
