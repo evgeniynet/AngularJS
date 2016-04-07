@@ -77,7 +77,7 @@ class MyApp {
         
         // set first pages
         //this.rootPage = HelloIonicPage; return;
-        this.rootPage = TicketsPage; return;
+        //this.rootPage = TicketsPage; return;
         //this.rootPage = ExpensesPage; return;
         //this.rootPage = TimelogsPage; return;
         //this.rootPage = TimelogPage; return;
