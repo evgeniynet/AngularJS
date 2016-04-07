@@ -28,7 +28,7 @@
         <textarea class="width100 textLogin commentText" [(ngModel)]="ticketnote" type="text" placeholder="Add closing comments" ngControl="note" #note="ngForm" required maxlength="4000"></textarea>
         <span [hidden]="note.valid || note.untouched">Note is required and less 5000 chars</span></div>
         <button secondary 
-        class="button_reply" [disabled]="!addForm.valid" (click)="onSubmit(addForm)"  type="submit">Close Ticket</button>
+        class="button_reply width35 img-top" [disabled]="!addForm.valid" (click)="onSubmit(addForm)"  type="submit">Close Ticket</button>
     </form>
 
 </div>
