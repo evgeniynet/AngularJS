@@ -3,6 +3,7 @@ import {App, IonicApp, Config, Platform, NavController, NavParams, Events, MenuC
 import {OnInit, OnDestroy} from 'angular2/core';
 import {ApiData} from './providers/api-data';
 import {DataProvider} from './providers/data-provider';
+import {TicketProvider} from './providers/ticket-provider';
 import {dontClearCache} from './providers/config';
 import {MOCKS} from './providers/mocks';
 import * as helpers from './directives/helpers';
@@ -25,14 +26,14 @@ import {ExpensesPage} from './pages/expenses/expenses';
 
 @App({
   templateUrl: 'build/app.html',
-    providers: [ApiData, DataProvider, ToastsManager],
+    providers: [ApiData, DataProvider, TicketProvider, ToastsManager],
     prodMode : false,
     config: {
     tabbarPlacement: 'top'
 }
 })
 class MyApp {
-    constructor(private app: IonicApp, private platform: Platform, private config: Config, private toastr: ToastsManager, private events: Events, private menu: MenuController) {
+    constructor(private app: IonicApp, private platform: Platform, private config: Config, private toastr: ToastsManager, private events: Events, private menu: MenuController, private ticketProvider: TicketProvider) {
 
     // set up our app
     this.initializeApp();
@@ -77,7 +78,7 @@ class MyApp {
         
         // set first pages
         //this.rootPage = HelloIonicPage; return;
-        //this.rootPage = TicketsPage; return;
+        this.rootPage = TicketsPage; return;
         //this.rootPage = ExpensesPage; return;
         //this.rootPage = TimelogsPage; return;
         //this.rootPage = TimelogPage; return;

@@ -18,7 +18,7 @@ export class TimelogPage {
 
     decrement()
     {
-        this.timecount = this.timecount > this.inc ? this.timecount - this.inc : 0;
+        this.timecount = Math.max(this.timecount - this.inc , 0);
     }
 
     increment()

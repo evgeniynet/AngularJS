@@ -16,6 +16,7 @@ export class TicketsPage {
         if (param.count)
             this.counts[param.tab] = param.count;
         this.ticket_tab = this.config.current.user.is_techoradmin ? 
-            (param.tab || "tech") : "user";
+            (param.tab || this.nav.tickets_tab || "tech") : "user";
+        this.nav.tickets_tab = null;
     }
 }
