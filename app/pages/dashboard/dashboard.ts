@@ -7,16 +7,16 @@ import {AccountDetailsPage} from '../account-details/account-details';
 import {MorePipe} from '../../pipes/pipes';
 
 @Page({
-  templateUrl: 'build/pages/dashboard/dashboard.html',
+    templateUrl: 'build/pages/dashboard/dashboard.html',
     directives: [QueuesListComponent, AccountsListComponent, ActionButtonComponent],
     pipes: [MorePipe],
 })
 export class DashboardPage {
     constructor(nav: NavController, config: Config, dataProvider: DataProvider) {
-    this.nav = nav;
-    this.config = config;
-    this.dataProvider = dataProvider;  
-  }
+        this.nav = nav;
+        this.config = config;
+        this.dataProvider = dataProvider;  
+    }
     
     onPageWillEnter()
     {           
@@ -30,7 +30,7 @@ export class DashboardPage {
             data => {this.queues = data}, 
             error => { 
                 console.log(error || 'Server error');}
-        ); 
+                ); 
 
         if (!this.accounts || this.accounts.length ==0)
             this.dataProvider.getAccountList(true, pager, true, true).subscribe(
@@ -39,7 +39,7 @@ export class DashboardPage {
                 }, 
                 error => { 
                     console.log(error || 'Server error');}
-            );   
+                    );   
 
         this.dataProvider.getAccountList(true, pager).subscribe(
             data => {
@@ -48,16 +48,22 @@ export class DashboardPage {
             }, 
             error => { 
                 console.log(error || 'Server error');}
-        ); 
+                ); 
 
         this.dataProvider.getTicketsCounts().subscribe(
             data => {
                 this.counts = data;
-                this.config.current.stat.tickets = data;
+                this.config.current.stat.tickets =
+                {
+                    "all": data.open_all,
+                    "tech":  data.open_as_tech,
+                    "alt": data.open_as_alttech,
+                    "user": data.open_as_user
+                };
             }, 
             error => { 
                 console.log(error || 'Server error');}
-        ); 
+                ); 
     }
     
     itemTappedTL(tab) {  this.nav.setRoot(TicketsPage, tab);}

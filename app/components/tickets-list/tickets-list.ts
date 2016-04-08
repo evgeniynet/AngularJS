@@ -1,9 +1,11 @@
-import {IONIC_DIRECTIVES, NavController, NavParams, Config} from 'ionic-angular';
+import {IONIC_DIRECTIVES, NavController, NavParams, Config, Modal} from 'ionic-angular';
 import {Component, Input, OnChanges, OnInit} from 'angular2/core';
-import {DataProvider} from '../../providers/data-provider';
+import {TicketProvider} from '../../providers/ticket-provider';
 import {TicketDetailsPage} from '../../pages/ticket-details/ticket-details';
+import {CloseTicketModal} from '../../pages/modals/modals';
 import {GravatarPipe, LinebreaksPipe} from '../../pipes/pipes';
 
+const LIMIT: number = 6;
 
 @Component({
     selector: 'tickets-list',
@@ -14,13 +16,17 @@ import {GravatarPipe, LinebreaksPipe} from '../../pipes/pipes';
 export class TicketsListComponent {
     @Input() mode: Array;
     @Input() count: number;
+    @Input() preload: number;
     tickets: Array;
-     
-    constructor(private nav: NavController, private navParams: NavParams, private config: Config, private dataProvider: DataProvider) {
+    cachelen: number;
+    pager: Object;
+    is_empty: boolean;
+
+    constructor(private nav: NavController, private navParams: NavParams, private config: Config, private ticketProvider: TicketProvider) {
         this.is_empty = false;
-        this.pager = { page: 0 };
+        this.pager = { page: 0, limit: LIMIT};
     }
-     
+
      /*
      ngOnChanges(event) {
          if ("tickets" in event ) {
@@ -33,63 +39,112 @@ export class TicketsListComponent {
      */
 
      ngOnInit() {
+         //this.ticketProvider.tickets$.subscribe(
+         //    data => { this.tickets = data });
+         //this.tickets = this.ticketProvider.tickets$;
+         this.cachelen = this.ticketProvider._dataStore[this.mode[0]].length;
+         if (this.preload && !this.cachelen) {
+             setTimeout(() => {
+                 this.busy = true;
+                 this.onLoad();
+             }, this.preload);
+         }
+         else
+             this.onLoad();
+     }
+
+     onLoad()
+     {
          if (!this.mode)
              return;
+         this.tickets = [];
+         this.count = this.count || ((this.config.current.stat || {}).tickets || {})[this.mode[0]];
          if (this.count !== 0) {
-             var timer = setTimeout(() => {
-                 this.busy = true;
-             }, 500);
+             var timer = null;
+             
+             if (this.cachelen) {
+                this.tickets = this.ticketProvider._dataStore[this.mode[0]];
+                this.pager.limit = this.cachelen;
+                timer = -1;
+                // if cache is already has all data
+                //if (this.cachelen >= this.count){return;}
+            }
+             else 
+                timer = setTimeout(() => { this.busy = true }, 500);
 
              this.getTickets(null, timer);
          }
-         else
-         {
-             this.is_empty = true; 
+         else {
+             this.is_empty = true;
          }
-    }
+     }
 
-    itemTapped(event, ticket) {
-        if (event.srcElement.tagName.toUpperCase() != "ION-ITEM-SLIDING") 
-        this.nav.push(TicketDetailsPage, ticket);
-    }
-
-    getTickets(infiniteScroll, timer)
-    {
-        this.dataProvider.getTicketsList(this.mode[0], this.mode[1], this.pager).subscribe(
-            data => {
-                if (timer) {
-                    this.is_empty = !data.length;
-                    clearTimeout(timer);
-                    this.busy = false;
-                    this.tickets = data;
-                }
-                else
-                    this.tickets.push(...data);
-                if (infiniteScroll){
-                    infiniteScroll.enable(data.length == 25);
-                    infiniteScroll.complete();
-                }
-                this.count = data.length;
-            },
-            error => {
-                if (timer) {
-                    clearTimeout(timer);
-                    this.busy = false;
-                }
-                console.log(error || 'Server error');
-            }
-        );
-    }
-
-
-    doInfinite(infiniteScroll) {
-        if (this.is_empty || this.count < 25)
-         {
-            infiniteScroll.enable(false);
-            infiniteScroll.complete();
-            return;
+     itemTapped(event, ticket, slidingItem) {
+         if (event.srcElement.tagName.toUpperCase() != "ION-ITEM-SLIDING") {
+             slidingItem.close();
+             if (~['all','alt','user','tech'].indexOf(this.mode[0]))
+                 this.nav.tickets_tab = this.mode[0];
+             this.nav.push(TicketDetailsPage, ticket);
          }
-        this.pager.page += 1; 
-        this.getTickets(infiniteScroll);
-  }
-}
+     }
+
+     getTickets(infiniteScroll, timer)
+     {
+         this.ticketProvider.getTicketsList([this.mode[0]], this.mode[1], this.pager).subscribe(
+             data => {
+                 if (timer) {
+                     if (timer != -1) {
+                         this.is_empty = !data.length;
+                         clearTimeout(timer);
+                         this.busy = false;
+                         this.count = data.length;
+                     }
+                     else
+                     {
+                         this.count = (this.cachelen % LIMIT) || LIMIT;
+                         this.pager.page = Math.max((this.cachelen / LIMIT | 0) - 1, 0);
+                         this.pager.limit = LIMIT;
+                     }
+                     this.tickets = data;
+                 }
+                 if (infiniteScroll){
+                     this.tickets.push(...data);
+                     infiniteScroll.enable(data.length == LIMIT);
+                     this.count = data.length;
+                     infiniteScroll.complete();
+                 }
+                 this.ticketProvider._dataStore[this.mode[0]] = this.tickets;
+             },
+             error => {
+                 if (timer) {
+                     clearTimeout(timer);
+                     this.busy = false;
+                 }
+                 console.log(error || 'Server error');
+             }
+             );
+     }
+
+     closeTicket(key, slidingItem) {
+         slidingItem.close();
+         let myModal = Modal.create(CloseTicketModal, key);
+         myModal.onDismiss(data => {
+             console.log(data);
+         });
+         setTimeout(() => {
+             this.nav.present(myModal);
+         }, 500);
+     }
+
+
+     doInfinite(infiniteScroll) {
+         if (this.is_empty || this.count < LIMIT)
+         {
+             infiniteScroll.enable(false);
+             infiniteScroll.complete();
+             return;
+         }
+         this.pager.page += 1; 
+         this.getTickets(infiniteScroll);
+     }
+ }

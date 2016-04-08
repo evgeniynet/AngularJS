@@ -1,10 +1,11 @@
-import {Page, Config, NavController, NavParams} from 'ionic-angular';
+import {Page, Config, NavController, NavParams, Modal} from 'ionic-angular';
 import {FORM_DIRECTIVES, Validators} from 'angular2/common';
 import {DataProvider} from '../../providers/data-provider';
 import {htmlEscape, getCurrency, getFullName, fullapplink} from '../../directives/helpers';
 import {PostsListComponent} from '../../components/posts-list/posts-list';
 import {SelectListComponent} from '../../components/select-list/select-list';
 import {ClassListComponent} from '../../components/class-list/class-list';
+import {CloseTicketModal} from '../../pages/modals/modals';
 import {GravatarPipe, LinebreaksPipe, DaysoldPipe} from '../../pipes/pipes';
 
 @Page({
@@ -18,7 +19,7 @@ export class TicketDetailsPage {
         this.posts = [];
     }
 
-    onPageLoaded() {
+    onPageWillEnter() {
         this.active = true;
         let he = this.config.current.user;
         this.details_tab = "Reply";
@@ -69,24 +70,6 @@ export class TicketDetailsPage {
             }
         };
 
-        let resolution1 = [
-            { name: 'Resolved', id: 0 },
-            { name: 'UnResolved', id: 1 },
-        ];
-
-        this.resolution = {};
-        this.resolution.name = "Resolution";
-        this.resolution.value = "Resolved";
-        this.resolution.selected = 0;
-        this.resolution.items = resolution1;
-
-
-        this.resolution_category = {};
-        this.resolution_category.name = "Category";
-        this.resolution_category.value = "Testing";
-        this.resolution_category.selected = 3;
-        this.resolution_category.items =
-            resolution1;
         this.ticketnote = "";
         
         let isFullInfo = (data.ticketlogs && data.ticketlogs.length > 0);
@@ -159,6 +142,17 @@ export class TicketDetailsPage {
                 }
             );
         }
+    }
+
+    closeTicket(key)
+    {
+        let myModal = Modal.create(CloseTicketModal, key);
+        myModal.onDismiss(data => {
+            console.log(data);
+        });
+        setTimeout(() => {
+            this.nav.present(myModal);
+        }, 500);
     }
 
     getFullapplink(ticketkey) {

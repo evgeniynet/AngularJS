@@ -2187,5 +2187,43 @@ export const MOCKS =
                 "fb_task_type_id": 0,
                 "qb_service_id": 0
             }
+        ],
+        "resolution_categories": [
+            {
+                "name": "Duplicate Issue",
+                "id": 15,
+                "is_resolved": false,
+                "is_active": true
+            },
+            {
+                "name": "End User Submission",
+                "id": 16,
+                "is_resolved": false,
+                "is_active": true
+            },
+            {
+                "name": "No Longer Valid",
+                "id": 17,
+                "is_resolved": false,
+                "is_active": true
+            },
+            {
+                "name": "No Response",
+                "id": 18,
+                "is_resolved": false,
+                "is_active": true
+            },
+            {
+                "name": "Unable to Replicate",
+                "id": 19,
+                "is_resolved": false,
+                "is_active": true
+            },
+            {
+                "name": "Unable to Resolve",
+                "id": 20,
+                "is_resolved": false,
+                "is_active": true
+            }
         ]
     };

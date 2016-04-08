@@ -1,8 +1,8 @@
 <ion-content style="height: 90vh;">
 <img *ngIf="busy" class="imglogo img-padding" src="img/loading2.gif">
 <ion-list class="list indent-bottom general-alignment2" no-lines>
-    <ion-item-sliding class="border" *ngFor="#ticket of tickets"> 
-        <ion-item (click)="itemTapped($event, ticket)"  class="item margin">
+    <ion-item-sliding class="border" *ngFor="#ticket of tickets" #slidingItem> 
+        <ion-item (click)="itemTapped($event, ticket, slidingItem)"  class="item margin">
         <ion-avatar padding item-left class="img_padding margin admin padding-left">
             <li class="center avatarText">
                 <span class="margin text-bold" item-left>#{{ticket.number}}</span>
@@ -21,15 +21,15 @@
             Add Response
         </button>
 
-        <button secondary class="disable-hover button button-default button-secondary">
-            <ion-icon _ngcontent-mqq-12=""aria-></ion-icon>
+        <button secondary (click)="closeTicket(ticket.key, slidingItem)" class="disable-hover button button-default button-secondary">
+            <ion-icon></ion-icon>
             Close Ticket
         </button>
         </ion-item-options>
     </ion-item-sliding>
 </ion-list>
 <div *ngIf="is_empty" class="table grey2 menu-text">No Tickets yet</div>
-<ion-infinite-scroll threshold="20%" (infinite)="doInfinite($event)" threshold="100px">
+<ion-infinite-scroll threshold="20%" (infinite)="doInfinite($event)">
     <ion-infinite-scroll-content
       loadingSpinner="circles"
       loadingText="Loading more data...">

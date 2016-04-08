@@ -8,22 +8,66 @@ import {AccountsListComponent, ActionButtonComponent} from '../../components/com
     directives: [AccountsListComponent, ActionButtonComponent],
 })
 export class AccountsPage {
-    constructor(nav: NavController, config: Config, dataProvider: DataProvider) {
-    this.nav = nav;
-    this.config = config;
-        this.dataProvider = dataProvider;
+
+    count: number;
+    is_empty: boolean;
+    busy: boolean;
+    params: Object;
+    pager: Object;
+    accounts: Array;
+
+    constructor(private nav: NavController, private config: Config, private dataProvider: DataProvider) {
   }
     
-    onPageLoaded()
+    onPageWillEnter()
     {
-        var pager = {limit:500};
+        this.pager = { page: 0 };
 
-        this.dataProvider.getAccountList(false, pager, true, true).subscribe(
-            data => {this.accounts = data;
-                     this.config.current.stat.accounts = data.length;
-                    }, 
-            error => { 
-                console.log(error || 'Server error');}
-        ); 
+        var timer = setTimeout(() => {
+            this.busy = true;
+        }, 500);
+
+        this.getItems(null, timer);
+    }
+
+
+    getItems(infiniteScroll, timer) {
+        this.dataProvider.getAccountList(false, this.pager, true, true).subscribe(
+            data => {
+                if (timer) {
+                    clearTimeout(timer);
+                    this.busy = false;
+                    this.accounts = data;
+                    this.config.current.stat.accounts = data.length;
+                }
+                else
+                {
+                    this.accounts.push(...data);
+                    this.config.current.stat.accounts += data.length;
+                }
+                if (infiniteScroll) {
+                    infiniteScroll.enable(data.length == 25);
+                    infiniteScroll.complete();
+                }
+                this.count = data.length;
+            },
+            error => {
+                if (timer) {
+                    clearTimeout(timer);
+                    this.busy = false;
+                }
+                console.log(error || 'Server error');
+            }
+        );
+    }
+
+    doInfinite(infiniteScroll) {
+        if (this.count < 25) {
+            infiniteScroll.enable(false);
+            infiniteScroll.complete();
+            return;
+        }
+        this.pager.page += 1;
+        this.getItems(infiniteScroll, null);
     }
 }
