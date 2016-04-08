@@ -12,11 +12,11 @@
         <img *ngIf="time.user_email" [alt]="time.user_firstname" class="img" [src]="time.user_email | Gravatar"/>
     </ion-avatar>
             <div>
- <li class="text-left width70 left">
+ <li class="text-left width65 left">
     <h2 class="ellipsis">{{time.user_name}} @ {{setDate(time.date) | date: "MM/dd/yyyy HH:mm"}}</h2>
      <h3 class="timelogs ellipsis" [innerHTML]="time.note | Linebreaks"></h3>
      <h3 class="timelogs ellipsis" *ngIf="!time.is_project_log">{{"#"+time.ticket_number+": "+time.ticket_subject}}</h3></li>
-      <li class="right width21 margin font-time text-right">
+      <li class="right width25 margin font-time text-right">
     <ion-icon class="margin" item-right name="time-outline"></ion-icon>
     <span class="font-hours">{{time.hours| number:'1.2-2'}}</span>  
       </li></div>

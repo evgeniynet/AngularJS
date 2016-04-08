@@ -36,7 +36,7 @@
     position: fixed;
     z-index: 1;
     width: 100%;
-    height: 20%;
+    height: 22%;
 }
 
 .toggle{
@@ -50,4 +50,8 @@
 
 .text-toggle{
        margin-top: 25px;
+}
+
+.margin-top0{
+     margin-top: 0px !important;
 }
