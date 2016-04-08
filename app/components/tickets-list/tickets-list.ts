@@ -42,7 +42,7 @@ export class TicketsListComponent {
          //this.ticketProvider.tickets$.subscribe(
          //    data => { this.tickets = data });
          //this.tickets = this.ticketProvider.tickets$;
-         this.cachelen = this.ticketProvider._dataStore[this.mode[0]].length;
+         this.cachelen = (this.ticketProvider._dataStore[this.mode[0]] || {}).length;
          if (this.preload && !this.cachelen) {
              setTimeout(() => {
                  this.busy = true;
@@ -58,7 +58,9 @@ export class TicketsListComponent {
          if (!this.mode)
              return;
          this.tickets = [];
-         this.count = this.count || ((this.config.current.stat || {}).tickets || {})[this.mode[0]];
+
+         this.count = ((this.config.current.stat || {}).tickets || {})[this.mode[0]] || this.count;
+
          if (this.count !== 0) {
              var timer = null;
              

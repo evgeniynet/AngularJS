@@ -1,5 +1,6 @@
 import {Page, Config, NavController} from 'ionic-angular';
 import {DataProvider} from '../../providers/data-provider';
+import {TicketProvider} from '../../providers/ticket-provider';
 import * as helpers from '../../directives/helpers';
 import {QueuesListComponent, AccountsListComponent, ActionButtonComponent} from '../../components/components';
 import {TicketsPage} from '../tickets/tickets';
@@ -12,7 +13,7 @@ import {MorePipe} from '../../pipes/pipes';
     pipes: [MorePipe],
 })
 export class DashboardPage {
-    constructor(nav: NavController, config: Config, dataProvider: DataProvider) {
+    constructor(nav: NavController, config: Config, dataProvider: DataProvider, private ticketProvider: TicketProvider) {
         this.nav = nav;
         this.config = config;
         this.dataProvider = dataProvider;  
@@ -39,7 +40,11 @@ export class DashboardPage {
                 }, 
                 error => { 
                     console.log(error || 'Server error');}
-                    );   
+                    ); 
+        
+        if (!this.ticketProvider._dataStore.tech.length)
+            this.ticketProvider.getTicketsList("tech", "", { "limit": 6 }).subscribe(
+                data => { this.ticketProvider._dataStore.tech = data });  
 
         this.dataProvider.getAccountList(true, pager).subscribe(
             data => {
