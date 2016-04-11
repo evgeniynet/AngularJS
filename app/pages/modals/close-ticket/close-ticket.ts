@@ -1,5 +1,6 @@
 import {NavController, NavParams, Page, ViewController, Config} from 'ionic-angular';
 import {forwardRef} from 'angular2/core';
+import {DataProvider} from '../../../providers/data-provider';
 import {ApiData} from '../../../providers/api-data';
 import {htmlEscape} from '../../../directives/helpers';
 import {SelectListComponent} from '../../../components/select-list/select-list';
@@ -16,7 +17,7 @@ export class CloseTicketModal {
     ticket: Object;
     selects: Array;
 
-    constructor(private nav: NavController, private navParams: NavParams, private apiData: ApiData, private config: Config,
+    constructor(private nav: NavController, private navParams: NavParams, private apiData: ApiData, private dataProvider: DataProvider, private config: Config,
         private viewCtrl: ViewController) {
     }
 

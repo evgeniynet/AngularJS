@@ -65,12 +65,14 @@
       <button secondary block (click)="onUpdate()" type="submit" class="img-top disable-hover button button-default button-block">Update</button>
     </div>
     <div *ngSwitchWhen="'Options'" class="list margin-top190 max-width700">
-      <button secondary block="" type="submit" class="disable-hover button button-default button-block class-margin">Add Time</button>
-      <button secondary block="" type="submit" class="disable-hover button button-default button-block general-alignment2 class-margin">Add Expense</button>
+      <button (click)="addTime()" secondary block type="submit" class="disable-hover button button-default button-block class-margin">Add Time</button>
+      <button   (click)="addExpense()" secondary block type="submit" class="disable-hover button button-default button-block general-alignment2 class-margin">Add Expense</button>
   
   <select-list [preload]="true" [isbutton]="true" [list]="selects.technician" (onChanged)='transferTicket($event)'></select-list>
 
-            <button block (click)="closeTicket()" class="button_reply width35 img-top">Close Ticket</button>
+<button (click)='pickUp()' secondary block type="submit" class="disable-hover button button-default button-block general-alignment2 class-margin">Pick Up Ticket</button>
+
+<button (click)="closeTicket()" secondary block type="submit" class="disable-hover button button-default button-block general-alignment2 class-margin">Close Ticket</button>
                 </div>
     </div>
 </ion-content>

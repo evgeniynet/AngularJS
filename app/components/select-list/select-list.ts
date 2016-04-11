@@ -16,7 +16,7 @@ export class SelectListComponent {
     @Input() list: Array;
     @Input() isbutton: boolean;
     @Input() preload: boolean;
-    @Output() onChanged: EventEmitter<any> = new EventEmitter();
+    @Output() public onChanged: EventEmitter<any> = new EventEmitter(false);
 
     constructor(nav: NavController, apiData: ApiData, config: Config) {
         this.init = true;
@@ -101,7 +101,7 @@ export class SelectListComponent {
          this.list.items = results;
      }
 
-     if (true || this.list.items.length <= alertLimit)
+     if (this.list.items.length <= alertLimit)
          this.openRadio();
      else
          this.openModal();

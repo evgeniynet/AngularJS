@@ -6,6 +6,8 @@ import {PostsListComponent} from '../../components/posts-list/posts-list';
 import {SelectListComponent} from '../../components/select-list/select-list';
 import {ClassListComponent} from '../../components/class-list/class-list';
 import {CloseTicketModal} from '../../pages/modals/modals';
+import {TimelogPage} from '../../pages/timelog/timelog'; 
+import {ExpenseCreatePage} from '../../pages/expense-create/expense-create';
 import {GravatarPipe, LinebreaksPipe, DaysoldPipe} from '../../pipes/pipes';
 
 @Page({
@@ -19,7 +21,7 @@ export class TicketDetailsPage {
         this.posts = [];
     }
 
-    onPageWillEnter() {
+    onPageLoaded() {
         this.active = true;
         let he = this.config.current.user;
         this.details_tab = "Reply";
@@ -30,7 +32,7 @@ export class TicketDetailsPage {
             "location": {
                 name: "Location",
                 value: data.location_name || "( Not Set )",
-                selected: data.location_id,
+                selected: data.location_id || 0,
                 url: `locations?account=${account_id}`,
                 hidden: false
             },
@@ -51,28 +53,28 @@ export class TicketDetailsPage {
             "project": {
                 name: "Project",
                 value: data.project_name || "( Not Set )",
-                selected: data.project_id,
+                selected: data.project_id || 0,
                 url: `projects?account=${account_id}&is_with_statistics=false`,
                 hidden: false
             },
             "level": {
                 name: "Level",
                 value: data.level_name ? (data.level + " - " + data.level_name) : "( Not Set )",
-                selected: data.level,
+                selected: data.level || 0,
                 url: "levels",
                 hidden: false
             },
             "priority": {
                 name: "Priority",
                 value: data.priority_name ? (data.priority + " - " + data.priority_name) : "( Not Set )",
-                selected: data.priority_id,
+                selected: data.priority_id || 0,
                 url: "priorities",
                 hidden: false
             },
             "class": {
                 name: "Class",
                 value: data.class_name || "( Not Set )",
-                selected: data.class_id,
+                selected: data.class_id || 0,
                 url: "classes",
                 hidden: false
             }
@@ -152,6 +154,28 @@ export class TicketDetailsPage {
         }
     }
 
+    onUpdate() {
+        let data = {
+            "class_id": this.selects.class.selected,
+            "level_id": this.selects.level.selected,
+            "priority_id": this.selects.priority.selected,
+            "project_id": this.selects.project.selected,
+            "location_id": this.selects.location.selected,
+            "account_id": this.ticket.account_id,
+            "tech_id": this.selects.tech.selected
+        };
+
+        this.dataProvider.closeOpenTicket(this.ticket.key, data).subscribe(
+            data => {
+                this.config.alert.success("", 'Ticket was successfully updated :)');
+                this.getPosts(this.ticket.key, true);
+            },
+            error => {
+                console.log(error || 'Server error');
+            }
+            );
+    }
+
     transferTicket(event) {
         if (!event)
             return;
@@ -176,10 +200,53 @@ export class TicketDetailsPage {
             );
     }
 
+    pickUp() {
+
+        let data = {
+            "action": "pickup",
+            "note_text": ""
+        };
+
+        this.dataProvider.closeOpenTicket(this.ticket.key, data).subscribe(
+            data => {
+                this.config.alert.success("", 'Ticket pickup was Succesfull!');
+                let he = this.config.current.user;
+                this.techname = this.selects.tech.value = this.ticket.tech_firstname = getFullName(he.firstname, he.lastname, he.email);
+                this.ticket.tech_lastname = this.ticket.tech_email = "";
+                this.selects.tech.selected = he.user_id;
+            },
+            error => {
+                console.log(error || 'Server error');
+            }
+            );
+    }
+
 
     closeTicket()
     {
         let myModal = Modal.create(CloseTicketModal, { "number": this.ticket.number, "key": this.ticket.key, "subject": this.ticket.subject });
+        myModal.onDismiss(data => {
+            console.log(data);
+        });
+        setTimeout(() => {
+            this.nav.present(myModal);
+        }, 500);
+    }   
+
+    addTime()
+    {
+        let myModal = Modal.create(TimelogPage, { "number": this.ticket.number, "ticket_number": this.ticket.key, "subject": this.ticket.subject, "account_id": this.ticket.account_id });
+        myModal.onDismiss(data => {
+            console.log(data);
+        });
+        setTimeout(() => {
+            this.nav.present(myModal);
+        }, 500);
+    }
+
+    addExpense()
+    {
+        let myModal = Modal.create(ExpenseCreatePage, { "number": this.ticket.number, "ticket_number": this.ticket.key, "subject": this.ticket.subject, "account_id": this.ticket.account_id });
         myModal.onDismiss(data => {
             console.log(data);
         });

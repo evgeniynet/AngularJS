@@ -14,7 +14,7 @@ const alertLimit = 10;
 export class ClassListComponent {
     @Input() list: Array;
     @Input() preload: boolean;
-     @Output() onChanged: EventEmitter<any> = new EventEmitter();
+     @Output() public onChanged:EventEmitter<any> = new EventEmitter(false);
 
      constructor(nav: NavController, apiData: ApiData, config: Config) {
          this.init = true;
