@@ -1,6 +1,6 @@
 import {NavController, NavParams, Page, ViewController, Config} from 'ionic-angular';
 import {forwardRef} from 'angular2/core';
-import {DataProvider} from '../../../providers/data-provider';
+import {ApiData} from '../../../providers/api-data';
 import {htmlEscape} from '../../../directives/helpers';
 import {SelectListComponent} from '../../../components/select-list/select-list';
 
@@ -13,10 +13,10 @@ export class CloseTicketModal {
 
     isconfirm: boolean;
     ticketnote: string;
-    key: string;
+    ticket: Object;
     selects: Array;
 
-    constructor(private nav: NavController, private navParams: NavParams, private dataProvider: DataProvider, private config: Config,
+    constructor(private nav: NavController, private navParams: NavParams, private apiData: ApiData, private config: Config,
         private viewCtrl: ViewController) {
     }
 
@@ -25,51 +25,9 @@ export class CloseTicketModal {
 
         this.isconfirm = true;
 
-        this.key = (this.navParams || {}).data || 0;
+        this.ticket = (this.navParams || {}).data || 0;
 
-        let resolution1 = [
-        { name: 'Resolved', id: 1 },
-        { name: 'UnResolved', id: 0 },
-        ];
-
-        this.categories = [
-        {
-            "name": "Duplicate Issue",
-            "id": 4,
-            "is_resolved": false,
-            "is_active": true
-        },
-        {
-            "name": "No Longer Valid",
-            "id": 5,
-            "is_resolved": false,
-            "is_active": true
-        },
-        {
-            "name": "Test resolution category",
-            "id": 6,
-            "is_resolved": false,
-            "is_active": false
-        },
-        {
-            "name": "On Site",
-            "id": 1,
-            "is_resolved": true,
-            "is_active": true
-        },
-        {
-            "name": "Phone",
-            "id": 2,
-            "is_resolved": true,
-            "is_active": true
-        },
-        {
-            "name": "Remote Support",
-            "id": 3,
-            "is_resolved": true,
-            "is_active": true
-        }
-        ];
+        this.categories = [];
 
         this.selects = {
             "resolution": {
@@ -77,17 +35,31 @@ export class CloseTicketModal {
                 value: "Resolved",
                 selected: 1,
                 hidden: false,
-                items: resolution1
+                items: [
+                    { "name": 'Resolved', "id": 1 },
+                    { "name": 'UnResolved', "id": 0 },
+                ]
             },
             "category": {
                 name: "Category",
                 value: "Choose",
                 selected: 0,
                 hidden: false,
-                items: this.categories.filter(v => v.is_resolved)
+                items: []
             }
         };
-        this.selects.category.hidden = !this.selects.category.items.length;
+
+        this.apiData.get("resolution_categories").subscribe(
+            data => {
+                console.log(this.selects);
+                this.categories = data;
+                this.selects.category.items = data.filter(v => v.is_resolved)
+                this.selects.category.hidden = !this.selects.category.items.length;
+            },
+            error => {
+                console.log(error || 'Server error');
+            }
+        );
     }
 
     dismiss() {
@@ -126,7 +98,7 @@ export class CloseTicketModal {
 
             };
 
-            this.dataProvider.closeOpenTicket(this.key, data).subscribe(
+            this.dataProvider.closeOpenTicket(this.ticket.key, data).subscribe(
                 data => {
                     this.config.alert.success("", 'Ticket has been closed :)');
                     setTimeout(() => { 
