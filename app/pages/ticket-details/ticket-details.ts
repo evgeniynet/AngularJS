@@ -25,6 +25,7 @@ export class TicketDetailsPage {
         this.details_tab = "Reply";
         let data = (this.navParams || {}).data || {};
         let account_id = -1;
+        this.techname = getFullName(data.technician_firstname || data.tech_firstname, data.technician_lastname || data.tech_lastname, data.technician_email || data.tech_email);
         this.selects = {
             "location": {
                 name: "Location",
@@ -35,7 +36,14 @@ export class TicketDetailsPage {
             },
             "tech": {
                 name: "Tech",
-                value: getFullName(data.technician_firstname || data.tech_firstname, data.technician_lastname || data.tech_lastname, data.technician_email || data.tech_email),
+                value: this.techname,
+                selected: data.tech_id,
+                url: "technicians",
+                hidden: false
+            },
+            "technician": {
+                name: "Technician",
+                value: "Transfer Ticket",
                 selected: data.tech_id,
                 url: "technicians",
                 hidden: false
@@ -90,7 +98,7 @@ export class TicketDetailsPage {
                     console.log(error || 'Server error');
                     this.redirectOnEmpty();
                 }
-            );
+                );
         }
     }
 
@@ -140,9 +148,34 @@ export class TicketDetailsPage {
                 error => {
                     console.log(error || 'Server error');
                 }
-            );
+                );
         }
     }
+
+    transferTicket(event) {
+        if (!event)
+            return;
+        let techid = event.id;
+        this.selects.technician.selected = techid;
+        this.selects.technician.value = "Transfer Ticket";
+
+        let data = {
+            "tech_id": techid
+        };
+
+        this.dataProvider.closeOpenTicket(this.ticket.key, data).subscribe(
+            data => {
+                this.config.alert.success("", 'Ticket has been transferred :)');
+                this.techname = this.selects.tech.value = this.ticket.tech_firstname = event.name;
+                this.ticket.tech_lastname = this.ticket.tech_email = "";
+                this.selects.tech.selected = techid;
+            },
+            error => {
+                console.log(error || 'Server error');
+            }
+            );
+    }
+
 
     closeTicket()
     {

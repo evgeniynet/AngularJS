@@ -14,6 +14,7 @@ const alertLimit = 5;
 })
 export class SelectListComponent {
     @Input() list: Array;
+    @Input() isbutton: boolean;
     @Input() preload: boolean;
     @Output() onChanged: EventEmitter<any> = new EventEmitter();
 
@@ -100,7 +101,7 @@ export class SelectListComponent {
          this.list.items = results;
      }
 
-     if (this.list.items.length <= alertLimit)
+     if (true || this.list.items.length <= alertLimit)
          this.openRadio();
      else
          this.openModal();

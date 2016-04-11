@@ -51,7 +51,6 @@ export class CloseTicketModal {
 
         this.apiData.get("resolution_categories").subscribe(
             data => {
-                console.log(this.selects);
                 this.categories = data;
                 this.selects.category.items = data.filter(v => v.is_resolved)
                 this.selects.category.hidden = !this.selects.category.items.length;

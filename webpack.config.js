@@ -5,7 +5,7 @@ module.exports = {
   entry: [
     path.normalize('es6-shim/es6-shim.min'),
     'reflect-metadata',
-    path.normalize('zone.js/dist/zone-microtask'),
+    path.normalize('zone.js/dist/zone'),
     'intl/index.js',
     'intl/locale-data/jsonp/ru.js', // Russian locale
     'intl/locale-data/jsonp/en.js', // English locale
@@ -41,7 +41,7 @@ module.exports = {
       /es6-shim/,
       /reflect-metadata/,
       /web-animations/,
-      /zone\.js(\/|\\)dist(\/|\\)zone-microtask/
+      /zone\.js(\/|\\)dist(\/|\\)zone/
     ]
   },
   resolve: {

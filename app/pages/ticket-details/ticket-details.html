@@ -12,7 +12,7 @@
         <ion-item class="left subject width45 margin-top0" no-lines>
         <p class="text-right grey2">{{ticket.class_name}}</p>
         <p *ngIf="'true'" class="text-right">{{ticket.location_name}}</p>
-        <p class="text-right grey2">{{getFullName(ticket.technician_firstname || ticket.tech_firstname, ticket.technician_lastname || ticket.tech_lastname,  ticket.technician_email || ticket.tech_email)}}</p>
+        <p class="text-right grey2" [innerText]="techname"></p>
         <p class="text-right grey2">{{ticket.days_old_in_minutes | Daysold}}</p>
         <p  *ngIf="ticket.misc_cost > 0" class="text-right grey2">Expenses:  {{getCurrency(ticket.misc_cost)}}</p>
         <p *ngIf="ticket.total_hours > 0" class="text-right grey2">{{ticket.total_hours}} Hours</p>
@@ -67,7 +67,9 @@
     <div *ngSwitchWhen="'Options'" class="list margin-top190 max-width700">
       <button secondary block="" type="submit" class="disable-hover button button-default button-block class-margin">Add Time</button>
       <button secondary block="" type="submit" class="disable-hover button button-default button-block general-alignment2 class-margin">Add Expense</button>
-  <button block class="general-alignment2 blue2 class-margin">Transfer Ticket</button>
+  
+  <select-list [preload]="true" [isbutton]="true" [list]="selects.technician" (onChanged)='transferTicket($event)'></select-list>
+
             <button block (click)="closeTicket()" class="button_reply width35 img-top">Close Ticket</button>
                 </div>
     </div>
