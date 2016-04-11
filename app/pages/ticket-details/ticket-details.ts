@@ -144,9 +144,9 @@ export class TicketDetailsPage {
         }
     }
 
-    closeTicket(key)
+    closeTicket()
     {
-        let myModal = Modal.create(CloseTicketModal, key);
+        let myModal = Modal.create(CloseTicketModal, { "number": this.ticket.number, "key": this.ticket.key, "subject": this.ticket.subject });
         myModal.onDismiss(data => {
             console.log(data);
         });
