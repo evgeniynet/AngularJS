@@ -1,6 +1,7 @@
 import {Page, Config, NavController, NavParams, ViewController} from 'ionic-angular';
 import {forwardRef} from 'angular2/core';
-import {DataProvider} from '../../providers/data-provider';
+import {htmlEscape} from '../../directives/helpers';
+import {ApiData} from '../../providers/api-data';
 import {ClassListComponent} from '../../components/class-list/class-list';
 import {SelectListComponent} from '../../components/select-list/select-list';
 
@@ -9,48 +10,95 @@ import {SelectListComponent} from '../../components/select-list/select-list';
     directives: [ClassListComponent, forwardRef(() => SelectListComponent)],
 })
 export class ExpenseCreatePage {
-    constructor(nav: NavController, navParams: NavParams, dataProvider: DataProvider, config: Config, private view: ViewController) {
-    this.nav = nav;
-        this.config = config;
-        this.dataProvider = dataProvider;
-        this.navParams = navParams;
-        this.time = this.navParams.data;
-  }
+
+    expense: Object;
+    isbillable: boolean;
+
+    constructor(private nav: NavController, private navParams: NavParams, private apiData: ApiData, private config: Config, private view: ViewController) {
+    }
     
     onPageLoaded()
     {
-        /*this.dataProvider.getTimelogs().subscribe(
-            data => {this.timelogs = data;
-                     console.log(data);}, 
-            error => { 
-                console.log(error || 'Server error');}
-        );*/
+        this.expense = (this.navParams || {}).data || {};
+
+        this.isbillable = typeof this.expense.billable === 'undefined' ? true : this.expense.billable;
         
         let he = this.config.current.user;
-        let data = (this.navParams || {}).data || {};
-        let account_id = -1;
+
+        let account_id = this.expense.account_id || he.account_id || -1;
+        let project_id = this.expense.project_id || 0;
         
         this.selects = {
-            "project" : {
-                name: "Project", 
-                value: data.project_name,
-                selected: data.project_id,
+            "account": {
+                name: "Account",
+                value: (this.expense.account_name || {}).name || he.account_name,
+                selected: account_id,
+                url: "accounts?is_with_statistics=false",
+                hidden: false
+            },
+            "project": {
+                name: "Project",
+                value: this.expense.project_name || "Default",
+                selected: project_id,
                 url: `projects?account=${account_id}&is_with_statistics=false`,
                 hidden: false
             },
-            "class" : {
-                name: "Class", 
-                value: data.class_name,
-                selected: data.class_id,
-                url: "classes",
-                hidden: false
-            }
-        };
-
-        console.log(this.selects);
-        
+        };      
     }
     
+
+    saveSelect(event) {
+        let name = event.type;
+        let account_id = this.selects.account.selected;
+        //change url on related lists
+        switch (name) {
+            case "account":
+                if (this.selects.account.selected === event.id) {
+                    break;
+                }
+                this.selects.project.url = `projects?account=${event.id}&is_with_statistics=false`;
+                this.selects.project.value = "Default";
+                this.selects.project.selected = 0;
+                account_id = event.id;
+                this.selects.project.hidden = false;
+                break;
+        }
+        this.selects[name].selected = event.id;
+        this.selects[name].value = event.name;
+    }
+
+    onSubmit(form) {
+        if (form.valid) {
+            var note = htmlEscape(this.expense.note.trim()).substr(0, 5000);
+
+            var isEdit = !!this.expense.expense_id;
+            //TODO if other user changes what id should I write? 
+            let data = {
+                "ticket_key": this.expense.ticket_number || null,
+                "account_id": this.selects.account.selected,
+                "project_id": !this.expense.ticket_number ? this.selects.project.selected : null,
+                "tech_id": isEdit? this.expense.user_id : this.config.current.user.user_id,
+                "note": this.expense.note,
+                "note_internal": this.expense.note_internal,
+                "amount": this.expense.amount,
+                "is_billable": this.isbillable,
+                "vendor": this.expense.vendor
+            };
+
+            console.log(data);
+
+            this.apiData.get("expenses" + (!isEdit ? "" : ("/" + this.expense.expense_id)), data, isEdit ? "PUT" : "POST").subscribe(
+                data => {
+                    this.config.alert.success("", 'Expense was successfully added :)');
+                    this.close();
+                },
+                error => {
+                    console.log(error || 'Server error');
+                }
+            );
+        }
+    }
+
     setDate(date) {
         return date ? new Date(date) : null;
     }

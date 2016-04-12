@@ -28,11 +28,12 @@ export class TimelogPage {
     
     onPageLoaded()
     {
-        this.isbillable = true;
         this.time = (this.navParams || {}).data || {};
 
         this.mintime = this.config.current.time_minimum_time || 0.25;
         this.mintime = this.mintime > 0 ? this.mintime : 0.25;
+
+        this.isbillable = typeof this.time.billable === 'undefined' ? true : this.time.billable;
 
         this.inc = this.config.current.time_hour_increment > 0 ? this.config.current.time_hour_increment : 0.25;
 

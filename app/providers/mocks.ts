@@ -2226,5 +2226,121 @@ export const MOCKS =
                 "is_active": true
             }
         ],
-        "resolution_categories" : [{"name":"Duplicate Issue","id":4,"is_resolved":false,"is_active":true},{"name":"No Longer Valid","id":5,"is_resolved":false,"is_active":true},{"name":"Test resolution category","id":6,"is_resolved":false,"is_active":false},{"name":"On Site","id":1,"is_resolved":true,"is_active":true},{"name":"Phone","id":2,"is_resolved":true,"is_active":true},{"name":"Remote Support","id":3,"is_resolved":true,"is_active":true}]
+        "expenses": [
+            {
+                "expense_id": "11565cbf-9623-47e7-bc0e-058190d3ee29",
+                "project_name": "",
+                "user_id": "9032",
+                "user_name": "Test 1NN",
+                "user_email": "nastya_01.88@mail.ru",
+                "note": "test",
+                "date": "2015-11-12T11:02:00.0000000",
+                "amount": 1.0000,
+                "fb_expense_id": 0,
+                "ticket_id": 14388,
+                "ticket_key": "t33z9f",
+                "category_id": "",
+                "category": "",
+                "project_id": 0,
+                "account_id": -1,
+                "ticket_number": 2352,
+                "account_name": "bigWebApps Support",
+                "ticket_subject": "test 12/11/15",
+                "invoice_id": 0,
+                "billable": false,
+                "invoice_pseudo_id": "      ",
+                "vendor": "",
+                "fb_staff_id": 0,
+                "fb_category_id": 0,
+                "fb_client_id": 0,
+                "fb_project_id": 0,
+                "markup": 0,
+                "note_internal": "",
+                "qb_expense_id": 0,
+                "qb_service_id": 0,
+                "qb_employee_id": 0,
+                "qb_vendor_id": 0,
+                "qb_customer_id": 0,
+                "qb_sync_token": 0,
+                "qb_is_employee": false,
+                "qb_account_id": 0,
+                "user_profile_image": "http://www.gravatar.com/avatar/2255010b6c90cb614ec5f7c2db12eb72?d=identicon&r=g&s=40"
+            },
+            {
+                "expense_id": "32595c51-6d53-4cfc-a448-2a63650a6a5c",
+                "project_name": "Test Project",
+                "user_id": "11105",
+                "user_name": "Katya B",
+                "user_email": "boyun_e@mail.ru",
+                "note": "123test",
+                "date": "2015-07-14T07:34:00.0000000",
+                "amount": 10.0000,
+                "fb_expense_id": 0,
+                "ticket_id": 0,
+                "ticket_key": "      ",
+                "category_id": "",
+                "category": "",
+                "project_id": 28,
+                "account_id": -1,
+                "ticket_number": 0,
+                "account_name": "bigWebApps Support",
+                "ticket_subject": "",
+                "invoice_id": 1077,
+                "billable": true,
+                "invoice_pseudo_id": "gck5hi",
+                "vendor": "",
+                "fb_staff_id": 0,
+                "fb_category_id": 0,
+                "fb_client_id": 0,
+                "fb_project_id": 0,
+                "markup": 0,
+                "note_internal": "",
+                "qb_expense_id": 0,
+                "qb_service_id": 0,
+                "qb_employee_id": 0,
+                "qb_vendor_id": 0,
+                "qb_customer_id": 0,
+                "qb_sync_token": 0,
+                "qb_is_employee": false,
+                "qb_account_id": 0,
+                "user_profile_image": "http://www.gravatar.com/avatar/68570238e2c96dbfebc7010ab5c68928?d=identicon&r=g&s=40"
+            }],
+        "resolution_categories": [
+            {
+                "name": "Duplicate Issue",
+                "id": 4,
+                "is_resolved": false,
+                "is_active": true
+            },
+            {
+                "name": "No Longer Valid",
+                "id": 5,
+                "is_resolved": false,
+                "is_active": true
+            },
+            {
+                "name": "Test resolution category",
+                "id": 6,
+                "is_resolved": false,
+                "is_active": false
+            },
+            {
+                "name": "On Site",
+                "id": 1,
+                "is_resolved": true,
+                "is_active": true
+            },
+            {
+                "name": "Phone",
+                "id": 2,
+                "is_resolved": true,
+                "is_active": true
+            },
+            {
+                "name": "Remote Support",
+                "id": 3,
+                "is_resolved": true,
+                "is_active": true
+            }
+        ]
     };
