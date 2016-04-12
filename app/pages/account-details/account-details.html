@@ -20,16 +20,16 @@
             <ion-list class="list img-top" no-lines style="height: 150px;">
         <div class="blue1 left width65 general-alignment">
 <!--  <ion-item class="textLogin">Open Tickets</ion-item>-->
-  <ion-item class="textLogin">Invoices</ion-item>
-  <ion-item class="textLogin">Expenses</ion-item>
-  <ion-item class="textLogin">Hours</ion-item>
+  <ion-item (click)="openPage(0)" class="textLogin">Invoices</ion-item>
+  <ion-item (click)="openPage(1)" class="textLogin">Expenses</ion-item>
+  <ion-item (click)="openPage(2)" class="textLogin">Hours</ion-item>
     <br>
         </div>
         <div class="right width35 general-alignment">
 <!--            <ion-item class="blue2">{{account.account_statistics.ticket_counts.open || 0}}</ion-item>-->
-            <ion-item class="blue2">{{account.account_statistics.invoices || 0}}</ion-item>
-            <ion-item class="blue2">{{getCurrency(account.account_statistics.expenses)}}</ion-item>
-            <ion-item class="blue2" [innerHTML]="account.account_statistics.hours | More:[10000,'<div class=item-inner><ion-label>VV</ion-label></div>']"></ion-item>
+            <ion-item (click)="openPage(0)" class="blue2">{{account.account_statistics.invoices || 0}}</ion-item>
+            <ion-item (click)="openPage(1)" class="blue2">{{getCurrency(account.account_statistics.expenses)}}</ion-item>
+            <ion-item (click)="openPage(2)" class="blue2" [innerHTML]="account.account_statistics.hours | More:[10000,'<div class=item-inner><ion-label>VV</ion-label></div>']"></ion-item>
         </div>
 </ion-list>
     <br>
@@ -40,7 +40,8 @@
           </ion-segment>
 </div>
             <br>
-            <tickets-list [mode]="['open', account.id]" [count]="account.account_statistics.ticket_counts.open"></tickets-list>
+            <tickets-list [hidden]="tabsTicket != 'Open'" [mode]="['open', account.id]" [count]="account.account_statistics.ticket_counts.open"></tickets-list>
+            <tickets-list [hidden]="tabsTicket != 'Close'" [preload]="1500" [mode]="['closed', account.id]" [count]="account.account_statistics.ticket_counts.closed"></tickets-list>
         </div>
 
         <ion-list class="list margin-top45" no-lines *ngSwitchWhen="'Info'">
