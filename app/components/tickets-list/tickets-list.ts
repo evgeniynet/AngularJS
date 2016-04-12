@@ -1,8 +1,10 @@
-import {IONIC_DIRECTIVES, NavController, NavParams, Config, Modal} from 'ionic-angular';
+import {IONIC_DIRECTIVES, NavController, NavParams, Config, Modal, Alert} from 'ionic-angular';
 import {Component, Input, OnChanges, OnInit} from 'angular2/core';
 import {TicketProvider} from '../../providers/ticket-provider';
+import {DataProvider} from '../../providers/data-provider';
 import {TicketDetailsPage} from '../../pages/ticket-details/ticket-details';
 import {CloseTicketModal} from '../../pages/modals/modals';
+import {htmlEscape} from '../../directives/helpers';
 import {GravatarPipe, LinebreaksPipe} from '../../pipes/pipes';
 
 const LIMIT: number = 6;
@@ -22,7 +24,7 @@ export class TicketsListComponent {
     pager: Object;
     is_empty: boolean;
 
-    constructor(private nav: NavController, private navParams: NavParams, private config: Config, private ticketProvider: TicketProvider) {
+    constructor(private nav: NavController, private navParams: NavParams, private config: Config, private ticketProvider: TicketProvider, private dataProvider: DataProvider) {
         this.is_empty = false;
         this.pager = { page: 0, limit: LIMIT};
     }
@@ -127,9 +129,51 @@ export class TicketsListComponent {
              );
      }
 
-     closeTicket(key, slidingItem) {
+     addPost(ticket, slidingItem) {
          slidingItem.close();
-         let myModal = Modal.create(CloseTicketModal, key);
+         let prompt = Alert.create({
+      title: 'Add Response',
+      inputs: [
+        {
+          name: 'note',
+          placeholder: 'Note'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Post',
+          handler: data => {
+              
+              if (!data.note.trim())
+                  return;
+
+              var post = htmlEscape(data.note.trim()).substr(0, 5000);
+
+              this.dataProvider.addTicketPost(ticket.id, post).subscribe(
+                  data => {
+                      this.config.alert.success("", 'Note added :)');
+                  },
+                  error => {
+                      console.log(error || 'Server error');
+                  }
+              );
+          }
+        }
+      ]
+    });
+
+         this.nav.present(prompt);
+     }
+
+     closeTicket(ticket, slidingItem) {
+         slidingItem.close();
+         let myModal = Modal.create(CloseTicketModal, ticket);
          myModal.onDismiss(data => {
              console.log(data);
          });

@@ -16,7 +16,7 @@
             <p class="grey2 right class_name space-initial text-right">{{ticket.class_name}}</p></li></div>
     </ion-item>
         <ion-item-options>
-        <button class="grey3 disable-hover button button-default">
+        <button (click)="addPost(ticket, slidingItem)" class="grey3 disable-hover button button-default">
             <ion-icon></ion-icon>
             Add Response
         </button>
