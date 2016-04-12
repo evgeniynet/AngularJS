@@ -7,13 +7,13 @@ import {GravatarPipe} from '../../pipes/pipes';
     pipes: [GravatarPipe],
 })
 export class InvoiceDetailsPage {
-    constructor(nav: NavController, navParams: NavParams, config : Config) {
-    this.nav = nav;
-        this.config = config;
-        this.navParams = navParams;
-        this.invoice = this.navParams.data;
+    constructor(private nav: NavController, private navParams: NavParams, private config: Config) {
+        this.invoice = this.navParams.data || {};
   }
-    
+    close() {
+        this.view.dismiss();
+    }
+
     setDate(date) {
         return date ? new Date(date) : null;
     }
