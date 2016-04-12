@@ -5,9 +5,9 @@
             <span primary>Cancel</span>
         </button>
     </ion-buttons>
-  <ion-title [hidden]="time.time_id || !time.number">Add Time</ion-title>
+  <ion-title class="width20" [hidden]="time.time_id || !time.number">Add Time</ion-title>
   <ion-title [hidden]="!time.time_id || !time.number">Timelog #{{time.time_id}} by {{time.user_name}} @ {{setDate(time.date) | date: "MM/dd/yyyy HH:mm"}}</ion-title>
-  <ion-title [hidden]="!time.number">Add Time to #{{time.number}} {{time.subject}}</ion-title>
+  <ion-title class="ellipsis"[hidden]="!time.number">Add Time to #{{time.number}} {{time.subject}}</ion-title>
 </ion-navbar>
 <ion-content class="timelog">
     <div class="list max-width700">
