@@ -132,7 +132,7 @@ export class TicketsListComponent {
      addPost(ticket, slidingItem) {
          slidingItem.close();
          let prompt = Alert.create({
-      title: 'Add Response',
+      title: 'Add Response to #' + ticket.number,
       inputs: [
         {
           name: 'note',
