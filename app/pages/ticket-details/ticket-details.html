@@ -5,7 +5,7 @@
 </ion-navbar>
 
 <ion-content>
-    <div class="subject position-subject">
+    <div class="subject">
    <ion-item class="itemTech subject padding subject-ticket text-left width50 left" no-lines>
        <span class="subject-padding ticket-details">{{ticket.subject}}</span>
            </ion-item>
@@ -20,7 +20,7 @@
         
     </div>
     <div class="subject">
-        <ion-segment class="tabsTicket margin-top124 position-button"  [(ngModel)]="details_tab">
+        <ion-segment class="tabsTicket"  [(ngModel)]="details_tab">
     <ion-segment-button value="Reply">
       Reply
     </ion-segment-button>
@@ -33,7 +33,7 @@
     </ion-segment>
 </div>
     <div [ngSwitch]="details_tab">
-     <div class="list margin-top160" *ngSwitchWhen="'Reply'">
+     <div class="list" *ngSwitchWhen="'Reply'">
          
          <posts-list [posts]="posts | slice:0:1" [attachments]="attachments"></posts-list>
          <form *ngIf="active" #addForm="ngForm" class="response-ticket">
@@ -48,7 +48,7 @@
          
         </div>
                
-  <div *ngSwitchWhen="'Info'" class="list margin-top190 max-width700">
+  <div *ngSwitchWhen="'Info'" class="list max-width700 general-alignment">
     
       <class-list [preload]="true" [list]="selects.class" (onChanged)='saveSelect($event)'></class-list>
     
@@ -64,15 +64,15 @@
     
       <button secondary block (click)="onUpdate()" type="submit" class="img-top disable-hover button button-default button-block">Update</button>
     </div>
-    <div *ngSwitchWhen="'Options'" class="list margin-top190 max-width700">
+    <div *ngSwitchWhen="'Options'" class="list max-width700 general-alignment">
       <button (click)="addTime()" secondary block type="submit" class="disable-hover button button-default button-block class-margin">Add Time</button>
       <button   (click)="addExpense()" secondary block type="submit" class="disable-hover button button-default button-block general-alignment2 class-margin">Add Expense</button>
   
   <select-list [preload]="true" [isbutton]="true" [list]="selects.technician" (onChanged)='transferTicket($event)'></select-list>
 
-<button (click)='pickUp()' secondary block type="submit" class="disable-hover button button-default button-block general-alignment2 class-margin">Pick Up Ticket</button>
+<button (click)='pickUp()' block type="submit" class="general-alignment2 blue2 class-margin">Pick Up Ticket</button>
 
-<button (click)="closeTicket()" secondary block type="submit" class="disable-hover button button-default button-block general-alignment2 class-margin">Close Ticket</button>
+<button (click)="closeTicket()" block type="submit" class="general-alignment2 blue2 class-margin">Close Ticket</button>
                 </div>
     </div>
 </ion-content>
