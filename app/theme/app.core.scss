@@ -195,11 +195,6 @@ scroll-content {
     flex-grow: 5;
 }
 
-.timeleft{
-    width: 76%;
-    float: left;
-}
-
 .img{
     margin-bottom: 15px;
     margin-top: 15px;
@@ -210,7 +205,7 @@ scroll-content {
 }
 
 .subject-ticket{
-margin-left: 15px;
+     margin-left: 15px;
 }
 
 .subject-create {
@@ -218,7 +213,7 @@ margin-left: 15px;
 }
 
 .subject{
-background-color:$sherpa_bg;
+     background-color:$sherpa_bg;
 }
 
 .class-margin{
@@ -235,11 +230,6 @@ background-color:$sherpa_bg;
     padding-bottom: 17px;
 }
 
-ion-label {
-    /* overflow: hidden; */
-    
-}
-
 .general-alignment{
     margin-top: 38px;
 }
@@ -248,18 +238,16 @@ ion-label {
     margin-top: 10px;
 }
 
-
 .margin-top0{
     margin-top: 0px !important;
 }
 
 .dashboardRight{
-margin-right: 0px;
+    margin-right: 0px;
 }
 
 .container {
     margin-bottom: 21px;
-//    padding-top: 35px;
     }
 
 .center{
@@ -271,9 +259,8 @@ margin-right: 0px;
     }
 
 .segment-button{
-// color: $segment-button-ios-bg-color-activated;
- border-color: $color-value;
-        background-color: $blue2;
+      border-color: $color-value;
+      background-color: $blue2;
 }
 
 .position-button{
@@ -291,14 +278,6 @@ margin-right: 0px;
 
 .margin-top63{
     margin-top: 63px;
-}
-
-.margin-top4{
-    margin-top: 4px;
-}
-
-.margin-bottom38{
-    margin-bottom: 38px;
 }
 
 .margin-bottom31{
@@ -323,7 +302,7 @@ margin-right: 0px;
 }
 
 .button.activated{
-background-color: #6AB7EC;
+    background-color: #6AB7EC;
 }
 
 .action-but{
@@ -360,14 +339,12 @@ background-color: #6AB7EC;
 }
 
 .grey2 {
-color: $grey2 !important;
+    color: $grey2 !important;
 }
 
 .grey3 {
-background-color: $grey3 !important;
+    background-color: $grey3 !important;
 }
-
-
 
 .background-color{
    background-color: $background-color;
@@ -377,15 +354,14 @@ background-color: $grey3 !important;
     background-color: transparent;
 }
 
-
 .imglogo{
     display: block;
     margin: auto;
 }
 
 .table{
-text-align: center;
-    }
+    text-align: center;
+}
 
 .table span.box1{
     background-color: $grey;
@@ -502,7 +478,6 @@ text-align: center;
     height: 0px;
 }
 
-
 .item:last-child, ion-list > ion-item-sliding:last-child .item {
     border-bottom: 0px;
 }
@@ -536,6 +511,10 @@ text-align: center;
     border: 2px solid #88ddfa !important;
 }
 
+.dashborder {
+border-left: 1px solid rgba(255, 255, 255, 0.4);
+}
+
 
 //width
 
@@ -551,16 +530,16 @@ text-align: center;
     width: 80%;
 }
 
+.width75{
+    width: 75%;
+}
+
 .width70{
     width: 70%;
 }
 
 .width70px{
     width: 70px;
-}
-
-.width75{
-    width: 75%;
 }
 
 .width65{
@@ -591,24 +570,20 @@ text-align: center;
     width: 45%;
 }
 
-.width35{
-    width: 35%;
-}
-
 .width38{
     width: 38%;
 }
 
-.width32{
-    width: 32%;
+.width35{
+    width: 35%;
 }
 
 .width33{
     width: 33%;
 }
 
-.dashborder {
-border-left: 1px solid rgba(255, 255, 255, 0.4);
+.width32{
+    width: 32%;
 }
 
 .width30{
