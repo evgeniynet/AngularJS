@@ -1,25 +1,23 @@
 import {Injectable} from 'angular2/core';
 import {Headers} from 'angular2/http';
 import {Observable} from 'rxjs/Observable';
+import {Observer} from 'rxjs/Observer';
 import {ApiData} from './api-data';
 import * as helpers from '../directives/helpers';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/share';
 
 @Injectable()
 export class DataProvider {
 
-    _data;
-
-    get Cache() {
-        return this._data;
-    }
-
-    set Cache(value) {
-        this._data = value;
-    }
+    data$: Object; 
+    private _dataObserver: Object; 
+    _dataStore: Object;
 
     constructor(private apiData: ApiData) {
-
+        this.data$ = {}; 
+        this._dataObserver = {};
+        this._dataStore = {};
     }
     
     checkLogin(username, password) {
@@ -95,7 +93,21 @@ getTicketDetails(key) {
 
 getTicketsCounts() {
     let url = "tickets/counts";
-    return this.apiData.get(url);
+    if (!this._dataStore[url]) {
+        this._dataStore[url] = [];
+        this.data$[url] = new Observable(observer => { this._dataObserver[url] = observer; }).share();
+    }
+    else {
+        if (this._dataStore[url].open_all >= 0) {
+            setTimeout(() => {
+                this._dataObserver[url].next(this._dataStore[url] || []);
+            }, 0);
+        }
+    }
+    this.apiData.get(url).subscribe(data => {
+        this._dataStore[url] = data;
+        this._dataObserver[url].next(this._dataStore[url]);
+    }, error => console.log('Could not load tickets.'));
 }
 
 getQueueList(limit) {

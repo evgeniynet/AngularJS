@@ -19,7 +19,9 @@ export class AccountsListComponent {
          this.nav = nav;
          this.is_empty = false;
 }
-     itemTapped(event, account) {this.nav.push(AccountDetailsPage, account);
+     itemTapped(event, account) {
+         account.account_statistics.ticket_counts.closed = null;
+         this.nav.push(AccountDetailsPage, account);
                    }
      
      ngOnChanges(event) {

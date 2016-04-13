@@ -13,6 +13,7 @@ export class TicketProvider {
     tickets$: Object; //Array<Observable<Object[]>>;
     private _ticketsObserver: Object; //Array<Observer<Object[]>>;
     _dataStore: Object;
+
     constructor(private apiData: ApiData) {
         this.tickets$ = {}; //new Observable(observer => this._ticketsObserver = observer).share();
         this._ticketsObserver = {};
@@ -22,6 +23,8 @@ export class TicketProvider {
             tech: [],
             user: []
         };
+        let tab = "tech";
+        this.tickets$[tab] = new Observable(observer => this._ticketsObserver[tab] = observer).share();
     }
 
     getTicketsList(tab, id, pager) {
@@ -52,10 +55,10 @@ export class TicketProvider {
                 break;
             }
             pager.limit = pager.limit || 25;
+            pager.page = pager.page || 0;
             tab += id || "";
             this._dataStore[tab] = this._dataStore[tab] || [];
             let cachelen = this._dataStore[tab].length;
-
             if (pager.page == 0){
                 pager.limit = cachelen || pager.limit;
                     if (cachelen){
@@ -65,7 +68,7 @@ export class TicketProvider {
                     }
                     else
                     {
-                        this.tickets$[tab] = new Observable(observer => { this._ticketsObserver[tab] = observer; }).share();
+                        this.tickets$[tab] = new Observable(observer => this._ticketsObserver[tab] = observer).share();
                     }
                 
             }
@@ -75,6 +78,7 @@ export class TicketProvider {
                     this._dataStore[tab].push(...data);
                 else
                     this._dataStore[tab] = data;
+                if (this._ticketsObserver[tab])
                 this._ticketsObserver[tab].next(this._dataStore[tab]);
                 //if (data.length < pager.limit)
                 // add flag that data completed

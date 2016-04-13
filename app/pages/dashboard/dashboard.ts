@@ -23,12 +23,15 @@ export class DashboardPage {
     {           
         this.counts = {open_as_tech: 0}; 
         this.accounts = helpers.loadCache("dashaccounts");
+        this.queues = helpers.loadCache("dashqueues");
 
         let statistics = this.config.current.stat;
         let pager = {limit: (statistics.accounts + 5) || 500};
 
         this.dataProvider.getQueueList(3).subscribe(
-            data => {this.queues = data}, 
+            data => { this.queues = data;
+                helpers.saveCache("dashqueues", data);
+            }, 
             error => { 
                 console.log(error || 'Server error');}
                 ); 
@@ -42,8 +45,10 @@ export class DashboardPage {
                     console.log(error || 'Server error');}
                     ); 
         
-        if (!this.ticketProvider._dataStore.tech.length)
+        if (!this.ticketProvider._dataStore.tech.length){
             this.ticketProvider.getTicketsList("tech", "", { "limit": 6 }); 
+        }
+
 
         this.dataProvider.getAccountList(true, pager).subscribe(
             data => {
@@ -54,7 +59,8 @@ export class DashboardPage {
                 console.log(error || 'Server error');}
                 ); 
 
-        this.dataProvider.getTicketsCounts().subscribe(
+        this.dataProvider.getTicketsCounts();
+        this.dataProvider.data$["tickets/counts"].subscribe(
             data => {
                 this.counts = data;
                 this.config.current.stat.tickets =

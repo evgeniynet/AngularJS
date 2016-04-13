@@ -16,7 +16,7 @@
     
     
     <div [ngSwitch]="details_tab">
-        <div *ngSwitchWhen="'Stat'">
+        <div [hidden]="details_tab != 'Stat'">
             <ion-list class="list img-top" no-lines style="height: 150px;">
         <div class="blue1 left width65 general-alignment">
 <!--  <ion-item class="textLogin">Open Tickets</ion-item>-->
