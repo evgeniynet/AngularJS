@@ -41,13 +41,10 @@ export class TicketsListComponent {
      */
 
      ngOnInit() {
-         //this.ticketProvider.tickets$.subscribe(
-         //    data => { this.tickets = data });
-         //this.tickets = this.ticketProvider.tickets$;
-         this.cachelen = (this.ticketProvider._dataStore[this.mode[0]] || {}).length;
+         this.cachelen = (this.ticketProvider._dataStore[this.mode[0] + (this.mode[1] || "")] || {}).length;
          if (this.preload && !this.cachelen) {
              setTimeout(() => {
-                 this.busy = true;
+                 //this.busy = true;
                  this.onLoad();
              }, this.preload);
          }
@@ -59,24 +56,25 @@ export class TicketsListComponent {
      {
          if (!this.mode)
              return;
-         this.tickets = [];
 
          this.count = ((this.config.current.stat || {}).tickets || {})[this.mode[0]] || this.count;
 
          if (this.count !== 0) {
-             var timer = null;
+             this.ticketProvider.getTicketsList(this.mode[0], this.mode[1], this.pager);
+             this.tickets = this.ticketProvider.tickets$[this.mode[0] + (this.mode[1] || "")];
+             return;
+             /*var timer = null;
              
              if (this.cachelen) {
                 this.tickets = this.ticketProvider._dataStore[this.mode[0]];
                 this.pager.limit = this.cachelen;
                 timer = -1;
-                // if cache is already has all data
-                //if (this.cachelen >= this.count){return;}
             }
              else 
                 timer = setTimeout(() => { this.busy = true }, 500);
 
              this.getTickets(null, timer);
+             */
          }
          else {
              this.is_empty = true;
@@ -184,13 +182,18 @@ export class TicketsListComponent {
 
 
      doInfinite(infiniteScroll) {
-         if (this.is_empty || this.count < LIMIT)
+         if (this.is_empty || (this.cachelen > 0 && (this.cachelen % LIMIT)))
          {
              infiniteScroll.enable(false);
              infiniteScroll.complete();
              return;
          }
          this.pager.page += 1; 
-         this.getTickets(infiniteScroll);
+         this.ticketProvider.getTicketsList(this.mode[0], this.mode[1], this.pager);
+         this.ticketProvider.tickets$[this.mode[0] + (this.mode[1] || "")].subscribe(
+             data => { 
+                 infiniteScroll.complete();
+                 infiniteScroll.enable(!(data.length % LIMIT));
+              });
      }
  }

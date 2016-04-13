@@ -10,16 +10,12 @@ import 'rxjs/add/operator/share';
 @Injectable()
 export class TicketProvider {
 
-    tickets$: Observable<Object[]>;
-    private _ticketsObserver: Observer<Object[]>;
-    _dataStore: {
-        all: Object[],
-        alt: Object[],
-        tech: Object[],
-        user: Object[]
-    };
+    tickets$: Object; //Array<Observable<Object[]>>;
+    private _ticketsObserver: Object; //Array<Observer<Object[]>>;
+    _dataStore: Object;
     constructor(private apiData: ApiData) {
-        //this.tickets$ = new Observable(observer => this._ticketsObserver = observer).share();
+        this.tickets$ = {}; //new Observable(observer => this._ticketsObserver = observer).share();
+        this._ticketsObserver = {};
         this._dataStore = {
             all: [],
             alt: [],
@@ -33,76 +29,98 @@ export class TicketProvider {
         let url = "";
         switch (tab.toString()) {
             case "tech":
-                url = "tickets?status=open&role=tech";
-                break;
+            url = "tickets?status=open&role=tech";
+            break;
             case "all":
-                url = "tickets?status=allopen&query=all";
-                break;
+            url = "tickets?status=allopen&query=all";
+            break;
             case "alt":
-                url = "tickets?status=open&role=alt_tech";
-                break;
+            url = "tickets?status=open&role=alt_tech";
+            break;
             case "open":
-                url = "tickets?status=open&account=" + id;
-                break;
+            url = "tickets?status=open&account=" + id;
+            break;
             case "closed":
-                url = "tickets?status=closed&account=" + id;
-                break;
+            url = "tickets?status=closed&account=" + id;
+            break;
             case 'queue':
-                url = "queues/" + id;
-                break;
+            url = "queues/" + id;
+            break;
             default:
                 //case "user":
                 url = "tickets?status=open,onhold&role=user";
                 break;
+            }
+            pager.limit = pager.limit || 25;
+            tab += id || "";
+            this._dataStore[tab] = this._dataStore[tab] || [];
+            let cachelen = this._dataStore[tab].length;
+
+            if (pager.page == 0){
+                pager.limit = cachelen || pager.limit;
+                    if (cachelen){
+                        setTimeout(() => {
+                        this._ticketsObserver[tab].next(this._dataStore[tab] || []);
+                        }, 0);
+                    }
+                    else
+                    {
+                        this.tickets$[tab] = new Observable(observer => { this._ticketsObserver[tab] = observer; }).share();
+                    }
+                
+            }
+            url = this.getPager(url, pager);
+            this.apiData.get(url).subscribe(data => {
+                if (pager.page > 0)
+                    this._dataStore[tab].push(...data);
+                else
+                    this._dataStore[tab] = data;
+                this._ticketsObserver[tab].next(this._dataStore[tab]);
+                //if (data.length < pager.limit)
+                // add flag that data completed
+            }, error => console.log('Could not load tickets.'));
+            return cachelen;
         }
-        url = this.getPager(url, pager);
-        return this.apiData.get(url);
-        /*.subscribe(data => {
-            this._dataStore[tab] = data;
-            //this._ticketsObserver.next(this._dataStore[tab]);
-        }, error => console.log('Could not load tickets.'));
-        */
+
+
+        getTicketDetails(key) {
+            let url = `tickets/${key}`;
+            return this.apiData.get(url);
+        }
+
+        getTicketsCounts() {
+            let url = "tickets/counts";
+            return this.apiData.get(url);
+        }
+
+        getPager(url, pager)
+        {
+            if (pager) {
+                if (pager.limit)
+                    url = url.addp("limit", pager.limit);
+                if (pager.page)
+                    url = url.addp("page", pager.page);
+            }
+            return url;
+        }
+
+        getPaged(url, pager)
+        {
+            url = this.getPager(url, pager);
+            return this.apiData.get(url);
+        }
+
+        addTicket(data) {
+            let url = "tickets";
+            data.status =  "open";
+            return this.apiData.get(url, data, "POST");
+        }
+
+        closeOpenTicket(id, data) {
+            let url = `tickets/${id}`;
+            return this.apiData.get(url, data, "PUT");
+        }
     }
-    
-    
-getTicketDetails(key) {
-    let url = `tickets/${key}`;
-    return this.apiData.get(url);
-}
-
-getTicketsCounts() {
-    let url = "tickets/counts";
-    return this.apiData.get(url);
-}
-
-getPager(url, pager)
-{
-    if (pager) {
-        if (pager.limit)
-            url = url.addp("limit", pager.limit);
-        if (pager.page)
-            url = url.addp("page", pager.page);
-    }
-    return url;
-}
-
-getPaged(url, pager)
-{
-    url = this.getPager(url, pager);
-    return this.apiData.get(url);
-}
-
-addTicket(data) {
-    let url = "tickets";
-    data.status =  "open";
-    return this.apiData.get(url, data, "POST");
-}
-
-closeOpenTicket(id, data) {
-    let url = `tickets/${id}`;
-    return this.apiData.get(url, data, "PUT");
-}
-}
 
 /*
 export interface Todo {

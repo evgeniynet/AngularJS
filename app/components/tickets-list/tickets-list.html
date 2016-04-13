@@ -1,7 +1,7 @@
 <ion-content style="height: 90vh;">
 <img *ngIf="busy" class="imglogo img-padding" src="img/loading2.gif">
 <ion-list class="list indent-bottom general-alignment2" no-lines>
-    <ion-item-sliding class="border" *ngFor="#ticket of tickets" #slidingItem> 
+    <ion-item-sliding class="border" *ngFor="#ticket of tickets | async" #slidingItem> 
         <ion-item (click)="itemTapped($event, ticket, slidingItem)"  class="item margin">
         <ion-avatar padding item-left class="img_padding margin admin padding-left">
             <li class="center avatarText">

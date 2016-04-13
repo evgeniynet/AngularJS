@@ -43,8 +43,7 @@ export class DashboardPage {
                     ); 
         
         if (!this.ticketProvider._dataStore.tech.length)
-            this.ticketProvider.getTicketsList("tech", "", { "limit": 6 }).subscribe(
-                data => { this.ticketProvider._dataStore.tech = data });  
+            this.ticketProvider.getTicketsList("tech", "", { "limit": 6 }); 
 
         this.dataProvider.getAccountList(true, pager).subscribe(
             data => {
