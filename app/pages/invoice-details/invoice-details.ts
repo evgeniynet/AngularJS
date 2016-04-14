@@ -1,4 +1,4 @@
-import {Page, NavController, NavParams, Config} from 'ionic-angular';
+import {Page, NavController, NavParams, Config, ViewController} from 'ionic-angular';
 import {getCurrency} from '../../directives/helpers';
 import {GravatarPipe} from '../../pipes/pipes';
 
@@ -7,7 +7,7 @@ import {GravatarPipe} from '../../pipes/pipes';
     pipes: [GravatarPipe],
 })
 export class InvoiceDetailsPage {
-    constructor(private nav: NavController, private navParams: NavParams, private config: Config) {
+    constructor(private nav: NavController, private navParams: NavParams, private config: Config, private view: ViewController) {
         this.invoice = this.navParams.data || {};
   }
     close() {
