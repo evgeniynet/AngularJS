@@ -118,6 +118,7 @@ p {
 
 .text-input {
     margin: 0px;
+    text-align: center;
 }
 
 .commentText{
@@ -261,6 +262,11 @@ scroll-content {
 .segment-button{
       border-color: $color-value;
       background-color: $blue2;
+}
+
+.segment-button.segment-activated {
+    color: $text-color;
+    background-color: $blue6;
 }
 
 .position-button{
