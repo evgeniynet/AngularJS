@@ -30,6 +30,12 @@
     <ion-segment-button value="Options">
         Options
     </ion-segment-button>
+            <ion-segment-button value="Notes">
+        Notes
+    </ion-segment-button>
+            <ion-segment-button value="Files">
+        Files
+    </ion-segment-button>
     </ion-segment>
 </div>
     <div [ngSwitch]="details_tab">
@@ -74,5 +80,21 @@
 
 <button (click)="closeTicket()" block type="submit" class="general-alignment2 blue2 class-margin">Close Ticket</button>
                 </div>
+        
+        <ion-list class="list general-alignment max-width700" *ngSwitchWhen="'Notes'">
+            <div *ngIf="ticket.note?.length" class="width100 textLogin note-account" [innerHTML]="ticket.note" type="text"></div>
+          
+              <textarea [value]="ticket.note" class="width100 textLogin commentText" type="text" placeholder="Notes:"></textarea>
+    <button secondary 
+            class="button_reply width32 img-top">Save Notes</button>
+        </ion-list>
+            <ion-list class="list img-top" no-lines *ngSwitchWhen="'Files'">
+                 <div [hidden]="ticket.files?.length" class="table grey2 menu-text">No Files yet</div>
+    <ion-item *ngFor="#file of ticket.files">
+        <div class="left width59 tkts-table" [innerHTML]="getFileLink(file)"></div>
+    <h3 class="right width38 text-left space-initial">{{file.name}}</h3>
+        </ion-item>
+
+            </ion-list>
     </div>
 </ion-content>
