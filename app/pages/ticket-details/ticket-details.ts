@@ -1,7 +1,7 @@
 import {Page, Config, NavController, NavParams, Modal} from 'ionic-angular';
 import {FORM_DIRECTIVES, Validators} from 'angular2/common';
 import {DataProvider} from '../../providers/data-provider';
-import {htmlEscape, getCurrency, getFullName, fullapplink} from '../../directives/helpers';
+import {htmlEscape, getCurrency, getFullName, fullapplink, parseXml} from '../../directives/helpers';
 import {PostsListComponent} from '../../components/posts-list/posts-list';
 import {SelectListComponent} from '../../components/select-list/select-list';
 import {ClassListComponent} from '../../components/class-list/class-list';
@@ -18,6 +18,7 @@ import {GravatarPipe, LinebreaksPipe, DaysoldPipe} from '../../pipes/pipes';
 export class TicketDetailsPage {
     constructor(private nav: NavController, private navParams: NavParams, private dataProvider: DataProvider, private config: Config) {
         this.ticket = {};
+        this.ticket.customfields = [];
         this.posts = [];
     }
 
@@ -113,11 +114,24 @@ export class TicketDetailsPage {
         }
         
         this.ticket = data;
+        this.ticket.customfields = [];
         
         if (!isShortInfo)
         {
             this.attachments = data.attachments;
             this.posts = data.ticketlogs;
+            console.log(this.ticket.customfields_xml);
+            let xml = parseXml(this.ticket.customfields_xml);
+            if (xml)
+            {
+                let t=[];
+                for (var n = xml.documentElement.firstChild; n; n = n.nextSibling)
+                { 
+                   t.push({ "id": n.attributes[0].nodeValue, "name": n.firstChild.innerHTML, "value": n.firstChild.nextSibling.innerHTML || ""}); 
+                }
+                this.ticket.customfields = t;
+                console.log(t);
+            }
         }
     }
 

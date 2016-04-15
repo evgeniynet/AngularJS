@@ -12,6 +12,7 @@ import {SelectListComponent} from '../../components/select-list/select-list';
 export class TimelogPage {
 
     inc : Number;
+    isbillable: boolean;
 
     constructor(private nav: NavController, private navParams: NavParams, private dataProvider: DataProvider, private config: Config, private view: ViewController) {
     }

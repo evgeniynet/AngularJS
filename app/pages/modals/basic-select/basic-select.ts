@@ -11,6 +11,7 @@ export class BasicSelectModal {
      viewCtrl: ViewController
     ) {
         this.viewCtrl = viewCtrl;
+        this.is_empty = false;
         this.searchQuery = '';
         this.params = params;
         this.name = this.params.data.name;
@@ -42,5 +43,6 @@ export class BasicSelectModal {
             }
             return false;
         })
+        this.is_empty = !this.items.length;
     }
 }

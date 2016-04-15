@@ -1,32 +1,39 @@
 import {NavController, NavParams, Page, Config, ViewController} from 'ionic-angular';
 import {DataProvider} from '../../../providers/data-provider';
 import {getFullName} from '../../../directives/helpers';
+import {Control} from 'angular2/common';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/observable/of';
+import {URLSearchParams, Jsonp} from 'angular2/http';
 
 @Page({
-    templateUrl: 'build/pages/modals/infinity-select/infinity-select.html',
+    templateUrl: 'build/pages/modals/ajax-select/ajax-select.html',
 })
+export class AjaxSelectModal {
 
-export class InfinitySelectModal {
-
-    items: Array;
+    items: Observable<Array<any>>;
+    //term = new Control();
     url: string;
     data: Array;
     count: number;
 
     constructor(private nav: NavController, private navParams: NavParams, private config: Config, private dataProvider: DataProvider,
-        private viewCtrl: ViewController) 
-    {
+        private viewCtrl: ViewController/*, private jsonp: Jsonp*/) {
     }
 
     ngOnInit() {
-        this.searchQuery = '';
+        this.term = '';
         this.name = this.navParams.data.name || "List";
         this.url = this.navParams.data.url || "";
         this.data = this.navParams.data.items || {};
+        this.pager = { limit: 10 };
         this.items = this.data;
         this.count = this.items.length;
         this.is_empty = false;
-        this.pager = { page: 0 };
 
         if (this.items.length === 0) {
             var timer = setTimeout(() => {
@@ -35,10 +42,6 @@ export class InfinitySelectModal {
 
             this.getItems(null, timer);
         }
-        //else {
-        //    this.pager.page = 1;
-        //    this.is_empty = true;
-        //}
     }
 
     dismiss(item) {
@@ -46,10 +49,10 @@ export class InfinitySelectModal {
         item = item || {};
         this.viewCtrl.dismiss(item);
     }
-    
-    searchItems(searchbar) {
+
+    newsearch(searchbar) {
         // Reset items back to all of the items
-        this.items = this.data;
+        //this.items = this.data;
 
         // set q to the value of the searchbar
         var q = searchbar.value;
@@ -58,18 +61,43 @@ export class InfinitySelectModal {
         if (q.trim() == '') {
             return;
         }
-
-        this.items = this.items.filter((v) => {
+        this.items =  q.length > 3 ? this.search(q) : Observable.of(this.data.filter((v) => {
             if (v.name.toLowerCase().indexOf(q.toLowerCase()) > -1) {
                 return true;
             }
             return false;
-        })
+        }));
+    }
+
+    searchItems(searchbar) {
+        // Reset items back to all of the items
+        this.items = this.data;
+
+        // set q to the value of the searchbar
+        var q = searchbar.value;
+
+        // if the value is an empty string don't filter the items
+        if (q.trim() == '' || this.busy) {
+            return;
+        }
+
+        if (q.length < 3)
+            this.items = this.items.filter((v) => {
+                if (v.name.toLowerCase().indexOf(q.toLowerCase()) > -1) {
+                    return true;
+                }
+                return false;
+            })
+        else {
+            var timer = setTimeout(() => { this.busy = true; }, 500);
+            this.getItems(q, timer);
+        }
         this.is_empty = !this.items.length;
     }
 
-    getItems(infiniteScroll, timer) {
-    this.dataProvider.getPaged(this.url, this.pager).subscribe(
+    getItems(term, timer) {
+        this.items = [];
+        this.dataProvider.getPaged(this.url.addp("search", term), this.pager).subscribe(
             data => {
                 if (data.length && !data[0].name) {
                     var results = [];
@@ -78,26 +106,23 @@ export class InfinitySelectModal {
                         //if users or techs
                         if (item.email)
                             name = getFullName(item.firstname, item.lastname, item.email, " ");
-                        //if tickets
-                        else if (item.number)
-                            name = `#${item.number}: ${item.subject}`;
                         results.push({ id: item.id, name: name });
                     });
                     data = results;
                 }
                 if (timer) {
-                    this.is_empty = !data.length;
                     clearTimeout(timer);
                     this.busy = false;
-                    this.data = data;
+                }
+                this.is_empty = !data.length;
+
+                if (!term)
+                {
+                    this.items = this.data = data;
                 }
                 else
-                    this.data.push(...data);
-                this.searchItems({ value: this.searchQuery });
-                if (infiniteScroll) {
-                    infiniteScroll.enable(data.length == 25);
-                    infiniteScroll.complete();
-                }
+                    this.items = data;
+
                 this.count = data.length;
             },
             error => {
@@ -107,16 +132,6 @@ export class InfinitySelectModal {
                 }
                 console.log(error || 'Server error');
             }
-        );
-    }
-
-    doInfinite(infiniteScroll) {
-        if (this.is_empty || this.count < 25) {
-            infiniteScroll.enable(false);
-            infiniteScroll.complete();
-            return;
-        }
-        this.pager.page += 1;
-        this.getItems(infiniteScroll);
+            );
     }
 }

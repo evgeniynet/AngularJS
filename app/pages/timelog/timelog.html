@@ -5,7 +5,7 @@
             <span primary>Cancel</span>
         </button>
     </ion-buttons>
-  <ion-title class="width20" [hidden]="time.time_id || time.number">Add Time</ion-title>
+  <ion-title [hidden]="time.time_id || time.number">Add Time</ion-title>
   <ion-title class="ellipsis" [hidden]="!time.time_id || !time.number">Timelog #{{time.time_id}} by {{time.user_name}} @ {{setDate(time.date) | date: "MM/dd/yyyy HH:mm"}}</ion-title>
   <ion-title class="ellipsis" [hidden]="!time.number">Add Time to #{{time.number}} {{time.subject}}</ion-title>
 </ion-navbar>
@@ -43,11 +43,11 @@
       <ion-toggle class="toggle" [(ngModel)]="isbillable"></ion-toggle>
     </ion-item>
         <p class="left width30 text-toggle">Billable</p>
-                <div class="tooltips">
+                <!--div class="tooltips"-->
                        <textarea class="width100 textLogin commentText" type="text" placeholder="I completed..."
                        [(ngModel)]="timenote"
                        ngControl="note" #note="ngForm" maxlength="4000">{{time.note}}</textarea>
-                       <!--span [hidden]="note.valid || note.untouched">Note is required and less 5000 chars</span--></div>
+                       <!--span [hidden]="note.valid || note.untouched">Note is required and less 5000 chars</span></div-->
           
         <div class="img-top">
             <button secondary block type="submit" class="disable-hover button button-default button-block"
