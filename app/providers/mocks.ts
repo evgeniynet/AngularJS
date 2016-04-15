@@ -899,7 +899,7 @@ export const MOCKS =
                 "phone2": ""
             },
             "customfields": [
-
+                { "key": "Web site", "value": "test" }
             ]
         },
         "accounts/574": {
@@ -1270,7 +1270,7 @@ export const MOCKS =
             "note": "",
             "number": 5078,
             "prefix": "",
-            "customfields_xml": "<root />",
+            "customfields_xml": '<root><field id="13"><caption>Birthday</caption><value>0001-01-01T00:00:00.0000000</value></field><field id="14"><caption>Room #</caption><value></value></field></root>',
             "parts_cost": 0.0000,
             "labor_cost": 0.0000,
             "total_time_in_minutes": 600,

@@ -1,16 +1,16 @@
 <ion-toolbar>
-    <ion-buttons start>
+    <ion-buttons start class="searchbar">
         <button class="width70px" (click)="dismiss()">
             <span class="searchbar-input">Cancel</span>
         </button>
     </ion-buttons>
-    <ion-searchbar class="searchbar-input" [ngModel]="searchQuery" (input)="getItems($event)" [placeholder]="name" [hideCancelButton]="true"></ion-searchbar>
+    <ion-searchbar class="searchbar-input" debounce="400" [(ngModel)]="term" (input)="searchItems($event)" placeholder="Type 3 letters to search '{{name}}'" [hideCancelButton]="true"></ion-searchbar>
     
 </ion-toolbar>
 
 
 <ion-content class="has-header">
-
+<img *ngIf="busy" class="imglogo img-padding" src="img/loading2.gif">
     <ion-list class="list">
         
         <ion-item class="basic-margin" *ngFor="#item of items" (click)="dismiss(item)">
@@ -22,4 +22,5 @@
 
     </ion-list>
 <div *ngIf="is_empty" class="table grey2 menu-text">No {{name}} found yet</div>
+
 </ion-content>

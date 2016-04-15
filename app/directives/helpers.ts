@@ -17,7 +17,7 @@ export function loadCache(url) {
 }
     
     //global helper functions
-    function GooglelogOut(mess) {
+export function GooglelogOut(mess) {
         if (!isExtension && !confirm("Do you want to stay logged in Google account?")) {
             var logoutUrl = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=" + MobileSite;
             document.location.href = MobileSite + "login.html".addUrlParam("f",mess);
@@ -25,6 +25,23 @@ export function loadCache(url) {
         else
             window.location = "login.html" + mess;
     }
+
+export function parseXml(xmlStr) {
+    if (!xmlStr || xmlStr.length < 9)
+        return null;
+    if (typeof window.DOMParser != "undefined") {
+         return (new window.DOMParser()).parseFromString(xmlStr, "text/xml");
+    } else if (typeof window.ActiveXObject != "undefined" &&
+        new window.ActiveXObject("Microsoft.XMLDOM")) {
+            var xmlDoc = new window.ActiveXObject("Microsoft.XMLDOM");
+            xmlDoc.async = "false";
+            xmlDoc.loadXML(xmlStr);
+            return xmlDoc;
+    } else {
+        console.log("No XML parser found");
+        return null;
+    }
+}
 
 export function getInfo4Extension()
 {

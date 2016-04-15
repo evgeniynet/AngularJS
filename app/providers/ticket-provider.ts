@@ -1,4 +1,6 @@
 import {Injectable} from 'angular2/core';
+import {Config, Events} from 'ionic-angular';
+import {dontClearCache} from './config';
 import {Headers, Http} from 'angular2/http';
 import {Observable} from 'rxjs/Observable';
 import {Observer} from 'rxjs/Observer';
@@ -6,6 +8,7 @@ import {ApiData} from './api-data';
 import * as helpers from '../directives/helpers';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/share';
+import {MOCKS} from './mocks';
 
 @Injectable()
 export class TicketProvider {
@@ -23,9 +26,7 @@ export class TicketProvider {
             tech: [],
             user: []
         };
-        let tab = "tech";
-        this.tickets$[tab] = new Observable(observer => this._ticketsObserver[tab] = observer).share();
-    }
+     }
 
     getTicketsList(tab, id, pager) {
         //"user","tech","alt","all"
@@ -58,6 +59,10 @@ export class TicketProvider {
             pager.page = pager.page || 0;
             tab += id || "";
             this._dataStore[tab] = this._dataStore[tab] || [];
+            if (dontClearCache){
+                this.tickets$[tab] = new Observable(observer => this._ticketsObserver[tab] = observer).share();
+                this._dataStore[tab] = MOCKS["tickets"];
+            }
             let cachelen = this._dataStore[tab].length;
             if (pager.page == 0){
                 pager.limit = cachelen || pager.limit;

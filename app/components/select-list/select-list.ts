@@ -2,7 +2,7 @@ import {IONIC_DIRECTIVES, NavController, Modal, Alert, Config} from 'ionic-angul
 import {ApiData} from '../../providers/api-data';
 import {getFullName} from '../../directives/helpers';
 import {Component, Input, Output, EventEmitter, OnInit} from 'angular2/core';
-import {BasicSelectModal, InfinitySelectModal} from '../../pages/modals/modals';
+import {BasicSelectModal, InfinitySelectModal, AjaxSelectModal} from '../../pages/modals/modals';
 import 'rxjs/add/operator/share';
 
 const alertLimit = 5;
@@ -16,6 +16,7 @@ export class SelectListComponent {
     @Input() list: Array;
     @Input() isbutton: boolean;
     @Input() preload: boolean;
+    @Input() ajax: boolean;
     @Output() public onChanged: EventEmitter<any> = new EventEmitter(false);
 
     constructor(nav: NavController, apiData: ApiData, config: Config) {
@@ -153,7 +154,8 @@ export class SelectListComponent {
      }
 
      openModal() {
-         let myModal = Modal.create(this.list.items.length === 25 ? InfinitySelectModal : BasicSelectModal, this.list);
+         let modal = this.ajax ? AjaxSelectModal : (this.list.items.length === 25 ? InfinitySelectModal : BasicSelectModal);
+         let myModal = Modal.create(modal, this.list);
          myModal.onDismiss(data => {
              if (data.name) {
                  this.selected = data;

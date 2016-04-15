@@ -78,13 +78,13 @@ class MyApp {
         
         // set first pages
         //this.rootPage = HelloIonicPage; return;
-        //this.rootPage = TicketsPage; return;
+        this.rootPage = TicketsPage; return;
         //this.rootPage = ExpensesPage; return;
         //this.rootPage = ExpenseCreatePage; return;
         //this.rootPage = TimelogsPage; return;
         //this.rootPage = TimelogPage; return;
         //this.rootPage = AccountsPage; return;
-        //this.rootPage = CloseTicketModal; return;
+        //this.rootPage = TicketCreatePage; return;
       
         if (config.current.user.is_techoradmin)
             this.rootPage = DashboardPage;
