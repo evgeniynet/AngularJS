@@ -105,8 +105,8 @@
  <h3 class="right width50 tkts-table">{{account.phone2}}</h3>
                </ion-item>
             <ion-item *ngFor="#customfield of account.customfields">
-            <h3 class="right width50 tkts-table">{{customfield.Key}}</h3>
-                <h3 class="right width50 tkts-table">{{customfield.Value}}</h3>
+            <h3 class="left width35 text-left">{{customfield.Key}}</h3>
+                <h3 class="right width50 tkts-table">{{customfield.Value || '&nbsp;'}}</h3>
             </ion-item>
         </ion-list> 
         
