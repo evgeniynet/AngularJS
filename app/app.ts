@@ -24,58 +24,107 @@ import {LoginPage} from './pages/login/login';
 import {ExpenseCreatePage} from './pages/expense-create/expense-create';
 import {ExpensesPage} from './pages/expenses/expenses';
 
+export interface Settings {
+  is_tech: boolean;
+  stat: Object;
+  key: string;
+  org: string;
+  instance: string;
+  user: Object;
+}
+
+export interface Stat {
+  accounts: Object;
+  tickets: Object;
+}
+
 @App({
   templateUrl: 'build/app.html',
-    providers: [ApiData, DataProvider, TicketProvider, ToastsManager],
-    prodMode : false,
-    config: {
+  providers: [ApiData, DataProvider, TicketProvider, ToastsManager],
+  prodMode : false,
+  config: {
     tabbarPlacement: 'top'
-}
+  }
 })
 class MyApp {
-    constructor(private app: IonicApp, private platform: Platform, private config: Config, private toastr: ToastsManager, private events: Events, private menu: MenuController, private ticketProvider: TicketProvider) {
+  
+  pages: Array<any>;
+
+  constructor(private app: IonicApp, private platform: Platform, private config: Config, private toastr: ToastsManager, private events: Events, private menu: MenuController, private ticketProvider: TicketProvider) {
 
     // set up our app
     this.initializeApp();
-        
+
     config.alert = toastr;
-    config.current = {};
-        
+    
+    config.getCurrent = function(property) {
+      let tconfig = this.current || JSON.parse(localStorage.current) || {};
+      tconfig.stat = tconfig.stat || {};
+      if (property)
+        return tconfig[property] || {};
+      return tconfig; 
+    };
+
+    config.setCurrent = function(nconfig) {
+      let tconfig = {};
+      tconfig.is_tech = nconfig.is_tech || nconfig.user.is_techoradmin || this.current.user.is_techoradmin || false; 
+      tconfig.user = nconfig.user || this.current.user || {};
+      tconfig.stat = nconfig.stat || this.current.stat || {};
+      tconfig.key = nconfig.key || this.current.key || "";
+      tconfig.org = nconfig.org || this.current.org || "";
+      tconfig.instance = nconfig.instance || this.current.inst || "";
+      this.current = tconfig;
+      //this.saveCurrent();
+      return config;
+    };
+
+    config.clearCurrent = function(config) {
+      this.current = {user: {}, stat: {}};
+      return config;
+    };
+
+    config.saveCurrent = function(){
+      localStorage.current = JSON.stringify(this.getCurrent());
+    }
+
+    config.getStat = function(property){
+      return this.getCurrent("stat")[property] || {};
+    }
+
+    config.setStat = function(property, value){
+      this.current.stat[property]  = value;
+    }
+
     // set our app's pages
     this.pages = [
-        { title: 'Dashboard', component: DashboardPage, icon: "speedometer" },
-        { title: 'Tickets', component: TicketsPage, icon: "create-outline" },
-        { title: 'Timelogs', component: TimelogsPage, icon: "md-time" },
-        { title: 'Accounts', component: AccountsPage, icon: "people" },
-        { title: 'Invoices', component: InvoicesPage, icon: "card" },        
-        { title: 'Queues', component: QueuesPage, icon: "list-box-outline" },
-        { title: 'Switch Org', component: OrganizationsPage, icon: "md-swap" },
-        { title: 'Signout', component: LoginPage, icon: "md-log-in" },
-        { title: 'Full App', component: HelloIonicPage, icon: "md-share-alt" },
+    { title: 'Dashboard', component: DashboardPage, icon: "speedometer" },
+    { title: 'Tickets', component: TicketsPage, icon: "create-outline" },
+    { title: 'Timelogs', component: TimelogsPage, icon: "md-time" },
+    { title: 'Accounts', component: AccountsPage, icon: "people" },
+    { title: 'Invoices', component: InvoicesPage, icon: "card" },        
+    { title: 'Queues', component: QueuesPage, icon: "list-box-outline" },
+    { title: 'Switch Org', component: OrganizationsPage, icon: "md-swap" },
+    { title: 'Signout', component: LoginPage, icon: "md-log-in" },
+    { title: 'Full App', component: HelloIonicPage, icon: "md-share-alt" },
     ];
-        
-        var current = localStorage.current;
-        
+
+    config.current = config.getCurrent();
+
         //set test config object
-        if (current && current != "undefined")
-            config.current = JSON.parse(current);
-        else if (dontClearCache)
-            config.current = MOCKS["config"];
-        else
-            {
-            this.rootPage = LoginPage;
-            return;
-            }
-        
-                //accounts, tickets statistics
-        config.current.stat = {};
-        
-        if (!config.current.org || !config.current.instance)
+        if (dontClearCache)
+          current = config.setCurrent(MOCKS["config"]);
+        else if (!config.current.key)
         {
-            this.rootPage = OrganizationsPage;
-            return;
+          this.rootPage = LoginPage;
+          return;
         }
-        
+
+        if (!config.current.org || !config.current.instance)
+                {
+                  this.rootPage = OrganizationsPage;
+                  return;
+                }
+
         // set first pages
         //this.rootPage = HelloIonicPage; return;
         //this.rootPage = TicketsPage; return;
@@ -86,16 +135,16 @@ class MyApp {
         //this.rootPage = AccountsPage; return;
         //this.rootPage = TicketCreatePage; return;
         //this.rootPage = AddUserModal; return;
-      
-        if (config.current.user.is_techoradmin)
-            this.rootPage = DashboardPage;
-        else
-            this.rootPage = TicketsPage; 
-  }
 
-  initializeApp() {
-    this.platform.ready().then(() => {
-      console.log('Platform ready');
+        if (config.current.user.is_techoradmin)
+          this.rootPage = DashboardPage;
+        else
+          this.rootPage = TicketsPage; 
+      }
+
+      initializeApp() {
+        this.platform.ready().then(() => {
+          console.log('Platform ready');
         //this.testPage(AccountDetailsPage, MOCKS["accounts/-1"]);
       // The platform is now ready. Note: if this callback fails to fire, follow
       // the Troubleshooting guide for a number of possible solutions:
@@ -114,58 +163,58 @@ class MyApp {
       }
       */
     });
-  }
+      }
 
-  openPage(page, param) {
-      this.menu.close();
+      openPage(page, param) {
+        this.menu.close();
     // close the menu when clicking a link from the menu
-      let nav = this.app.getComponent('nav');
+    let nav = this.app.getComponent('nav');
 
-      if (page.index) {
+    if (page.index) {
           nav.setRoot(page.component || page, {tabIndex: page.index});/*.then(() => {
               // wait for the root page to be completely loaded
               // then close the menu
               this.app.getComponent('leftMenu').close();
-          });*/
-      } else {
+            });*/
+          } else {
           nav.setRoot(page.component || page);/*.then(() => {
               // wait for the root page to be completely loaded
               // then close the menu
               this.app.getComponent('leftMenu').close();
-          });*/
-      }
+            });*/
+          }
       /*
       let nav = this.app.getComponent('nav');
       nav.setRoot(page.component, param).then(() => {
           // wait for the root page to be completely loaded
           // then close the menu
           this.app.getComponent('leftMenu').close();
-      });*/
-  }
-    
-    testPage(page, param) {
+        });*/
+      }
+
+      testPage(page, param) {
     // close the menu when clicking a link from the menu
-      let nav = this.app.getComponent('nav');
-        nav.push(page, param);
+    let nav = this.app.getComponent('nav');
+    nav.push(page, param);
   }
-    
-    ngOnInit() {
-        this.subscribeToEvents();
-    }
 
-    ngOnDestroy() {
-        this.unsubscribeToEvents();
-    }
-    
-    subscribeToEvents() {
-        this.events.subscribe('login:failed', () => {
-            this.openPage(LoginPage);
+  ngOnInit() {
+    this.subscribeToEvents();
+  }
+
+  ngOnDestroy() {
+    this.unsubscribeToEvents();
+  }
+
+  subscribeToEvents() {
+    this.events.subscribe('login:failed', () => {
+      this.openPage(LoginPage);
             //this.getNav().setRoot(TodosPage);
-        });
-    }
+          });
+  }
 
-    unsubscribeToEvents() {
-        this.events.unsubscribe('login:failed', null);
-    }
+  unsubscribeToEvents() {
+    this.events.unsubscribe('login:failed', null);
+  }
 
 }

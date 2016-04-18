@@ -1,12 +1,4 @@
 import * as Config from '../providers/config';
-
-export function saveConfig(config, key, org, inst) {
-    config.stat = {};
-    config.key =  key || "";
-    config.org = org || "";
-    config.instance = inst || "";
-    localStorage.current = JSON.stringify(config); 
-}
  
 export function saveCache(url, data) {
     localStorage.setItem(url, JSON.stringify(data || {})); 

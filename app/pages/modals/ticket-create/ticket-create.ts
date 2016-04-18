@@ -19,7 +19,7 @@ export class TicketCreatePage {
 
     onPageLoaded()
     {
-        this.he = this.config.current.user;
+        this.he = this.config.getCurrent("user");
 
         this.data = (this.navParams || {}).data || {};
 

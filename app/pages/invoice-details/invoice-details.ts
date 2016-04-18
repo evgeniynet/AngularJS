@@ -19,6 +19,6 @@ export class InvoiceDetailsPage {
     }
     
     getCurrency(value) {
-        return getCurrency(value, this.config.current.currency);
+        return getCurrency(value, this.config.getCurrent("currency"));
     }
 }

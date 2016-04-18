@@ -57,7 +57,7 @@ export class TicketsListComponent {
          if (!this.mode)
              return;
 
-         this.count = ((this.config.current.stat || {}).tickets || {})[this.mode[0]] || this.count;
+         this.count = this.config.getStat("tickets")[this.mode[0]] || this.count;
 
          if (this.count !== 0) {
              this.ticketProvider.getTicketsList(this.mode[0], this.mode[1], this.pager);

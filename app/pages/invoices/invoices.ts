@@ -11,11 +11,8 @@ import {MorePipe} from '../../pipes/pipes';
     pipes: [MorePipe],
 })
 export class InvoicesPage {
-    constructor(nav: NavController, dataProvider: DataProvider, config: Config) {
-    this.nav = nav;
-        this.config = config;
+    constructor(private nav: NavController, private dataProvider: DataProvider, private config: Config) {
         this.is_empty = false;
-        this.dataProvider = dataProvider;
   }
     
     onPageLoaded()
@@ -39,6 +36,6 @@ export class InvoicesPage {
     }
     
     getCurrency(value) {
-        return getCurrency(value, this.config.current.currency);
+        return getCurrency(value, this.config.getCurrent("currency"));
     }
 }

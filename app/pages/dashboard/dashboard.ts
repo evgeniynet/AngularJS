@@ -25,8 +25,7 @@ export class DashboardPage {
         this.accounts = helpers.loadCache("dashaccounts");
         this.queues = helpers.loadCache("dashqueues");
 
-        let statistics = this.config.current.stat;
-        let pager = {limit: (statistics.accounts + 5) || 500};
+        let pager = { limit: (Number(this.config.getStat("accounts")) + 5) || 500};
 
         this.dataProvider.getQueueList(3).subscribe(
             data => { this.queues = data;
@@ -63,13 +62,13 @@ export class DashboardPage {
         this.dataProvider.data$["tickets/counts"].subscribe(
             data => {
                 this.counts = data;
-                this.config.current.stat.tickets =
+                this.config.setStat("tickets", 
                 {
                     "all": data.open_all,
                     "tech":  data.open_as_tech,
                     "alt": data.open_as_alttech,
                     "user": data.open_as_user
-                };
+                });
             }, 
             error => { 
                 console.log(error || 'Server error');}

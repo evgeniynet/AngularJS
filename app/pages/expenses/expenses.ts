@@ -38,6 +38,6 @@ export class ExpensesPage {
     }
 
     getCurrency(value) {
-        return getCurrency(value, this.config.current.currency);
+        return getCurrency(value, this.config.getCurrent("currency");
     }
 }

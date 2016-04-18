@@ -31,17 +31,17 @@ export class TimelogPage {
     {
         this.time = (this.navParams || {}).data || {};
 
-        this.mintime = this.config.current.time_minimum_time || 0.25;
+        this.mintime = this.config.getCurrent("time_minimum_time") || 0.25;
         this.mintime = this.mintime > 0 ? this.mintime : 0.25;
 
         this.isbillable = typeof this.time.billable === 'undefined' ? true : this.time.billable;
 
-        this.inc = this.config.current.time_hour_increment > 0 ? this.config.current.time_hour_increment : 0.25;
+        this.inc = this.config.getCurrent("time_hour_increment") > 0 ? this.config.getCurrent("time_hour_increment") : 0.25;
 
         this.timecount = this.time.hours || this.mintime;
 
         this.timenote = this.time.note || "";
-        this.he = this.config.current.user;
+        this.he = this.config.getCurrent("user");
 
         let account_id = this.time.account_id || this.he.account_id || -1;
         let project_id = this.time.project_id || 0;

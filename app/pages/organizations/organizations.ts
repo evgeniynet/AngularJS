@@ -1,6 +1,6 @@
 import {Page, Config, NavController} from 'ionic-angular';
 import {DataProvider} from '../../providers/data-provider';
-import {saveConfig} from '../../directives/helpers';
+import {saveCache} from '../../directives/helpers';
 import {LoginPage} from '../login/login';
 import {DashboardPage} from '../dashboard/dashboard';
 import {TicketsPage} from '../tickets/tickets';
@@ -9,15 +9,22 @@ import {TicketsPage} from '../tickets/tickets';
     templateUrl: 'build/pages/organizations/organizations.html',
 })
 export class OrganizationsPage {
+
+    list: Array<any>;
+
     constructor(private nav: NavController, private dataProvider: DataProvider, private config: Config) {
         //partly logout
         localStorage.clear();
-        if (this.config.current.user)
-            localStorage.username = this.config.current.user.email;
-        saveConfig(this.config.current, this.config.current.key);
+        let he = this.config.getCurrent("user");
+        if (he.email)
+            localStorage.username = he.email;
+        let key = this.config.getCurrent("key");
+        this.config.clearCurrent();
+        this.config.setCurrent({"key": key});
+        this.config.saveCurrent();
         
         this.list = [];
-        this.dataProvider.getOrganizations(this.config.current.key).subscribe(
+        this.dataProvider.getOrganizations(key).subscribe(
             data => {
                 
                 this.list = data;
@@ -49,22 +56,24 @@ export class OrganizationsPage {
     }
     
     onSelectInst(instance) {
-        this.config.current.org = instance.org;
-        this.config.current.instance = instance.inst;
+        this.config.setCurrent({ "org": instance.org, "instance": instance.inst });
         this.dataProvider.getConfig().subscribe(
             data => {
-                let key = this.config.current.key;
-                this.config.current = data;
-                saveConfig(this.config.current, key, instance.org, instance.inst);
-                if (this.config.current.user.is_techoradmin)
+                this.config.setCurrent(data);
+                this.config.saveCurrent();
+                if (this.config.getCurrent("is_tech"))
                     this.nav.setRoot(DashboardPage);
                 else
                     this.nav.setRoot(TicketsPage);     
             }, 
             error => { 
                 this.config.alert.error(error || 'Server error', 'Oops!');
+                let key = this.config.getCurrent("key");
+                this.config.clearCurrent();
+                this.config.setCurrent({ "key": key });
+                this.config.saveCurrent();
                 setTimeout(() => {
-                    this.nav.setRoot(TicketsPage);
+                    this.nav.setRoot(LoginPage);
                 }, 3000);
                 console.log(error || 'Server error');}
                 ); 

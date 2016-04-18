@@ -13,6 +13,7 @@ export class ExpenseCreatePage {
 
     expense: Object;
     isbillable: boolean;
+    he: Object;
 
     constructor(private nav: NavController, private navParams: NavParams, private apiData: ApiData, private config: Config, private view: ViewController) {
     }
@@ -23,15 +24,15 @@ export class ExpenseCreatePage {
 
         this.isbillable = typeof this.expense.billable === 'undefined' ? true : this.expense.billable;
         
-        let he = this.config.current.user;
+        this.he = this.config.getCurrent("user");
 
-        let account_id = this.expense.account_id || he.account_id || -1;
+        let account_id = this.expense.account_id || this.he.account_id || -1;
         let project_id = this.expense.project_id || 0;
         
         this.selects = {
             "account": {
                 name: "Account",
-                value: (this.expense.account_name || {}).name || he.account_name,
+                value: (this.expense.account_name || {}).name || this.he.account_name,
                 selected: account_id,
                 url: "accounts?is_with_statistics=false",
                 hidden: false
@@ -77,7 +78,7 @@ export class ExpenseCreatePage {
                 "ticket_key": this.expense.ticket_number || null,
                 "account_id": this.selects.account.selected,
                 "project_id": !this.expense.ticket_number ? this.selects.project.selected : null,
-                "tech_id": isEdit? this.expense.user_id : this.config.current.user.user_id,
+                "tech_id": isEdit? this.expense.user_id : this.he.user_id,
                 "note": this.expense.note,
                 "note_internal": this.expense.note_internal,
                 "amount": this.expense.amount,

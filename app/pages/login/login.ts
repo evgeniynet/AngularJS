@@ -1,5 +1,5 @@
 import {Page, Config, NavController} from 'ionic-angular';
-import {saveConfig, saveCache} from '../../directives/helpers';
+import {saveCache} from '../../directives/helpers';
 import {DataProvider} from '../../providers/data-provider';
 import {OrganizationsPage} from '../organizations/organizations';
 import {SignupPage} from '../signup/signup';
@@ -8,11 +8,9 @@ import {SignupPage} from '../signup/signup';
   templateUrl: 'build/pages/login/login.html',
 })
 export class LoginPage {
-    constructor(nav: NavController, dataProvider: DataProvider, config: Config) {
-    this.nav = nav;
-                this.config = config;
-        
-        this.dataProvider = dataProvider;
+    login: Object;
+
+    constructor(private nav: NavController, private dataProvider: DataProvider, private config: Config) {
   }
     
     onPageLoaded()
@@ -20,13 +18,14 @@ export class LoginPage {
         //logout
         this.login = {username: localStorage.username };
         localStorage.clear();
-        this.config.current = {stat:{}};
+        this.config.clearCurrent();
     }
 
     onLogin(form) {
         if (form.valid) { this.dataProvider.checkLogin(form.value.email,form.value.password).subscribe(
                 data => {
-                    saveConfig(this.config.current, data.api_token);
+                    this.config.setCurrent({ key:data.api_token });
+                    this.config.saveCurrent();
                     localStorage.username = form.value.email || "";
                     this.nav.push(OrganizationsPage);
                 }, 

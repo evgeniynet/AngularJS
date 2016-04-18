@@ -24,7 +24,7 @@ export class TicketDetailsPage {
 
     onPageLoaded() {
         this.active = true;
-        let he = this.config.current.user;
+        this.he = this.config.getCurrent("user");
         this.details_tab = "Reply";
         let data = (this.navParams || {}).data || {};
         let account_id = -1;
@@ -224,10 +224,9 @@ export class TicketDetailsPage {
         this.dataProvider.closeOpenTicket(this.ticket.key, data).subscribe(
             data => {
                 this.config.alert.success("", 'Ticket pickup was Succesfull!');
-                let he = this.config.current.user;
-                this.techname = this.selects.tech.value = this.ticket.tech_firstname = getFullName(he.firstname, he.lastname, he.email);
+                this.techname = this.selects.tech.value = this.ticket.tech_firstname = getFullName(this.he.firstname, this.he.lastname, this.he.email);
                 this.ticket.tech_lastname = this.ticket.tech_email = "";
-                this.selects.tech.selected = he.user_id;
+                this.selects.tech.selected = this.he.user_id;
             },
             error => {
                 console.log(error || 'Server error');
@@ -270,7 +269,7 @@ export class TicketDetailsPage {
     }
 
     getFullapplink(ticketkey) {
-        return fullapplink("site", ticketkey, this.config.current.instance, this.config.current.org);
+        return fullapplink("site", ticketkey, this.config.getCurrent("instance"), this.config.getCurrent("org");
     }
     
     getFullName (firstname,lastname,email,name) {
@@ -278,7 +277,7 @@ export class TicketDetailsPage {
     }
 
     getCurrency(value) {
-        return getCurrency(value, this.config.current.currency);
+        return getCurrency(value, this.config.getCurrent("currency"));
     }
 
     setDate(date) {

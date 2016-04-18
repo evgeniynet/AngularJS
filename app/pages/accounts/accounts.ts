@@ -38,11 +38,12 @@ export class AccountsPage {
                     clearTimeout(timer);
                     this.busy = false;
                     this.accounts = data;
-                    this.config.current.stat.accounts = data.length;
+                    //this.config.setStat("accounts", data.length);
                 }
                 else
                 {
                     this.accounts.push(...data);
+                    //TODO: how do get accounts stat
                     this.config.current.stat.accounts += data.length;
                 }
                 if (infiniteScroll) {

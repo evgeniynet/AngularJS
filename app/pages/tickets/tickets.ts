@@ -15,7 +15,7 @@ export class TicketsPage {
         let param = (this.navParams || {}).data || {};
         if (param.count)
             this.counts[param.tab] = param.count;
-        this.ticket_tab = this.config.current.user.is_techoradmin ? 
+        this.ticket_tab = this.config.getCurrent("is_tech") ? 
             (param.tab || this.nav.tickets_tab || "tech") : "user";
         this.nav.tickets_tab = null;
     }
