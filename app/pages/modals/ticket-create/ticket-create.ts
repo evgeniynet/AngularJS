@@ -1,4 +1,4 @@
-import {Page, Config, NavController, NavParams, ViewController} from 'ionic-angular';
+import {Page, Config, NavController, NavParams, ViewController, Modal} from 'ionic-angular';
 import {forwardRef} from 'angular2/core';
 import {FORM_DIRECTIVES, Validators} from 'angular2/common';
 import {DataProvider} from '../../../providers/data-provider';
@@ -6,7 +6,7 @@ import {htmlEscape, getFullName} from '../../../directives/helpers';
 import {ClassListComponent} from '../../../components/class-list/class-list';
 import {SelectListComponent} from '../../../components/select-list/select-list';
 import {TicketDetailsPage} from '../../ticket-details/ticket-details';
-import {AddUserPage} from '../../add-user/add-user';
+import {AddUserModal} from '../modals';
 
 @Page({
     templateUrl: 'build/pages/modals/ticket-create/ticket-create.html',
@@ -15,8 +15,6 @@ import {AddUserPage} from '../../add-user/add-user';
 export class TicketCreatePage {
     constructor(private nav: NavController, private navParams: NavParams, private dataProvider: DataProvider, private config: Config,
                  private viewCtrl: ViewController) {
-        //this.viewCtrl = viewCtrl;
-        this.alert = config.alert;
     }
 
     onPageLoaded()
@@ -111,7 +109,7 @@ export class TicketCreatePage {
     onSubmit(form) {
         /*if (!this.selects.tech.id)
             {
-                this.alert.error('Please select technician...', 'Oops!');
+                this.config.alert.error('Please select technician...', 'Oops!');
                 return;
             }
             */
@@ -127,7 +125,7 @@ export class TicketCreatePage {
 
             this.dataProvider.addTicket(this.ticket).subscribe(
                 data => {
-                    this.alert.success("", 'Ticket was Succesfully Created :)');
+                    this.config.alert.success("", 'Ticket was Succesfully Created :)');
                     setTimeout(() => {
                         this.dismissPage(data);
                     }, 3000); 
@@ -140,7 +138,14 @@ export class TicketCreatePage {
 
     addUser(type)
     {
-        this.nav.push(AddUserPage, type);
+        let myModal = Modal.create(AddUserModal, type);
+        myModal.onDismiss(data => {
+            this.selects[type].selected = data.id;
+            this.selects[type].value = getFullName(data.firstname, data.lastname, data.email);
+        });
+        setTimeout(() => {
+            this.nav.present(myModal);
+        }, 500);
     }
 }
 

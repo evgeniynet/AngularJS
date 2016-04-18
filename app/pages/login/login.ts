@@ -12,7 +12,6 @@ export class LoginPage {
     this.nav = nav;
                 this.config = config;
         
-        this.alert = this.config.alert;
         this.dataProvider = dataProvider;
   }
     
@@ -37,13 +36,13 @@ export class LoginPage {
                     if(form.value.email && ~form.value.email.indexOf("@gmail.com")){
                         message = "Wrong Password, Google sign password is not neeeded";
                     }
-                        this.alert.error(message, 'Oops!');
+                    this.config.alert.error(message, 'Oops!');
                     this.login.password = "";
                 }
             ); 
         }
         else
-            this.alert.error('Please enter email and password!', 'Oops!');
+            this.config.alert.error('Please enter email and password!', 'Oops!');
     }
 
     onGoogleSignip() {

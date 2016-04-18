@@ -68,6 +68,7 @@ export class TicketProvider {
                 pager.limit = cachelen || pager.limit;
                     if (cachelen){
                         setTimeout(() => {
+                            if (this._ticketsObserver[tab])
                         this._ticketsObserver[tab].next(this._dataStore[tab] || []);
                         }, 0);
                     }

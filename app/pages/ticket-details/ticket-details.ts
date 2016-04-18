@@ -136,7 +136,7 @@ export class TicketDetailsPage {
     }
 
     redirectOnEmpty(){
-        this.alert.error('Incorrect ticket. Going back...', 'Oops!');
+        this.config.alert.error('Incorrect ticket. Going back...', 'Oops!');
 
         setTimeout(() => {
             this.nav.pop();
@@ -155,7 +155,7 @@ export class TicketDetailsPage {
 
             this.dataProvider.addTicketPost(this.ticket.id, post).subscribe(
                 data => {
-                    this.alert.success("", 'Note added :)');
+                    this.config.alert.success("", 'Note added :)');
                     this.ticketnote = "";
                     this.active = false;
                     setTimeout(() => this.active = true, 0);

@@ -190,6 +190,17 @@ addTicketPost(id, note) {
 return this.apiData.get(url, data, "POST");
 }
 
+addUser(email, firstname, lastname, role) {
+    let url = "users";
+    let data = {
+        "Lastname": lastname,
+        "Firstname": firstname,
+        "email": email,
+        "role": role
+};
+return this.apiData.get(url, data, "POST");
+}
+
 closeOpenTicket(id, data) {
     let url = `tickets/${id}`;
     return this.apiData.get(url, data, "PUT");

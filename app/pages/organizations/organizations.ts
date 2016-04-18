@@ -9,18 +9,13 @@ import {TicketsPage} from '../tickets/tickets';
     templateUrl: 'build/pages/organizations/organizations.html',
 })
 export class OrganizationsPage {
-    constructor(nav: NavController, dataProvider: DataProvider, config: Config) {
-        this.nav = nav;
-        this.config = config;
-        
+    constructor(private nav: NavController, private dataProvider: DataProvider, private config: Config) {
         //partly logout
         localStorage.clear();
         if (this.config.current.user)
             localStorage.username = this.config.current.user.email;
         saveConfig(this.config.current, this.config.current.key);
         
-        this.alert = this.config.alert;
-        this.dataProvider = dataProvider;
         this.list = [];
         this.dataProvider.getOrganizations(this.config.current.key).subscribe(
             data => {
@@ -28,7 +23,7 @@ export class OrganizationsPage {
                 this.list = data;
             }, 
             error => { 
-                this.alert.error(error || 'Server error', 'Oops!');
+                this.config.alert.error(error || 'Server error', 'Oops!');
                 //setTimeout(() => { this.nav.pop(); }, 3000);
                 console.log(error || 'Server error');}
                 ); 
@@ -50,7 +45,7 @@ export class OrganizationsPage {
     }
     
     alertOrg(name){
-        this.alert.error(name + " has expired or inactivated. Contact SherpaDesk for assistance. Email: support@sherpadesk.com Phone: +1 (866) 996-1200, then press 2", 'Oops!');
+        this.config.alert.error(name + " has expired or inactivated. Contact SherpaDesk for assistance. Email: support@sherpadesk.com Phone: +1 (866) 996-1200, then press 2", 'Oops!');
     }
     
     onSelectInst(instance) {
@@ -67,7 +62,7 @@ export class OrganizationsPage {
                     this.nav.setRoot(TicketsPage);     
             }, 
             error => { 
-                this.alert.error(error || 'Server error', 'Oops!');
+                this.config.alert.error(error || 'Server error', 'Oops!');
                 setTimeout(() => {
                     this.nav.setRoot(TicketsPage);
                 }, 3000);

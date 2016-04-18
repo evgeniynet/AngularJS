@@ -24,5 +24,20 @@
     <!--script src="build/js/angular2-polyfills.js"></script-->
     
   <script src="build/js/app.bundle.js"></script>
+  <script>
+
+window.onbeforeunload = function (evt) {
+  return;  
+var message = "Are you sure you want to leave? All app cache and unsaved changes will be lost...";
+if (typeof evt == "undefined") {
+evt = window.event;
+}
+if (evt) {
+evt.returnValue = message;
+}
+return message;
+}
+
+</script>
 </body>
 </html>

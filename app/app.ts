@@ -17,7 +17,7 @@ import {AccountDetailsPage} from './pages/account-details/account-details';
 import {TimelogsPage} from './pages/timelogs/timelogs';
 import {TimelogPage} from './pages/timelog/timelog';
 import {TicketsPage} from './pages/tickets/tickets';
-import {TicketCreatePage, CloseTicketModal} from './pages/modals/modals';
+import {TicketCreatePage, CloseTicketModal, AddUserModal} from './pages/modals/modals';
 import {DashboardPage} from './pages/dashboard/dashboard';
 import {OrganizationsPage} from './pages/organizations/organizations';
 import {LoginPage} from './pages/login/login';
@@ -83,8 +83,9 @@ class MyApp {
         //this.rootPage = ExpenseCreatePage; return;
         //this.rootPage = TimelogsPage; return;
         //this.rootPage = TimelogPage; return;
-        this.rootPage = AccountsPage; return;
+        //this.rootPage = AccountsPage; return;
         //this.rootPage = TicketCreatePage; return;
+        //this.rootPage = AddUserModal; return;
       
         if (config.current.user.is_techoradmin)
             this.rootPage = DashboardPage;
