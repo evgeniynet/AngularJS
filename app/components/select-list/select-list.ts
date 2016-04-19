@@ -18,16 +18,28 @@ export class SelectListComponent {
     @Input() preload: boolean;
     @Input() ajax: boolean;
     @Output() public onChanged: EventEmitter<any> = new EventEmitter(false);
+    selected: Object;
+    init: boolean;
+    url: string;
 
-    constructor(nav: NavController, apiData: ApiData, config: Config) {
+    constructor(private nav: NavController, private apiData: ApiData, private config: Config) {
         this.init = true;
-        this.nav = nav;
-        this.config = config;
-        this.apiData = apiData;
         this.list = {};
         this.selected = {};
     }  
 
+/*
+    ngOnChanges(event) {
+        console.log(event);
+        if ("list" in event) {
+            console.log(this.url);
+            if (!event.list.isFirstChange() && event.list.currentValue.url !== this.url) {
+                console.log(this.list.items)
+                //this.list.hidden = true;
+            }
+        }
+    }
+*/
     ngOnInit() {
         if (this.list.url)
         {
@@ -83,8 +95,8 @@ export class SelectListComponent {
  {
      if (!this.list.items || this.list.items.length == 0)
      {
-         this.list.hidden = true;
-         this.error(this.list.name + ' list is empty!');
+         this.list.value += " (no options)";
+         //this.error(this.list.name + ' list is empty!');
          return;
      }
      if (!this.list.items[0].name){
