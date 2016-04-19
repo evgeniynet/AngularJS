@@ -25,7 +25,9 @@ export class DashboardPage {
         this.accounts = helpers.loadCache("dashaccounts");
         this.queues = helpers.loadCache("dashqueues");
 
-        let pager = { limit: (Number(this.config.getStat("accounts")) + 5) || 500};
+        let accountslen = this.config.getStat("accounts");
+
+        let pager = { limit: ~accountslen ? 500 : accountslen};
 
         this.dataProvider.getQueueList(3).subscribe(
             data => { this.queues = data;
@@ -39,6 +41,7 @@ export class DashboardPage {
             this.dataProvider.getAccountList(true, pager, true, true).subscribe(
                 data => {
                     this.accounts = data;
+                    this.config.setStat("accounts") = data.length:
                 }, 
                 error => { 
                     console.log(error || 'Server error');}

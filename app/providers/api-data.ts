@@ -27,11 +27,7 @@ export class ApiData {
 //userKey, userOrgKey, userInstanceKey: string; 
 //mock: boolean = dontClearCache;
 
-    constructor(http: Http, config: Config, events: Events) {
-    // inject the Http provider and set to this instance
-    this.http = http;
-    this.config = config;
-    this.events = events;
+    constructor(private http: Http, private config: Config, private events: Events) {
 }
 
 request(method, data, type, headers) {
@@ -92,7 +88,7 @@ processData(data) {
 }
 
 handleError(error) {
-    console.error(error);
+   // console.error(error);
     /*if ((request.status == 403 && settings.url !== ApiSite + "organizations") || (request.status == 404 && settings.url === ApiSite + "config"))
     {
         logout(settings.url !== ApiSite + "login", request.statusText);
@@ -106,6 +102,7 @@ handleError(error) {
         }
     if (error.constructor !== String)
         error = (error || {}).json().error;
+    this.config.alert.error(error, 'Please contact Administator!');
     return Observable.throw(new Error(error));
 }
 }

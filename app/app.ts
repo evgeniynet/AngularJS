@@ -93,7 +93,10 @@ class MyApp {
     }
 
     config.getStat = function(property){
-      return this.getCurrent("stat")[property] || {};
+      let stat = this.getCurrent("stat")[property];
+      if (typeof stat == "undefined")
+        return -1;
+      return stat || {};
     }
 
     config.setStat = function(property, value){
@@ -101,7 +104,10 @@ class MyApp {
     }
 
     config.getRecent = function(property){
-      return this.getCurrent("recent")[property] || {};
+      let recent = this.getCurrent("recent")[property];
+      if (typeof recent == "undefined")
+        return -1;
+      return recent || {};
     }
 
     config.setRecent = function(property, value){

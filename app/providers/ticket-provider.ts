@@ -17,7 +17,7 @@ export class TicketProvider {
     private _ticketsObserver: Object; //Array<Observer<Object[]>>;
     _dataStore: Object;
 
-    constructor(private apiData: ApiData) {
+    constructor(private apiData: ApiData, private config: Config, private events: Events) {
         this.tickets$ = {}; //new Observable(observer => this._ticketsObserver = observer).share();
         this._ticketsObserver = {};
         this._dataStore = {
