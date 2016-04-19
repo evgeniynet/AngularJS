@@ -102,9 +102,9 @@ export class SelectListComponent {
          this.list.items = results;
      }
 
-     if (this.list.items.length <= alertLimit)
-         this.openRadio();
-     else
+     //if (this.list.items.length <= alertLimit)
+     //    this.openRadio();
+     //else
          this.openModal();
  }
 
@@ -154,7 +154,8 @@ export class SelectListComponent {
      }
 
      openModal() {
-         let modal = this.ajax ? AjaxSelectModal : (this.list.items.length === 25 ? InfinitySelectModal : BasicSelectModal);
+         //TODO check counts: is more than 100 - do ajax
+         let modal = this.list.items.length === 25 ? (this.ajax ? AjaxSelectModal : InfinitySelectModal) : BasicSelectModal;
          let myModal = Modal.create(modal, this.list);
          myModal.onDismiss(data => {
              if (data.name) {

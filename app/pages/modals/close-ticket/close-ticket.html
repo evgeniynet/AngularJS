@@ -12,9 +12,9 @@
 
 <div class="list max-width700 general-alignment">
 
-    <select-list [list]="selects.resolution" [preload]="true" (onChanged)='saveSelect($event)'></select-list>
+    <select-list [list]="selects.resolution" preload="true" (onChanged)='saveSelect($event)'></select-list>
 
-    <select-list [list]="selects.category" [preload]="true" (onChanged)='saveSelect($event)'></select-list>
+    <select-list [list]="selects.category" preload="true" (onChanged)='saveSelect($event)'></select-list>
 
     <form #addForm="ngForm" class="response-ticket">
         

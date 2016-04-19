@@ -18,9 +18,9 @@
 <input class="width100 textLogin commentText subject-create" placeholder="Amount" type="number" min="0" ngControl="amount" required #amount="ngForm" [value]="(expense.amount || 0) | number:'1.2-2'"/> 
 <span [hidden]="amount.valid || amount.untouched">Amount should be more than 0</span></div>  
  <div class="class-margin">
-   <select-list *ngIf="!expense.number" [list]="selects.account" [preload]="true" (onChanged)='saveSelect($event)'></select-list>
+   <select-list *ngIf="!expense.number" [list]="selects.account" preload="true" (onChanged)='saveSelect($event)'></select-list>
 
-   <select-list *ngIf="!expense.number" [list]="selects.project" [preload]="true" (onChanged)='saveSelect($event)'></select-list>
+   <select-list *ngIf="!expense.number" [list]="selects.project" preload="true" (onChanged)='saveSelect($event)'></select-list>
         </div>    
 <div class="tooltips"> 
 <textarea required [(ngModel)]="expense.note" ngControl="note" #note="ngForm" class="width100 textLogin commentText" type="text" placeholder="Note"  maxlength="4000"></textarea>

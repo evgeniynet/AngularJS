@@ -56,17 +56,17 @@
                
   <div *ngSwitchWhen="'Info'" class="list max-width700 general-alignment">
     
-      <class-list [preload]="true" [list]="selects.class" (onChanged)='saveSelect($event)'></class-list>
+      <class-list preload="true" [list]="selects.class" (onChanged)='saveSelect($event)'></class-list>
     
-      <select-list [preload]="true" [list]="selects.level" (onChanged)='saveSelect($event)'></select-list>
+      <select-list preload="true" [list]="selects.level" (onChanged)='saveSelect($event)'></select-list>
     
-      <select-list [preload]="true" [list]="selects.priority" (onChanged)='saveSelect($event)'></select-list>
+      <select-list preload="true" [list]="selects.priority" (onChanged)='saveSelect($event)'></select-list>
       
-      <select-list [preload]="true" [list]="selects.tech" (onChanged)='saveSelect($event)'></select-list>
+      <select-list preload="true" [list]="selects.tech" (onChanged)='saveSelect($event)'></select-list>
       
-      <select-list [preload]="true" [list]="selects.location" (onChanged)='saveSelect($event)'></select-list>
+      <select-list preload="true" [list]="selects.location" (onChanged)='saveSelect($event)'></select-list>
       
-      <select-list [preload]="true" [list]="selects.project" (onChanged)='saveSelect($event)'></select-list>
+      <select-list preload="true" [list]="selects.project" (onChanged)='saveSelect($event)'></select-list>
     <button *ngFor="#customfield of ticket.customfields" class="width100 button-icon-only {{ isbutton? 'blue2 general-alignment2' : 'blue4'}} class-margin">
             <p class="left width50 textLogin">{{customfield.name}}</p>
             <p class="right width65 tkts-table ellipsis padding-right15">{{customfield.value || '&nbsp;'}}</p>
@@ -78,7 +78,7 @@
       <button (click)="addTime()" secondary block type="submit" class="disable-hover button button-default button-block class-margin">Add Time</button>
       <button   (click)="addExpense()" secondary block type="submit" class="disable-hover button button-default button-block general-alignment2 class-margin">Add Expense</button>
   
-  <select-list [preload]="true" [isbutton]="true" [list]="selects.technician" (onChanged)='transferTicket($event)'></select-list>
+  <select-list preload="true" [isbutton]="true" [list]="selects.technician" (onChanged)='transferTicket($event)'></select-list>
 
 <button (click)='pickUp()' block type="submit" class="blue2 class-margin">Pick Up Ticket</button>
 
