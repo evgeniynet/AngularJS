@@ -31,6 +31,7 @@ export interface Settings {
   org: string;
   instance: string;
   user: Object;
+  recent: Object;
 }
 
 export interface Stat {
@@ -58,8 +59,11 @@ class MyApp {
     config.alert = toastr;
     
     config.getCurrent = function(property) {
-      let tconfig = this.current || JSON.parse(localStorage.current) || {};
-      tconfig.stat = tconfig.stat || {};
+      let tconfig = this.current || JSON.parse(localStorage.current || "null") || {};
+      if (!tconfig.stat)
+        tconfig.stat = {};
+      if (!tconfig.recent)
+        tconfig.recent = {};
       if (property)
         return tconfig[property] || {};
       return tconfig; 
@@ -67,19 +71,20 @@ class MyApp {
 
     config.setCurrent = function(nconfig) {
       let tconfig = {};
-      tconfig.is_tech = nconfig.is_tech || nconfig.user.is_techoradmin || this.current.user.is_techoradmin || false; 
       tconfig.user = nconfig.user || this.current.user || {};
+      tconfig.is_tech = nconfig.is_tech || tconfig.user.is_techoradmin || false; 
       tconfig.stat = nconfig.stat || this.current.stat || {};
+      tconfig.recent = nconfig.recent || this.current.recent || {};
       tconfig.key = nconfig.key || this.current.key || "";
       tconfig.org = nconfig.org || this.current.org || "";
       tconfig.instance = nconfig.instance || this.current.inst || "";
       this.current = tconfig;
       //this.saveCurrent();
-      return config;
+      return tconfig;
     };
 
     config.clearCurrent = function(config) {
-      this.current = {user: {}, stat: {}};
+      this.current = {user: {}, stat: {}, recent: {}};
       return config;
     };
 
@@ -93,6 +98,14 @@ class MyApp {
 
     config.setStat = function(property, value){
       this.current.stat[property]  = value;
+    }
+
+    config.getRecent = function(property){
+      return this.getCurrent("recent")[property] || {};
+    }
+
+    config.setRecent = function(property, value){
+      this.current.recent[property]  = value;
     }
 
     // set our app's pages
@@ -112,7 +125,7 @@ class MyApp {
 
         //set test config object
         if (dontClearCache)
-          current = config.setCurrent(MOCKS["config"]);
+          config.current = config.setCurrent(MOCKS["config"]);
         else if (!config.current.key)
         {
           this.rootPage = LoginPage;
