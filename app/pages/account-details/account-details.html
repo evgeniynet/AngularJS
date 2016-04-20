@@ -18,7 +18,7 @@
     <div [ngSwitch]="details_tab">
         <div [hidden]="details_tab != 'Stat'">
             <ion-list class="list img-top" no-lines style="height: 150px;">
-        <div class="blue1 left width65 general-alignment">
+        <div class="blue1 left width65 general-alignment height174">
 <!--  <ion-item class="textLogin">Open Tickets</ion-item>-->
   <ion-item (click)="openPage(0)" class="textLogin">Invoices</ion-item>
   <ion-item (click)="openPage(1)" class="textLogin">Expenses</ion-item>
@@ -32,13 +32,14 @@
             <ion-item (click)="openPage(2)" class="blue2" [innerHTML]="account.account_statistics.hours | More:[10000,'<div class=item-inner><ion-label>VV</ion-label></div>']"></ion-item>
         </div>
 </ion-list>
-    <br>
-<div class="margin-top63 list">
-      <ion-segment [(ngModel)]="tabsTicket">
+            <ion-item></ion-item>
+            <ion-item class="margin">
+<div class="list">
+      <ion-segment [(ngModel)]="tabsTicket" class="height32">
           <ion-segment-button class="button-open" value="Open">Open Tickets</ion-segment-button>
           <ion-segment-button class="button-open" value="Close">Close Tickets</ion-segment-button>
           </ion-segment>
-</div>
+                </div></ion-item>
             <br>
             <tickets-list [hidden]="tabsTicket != 'Open'" [mode]="['open', account.id]" [count]="account.account_statistics.ticket_counts.open"></tickets-list>
             <tickets-list [hidden]="tabsTicket != 'Close'" [preload]="1500" [mode]="['closed', account.id]" [count]="account.account_statistics.ticket_counts.closed"></tickets-list>
