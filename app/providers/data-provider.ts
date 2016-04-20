@@ -122,14 +122,20 @@ getQueueList(limit) {
     });
 }
 
-getTimelogs(pager) {
-    let url = "time";
+    getTimelogs(account_id, pager) {
+        let url = "time".addp("account", account_id);
     url = this.getPager(url, pager);
     return this.apiData.get(url);
 }
 
 getInvoices(account_id, pager) {
-    let url = "invoices".addp("account_id",account_id);
+    let url = "invoices".addp("account",account_id);
+    url = this.getPager(url, pager);
+    return this.apiData.get(url);
+}
+
+getExpenses(account_id, pager) {
+    let url = "expenses".addp("account",account_id);
     url = this.getPager(url, pager);
     return this.apiData.get(url);
 }

@@ -11,7 +11,9 @@ import {GravatarPipe, MorePipe, LinebreaksPipe} from '../../pipes/pipes';
 })
 export class TimelogsPage {
 
+    LIMIT: number = 15;
     count: number;
+    account: Object;
     is_empty: boolean;
     busy: boolean;
     params: Object;
@@ -23,10 +25,14 @@ export class TimelogsPage {
         this.is_empty = false;
   }
     
-    onPageWillEnter()
+    onPageLoaded()
     {
         this.params = this.navParams.data || {};
         this.pager = { page: 0 };
+        this.params.account = { id: this.params.account_id || -1, name: this.params.account_name || this.config.getCurrent("user").account_name };
+
+        if (this.params.is_empty)
+            this.params.count = 0;
 
         if (this.params.count !== 0) {
             var timer = setTimeout(() => {
@@ -36,12 +42,12 @@ export class TimelogsPage {
             this.getItems(null, timer);
         }
         else
-            this.is_empty = false;
+            this.is_empty = true;
     }
 
 
     getItems(infiniteScroll, timer) {
-        this.dataProvider.getTimelogs(this.pager).subscribe(
+        this.dataProvider.getTimelogs(this.params.account.id, this.pager).subscribe(
             data => {
                 if (timer) {
                     this.is_empty = !data.length;
@@ -52,7 +58,7 @@ export class TimelogsPage {
                 else
                     this.timelogs.push(...data);
                 if (infiniteScroll) {
-                    infiniteScroll.enable(data.length == 25);
+                    infiniteScroll.enable(data.length == this.LIMIT);
                     infiniteScroll.complete();
                 }
                 this.count = data.length;

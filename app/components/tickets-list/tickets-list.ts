@@ -7,8 +7,6 @@ import {CloseTicketModal} from '../../pages/modals/modals';
 import {htmlEscape} from '../../directives/helpers';
 import {GravatarPipe, LinebreaksPipe} from '../../pipes/pipes';
 
-const LIMIT: number = 6;
-
 @Component({
     selector: 'tickets-list',
     templateUrl: 'build/components/tickets-list/tickets-list.html',
@@ -16,6 +14,8 @@ const LIMIT: number = 6;
     pipes: [GravatarPipe, LinebreaksPipe],
 })
 export class TicketsListComponent {
+    LIMIT: number = 6;
+
     @Input() mode: Array;
     @Input() count: number;
     @Input() preload: number;
@@ -26,7 +26,7 @@ export class TicketsListComponent {
 
     constructor(private nav: NavController, private navParams: NavParams, private config: Config, private ticketProvider: TicketProvider, private dataProvider: DataProvider) {
         this.is_empty = false;
-        this.pager = { page: 0, limit: LIMIT};
+        this.pager = { page: 0, limit: this.LIMIT};
     }
 
      /*
@@ -59,7 +59,7 @@ export class TicketsListComponent {
 
          let stat = this.config.getStat("tickets")[this.mode[0]]
 
-         this.count = ~stat ? this.count : stat;
+         this.count = !stat ? this.count : stat;
 
          if (this.count !== 0) {
              this.ticketProvider.getTicketsList(this.mode[0], this.mode[1], this.pager);
@@ -105,15 +105,15 @@ export class TicketsListComponent {
                      }
                      else
                      {
-                         this.count = (this.cachelen % LIMIT) || LIMIT;
-                         this.pager.page = Math.max((this.cachelen / LIMIT | 0) - 1, 0);
-                         this.pager.limit = LIMIT;
+                         this.count = (this.cachelen % this.LIMIT) || this.LIMIT;
+                         this.pager.page = Math.max((this.cachelen / this.LIMIT | 0) - 1, 0);
+                         this.pager.limit = this.LIMIT;
                      }
                      this.tickets = data;
                  }
                  if (infiniteScroll){
                      this.tickets.push(...data);
-                     infiniteScroll.enable(data.length == LIMIT);
+                     infiniteScroll.enable(data.length == this.LIMIT);
                      this.count = data.length;
                      infiniteScroll.complete();
                  }
@@ -184,7 +184,7 @@ export class TicketsListComponent {
 
 
      doInfinite(infiniteScroll) {
-         if (this.is_empty || (this.cachelen > 0 && (this.cachelen % LIMIT)))
+         if (this.is_empty || (this.cachelen > 0 && (this.cachelen % this.LIMIT)))
          {
              infiniteScroll.enable(false);
              infiniteScroll.complete();
@@ -195,7 +195,7 @@ export class TicketsListComponent {
          this.ticketProvider.tickets$[this.mode[0] + (this.mode[1] || "")].subscribe(
              data => { 
                  infiniteScroll.complete();
-                 infiniteScroll.enable(!(data.length % LIMIT));
+                 infiniteScroll.enable(!(data.length % this.LIMIT));
               });
      }
  }

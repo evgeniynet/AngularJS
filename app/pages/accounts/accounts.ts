@@ -19,7 +19,7 @@ export class AccountsPage {
     constructor(private nav: NavController, private config: Config, private dataProvider: DataProvider) {
   }
     
-    onPageWillEnter()
+    onPageLoaded()
     {
         this.pager = { page: 0 };
 

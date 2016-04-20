@@ -14,12 +14,17 @@ import {MorePipe} from '../../pipes/pipes';
     pipes: [MorePipe],
 })
 export class AccountDetailsPage {
+
+    account: Object;
+    details_tab: string;
+    tabsTicket: string; 
+
     constructor(private nav: NavController, private navParams: NavParams, private dataProvider: DataProvider, private config: Config) {
         this.details_tab = "Stat";
         this.pages = [InvoicesPage, ExpensesPage, TimelogsPage];
   }
     
-    onPageWillEnter()
+    onPageLoaded()
     {
                 // If we navigated to this page, we will have an item available as a nav param
         this.account = this.navParams.data || {};
@@ -35,9 +40,9 @@ export class AccountDetailsPage {
         ); 
     }
 
-    openPage(page)
+    openPage(page, count)
     {
-        this.nav.push(this.pages[page]);
+        this.nav.push(this.pages[page], {"is_empty": !count, "account_id": this.account.id, "account_name": this.account.name});
     }
     
     getCurrency(value) {
