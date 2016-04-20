@@ -62,22 +62,24 @@ class MyApp {
       let tconfig = this.current || JSON.parse(localStorage.current || "null") || {};
       if (!tconfig.stat)
         tconfig.stat = {};
+      if (!tconfig.user)
+        tconfig.user = {};
       if (!tconfig.recent)
         tconfig.recent = {};
       if (property)
-        return tconfig[property] || {};
+        return tconfig[property] || "";
       return tconfig; 
     };
 
     config.setCurrent = function(nconfig) {
-      let tconfig = {};
+      let tconfig = nconfig || {};
       tconfig.user = nconfig.user || this.current.user || {};
       tconfig.is_tech = nconfig.is_tech || tconfig.user.is_techoradmin || false; 
       tconfig.stat = nconfig.stat || this.current.stat || {};
       tconfig.recent = nconfig.recent || this.current.recent || {};
       tconfig.key = nconfig.key || this.current.key || "";
       tconfig.org = nconfig.org || this.current.org || "";
-      tconfig.instance = nconfig.instance || this.current.inst || "";
+      tconfig.instance = nconfig.instance || this.current.instance || "";
       this.current = tconfig;
       //this.saveCurrent();
       return tconfig;
