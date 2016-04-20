@@ -260,13 +260,14 @@ scroll-content {
     }
 
 .segment-button{
-      border-color: $color-value;
+      border-color: $background-color;
       background-color: $blue2;
+    color: $blue7;
 }
 
 .segment-button.segment-activated {
     color: $text-color;
-    background-color: $blue6;
+    background-color: $blue2;
 }
 
 .position-button{
@@ -292,6 +293,10 @@ scroll-content {
 
 .min-width100{
     min-width: 100px;
+}
+
+.min-width150{
+    min-width: 150px;
 }
 
 .select-icon .select-icon-inner {
