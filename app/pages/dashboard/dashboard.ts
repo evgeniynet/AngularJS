@@ -41,7 +41,7 @@ export class DashboardPage {
             this.dataProvider.getAccountList(true, pager, true, true).subscribe(
                 data => {
                     this.accounts = data;
-                    this.config.setStat("accounts") = data.length:
+                    this.config.setStat("accounts", data.length);
                 }, 
                 error => { 
                     console.log(error || 'Server error');}
