@@ -9,7 +9,7 @@ import {TicketProvider} from './providers/ticket-provider';
 import {dontClearCache} from './providers/config';
 import {MOCKS} from './providers/mocks';
 import * as helpers from './directives/helpers';
-import {ToastsManager} from 'ng2-toastr/ng2-toastr';
+//import {ToastsManager} from 'ng2-toastr/ng2-toastr';
 import {HelloIonicPage} from './pages/hello-ionic/hello-ionic';
 import {ListPage} from './pages/list/list';
 import {QueuesPage} from './pages/queues/queues';
@@ -43,7 +43,7 @@ export interface Stat {
 
 @App({
   templateUrl: 'build/app.html',
-  providers: [ApiData, DataProvider, TicketProvider, ToastsManager],
+  providers: [ApiData, DataProvider, TicketProvider, /*ToastsManager*/],
   prodMode : false,
   config: {
     tabbarPlacement: 'top'
@@ -54,12 +54,12 @@ class MyApp {
   pages: Array<any>;
   rootPage: any;
 
-  constructor(private app: IonicApp, private platform: Platform, private config: Config, private toastr: ToastsManager, private events: Events, private menu: MenuController, private ticketProvider: TicketProvider, private location: Location) {
+  constructor(private app: IonicApp, private platform: Platform, private config: Config, /*private toastr: ToastsManager,*/ private events: Events, private menu: MenuController, private ticketProvider: TicketProvider, private location: Location) {
 
     // set up our app
     this.initializeApp();
 
-    config.alert = toastr;
+    config.alert = {};//toastr;
     
     config.getCurrent = function(property) {
       let tconfig = this.current || JSON.parse(localStorage.current || "null") || {};

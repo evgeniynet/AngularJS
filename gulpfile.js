@@ -34,7 +34,7 @@ var copyScripts = require('ionic-gulp-scripts-copy');
 
 gulp.task('watch', ['clean'], function(done){
   runSequence(
-    ['scripts'],
+    ['sass', 'html', 'fonts', 'scripts'],
     function(){
       gulpWatch('app/**/*.scss', function(){ gulp.start('sass'); });
       gulpWatch('app/**/*.html', function(){ gulp.start('html'); });
@@ -44,7 +44,7 @@ gulp.task('watch', ['clean'], function(done){
 });
 gulp.task('build', ['clean'], function(done){
   runSequence(
-    ['scripts'],
+    ['sass', 'html', 'fonts', 'scripts'],
     function(){
       buildBrowserify().on('end', done);
     }

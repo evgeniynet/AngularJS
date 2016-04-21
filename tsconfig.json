@@ -6,19 +6,23 @@
     "rootDir": ".",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "sourceRoot": "",
     "inlineSourceMap": false,
     "inlineSources": false,
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "removeComments": true,
+    "declaration": true,
+    "typeCheck": false
   },
   "files": [
     "app/app.ts",
     "typings/**/* .ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "typings/main",
+    "typings/main.d.ts"
   ],
   "compileOnSave": false
 }
