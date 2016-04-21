@@ -74,7 +74,7 @@ export class TimelogsPage {
     }
 
     doInfinite(infiniteScroll) {
-        if (this.is_empty || this.count < 25) {
+        if (this.is_empty || this.count < this.LIMIT) {
             infiniteScroll.enable(false);
             infiniteScroll.complete();
             return;
