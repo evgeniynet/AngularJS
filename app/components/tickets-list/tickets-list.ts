@@ -5,13 +5,13 @@ import {DataProvider} from '../../providers/data-provider';
 import {TicketDetailsPage} from '../../pages/ticket-details/ticket-details';
 import {CloseTicketModal} from '../../pages/modals/modals';
 import {htmlEscape} from '../../directives/helpers';
-import {GravatarPipe, LinebreaksPipe} from '../../pipes/pipes';
+import {GravatarPipe, LinebreaksPipe, CapitalizePipe} from '../../pipes/pipes';
 
 @Component({
     selector: 'tickets-list',
     templateUrl: 'build/components/tickets-list/tickets-list.html',
     directives: [IONIC_DIRECTIVES],
-    pipes: [GravatarPipe, LinebreaksPipe],
+    pipes: [GravatarPipe, LinebreaksPipe, CapitalizePipe],
 })
 export class TicketsListComponent {
     LIMIT: number = 6;
