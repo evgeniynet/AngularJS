@@ -10,10 +10,10 @@
     "sourceRoot": "",
     "inlineSourceMap": false,
     "inlineSources": false,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "removeComments": true,
     "declaration": true,
-    "typeCheck": false
+    "allowSyntheticDefaultImports": true
   },
   "files": [
     "app/app.ts",

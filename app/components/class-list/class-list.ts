@@ -12,7 +12,7 @@ const alertLimit = 10;
     directives: [IONIC_DIRECTIVES]
 })
 export class ClassListComponent {
-    @Input() list: Array<any>;
+    @Input() list: any;
     @Input() preload: boolean;
     @Output() public onChanged:EventEmitter<any> = new EventEmitter(false);
     init: boolean;
@@ -21,7 +21,7 @@ export class ClassListComponent {
 
      constructor(private nav: NavController, private apiData: ApiData, private config: Config) {
          this.init = true;
-         this.list = [];
+         this.list = {};
          this.selected = {};
      }  
 

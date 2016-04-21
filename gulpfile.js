@@ -38,7 +38,9 @@ gulp.task('watch', ['clean'], function(done){
     function(){
       gulpWatch('app/**/*.scss', function(){ gulp.start('sass'); });
       gulpWatch('app/**/*.html', function(){ gulp.start('html'); });
-      buildBrowserify({ watch: true }).on('end', done);
+      buildBrowserify({ watch: true, browserifyOptions: {
+  debug: false, syntax: false // sourcemaps off
+} }).on('end', done);
     }
   );
 });
@@ -46,7 +48,9 @@ gulp.task('build', ['clean'], function(done){
   runSequence(
     ['sass', 'html', 'fonts', 'scripts'],
     function(){
-      buildBrowserify().on('end', done);
+      buildBrowserify({browserifyOptions: {
+  debug: false, syntax: false // sourcemaps off
+} }).on('end', done);
     }
   );
 });
