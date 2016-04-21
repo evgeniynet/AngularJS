@@ -19,7 +19,7 @@ export class InvoicesPage {
     busy: boolean;
     params: Object;
     pager: Object;
-    invoices: Array;
+    invoices: Array<any>;
 
     constructor(private nav: NavController, private dataProvider: DataProvider, private config: Config, private navParams: NavParams) {
         this.is_empty = false;

@@ -12,8 +12,9 @@ import {GravatarPipe, LinebreaksPipe, DaysoldPipe, FilesPipe} from '../../pipes/
     pipes: [GravatarPipe, LinebreaksPipe, DaysoldPipe, FilesPipe],
 })
 export class PostsListComponent {
-    @Input() posts: Array;
-    @Input() attachments: Array;
+    @Input() posts: Array<any>;
+    @Input() attachments: Array<any>;
+
      
     constructor() {
         this.posts = [];

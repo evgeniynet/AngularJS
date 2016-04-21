@@ -18,7 +18,7 @@ export class ExpensesPage {
     busy: boolean;
     params: Object;
     pager: Object;
-    expenses: Array;
+    expenses: Array<any>;
 
 
     constructor(private nav: NavController, private dataProvider: DataProvider, private config: Config, private navParams: NavParams) {
@@ -91,6 +91,6 @@ export class ExpensesPage {
     }
 
     getCurrency(value) {
-        return getCurrency(value, this.config.getCurrent("currency");
+        return getCurrency(value, this.config.getCurrent("currency"));
     }
 }

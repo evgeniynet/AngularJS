@@ -18,7 +18,7 @@ export class TimelogsPage {
     busy: boolean;
     params: Object;
     pager: Object;
-    timelogs: Array;
+    timelogs: Array<any>;
 
 
     constructor(private nav: NavController, private dataProvider: DataProvider, private config: Config, private navParams: NavParams) {

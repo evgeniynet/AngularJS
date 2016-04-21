@@ -15,7 +15,7 @@ export class CloseTicketModal {
     isconfirm: boolean;
     ticketnote: string;
     ticket: Object;
-    selects: Array;
+    selects: Array<any>;
 
     constructor(private nav: NavController, private navParams: NavParams, private apiData: ApiData, private dataProvider: DataProvider, private config: Config,
         private viewCtrl: ViewController) {

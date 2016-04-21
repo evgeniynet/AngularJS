@@ -269,7 +269,7 @@ export class TicketDetailsPage {
     }
 
     getFullapplink(ticketkey) {
-        return fullapplink("site", ticketkey, this.config.getCurrent("instance"), this.config.getCurrent("org");
+        return fullapplink("site", ticketkey, this.config.getCurrent("instance"), this.config.getCurrent("org"));
     }
     
     getFullName (firstname,lastname,email,name) {

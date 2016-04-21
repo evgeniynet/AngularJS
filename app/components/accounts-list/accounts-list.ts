@@ -12,11 +12,11 @@ pipes: [MorePipe],
 })
 
 export class AccountsListComponent {
-    @Input() accounts: Array;
+    @Input() accounts: Array<any>;
     @Input() simple: boolean;
+    is_empty: boolean;
 
-     constructor(nav: NavController) {
-         this.nav = nav;
+     constructor(private nav: NavController) {
          this.is_empty = false;
 }
      itemTapped(event, account) {

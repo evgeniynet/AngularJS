@@ -12,16 +12,16 @@ const alertLimit = 10;
     directives: [IONIC_DIRECTIVES]
 })
 export class ClassListComponent {
-    @Input() list: Array;
+    @Input() list: Array<any>;
     @Input() preload: boolean;
-     @Output() public onChanged:EventEmitter<any> = new EventEmitter(false);
+    @Output() public onChanged:EventEmitter<any> = new EventEmitter(false);
+    init: boolean;
+    selected: Object;
+    url: any;
 
-     constructor(nav: NavController, apiData: ApiData, config: Config) {
+     constructor(private nav: NavController, private apiData: ApiData, private config: Config) {
          this.init = true;
-         this.nav = nav;
-         this.config = config;
-         this.apiData = apiData;
-         this.list = {};
+         this.list = [];
          this.selected = {};
      }  
 
@@ -30,7 +30,7 @@ export class ClassListComponent {
              this.url = this.list.url;
              //this.apiData.Cache = this.apiData.get(this.list.url).share();
              if (this.preload) {
-                 this.loadData();
+                 this.loadData(false);
              }
          }
      }
@@ -123,7 +123,6 @@ export class ClassListComponent {
                      text: 'OK',
                      handler: data => {
                          if(data){
-                             this.testRadioOpen = false;
                              this.selected = data;
                              this.emit_changed(data);
                          }

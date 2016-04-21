@@ -31,12 +31,9 @@ export class AddUserModal {
                     }, 1000);
                 },
                 error => {
-					this.config.alert.error("Oops!", form.value.email + ' already exists! Please try again');
-                    setTimeout(() => {
-                    console.log(error || 'Server error');
-				}
-            );
-        }
+                    this.config.alert.error("Oops!", form.value.email + ' already exists! Please try again');
+                    setTimeout(() => { console.log(error || 'Server error'); });
+                });
     }
-
+}
 }

@@ -9,10 +9,13 @@
     "sourceMap": true,
     "sourceRoot": "",
     "inlineSourceMap": false,
-    "inlineSources": false
+    "inlineSources": false,
+    "noImplicitAny": false,
+    "removeComments": true,
   },
   "files": [
-    "app/app.ts"
+    "app/app.ts",
+    "typings/**/* .ts"
   ],
   "exclude": [
     "node_modules"

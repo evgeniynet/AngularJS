@@ -11,11 +11,11 @@ pipes: [MorePipe],
 })
 
 export class QueuesListComponent {
-    @Input() queues: Array;
+    @Input() queues: Array<any>;
     @Input() simple: boolean;
+    is_empty: boolean;
 
-     constructor(nav: NavController) {
-         this.nav = nav;
+     constructor(private nav: NavController) {
          this.is_empty = false;
 }
      

@@ -8,9 +8,9 @@ import {getFullName} from '../../../directives/helpers';
 
 export class InfinitySelectModal {
 
-    items: Array;
+    items: Array<any>;
     url: string;
-    data: Array;
+    data: Array<any>;
     count: number;
 
     constructor(private nav: NavController, private navParams: NavParams, private config: Config, private dataProvider: DataProvider,

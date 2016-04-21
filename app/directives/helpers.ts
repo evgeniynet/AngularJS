@@ -10,12 +10,13 @@ export function loadCache(url) {
     
     //global helper functions
 export function GooglelogOut(mess) {
-        if (!isExtension && !confirm("Do you want to stay logged in Google account?")) {
-            var logoutUrl = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=" + MobileSite;
-            document.location.href = MobileSite + "login.html".addUrlParam("f",mess);
-        }
-        else
-            window.location = "login.html" + mess;
+    var isExtension = false;
+    if (!isExtension && !confirm("Do you want to stay logged in Google account?")) {
+        var logoutUrl = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=" + Config.MobileSite;
+        //document.location.href = Config.MobileSite + "login.html".addp("f",mess);
+    }
+    else
+        ;//window.location = "login.html" + mess;
     }
 
 export function parseXml(xmlStr) {
@@ -37,6 +38,7 @@ export function parseXml(xmlStr) {
 
 export function getInfo4Extension()
 {
+    var isExtension = false;
     if (isExtension)
     {
         var loginStr = "login?t=" + localStorage.getItem("userKey") +
@@ -221,52 +223,3 @@ export function getFullName (firstname,lastname,email,name) {
 export function toTitleCase(str) {
   return str.replace(/\w\S*/g, function(txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
 }
-
-export function hasScrollbar() {
-
-  if (typeof window.top.innerWidth === 'number') {
-    return window.top.innerWidth > window.top.document.documentElement.clientWidth;
-  }
-
-  // rootElem for quirksmode
-  var rootElem = window.top.document.documentElement || window.top.document.body;
-
-  // Check overflow style property on body for fauxscrollbars
-  var overflowStyle;
-
-  if (typeof rootElem.currentStyle !== 'undefined') {
-    overflowStyle = rootElem.currentStyle.overflow;
-  }
-
-  overflowStyle = overflowStyle || window.top.getComputedStyle(rootElem, '').overflow;
-
-  // Also need to check the Y axis overflow
-  var overflowYStyle;
-
-  if (typeof rootElem.currentStyle !== 'undefined') {
-    overflowYStyle = rootElem.currentStyle.overflowY;
-  }
-
-  overflowYStyle = overflowYStyle || window.top.getComputedStyle(rootElem, '').overflowY;
-
-  var contentOverflows = rootElem.scrollHeight > rootElem.clientHeight;
-  var overflowShown = /^(visible|auto)$/.test(overflowStyle) || /^(visible|auto)$/.test(overflowYStyle);
-  var alwaysShowScroll = overflowStyle === 'scroll' || overflowYStyle === 'scroll';
-
-  return (contentOverflows && overflowShown) || (alwaysShowScroll)
-}
-
-export function debounce(func, wait, immediate) {
-  var timeout;
-  return function() {
-    var context = this, args = arguments;
-    var later = function() {
-      timeout = null;
-      if (!immediate) func.apply(context, args);
-    };
-    var callNow = immediate && !timeout;
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-    if (callNow) func.apply(context, args);
-  };
-};

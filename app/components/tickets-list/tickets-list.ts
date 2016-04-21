@@ -16,10 +16,10 @@ import {GravatarPipe, LinebreaksPipe, CapitalizePipe} from '../../pipes/pipes';
 export class TicketsListComponent {
     LIMIT: number = 6;
 
-    @Input() mode: Array;
+    @Input() mode: Array<any>;
     @Input() count: number;
     @Input() preload: number;
-    tickets: Array;
+    tickets: Array<any>;
     cachelen: number;
     pager: Object;
     is_empty: boolean;

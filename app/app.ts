@@ -1,3 +1,5 @@
+import {NgZone} from 'angular2/core';
+import {RouteConfig, Location} from 'angular2/router'; 
 import {App, IonicApp, Config, Platform, NavController, NavParams, Events, MenuController} from 'ionic-angular';
 //import {StatusBar} from 'ionic-native';
 import {OnInit, OnDestroy} from 'angular2/core';
@@ -50,8 +52,9 @@ export interface Stat {
 class MyApp {
   
   pages: Array<any>;
+  rootPage: any;
 
-  constructor(private app: IonicApp, private platform: Platform, private config: Config, private toastr: ToastsManager, private events: Events, private menu: MenuController, private ticketProvider: TicketProvider) {
+  constructor(private app: IonicApp, private platform: Platform, private config: Config, private toastr: ToastsManager, private events: Events, private menu: MenuController, private ticketProvider: TicketProvider, private location: Location) {
 
     // set up our app
     this.initializeApp();
@@ -186,7 +189,7 @@ class MyApp {
     });
       }
 
-      openPage(page, param) {
+      openPage(page, param = null) {
         this.menu.close();
     // close the menu when clicking a link from the menu
     let nav = this.app.getComponent('nav');

@@ -16,10 +16,9 @@ directives: [IONIC_DIRECTIVES],
 export class ActionButtonComponent {
 
     @Input() data: any;
+    actionSheet: any;
 
-    constructor(nav: NavController, config: Config) {
-         this.nav = nav;
-        this.config = config;
+    constructor(private navParams: NavParams, private nav: NavController, private config: Config) {
         this.data = {};
 }
     

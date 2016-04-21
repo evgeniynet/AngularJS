@@ -13,7 +13,7 @@ const alertLimit = 5;
     directives: [IONIC_DIRECTIVES]
 })
 export class SelectListComponent {
-    @Input() list: Array;
+    @Input() list: Array<any>;
     @Input() isbutton: boolean;
     @Input() preload: boolean;
     @Input() ajax: boolean;
@@ -24,7 +24,7 @@ export class SelectListComponent {
 
     constructor(private nav: NavController, private apiData: ApiData, private config: Config) {
         this.init = true;
-        this.list = {};
+        this.list = [];
         this.selected = {};
     }  
 
@@ -57,7 +57,7 @@ export class SelectListComponent {
          this.loadData(true);
      }
 
-     loadData (show)
+     loadData (show = false)
      {
          if (this.url != this.list.url || !this.list.items || this.list.items.length == 0){
              if (this.list.url) {
@@ -143,7 +143,6 @@ export class SelectListComponent {
              text: 'OK',
              handler: data => {
                  if(data){
-                     this.testRadioOpen = false;
                      this.selected = data;
                      this.emit_changed(data);
                  }

@@ -14,7 +14,7 @@ export class AccountsPage {
     busy: boolean;
     params: Object;
     pager: Object;
-    accounts: Array;
+    accounts: Array<any>;
 
     constructor(private nav: NavController, private config: Config, private dataProvider: DataProvider) {
   }

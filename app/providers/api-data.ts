@@ -13,16 +13,6 @@ import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class ApiData {
-
-    _data;
-
-    get Cache() {
-        return this._data;
-    }
-
-    set Cache(value) {
-        this._data = value;
-    }
     
 //userKey, userOrgKey, userInstanceKey: string; 
 //mock: boolean = dontClearCache;
@@ -30,7 +20,7 @@ export class ApiData {
     constructor(private http: Http, private config: Config, private events: Events) {
 }
 
-request(method, data, type, headers) {
+request(method, data = null, type = "GET", headers = null) {
     if (dontClearCache)
     {
         return this.mock_get(method);
@@ -61,7 +51,7 @@ mock_get(method) {
     });
 }
 
-get(method, data, type) {
+    get(method, data = null, type = "GET") {
     let key = this.config.getCurrent("key"),
         //localStorage.getItem("userKey"),
         org = this.config.getCurrent("org"), // localStorage.getItem('userOrgKey'),
