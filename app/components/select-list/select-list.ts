@@ -47,7 +47,7 @@ export class SelectListComponent {
              //this.apiData.Cache = this.apiData.get(this.list.url).share();
              if (this.preload)
              {
-                 this.loadData();
+                 this.loadData(false);
              }
          }
      }
@@ -57,7 +57,7 @@ export class SelectListComponent {
          this.loadData(true);
      }
 
-     loadData (show = false)
+     loadData (show)
      {
          if (this.url != this.list.url || !this.list.items || this.list.items.length == 0){
              if (this.list.url) {

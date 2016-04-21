@@ -13,13 +13,15 @@ import {MorePipe} from '../../pipes/pipes';
     pipes: [MorePipe],
 })
 export class DashboardPage {
-    constructor(nav: NavController, config: Config, dataProvider: DataProvider, private ticketProvider: TicketProvider) {
-        this.nav = nav;
-        this.config = config;
-        this.dataProvider = dataProvider;  
+
+    counts: Object;
+    accounts: Object;
+    queues: Object;
+
+    constructor(private nav: NavController, private config: Config, private dataProvider: DataProvider, private ticketProvider: TicketProvider) {
     }
     
-    onPageWillEnter()
+    onPageLoaded()
     {           
         this.counts = {open_as_tech: 0}; 
         this.accounts = helpers.loadCache("dashaccounts");

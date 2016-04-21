@@ -20,7 +20,7 @@ export class ApiData {
     constructor(private http: Http, private config: Config, private events: Events) {
 }
 
-request(method, data = null, type = "GET", headers = null) {
+request(method, data?, type?, headers?) {
     if (dontClearCache)
     {
         return this.mock_get(method);
@@ -51,7 +51,7 @@ mock_get(method) {
     });
 }
 
-    get(method, data = null, type = "GET") {
+    get(method, data?, type?) {
     let key = this.config.getCurrent("key"),
         //localStorage.getItem("userKey"),
         org = this.config.getCurrent("org"), // localStorage.getItem('userOrgKey'),

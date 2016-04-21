@@ -189,7 +189,7 @@ class MyApp {
     });
       }
 
-      openPage(page, param = null) {
+      openPage(page, param?) {
         this.menu.close();
     // close the menu when clicking a link from the menu
     let nav = this.app.getComponent('nav');
