@@ -15,12 +15,10 @@
     border-radius: 14px;
 }
 
-
 .avatarInvoice{
     max-width: 4rem;
     max-height: 4rem;
 }
-
 
 .recipient{
     min-width: 0rem;
@@ -41,3 +39,10 @@ height: 28px !important;
    font-size: 2.7rem !important;
 }
 
+.recipient-calc{
+    width: calc(100% - 72px);
+}
+
+.margin-top10{
+    margin-top: 10px !important;
+}
