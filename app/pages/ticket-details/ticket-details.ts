@@ -120,7 +120,7 @@ export class TicketDetailsPage {
         {
             this.attachments = data.attachments;
             this.posts = data.ticketlogs;
-            console.log(this.ticket.customfields_xml);
+
             let xml = parseXml(this.ticket.customfields_xml);
             if (xml)
             {
@@ -130,7 +130,6 @@ export class TicketDetailsPage {
                    t.push({ "id": n.attributes[0].nodeValue, "name": n.firstChild.innerHTML, "value": n.firstChild.nextSibling.innerHTML || ""}); 
                 }
                 this.ticket.customfields = t;
-                console.log(t);
             }
         }
     }
