@@ -59,3 +59,16 @@
 .searchbar-input{
     text-align: center;
 }
+
+.invoiceCircle {
+    font-size: 1.4em !important;
+}
+
+.button:hover:not(.disable-hover) {
+    background-color: $blue6;
+}
+
+.login-text {
+    font-size: 1.4rem !important;
+    line-height: 1.5;
+}
