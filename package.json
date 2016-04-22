@@ -3,15 +3,15 @@
     "angular2": "2.0.0-beta.15",
     "es6-promise": "3.0.2",
     "es6-shim": "^0.35.0",
-    "ionic-angular": "2.0.0-beta.5",
+    "ionic-angular": "2.0.0-beta.6",
     "ionic-native": "^1.1.0",
-    "ionicons": "3.0.0-alpha.3",
+    "ionicons": "3.0.0",
     "reflect-metadata": "0.1.2",
     "md5-hex": "^1.1.0",
     "ng2-toastr": "0.1.6",
     "intl": "1.1.0",
     "rxjs": "5.0.0-beta.2",
-    "zone.js": "^0.6.6",
+    "zone.js": "^0.6.12",
     "gulp-sass": "2.2.0",
     "node-sass": "3.4.2"
   },
@@ -23,7 +23,7 @@
     "ionic-gulp-fonts-copy": "^1.0.0",
     "ionic-gulp-html-copy": "^1.0.0",
     "ionic-gulp-sass-build": "^1.0.0",
-    "ionic-gulp-scripts-copy": "^1.0.0",
+    "ionic-gulp-scripts-copy": "^1.0.1",
     "run-sequence": "1.1.5"
   },
   "name": "Sherpadesk",
@@ -37,6 +37,7 @@
     "ionic-plugin-keyboard"
   ],
   "cordovaPlatforms": [
-    "ios"
+    "ios",
+    "android"
   ]
 }
