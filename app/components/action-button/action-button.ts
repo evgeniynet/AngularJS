@@ -47,7 +47,7 @@ export class ActionButtonComponent {
             title: '',
             buttons: [
                 {
-                    icon: 'create-outline',
+                    icon: 'create',
                     text: 'Add Ticket',
                     handler: () => {
                         this.openModal(TicketCreatePage);

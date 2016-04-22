@@ -122,11 +122,11 @@ class MyApp {
     // set our app's pages
     this.pages = [
     { title: 'Dashboard', component: DashboardPage, icon: "speedometer" },
-    { title: 'Tickets', component: TicketsPage, icon: "create-outline" },
+    { title: 'Tickets', component: TicketsPage, icon: "create" },
     { title: 'Timelogs', component: TimelogsPage, icon: "md-time" },
     { title: 'Accounts', component: AccountsPage, icon: "people" },
     { title: 'Invoices', component: InvoicesPage, icon: "card" },        
-    { title: 'Queues', component: QueuesPage, icon: "list-box-outline" },
+    { title: 'Queues', component: QueuesPage, icon: "list-box" },
     { title: 'Switch Org', component: OrganizationsPage, icon: "md-swap" },
     { title: 'Signout', component: LoginPage, icon: "md-log-in" },
     { title: 'Full App', component: HelloIonicPage, icon: "md-share-alt" },
