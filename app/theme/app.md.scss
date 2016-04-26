@@ -42,6 +42,9 @@
 
 .toolbar-title {
     color: #fff;
+    padding: 0 0px;
+    font-size: 1.7rem;
+    font-weight: 600;
     }
 
 .bar-button-default {
@@ -58,6 +61,8 @@
 
 .searchbar-input{
     text-align: center;
+    padding: 6px 0px;
+    background-color: #22A2D4;
 }
 
 .invoiceCircle {
@@ -71,4 +76,64 @@
 .login-text {
     font-size: 1.4rem !important;
     line-height: 1.5;
+}
+
+.item p {
+    font-size: 1.3rem;
+}
+
+.button {
+    color: $text-color;
+    font-size: 1.6rem;
+    font-weight: normal;
+    text-transform: none;
+}
+
+.segment-button{
+      border-color: $background-color;
+      background-color: $blue2;
+      color: $blue7;
+      font-size: 1.3rem;
+      font-weight: normal;
+      text-transform: none;
+}
+
+.action-sheet-button{
+      color: $blue4;
+}
+
+.item {
+    font-size: 2rem;
+}
+
+ion-title{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    text-align: center;
+}
+
+
+.button_circle2 {
+    font-size: 2.4em !important;
+}
+
+.button_circle {
+    font-size: 3.3em !important;
+}
+
+.bar-button {
+    font-size: 1.7rem;
+    font-weight: normal;
+    text-transform: none;
+}
+
+.ellipsis{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+//    width: 80%;
 }

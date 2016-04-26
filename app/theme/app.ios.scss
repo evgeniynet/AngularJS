@@ -35,3 +35,27 @@
     width: 45px;
     height: 45px;
 }
+
+.button {
+    color: $text-color;
+}
+
+.segment-button{
+      border-color: $background-color;
+      background-color: $blue2;
+    color: $blue7;
+}
+
+.button_circle2 {
+    font-size: 2.8em !important;
+}
+
+.button_circle {
+    font-size: 3.8em !important;
+}
+
+.ellipsis{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
