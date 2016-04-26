@@ -63,6 +63,7 @@ class MyApp {
     
     config.getCurrent = function(property) {
       let tconfig = this.current || JSON.parse(localStorage.current || "null") || {};
+      tconfig.is_tech = tconfig.is_tech || tconfig.user.is_techoradmin || false; 
       if (!tconfig.stat)
         tconfig.stat = {};
       if (!tconfig.user)

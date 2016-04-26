@@ -19,7 +19,22 @@ export class TicketDetailsPage {
     constructor(private nav: NavController, private navParams: NavParams, private dataProvider: DataProvider, private config: Config) {
         this.ticket = {};
         this.ticket.customfields = [];
-        this.posts = [];
+        this.posts = [
+            {
+                "id": 0,
+                "ticket_key": "",
+                "user_id": 0,
+                "user_email": " ",
+                "user_firstname": " ",
+                "user_lastname": " ",
+                "record_date": "2016-01-01T00:00:00.0000000",
+                "log_type": " ",
+                "note": " ",
+                "ticket_time_id": 0,
+                "sent_to": " ",
+                "is_waiting": false,
+                "sla_used": 0
+            }];
     }
 
     onPageLoaded() {
