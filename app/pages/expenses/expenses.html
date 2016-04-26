@@ -6,7 +6,7 @@
 <ion-content>
     <div *ngIf="is_empty" class="table grey2 menu-text">No Expenses yet</div>
     <ion-list class="list general-alignment2" no-lines>
-        <ion-item *ngFor="#expense of expenses" (click)="itemTapped(time)" class="margin-top0">
+        <ion-item *ngFor="#expense of expenses" (click)="itemTapped(expense)" class="margin-top0">
     <ion-avatar item-left>
         <img *ngIf="expense.user_email" [alt]="expense.user_firstname" class="img" [src]="expense.user_email | Gravatar"/>
     </ion-avatar>
@@ -15,7 +15,7 @@
     <h2 class="ellipsis">{{expense.user_name}} @ {{setDate(expense.date) | date: "MM/dd/yyyy HH:mm"}}</h2>
      <h3 class="timelogs ellipsis" [innerHTML]="expense.note | Linebreaks"></h3>
      <h3 class="timelogs ellipsis" *ngIf="expense.ticket_id">{{"#"+expense.ticket_number+": "+expense.ticket_subject}}</h3><h3 class="timelogs ellipsis" *ngIf="expense.project_id">{{"Project: "+expense.project_name}}</h3></li>
-      <li class="right width21 margin font-time text-right">
+      <li class="right width30 margin font-time text-right">
     
     <span class="font-hours">{{getCurrency(expense.amount)}}</span>  
       </li></div>
@@ -27,4 +27,4 @@
 
 </ion-content>
 
-<action-button [data]="params"></action-button>
+<button (click)="itemTapped()" secondary item-right fab fab-right fab-bottom style="z-index: 2"><ion-icon class="button_circle action-but" name="md-add"></ion-icon></button>

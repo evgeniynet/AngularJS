@@ -1,11 +1,7 @@
 
-<ion-navbar *navbar><button [hidden]="!invoice.date" menuToggle><ion-icon name="menu"></ion-icon></button>
-<ion-buttons [hidden]="invoice.date" start class="searchbar">
-        <button (click)="close()">
-            <span primary>Cancel</span>
-        </button>
-    </ion-buttons>
-  <ion-title class="ellipsis">Invoice Details {{setDate(invoice.date) | date: "yMMMdd"}}</ion-title>
+<ion-navbar *navbar><button menuToggle><ion-icon name="menu"></ion-icon></button>
+  <ion-title class="ellipsis" [hidden]="!invoice.id">Send Invoice #{{invoice.id}} to {{invoice.account_name}}</ion-title>
+  <ion-title class="ellipsis" [hidden]="invoice.id">Create Invoice @ {{ invoice.account_name }}</ion-title>
 </ion-navbar>
 
 <ion-content padding class="invoice-details">
@@ -13,16 +9,16 @@
     <p item-right class="text_list">{{setDate(invoice.date) | date: "yMMMdd"}}</p>
         </ion-item>
   <ion-item no-lines class="width65 left"><h2 item-left>Time</h2></ion-item>
-    <ion-item no-lines class="width35 left"><h2 item-right>{{getCurrency(invoice.time_logs)}}</h2>
+    <ion-item no-lines class="width35 left"><h2 item-right>{{getCurrency(invoice.amount)}}</h2>
         </ion-item>
     
     <ion-item no-lines class="width65 left"><h2 item-left>Travel</h2>
         </ion-item>
-    <ion-item no-lines class="width35 left"><h2 item-right>{{getCurrency(invoice.travel_logs)}}</h2>
+    <ion-item no-lines class="width35 left"><h2 item-right>{{getCurrency(invoice.travel_cost)}}</h2>
         </ion-item>
     <ion-item no-lines class="width65 left"><h2 item-left>Expenses</h2>
         </ion-item>
-    <ion-item no-lines class="width35 left"><h2 item-right>{{getCurrency(invoice.expenses)}}</h2>
+    <ion-item no-lines class="width35 left"><h2 item-right>{{getCurrency(invoice.misc_cost)}}</h2>
         </ion-item>
     <ion-item no-lines class="width65 left"><h2 item-left>Adjustments</h2>
         </ion-item>
@@ -30,7 +26,7 @@
         </ion-item>
     <ion-item class="width45 right basic-margin"></ion-item>
     <ion-item no-lines>
-    <h2 item-right class="font-invoice">{{getCurrency(invoice.amount)}}</h2>
+    <h2 item-right class="font-invoice">{{getCurrency(invoice.total_cost)}}</h2>
         </ion-item>
     <br>
     <ion-item padding>
@@ -49,9 +45,10 @@
         
         <ion-item class="blue3 width80 invoicelist right margin" no-lines>
       <h3 class="recipient-calc left textLogin margin-top2 ellipsis">{{recipient.email}}</h3>
-    <button fab secondary class="buttonInvoice right topInvoice email-invoice">
+      <ion-checkbox class="buttonInvoice right topInvoice email-invoice" secondary checked="recipient.is_accounting_contact"></ion-checkbox>
+    <!--button fab secondary class="buttonInvoice right topInvoice email-invoice">
       <ion-icon class="invoiceCircle" name="checkmark"></ion-icon>
-    </button>
+    </button-->
   </ion-item>
         </div>
 </ion-list>

@@ -128,8 +128,10 @@ getQueueList(limit) {
     return this.apiData.get(url);
 }
 
-getInvoices(account_id, pager) {
+getInvoices(account_id, status, pager) {
     let url = "invoices".addp("account",account_id);
+    if (status === false)
+        url = url.addp("status", "unbilled");
     url = this.getPager(url, pager);
     return this.apiData.get(url);
 }

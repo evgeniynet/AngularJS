@@ -2,6 +2,7 @@ import {Page, Config, NavController, NavParams} from 'ionic-angular';
 import {DataProvider} from '../../providers/data-provider';
 import {MorePipe} from '../../pipes/pipes';
 import {InvoiceDetailsPage} from '../invoice-details/invoice-details';
+import {UnInvoicesPage} from '../invoices/uninvoices';
 import {getCurrency} from '../../directives/helpers';
 
 @Page({
@@ -10,7 +11,7 @@ import {getCurrency} from '../../directives/helpers';
 })
 export class InvoicesPage {
 
-    LIMIT: number = 6;
+    LIMIT: number = 15;
     count: number;
     account: Object;
     is_empty: boolean;
@@ -21,13 +22,13 @@ export class InvoicesPage {
 
     constructor(private nav: NavController, private dataProvider: DataProvider, private config: Config, private navParams: NavParams) {
         this.is_empty = false;
+        this.invoices = [];
   }
 
     onPageLoaded() {
         this.params = this.navParams.data || {};
         this.pager = { page: 0, limit: this.LIMIT };
-        this.params.account = { id: this.params.account_id || -1, name: this.params.account_name || this.config.getCurrent("user").account_name };
-
+        this.params.account = { id: this.params.account_id || 0, name: this.params.account_name || this.config.getCurrent("user").account_name };
         if (this.params.is_empty)
             this.params.count = 0;
 
@@ -44,7 +45,7 @@ export class InvoicesPage {
 
 
     getItems(infiniteScroll, timer) {
-        this.dataProvider.getInvoices(this.params.account.id, this.pager).subscribe(
+        this.dataProvider.getInvoices(this.params.account.id, true, this.pager).subscribe(
             data => {
                 if (timer) {
                     this.is_empty = !data.length;
@@ -83,6 +84,10 @@ export class InvoicesPage {
     itemTapped(item) {
         this.nav.push(InvoiceDetailsPage, item);
     }
+
+    showUninvoiced() {
+        this.nav.push(UnInvoicesPage);
+    }
     
   setDate(date) {
         return date ? new Date(date) : null;
@@ -90,10 +95,5 @@ export class InvoicesPage {
     
     getCurrency(value) {
         return getCurrency(value, this.config.getCurrent("currency"));
-    }
-
-    showUninvoiced()
-    {
-        
     }
 }

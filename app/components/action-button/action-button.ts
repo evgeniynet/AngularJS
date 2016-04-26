@@ -1,11 +1,10 @@
-//in case on using ionic "ion-card"
 import {Page, ActionSheet, IONIC_DIRECTIVES, NavController, NavParams, Modal, Config} from 'ionic-angular';
 import {Component, Input, Output, EventEmitter, OnInit, OnDestroy} from 'angular2/core';
 import {TicketCreatePage} from '../../pages/modals/modals';
 import {TimelogPage} from '../../pages/timelog/timelog';
 import {TicketDetailsPage} from '../../pages/ticket-details/ticket-details';
 import {ExpenseCreatePage} from '../../pages/expense-create/expense-create';
-import {InvoicesPage} from '../../pages/invoices/invoices';
+import {UnInvoicesPage} from '../../pages/invoices/uninvoices';
 
 @Component({
     selector: 'action-button',
@@ -62,7 +61,7 @@ export class ActionButtonComponent {
                     icon: 'card',
                     text: 'Add Invoice',
                     handler: () => {
-                        this.openModal(InvoicesPage);
+                        this.nav.push(UnInvoicesPage);
                     }
                 },{
                     icon: 'calculator',
