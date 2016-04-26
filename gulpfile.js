@@ -50,7 +50,7 @@ gulp.task('build', ['clean'], function(done){
     function(){
       buildBrowserify({browserifyOptions: {
   debug: false, syntax: false // sourcemaps off
-} }).on('end', done);
+}, tsifyOptions: { noImplicitAny: false, allowSyntheticDefaultImports: true,  removeComments: true, skipDefaultLibCheck: true, target: "ES3"} }).on('end', done);
     }
   );
 });
