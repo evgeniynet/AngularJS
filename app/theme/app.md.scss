@@ -61,6 +61,8 @@
 
 .searchbar-input{
     text-align: center;
+    padding: 6px 0px;
+    background-color: #22A2D4;
 }
 
 .invoiceCircle {
@@ -78,10 +80,6 @@
 
 .item p {
     font-size: 1.3rem;
-}
-
-.searchbar-input {
-    background-color: #22A2D4;
 }
 
 .button {
@@ -131,4 +129,11 @@ ion-title{
     font-size: 1.7rem;
     font-weight: normal;
     text-transform: none;
+}
+
+.ellipsis{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+//    width: 80%;
 }

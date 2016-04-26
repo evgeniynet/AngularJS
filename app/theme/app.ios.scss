@@ -53,3 +53,9 @@
 .button_circle {
     font-size: 3.8em !important;
 }
+
+.ellipsis{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
