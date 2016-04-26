@@ -5,7 +5,7 @@ import {TicketCreatePage} from '../../pages/modals/modals';
 import {TimelogPage} from '../../pages/timelog/timelog';
 import {TicketDetailsPage} from '../../pages/ticket-details/ticket-details';
 import {ExpenseCreatePage} from '../../pages/expense-create/expense-create';
-import {InvoiceDetailsPage} from '../../pages/invoice-details/invoice-details';
+import {InvoicesPage} from '../../pages/invoices/invoices';
 
 @Component({
     selector: 'action-button',
@@ -62,7 +62,7 @@ export class ActionButtonComponent {
                     icon: 'card',
                     text: 'Add Invoice',
                     handler: () => {
-                        this.openModal(InvoiceDetailsPage);
+                        this.openModal(InvoicesPage);
                     }
                 },{
                     icon: 'calculator',

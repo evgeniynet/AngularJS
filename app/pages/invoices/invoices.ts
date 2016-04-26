@@ -1,13 +1,11 @@
 import {Page, Config, NavController, NavParams} from 'ionic-angular';
 import {DataProvider} from '../../providers/data-provider';
-import {ActionButtonComponent} from '../../components/action-button/action-button';
 import {MorePipe} from '../../pipes/pipes';
 import {InvoiceDetailsPage} from '../invoice-details/invoice-details';
 import {getCurrency} from '../../directives/helpers';
 
 @Page({
   templateUrl: 'build/pages/invoices/invoices.html',
-    directives: [ActionButtonComponent],
     pipes: [MorePipe],
 })
 export class InvoicesPage {
@@ -92,5 +90,10 @@ export class InvoicesPage {
     
     getCurrency(value) {
         return getCurrency(value, this.config.getCurrent("currency"));
+    }
+
+    showUninvoiced()
+    {
+        
     }
 }

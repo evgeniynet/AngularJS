@@ -1,20 +1,26 @@
 
 <ion-navbar *navbar><button menuToggle><ion-icon name="menu"></ion-icon></button>
-  <ion-title>Invoices</ion-title>
+  <ion-title>Invoices {{params.account.id > 0 ? "of " + params.account.name : ""}}</ion-title>
 </ion-navbar>
 
-<ion-content padding>
-    
+<ion-content>
+    <img *ngIf="busy" class="imglogo img-padding" src="img/loading2.gif">
     <div *ngIf="is_empty" class="table grey2 menu-text">No Invoices yet</div>
     
-    <div padding>
+    <ion-list class="list general-alignment2" no-lines>
         <ion-item class="margin" (click)="itemTapped(invoice)" *ngFor="#invoice of invoices">
     <p class="width45 tkts-table left invoices">{{setDate(invoice.date) | date: "yMMMdd"}}</p> 
     <h2 class="width55 tkts-table right">{{invoice.account_name}}</h2>
         <p item-right class="text width30 text-right">{{getCurrency(invoice.total_cost)}}</p>
         </ion-item>
-        </div>
-       
+        </ion-list>
+
+<ion-infinite-scroll (infinite)="doInfinite($event)" threshold="20%">
+    <ion-infinite-scroll-content
+      loadingSpinner="circles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>       
 
 </ion-content>
-<action-button></action-button>
+<button (click)="showUninvoiced()" secondary item-right fab fab-right fab-bottom style="z-index: 2"><ion-icon class="button_circle action-but" name="md-add"></ion-icon></button>
