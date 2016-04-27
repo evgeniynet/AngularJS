@@ -1,4 +1,5 @@
 node_modules
+plugins
 .DS_Store
 sherpadesk.bat
 www/build
