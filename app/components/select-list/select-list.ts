@@ -13,8 +13,9 @@ const alertLimit = 5;
     directives: [IONIC_DIRECTIVES]
 })
 export class SelectListComponent {
-    @Input() list: Array<any>;
+    @Input() list: any;
     @Input() isbutton: boolean;
+    @Input() customwidth: boolean;
     @Input() preload: boolean;
     @Input() ajax: boolean;
     @Output() public onChanged: EventEmitter<any> = new EventEmitter(false);

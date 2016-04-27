@@ -45,10 +45,10 @@
         
         <ion-item class="blue3 width80 invoicelist right margin" no-lines>
       <h3 class="recipient-calc left textLogin margin-top2 ellipsis">{{recipient.email}}</h3>
-      <ion-checkbox class="buttonInvoice right topInvoice email-invoice" secondary checked="recipient.is_accounting_contact"></ion-checkbox>
-    <!--button fab secondary class="buttonInvoice right topInvoice email-invoice">
-      <ion-icon class="invoiceCircle" name="checkmark"></ion-icon>
-    </button-->
+    <button fab secondary class="buttonInvoice right topInvoice email-invoice">
+      <ion-icon *ngIf="recipient.is_accounting_contact" class="invoiceCircle" name="checkmark"></ion-icon>
+      <ion-icon *ngIf="!recipient.is_accounting_contact" class="invoiceCircle" name="checkmark"></ion-icon>
+    </button>
   </ion-item>
         </div>
 </ion-list>
