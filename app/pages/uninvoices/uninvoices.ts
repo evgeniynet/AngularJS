@@ -5,7 +5,7 @@ import {InvoiceDetailsPage} from '../invoice-details/invoice-details';
 import {getCurrency} from '../../directives/helpers';
 
 @Page({
-  templateUrl: 'build/pages/invoices/invoices.html',
+  templateUrl: 'build/pages/uninvoices/uninvoices.html',
     pipes: [MorePipe],
 })
 export class UnInvoicesPage {
@@ -30,7 +30,6 @@ export class UnInvoicesPage {
         this.params.account = { id: this.params.account_id || 0, name: this.params.account_name || this.config.getCurrent("user").account_name };
         if (this.params.is_empty)
             this.params.count = 0;
-        this.params.is_unbilled = true;
 
         if (this.params.count !== 0) {
             var timer = setTimeout(() => {

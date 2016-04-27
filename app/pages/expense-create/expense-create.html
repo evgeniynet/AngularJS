@@ -1,6 +1,6 @@
 
-<ion-navbar *navbar>
-<ion-buttons start class="searchbar">
+<ion-toolbar>
+<ion-buttons>
         <button (click)="close()">
             <span primary>Cancel</span>
         </button>
@@ -8,7 +8,7 @@
 <ion-title class="width20" [hidden]="expense.expense_id || expense.number">Create Expense</ion-title>
 <ion-title class="ellipsis" [hidden]="!expense.expense_id || !expense.number">Expense by {{expense.user_name}} @ {{setDate(expense.date) | date: "MM/dd/yyyy HH:mm"}}</ion-title>
 <ion-title class="ellipsis" [hidden]="!expense.number">Create Expense to #{{expense.number}} {{expense.subject}}</ion-title>
-</ion-navbar>
+</ion-toolbar>
 
 <ion-content class="expense-create">
   

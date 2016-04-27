@@ -11,9 +11,10 @@ import {SelectListComponent} from '../../components/select-list/select-list';
 })
 export class ExpenseCreatePage {
 
-    expense: Object;
+    expense: any;
     isbillable: boolean;
-    he: Object;
+    he: any;
+    selects: any;
 
     constructor(private nav: NavController, private navParams: NavParams, private apiData: ApiData, private config: Config, private view: ViewController) {
     }
@@ -26,13 +27,13 @@ export class ExpenseCreatePage {
         
         this.he = this.config.getCurrent("user");
 
-        let account_id = this.expense.account_id || this.he.account_id || -1;
-        let project_id = this.expense.project_id || 0;
+        let account_id = (this.expense.account || {}).id || this.expense.account_id || this.he.account_id || -1;
+        let project_id = (this.expense.project || {}).id || this.expense.project_id || 0;
         
         this.selects = {
             "account": {
                 name: "Account",
-                value: (this.expense.account_name || {}).name || this.he.account_name,
+                value: this.expense.account_name || (this.expense.account || {}).name || this.he.account_name,
                 selected: account_id,
                 url: "accounts?is_with_statistics=false",
                 hidden: false

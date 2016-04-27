@@ -1,6 +1,6 @@
 
 <ion-navbar *navbar><button menuToggle><ion-icon name="menu"></ion-icon></button>
-  <ion-title>Invoices {{params.account.id > 0 ? "@ " + params.account.name : ""}}</ion-title>
+  <ion-title>Create Invoices {{params.account.id > 0 ? "@ " + params.account.name : ""}}</ion-title>
 </ion-navbar>
 
 <ion-content padding>
@@ -24,4 +24,3 @@
   </ion-infinite-scroll>       
 </div>
 </ion-content>
-<button (click)="showUninvoiced()" secondary item-right fab fab-right fab-bottom style="z-index: 2"><ion-icon class="button_circle action-but" name="md-add"></ion-icon></button>

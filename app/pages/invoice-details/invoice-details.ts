@@ -2,6 +2,7 @@ import {Page, Config, NavController, NavParams} from 'ionic-angular';
 import {getCurrency} from '../../directives/helpers';
 import {GravatarPipe} from '../../pipes/pipes';
 import {DataProvider} from '../../providers/data-provider';
+import {InvoicesPage} from '../invoices/invoices';
 
 @Page({
   templateUrl: 'build/pages/invoice-details/invoice-details.html',
@@ -43,6 +44,6 @@ export class InvoiceDetailsPage {
 
     send() {
         this.nav.alert('Hurray! Invoice sent :)');
-        this.nav.pop();
+        this.nav.popTo(this.nav.getByIndex(this.nav.length() - 3));
     }
 }

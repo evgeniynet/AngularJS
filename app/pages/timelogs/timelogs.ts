@@ -84,6 +84,8 @@ export class TimelogsPage {
     }
     
     itemTapped(time) {
+        time = time || {};
+        time.account = time.account || this.params.account;
         this.nav.push(TimelogPage, time);
     }
     

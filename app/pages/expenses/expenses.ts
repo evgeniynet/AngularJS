@@ -14,7 +14,7 @@ export class ExpensesPage {
     account: Object;
     is_empty: boolean;
     busy: boolean;
-    params: Object;
+    params: any;
     pager: Object;
     expenses: Array<any>;
 
@@ -81,6 +81,8 @@ export class ExpensesPage {
     }
 
     itemTapped(expense) {
+        expense = expense || {};
+        expense.account = expense.account || this.params.account;
         this.nav.push(ExpenseCreatePage, expense);
     }
     

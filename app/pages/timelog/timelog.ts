@@ -11,8 +11,14 @@ import {SelectListComponent} from '../../components/select-list/select-list';
 })
 export class TimelogPage {
 
-    inc : Number;
+    inc : number;
     isbillable: boolean;
+    timecount: number;
+    mintime: number;
+    time: any;
+    timenote: string;
+    he: any;
+    selects: any;
 
     constructor(private nav: NavController, private navParams: NavParams, private dataProvider: DataProvider, private config: Config, private view: ViewController) {
     }
@@ -43,8 +49,8 @@ export class TimelogPage {
         this.timenote = this.time.note || "";
         this.he = this.config.getCurrent("user");
 
-        let account_id = this.time.account_id || this.he.account_id || -1;
-        let project_id = this.time.project_id || 0;
+        let account_id = (this.time.account || {}).id || this.time.account_id || this.he.account_id || -1;
+        let project_id = (this.time.project || {}).id || this.time.project_id || 0;
 
         this.selects = {
             "account" : {

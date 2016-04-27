@@ -1,6 +1,6 @@
 
-<ion-navbar *navbar><button menuToggle><ion-icon name="menu"></ion-icon></button>
-<ion-buttons [hidden]="time.time_id" start class="searchbar">
+<ion-toolbar>
+<ion-buttons start class="searchbar">
         <button (click)="close()">
             <span primary>Cancel</span>
         </button>
@@ -8,7 +8,7 @@
   <ion-title [hidden]="time.time_id || time.number">Add Time</ion-title>
   <ion-title class="ellipsis" [hidden]="!time.time_id || !time.number">Timelog #{{time.time_id}} by {{time.user_name}} @ {{setDate(time.date) | date: "MM/dd/yyyy HH:mm"}}</ion-title>
   <ion-title class="ellipsis" [hidden]="!time.number">Add Time to #{{time.number}} {{time.subject}}</ion-title>
-</ion-navbar>
+</ion-toolbar>
 <ion-content class="timelog">
     <div class="list max-width700">
     <div class="img-top">
@@ -23,9 +23,9 @@
         </div>
   </div>
     <ion-item no-lines class="blue3">
-    <ion-input type=date [value]="time.start_time | date: 'MM/dd/yyyy HH:mm'"></ion-input></ion-item>
+    <ion-input [value]="setDate(time.start_time) | date: 'MM/dd/yyyy HH:mm'"></ion-input></ion-item>
         <ion-item no-lines class="blue3">
-    <ion-input type=date [value]="time.stop_time | date: 'MM/dd/yyyy HH:mm'"></ion-input>
+    <ion-input [value]="setDate(time.stop_time) | date: 'MM/dd/yyyy HH:mm'"></ion-input>
         </ion-item>   
  <div class="general-alignment2">     
     
