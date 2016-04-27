@@ -136,6 +136,19 @@ getInvoices(account_id, status, pager) {
     return this.apiData.get(url);
 }
 
+getInvoice(id, account_id, project_id) {
+    let url = "invoices";
+    let data = {};
+    if (!id)
+        url = url.addp("status", "unbilled").addp("account", account_id).addp("project", project_id);
+    else 
+    {
+        url += "/" + id;
+        url = url.addp("action", "sendEmail");
+    }
+    return this.apiData.get(url, data);
+}
+
 getExpenses(account_id, pager) {
     let url = "expenses".addp("account",account_id);
     url = this.getPager(url, pager);

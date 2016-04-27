@@ -90,7 +90,7 @@ export class InvoicesPage {
     }
     
   setDate(date) {
-        return date ? new Date(date) : null;
+      return date ? new Date(date) : new Date();
     }
     
     getCurrency(value) {
