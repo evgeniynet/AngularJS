@@ -44,7 +44,6 @@ export class TicketsListComponent {
          this.cachelen = (this.ticketProvider._dataStore[this.mode[0] + (this.mode[1] || "")] || {}).length;
          if (this.preload && !this.cachelen) {
              setTimeout(() => {
-                 //this.busy = true;
                  this.onLoad();
              }, this.preload);
          }
@@ -58,9 +57,9 @@ export class TicketsListComponent {
              return;
 
          let stat = this.config.getStat("tickets")[this.mode[0]]
-
+         //console.log(this.mode[0] + (this.mode[1] || "") + " - stat:" + stat);
          this.count = !stat ? this.count : stat;
-
+         //console.log(this.mode[0] + (this.mode[1] || "") + " - count:" + this.count);
          if (this.count !== 0) {
              this.ticketProvider.getTicketsList(this.mode[0], this.mode[1], this.pager);
              this.tickets = this.ticketProvider.tickets$[this.mode[0] + (this.mode[1] || "")];
@@ -100,7 +99,6 @@ export class TicketsListComponent {
                      if (timer != -1) {
                          this.is_empty = !data.length;
                          clearTimeout(timer);
-                         this.busy = false;
                          this.count = data.length;
                      }
                      else
@@ -122,7 +120,6 @@ export class TicketsListComponent {
              error => {
                  if (timer) {
                      clearTimeout(timer);
-                     this.busy = false;
                  }
                  console.log(error || 'Server error');
              }

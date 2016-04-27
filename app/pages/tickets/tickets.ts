@@ -10,7 +10,7 @@ export class TicketsPage {
            this.counts = {};
     }
     
-    onPageWillEnter()
+    onPageLoaded()
     {
         let param = (this.navParams || {}).data || {};
         if (param.count)

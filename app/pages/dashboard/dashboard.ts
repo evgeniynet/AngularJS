@@ -48,11 +48,31 @@ export class DashboardPage {
                 error => { 
                     console.log(error || 'Server error');}
                     ); 
+
+        this.dataProvider.getTicketsCounts();
+        this.dataProvider.data$["tickets/counts"].subscribe(
+            data => {
+                this.counts = data;
+                this.config.setStat("tickets",
+                    {
+                        "all": data.open_all,
+                        "tech": data.open_as_tech,
+                        "alt": data.open_as_alttech,
+                        "user": data.open_as_user
+                    });
+            },
+            error => {
+                console.log(error || 'Server error');
+            }
+        );
+
         
         if (!this.ticketProvider._dataStore.tech.length){
             this.ticketProvider.getTicketsList("tech", "", { "limit": 6 }); 
         }
-
+        if (!this.ticketProvider._dataStore.user.length){
+            this.ticketProvider.getTicketsList("user", "", { "limit": 6 }); 
+        }
 
         this.dataProvider.getAccountList(true, pager).subscribe(
             data => {
@@ -61,23 +81,7 @@ export class DashboardPage {
             }, 
             error => { 
                 console.log(error || 'Server error');}
-                ); 
-
-        this.dataProvider.getTicketsCounts();
-        this.dataProvider.data$["tickets/counts"].subscribe(
-            data => {
-                this.counts = data;
-                this.config.setStat("tickets", 
-                {
-                    "all": data.open_all,
-                    "tech":  data.open_as_tech,
-                    "alt": data.open_as_alttech,
-                    "user": data.open_as_user
-                });
-            }, 
-            error => { 
-                console.log(error || 'Server error');}
-                ); 
+                );  
     }
     
     itemTappedTL(tab) {  this.nav.setRoot(TicketsPage, tab);}
