@@ -13,11 +13,11 @@ export class TimelogsPage {
 
     LIMIT: number = 15;
     count: number;
-    account: Object;
+    account: any;
     is_empty: boolean;
     busy: boolean;
-    params: Object;
-    pager: Object;
+    params: any;
+    pager: any;
     timelogs: Array<any>;
 
 

@@ -21,7 +21,7 @@ export class ExpenseCreatePage {
     
     onPageLoaded()
     {
-        this.expense = (this.navParams || {}).data || {};
+        this.expense = this.navParams.data || {};
 
         this.isbillable = typeof this.expense.billable === 'undefined' ? true : this.expense.billable;
         

@@ -21,7 +21,7 @@ export class TicketsListComponent {
     @Input() preload: number;
     tickets: Array<any>;
     cachelen: number;
-    pager: Object;
+    pager: any;
     is_empty: boolean;
 
     constructor(private nav: NavController, private navParams: NavParams, private config: Config, private ticketProvider: TicketProvider, private dataProvider: DataProvider) {

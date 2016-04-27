@@ -15,7 +15,7 @@ export class ExpensesPage {
     is_empty: boolean;
     busy: boolean;
     params: any;
-    pager: Object;
+    pager: any;
     expenses: Array<any>;
 
 

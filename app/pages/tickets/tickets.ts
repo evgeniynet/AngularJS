@@ -6,13 +6,17 @@ import {TicketsListComponent, ActionButtonComponent} from '../../components/comp
     directives: [TicketsListComponent, ActionButtonComponent],
 })
 export class TicketsPage {
+
+    counts: any;
+    ticket_tab: string;
+    
     constructor(private nav: NavController, private navParams: NavParams, private config: Config) {
            this.counts = {};
     }
     
     onPageLoaded()
     {
-        let param = (this.navParams || {}).data || {};
+        let param = this.navParams.data || {};
         if (param.count)
             this.counts[param.tab] = param.count;
         this.ticket_tab = this.config.getCurrent("is_tech") ? 

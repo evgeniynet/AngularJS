@@ -35,7 +35,7 @@ export class TimelogPage {
     
     onPageLoaded()
     {
-        this.time = (this.navParams || {}).data || {};
+        this.time = this.navParams.data || {};
 
         this.mintime = this.config.getCurrent("time_minimum_time") || 0.25;
         this.mintime = this.mintime > 0 ? this.mintime : 0.25;

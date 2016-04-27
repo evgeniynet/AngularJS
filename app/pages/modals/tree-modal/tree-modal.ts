@@ -12,13 +12,12 @@ export class TreeModal {
 
     Nodes: Array<ITreeNode>;
     selectedNode: ITreeNode;
+    name: string;
 
     constructor(
-    params: NavParams,
-     viewCtrl: ViewController
+    private params: NavParams,
+     private viewCtrl: ViewController
     ) {
-        this.viewCtrl = viewCtrl;
-        this.params = params;
         this.name = this.params.data.name;
         this.Nodes = this.params.data.items;
     }
@@ -31,9 +30,7 @@ export class TreeModal {
 // обработка события вложенных узлов
 onRequest(parent: ITreeNode) {
     return;
-    this.treeService.GetNodes(parent.id).subscribe(
-        res => parent.sub = res,
-        error=> console.log(error));
+    //this.treeService.GetNodes(parent.id).subscribe( res => parent.sub = res, error=> console.log(error));
 }
 
 

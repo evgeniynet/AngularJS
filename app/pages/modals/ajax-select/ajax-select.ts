@@ -1,6 +1,6 @@
 import {NavController, NavParams, Page, Config, ViewController} from 'ionic-angular';
 import {DataProvider} from '../../../providers/data-provider';
-import {getFullName} from '../../../directives/helpers';
+import {getFullName, addp} from '../../../directives/helpers';
 import {Control} from 'angular2/common';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -15,11 +15,17 @@ import {URLSearchParams, Jsonp} from 'angular2/http';
 })
 export class AjaxSelectModal {
 
-    items: Observable<Array<any>>;
+    items: any;
     //term = new Control();
     url: string;
-    data: Array<any>;
+    term: string;
+    search: string;
+    name: string;
+    data: any;
+    pager: any;
     count: number;
+    is_empty: boolean;
+    busy: boolean;
 
     constructor(private nav: NavController, private navParams: NavParams, private config: Config, private dataProvider: DataProvider,
         private viewCtrl: ViewController/*, private jsonp: Jsonp*/) {
@@ -50,6 +56,7 @@ export class AjaxSelectModal {
         this.viewCtrl.dismiss(item);
     }
 
+/*
     newsearch(searchbar) {
         // Reset items back to all of the items
         //this.items = this.data;
@@ -68,7 +75,7 @@ export class AjaxSelectModal {
             return false;
         }));
     }
-
+*/
     searchItems(searchbar) {
         // Reset items back to all of the items
         this.items = this.data;
@@ -97,7 +104,7 @@ export class AjaxSelectModal {
 
     getItems(term, timer) {
         this.items = [];
-        this.dataProvider.getPaged(this.url.addp("search", term), this.pager).subscribe(
+        this.dataProvider.getPaged(addp(this.url, "search", term), this.pager).subscribe(
             data => {
                 if (data.length && !data[0].name) {
                     var results = [];

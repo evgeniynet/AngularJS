@@ -8,9 +8,10 @@ import {QueuesListComponent, ActionButtonComponent} from '../../components/compo
     directives: [QueuesListComponent, ActionButtonComponent]
 })
 export class QueuesPage {
-    constructor(nav: NavController, dataProvider: DataProvider) {
-    this.nav = nav;
-        this.dataProvider = dataProvider;
+
+    queues: any;
+    
+    constructor(private nav: NavController, private dataProvider: DataProvider) {
   }
     
     onPageLoaded()

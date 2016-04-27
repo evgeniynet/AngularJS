@@ -15,8 +15,8 @@ import {MorePipe} from '../../pipes/pipes';
 export class DashboardPage {
 
     counts: Object;
-    accounts: Object;
-    queues: Object;
+    accounts: Array<any>;
+    queues: Array<any>;
 
     constructor(private nav: NavController, private config: Config, private dataProvider: DataProvider, private ticketProvider: TicketProvider) {
     }

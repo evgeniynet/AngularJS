@@ -15,7 +15,8 @@ import {MorePipe} from '../../pipes/pipes';
 })
 export class AccountDetailsPage {
 
-    account: Object;
+    account: any;
+    pages: Array<any>;
     details_tab: string;
     tabsTicket: string; 
 

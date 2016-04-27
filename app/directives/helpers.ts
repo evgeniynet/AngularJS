@@ -13,7 +13,7 @@ export function GooglelogOut(mess) {
     var isExtension = false;
     if (!isExtension && !confirm("Do you want to stay logged in Google account?")) {
         var logoutUrl = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=" + Config.MobileSite;
-        //document.location.href = Config.MobileSite + "login.html".addp("f",mess);
+        //document.location.href = Config.MobileSite + addp("login.html","f",mess);
     }
     else
         ;//window.location = "login.html" + mess;
@@ -47,22 +47,23 @@ export function getInfo4Extension()
         window.top.postMessage(loginStr,"*");
     }
 }
-    
-    String.prototype.addp = function(param, value) {
-        if (!value || !param)
-            return this;
-        var pos = this.indexOf(param + '=');
+
+export function addp (url: string, param: string, value?: any) {
+        if (!url || !value || !param)
+            return url;
+        var pos = url.indexOf(param + '=');
         //if parameter exists
         if (pos != -1)
-            return this.slice(0, pos + param.length) + '=' + value;
-        var ch = this.indexOf('?') > 0 ? '&' : '?';
-        return this + ch + param + '=' + value;
-    };
+            return url.slice(0, pos + param.length) + '=' + value;
+        var ch = url.indexOf('?') > 0 ? '&' : '?';
+        return url + ch + param + '=' + value;
+ }
 
     export function fullapplink (site, ticketkey, inst,org){
-        return Config.AppSite.addp("tkt", ticketkey)
-        .addp("dept",inst)
-        .addp("org",org);
+        let url = Config.AppSite;
+        url = addp(url, "tkt", ticketkey);
+        url = addp(url, "dept", inst);
+        return addp(url, "org", org);
         /*
     if (isPhonegap) {
         //alert("gap!");
@@ -203,7 +204,7 @@ export function getCurrency(value, currency) {
 }
     
     //get the full name of the following options:firstname, lastname, email,name
-export function getFullName (firstname,lastname,email,name) {
+export function getFullName (firstname,lastname,email,name?) {
         var fname = "";
         if (name)
             fname = name + " ";

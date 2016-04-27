@@ -5,7 +5,7 @@ import {Headers, Http} from 'angular2/http';
 import {Observable} from 'rxjs/Observable';
 import {Observer} from 'rxjs/Observer';
 import {ApiData} from './api-data';
-import * as helpers from '../directives/helpers';
+import {addp} from '../directives/helpers';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/share';
 import {MOCKS} from './mocks';
@@ -15,7 +15,7 @@ export class TicketProvider {
 
     tickets$: Object; //Array<Observable<Object[]>>;
     private _ticketsObserver: Object; //Array<Observer<Object[]>>;
-    _dataStore: Object;
+    _dataStore: any;
 
     constructor(private apiData: ApiData, private config: Config, private events: Events) {
         this.tickets$ = {}; //new Observable(observer => this._ticketsObserver = observer).share();
@@ -107,9 +107,9 @@ export class TicketProvider {
         {
             if (pager) {
                 if (pager.limit)
-                    url = url.addp("limit", pager.limit);
+                    url = addp(url, "limit", pager.limit);
                 if (pager.page)
-                    url = url.addp("page", pager.page);
+                    url = addp(url, "page", pager.page);
             }
             return url;
         }

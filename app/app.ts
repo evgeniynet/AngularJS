@@ -9,9 +9,6 @@ import {TicketProvider} from './providers/ticket-provider';
 import {dontClearCache} from './providers/config';
 import {MOCKS} from './providers/mocks';
 import * as helpers from './directives/helpers';
-//import {ToastsManager} from 'ng2-toastr/ng2-toastr';
-import {HelloIonicPage} from './pages/hello-ionic/hello-ionic';
-import {ListPage} from './pages/list/list';
 import {QueuesPage} from './pages/queues/queues';
 import {InvoicesPage} from './pages/invoices/invoices';
 import {AccountsPage} from './pages/accounts/accounts';
@@ -60,7 +57,7 @@ class MyApp {
     this.initializeApp();
     
     config.getCurrent = function(property) {
-      let tconfig = this.current || JSON.parse(localStorage.current || "null") || {};
+      let tconfig = this.current || JSON.parse(localStorage.getItem("current") || "null") || {};
       tconfig.is_tech = tconfig.is_tech || tconfig.user.is_techoradmin || false; 
       if (!tconfig.stat)
         tconfig.stat = {};
@@ -93,7 +90,7 @@ class MyApp {
     };
 
     config.saveCurrent = function(){
-      localStorage.current = JSON.stringify(this.getCurrent());
+      localStorage.setItem("current",  JSON.stringify(this.getCurrent()));
     }
 
     config.getStat = function(property){
@@ -128,7 +125,7 @@ class MyApp {
     { title: 'Queues', component: QueuesPage, icon: "list-box" },
     { title: 'Switch Org', component: OrganizationsPage, icon: "md-swap" },
     { title: 'Signout', component: LoginPage, icon: "md-log-in" },
-    { title: 'Full App', component: HelloIonicPage, icon: "md-share-alt" },
+    { title: 'Full App', component: LoginPage, icon: "md-share-alt" },
     ];
 
     config.current = config.getCurrent();

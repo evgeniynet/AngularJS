@@ -17,7 +17,7 @@ export class OrganizationsPage {
         localStorage.clear();
         let he = this.config.getCurrent("user");
         if (he.email)
-            localStorage.username = he.email;
+            localStorage.setItem("username", he.email);
         let key = this.config.getCurrent("key");
         this.config.clearCurrent();
         this.config.setCurrent({"key": key});

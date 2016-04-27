@@ -3,7 +3,7 @@ import {Headers} from 'angular2/http';
 import {Observable} from 'rxjs/Observable';
 import {Observer} from 'rxjs/Observer';
 import {ApiData} from './api-data';
-import * as helpers from '../directives/helpers';
+import {addp} from '../directives/helpers';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/share';
 
@@ -110,8 +110,8 @@ getTicketsCounts() {
     }, error => console.log('Could not load tickets.'));
 }
 
-getQueueList(limit) {
-    let url = "queues".addp("sort_by","tickets_count");
+getQueueList(limit?) {
+    let url = addp("queues","sort_by", "tickets_count");
     return this.apiData.get(url).map((arr: Array<any>) => {
         if (arr && limit)
         {
@@ -123,15 +123,15 @@ getQueueList(limit) {
 }
 
     getTimelogs(account_id, pager) {
-        let url = "time".addp("account", account_id);
+        let url = addp("time","account", account_id);
     url = this.getPager(url, pager);
     return this.apiData.get(url);
 }
 
 getInvoices(account_id, status, pager) {
-    let url = "invoices".addp("account",account_id);
+    let url = addp("invoices","account", account_id);
     if (status === false)
-        url = url.addp("status", "unbilled");
+        url = addp(url, "status", "unbilled");
     url = this.getPager(url, pager);
     return this.apiData.get(url);
 }
@@ -139,18 +139,21 @@ getInvoices(account_id, status, pager) {
 getInvoice(id, account_id, project_id) {
     let url = "invoices";
     let data = {};
-    if (!id)
-        url = url.addp("status", "unbilled").addp("account", account_id).addp("project", project_id);
+    if (!id){
+        url = addp(url, "status", "unbilled");
+        url = addp(url, "account", account_id);
+        url = addp(url, "project", project_id);
+    }
     else 
     {
         url += "/" + id;
-        url = url.addp("action", "sendEmail");
+        url = addp(url, "action", "sendEmail");
     }
     return this.apiData.get(url, data);
 }
 
 getExpenses(account_id, pager) {
-    let url = "expenses".addp("account",account_id);
+    let url = addp("expenses", "account", account_id);
     url = this.getPager(url, pager);
     return this.apiData.get(url);
 }
@@ -159,9 +162,9 @@ getPager(url, pager)
 {
     if (pager) {
         if (pager.limit)
-            url = url.addp("limit", pager.limit);
+            url = addp(url, "limit", pager.limit);
         if (pager.page)
-            url = url.addp("page", pager.page);
+            url = addp(url, "page", pager.page);
     }
     return url;
 }
@@ -172,12 +175,12 @@ getPaged(url, pager)
     return this.apiData.get(url);
 }
 
-getAccountList(is_dashboard, pager, is_no_stat, is_open) {
+getAccountList(is_dashboard, pager, is_no_stat?, is_open?) {
     let url = "accounts";
     if (is_no_stat) 
-        url = url.addp("is_with_statistics", "false");
+        url = addp(url, "is_with_statistics", "false");
     if (is_open) 
-        url = url.addp("is_open_tickets", "true");
+        url = addp(url, "is_open_tickets", "true");
     url = this.getPager(url, pager);
     return this.apiData.get(url).map((arr: Array<any>) => {
         if (is_dashboard && arr) {
@@ -188,10 +191,10 @@ getAccountList(is_dashboard, pager, is_no_stat, is_open) {
     });
 }   
 
-getAccountDetails(id,is_no_stat) {
+getAccountDetails(id,is_no_stat?) {
     let url = `accounts/${id}`;
     if (is_no_stat) 
-        url = url.addp("is_with_statistics", "false");
+        url = addp(url, "is_with_statistics", "false");
     return this.apiData.get(url);
 }
 

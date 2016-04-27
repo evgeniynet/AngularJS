@@ -7,6 +7,9 @@ import {ActionButtonComponent} from '../../components/action-button/action-butto
     directives: [TicketsListComponent, ActionButtonComponent],
 })
 export class QueueTicketsPage {
+
+	queue: any;
+	
     constructor(private nav: NavController, private navParams: NavParams) {
   }
     

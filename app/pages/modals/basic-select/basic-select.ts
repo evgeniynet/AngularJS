@@ -6,14 +6,18 @@ import {NavController, NavParams, Page, Events, ViewController} from 'ionic-angu
 })
 export class BasicSelectModal {
 
+    items: Array<any>;
+    name: string;
+    searchQuery: string;
+    data: any;
+    is_empty: boolean;
+
     constructor(
-    params: NavParams,
-     viewCtrl: ViewController
+        private params: NavParams,
+        private viewCtrl: ViewController
     ) {
-        this.viewCtrl = viewCtrl;
         this.is_empty = false;
         this.searchQuery = '';
-        this.params = params;
         this.name = this.params.data.name;
         this.data = this.params.data.items;
         this.items = this.data;

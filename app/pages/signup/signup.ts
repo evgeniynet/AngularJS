@@ -4,7 +4,6 @@ import {Page, NavController} from 'ionic-angular';
   templateUrl: 'build/pages/signup/signup.html',
 })
 export class SignupPage {
-  constructor(nav: NavController) {
-    this.nav = nav;
+	constructor(private nav: NavController) {
   }
 }

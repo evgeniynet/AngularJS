@@ -10,8 +10,13 @@ export class InfinitySelectModal {
 
     items: Array<any>;
     url: string;
-    data: Array<any>;
+    name: string;
+    searchQuery: string;
+    data: any;
     count: number;
+    is_empty: boolean;
+    busy: boolean;
+    pager: any;
 
     constructor(private nav: NavController, private navParams: NavParams, private config: Config, private dataProvider: DataProvider,
         private viewCtrl: ViewController) 
@@ -68,7 +73,7 @@ export class InfinitySelectModal {
         this.is_empty = !this.items.length;
     }
 
-    getItems(infiniteScroll, timer) {
+    getItems(infiniteScroll, timer?) {
     this.dataProvider.getPaged(this.url, this.pager).subscribe(
             data => {
                 if (data.length && !data[0].name) {

@@ -6,16 +6,17 @@ import {Pipe} from 'angular2/core';
 export class DaysoldPipe {
     transform(value) {
         value = value || 0;
-        var daysOld = value / 60;
+        var daysOld: number = value / 60;
+        var result : string = "";
 
                     // check to see if the ticket is less than a day old
                     if (!value || value < 15)
-                        daysOld = "a minute ago"; 
+                        result = "a minute ago"; 
                     else if(daysOld > 24){
-                        daysOld = parseInt(daysOld/24) +" days ago";
+                        result = parseInt((daysOld / 24).toString()) + " days ago";
                     } else {
-                        daysOld = parseInt(daysOld) +" hours ago";
+                        result = parseInt(daysOld.toString()) + " hours ago";
                     }
-        return daysOld;
+                    return result;
     }
 }

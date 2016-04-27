@@ -12,11 +12,11 @@ export class UnInvoicesPage {
 
     LIMIT: number = 15;
     count: number;
-    account: Object;
+    account: any;
     is_empty: boolean;
     busy: boolean;
-    params: Object;
-    pager: Object;
+    params: any;
+    pager: any;
     invoices: Array<any>;
 
     constructor(private nav: NavController, private dataProvider: DataProvider, private config: Config, private navParams: NavParams) {

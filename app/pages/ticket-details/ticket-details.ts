@@ -16,6 +16,18 @@ import {GravatarPipe, LinebreaksPipe, DaysoldPipe} from '../../pipes/pipes';
     pipes: [GravatarPipe, LinebreaksPipe, DaysoldPipe],
 })
 export class TicketDetailsPage {
+    
+    counts: any;
+    ticket: any;
+    posts: any;
+    details_tab: string;
+    active: boolean;
+    he: any;
+    techname: string;
+    selects: any;
+    ticketnote: string;
+    attachments: any;
+
     constructor(private nav: NavController, private navParams: NavParams, private dataProvider: DataProvider, private config: Config) {
         this.ticket = {};
         this.ticket.customfields = [];
@@ -41,7 +53,7 @@ export class TicketDetailsPage {
         this.active = true;
         this.he = this.config.getCurrent("user");
         this.details_tab = "Reply";
-        let data = (this.navParams || {}).data || {};
+        let data = this.navParams.data || {};
         let account_id = -1;
         this.techname = getFullName(data.technician_firstname || data.tech_firstname, data.technician_lastname || data.tech_lastname, data.technician_email || data.tech_email);
         this.selects = {
@@ -120,7 +132,7 @@ export class TicketDetailsPage {
         }
     }
 
-    processDetails(data, isShortInfo)
+    processDetails(data, isShortInfo?)
     {
         if (!isShortInfo && (!data || !data.ticketlogs || data.ticketlogs == 0))
         { 

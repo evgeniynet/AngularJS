@@ -8,7 +8,8 @@ import {SignupPage} from '../signup/signup';
   templateUrl: 'build/pages/login/login.html',
 })
 export class LoginPage {
-    login: Object;
+    
+    login: any;
 
     constructor(private nav: NavController, private dataProvider: DataProvider, private config: Config) {
   }
@@ -16,7 +17,7 @@ export class LoginPage {
     onPageLoaded()
     { 
         //logout
-        this.login = {username: localStorage.username };
+        this.login = {username: localStorage.getItem("username") };
         localStorage.clear();
         this.config.clearCurrent();
     }
@@ -26,7 +27,7 @@ export class LoginPage {
                 data => {
                     this.config.setCurrent({ key:data.api_token });
                     this.config.saveCurrent();
-                    localStorage.username = form.value.email || "";
+                    localStorage.setItem("username", form.value.email || "");
                     this.nav.push(OrganizationsPage);
                 }, 
                 error => {

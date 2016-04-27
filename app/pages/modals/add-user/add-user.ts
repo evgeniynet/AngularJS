@@ -7,13 +7,17 @@ import {DataProvider} from '../../../providers/data-provider';
   templateUrl: 'build/pages/modals/add-user/add-user.html',
 })
 export class AddUserModal {
+
+    ispassword: boolean;
+    data: any;
+
 	constructor(private nav: NavController, private navParams: NavParams, private dataProvider: DataProvider, private config: Config,
 		private viewCtrl: ViewController) {
     }
 
 	onPageLoaded() {
 		this.ispassword = true;
-        this.data = (this.navParams || {}).data || {};
+        this.data = this.navParams.data || {};
         //this.data.type = this.data;
 	}
 

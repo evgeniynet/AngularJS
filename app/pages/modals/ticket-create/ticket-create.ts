@@ -13,6 +13,12 @@ import {AddUserModal} from '../modals';
     directives: [ClassListComponent, forwardRef(() => SelectListComponent)],
 })
 export class TicketCreatePage {
+
+    data: any;
+    ticket: any;
+    he: any;
+    selects: any;
+
     constructor(private nav: NavController, private navParams: NavParams, private dataProvider: DataProvider, private config: Config,
                  private viewCtrl: ViewController) {
     }
@@ -21,7 +27,7 @@ export class TicketCreatePage {
     {
         this.he = this.config.getCurrent("user");
 
-        this.data = (this.navParams || {}).data || {};
+        this.data = this.navParams.data || {};
 
         let account_id = (this.data.account || {}).id || this.he.account_id || -1;
 
