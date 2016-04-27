@@ -1,5 +1,5 @@
 import {Injectable} from 'angular2/core';
-import {Config, Events} from 'ionic-angular';
+import {IonicApp, Config, Events, NavController} from 'ionic-angular';
 import {Http, Headers, RequestOptions, Request} from 'angular2/http';
 import {Observable} from 'rxjs/Observable';
 import {ApiSite, dontClearCache} from './config';
@@ -17,7 +17,7 @@ export class ApiData {
 //userKey, userOrgKey, userInstanceKey: string; 
 //mock: boolean = dontClearCache;
 
-    constructor(private http: Http, private config: Config, private events: Events) {
+    constructor(private app: IonicApp, private http: Http, private config: Config, private events: Events) {
 }
 
 request(method, data?, type?, headers?) {
@@ -92,7 +92,9 @@ handleError(error) {
         }
     if (error.constructor !== String)
         error = (error || {}).json().error;
-    this.config.alert.error(error, 'Please contact Administator!');
+
+    let nav = this.app.getComponent('nav');
+    nav.alert(error + ". Please contact Administator!", true);
     return Observable.throw(new Error(error));
 }
 }

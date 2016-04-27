@@ -2304,43 +2304,5 @@ export const MOCKS =
                 "qb_is_employee": false,
                 "qb_account_id": 0,
                 "user_profile_image": "http://www.gravatar.com/avatar/68570238e2c96dbfebc7010ab5c68928?d=identicon&r=g&s=40"
-            }],
-        "resolution_categories": [
-            {
-                "name": "Duplicate Issue",
-                "id": 4,
-                "is_resolved": false,
-                "is_active": true
-            },
-            {
-                "name": "No Longer Valid",
-                "id": 5,
-                "is_resolved": false,
-                "is_active": true
-            },
-            {
-                "name": "Test resolution category",
-                "id": 6,
-                "is_resolved": false,
-                "is_active": false
-            },
-            {
-                "name": "On Site",
-                "id": 1,
-                "is_resolved": true,
-                "is_active": true
-            },
-            {
-                "name": "Phone",
-                "id": 2,
-                "is_resolved": true,
-                "is_active": true
-            },
-            {
-                "name": "Remote Support",
-                "id": 3,
-                "is_resolved": true,
-                "is_active": true
-            }
-        ]
+            }]
     };

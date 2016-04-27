@@ -23,8 +23,6 @@
 @import "../components/posts-list/posts-list";
 @import "../components/tickets-list/tickets-list";
 @import "../components/queues-list/queues-list";
-@import "./lib/ng2-toastr";
-
 
 //item
 
@@ -732,4 +730,25 @@ div.imgloading
     to {
         opacity: 1;
     }
+}
+
+.toast-error, toast-ok {
+    top: 0;
+    bottom: initial;
+    height: 60px;
+}
+
+.toast-wrapper {
+    top: 10px;
+    bottom: initial;
+    /*background-color: rgba(46,201,92,0.9);*/
+    transform: translateY(100%);
+}
+
+.toast-error .toast-wrapper{
+    background-color: rgba($red2, 0.9);
+}
+
+.toast-ok .toast-wrapper{
+    background-color: rgba(map-get($colors, secondary), 0.9);
 }

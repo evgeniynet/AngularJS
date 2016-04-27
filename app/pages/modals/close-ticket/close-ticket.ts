@@ -100,10 +100,8 @@ export class CloseTicketModal {
 
             this.dataProvider.closeOpenTicket(this.ticket.key, data).subscribe(
                 data => {
-                    this.config.alert.success("", 'Ticket has been closed :)');
-                    setTimeout(() => { 
-                        this.dismiss();
-                    }, 1000);
+                    this.nav.alert('Ticket has been closed :)');
+                    this.dismiss();
                 },
                 error => {
                     console.log(error || 'Server error');

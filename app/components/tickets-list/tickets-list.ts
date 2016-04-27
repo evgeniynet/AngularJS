@@ -157,7 +157,7 @@ export class TicketsListComponent {
 
               this.dataProvider.addTicketPost(ticket.id, post).subscribe(
                   data => {
-                      this.config.alert.success("", 'Note added :)');
+                      this.nav.alert('Note added :)');
                   },
                   error => {
                       console.log(error || 'Server error');

@@ -109,7 +109,7 @@ export class TicketCreatePage {
     onSubmit(form) {
         /*if (!this.selects.tech.id)
             {
-                this.config.alert.error('Please select technician...', 'Oops!');
+                this.nav.alert('Please select technician...', true);
                 return;
             }
             */
@@ -125,10 +125,8 @@ export class TicketCreatePage {
 
             this.dataProvider.addTicket(this.ticket).subscribe(
                 data => {
-                    this.config.alert.success("", 'Ticket was Succesfully Created :)');
-                    setTimeout(() => {
-                        this.dismissPage(data);
-                    }, 3000); 
+                    this.nav.alert('Ticket was Succesfully Created :)');
+                    this.dismissPage(data);
                 }, 
                 error => { 
                     console.log(error || 'Server error');}

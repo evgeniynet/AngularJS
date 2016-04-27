@@ -90,7 +90,7 @@ export class ExpenseCreatePage {
 
             this.apiData.get("expenses" + (!isEdit ? "" : ("/" + this.expense.expense_id)), data, isEdit ? "PUT" : "POST").subscribe(
                 data => {
-                    this.config.alert.success("", 'Expense was successfully added :)');
+                    this.nav.alert('Expense was successfully added :)');
                     this.close();
                 },
                 error => {

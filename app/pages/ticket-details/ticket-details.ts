@@ -150,7 +150,7 @@ export class TicketDetailsPage {
     }
 
     redirectOnEmpty(){
-        this.config.alert.error('Incorrect ticket. Going back...', 'Oops!');
+        this.nav.alert('Incorrect ticket. Going back...', true);
 
         setTimeout(() => {
             this.nav.pop();
@@ -169,7 +169,7 @@ export class TicketDetailsPage {
 
             this.dataProvider.addTicketPost(this.ticket.id, post).subscribe(
                 data => {
-                    this.config.alert.success("", 'Note added :)');
+                    this.nav.alert('Note added :)');
                     this.ticketnote = "";
                     this.active = false;
                     setTimeout(() => this.active = true, 0);
@@ -195,7 +195,7 @@ export class TicketDetailsPage {
 
         this.dataProvider.closeOpenTicket(this.ticket.key, data).subscribe(
             data => {
-                this.config.alert.success("", 'Ticket was successfully updated :)');
+                this.nav.alert('Ticket was successfully updated :)');
                 this.getPosts(this.ticket.key, true);
             },
             error => {
@@ -217,7 +217,7 @@ export class TicketDetailsPage {
 
         this.dataProvider.closeOpenTicket(this.ticket.key, data).subscribe(
             data => {
-                this.config.alert.success("", 'Ticket has been transferred :)');
+                this.nav.alert('Ticket has been transferred :)');
                 this.techname = this.selects.tech.value = this.ticket.tech_firstname = event.name;
                 this.ticket.tech_lastname = this.ticket.tech_email = "";
                 this.selects.tech.selected = techid;
@@ -237,7 +237,7 @@ export class TicketDetailsPage {
 
         this.dataProvider.closeOpenTicket(this.ticket.key, data).subscribe(
             data => {
-                this.config.alert.success("", 'Ticket pickup was Succesfull!');
+                this.nav.alert('Ticket pickup was Succesfull!');
                 this.techname = this.selects.tech.value = this.ticket.tech_firstname = getFullName(this.he.firstname, this.he.lastname, this.he.email);
                 this.ticket.tech_lastname = this.ticket.tech_email = "";
                 this.selects.tech.selected = this.he.user_id;

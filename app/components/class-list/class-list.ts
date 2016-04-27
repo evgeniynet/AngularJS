@@ -67,7 +67,8 @@ export class ClassListComponent {
 
      error(message)
      {
-         this.config.alert.error(message, 'Oops!');
+
+         this.nav.alert(message, true);
      }
 
      proceed_list()

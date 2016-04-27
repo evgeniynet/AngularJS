@@ -121,12 +121,12 @@ export class TimelogPage {
 
         if (this.timecount < this.mintime)
         {
-            this.config.alert.error("Oops!", "Not enough time");
+            this.nav.alert("Not enough time", true);
             return;
         }
         if (!this.selects.tasktype.selected)
         {
-            this.config.alert.error("Oops!", "Please, select Task Type from the list.");
+            this.nav.alert("Please, select Task Type from the list.", true);
             return;
         }
         if (form.valid) {
@@ -151,7 +151,7 @@ export class TimelogPage {
 
             this.dataProvider.addTime(this.time.time_id, data, isEdit ? "PUT" : "POST").subscribe(
                 data => {
-                    this.config.alert.success("", 'Time was successfully added :)');
+                    this.nav.alert('Time was successfully added :)');
                     this.close();
                 },
                 error => {

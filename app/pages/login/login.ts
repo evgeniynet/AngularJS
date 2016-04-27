@@ -35,13 +35,13 @@ export class LoginPage {
                     if(form.value.email && ~form.value.email.indexOf("@gmail.com")){
                         message = "Wrong Password, Google sign password is not neeeded";
                     }
-                    this.config.alert.error(message, 'Oops!');
+                    this.nav.alert(message, true);
                     this.login.password = "";
                 }
             ); 
         }
         else
-            this.config.alert.error('Please enter email and password!', 'Oops!');
+            this.nav.alert('Please enter email and password!', true);
     }
 
     onGoogleSignip() {

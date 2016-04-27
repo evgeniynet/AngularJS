@@ -30,7 +30,7 @@ export class OrganizationsPage {
                 this.list = data;
             }, 
             error => { 
-                this.config.alert.error(error || 'Server error', 'Oops!');
+                this.nav.alert(error || 'Server error', true);
                 //setTimeout(() => { this.nav.pop(); }, 3000);
                 console.log(error || 'Server error');}
                 ); 
@@ -52,7 +52,7 @@ export class OrganizationsPage {
     }
     
     alertOrg(name){
-        this.config.alert.error(name + " has expired or inactivated. Contact SherpaDesk for assistance. Email: support@sherpadesk.com Phone: +1 (866) 996-1200, then press 2", 'Oops!');
+        this.nav.alert(name + " has expired or inactivated. Contact SherpaDesk for assistance. Email: support@sherpadesk.com Phone: +1 (866) 996-1200, then press 2", true);
     }
     
     onSelectInst(instance) {
@@ -67,7 +67,7 @@ export class OrganizationsPage {
                     this.nav.setRoot(TicketsPage);     
             }, 
             error => { 
-                this.config.alert.error(error || 'Server error', 'Oops!');
+                this.nav.alert(error || 'Server error', true);
                 let key = this.config.getCurrent("key");
                 this.config.clearCurrent();
                 this.config.setCurrent({ "key": key });

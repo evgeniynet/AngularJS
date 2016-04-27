@@ -1,6 +1,6 @@
 import {NgZone} from 'angular2/core';
 import {RouteConfig, Location} from 'angular2/router'; 
-import {App, IonicApp, Config, Platform, NavController, NavParams, Events, MenuController} from 'ionic-angular';
+import {App, IonicApp, Config, Platform, NavController, NavParams, Events, MenuController, Toast} from 'ionic-angular';
 //import {StatusBar} from 'ionic-native';
 import {OnInit, OnDestroy} from 'angular2/core';
 import {ApiData} from './providers/api-data';
@@ -58,8 +58,6 @@ class MyApp {
 
     // set up our app
     this.initializeApp();
-
-    config.alert = {};//toastr;
     
     config.getCurrent = function(property) {
       let tconfig = this.current || JSON.parse(localStorage.current || "null") || {};
@@ -169,7 +167,22 @@ class MyApp {
 
       initializeApp() {
         this.platform.ready().then(() => {
-          console.log('Platform ready');
+          //console.log('Platform ready');
+      let nav = this.app.getComponent('nav');
+    
+    nav.alert = function(message, isNeg) {
+      let toast = Toast.create({
+        message: message,
+        duration: 3000,
+        cssClass: isNeg ? "toast-error" : "toast-ok"
+      });
+
+      toast.onDismiss(() => {
+        //console.log('Dismissed toast');
+      });
+      this.present(toast);
+    };
+
         //this.testPage(AccountDetailsPage, MOCKS["accounts/-1"]);
       // The platform is now ready. Note: if this callback fails to fire, follow
       // the Troubleshooting guide for a number of possible solutions:
