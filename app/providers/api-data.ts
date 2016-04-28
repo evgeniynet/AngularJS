@@ -77,7 +77,7 @@ processData(data) {
     return data;
 }
 
-handleError(error) {
+handleError(error) : any {
    // console.error(error);
     /*if ((request.status == 403 && settings.url !== ApiSite + "organizations") || (request.status == 404 && settings.url === ApiSite + "config"))
     {

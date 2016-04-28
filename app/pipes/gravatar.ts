@@ -2,6 +2,8 @@ import {Pipe} from 'angular2/core';
 
 const md5Hex = require('md5-hex');
 
+declare var require: any;
+
 @Pipe({
     name: 'Gravatar'
 })

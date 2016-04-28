@@ -18,7 +18,7 @@ export function GooglelogOut(mess) {
     else
         ;//window.location = "login.html" + mess;
     }
-
+    
 export function parseXml(xmlStr) {
     if (!xmlStr || xmlStr.length < 9)
         return null;

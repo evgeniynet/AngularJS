@@ -22,8 +22,13 @@ export class TicketsPage {
         if (param.count)
             this.counts[param.tab] = param.count;
         this.ticket_tab = this.config.getCurrent("is_tech") ? 
-            (param.tab || this.nav.tickets_tab || "tech") : "user";
+            (param.tab || "tech") : "user";
         this.nav.tickets_tab = null;
+    }
+
+    onPageWillEnter()
+    {
+
     }
 
     addTicket(){

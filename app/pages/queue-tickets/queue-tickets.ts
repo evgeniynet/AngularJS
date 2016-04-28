@@ -14,18 +14,13 @@ export class QueueTicketsPage {
     constructor(private nav: NavController, private navParams: NavParams) {
         this.queue = this.navParams.data;
   }
-    
-    onPageWillEnter()
-    {
-        //console.log("show");
-        //this.queue.tickets_count += 1;
-    }
 
     addTicket() {
         let myModal = Modal.create(TicketCreatePage, { 'tech': { id: this.queue.id, name: 'Queue ' + this.queue.fullname } });
         myModal.onDismiss(data1 => {
             if (data1)
                 setTimeout(() => {
+                    this.queue.tickets_count += 1;
                     this.nav.push(TicketDetailsPage, data1);
                 }, 500);
         });

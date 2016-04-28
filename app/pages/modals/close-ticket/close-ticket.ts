@@ -63,10 +63,10 @@ export class CloseTicketModal {
         );
     }
 
-    dismiss() {
+    dismiss(num?) {
         //let data = { 'foo': 'bar' };
         //item = item || {};
-        this.viewCtrl.dismiss();
+        this.viewCtrl.dismiss(num || 0);
     }
 
     saveSelect(event) {
@@ -102,7 +102,7 @@ export class CloseTicketModal {
             this.dataProvider.closeOpenTicket(this.ticket.key, data).subscribe(
                 data => {
                     this.nav.alert('Ticket has been closed :)');
-                    this.dismiss();
+                    this.dismiss(1);
                 },
                 error => {
                     console.log(error || 'Server error');
