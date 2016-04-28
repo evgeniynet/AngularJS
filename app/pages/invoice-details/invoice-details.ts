@@ -2,6 +2,7 @@ import {Page, Config, NavController, NavParams} from 'ionic-angular';
 import {getCurrency} from '../../directives/helpers';
 import {GravatarPipe} from '../../pipes/pipes';
 import {DataProvider} from '../../providers/data-provider';
+import {ApiData} from '../../providers/api-data';
 import {InvoicesPage} from '../invoices/invoices';
 
 @Page({
@@ -12,7 +13,7 @@ export class InvoiceDetailsPage {
 
     invoice: any;
 
-    constructor(private nav: NavController, private navParams: NavParams, private dataProvider: DataProvider, private config: Config) {
+    constructor(private nav: NavController, private navParams: NavParams, private dataProvider: DataProvider, private apiData: ApiData, private config: Config) {
     }
 
     onPageLoaded() {
@@ -43,7 +44,40 @@ export class InvoiceDetailsPage {
     }
 
     send() {
-        this.nav.alert('Hurray! Invoice sent :)');
-        this.nav.popTo(this.nav.getByIndex(this.nav.length() - 3));
+        if (!this.invoice.recipients.filter(v => v.is_accounting_contact)) {
+            this.nav.alert("No accounting contacts selected", false);
+            return;
+        }
+        var emails = "";
+        this.invoice.recipients.forEach((v) => {
+            if (v.is_accounting_contact) { emails += v.email + ","; }
+        });
+
+        let data: any = {};
+
+        if (!this.invoice.id) {
+            data.status = "unbilled";
+            data.account = this.invoice.account_id;
+            data.project = this.invoice.project_id;
+            data.start_date = this.setDate(this.invoice.start_date).toJSON();
+            data.end_date = this.setDate(this.invoice.end_date).toJSON();
+        }
+        else
+            data.action = "sendEmail";
+
+        data.recipients = emails;
+
+        this.apiData.get('invoices/' + (this.invoice.id || ""), data, !this.invoice.id ? 'POST' : 'PUT').subscribe(
+                data => {
+                    this.nav.alert('Hurray! Invoice sent :)');
+                    if (!this.invoice.id)
+                        this.nav.popTo(this.nav.getByIndex(this.nav.length() - 3));
+                    else
+                        this.nav.pop();
+                },
+                error => {
+                    console.log(error || 'Server error');
+                }
+            );
     }
 }
