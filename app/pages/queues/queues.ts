@@ -17,7 +17,8 @@ export class QueuesPage {
     onPageLoaded()
     {
         this.dataProvider.getQueueList().subscribe(
-            data => {this.queues = data
+            data => {
+                this.queues = data
                     }, 
             error => { 
                 console.log(error || 'Server error');}

@@ -16,4 +16,4 @@
     <tickets-list [hidden]="ticket_tab != 'alt'" [preload]="ticket_tab == 'alt' ? 0 : 1500" [mode]="['alt']" [count]="counts.alt"></tickets-list>
     <tickets-list [hidden]="ticket_tab != 'all'" [preload]="ticket_tab == 'all' ? 0 : 1500" [mode]="['all']" [count]="counts.all"></tickets-list>
 </div>
-<action-button></action-button>
+<button (click)="addTicket()" secondary item-right fab fab-right fab-bottom style="z-index: 2"><ion-icon class="button_circle action-but" name="md-add"></ion-icon></button>

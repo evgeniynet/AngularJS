@@ -11,7 +11,7 @@ pipes: [MorePipe],
 })
 
 export class QueuesListComponent {
-    @Input() queues: Array<any>;
+    @Input() queues: any;
     @Input() simple: boolean;
     is_empty: boolean;
 
