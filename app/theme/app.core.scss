@@ -463,6 +463,9 @@ scroll-content {
     border-bottom: 0px;
 }
 
+ion-list > .item:first-child, ion-list > ion-item-sliding:first-child .item {
+     border-top: 0px solid #dedede; 
+}
 
 //menu
 .ionFont {
