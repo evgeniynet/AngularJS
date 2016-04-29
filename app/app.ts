@@ -40,7 +40,11 @@ export interface Stat {
 
 @App({
   templateUrl: 'build/app.html',
+<<<<<<< HEAD
   providers: [ApiData, DataProvider, TicketProvider, /*ToastsManager*/],
+=======
+  providers: [ApiData, DataProvider, TicketProvider],
+>>>>>>> 42b372e6d68b7ff3a36380c7cf2159fbb46def55
   prodMode : true,
   config: {
     tabbarPlacement: 'top'
@@ -57,14 +61,22 @@ class MyApp {
     this.initializeApp();
     
     config.getCurrent = function(property) {
+<<<<<<< HEAD
       let tconfig = this.current || JSON.parse(localStorage.getItem("current") || "null") || {}; 
+=======
+      let tconfig = this.current || JSON.parse(localStorage.getItem("current") || "null") || {};
+>>>>>>> 42b372e6d68b7ff3a36380c7cf2159fbb46def55
       if (!tconfig.stat)
         tconfig.stat = {};
       if (!tconfig.user)
         tconfig.user = {};
       if (!tconfig.recent)
         tconfig.recent = {};
+<<<<<<< HEAD
         tconfig.is_tech = tconfig.is_tech || tconfig.user.is_techoradmin || false; 
+=======
+      tconfig.is_tech = tconfig.is_tech || tconfig.user.is_techoradmin || false; 
+>>>>>>> 42b372e6d68b7ff3a36380c7cf2159fbb46def55
       if (property)
         return tconfig[property] || "";
       return tconfig; 

@@ -1,46 +1,36 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
+  <head>
+    <meta http-equiv="refresh" content="1;URL='app.html'" />  
     <meta charset="utf-8" /><meta property="og:title" content="SherpaDesk | Track Time and Customer Support Management System"/>  <meta property="og:description" content="SherpaDesk is a help desk solution for all your customer support management needs. Manage tickets, track time, and send invoices easily."/>
-    <link rel="shortcut icon" href="favicon.ico?v=4" type="image/x-icon"/>
-    <link rel="apple-touch-icon image_src" href="img/appicon.png"/>
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <!-- https://www.chromium.org/developers/design-documents/chromium-graphics/how-to-get-gpu-rasterization -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-
-  <!-- ionic dynamically decides which stylesheet to load -->
-  <link ios-href="build/css/app.ios.css" rel="stylesheet">
-  <link md-href="build/css/app.md.css" rel="stylesheet">
-  <!--link wp-href="build/css/app.wp.css" rel="stylesheet"-->
-    <title>Sherpadesk</title>
-</head>
-<body class="platform-cordova">
-
-  <ion-app>
-  </ion-app>
-
-<!-- Polyfill needed for platforms without Promise and Collection support -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.0/es6-shim.min.js"></script>
-<!-- Zone.js and Reflect-metadata  -->
-  <script src="build/js/angular2-polyfills.js"></script>
-  <!-- the bundle which is built from the app's source code -->
-  <script src="build/js/app.bundle.js"></script>
-  <script>
-
-window.onbeforeunload = function (evt) {
-  return;  
-var message = "Are you sure you want to leave? All app cache and unsaved changes will be lost...";
-if (typeof evt == "undefined") {
-evt = window.event;
-}
-if (evt) {
-evt.returnValue = message;
-}
-return message;
-}
-
-</script>
-</body>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+    <title>SherpaDesk</title>
+    <style>
+        .loginLogo {
+            width: 80%;
+            margin: 40px auto -160px;
+            display: block;
+            max-width: 390px;
+        }
+        body {
+            background: #34495e;
+            background-repeat: no-repeat;
+        }
+        .Absolute-Center {
+            margin: auto;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+        }
+      </style>
+      <script type="text/javascript">
+      setTimeout(function(){
+            window.location.href = "app.html";
+      }, 500);
+        </script>
+  </head>
+    <body class=""><img id=preload class=Absolute-Center src=img/loading2.gif alt="Loading..."><!--
+    </body>
 </html>
