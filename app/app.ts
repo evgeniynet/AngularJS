@@ -40,8 +40,8 @@ export interface Stat {
 
 @App({
   templateUrl: 'build/app.html',
-  providers: [ApiData, DataProvider, TicketProvider, /*ToastsManager*/],
-  prodMode : false,
+  providers: [ApiData, DataProvider, TicketProvider],
+  prodMode : true,
   config: {
     tabbarPlacement: 'top'
   }
@@ -58,13 +58,13 @@ class MyApp {
     
     config.getCurrent = function(property) {
       let tconfig = this.current || JSON.parse(localStorage.getItem("current") || "null") || {};
-      tconfig.is_tech = tconfig.is_tech || tconfig.user.is_techoradmin || false; 
       if (!tconfig.stat)
         tconfig.stat = {};
       if (!tconfig.user)
         tconfig.user = {};
       if (!tconfig.recent)
         tconfig.recent = {};
+      tconfig.is_tech = tconfig.is_tech || tconfig.user.is_techoradmin || false; 
       if (property)
         return tconfig[property] || "";
       return tconfig; 

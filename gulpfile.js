@@ -38,7 +38,8 @@ gulp.task('watch', ['clean'], function(done){
     function(){
       gulpWatch('app/**/*.scss', function(){ gulp.start('sass'); });
       gulpWatch('app/**/*.html', function(){ gulp.start('html'); });
-      buildBrowserify({ watch: true, browserifyOptions: {
+      buildBrowserify({ watch: true, 
+  browserifyOptions: {
   debug: false, syntax: false // sourcemaps off
 } }).on('end', done);
     }
@@ -48,7 +49,8 @@ gulp.task('build', ['clean'], function(done){
   runSequence(
     ['sass', 'html', 'fonts', 'scripts'],
     function(){
-      buildBrowserify({browserifyOptions: {
+      buildBrowserify({
+  browserifyOptions: {
   debug: false, syntax: false // sourcemaps off
 }, tsifyOptions: { noImplicitAny: false, allowSyntheticDefaultImports: true,  removeComments: true, skipDefaultLibCheck: true, target: "ES5"} }).on('end', done);
     }
@@ -58,6 +60,18 @@ gulp.task('sass', buildSass);
 gulp.task('html', copyHTML);
 gulp.task('fonts', copyFonts);
 gulp.task('scripts', copyScripts);
+gulp.task('scripts', function () {
+    return copyScripts({
+        src: [
+            'node_modules/es6-shim/es6-shim.min.js',
+            'node_modules/angular2/bundles/angular2-polyfills.min.js',
+            'node_modules/intl/dist/Intl.min.js', // Fix internationalization on safari browsers (used in angular2 currency pipes)
+            'node_modules/intl/locale-data/jsonp/ru.js', // Russian locale
+            'node_modules/intl/locale-data/jsonp/en.js' // English locale
+        ]
+    });
+});
+
 gulp.task('clean', function(){
   return del('www/build');
 });
