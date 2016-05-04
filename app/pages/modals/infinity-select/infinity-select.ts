@@ -64,12 +64,7 @@ export class InfinitySelectModal {
             return;
         }
 
-        this.items = this.items.filter((v) => {
-            if (v.name.toLowerCase().indexOf(q.toLowerCase()) > -1) {
-                return true;
-            }
-            return false;
-        })
+        this.items = this.items.filter((v) => v.name.toLowerCase().indexOf(q.toLowerCase()) > -1);
         this.is_empty = !this.items.length;
     }
 

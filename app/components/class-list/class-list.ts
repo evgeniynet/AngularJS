@@ -73,13 +73,18 @@ export class ClassListComponent {
 
      proceed_list()
      {
+         if (!this.config.getCurrent("is_tech"))
+             this.list.items = this.list.items.filter(v => { return !v.is_restrict_to_techs });
+
+         this.list.items = this.list.items.filter(v => { return v.is_active });
+
          if (!this.list.items || this.list.items.length == 0)
          {
              this.error(this.list.name + ' list is empty!');
              return;
          }
 
-         let is_plain = !this.list.items.filter((v) => { return v.sub });
+         let is_plain = !this.list.items.filter(v => { return v.sub });
 
          if (is_plain && this.list.items.length <= alertLimit)
              this.openRadio();

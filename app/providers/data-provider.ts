@@ -115,8 +115,7 @@ getQueueList(limit?) {
     return this.apiData.get(url).map((arr: Array<any>) => {
         if (arr && limit)
         {
-            arr = arr.filter(function(val) {
-                return val.tickets_count > 0}).slice(0, limit); 
+            arr = arr.filter((val) => val.tickets_count > 0).slice(0, limit); 
         }
         return arr;
     });
@@ -184,8 +183,7 @@ getAccountList(is_dashboard, pager, is_no_stat?, is_open?) {
     url = this.getPager(url, pager);
     return this.apiData.get(url).map((arr: Array<any>) => {
         if (is_dashboard && arr) {
-            arr = arr.filter(function(val) {
-                return val.account_statistics.ticket_counts.open > 0});
+            arr = arr.filter(val => val.account_statistics.ticket_counts.open > 0);
         }
         return arr;
     });

@@ -68,12 +68,7 @@ export class AjaxSelectModal {
         if (q.trim() == '') {
             return;
         }
-        this.items =  q.length > 3 ? this.search(q) : Observable.of(this.data.filter((v) => {
-            if (v.name.toLowerCase().indexOf(q.toLowerCase()) > -1) {
-                return true;
-            }
-            return false;
-        }));
+        this.items =  q.length > 3 ? this.search(q) : Observable.of(this.data.filter((v) => v.name.toLowerCase().indexOf(q.toLowerCase()) > -1));
     }
 */
     searchItems(searchbar) {
@@ -89,12 +84,7 @@ export class AjaxSelectModal {
         }
 
         if (q.length < 3)
-            this.items = this.items.filter((v) => {
-                if (v.name.toLowerCase().indexOf(q.toLowerCase()) > -1) {
-                    return true;
-                }
-                return false;
-            })
+            this.items = this.items.filter((v) => v.name.toLowerCase().indexOf(q.toLowerCase()) > -1);
         else {
             var timer = setTimeout(() => { this.busy = true; }, 500);
             this.getItems(q, timer);

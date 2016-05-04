@@ -48,6 +48,10 @@ export class TicketsListComponent {
 
      ngOnInit() {
          this.cachelen = (this.ticketProvider._dataStore[this.mode[0] + (this.mode[1] || "")] || {}).length;
+         if (this.mode[0] == "all")
+         {
+             this.pager.limit = this.LIMIT = 15;
+         }
          if (this.preload && !this.cachelen) {
              setTimeout(() => {
                  this.onLoad();

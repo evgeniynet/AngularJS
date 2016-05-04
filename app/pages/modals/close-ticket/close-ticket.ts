@@ -54,7 +54,7 @@ export class CloseTicketModal {
         this.apiData.get("resolution_categories").subscribe(
             data => {
                 this.categories = data;
-                this.selects.category.items = data.filter(v => v.is_resolved)
+                this.selects.category.items = data.filter(v => v.is_resolved);
                 this.selects.category.hidden = !this.selects.category.items.length;
             },
             error => {
@@ -78,8 +78,7 @@ export class CloseTicketModal {
             this.selects.category.value = "Choose";
             this.selects.category.selected = 0;
             this.selects.category.items = this.selects.resolution.selected ?
-            this.categories.filter(v => v.is_resolved)
-            : this.categories.filter(v => !v.is_resolved);
+                this.categories.filter(v => v.is_resolved) : this.categories.filter(v => !v.is_resolved);
             this.selects.category.hidden = !this.selects.category.items.length;
         }
     }
