@@ -9,17 +9,19 @@ import {UnInvoicesPage} from '../../pages/uninvoices/uninvoices';
 @Component({
     selector: 'action-button',
     templateUrl: 'build/components/action-button/action-button.html',
-directives: [IONIC_DIRECTIVES],
+    directives: [IONIC_DIRECTIVES],
 })
 
 export class ActionButtonComponent {
 
     @Input() data: any;
     actionSheet: any;
+    current: any;
 
     constructor(private navParams: NavParams, private nav: NavController, private config: Config) {
+        this.current = config.getCurrent();
         this.data = {};
-}
+    }
     
     ngOnInit() {
         //console.log(this.data);
@@ -37,47 +39,64 @@ export class ActionButtonComponent {
                 }, 500);
         });
         setTimeout(() => {
-        this.nav.present(myModal);
+            this.nav.present(myModal);
         }, 500);
     }
     
     presentActionSheet() {
-        this.actionSheet = ActionSheet.create({
-            title: '',
-            buttons: [
+        let but = [
+        {
+            icon: 'create',
+            text: 'Add Ticket',
+            style: '',
+            handler: () => {
+                this.openModal(TicketCreatePage);
+            }
+        }];
+        if (this.current.is_time_tracking) {
+            but.push({
+                icon: 'md-time',
+                text: 'Add Time',
+                style: '',
+                handler: () => {
+                    this.openModal(TimelogPage);
+                }
+            });
+            if (this.current.is_invoice)
+                but.push(
                 {
-                    icon: 'create',
-                    text: 'Add Ticket',
-                    handler: () => {
-                        this.openModal(TicketCreatePage);
-                    }
-                },{
-                    icon: 'md-time',
-                    text: 'Add Time',
-                    handler: () => {
-                        this.openModal(TimelogPage);
-                    }
-                },{
                     icon: 'card',
                     text: 'Add Invoice',
+                    style: '',
                     handler: () => {
                         this.nav.push(UnInvoicesPage);
                     }
-                },{
-                    icon: 'calculator',
-                    text: 'Add Expense',
-                    handler: () => {
-                        this.openModal(ExpenseCreatePage);
-                    }
-                },{
-                    icon: '',
-                    text: 'Cancel',
-                    style: 'cancel',
-                    handler: () => {
-                        console.log('Cancel clicked');
-                    }
+                });
+        }
+
+        if (this.current.is_expenses)
+            but.push({
+                icon: 'calculator',
+                text: 'Add Expense',
+                style: '',
+                handler: () => {
+                    this.openModal(ExpenseCreatePage);
                 }
-            ]
+            });
+
+        but.push({
+            icon: '',
+            text: 'Cancel',
+            style: 'cancel',
+            handler: () => {
+                console.log('Cancel clicked');
+            }
+        }
+        );
+
+        this.actionSheet = ActionSheet.create({
+            title: '',
+            buttons: but
         });
 
         //setTimeout( () => {
@@ -88,5 +107,5 @@ export class ActionButtonComponent {
     ngOnDestroy() {
         this.actionSheet && this.actionSheet.dismiss();
     }
-     
+
 }

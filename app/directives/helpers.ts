@@ -61,7 +61,8 @@ export function addp (url: string, param: string, value?: any) {
 
     export function fullapplink (site, ticketkey, inst,org){
         let url = Config.AppSite;
-        url = addp(url, "tkt", ticketkey);
+        if (ticketkey)
+            url = addp(url, "tkt", ticketkey);
         url = addp(url, "dept", inst);
         return addp(url, "org", org);
         /*

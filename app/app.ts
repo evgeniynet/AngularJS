@@ -6,7 +6,7 @@ import {OnInit, OnDestroy} from 'angular2/core';
 import {ApiData} from './providers/api-data';
 import {DataProvider} from './providers/data-provider';
 import {TicketProvider} from './providers/ticket-provider';
-import {dontClearCache} from './providers/config';
+import {AppSite, dontClearCache} from './providers/config';
 import {MOCKS} from './providers/mocks';
 import * as helpers from './directives/helpers';
 import {QueuesPage} from './pages/queues/queues';
@@ -115,19 +115,6 @@ class MyApp {
       this.current.recent[property]  = value;
     }
 
-    // set our app's pages
-    this.pages = [
-    { title: 'Dashboard', component: DashboardPage, icon: "speedometer" },
-    { title: 'Tickets', component: TicketsPage, icon: "create" },
-    { title: 'Timelogs', component: TimelogsPage, icon: "md-time" },
-    { title: 'Accounts', component: AccountsPage, icon: "people" },
-    { title: 'Invoices', component: InvoicesPage, icon: "card" },        
-    { title: 'Queues', component: QueuesPage, icon: "list-box" },
-    { title: 'Switch Org', component: OrganizationsPage, icon: "md-swap" },
-    { title: 'Signout', component: LoginPage, icon: "md-log-in" },
-    { title: 'Full App', component: LoginPage, icon: "md-share-alt" },
-    ];
-
     config.current = config.getCurrent();
 
         //set test config object
@@ -145,6 +132,27 @@ class MyApp {
                   return;
                 }
 
+        // set our app's pages
+        let techpages = 
+         [
+          { title: 'Dashboard', component: DashboardPage, icon: "speedometer", is_active: true },
+          { title: 'Tickets', component: TicketsPage, icon: "create", is_active: true },
+          { title: 'Timelogs', component: TimelogsPage, icon: "md-time", is_active: config.current.is_time_tracking },
+          { title: 'Accounts', component: AccountsPage, icon: "people", is_active: config.current.is_account_manager },
+          { title: 'Invoices', component: InvoicesPage, icon: "card", is_active: config.current.is_time_tracking && config.current.is_invoice },
+          { title: 'Queues', component: QueuesPage, icon: "list-box", is_active: config.current.is_unassigned_queue },
+          { title: 'Switch Org', component: OrganizationsPage, icon: "md-swap", is_active: true },
+          { title: 'Signout', component: LoginPage, icon: "md-log-in", is_active: true },
+          { title: 'Full App', component: null, icon: "md-share-alt", is_active: true },
+        ];
+
+        let userpages = [
+          { title: 'Tickets', component: TicketsPage, icon: "create", is_active: true },
+          { title: 'Switch Org', component: OrganizationsPage, icon: "md-swap", is_active: true },
+          { title: 'Signout', component: LoginPage, icon: "md-log-in", is_active: true },
+          { title: 'Full App', component: null, icon: "md-share-alt", is_active: true },
+        ];
+
         // set first pages
         //this.rootPage = HelloIonicPage; return;
         //this.rootPage = TicketsPage; return;
@@ -156,10 +164,15 @@ class MyApp {
         //this.rootPage = TicketCreatePage; return;
         //this.rootPage = AddUserModal; return;
 
-        if (config.current.user.is_techoradmin)
+        if (config.current.is_tech)
+        {
+          this.pages = techpages;
           this.rootPage = DashboardPage;
-        else
+        }
+        else {
+          this.pages = userpages;
           this.rootPage = TicketsPage; 
+        }
       }
 
       initializeApp() {
@@ -179,29 +192,20 @@ class MyApp {
       });
       this.present(toast);
     };
-
-        //this.testPage(AccountDetailsPage, MOCKS["accounts/-1"]);
-      // The platform is now ready. Note: if this callback fails to fire, follow
-      // the Troubleshooting guide for a number of possible solutions:
-      //
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      //
-      // First, let's hide the keyboard accessory bar (only works natively) since
-      // that's a better default:
-      //
-      //
-      // For example, we might change the StatusBar color. This one below is
-      /* good for light backgrounds and dark text;
-      if (window.StatusBar) {
-        window.StatusBar.styleDefault();
-      }
-      */
     });
       }
 
       openPage(page, param?) {
         this.menu.close();
+
+        //if null open new tab
+        if (!page.component)
+        {
+          let curr = this.config.getCurrent();
+          let url = helpers.fullapplink(AppSite, "", curr.instance, curr.org);
+          window.open(url, "_blank");
+          return;
+        }
     // close the menu when clicking a link from the menu
     let nav = this.app.getComponent('nav');
 

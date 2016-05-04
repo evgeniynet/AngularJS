@@ -1,5 +1,6 @@
 import {Page, Config, NavController, NavParams, Modal} from 'ionic-angular';
 import {FORM_DIRECTIVES, Validators} from 'angular2/common';
+import {AppSite} from '../../providers/config';
 import {DataProvider} from '../../providers/data-provider';
 import {htmlEscape, getCurrency, getFullName, fullapplink, parseXml} from '../../directives/helpers';
 import {PostsListComponent} from '../../components/posts-list/posts-list';
@@ -295,7 +296,8 @@ export class TicketDetailsPage {
     }
 
     getFullapplink(ticketkey) {
-        return fullapplink("site", ticketkey, this.config.getCurrent("instance"), this.config.getCurrent("org"));
+        let curr = this.config.getCurrent();
+        return fullapplink(AppSite, ticketkey, curr.instance, curr.org);
     }
     
     getFullName (firstname,lastname,email,name) {
