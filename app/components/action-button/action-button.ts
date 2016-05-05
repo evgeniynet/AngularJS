@@ -15,7 +15,6 @@ import {UnInvoicesPage} from '../../pages/uninvoices/uninvoices';
 export class ActionButtonComponent {
 
     @Input() data: any;
-    actionSheet: any;
     current: any;
 
     constructor(private navParams: NavParams, private nav: NavController, private config: Config) {
@@ -48,7 +47,7 @@ export class ActionButtonComponent {
         {
             icon: 'create',
             text: 'Add Ticket',
-            style: '',
+            role: '',
             handler: () => {
                 this.openModal(TicketCreatePage);
             }
@@ -57,7 +56,7 @@ export class ActionButtonComponent {
             but.push({
                 icon: 'md-time',
                 text: 'Add Time',
-                style: '',
+                role: '',
                 handler: () => {
                     this.openModal(TimelogPage);
                 }
@@ -67,7 +66,7 @@ export class ActionButtonComponent {
                 {
                     icon: 'card',
                     text: 'Add Invoice',
-                    style: '',
+                    role: '',
                     handler: () => {
                         this.nav.push(UnInvoicesPage);
                     }
@@ -78,7 +77,7 @@ export class ActionButtonComponent {
             but.push({
                 icon: 'calculator',
                 text: 'Add Expense',
-                style: '',
+                role: '',
                 handler: () => {
                     this.openModal(ExpenseCreatePage);
                 }
@@ -87,25 +86,20 @@ export class ActionButtonComponent {
         but.push({
             icon: '',
             text: 'Cancel',
-            style: 'cancel',
+            role: 'cancel',
             handler: () => {
                 console.log('Cancel clicked');
             }
         }
         );
 
-        this.actionSheet = ActionSheet.create({
+        let actionSheet = ActionSheet.create({
             title: '',
             buttons: but
         });
 
         //setTimeout( () => {
-            this.nav.present(this.actionSheet);
+            this.nav.present(actionSheet);
         //});
     }
-
-    ngOnDestroy() {
-        this.actionSheet && this.actionSheet.dismiss();
-    }
-
 }
