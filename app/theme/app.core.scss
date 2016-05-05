@@ -32,6 +32,7 @@
 
 .item-inner {
     padding-right: 0px;
+        border-bottom: $grey2;
 }
 
 .item h2 {
@@ -47,6 +48,10 @@
 .item-nocenter {
     text-align: justify !important;
     margin-top: 0px !important;  
+}
+
+.item.activated{
+background-color: $blue4;
 }
 
 .alert-button{
@@ -392,6 +397,14 @@ scroll-content {
     float: right;
 }
 
+.table span.box6{
+    background-color: $blue2;
+    width: 25%;
+    float: right;
+    margin-bottom: 10px;
+}
+
+
 .table span.box7{
     float: left;
     white-space: nowrap;
@@ -499,6 +512,21 @@ ion-list > .item:first-child, ion-list > ion-item-sliding:first-child .item {
 border-left: 1px solid rgba(255, 255, 255, 0.4);
 }
 
+.alert-wrapper {
+    background-color: $text-color;
+}
+
+.alert-button {
+    font-size: 17px;
+}
+
+.alert-button {
+    text-transform: none;
+}
+
+.alert-title {
+    font-size: 21px;
+}
 
 //width
 
