@@ -80,7 +80,7 @@ color: $black1;
 }
 
 .toggle-checked {
-    background-color: #489CD6;
+    background-color: $blue2;
 }
 
 // text/
@@ -262,7 +262,7 @@ scroll-content {
 
 .segment-button.segment-activated {
     color: $text-color;
-    background-color: $blue2;
+    background-color: $blue3;
     font-weight: bold;
 }
 
@@ -309,7 +309,7 @@ scroll-content {
 }
 
 .button.activated{
-    background-color: #6AB7EC;
+    background-color: $blue5;
 }
 
 .action-but{
@@ -351,6 +351,10 @@ scroll-content {
 
 .grey3 {
     background-color: $grey3 !important;
+}
+
+.grey4 {
+    color: $grey4 !important;
 }
 
 .background-color{
@@ -396,14 +400,6 @@ scroll-content {
     width: 19%;
     float: right;
 }
-
-.table span.box6{
-    background-color: $blue2;
-    width: 25%;
-    float: right;
-    margin-bottom: 10px;
-}
-
 
 .table span.box7{
     float: left;
