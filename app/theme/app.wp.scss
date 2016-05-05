@@ -1,0 +1,146 @@
+// http://ionicframework.com/docs/v2/theming/
+
+
+// App Shared Variables
+// --------------------------------------------------
+// Shared Sass variables go in the app.variables.scss file
+@import 'app.variables';
+
+
+// App Windows Variables
+// --------------------------------------------------
+// Windows only Sass variables can go here
+
+// Used to show the status bar for component demos
+$cordova-ios-statusbar-padding:           31px;
+
+// Ionic Windows Sass
+// --------------------------------------------------
+// Custom App variables must be declared before importing Ionic.
+// Ionic will use its default values when a custom variable isn't provided.
+@import "ionic.wp";
+
+
+// App Shared Sass
+// --------------------------------------------------
+// All Sass files that make up this app goes into the app.core.scss file.
+// For simpler CSS overrides, custom app CSS must come after Ionic's CSS.
+@import 'app.core';
+
+
+// App Windows Only Sass
+// --------------------------------------------------
+// CSS that should only apply to the Windows app
+
+.button-ticket{
+       margin-left: 7px;
+       margin-top: 1px;
+}
+
+.buttonTicket{
+    width: 41px;
+    height: 41px;
+}
+
+.toolbar-title {
+    color: #fff;
+    padding: 0 0px;
+    font-size: 1.7rem;
+    font-weight: 600;
+    }
+
+.bar-button-default {
+    color: #FFFFFF;
+}
+
+.searchbar-search-icon {
+    left: 11px;
+}
+
+//ion-buttons {
+//    margin: 0px 2.2rem;
+//}
+
+.searchbar-input{
+    text-align: center;
+    padding: 6px 0px 0px 6px;
+    background-color: #22A2D4;
+}
+
+.invoiceCircle {
+    font-size: 1.4em !important;
+}
+
+.button:hover:not(.disable-hover) {
+    background-color: $blue6;
+}
+
+.login-text {
+    font-size: 1.4rem !important;
+    line-height: 1.5;
+}
+
+.item p {
+    font-size: 1.3rem;
+}
+
+.button {
+    color: $text-color;
+    font-size: 1.6rem;
+    font-weight: normal;
+    text-transform: none;
+}
+
+.segment-button{
+      border-color: $background-color;
+      background-color: $blue2;
+      color: $blue7;
+      font-size: 1.3rem;
+      font-weight: normal;
+      text-transform: none;
+}
+
+.action-sheet-button{
+      color: $blue4;
+}
+
+.item {
+    font-size: 2rem;
+}
+
+ion-title{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    text-align: center;
+}
+
+
+.button_circle2 {
+    font-size: 2.4em !important;
+}
+
+.button_circle {
+    font-size: 3.3em !important;
+}
+
+.bar-button {
+    font-size: 1.7rem;
+    font-weight: normal;
+    text-transform: none;
+}
+
+.ellipsis{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+//    width: 80%;
+}
+
+.button{
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0), 0 3px 1px -2px rgba(158, 158, 158, 0), 0 1px 5px 0 rgba(0, 0, 0, 0);}
+
+
