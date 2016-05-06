@@ -36,6 +36,11 @@
   <script src="build/js/en.js"></script>
   <script src="build/js/ru.js"></script-->
   <script>
+//Operating on classes doesn't work with SVG elements in IE 11
+  if (!("classList" in document.createElementNS("http://www.w3.org/2000/svg","g"))) {
+var descr = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'classList');
+Object.defineProperty(SVGElement.prototype, 'classList', descr);
+}
 
 window.onbeforeunload = function (evt) {
   return;  
