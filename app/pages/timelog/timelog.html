@@ -16,7 +16,7 @@
   <ion-item no-lines class="width100 blue4"><ion-icon name="remove"></ion-icon></ion-item>
         </div>
     <ion-item no-lines class="blue3 left width30 button-timelog line-height5">
- <ion-input class="timelog-input width100 right margin" [value]="getFixed(timecount)"></ion-input>
+ <ion-input class="timelog-input width100 right margin" [(ngModel)]="timecount"></ion-input>
         </ion-item>
     <div (click)="increment()" class="right width30 button-timelog dashboardRight">
 <ion-item no-lines class="width100 blue4"><ion-icon name="add"></ion-icon></ion-item>

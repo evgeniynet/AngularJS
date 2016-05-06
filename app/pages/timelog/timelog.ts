@@ -13,7 +13,7 @@ export class TimelogPage {
 
     inc : number;
     isbillable: boolean;
-    timecount: number;
+    timecount: any;
     mintime: number;
     time: any;
     timenote: string;
@@ -25,12 +25,12 @@ export class TimelogPage {
 
     decrement()
     {
-        this.timecount = Math.max(this.timecount - this.inc , 0);
+        this.timecount = Math.max(Number(this.timecount) - this.inc, 0).toFixed(2);
     }
 
     increment()
     {
-        this.timecount += this.inc;
+        this.timecount = (Number(this.timecount) + this.inc).toFixed(2);
     }
     
     onPageLoaded()
@@ -44,7 +44,7 @@ export class TimelogPage {
 
         this.inc = this.config.getCurrent("time_hour_increment") > 0 ? this.config.getCurrent("time_hour_increment") : 0.25;
 
-        this.timecount = this.time.hours || this.mintime;
+        this.timecount = (this.time.hours || this.mintime).toFixed(2);
 
         this.timenote = this.time.note || "";
         this.he = this.config.getCurrent("user");
@@ -125,7 +125,9 @@ export class TimelogPage {
         //{ "account" : account, "project": project } 
         //edat = JSON.stringify(new Date(dat2));
 
-        if (this.timecount < this.mintime)
+        let hours = Number(this.timecount);
+
+        if (hours < this.mintime)
         {
             this.nav.alert("Not enough time", true);
             return;
@@ -148,7 +150,7 @@ export class TimelogPage {
                 "account_id": this.selects.account.selected,
                 "note_text": note,
                 "task_type_id": this.selects.tasktype.selected,
-                "hours": this.timecount,
+                "hours": hours,
                 "is_billable": this.isbillable,
                 "date": "", //TODO add date select dat1 ? sdat : "",
                 "start_date": "",//dat1 ? sdat : "",

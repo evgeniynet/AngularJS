@@ -65,9 +65,9 @@ gulp.task('scripts', function () {
         src: [
             'node_modules/es6-shim/es6-shim.min.js',
             'node_modules/angular2/bundles/angular2-polyfills.min.js',
-            'node_modules/intl/dist/Intl.min.js', // Fix internationalization on safari browsers (used in angular2 currency pipes)
-            'node_modules/intl/locale-data/jsonp/ru.js', // Russian locale
-            'node_modules/intl/locale-data/jsonp/en.js', // English locale
+            //'node_modules/intl/dist/Intl.min.js', // Fix internationalization on safari browsers (used in angular2 currency pipes)
+            //'node_modules/intl/locale-data/jsonp/ru.js', // Russian locale
+            //'node_modules/intl/locale-data/jsonp/en.js', // English locale
             'node_modules/angular2/es6/dev/src/testing/shims_for_IE.js'
         ]
     });
