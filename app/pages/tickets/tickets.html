@@ -3,7 +3,7 @@
 </ion-navbar>
 
 <div class="tickets mycontent">
-    <div *ngIf="current.is_tech" class="tabsTicket margin-bottom31">
+    <div *ngIf="is_tech" class="tabsTicket margin-bottom31">
         <ion-segment  class="position-button" [(ngModel)]="ticket_tab">
 <ion-segment-button  value="user">User</ion-segment-button>
 <ion-segment-button value="tech">Tech</ion-segment-button>
@@ -12,8 +12,8 @@
   </ion-segment>
 </div>    
     <tickets-list [hidden]="ticket_tab != 'user'" [preload]="ticket_tab == 'user' ? 0 : 1500" [mode]="['user']" [count]="counts.user"></tickets-list>
-    <tickets-list *ngIf="current.is_tech" [hidden]="ticket_tab != 'tech'" [preload]="ticket_tab == 'tech' ? 0 : 1500" [mode]="['tech']" [count]="counts.tech"></tickets-list>
-    <tickets-list  *ngIf="current.is_tech" [hidden]="ticket_tab != 'alt'" [preload]="ticket_tab == 'alt' ? 0 : 1500" [mode]="['alt']" [count]="counts.alt"></tickets-list>
-    <tickets-list  *ngIf="current.is_tech" [hidden]="ticket_tab != 'all'" [preload]="ticket_tab == 'all' ? 0 : 1500" [mode]="['all']" [count]="counts.all"></tickets-list>
+    <tickets-list *ngIf="is_tech" [hidden]="ticket_tab != 'tech'" [preload]="ticket_tab == 'tech' ? 0 : 1500" [mode]="['tech']" [count]="counts.tech"></tickets-list>
+    <tickets-list  *ngIf="is_tech" [hidden]="ticket_tab != 'alt'" [preload]="ticket_tab == 'alt' ? 0 : 1500" [mode]="['alt']" [count]="counts.alt"></tickets-list>
+    <tickets-list  *ngIf="is_tech" [hidden]="ticket_tab != 'all'" [preload]="ticket_tab == 'all' ? 0 : 1500" [mode]="['all']" [count]="counts.all"></tickets-list>
 </div>
 <button (click)="addTicket()" secondary item-right fab fab-right fab-bottom style="z-index: 2"><ion-icon class="button_circle action-but" name="md-add"></ion-icon></button>

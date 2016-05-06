@@ -1,6 +1,6 @@
 import {Page, Config, NavController, NavParams, ViewController} from 'ionic-angular';
 import {forwardRef} from 'angular2/core';
-import {htmlEscape} from '../../directives/helpers';
+import {getDateTime, htmlEscape} from '../../directives/helpers';
 import {DataProvider} from '../../providers/data-provider';
 import {ClassListComponent} from '../../components/class-list/class-list';
 import {SelectListComponent} from '../../components/select-list/select-list';
@@ -167,8 +167,13 @@ export class TimelogPage {
         }
     }
 
-    setDate(date) {
-        return date ? new Date(date) : null;
+    setDate(date, showmonth?, istime?) {
+        return date ? getDateTime(date, showmonth, istime) : null;
+    }
+
+
+    getFixed(value) {
+        return Number(value || "0").toFixed(2).toString();
     }
     
     close() {

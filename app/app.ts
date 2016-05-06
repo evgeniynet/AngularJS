@@ -90,7 +90,11 @@ class MyApp {
     };
 
     config.saveCurrent = function(){
-      localStorage.setItem("current",  JSON.stringify(this.getCurrent()));
+      let curr = this.getCurrent();
+      localStorage.setItem("current",  JSON.stringify(curr));
+      localStorage.setItem("dateformat", curr.user.date_format);
+      localStorage.setItem('timeformat', curr.user.time_format);
+      localStorage.setItem('currency', curr.currency || "$");
     }
 
     config.getStat = function(property){
@@ -163,6 +167,8 @@ class MyApp {
         //this.rootPage = AccountsPage; return;
         //this.rootPage = TicketCreatePage; return;
         //this.rootPage = AddUserModal; return;
+
+        config.saveCurrent();
 
         if (config.current.is_tech)
         {

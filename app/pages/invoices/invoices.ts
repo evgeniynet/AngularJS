@@ -3,7 +3,7 @@ import {DataProvider} from '../../providers/data-provider';
 import {MorePipe} from '../../pipes/pipes';
 import {InvoiceDetailsPage} from '../invoice-details/invoice-details';
 import {UnInvoicesPage} from '../uninvoices/uninvoices';
-import {getCurrency} from '../../directives/helpers';
+import {getDateTime, getCurrency} from '../../directives/helpers';
 
 @Page({
   templateUrl: 'build/pages/invoices/invoices.html',
@@ -89,11 +89,11 @@ export class InvoicesPage {
         this.nav.push(UnInvoicesPage, this.params);
     }
     
-  setDate(date) {
-      return date ? new Date(date) : new Date();
+    setDate(date, showmonth?, istime?) {
+        return getDateTime(date || new Date(), showmonth, istime);
     }
     
     getCurrency(value) {
-        return getCurrency(value, this.config.getCurrent("currency"));
+        return getCurrency(value);
     }
 }

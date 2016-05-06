@@ -2,7 +2,7 @@ import {Page, Config, NavController, NavParams, Modal} from 'ionic-angular';
 import {FORM_DIRECTIVES, Validators} from 'angular2/common';
 import {AppSite} from '../../providers/config';
 import {DataProvider} from '../../providers/data-provider';
-import {htmlEscape, getCurrency, getFullName, fullapplink, parseXml} from '../../directives/helpers';
+import {getDateTime, htmlEscape, getCurrency, getFullName, fullapplink, parseXml} from '../../directives/helpers';
 import {PostsListComponent} from '../../components/posts-list/posts-list';
 import {SelectListComponent} from '../../components/select-list/select-list';
 import {ClassListComponent} from '../../components/class-list/class-list';
@@ -305,11 +305,10 @@ export class TicketDetailsPage {
     }
 
     getCurrency(value) {
-        return getCurrency(value, this.config.getCurrent("currency"));
+        return getCurrency(value);
     }
 
-    setDate(date) {
-        return date ? new Date(date) : null;
+    setDate(date, showmonth?, istime?) {
+        return date ? getDateTime(date, showmonth, istime) : null;
     }
-
 }

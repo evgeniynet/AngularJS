@@ -6,7 +6,7 @@
         </button>
     </ion-buttons>
 <ion-title class="width20" [hidden]="expense.expense_id || expense.number">Create Expense</ion-title>
-<ion-title class="ellipsis" [hidden]="!expense.expense_id || !expense.number">Expense by {{expense.user_name}} @ {{setDate(expense.date) | date: "MM/dd/yyyy HH:mm"}}</ion-title>
+<ion-title class="ellipsis" [hidden]="!expense.expense_id || !expense.number">Expense by {{expense.user_name}} @ {{setDate(expense.date, false, true)}}</ion-title>
 <ion-title class="ellipsis" [hidden]="!expense.number">Create Expense to #{{expense.number}} {{expense.subject}}</ion-title>
 </ion-toolbar>
 
@@ -15,7 +15,7 @@
 <form #addForm="ngForm">
     <ion-list class="list max-width700 general-alignment" no-lines >
 <div class="tooltips">
-<input class="width100 textLogin commentText subject-create" placeholder="Amount" type="number" min="0" ngControl="amount" required #amount="ngForm" [value]="(expense.amount || 0) | number:'1.2-2'"/> 
+<input class="width100 textLogin commentText subject-create" placeholder="Amount" type="number" min="0" ngControl="amount" required #amount="ngForm" [value]="getFixed(expense.amount)"/> 
 <span [hidden]="amount.valid || amount.untouched">Amount should be more than 0</span></div>  
  <div class="class-margin">
    <select-list *ngIf="!expense.number" [list]="selects.account" preload="true" (onChanged)='saveSelect($event)'></select-list>

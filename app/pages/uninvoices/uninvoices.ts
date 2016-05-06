@@ -2,7 +2,7 @@ import {Page, Config, NavController, NavParams} from 'ionic-angular';
 import {DataProvider} from '../../providers/data-provider';
 import {MorePipe} from '../../pipes/pipes';
 import {InvoiceDetailsPage} from '../invoice-details/invoice-details';
-import {getCurrency} from '../../directives/helpers';
+import {getDateTime, getCurrency} from '../../directives/helpers';
 
 @Page({
   templateUrl: 'build/pages/uninvoices/uninvoices.html',
@@ -84,11 +84,11 @@ export class UnInvoicesPage {
         this.nav.push(InvoiceDetailsPage, item);
     }
     
-    setDate(date) {
-        return date ? new Date(date) : new Date();
+    setDate(date, showmonth?, istime?) {
+        return getDateTime(date || new Date(), showmonth, istime);
     }
     
     getCurrency(value) {
-        return getCurrency(value, this.config.getCurrent("currency"));
+        return getCurrency(value);
     }
 }

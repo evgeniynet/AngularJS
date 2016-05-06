@@ -10,7 +10,7 @@ import {TicketsListComponent} from '../../components/components';
 export class TicketsPage {
 
     counts: any;
-    current: any;
+    is_tech: boolean;
     ticket_tab: string;
     
     constructor(private nav: NavController, private navParams: NavParams, private config: Config) {
@@ -19,11 +19,11 @@ export class TicketsPage {
     
     onPageLoaded()
     {
-        this.current = this.config.getCurrent("is_tech");
+        this.is_tech = this.config.getCurrent("is_tech");
         let param = this.navParams.data || {};
         if (param.count)
             this.counts[param.tab] = param.count;
-        this.ticket_tab = this.current.is_tech ? 
+        this.ticket_tab = this.is_tech ? 
             (param.tab || "tech") : "user";
         this.nav.tickets_tab = null;
     }

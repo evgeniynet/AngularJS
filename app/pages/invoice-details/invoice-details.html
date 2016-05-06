@@ -6,7 +6,7 @@
 
 <ion-content padding class="invoice-details">
  <ion-item>
-    <p item-right class="text_list">{{setDate(invoice.start_date) | date: "yMMMdd"}} - {{setDate(invoice.end_date) | date: "yMMMdd"}}</p>
+    <p item-right class="text_list">{{setDate(invoice.start_date, true)}} - {{setDate(invoice.end_date, true)}}</p>
         </ion-item>
   <ion-item no-lines class="width65 left"><h2 item-left>Time</h2></ion-item>
     <ion-item no-lines class="width35 left"><h2 item-right>{{getCurrency(invoice.amount)}}</h2>

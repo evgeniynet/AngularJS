@@ -1,6 +1,6 @@
 import {Page, Config, NavController, NavParams} from 'ionic-angular';
 import {DataProvider} from '../../providers/data-provider';
-import {getCurrency} from '../../directives/helpers';
+import {getDateTime, getCurrency} from '../../directives/helpers';
 import {ExpenseCreatePage} from '../expense-create/expense-create';
 import {GravatarPipe, MorePipe, LinebreaksPipe} from '../../pipes/pipes';
 
@@ -86,11 +86,11 @@ export class ExpensesPage {
         this.nav.push(ExpenseCreatePage, expense);
     }
     
-    setDate(date) {
-        return date ? new Date(date) : null;
+    setDate(date, showmonth?, istime?) {
+        return date ? getDateTime(date, showmonth, istime) : null;
     }
 
     getCurrency(value) {
-        return getCurrency(value, this.config.getCurrent("currency"));
+        return getCurrency(value);
     }
 }

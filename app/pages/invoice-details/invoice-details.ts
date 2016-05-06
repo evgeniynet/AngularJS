@@ -1,5 +1,5 @@
 import {Page, Config, NavController, NavParams} from 'ionic-angular';
-import {getCurrency} from '../../directives/helpers';
+import {getDateTime, getCurrency} from '../../directives/helpers';
 import {GravatarPipe} from '../../pipes/pipes';
 import {DataProvider} from '../../providers/data-provider';
 import {ApiData} from '../../providers/api-data';
@@ -35,12 +35,12 @@ export class InvoiceDetailsPage {
         );
   }
 
-    setDate(date) {
-        return date ? new Date(date) : new Date();
+    setDate(date, showmonth?, istime?) {
+        return getDateTime(date || new Date(), showmonth, istime);
     }
     
     getCurrency(value) {
-        return getCurrency(value, this.config.getCurrent("currency"));
+        return getCurrency(value);
     }
 
     send() {
@@ -59,8 +59,8 @@ export class InvoiceDetailsPage {
             data.status = "unbilled";
             data.account = this.invoice.account_id;
             data.project = this.invoice.project_id;
-            data.start_date = this.setDate(this.invoice.start_date).toJSON();
-            data.end_date = this.setDate(this.invoice.end_date).toJSON();
+            data.start_date = (new Date(this.invoice.start_date || Date.now().toString())).toJSON();
+            data.end_date = (new Date(this.invoice.end_date || Date.now().toString())).toJSON();
         }
         else
             data.action = "sendEmail";

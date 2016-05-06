@@ -1,7 +1,7 @@
 import {IONIC_DIRECTIVES} from 'ionic-angular';
 import {Component, Input} from 'angular2/core';
 //import {TicketDetailsPage} from '../../pages/ticket-details/ticket-details';
-import {getFullName} from '../../directives/helpers';
+import {getDateTime, getFullName} from '../../directives/helpers';
 import {GravatarPipe, LinebreaksPipe, DaysoldPipe, FilesPipe} from '../../pipes/pipes';
 
 
@@ -25,7 +25,7 @@ getFullName (firstname,lastname,email,name) {
     return getFullName (firstname,lastname,email,name);
 }
   
-setDate(date) {
-  return date ? new Date(date) : null;
-}
+    setDate(date, showmonth?, istime?) {
+        return date ? getDateTime(date, showmonth, istime) : null;
+    }
 }

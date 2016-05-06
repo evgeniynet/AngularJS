@@ -2,6 +2,7 @@ import {Page, Config, NavController, NavParams} from 'ionic-angular';
 import {DataProvider} from '../../providers/data-provider';
 import {TimelogPage} from '../timelog/timelog';
 import {ActionButtonComponent} from '../../components/action-button/action-button';
+import {getDateTime} from '../../directives/helpers';
 import {GravatarPipe, MorePipe, LinebreaksPipe} from '../../pipes/pipes';
 
 @Page({
@@ -89,7 +90,11 @@ export class TimelogsPage {
         this.nav.push(TimelogPage, time);
     }
     
-    setDate(date) {
-        return date ? new Date(date) : null;
+    setDate(date, showmonth?, istime?) {
+        return date ? getDateTime(date, showmonth, istime) : null;
+    }
+
+    getFixed(value){
+        return Number(value || "0").toFixed(2).toString();
     }
 }

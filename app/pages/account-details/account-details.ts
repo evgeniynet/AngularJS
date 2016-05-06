@@ -47,7 +47,7 @@ export class AccountDetailsPage {
     }
     
     getCurrency(value) {
-        return getCurrency(value, this.config.getCurrent("currency"));
+        return getCurrency(value);
     }
     
     getFileLink(file) {
