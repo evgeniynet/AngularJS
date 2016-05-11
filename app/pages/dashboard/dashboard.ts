@@ -19,6 +19,7 @@ export class DashboardPage {
     queues: Array<any>;
 
     constructor(private nav: NavController, private config: Config, private dataProvider: DataProvider, private ticketProvider: TicketProvider) {
+        this.counts = {open_as_tech: 0}; 
     }
     
     onPageLoaded()

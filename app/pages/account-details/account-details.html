@@ -46,66 +46,66 @@
         </div>
 
         <ion-list class="list margin-top45" no-lines *ngSwitchWhen="'Info'">
-        <ion-item class="margin"><h3 class="left width35 text-left">BWD Acct#</h3>
+        <ion-item class="margin color"><h3 class="left width35 text-left">BWD Acct#</h3>
      <h3 class="right width50 tkts-table">{{account.bwd_number}}</h3>
         </ion-item>
-        <ion-item class="margin">
+        <ion-item class="margin color">
      <h3 class="left width35 text-left">Acc#</h3>
      <h3 class="right width50 tkts-table">{{account.number}}</h3>
         </ion-item>
-        <ion-item class="margin">
+        <ion-item class="margin color">
  <h3 class="left width35 text-left">Ref1#</h3>
  <h3 class="right width50 tkts-table">{{account.ref1}}</h3>
         </ion-item>
-            <ion-item class="margin">
+            <ion-item class="margin color">
  <h3 class="left width35 text-left">Ref2#</h3>
  <h3 class="right width50 tkts-table">{{account.ref2}}</h3>
                 </ion-item>
-                <ion-item class="margin">
+                <ion-item class="margin color">
  <h3 class="left width35 text-left">Org/Indiv</h3>
  <h3 class="right width50 tkts-table">{{account.is_organization ? "Organization" : "Individual"}}</h3>
                     </ion-item>
-                    <ion-item class="margin">
+                    <ion-item class="margin color">
  <h3 class="left width35 text-left">Acc Rep</h3>
  <h3 class="right width50 tkts-table">{{account.representative_name}}</h3>
           </ion-item>
-          <ion-item class="margin">
+          <ion-item class="margin color">
  <h3 class="left width35 text-left space-initial">Internal location</h3>
  <h3 class="right width50 tkts-table">{{account.internal_location_name}}</h3>
           </ion-item>
-          <ion-item class="margin">
+          <ion-item class="margin color">
  <h3 class="left width35 text-left">Email Suffix</h3>
  <h3 class="right width50 tkts-table">{{account.email_suffix}}</h3>
          </ion-item>
-         <ion-item class="margin">
+         <ion-item class="margin color">
  <h3 class="left width35 text-left">Address 1</h3>
  <h3 class="right width50 tkts-table">{{account.address1}}</h3>
          </ion-item>
-        <ion-item class="margin">
+        <ion-item class="margin color">
  <h3 class="left width35 text-left">Address 2</h3>
  <h3 class="right width50 tkts-table">{{account.address2}}</h3>
        </ion-item>
-      <ion-item class="margin">
+      <ion-item class="margin color">
  <h3 class="left width35 text-left">City</h3>
  <h3 class="right width50 tkts-table">{{account.city}}</h3>
           </ion-item>
-       <ion-item class="margin">
+       <ion-item class="margin color">
  <h3 class="left width35 text-left">Postal Code</h3>
  <h3 class="right width50 tkts-table">{{account.zipcode}}</h3>
           </ion-item>
-    <ion-item class="margin">
+    <ion-item class="margin color">
  <h3 class="left width35 text-left">Country</h3>
  <h3 class="right width50 tkts-table">{{account.country}}</h3>
         </ion-item>
-           <ion-item class="margin">
+           <ion-item class="margin color">
  <h3 class="left width35 text-left">Phone 1</h3>
  <h3 class="right width50 tkts-table">{{account.phone1}}</h3>
                </ion-item>
-               <ion-item class="margin">
+               <ion-item class="margin color">
  <h3 class="left width35 text-left">Phone 2</h3>
  <h3 class="right width50 tkts-table">{{account.phone2}}</h3>
                </ion-item>
-            <ion-item *ngFor="#customfield of account.customfields">
+            <ion-item class="color" *ngFor="#customfield of account.customfields">
             <h3 class="left width35 text-left">{{customfield.Key}}</h3>
                 <h3 class="right width50 tkts-table">{{customfield.Value || '&nbsp;'}}</h3>
             </ion-item>
@@ -115,7 +115,7 @@
             
             <div [hidden]="account.projects?.length" class="table grey2 menu-text">No Projects yet</div>
             
-            <ion-item *ngIf="account.projects?.length" no-lines class="margin">
+            <ion-item *ngIf="account.projects?.length" no-lines class="margin color">
     <p class="text width32 text-left left"></p>
     <h3 class="width17 left table table_account">Open</h3>
             <h3 class="width17 left table table_account">Logged</h3>
@@ -124,8 +124,8 @@
         </ion-item>
         
            
-    <ion-item *ngFor="#project of account.projects">
-    <p class="text width32 left table_account text-left">{{project.name}}</p>
+    <ion-item class="color" *ngFor="#project of account.projects">
+    <p class="text color width32 left table_account text-left">{{project.name}}</p>
     <h3 class="width17 left table">{{project.open_tickets}}</h3> 
     <h3 class="width17 left table">{{project.logged_hours}}</h3> 
     <h3 class="width17 left table">{{project.remaining_hours}}</h3> 

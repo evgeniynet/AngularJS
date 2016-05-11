@@ -12,12 +12,12 @@
     </ion-avatar>
             <div>
  <li class="text-left width70 left">
-    <h2 class="ellipsis">{{expense.user_name}} @ {{setDate(expense.date, false, true)}}</h2>
-     <h3 class="timelogs ellipsis" [innerHTML]="expense.note | Linebreaks"></h3>
-     <h3 class="timelogs ellipsis" *ngIf="expense.ticket_id">{{"#"+expense.ticket_number+": "+expense.ticket_subject}}</h3><h3 class="timelogs ellipsis" *ngIf="expense.project_id">{{"Project: "+expense.project_name}}</h3></li>
+    <h2 class="ellipsis color">{{expense.user_name}} @ {{setDate(expense.date, false, true)}}</h2>
+     <h3 class="timelogs ellipsis color" [innerHTML]="expense.note | Linebreaks"></h3>
+     <h3 class="timelogs ellipsis color" *ngIf="expense.ticket_id">{{"#"+expense.ticket_number+": "+expense.ticket_subject}}</h3><h3 class="timelogs ellipsis" *ngIf="expense.project_id">{{"Project: "+expense.project_name}}</h3></li>
       <li class="right width30 margin font-time text-right">
     
-    <span class="font-hours">{{getCurrency(expense.amount)}}</span>  
+    <span class="font-hours color">{{getCurrency(expense.amount)}}</span>  
       </li></div>
   </ion-item>
 

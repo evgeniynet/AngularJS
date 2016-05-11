@@ -31,12 +31,13 @@
 }
 
 .item-inner {
-    padding-right: 0px;
-        border-bottom: $grey2;
+        padding-right: 0px;
+//        border-bottom: $grey2;
 }
 
 .item h2 {
     font-size: 1.9rem;
+    color: $text-color;
 }
 
 .itemTech {
@@ -81,6 +82,14 @@ color: $black1;
 
 .toggle-checked {
     background-color: $blue2;
+}
+
+.color{
+ color: $text !important;
+}
+
+.segment-ticket{
+    background-color: $segment !important;
 }
 
 // text/
@@ -157,6 +166,10 @@ max-width: 700px;}
 
 .margin {
     margin: 0px !important;
+}
+
+.margin-right15 {
+    margin-right: 15px !important;
 }
 
 .padding {
@@ -262,7 +275,7 @@ scroll-content {
 
 .segment-button.segment-activated {
     color: $text-color;
-    background-color: $blue3;
+    background-color: $blue2;
     font-weight: bold;
 }
 

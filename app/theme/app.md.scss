@@ -62,7 +62,7 @@
 .searchbar-input{
     text-align: center;
     padding: 6px 0px 0px 6px;
-    background-color: #22A2D4;
+    background-color: $blue1;
 }
 
 .invoiceCircle {
@@ -96,6 +96,8 @@
       font-size: 1.3rem;
       font-weight: normal;
       text-transform: none;
+      border-width: 1px;
+      border-style: solid;
 }
 
 .action-sheet-button{
