@@ -143,4 +143,10 @@ ion-title{
 .button{
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0), 0 3px 1px -2px rgba(158, 158, 158, 0), 0 1px 5px 0 rgba(0, 0, 0, 0);}
 
-
+@font-face {
+  font-family: "Ionicons";
+  src: url("../fonts/ionicons.eot"),
+       url("../fonts/ionicons.eot") format("embedded-opentype"), 
+       url("../fonts/ionicons.woff2") format("woff2"), url("../fonts/ionicons.woff") format("woff"), url("../fonts/ionicons.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal; }
