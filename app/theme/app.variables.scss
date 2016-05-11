@@ -23,27 +23,31 @@
 $colors: (
     primary: #fff,
     secondary:  #42bd41,
-    dark:       #489cd6
+    dark:       #fca83f
   );
 
+$text-color: #fff;
+$background-color: map-get($colors, primary);
 $red: #a94442;
 $red2: #e74c3c;
-$grey: rgba(224, 224, 224, 0.29);
-$grey2: #dadada;
+$grey: #5f5f5f;
+$grey2: #5D5C5C;
 $grey3: rgba(131,131,131,0.82);
-$blue1: #25b0e6;
-$blue2: #09c;
-$blue3: rgba(0,0,0,0.4);
+$grey4: #dadada;
+$blue1: #ffac30;
+$blue2: #f90;;
+$blue3: #333;
 $blue4: map-get($colors, dark);
-$blue5: rgba(46, 134, 194, 0.74);
-$blue6: #2E86C2;
-$blue7: #6BD5F8;
+$blue5: rgba(255, 183, 93, 0.99);
+$blue6: #F9AB4A;
+$blue7: rgb(255, 192, 56);
 $yellow: #f1c40f;
 $black1: #000;
+$transparent: rgba(255, 255, 255, 0);
+$text: #333;
+$segment: #f90;
 $green: map-get($colors, secondary);
-$background-color: #34495e;
 $toolbar-background: $blue1;
-$text-color: #fff;
 $toolbar-border-color: $blue1;
 $toolbar-text-color: $text-color;
 $toolbar-inactive-color: $black1;
@@ -52,10 +56,10 @@ $headings-line-height: $background-color;
 $font-size: 2rem;
 $card-ios-header-color: $text-color;
 $card-md-header-color: $text-color;
-$card-ios-background-color: $blue3;
-$card-ios-border-radius: 0px;
+//$card-ios-background-color: $blue3;
+//$card-ios-border-radius: 23px;
 //$segment-button-ios-bg-color-activated: $text-color;
-$color-value: #34495e;
+$color-value: #f90;
 $item-ios-body-text-font-size: $font-size;
 $item-md-body-text-font-size: $font-size;
 $item-ios-paragraph-text-color: $text-color;

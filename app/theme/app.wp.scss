@@ -32,6 +32,11 @@ $cordova-ios-statusbar-padding:           31px;
 // --------------------------------------------------
 // CSS that should only apply to the Windows app
 
+
+body {
+    font-family: -apple-system, "Helvetica Neue", "Roboto", sans-serif;
+  }
+
 .button-ticket{
        margin-left: 7px;
        margin-top: 1px;
@@ -98,6 +103,13 @@ $cordova-ios-statusbar-padding:           31px;
       font-size: 1.3rem;
       font-weight: normal;
       text-transform: none;
+      -webkit-box-flex: 1;
+      -webkit-flex: 1;
+      flex: 1;
+      opacity: inherit;
+      border-width: 1px;
+      border-style: solid;
+      opacity: initial;
 }
 
 .action-sheet-button{
@@ -141,6 +153,6 @@ ion-title{
 }
 
 .button{
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0), 0 3px 1px -2px rgba(158, 158, 158, 0), 0 1px 5px 0 rgba(0, 0, 0, 0);}
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0), 0 3px 1px -2px rgba(158, 158, 158, 0), 0 1px 5px 0 rgba(0, 0, 0, 0);}
 
 

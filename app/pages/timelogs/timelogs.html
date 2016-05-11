@@ -14,12 +14,12 @@
     </ion-avatar>
             <div>
  <li class="text-left width65 left">
-    <h2 class="ellipsis">{{time.user_name}} @ {{setDate(time.date) | date: "MM/dd/yyyy HH:mm"}}</h2>
-     <h3 class="timelogs ellipsis" [innerHTML]="time.note | Linebreaks"></h3>
-     <h3 class="timelogs ellipsis" *ngIf="!time.is_project_log">{{"#"+time.ticket_number+": "+time.ticket_subject}}</h3></li>
+    <h2 class="ellipsis color">{{time.user_name}} @ {{setDate(time.date) | date: "MM/dd/yyyy HH:mm"}}</h2>
+     <h3 class="timelogs ellipsis color" [innerHTML]="time.note | Linebreaks"></h3>
+     <h3 class="timelogs ellipsis color" *ngIf="!time.is_project_log">{{"#"+time.ticket_number+": "+time.ticket_subject}}</h3></li>
       <li class="right width30 margin font-time text-right">
-    <ion-icon class="margin" item-right name="time"></ion-icon>
-    <span class="font-hours">{{time.hours| number:'1.2-2'}}</span>  
+    <ion-icon class="margin color" item-right name="time"></ion-icon>
+    <span class="font-hours color">{{time.hours| number:'1.2-2'}}</span>  
       </li></div>
   </ion-item>
 
