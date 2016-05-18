@@ -49,9 +49,10 @@ body {
 
 .toolbar-title {
     color: #fff;
-    padding: 0 0px;
+    padding: 0 84px;
     font-size: 1.7rem;
     font-weight: 600;
+    text-transform: none;
     }
 
 .bar-button-default {
@@ -69,7 +70,7 @@ body {
 .searchbar-input{
     text-align: center;
     padding: 6px 0px 0px 6px;
-    background-color: #22A2D4;
+    background-color: $blue1;
 }
 
 .invoiceCircle {
@@ -87,18 +88,19 @@ body {
 
 .item p {
     font-size: 1.3rem;
+    color: $text;
 }
 
 .button {
     color: $text-color;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     font-weight: normal;
     text-transform: none;
 }
 
 .segment-button{
       border-color: $background-color;
-      background-color: $blue2;
+      background-color: $blue3;
       color: $blue7;
       font-size: 1.3rem;
       font-weight: normal;
@@ -113,7 +115,8 @@ body {
 }
 
 .action-sheet-button{
-      color: $blue4;
+      color: $blue2;
+      font-size: 2rem;
 }
 
 .item {
@@ -154,6 +157,38 @@ ion-title{
 
 .button{
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0), 0 3px 1px -2px rgba(158, 158, 158, 0), 0 1px 5px 0 rgba(0, 0, 0, 0);}
+
+.action-but{
+    padding-left: 0.23em !important;
+    padding-top: 0.03em !important;
+}
+
+.toggle-icon {
+    border: 2px solid $blue2;
+}
+
+ion-list .item-inner {
+    border-bottom: 1px solid $text;
+}
+
+.item-inner {
+    border-bottom: 1px solid $class-list3;
+}
+
+.toggle-inner {
+    background-color: $class-list3;
+}
+
+.avatarText{
+    line-height: 8px;
+    color: $grey2;
+    font-size: 1.6rem;
+    height: 76px;
+}
+
+.recipient-calc {
+//    width: calc(100% - 40px);
+}
 
 @font-face {
   font-family: "Ionicons";

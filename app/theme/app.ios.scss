@@ -59,3 +59,22 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.action-but{
+    padding-left: 0.23em !important;
+}
+
+.action-sheet-button{
+      color: $blue2;
+}
+
+.avatarText{
+    line-height: 8px;
+    color: $grey2;
+    font-size: 1.6rem;
+    height: 86px;
+}
+
+.item p {
+    color: $text;
+}

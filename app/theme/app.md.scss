@@ -80,6 +80,7 @@
 
 .item p {
     font-size: 1.3rem;
+    color: $text2;
 }
 
 .button {
@@ -91,17 +92,19 @@
 
 .segment-button{
       border-color: $background-color;
-      background-color: $blue2;
+      background-color: $blue3;
       color: $blue7;
       font-size: 1.3rem;
       font-weight: normal;
       text-transform: none;
       border-width: 1px;
       border-style: solid;
+      opacity: inherit;
 }
 
 .action-sheet-button{
-      color: $blue4;
+      color: $blue2;
+      font-size: 2rem;
 }
 
 .item {
@@ -138,6 +141,13 @@ ion-title{
     overflow: hidden;
     text-overflow: ellipsis;
 //    width: 80%;
+}
+
+.avatarText{
+    line-height: 8px;
+    color: $grey2;
+    font-size: 1.6rem;
+    height: 86px;
 }
 
 .button{
