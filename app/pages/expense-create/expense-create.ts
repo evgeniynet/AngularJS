@@ -87,7 +87,7 @@ export class ExpenseCreatePage {
                 "vendor": this.expense.vendor
             };
 
-            console.log(data);
+            //console.log(data);
 
             this.apiData.get("expenses" + (!isEdit ? "" : ("/" + this.expense.expense_id)), data, isEdit ? "PUT" : "POST").subscribe(
                 data => {
