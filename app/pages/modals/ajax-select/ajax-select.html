@@ -13,8 +13,8 @@
 <img *ngIf="busy" class="imglogo img-padding" src="img/loading2.gif">
     <ion-list class="list">
         
-        <ion-item class="basic-margin text-left color" *ngFor="#item of items" (click)="dismiss(item)">
-            <h2>{{item.name}}</h2>
+        <ion-item class="basic-margin text-left" *ngFor="#item of items" (click)="dismiss(item)">
+            <h2 class="color">{{item.name}}</h2>
             <!--ion-note item-right>
                 <h2>{{item.id}}</h2>
             </ion-note-->

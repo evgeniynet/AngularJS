@@ -7,6 +7,6 @@
         <p padding class="tech width45 left name text-avatar">{{getFullName(post.user_firstname, post.user_lastname, post.user_email)}}</p> 
         <p class="text_list date width30 text-right right margin-right15">{{setDate(post.record_date, true)}}</p> 
         <p class="text margin left width90 textLogin" [innerHTML]="post.note | Linebreaks| Files : attachments"></p>
-        <ion-item class="margin resp"><p item-right class="text_list margin-right15">{{post.log_type}}</p></ion-item>
+        <ion-item class="margin resp"><p item-right class="text_list margin-right15 color2">{{post.log_type}}</p></ion-item>
     </ion-card-content>
 </div>
