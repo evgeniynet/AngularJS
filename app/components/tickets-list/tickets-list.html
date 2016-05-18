@@ -7,7 +7,7 @@
             <li class="center avatarText">
                 <span class="margin text-bold" item-left>#{{ticket.number}}</span>
                 <img *ngIf="ticket.user_email" [alt]="ticket.user_firstname" class="img" [src]="ticket.user_email | Gravatar"/>
-                <p class="admin">{{ticket.user_firstname}}  {{ticket.user_lastname}}</p> </li>
+                <p class="admin color">{{ticket.user_firstname}}  {{ticket.user_lastname}}</p> </li>
         </ion-avatar>
         <div class="alignment">
         <li class="tkts-table">

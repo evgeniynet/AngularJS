@@ -42,7 +42,7 @@
 
 .toolbar-title {
     color: #fff;
-    padding: 0 0px;
+    padding: 0 84px;
     font-size: 1.7rem;
     font-weight: 600;
     }
@@ -92,7 +92,7 @@
 
 .segment-button{
       border-color: $background-color;
-      background-color: $blue3;
+      background-color: $segment;
       color: $blue7;
       font-size: 1.3rem;
       font-weight: normal;
@@ -141,6 +141,10 @@ ion-title{
     overflow: hidden;
     text-overflow: ellipsis;
 //    width: 80%;
+}
+
+.segment-button.segment-activated {
+    border-color: #34495e;
 }
 
 .avatarText{

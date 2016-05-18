@@ -21,6 +21,7 @@
 @import "../components/posts-list/posts-list";
 @import "../components/tickets-list/tickets-list";
 @import "../components/queues-list/queues-list";
+@import "../pages/signup/signup";
 
 //item
 
@@ -280,7 +281,7 @@ scroll-content {
 
 .segment-button.segment-activated {
     color: $text-color;
-    background-color: $blue3;
+    background-color: $segment;
     font-weight: bold;
 }
 
