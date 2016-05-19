@@ -1,7 +1,6 @@
 import {IONIC_DIRECTIVES, NavController, NavParams, Config, Modal, Alert} from 'ionic-angular';
 import {Component, Input, OnChanges, OnInit} from 'angular2/core';
 import {TicketProvider} from '../../providers/ticket-provider';
-import {DataProvider} from '../../providers/data-provider';
 import {TicketDetailsPage} from '../../pages/ticket-details/ticket-details';
 import {CloseTicketModal} from '../../pages/modals/modals';
 import {htmlEscape} from '../../directives/helpers';
@@ -24,7 +23,7 @@ export class TicketsListComponent {
     pager: any;
     is_empty: boolean;
 
-    constructor(private nav: NavController, private navParams: NavParams, private config: Config, private ticketProvider: TicketProvider, private dataProvider: DataProvider) {
+    constructor(private nav: NavController, private navParams: NavParams, private config: Config, private ticketProvider: TicketProvider) {
         this.is_empty = false;
         this.pager = { page: 0, limit: this.LIMIT};
     }
@@ -115,7 +114,7 @@ export class TicketsListComponent {
 
               var post = htmlEscape(data.note.trim()).substr(0, 5000);
 
-              this.dataProvider.addTicketPost(ticket.id, post).subscribe(
+              this.ticketProvider.addTicketPost(ticket.id, post).subscribe(
                   data => {
                       this.nav.alert('Note added :)');
                   },

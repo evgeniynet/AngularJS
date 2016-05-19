@@ -1,6 +1,6 @@
 import {NavController, NavParams, Page, ViewController, Config} from 'ionic-angular';
 import {forwardRef} from 'angular2/core';
-import {DataProvider} from '../../../providers/data-provider';
+import {TicketProvider} from '../../../providers/ticket-provider';
 import {ApiData} from '../../../providers/api-data';
 import {htmlEscape} from '../../../directives/helpers';
 import {SelectListComponent} from '../../../components/select-list/select-list';
@@ -18,7 +18,7 @@ export class CloseTicketModal {
     selects: any;
     categories: any;
 
-    constructor(private nav: NavController, private navParams: NavParams, private apiData: ApiData, private dataProvider: DataProvider, private config: Config,
+    constructor(private nav: NavController, private navParams: NavParams, private apiData: ApiData, private ticketProvider: TicketProvider, private config: Config,
         private viewCtrl: ViewController) {
     }
 
@@ -98,7 +98,7 @@ export class CloseTicketModal {
 
             };
 
-            this.dataProvider.closeOpenTicket(this.ticket.key, data).subscribe(
+            this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(
                 data => {
                     this.nav.alert('Ticket has been closed :)');
                     this.dismiss(1);

@@ -1,7 +1,7 @@
 import {Page, Config, NavController, NavParams, ViewController, Modal} from 'ionic-angular';
 import {forwardRef} from 'angular2/core';
 import {FORM_DIRECTIVES, Validators} from 'angular2/common';
-import {DataProvider} from '../../../providers/data-provider';
+import {TicketProvider} from '../../../providers/ticket-provider';
 import {htmlEscape, getFullName} from '../../../directives/helpers';
 import {ClassListComponent} from '../../../components/class-list/class-list';
 import {SelectListComponent} from '../../../components/select-list/select-list';
@@ -19,7 +19,7 @@ export class TicketCreatePage {
     he: any;
     selects: any;
 
-    constructor(private nav: NavController, private navParams: NavParams, private dataProvider: DataProvider, private config: Config,
+    constructor(private nav: NavController, private navParams: NavParams, private ticketProvider: TicketProvider, private config: Config,
                  private viewCtrl: ViewController) {
     }
 
@@ -129,7 +129,7 @@ export class TicketCreatePage {
             this.ticket.user_id = this.he.is_techoradmin ? this.selects.user.selected : this.he.user_id;
             this.ticket.tech_id = this.selects.tech.selected;
 
-            this.dataProvider.addTicket(this.ticket).subscribe(
+            this.ticketProvider.addTicket(this.ticket).subscribe(
                 data => {
                     this.nav.alert('Ticket was Succesfully Created :)');
                     this.dismissPage(data);

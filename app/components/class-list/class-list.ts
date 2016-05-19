@@ -28,7 +28,6 @@ export class ClassListComponent {
      ngOnInit() {
          if (this.list.url) {
              this.url = this.list.url;
-             //this.apiData.Cache = this.apiData.get(this.list.url).share();
              if (this.preload) {
                  this.loadData(false);
              }
@@ -42,7 +41,6 @@ export class ClassListComponent {
      loadData(show) {
          if (this.url != this.list.url || !this.list.items || this.list.items.length == 0) {
              if (this.list.url) {
-                 //this.apiData.Cache.subscribe(
                  this.apiData.get(this.list.url).subscribe(
                      data => {
                          this.list.items = data;

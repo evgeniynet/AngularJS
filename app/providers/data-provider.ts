@@ -54,62 +54,6 @@ export class DataProvider {
         return this.apiData.get(url);
     }
 
-    getTicketsList(tab, id, pager) {
-    //"user","tech","alt","all"
-    let url = "";
-    switch (tab)
-    {
-        case "tech": 
-        url = "tickets?status=open&role=tech";
-        break;
-        case "all": 
-        url = "tickets?status=allopen&query=all";
-        break;
-        case "alt":
-        url = "tickets?status=open&role=alt_tech";
-        break;
-        case "open":
-        url = "tickets?status=open&account="+id;
-        break;
-        case "closed":
-        url = "tickets?status=closed&account="+id;
-        break;
-        case 'queue':
-        url = "queues/"+id;
-        break;
-        default:
-        //case "user":
-        url = "tickets?status=open,onhold&role=user";
-        break;
-    }
-    url = this.getPager(url, pager);
-    return this.apiData.get(url);
-}
-
-getTicketDetails(key) {
-    let url = `tickets/${key}`;
-    return this.apiData.get(url);
-}
-
-getTicketsCounts() {
-    let url = "tickets/counts";
-    if (!this._dataStore[url]) {
-        this._dataStore[url] = [];
-        this.data$[url] = new Observable(observer => { this._dataObserver[url] = observer; }).share();
-    }
-    else {
-        if (this._dataStore[url].open_all >= 0) {
-            setTimeout(() => {
-                this._dataObserver[url].next(this._dataStore[url] || []);
-            }, 0);
-        }
-    }
-    this.apiData.get(url).subscribe(data => {
-        this._dataStore[url] = data;
-        this._dataObserver[url].next(this._dataStore[url]);
-    }, error => console.log('Could not load tickets.'));
-}
-
 getQueueList(limit?) {
     let url = addp("queues","sort_by", "tickets_count");
     return this.apiData.get(url).map((arr: Array<any>) => {
@@ -121,18 +65,11 @@ getQueueList(limit?) {
     });
 }
 
-    getTimelogs(account_id, pager) {
-        let url = addp("time","account", account_id);
-    url = this.getPager(url, pager);
-    return this.apiData.get(url);
-}
-
 getInvoices(account_id, status, pager) {
     let url = addp("invoices","account", account_id);
     if (status === false)
         url = addp(url, "status", "unbilled");
-    url = this.getPager(url, pager);
-    return this.apiData.get(url);
+    return this.apiData.getPaged(url, pager);
 }
 
 getInvoice(id, account_id, project_id) {
@@ -153,25 +90,7 @@ getInvoice(id, account_id, project_id) {
 
 getExpenses(account_id, pager) {
     let url = addp("expenses", "account", account_id);
-    url = this.getPager(url, pager);
-    return this.apiData.get(url);
-}
-
-getPager(url, pager)
-{
-    if (pager) {
-        if (pager.limit)
-            url = addp(url, "limit", pager.limit);
-        if (pager.page)
-            url = addp(url, "page", pager.page);
-    }
-    return url;
-}
-
-getPaged(url, pager)
-{
-    url = this.getPager(url, pager);
-    return this.apiData.get(url);
+    return this.apiData.getPaged(url, pager);
 }
 
 getAccountList(is_dashboard, pager, is_no_stat?, is_open?) {
@@ -180,8 +99,7 @@ getAccountList(is_dashboard, pager, is_no_stat?, is_open?) {
         url = addp(url, "is_with_statistics", "false");
     if (is_open) 
         url = addp(url, "is_open_tickets", "true");
-    url = this.getPager(url, pager);
-    return this.apiData.get(url).map((arr: Array<any>) => {
+    return this.apiData.getPaged(url, pager).map((arr: Array<any>) => {
         if (is_dashboard && arr) {
             arr = arr.filter(val => val.account_statistics.ticket_counts.open > 0);
         }
@@ -197,21 +115,6 @@ getAccountDetails(id,is_no_stat?) {
 }
 
 
-
-addTicket(data) {
-    let url = "tickets";
-    data.status =  "open";
-    return this.apiData.get(url, data, "POST");
-}
-
-addTicketPost(id, note) {
-    let url = `tickets/${id}`;
-    let data = { "action": "response", 
-    "note_text": note,
-};
-return this.apiData.get(url, data, "POST");
-}
-
 addUser(email, firstname, lastname, role) {
     let url = "users";
     let data = {
@@ -221,16 +124,6 @@ addUser(email, firstname, lastname, role) {
         "role": role
 };
 return this.apiData.get(url, data, "POST");
-}
-
-closeOpenTicket(id, data) {
-    let url = `tickets/${id}`;
-    return this.apiData.get(url, data, "PUT");
-}
-
-addTime(id, data, method) {
-    let url = "time" + (!id ? "" : ("/" + id));
-    return this.apiData.get(url, data, method);
 }
 
 }

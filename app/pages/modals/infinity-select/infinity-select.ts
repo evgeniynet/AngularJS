@@ -1,5 +1,5 @@
 import {NavController, NavParams, Page, Config, ViewController} from 'ionic-angular';
-import {DataProvider} from '../../../providers/data-provider';
+import {ApiData} from '../../../providers/api-data';
 import {getFullName} from '../../../directives/helpers';
 
 @Page({
@@ -18,7 +18,7 @@ export class InfinitySelectModal {
     busy: boolean;
     pager: any;
 
-    constructor(private nav: NavController, private navParams: NavParams, private config: Config, private dataProvider: DataProvider,
+    constructor(private nav: NavController, private navParams: NavParams, private config: Config, private apiData: ApiData,
         private viewCtrl: ViewController) 
     {
     }
@@ -69,7 +69,7 @@ export class InfinitySelectModal {
     }
 
     getItems(infiniteScroll, timer?) {
-    this.dataProvider.getPaged(this.url, this.pager).subscribe(
+    this.apiData.getPaged(this.url, this.pager).subscribe(
             data => {
                 if (data.length && !data[0].name) {
                     var results = [];

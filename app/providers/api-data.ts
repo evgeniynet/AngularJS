@@ -3,6 +3,7 @@ import {IonicApp, Config, Events, NavController} from 'ionic-angular';
 import {Http, Headers, RequestOptions, Request} from 'angular2/http';
 import {Observable} from 'rxjs/Observable';
 import {ApiSite, dontClearCache} from './config';
+import {addp} from '../directives/helpers';
 import {MOCKS} from './mocks';
 //import 'rxjs/Rx'
 import 'rxjs/add/operator/map';
@@ -75,6 +76,21 @@ processData(data) {
     // build up the data by linking speakers to sessions
     //console.log(JSON.stringify(data));
     return data;
+}
+
+getPager(url, pager) {
+    if (pager) {
+        if (pager.limit)
+            url = addp(url, "limit", pager.limit);
+        if (pager.page)
+            url = addp(url, "page", pager.page);
+    }
+    return url;
+}
+
+getPaged(url, pager) {
+    url = this.getPager(url, pager);
+    return this.get(url);
 }
 
 handleError(error) : any {

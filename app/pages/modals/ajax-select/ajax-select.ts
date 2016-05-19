@@ -1,5 +1,5 @@
 import {NavController, NavParams, Page, Config, ViewController} from 'ionic-angular';
-import {DataProvider} from '../../../providers/data-provider';
+import {ApiData} from '../../../providers/api-data';
 import {getFullName, addp} from '../../../directives/helpers';
 import {Control} from 'angular2/common';
 import {Observable} from 'rxjs/Observable';
@@ -27,7 +27,7 @@ export class AjaxSelectModal {
     is_empty: boolean;
     busy: boolean;
 
-    constructor(private nav: NavController, private navParams: NavParams, private config: Config, private dataProvider: DataProvider,
+    constructor(private nav: NavController, private navParams: NavParams, private config: Config, private apiData: ApiData,
         private viewCtrl: ViewController/*, private jsonp: Jsonp*/) {
     }
 
@@ -94,7 +94,7 @@ export class AjaxSelectModal {
 
     getItems(term, timer) {
         this.items = [];
-        this.dataProvider.getPaged(addp(this.url, "search", term), this.pager).subscribe(
+        this.apiData.getPaged(addp(this.url, "search", term), this.pager).subscribe(
             data => {
                 if (data.length && !data[0].name) {
                     var results = [];

@@ -50,8 +50,8 @@ export class DashboardPage {
                     console.log(error || 'Server error');}
                     ); 
 
-        this.dataProvider.getTicketsCounts();
-        this.dataProvider.data$["tickets/counts"].subscribe(
+        this.ticketProvider.getTicketsCounts();
+        this.ticketProvider.tickets$["tickets/counts"].subscribe(
             data => {
                 this.counts = data;
                 this.config.setStat("tickets",

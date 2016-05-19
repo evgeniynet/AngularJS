@@ -78,8 +78,7 @@ export class TicketProvider {
                     }
                 
             }
-            url = this.getPager(url, pager);
-            this.apiData.get(url).subscribe(data => {
+            this.apiData.getPaged(url, pager).subscribe(data => {
                 if (pager.page > 0)
                     this._dataStore[tab].push(...data);
                 else
@@ -100,24 +99,21 @@ export class TicketProvider {
 
         getTicketsCounts() {
             let url = "tickets/counts";
-            return this.apiData.get(url);
-        }
-
-        getPager(url, pager)
-        {
-            if (pager) {
-                if (pager.limit)
-                    url = addp(url, "limit", pager.limit);
-                if (pager.page)
-                    url = addp(url, "page", pager.page);
+            if (!this._dataStore[url]) {
+                this._dataStore[url] = [];
+                this.tickets$[url] = new Observable(observer => { this._ticketsObserver[url] = observer; }).share();
             }
-            return url;
-        }
-
-        getPaged(url, pager)
-        {
-            url = this.getPager(url, pager);
-            return this.apiData.get(url);
+            else {
+                if (this._dataStore[url].open_all >= 0) {
+                    setTimeout(() => {
+                        this._ticketsObserver[url].next(this._dataStore[url] || []);
+                    }, 0);
+                }
+            }
+            this.apiData.get(url).subscribe(data => {
+                this._dataStore[url] = data;
+                this._ticketsObserver[url].next(this._dataStore[url]);
+            }, error => console.log('Could not load tickets.'));
         }
 
         addTicket(data) {
@@ -130,7 +126,16 @@ export class TicketProvider {
             let url = `tickets/${id}`;
             return this.apiData.get(url, data, "PUT");
         }
-    }
+
+        addTicketPost(id, note) {
+            let url = `tickets/${id}`;
+            let data = {
+                "action": "response",
+                "note_text": note,
+            };
+            return this.apiData.get(url, data, "POST");
+        }
+  }
 
 /*
 export interface Todo {

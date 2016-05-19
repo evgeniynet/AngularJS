@@ -1,7 +1,7 @@
 import {Page, Config, NavController, NavParams, Modal} from 'ionic-angular';
 import {FORM_DIRECTIVES, Validators} from 'angular2/common';
 import {AppSite} from '../../providers/config';
-import {DataProvider} from '../../providers/data-provider';
+import {TicketProvider} from '../../providers/ticket-provider';
 import {getDateTime, htmlEscape, getCurrency, getFullName, fullapplink, parseXml} from '../../directives/helpers';
 import {PostsListComponent} from '../../components/posts-list/posts-list';
 import {SelectListComponent} from '../../components/select-list/select-list';
@@ -29,7 +29,7 @@ export class TicketDetailsPage {
     ticketnote: string;
     attachments: any;
 
-    constructor(private nav: NavController, private navParams: NavParams, private dataProvider: DataProvider, private config: Config) {
+    constructor(private nav: NavController, private navParams: NavParams, private ticketProvider: TicketProvider, private config: Config) {
         this.ticket = {};
         this.ticket.customfields = [];
         this.posts = [
@@ -121,7 +121,7 @@ export class TicketDetailsPage {
     getPosts(key, isShortInfo)
     {
         if (isShortInfo) {
-            this.dataProvider.getTicketDetails(key).subscribe(
+            this.ticketProvider.getTicketDetails(key).subscribe(
                 data => {
                     this.processDetails(data);
                 },
@@ -180,7 +180,7 @@ export class TicketDetailsPage {
         if (form.valid) {
             var post = htmlEscape(this.ticketnote.trim()).substr(0, 5000);
 
-            this.dataProvider.addTicketPost(this.ticket.id, post).subscribe(
+            this.ticketProvider.addTicketPost(this.ticket.id, post).subscribe(
                 data => {
                     this.nav.alert('Note added :)');
                     this.ticketnote = "";
@@ -206,7 +206,7 @@ export class TicketDetailsPage {
             "tech_id": this.selects.tech.selected
         };
 
-        this.dataProvider.closeOpenTicket(this.ticket.key, data).subscribe(
+        this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(
             data => {
                 this.nav.alert('Ticket was successfully updated :)');
                 this.getPosts(this.ticket.key, true);
@@ -228,7 +228,7 @@ export class TicketDetailsPage {
             "tech_id": techid
         };
 
-        this.dataProvider.closeOpenTicket(this.ticket.key, data).subscribe(
+        this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(
             data => {
                 this.nav.alert('Ticket has been transferred :)');
                 this.techname = this.selects.tech.value = this.ticket.tech_firstname = event.name;
@@ -248,7 +248,7 @@ export class TicketDetailsPage {
             "note_text": ""
         };
 
-        this.dataProvider.closeOpenTicket(this.ticket.key, data).subscribe(
+        this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(
             data => {
                 this.nav.alert('Ticket pickup was Succesfull!');
                 this.techname = this.selects.tech.value = this.ticket.tech_firstname = getFullName(this.he.firstname, this.he.lastname, this.he.email);

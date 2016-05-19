@@ -6,6 +6,7 @@ import {OnInit, OnDestroy} from 'angular2/core';
 import {ApiData} from './providers/api-data';
 import {DataProvider} from './providers/data-provider';
 import {TicketProvider} from './providers/ticket-provider';
+import {TimeProvider} from './providers/time-provider';
 import {AppSite, dontClearCache} from './providers/config';
 import {MOCKS} from './providers/mocks';
 import * as helpers from './directives/helpers';
@@ -47,7 +48,7 @@ export interface Stat {
   }
 })
 class MyApp {
-  
+
   pages: Array<any>;
   rootPage: any;
 
@@ -131,31 +132,12 @@ class MyApp {
         }
 
         if (!config.current.org || !config.current.instance)
-                {
-                  this.rootPage = OrganizationsPage;
-                  return;
-                }
+        {
+          this.rootPage = OrganizationsPage;
+          return;
+        }
 
-        // set our app's pages
-        let techpages = 
-         [
-          { title: 'Dashboard', component: DashboardPage, icon: "speedometer", is_active: true },
-          { title: 'Tickets', component: TicketsPage, icon: "create", is_active: true },
-          { title: 'Timelogs', component: TimelogsPage, icon: "md-time", is_active: config.current.is_time_tracking },
-          { title: 'Accounts', component: AccountsPage, icon: "people", is_active: config.current.is_account_manager },
-          { title: 'Invoices', component: InvoicesPage, icon: "card", is_active: config.current.is_time_tracking && config.current.is_invoice },
-          { title: 'Queues', component: QueuesPage, icon: "list-box", is_active: config.current.is_unassigned_queue },
-          { title: 'Switch Org', component: OrganizationsPage, icon: "md-swap", is_active: true },
-          { title: 'Signout', component: LoginPage, icon: "md-log-in", is_active: true },
-          { title: 'Full App', component: null, icon: "md-share-alt", is_active: true },
-        ];
-
-        let userpages = [
-          { title: 'Tickets', component: TicketsPage, icon: "create", is_active: true },
-          { title: 'Switch Org', component: OrganizationsPage, icon: "md-swap", is_active: true },
-          { title: 'Signout', component: LoginPage, icon: "md-log-in", is_active: true },
-          { title: 'Full App', component: null, icon: "md-share-alt", is_active: true },
-        ];
+        config.saveCurrent();
 
         // set first pages
         //this.rootPage = HelloIonicPage; return;
@@ -168,15 +150,32 @@ class MyApp {
         //this.rootPage = TicketCreatePage; return;
         //this.rootPage = AddUserModal; return;
 
-        config.saveCurrent();
+        // set our app's pages
+        if (config.current.is_tech) 
+          this.pages = [
+        { title: 'Dashboard', component: DashboardPage, icon: "speedometer", is_active: true },
+        { title: 'Tickets', component: TicketsPage, icon: "create", is_active: true },
+        { title: 'Timelogs', component: TimelogsPage, icon: "md-time", is_active: config.current.is_time_tracking },
+        { title: 'Accounts', component: AccountsPage, icon: "people", is_active: config.current.is_account_manager },
+        { title: 'Invoices', component: InvoicesPage, icon: "card", is_active: config.current.is_time_tracking && config.current.is_invoice },
+        { title: 'Queues', component: QueuesPage, icon: "list-box", is_active: config.current.is_unassigned_queue },
+        { title: 'Switch Org', component: OrganizationsPage, icon: "md-swap", is_active: true },
+        { title: 'Signout', component: LoginPage, icon: "md-log-in", is_active: true },
+        { title: 'Full App', component: null, icon: "md-share-alt", is_active: true },
+        ];
+        else
+          this.pages = [
+        { title: 'Tickets', component: TicketsPage, icon: "create", is_active: true },
+        { title: 'Switch Org', component: OrganizationsPage, icon: "md-swap", is_active: true },
+        { title: 'Signout', component: LoginPage, icon: "md-log-in", is_active: true },
+        { title: 'Full App', component: null, icon: "md-share-alt", is_active: true },
+        ];
 
         if (config.current.is_tech)
         {
-          this.pages = techpages;
           this.rootPage = DashboardPage;
         }
         else {
-          this.pages = userpages;
           this.rootPage = TicketsPage; 
         }
       }
@@ -184,21 +183,21 @@ class MyApp {
       initializeApp() {
         this.platform.ready().then(() => {
           //console.log('Platform ready');
-      let nav = this.app.getComponent('nav');
-    
-    nav.alert = function(message, isNeg) {
-      let toast = Toast.create({
-        message: message,
-        duration: 3000,
-        cssClass: isNeg ? "toast-error" : "toast-ok"
-      });
+          let nav = this.app.getComponent('nav');
 
-      toast.onDismiss(() => {
+          nav.alert = function(message, isNeg) {
+            let toast = Toast.create({
+              message: message,
+              duration: 3000,
+              cssClass: isNeg ? "toast-error" : "toast-ok"
+            });
+
+            toast.onDismiss(() => {
         //console.log('Dismissed toast');
       });
-      this.present(toast);
-    };
-    });
+            this.present(toast);
+          };
+        });
       }
 
       openPage(page, param?) {

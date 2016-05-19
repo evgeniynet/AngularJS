@@ -1,7 +1,7 @@
 import {Page, Config, NavController, NavParams, ViewController} from 'ionic-angular';
 import {forwardRef} from 'angular2/core';
 import {getDateTime, htmlEscape} from '../../directives/helpers';
-import {DataProvider} from '../../providers/data-provider';
+import {TimeProvider} from '../../providers/time-provider';
 import {ClassListComponent} from '../../components/class-list/class-list';
 import {SelectListComponent} from '../../components/select-list/select-list';
 
@@ -20,7 +20,7 @@ export class TimelogPage {
     he: any;
     selects: any;
 
-    constructor(private nav: NavController, private navParams: NavParams, private dataProvider: DataProvider, private config: Config, private view: ViewController) {
+    constructor(private nav: NavController, private navParams: NavParams, private timeProvider: TimeProvider, private config: Config, private view: ViewController) {
     }
 
     decrement()
@@ -157,7 +157,7 @@ export class TimelogPage {
                 "stop_date": ""//dat2 ? edat : ""
             };
 
-            this.dataProvider.addTime(this.time.time_id, data, isEdit ? "PUT" : "POST").subscribe(
+            this.timeProvider.addTime(this.time.time_id, data, isEdit ? "PUT" : "POST").subscribe(
                 data => {
                     this.nav.alert('Time was successfully added :)');
                     this.close();
