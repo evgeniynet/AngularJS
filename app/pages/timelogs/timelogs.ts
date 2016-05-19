@@ -16,14 +16,16 @@ export class TimelogsPage {
     count: number;
     account: any;
     is_empty: boolean;
-    busy: boolean;
     params: any;
     pager: any;
+    cachelen: number;
+    cachename: string;
     timelogs: Array<any>;
 
 
     constructor(private nav: NavController, private timeProvider: TimeProvider, private config: Config, private navParams: NavParams) {
         this.is_empty = false;
+        this.pager = { page: 0, limit: this.LIMIT };
   }
     
     onPageLoaded()
@@ -32,56 +34,33 @@ export class TimelogsPage {
         this.pager = { page: 0 };
         this.params.account = { id: this.params.account_id || -1, name: this.params.account_name || this.config.getCurrent("user").account_name };
 
+        this.cachename = "time?account=" + this.params.account.id;
+        this.cachelen = (this.timeProvider._dataStore[this.cachename] || {}).length;
+
         if (this.params.is_empty)
             this.params.count = 0;
 
         if (this.params.count !== 0) {
-            var timer = setTimeout(() => {
-                this.busy = true;
-            }, 500);
-
-            this.getItems(null, timer);
+            this.timeProvider.getTimelogs(this.params.account.id, this.pager);
+            this.timelogs = this.timeProvider.times$[this.cachename];
         }
         else
             this.is_empty = true;
     }
 
-
-    getItems(infiniteScroll, timer) {
-        this.timeProvider.getTimelogs(this.params.account.id, this.pager).subscribe(
-            data => {
-                if (timer) {
-                    this.is_empty = !data.length;
-                    clearTimeout(timer);
-                    this.busy = false;
-                    this.timelogs = data;
-                }
-                else
-                    this.timelogs.push(...data);
-                if (infiniteScroll) {
-                    infiniteScroll.enable(data.length == this.LIMIT);
-                    infiniteScroll.complete();
-                }
-                this.count = data.length;
-            },
-            error => {
-                if (timer) {
-                    clearTimeout(timer);
-                    this.busy = false;
-                }
-                console.log(error || 'Server error');
-            }
-        );
-    }
-
     doInfinite(infiniteScroll) {
-        if (this.is_empty || this.count < this.LIMIT) {
+        if (this.is_empty || (this.cachelen > 0 && (this.cachelen % this.LIMIT)) || (this.count > 0 && (this.count < this.LIMIT))) {
             infiniteScroll.enable(false);
             infiniteScroll.complete();
             return;
         }
         this.pager.page += 1;
-        this.getItems(infiniteScroll, null);
+        this.timeProvider.getTimelogs(this.params.account.id, this.pager);
+        this.timeProvider.times$[this.cachename].subscribe(
+            data => {
+                infiniteScroll.complete();
+                infiniteScroll.enable(!(data.length % this.LIMIT));
+            });
     }
     
     itemTapped(time) {

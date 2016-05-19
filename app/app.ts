@@ -41,7 +41,7 @@ export interface Stat {
 
 @App({
   templateUrl: 'build/app.html',
-  providers: [ApiData, DataProvider, TicketProvider],
+  providers: [ApiData, DataProvider, TicketProvider, TimeProvider],
   prodMode : true,
   config: {
     tabbarPlacement: 'top'
