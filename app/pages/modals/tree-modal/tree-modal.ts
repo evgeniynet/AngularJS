@@ -1,4 +1,4 @@
-import {NavController, NavParams, Page, Events, ViewController} from 'ionic-angular';
+import {Nav, NavParams, Page, Events, ViewController} from 'ionic-angular';
 //import {Input} from '@angular/core';
 import {Component, OnInit} from '@angular/core';
 //import {NgClass} from '@angular/common';

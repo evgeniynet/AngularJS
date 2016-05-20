@@ -5,7 +5,7 @@ import {Pipe} from '@angular/core';
 })
 export class MorePipe {
     transform(value, args) {
-        args = args.length ? args :  [[100, "VV"]]; 
+        args = args || [[100, "VV"]]; 
         value = value || 0;
         let max = args[0][0]; 
         let template = args[0][1] || "VV"; 

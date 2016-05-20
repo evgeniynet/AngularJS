@@ -1,4 +1,4 @@
-import {NavController, NavParams, Page, Config, ViewController} from 'ionic-angular';
+import {Nav, NavParams, Page, Config, ViewController} from 'ionic-angular';
 import {ApiData} from '../../../providers/api-data';
 import {getFullName, addp} from '../../../directives/helpers';
 import {Control} from '@angular/common';
@@ -27,7 +27,7 @@ export class AjaxSelectModal {
     is_empty: boolean;
     busy: boolean;
 
-    constructor(private nav: NavController, private navParams: NavParams, private config: Config, private apiData: ApiData,
+    constructor(private nav: Nav, private navParams: NavParams, private config: Config, private apiData: ApiData,
         private viewCtrl: ViewController/*, private jsonp: Jsonp*/) {
     }
 

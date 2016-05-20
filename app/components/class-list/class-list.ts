@@ -1,4 +1,4 @@
-import {IONIC_DIRECTIVES, NavController, Modal, Alert, Config} from 'ionic-angular';
+import {IONIC_DIRECTIVES, Nav, Modal, Alert, Config} from 'ionic-angular';
 import {ApiData} from '../../providers/api-data';
 import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 import {TreeModal} from '../../pages/modals/modals';
@@ -19,7 +19,7 @@ export class ClassListComponent {
     selected: Object;
     url: any;
 
-     constructor(private nav: NavController, private apiData: ApiData, private config: Config) {
+     constructor(private nav: Nav, private apiData: ApiData, private config: Config) {
          this.init = true;
          this.list = {};
          this.selected = {};

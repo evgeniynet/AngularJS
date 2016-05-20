@@ -1,4 +1,4 @@
-import {Page, NavController} from 'ionic-angular';
+import {Page, Nav} from 'ionic-angular';
 import {TicketsPage} from '../tickets/tickets';
 import {DataProvider} from '../../providers/data-provider';
 import {QueuesListComponent, ActionButtonComponent} from '../../components/components';
@@ -11,7 +11,7 @@ export class QueuesPage {
 
     queues: any;
     
-    constructor(private nav: NavController, private dataProvider: DataProvider) {
+    constructor(private nav: Nav, private dataProvider: DataProvider) {
   }
     
     onPageLoaded()

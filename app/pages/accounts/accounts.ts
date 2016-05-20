@@ -1,4 +1,4 @@
-import {Page, Config, NavController} from 'ionic-angular';
+import {Page, Config, Nav} from 'ionic-angular';
 import {DataProvider} from '../../providers/data-provider';
 import {AccountsListComponent, ActionButtonComponent} from '../../components/components';
 
@@ -16,7 +16,7 @@ export class AccountsPage {
     pager: any;
     accounts: Array<any>;
 
-    constructor(private nav: NavController, private config: Config, private dataProvider: DataProvider) {
+    constructor(private nav: Nav, private config: Config, private dataProvider: DataProvider) {
   }
     
     onPageLoaded()

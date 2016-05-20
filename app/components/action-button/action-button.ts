@@ -1,4 +1,4 @@
-import {Page, ActionSheet, IONIC_DIRECTIVES, NavController, NavParams, Modal, Config} from 'ionic-angular';
+import {Page, ActionSheet, IONIC_DIRECTIVES, Nav, NavParams, Modal, Config} from 'ionic-angular';
 import {Component, Input, Output, EventEmitter, OnInit, OnDestroy} from '@angular/core';
 import {TicketCreatePage} from '../../pages/modals/modals';
 import {TimelogPage} from '../../pages/timelog/timelog';
@@ -17,7 +17,7 @@ export class ActionButtonComponent {
     @Input() data: any;
     current: any;
 
-    constructor(private navParams: NavParams, private nav: NavController, private config: Config) {
+    constructor(private navParams: NavParams, private nav: Nav, private config: Config) {
         this.current = config.getCurrent();
         this.data = {};
     }

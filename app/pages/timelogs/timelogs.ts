@@ -1,4 +1,4 @@
-import {Page, Config, NavController, NavParams} from 'ionic-angular';
+import {Page, Config, Nav, NavParams} from 'ionic-angular';
 import {TimeProvider} from '../../providers/time-provider';
 import {TimelogPage} from '../timelog/timelog';
 import {ActionButtonComponent} from '../../components/action-button/action-button';
@@ -23,7 +23,7 @@ export class TimelogsPage {
     timelogs: Array<any>;
 
 
-    constructor(private nav: NavController, private timeProvider: TimeProvider, private config: Config, private navParams: NavParams) {
+    constructor(private nav: Nav, private timeProvider: TimeProvider, private config: Config, private navParams: NavParams) {
         this.is_empty = false;
         this.pager = { page: 0, limit: this.LIMIT };
   }

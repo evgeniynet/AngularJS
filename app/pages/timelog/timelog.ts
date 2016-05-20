@@ -1,4 +1,4 @@
-import {Page, Config, NavController, NavParams, ViewController} from 'ionic-angular';
+import {Page, Config, Nav, NavParams, ViewController} from 'ionic-angular';
 import {forwardRef} from '@angular/core';
 import {getDateTime, htmlEscape} from '../../directives/helpers';
 import {TimeProvider} from '../../providers/time-provider';
@@ -20,7 +20,7 @@ export class TimelogPage {
     he: any;
     selects: any;
 
-    constructor(private nav: NavController, private navParams: NavParams, private timeProvider: TimeProvider, private config: Config, private view: ViewController) {
+    constructor(private nav: Nav, private navParams: NavParams, private timeProvider: TimeProvider, private config: Config, private view: ViewController) {
     }
 
     decrement()

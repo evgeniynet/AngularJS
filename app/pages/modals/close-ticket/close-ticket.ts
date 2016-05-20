@@ -1,4 +1,4 @@
-import {NavController, NavParams, Page, ViewController, Config} from 'ionic-angular';
+import {Nav, NavParams, Page, ViewController, Config} from 'ionic-angular';
 import {forwardRef} from '@angular/core';
 import {TicketProvider} from '../../../providers/ticket-provider';
 import {ApiData} from '../../../providers/api-data';
@@ -18,7 +18,7 @@ export class CloseTicketModal {
     selects: any;
     categories: any;
 
-    constructor(private nav: NavController, private navParams: NavParams, private apiData: ApiData, private ticketProvider: TicketProvider, private config: Config,
+    constructor(private nav: Nav, private navParams: NavParams, private apiData: ApiData, private ticketProvider: TicketProvider, private config: Config,
         private viewCtrl: ViewController) {
     }
 

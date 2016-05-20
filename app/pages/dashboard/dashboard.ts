@@ -1,4 +1,4 @@
-import {Page, Config, NavController} from 'ionic-angular';
+import {Page, Config, Nav} from 'ionic-angular';
 import {DataProvider} from '../../providers/data-provider';
 import {TicketProvider} from '../../providers/ticket-provider';
 import * as helpers from '../../directives/helpers';
@@ -18,7 +18,7 @@ export class DashboardPage {
     accounts: Array<any>;
     queues: Array<any>;
 
-    constructor(private nav: NavController, private config: Config, private dataProvider: DataProvider, private ticketProvider: TicketProvider) {
+    constructor(private nav: Nav, private config: Config, private dataProvider: DataProvider, private ticketProvider: TicketProvider) {
         this.counts = {open_as_tech: 0}; 
     }
     

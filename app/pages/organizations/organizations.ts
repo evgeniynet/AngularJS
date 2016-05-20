@@ -1,4 +1,4 @@
-import {Page, Config, NavController} from 'ionic-angular';
+import {Page, Config, Nav} from 'ionic-angular';
 import {DataProvider} from '../../providers/data-provider';
 import {saveCache} from '../../directives/helpers';
 import {LoginPage} from '../login/login';
@@ -12,7 +12,7 @@ export class OrganizationsPage {
 
     list: Array<any>;
 
-    constructor(private nav: NavController, private dataProvider: DataProvider, private config: Config) {
+    constructor(private nav: Nav, private dataProvider: DataProvider, private config: Config) {
         //partly logout
         localStorage.clear();
         let he = this.config.getCurrent("user");

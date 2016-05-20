@@ -1,4 +1,4 @@
-import {Page, Config, NavController, NavParams, ViewController} from 'ionic-angular';
+import {Page, Config, Nav, NavParams, ViewController} from 'ionic-angular';
 import {FORM_DIRECTIVES, Validators} from '@angular/common';
 import {DataProvider} from '../../../providers/data-provider';
 //import {htmlEscape, getFullName} from '../../../directives/helpers';
@@ -11,7 +11,7 @@ export class AddUserModal {
     ispassword: boolean;
     data: any;
 
-	constructor(private nav: NavController, private navParams: NavParams, private dataProvider: DataProvider, private config: Config,
+	constructor(private nav: Nav, private navParams: NavParams, private dataProvider: DataProvider, private config: Config,
 		private viewCtrl: ViewController) {
     }
 

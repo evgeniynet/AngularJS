@@ -1,4 +1,4 @@
-import {Page, Config, NavController, NavParams} from 'ionic-angular';
+import {Page, Config, Nav, NavParams} from 'ionic-angular';
 import {DataProvider} from '../../providers/data-provider';
 import {getDateTime, getCurrency} from '../../directives/helpers';
 import {ExpenseCreatePage} from '../expense-create/expense-create';
@@ -19,7 +19,7 @@ export class ExpensesPage {
     expenses: Array<any>;
 
 
-    constructor(private nav: NavController, private dataProvider: DataProvider, private config: Config, private navParams: NavParams) {
+    constructor(private nav: Nav, private dataProvider: DataProvider, private config: Config, private navParams: NavParams) {
         this.is_empty = false;
     }
     

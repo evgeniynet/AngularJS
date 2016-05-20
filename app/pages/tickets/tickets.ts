@@ -1,4 +1,4 @@
-import {Page, Config, NavController, NavParams, Modal} from 'ionic-angular';
+import {Page, Config, Nav, NavParams, Modal} from 'ionic-angular';
 import {TicketCreatePage} from '../modals/modals'; 
 import {TicketDetailsPage} from '../ticket-details/ticket-details';
 import {TicketsListComponent} from '../../components/components';
@@ -13,7 +13,7 @@ export class TicketsPage {
     is_tech: boolean;
     ticket_tab: string;
     
-    constructor(private nav: NavController, private navParams: NavParams, private config: Config) {
+    constructor(private nav: Nav, private navParams: NavParams, private config: Config) {
            this.counts = {};
     }
     

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {IonicApp, Config, Events, NavController} from 'ionic-angular';
+import {IonicApp, Config, Events, Nav} from 'ionic-angular';
 import {Http, Headers, RequestOptions, Request} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {ApiSite, dontClearCache} from './config';

@@ -1,4 +1,4 @@
-import {Page, Config, NavController, NavParams, Modal} from 'ionic-angular';
+import {Page, Config, Nav, NavParams, Modal} from 'ionic-angular';
 import {FORM_DIRECTIVES, Validators} from '@angular/common';
 import {AppSite} from '../../providers/config';
 import {TicketProvider} from '../../providers/ticket-provider';
@@ -29,7 +29,7 @@ export class TicketDetailsPage {
     ticketnote: string;
     attachments: any;
 
-    constructor(private nav: NavController, private navParams: NavParams, private ticketProvider: TicketProvider, private config: Config) {
+    constructor(private nav: Nav, private navParams: NavParams, private ticketProvider: TicketProvider, private config: Config) {
         this.ticket = {};
         this.ticket.customfields = [];
         this.posts = [

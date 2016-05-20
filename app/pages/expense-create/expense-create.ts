@@ -1,4 +1,4 @@
-import {Page, Config, NavController, NavParams, ViewController} from 'ionic-angular';
+import {Page, Config, Nav, NavParams, ViewController} from 'ionic-angular';
 import {forwardRef} from '@angular/core';
 import {getDateTime, htmlEscape} from '../../directives/helpers';
 import {ApiData} from '../../providers/api-data';
@@ -16,7 +16,7 @@ export class ExpenseCreatePage {
     he: any;
     selects: any;
 
-    constructor(private nav: NavController, private navParams: NavParams, private apiData: ApiData, private config: Config, private view: ViewController) {
+    constructor(private nav: Nav, private navParams: NavParams, private apiData: ApiData, private config: Config, private view: ViewController) {
     }
     
     onPageLoaded()

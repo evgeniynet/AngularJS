@@ -1,4 +1,4 @@
-import {IONIC_DIRECTIVES, NavController, NavParams} from 'ionic-angular';
+import {IONIC_DIRECTIVES, Nav, NavParams} from 'ionic-angular';
 import {Component, Input, OnChanges} from '@angular/core';
 import {QueueTicketsPage} from '../../pages/queue-tickets/queue-tickets';
 import {MorePipe} from '../../pipes/pipes';
@@ -15,7 +15,7 @@ export class QueuesListComponent {
     @Input() simple: boolean;
     is_empty: boolean;
 
-     constructor(private nav: NavController) {
+     constructor(private nav: Nav) {
          this.is_empty = false;
 }
      

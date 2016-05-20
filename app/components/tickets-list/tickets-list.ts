@@ -1,4 +1,4 @@
-import {IONIC_DIRECTIVES, NavController, NavParams, Config, Modal, Alert} from 'ionic-angular';
+import {IONIC_DIRECTIVES, Nav, NavParams, Config, Modal, Alert} from 'ionic-angular';
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {TicketProvider} from '../../providers/ticket-provider';
 import {TicketDetailsPage} from '../../pages/ticket-details/ticket-details';
@@ -23,7 +23,7 @@ export class TicketsListComponent {
     pager: any;
     is_empty: boolean;
 
-    constructor(private nav: NavController, private navParams: NavParams, private config: Config, private ticketProvider: TicketProvider) {
+    constructor(private nav: Nav, private navParams: NavParams, private config: Config, private ticketProvider: TicketProvider) {
         this.is_empty = false;
         this.pager = { page: 0, limit: this.LIMIT};
     }

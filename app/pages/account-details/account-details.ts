@@ -1,4 +1,4 @@
-import {Page, Config, NavController, NavParams} from 'ionic-angular';
+import {Page, Config, Nav, NavParams} from 'ionic-angular';
 import {DataProvider} from '../../providers/data-provider';
 import {InvoicesPage} from '../invoices/invoices';
 import {TimelogsPage} from '../timelogs/timelogs';
@@ -20,7 +20,7 @@ export class AccountDetailsPage {
     details_tab: string;
     tabsTicket: string; 
 
-    constructor(private nav: NavController, private navParams: NavParams, private dataProvider: DataProvider, private config: Config) {
+    constructor(private nav: Nav, private navParams: NavParams, private dataProvider: DataProvider, private config: Config) {
         this.details_tab = "Stat";
         this.pages = [InvoicesPage, ExpensesPage, TimelogsPage];
   }
