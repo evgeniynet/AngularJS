@@ -13,7 +13,7 @@ const alertLimit = 5;
     directives: [IONIC_DIRECTIVES]
 })
 export class SelectListComponent {
-    @Input() list: any = {};
+    @Input() list: any;
     @Input() isbutton: boolean;
     @Input() customwidth: boolean;
     @Input() preload: boolean;
@@ -42,7 +42,6 @@ export class SelectListComponent {
     }
 */
     ngOnInit() {
-        this.list = this.list || {};
         if (this.list.url)
         {
             this.url = this.list.url;

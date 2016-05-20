@@ -23,7 +23,7 @@ export class CloseTicketModal {
     }
 
 
-    onPageLoaded() {
+    ngOnInit() {
 
         this.isconfirm = true;
 

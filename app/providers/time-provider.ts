@@ -25,7 +25,6 @@ export class TimeProvider {
 
     getTimelogs(account_id, pager) {
         let url = addp("time", "account", account_id);
-        console.log(url);
         pager.limit = pager.limit || 25;
         pager.page = pager.page || 0;
         this._dataStore[url] = this._dataStore[url] || [];

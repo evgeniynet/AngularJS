@@ -19,7 +19,7 @@ export class ExpenseCreatePage {
     constructor(private nav: Nav, private navParams: NavParams, private apiData: ApiData, private config: Config, private view: ViewController) {
     }
     
-    onPageLoaded()
+    ngOnInit()
     {
         this.expense = this.navParams.data || {};
 

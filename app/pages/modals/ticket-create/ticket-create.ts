@@ -23,7 +23,7 @@ export class TicketCreatePage {
                  private viewCtrl: ViewController) {
     }
 
-    onPageLoaded()
+    ngOnInit()
     {
         this.he = this.config.getCurrent("user");
 

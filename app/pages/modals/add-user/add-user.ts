@@ -15,7 +15,7 @@ export class AddUserModal {
 		private viewCtrl: ViewController) {
     }
 
-	onPageLoaded() {
+    ngOnInit() {
 		this.ispassword = true;
         this.data = this.navParams.data || {};
         //this.data.type = this.data;

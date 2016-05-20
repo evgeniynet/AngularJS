@@ -11,7 +11,7 @@ export class FilesPipe {
        
         value = value || "";
         
-        var files = args[0] || [];   
+        var files = args || [];   
         
         if (!value || !files || files.length == 0 || 
             ! (~value.indexOf("cid:") || ~value.indexOf("ollowing file"))) return value;

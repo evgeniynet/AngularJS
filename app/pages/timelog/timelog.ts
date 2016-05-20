@@ -33,10 +33,10 @@ export class TimelogPage {
         this.timecount = (Number(this.timecount) + this.inc).toFixed(2);
     }
     
-    onPageLoaded()
+    ngOnInit()
     {
         this.time = this.navParams.data || {};
-
+        
         this.mintime = this.config.getCurrent("time_minimum_time") || 0.25;
         this.mintime = this.mintime > 0 ? this.mintime : 0.25;
 
