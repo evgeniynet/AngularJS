@@ -63,10 +63,6 @@ body {
     left: 11px;
 }
 
-//ion-buttons {
-//    margin: 0px 2.2rem;
-//}
-
 .searchbar-input{
     text-align: center;
     padding: 6px 0px 0px 6px;
@@ -152,7 +148,6 @@ ion-title{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-//    width: 80%;
 }
 
 .button{
@@ -172,11 +167,11 @@ ion-list .item-inner {
 }
 
 .item-inner {
-    border-bottom: 1px solid $class-list3;
+    border-bottom: 1px solid $text;
 }
 
 .toggle-inner {
-    background-color: $class-list3;
+    background-color: $text;
 }
 
 .avatarText{
