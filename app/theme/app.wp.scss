@@ -180,6 +180,23 @@ ion-list .item-inner {
     height: 76px;
 }
 
+.picker-wrapper {
+    background: $text-color;
+}
+
+.picker-toolbar {
+    background: $blue6;
+}
+
+.picker-columns {
+    background-color: $text-color;
+}
+
+.picker-prefix, .picker-suffix, .picker-opt-selected {
+    color: $blue6;
+}
+
+
 .recipient-calc {
 //    width: calc(100% - 40px);
 }
