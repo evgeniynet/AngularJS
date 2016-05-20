@@ -15,10 +15,10 @@ export class TimelogPage {
     isbillable: boolean;
     timecount: any;
     mintime: number;
-    time: any;
+    time: any = {};
     timenote: string;
     he: any;
-    selects: any;
+    selects: any = {};
 
     constructor(private nav: Nav, private navParams: NavParams, private timeProvider: TimeProvider, private config: Config, private view: ViewController) {
     }
