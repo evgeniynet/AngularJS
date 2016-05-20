@@ -453,7 +453,6 @@ scroll-content {
 //button
 
 
-
 .billable {
     font-size: 26px;
     height: 40px;
@@ -466,6 +465,7 @@ scroll-content {
 
 .button-icon-only ion-icon {
     padding: 0 0.2em;
+    
 }
 
 .searchbar-input {
@@ -537,6 +537,10 @@ border-left: 1px solid rgba(255, 255, 255, 0.4);
 
 .alert-title {
     font-size: 21px;
+}
+
+ion-datetime{
+    max-width: 64%;
 }
 
 //width
