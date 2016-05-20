@@ -142,10 +142,12 @@ export class TicketCreatePage {
 
     addUser(type)
     {
-        let myModal = Modal.create(AddUserModal, type);
+        let myModal = Modal.create(AddUserModal, {type});
         myModal.onDismiss(data => {
+            if (data){
             this.selects[type].selected = data.id;
             this.selects[type].value = getFullName(data.firstname, data.lastname, data.email);
+        }
         });
         setTimeout(() => {
             this.nav.present(myModal);

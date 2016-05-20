@@ -17,7 +17,7 @@ export class AddUserModal {
 
     ngOnInit() {
 		this.ispassword = true;
-        this.data = this.navParams.data || {};
+        this.data = (this.navParams.data || {}).type || {};
         //this.data.type = this.data;
 	}
 
