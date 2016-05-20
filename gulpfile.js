@@ -64,21 +64,21 @@ gulp.task('build', ['clean'], function(done){
 gulp.task('sass', buildSass);
 gulp.task('html', copyHTML);
 gulp.task('fonts', copyFonts);
-gulp.task('scripts', copyScripts);
-/*gulp.task('scripts', function () {
+//gulp.task('scripts', copyScripts);
+gulp.task('scripts', function () {
     return copyScripts({
         src: [
             'node_modules/es6-shim/es6-shim.min.js',
-            'node_modules/@angular/bundles/zone.js',
-            'node_modules/@angular/bundles/Reflect.js'
+            'node_modules/zone.js/dist/zone.js',
+            'node_modules/reflect-metadata/Reflect.js'
             //'node_modules/intl/dist/Intl.min.js', // Fix internationalization on safari browsers (used in angular2 currency pipes)
             //'node_modules/intl/locale-data/jsonp/ru.js', // Russian locale
             //'node_modules/intl/locale-data/jsonp/en.js', // English locale
-            'node_modules/angular2/es6/dev/src/testing/shims_for_IE.js'
+            'resources/lib/shims_for_IE.js'
         ]
     });
 });
-*/
+
 gulp.task('clean', function(){
   return del('www/build');
 });
