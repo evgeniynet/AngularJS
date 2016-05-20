@@ -1,5 +1,5 @@
 import {Page, Config, NavController, NavParams, Modal} from 'ionic-angular';
-import {FORM_DIRECTIVES, Validators} from 'angular2/common';
+import {FORM_DIRECTIVES, Validators} from '@angular/common';
 import {AppSite} from '../../providers/config';
 import {TicketProvider} from '../../providers/ticket-provider';
 import {getDateTime, htmlEscape, getCurrency, getFullName, fullapplink, parseXml} from '../../directives/helpers';

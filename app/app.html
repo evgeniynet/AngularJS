@@ -2,7 +2,7 @@
 
   <ion-content class="menu-bg">
       <ion-list no-lines class="subject-ticket">
-          <div *ngFor="#p of pages" (click)="openPage(p)">
+          <div *ngFor="let p of pages" (click)="openPage(p)">
           <button *ngIf="p.is_active" class="menu-bg item-nocenter" ion-item>
           <i class="ionFont">
  <ion-icon name="{{p.icon}}"></ion-icon>

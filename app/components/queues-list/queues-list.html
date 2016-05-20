@@ -1,5 +1,5 @@
 <ion-list class="tableText queues-list" no-lines>
-    <div *ngFor="#queue of queues" class="table" (click)="goToQueueTicketsPage(queue)">
+    <div *ngFor="let queue of queues" class="table" (click)="goToQueueTicketsPage(queue)">
         <span class="box5 box7 textLogin">{{queue.fullname}}</span>
         <span class="box6 box7" [innerHTML]="queue.tickets_count | More"></span>
     </div>

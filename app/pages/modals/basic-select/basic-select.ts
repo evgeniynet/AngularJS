@@ -1,5 +1,5 @@
 import {NavController, NavParams, Page, Events, ViewController} from 'ionic-angular';
-//import {Input} from 'angular2/core';
+//import {Input} from '@angular/core';
 
 @Page({
     templateUrl: 'build/pages/modals/basic-select/basic-select.html',

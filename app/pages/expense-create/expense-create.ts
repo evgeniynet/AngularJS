@@ -1,5 +1,5 @@
 import {Page, Config, NavController, NavParams, ViewController} from 'ionic-angular';
-import {forwardRef} from 'angular2/core';
+import {forwardRef} from '@angular/core';
 import {getDateTime, htmlEscape} from '../../directives/helpers';
 import {ApiData} from '../../providers/api-data';
 import {ClassListComponent} from '../../components/class-list/class-list';

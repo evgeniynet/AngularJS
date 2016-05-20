@@ -1,5 +1,5 @@
 import {NavController, NavParams, Page, ViewController, Config} from 'ionic-angular';
-import {forwardRef} from 'angular2/core';
+import {forwardRef} from '@angular/core';
 import {TicketProvider} from '../../../providers/ticket-provider';
 import {ApiData} from '../../../providers/api-data';
 import {htmlEscape} from '../../../directives/helpers';

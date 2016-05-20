@@ -1,4 +1,4 @@
-import {Page, Config, NavController} from 'ionic-angular';
+import {Page, Config, Nav} from 'ionic-angular';
 import {saveCache} from '../../directives/helpers';
 import {DataProvider} from '../../providers/data-provider';
 import {OrganizationsPage} from '../organizations/organizations';
@@ -11,7 +11,7 @@ export class LoginPage {
     
     login: any;
 
-    constructor(private nav: NavController, private dataProvider: DataProvider, private config: Config) {
+    constructor(private nav: Nav, private dataProvider: DataProvider, private config: Config) {
   }
     
     onPageLoaded()

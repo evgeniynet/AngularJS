@@ -13,7 +13,7 @@
 
     <ion-list class="list">
         
-        <ion-item class="basic-margin text-left" *ngFor="#item of items" (click)="dismiss(item)">
+        <ion-item class="basic-margin text-left" *ngFor="let item of items" (click)="dismiss(item)">
             <h2 class="color">{{item.name}}</h2>
             <!--ion-note item-right>
                 <h2>{{item.id}}</h2>

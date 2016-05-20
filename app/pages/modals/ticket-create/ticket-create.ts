@@ -1,6 +1,6 @@
 import {Page, Config, NavController, NavParams, ViewController, Modal} from 'ionic-angular';
-import {forwardRef} from 'angular2/core';
-import {FORM_DIRECTIVES, Validators} from 'angular2/common';
+import {forwardRef} from '@angular/core';
+import {FORM_DIRECTIVES, Validators} from '@angular/common';
 import {TicketProvider} from '../../../providers/ticket-provider';
 import {htmlEscape, getFullName} from '../../../directives/helpers';
 import {ClassListComponent} from '../../../components/class-list/class-list';

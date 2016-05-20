@@ -1,5 +1,5 @@
 import {IONIC_DIRECTIVES, NavController, NavParams, Config, Modal, Alert} from 'ionic-angular';
-import {Component, Input, OnChanges, OnInit} from 'angular2/core';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {TicketProvider} from '../../providers/ticket-provider';
 import {TicketDetailsPage} from '../../pages/ticket-details/ticket-details';
 import {CloseTicketModal} from '../../pages/modals/modals';

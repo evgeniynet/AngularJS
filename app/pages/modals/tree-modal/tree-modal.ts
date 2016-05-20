@@ -1,7 +1,7 @@
 import {NavController, NavParams, Page, Events, ViewController} from 'ionic-angular';
-//import {Input} from 'angular2/core';
-import {Component, OnInit} from 'angular2/core';
-//import {NgClass} from 'angular2/common';
+//import {Input} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+//import {NgClass} from '@angular/common';
 import {TreeViewComponent, ITreeNode} from '../../../components/tree-view/tree-view';
 
 @Page({

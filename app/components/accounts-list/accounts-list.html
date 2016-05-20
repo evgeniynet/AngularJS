@@ -1,5 +1,5 @@
 <ion-list class="tableText margin" no-lines>
-    <div *ngFor="#account of accounts" (click)="itemTapped($event, account)" class="table">
+    <div *ngFor="let account of accounts" (click)="itemTapped($event, account)" class="table">
         <span [ngClass]="{'box1 box7': !simple, 'box5 box9': simple}">{{account.name}}</span>
         <span [hidden]="simple" class="box2 box7" [innerHTML]="account.account_statistics.hours | More:[1000]"></span>
         <span [hidden]="simple" class="box3 box7" [innerHTML]="account.account_statistics.expenses | More:[1000,'$VV']"></span>

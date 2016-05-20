@@ -1,7 +1,7 @@
-import {Injectable} from 'angular2/core';
+import {Injectable} from '@angular/core';
 import {Config, Events} from 'ionic-angular';
 import {dontClearCache} from './config';
-import {Headers, Http} from 'angular2/http';
+import {Headers, Http} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {Observer} from 'rxjs/Observer';
 import {ApiData} from './api-data';

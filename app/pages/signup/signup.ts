@@ -1,6 +1,6 @@
 import {Page, Config, NavController} from 'ionic-angular';
 import {saveCache} from '../../directives/helpers';
-import {ApiData} from '../../providers/api-data';
+import {DataProvider} from '../../providers/data-provider';
 import {LoginPage} from '../login/login';
 import {OrganizationsPage} from '../organizations/organizations';
 import {TicketsPage} from '../tickets/tickets';
@@ -13,7 +13,7 @@ export class SignupPage {
 
 	login: any;
 
-	constructor(private nav: NavController, private apiData: ApiData, private config: Config) {
+	constructor(private nav: NavController, private dataProvider: DataProvider, private config: Config) {
   }
 
       onPageLoaded()
@@ -43,26 +43,26 @@ export class SignupPage {
                         this.nav.push(LoginPage);
                         return;
                     }
-                    let cur = this.config.getCurrent();
-                    cur.key = data.api_token;
-                    if (!data.organization || !data.instance)
+                    if (!returnData.organization || !returnData.instance)
                     {
-                        this.config.saveCurrent();
                         this.nav.push(OrganizationsPage);
                         return;
                     }
 
+                    //sets user role to user in local storage
+                    let cur = this.config.getCurrent();
+                    cur.key = data.api_token;
                     cur.org = data.organization;
                     cur.instance = data.instance;
-                    cur.user.email = form.value.email;
+                    cur.user.email = instance;
                     this.config.saveCurrent();
                     //spicePixelTrackConversion();
                     //getappTrackConversion(url);
                     this.nav.alert("Thanks for registration! You are redirected to new org now ...");
                     //getInstanceConfig(returnData.organization, returnData.instance);
-                    this.nav.push(DashboardPage);
                 }, 
                 error => {
+                	//showmodal
                     let message = 'There was a problem with your login.  Check your login and password.';
                     
                     if(form.value.email && ~form.value.email.indexOf("@gmail.com")){

@@ -105,7 +105,7 @@
  <h3 class="left width35 text-left">Phone 2</h3>
  <h3 class="right width50 tkts-table">{{account.phone2}}</h3>
                </ion-item>
-            <ion-item class="color" *ngFor="#customfield of account.customfields">
+            <ion-item class="color" *ngFor="let customfield of account.customfields">
             <h3 class="left width35 text-left">{{customfield.Key}}</h3>
                 <h3 class="right width50 tkts-table">{{customfield.Value || '&nbsp;'}}</h3>
             </ion-item>
@@ -124,7 +124,7 @@
         </ion-item>
         
            
-    <ion-item class="color margin" *ngFor="#project of account.projects">
+    <ion-item class="color margin" *ngFor="let project of account.projects">
     <p class="text color width32 left table_account text-left">{{project.name}}</p>
     <h3 class="width17 left table">{{project.open_tickets}}</h3> 
     <h3 class="width17 left table">{{project.logged_hours}}</h3> 
@@ -144,7 +144,7 @@
             <ion-list class="list margin-top45" no-lines *ngSwitchWhen="'Files'">
                 
                  <div [hidden]="account.files?.length" class="table grey2 menu-text">No Files yet</div>
-    <ion-item *ngFor="#file of account.files">
+    <ion-item *ngFor="let file of account.files">
         <div class="left width59 tkts-table" [innerHTML]="getFileLink(file)"></div>
     <h3 class="right width38 text-left space-initial">{{file.name}}</h3>
         </ion-item>

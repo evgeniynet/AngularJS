@@ -1,8 +1,7 @@
-import {NgZone} from 'angular2/core';
-import {RouteConfig, Location} from 'angular2/router'; 
-import {App, IonicApp, Config, Platform, NavController, NavParams, Events, MenuController, Toast} from 'ionic-angular';
+import {NgZone, ViewChild} from '@angular/core';
+import {App, IonicApp, Config, Platform, Nav, NavParams, Events, MenuController, Toast} from 'ionic-angular';
 //import {StatusBar} from 'ionic-native';
-import {OnInit, OnDestroy} from 'angular2/core';
+import {OnInit, OnDestroy} from '@angular/core';
 import {ApiData} from './providers/api-data';
 import {DataProvider} from './providers/data-provider';
 import {TicketProvider} from './providers/ticket-provider';
@@ -49,10 +48,11 @@ export interface Stat {
 })
 class MyApp {
 
+  @ViewChild(Nav) nav: Nav;
   pages: Array<any>;
   rootPage: any;
 
-  constructor(private app: IonicApp, private platform: Platform, private config: Config, /*private toastr: ToastsManager,*/ private events: Events, private menu: MenuController, private ticketProvider: TicketProvider, private location: Location) {
+  constructor(private app: IonicApp, private platform: Platform, private config: Config, /*private toastr: ToastsManager,*/ private events: Events, private menu: MenuController, private ticketProvider: TicketProvider) {
 
     // set up our app
     this.initializeApp();
@@ -183,9 +183,8 @@ class MyApp {
       initializeApp() {
         this.platform.ready().then(() => {
           //console.log('Platform ready');
-          let nav = this.app.getComponent('nav');
 
-          nav.alert = function(message, isNeg) {
+          this.nav.alert = function(message, isNeg) {
             let toast = Toast.create({
               message: message,
               duration: 3000,
@@ -212,16 +211,15 @@ class MyApp {
           return;
         }
     // close the menu when clicking a link from the menu
-    let nav = this.app.getComponent('nav');
 
     if (page.index) {
-          nav.setRoot(page.component || page, {tabIndex: page.index});/*.then(() => {
+          this.nav.setRoot(page.component || page, {tabIndex: page.index});/*.then(() => {
               // wait for the root page to be completely loaded
               // then close the menu
               this.app.getComponent('leftMenu').close();
             });*/
           } else {
-          nav.setRoot(page.component || page);/*.then(() => {
+          this.nav.setRoot(page.component || page);/*.then(() => {
               // wait for the root page to be completely loaded
               // then close the menu
               this.app.getComponent('leftMenu').close();
@@ -238,8 +236,8 @@ class MyApp {
 
       testPage(page, param) {
     // close the menu when clicking a link from the menu
-    let nav = this.app.getComponent('nav');
-    nav.push(page, param);
+
+    this.nav.push(page, param);
   }
 
   ngOnInit() {

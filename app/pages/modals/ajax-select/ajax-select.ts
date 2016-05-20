@@ -1,14 +1,14 @@
 import {NavController, NavParams, Page, Config, ViewController} from 'ionic-angular';
 import {ApiData} from '../../../providers/api-data';
 import {getFullName, addp} from '../../../directives/helpers';
-import {Control} from 'angular2/common';
+import {Control} from '@angular/common';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/of';
-import {URLSearchParams, Jsonp} from 'angular2/http';
+import {URLSearchParams, Jsonp} from '@angular/http';
 
 @Page({
     templateUrl: 'build/pages/modals/ajax-select/ajax-select.html',

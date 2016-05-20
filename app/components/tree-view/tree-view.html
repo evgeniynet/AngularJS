@@ -1,6 +1,6 @@
 
     <ul class="inner">
-        <li *ngFor="#node of Nodes" class="list-tree">
+        <li *ngFor="let node of Nodes" class="list-tree">
             <div (click)="onSelectNode(node); onExpand(node)">
                 <span>
                     <ion-icon [hidden]="node != SelectedNode" class="button-arrow ion-ios-checkmark" name="checkmark" role="img" aria-label="checkmark"></ion-icon>     {{node.name}}  </span>

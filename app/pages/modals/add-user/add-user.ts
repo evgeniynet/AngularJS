@@ -1,5 +1,5 @@
 import {Page, Config, NavController, NavParams, ViewController} from 'ionic-angular';
-import {FORM_DIRECTIVES, Validators} from 'angular2/common';
+import {FORM_DIRECTIVES, Validators} from '@angular/common';
 import {DataProvider} from '../../../providers/data-provider';
 //import {htmlEscape, getFullName} from '../../../directives/helpers';
 
