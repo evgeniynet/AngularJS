@@ -70,7 +70,7 @@ gulp.task('scripts', function () {
         src: [
             'node_modules/es6-shim/es6-shim.min.js',
             'node_modules/zone.js/dist/zone.js',
-            'node_modules/reflect-metadata/Reflect.js'
+            'node_modules/reflect-metadata/Reflect.js',
             //'node_modules/intl/dist/Intl.min.js', // Fix internationalization on safari browsers (used in angular2 currency pipes)
             //'node_modules/intl/locale-data/jsonp/ru.js', // Russian locale
             //'node_modules/intl/locale-data/jsonp/en.js', // English locale
