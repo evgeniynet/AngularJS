@@ -13,8 +13,6 @@
      <ion-item class="itemTech">As Tech</ion-item>
           </div>
         <div class="width17 right blue3">
-        <div class="item-inner"><ion-label>4</ion-label></div>
-
             <ion-item (click)="itemTappedTL({tab:'user', count: counts.open_as_user})" class="itemTech" [innerHTML]="counts.open_as_user | More:[100,'<div class=item-inner><ion-label>VV</ion-label></div>']"></ion-item>
             <ion-item (click)="itemTappedTL({tab:'alt', count: counts.open_as_alttech})" class="itemTech" [innerHTML]="counts.open_as_alttech | More:[100,'<div class=item-inner><ion-label>VV</ion-label></div>']"></ion-item>
             <ion-item (click)="itemTappedTL({tab:'all', count: counts.open_all})" class="itemTech" [innerHTML]="counts.open_all | More:[100,'<div class=item-inner><ion-label>VV</ion-label></div>']"></ion-item>
