@@ -4,7 +4,7 @@
 // App Shared Variables
 // --------------------------------------------------
 // Shared Sass variables go in the app.varialbes.scss file
-@import 'hd.variables';
+@import 'app.variables';
 
 
 // App iOS Variables
@@ -42,7 +42,7 @@
 
 .segment-button{
       border-color: $background-color;
-      background-color: $segment;
+      background-color: $text3;
       color: $blue7;
 }
 
