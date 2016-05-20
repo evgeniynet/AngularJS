@@ -23,10 +23,14 @@
         </div>
   </div>
     <ion-item no-lines class="blue3">
-    <ion-input type="date" [value]="setDate(time.start_time, false, true)"></ion-input></ion-item>
+  <ion-label class="grey2">Start Time</ion-label>
+    <ion-datetime displayFormat="MMM DD, YYYY HH:mm"></ion-datetime>
+        </ion-item>
+        
         <ion-item no-lines class="blue3">
-    <ion-input type="date" [value]="setDate(time.stop_time, false, true)"></ion-input>
-        </ion-item>   
+  <ion-label class="grey2">End Time</ion-label>
+    <ion-datetime displayFormat="MMM DD, YYYY HH:mm"><button></button></ion-datetime>  
+            </ion-item>
  <div class="general-alignment2">     
     
      <select-list *ngIf="!time.number" [list]="selects.account" preload="true" (onChanged)='saveSelect($event)'></select-list> 
