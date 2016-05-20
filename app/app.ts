@@ -1,6 +1,6 @@
 import {NgZone, ViewChild} from '@angular/core';
 import {App, IonicApp, Config, Platform, Nav, NavParams, Events, MenuController, Toast} from 'ionic-angular';
-//import {StatusBar} from 'ionic-native';
+import {StatusBar} from 'ionic-native';
 import {OnInit, OnDestroy} from '@angular/core';
 import {ApiData} from './providers/api-data';
 import {DataProvider} from './providers/data-provider';
@@ -183,6 +183,8 @@ class MyApp {
       initializeApp() {
         this.platform.ready().then(() => {
           //console.log('Platform ready');
+
+          StatusBar.styleDefault();
 
           this.nav.alert = function(message, isNeg) {
             let toast = Toast.create({
