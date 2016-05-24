@@ -67,10 +67,11 @@ body {
     text-align: center;
     padding: 6px 0px 0px 6px;
     background-color: $blue1;
+    line-height: 0rem;
 }
 
 .invoiceCircle {
-    font-size: 1.4em !important;
+//    font-size: 1.4em !important;
 }
 
 .button:hover:not(.disable-hover) {
@@ -154,8 +155,7 @@ ion-title{
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0), 0 3px 1px -2px rgba(158, 158, 158, 0), 0 1px 5px 0 rgba(0, 0, 0, 0);}
 
 .action-but{
-    padding-left: 0.23em !important;
-    padding-top: 0.03em !important;
+    padding-top: 0.11em !important;
 }
 
 .toggle-icon {
@@ -181,8 +181,38 @@ ion-list .item-inner {
     height: 76px;
 }
 
+.picker-wrapper {
+    background: $text-color;
+}
+
+.picker-toolbar {
+    background: $blue6;
+}
+
+.picker-columns {
+    background-color: $text-color;
+}
+
+.picker-prefix, .picker-suffix, .picker-opt-selected {
+    color: $blue6;
+}
+
+
 .recipient-calc {
 //    width: calc(100% - 40px);
+}
+
+.text-input {
+    border: 0px solid rgba(0, 0, 0, 0.5);
+}
+
+.button-icon-only ion-icon{
+    padding: 0.3em 0.25em 0.25em 0.25em !important;
+}
+
+ion-datetime {
+    padding: 12px 15px 13px 16px;
+    max-width: 70%;
 }
 
 @font-face {

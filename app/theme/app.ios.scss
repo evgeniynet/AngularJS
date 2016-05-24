@@ -79,11 +79,18 @@
     color: $text;
 }
 
-.action-sheet-icon
-{
+.action-sheet-icon{
   margin: 0 28px 0 0;
 }
 
 .action-sheet-button span.button-inner {
   justify-content: flex-start;
+}
+
+ion-datetime {
+    padding: 12px 15px 13px 16px;
+}
+
+.text-input{
+    line-height: 1px;
 }
