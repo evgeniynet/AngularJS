@@ -67,10 +67,11 @@ body {
     text-align: center;
     padding: 6px 0px 0px 6px;
     background-color: $blue1;
+    line-height: 0rem;
 }
 
 .invoiceCircle {
-    font-size: 1.4em !important;
+//    font-size: 1.4em !important;
 }
 
 .button:hover:not(.disable-hover) {
@@ -199,6 +200,19 @@ ion-list .item-inner {
 
 .recipient-calc {
 //    width: calc(100% - 40px);
+}
+
+.text-input {
+    border: 0px solid rgba(0, 0, 0, 0.5);
+}
+
+.button-icon-only ion-icon{
+    padding: 0.3em 0.25em 0.25em 0.25em !important;
+}
+
+ion-datetime {
+    padding: 12px 15px 13px 16px;
+    max-width: 70%;
 }
 
 @font-face {
