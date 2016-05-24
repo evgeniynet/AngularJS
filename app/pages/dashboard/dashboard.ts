@@ -43,7 +43,7 @@ export class DashboardPage {
     }
     
     onPageLoaded()
-    {           
+    {       
         this.counts = {open_as_tech: 0}; 
         this.accounts = helpers.loadCache("dashaccounts");
         this.queues = helpers.loadCache("dashqueues");
@@ -107,9 +107,16 @@ export class DashboardPage {
 
     clearSearch(searchbar)
     {
-        console.log(searchbar);
         searchbar.value = "";
     }
+
+    getItems(searchbar) {
+    // Reset items back to all of the items
+
+    // set q to the value of the searchbar
+    var q = searchbar.value;
+
+  }
     
     itemTappedTL(tab) {  this.nav.setRoot(TicketsPage, tab);}
     

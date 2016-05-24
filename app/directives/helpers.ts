@@ -7,6 +7,16 @@ export function saveCache(url, data) {
 export function loadCache(url) {
     return JSON.parse(localStorage.getItem(url)); 
 }
+
+export function getParameterByName(name) {
+    var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.href);
+    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+}
+
+export function cleanQuerystring() {
+    try {window.history.replaceState( {} , '', location.origin + location.pathname );}
+    catch (err){}
+}
     
     //global helper functions
 export function GooglelogOut(mess) {

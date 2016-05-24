@@ -5,7 +5,7 @@
       </ion-buttons>
   <ion-title>Dashboard</ion-title>
    <ion-buttons end>
-  <ion-searchbar *ngIf="test" [focuser] (cancel)="test = !test" class="blue1back searchbar-input" style="width:250px; padding: 0" [(ngModel)]="searchQuery" [hideCancelButton]="true"></ion-searchbar>
+  <ion-searchbar *ngIf="test" [focuser] (cancel)="test = !test" class="blue1back" style="width:250px; padding: 0" [(ngModel)]="searchQuery" [hideCancelButton]="true" (input)="getItems($event)"></ion-searchbar>
    </ion-buttons>
    <ion-buttons end>
     <button danger class="right transparent" *ngIf="test" (click)="test = !test"><ion-icon name="ios-close"></ion-icon></button>
@@ -14,7 +14,6 @@
 </ion-navbar>
 
 <ion-content class="dashboard">
-    
     <ion-list class="list height" no-lines margin-top>
         <div (click)="itemTappedTL({tab:'tech', count: counts.open_as_tech})" class="width50 left blue3">
             <ion-item class="mainStat itemTech">{{counts.open_as_tech}}</ion-item>
