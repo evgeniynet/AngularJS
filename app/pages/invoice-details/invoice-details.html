@@ -43,7 +43,7 @@
         
         <ion-item class="blue3 width80 invoicelist right margin" no-lines>
       <h3 class="recipient-calc left textLogin margin-top2 ellipsis">{{recipient.email}}</h3>
-    <button fab class="{{recipient.is_accounting_contact ? 'green' : 'red'}} buttonInvoice right topInvoice email-invoice">
+    <button fab class="{{recipient.is_accounting_contact ? 'green' : 'red'}} buttonInvoice right topInvoice email-invoice button-fab">
       <ion-icon *ngIf="recipient.is_accounting_contact" class="invoiceCircle" name="checkmark"></ion-icon>
       <ion-icon *ngIf="!recipient.is_accounting_contact" class="invoiceCircle" name="close"></ion-icon>
     </button>
