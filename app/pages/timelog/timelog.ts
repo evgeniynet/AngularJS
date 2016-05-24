@@ -121,6 +121,8 @@ export class TimelogPage {
     }
 
     onSubmit(form) {
+        console.log(this.time.start_time);
+        return;
         //{ "ticket" : localStorage.getItem('ticketNumber') } 
         //{ "account" : account, "project": project } 
         //edat = JSON.stringify(new Date(dat2));
@@ -171,6 +173,22 @@ export class TimelogPage {
 
     setDate(date, showmonth?, istime?) {
         return date ? getDateTime(date, showmonth, istime) : null;
+    }
+
+    getStartDate(time) {
+        if (time)
+           return time.substring(0,19);
+       return "";
+    }
+
+    setStartDate(time){
+        if (time)
+           this.time.start_time = time.substring(0,19);
+    }
+
+    setStopDate(time){
+        if (time)
+           this.time.stop_time = time.substring(0,19);
     }
 
 

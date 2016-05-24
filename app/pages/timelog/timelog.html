@@ -24,12 +24,12 @@
   </div>
     <ion-item no-lines class="blue3">
   <ion-label class="grey2 textLogin">Start Time</ion-label>
-    <ion-datetime displayFormat="MMM DD, YYYY HH:mm"></ion-datetime>
+    <ion-datetime displayFormat="MMM DD, YYYY HH:mm" (ngModelChange)="setStartDate($event)" [ngModel]="getStartDate(time.start_time)"></ion-datetime>
         </ion-item>
         
         <ion-item no-lines class="blue3">
   <ion-label class="grey2 textLogin">End Time</ion-label>
-    <ion-datetime displayFormat="MMM DD, YYYY HH:mm"></ion-datetime>  
+    <ion-datetime displayFormat="MMM DD, YYYY HH:mm" (ngModelChange)="setStopDate($event)" [ngModel]="getStartDate(time.stop_time)"></ion-datetime>  
             </ion-item>
  <div class="general-alignment2">     
     
