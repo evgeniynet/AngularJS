@@ -52,8 +52,6 @@ export class DashboardPage {
 
         let pager = { limit: ~accountslen ? 500 : accountslen};
 
-        return;
-
         this.dataProvider.getQueueList(3).subscribe(
             data => { this.queues = data;
                 helpers.saveCache("dashqueues", data);
