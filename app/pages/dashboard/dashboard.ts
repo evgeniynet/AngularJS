@@ -1,3 +1,21 @@
+import {Directive, Renderer, ElementRef} from "@angular/core";
+@Directive({
+  selector : '[focuser]'
+})
+export default class Focuser {
+  constructor(public renderer: Renderer, public elementRef: ElementRef) {}
+
+  ngOnInit() {
+    //search bar is wrapped with a div so we get the child input
+    const searchInput = this.elementRef.nativeElement.querySelector('input');
+    console.log(searchInput);
+    setTimeout(() => {
+      //delay required or ionic styling gets finicky
+      this.renderer.invokeElementMethod(searchInput, 'focus', []);
+    }, 0);
+  }
+}
+
 import {Page, Config, Nav} from 'ionic-angular';
 import {DataProvider} from '../../providers/data-provider';
 import {TicketProvider} from '../../providers/ticket-provider';
@@ -9,7 +27,7 @@ import {MorePipe} from '../../pipes/pipes';
 
 @Page({
     templateUrl: 'build/pages/dashboard/dashboard.html',
-    directives: [QueuesListComponent, AccountsListComponent, ActionButtonComponent],
+    directives: [QueuesListComponent, AccountsListComponent, ActionButtonComponent, Focuser],
     pipes: [MorePipe],
 })
 export class DashboardPage {
@@ -17,6 +35,8 @@ export class DashboardPage {
     counts: Object;
     accounts: Array<any>;
     queues: Array<any>;
+    searchQuery: string = '';
+    test: boolean;
 
     constructor(private nav: Nav, private config: Config, private dataProvider: DataProvider, private ticketProvider: TicketProvider) {
         this.counts = {open_as_tech: 0}; 
@@ -31,6 +51,8 @@ export class DashboardPage {
         let accountslen = this.config.getStat("accounts");
 
         let pager = { limit: ~accountslen ? 500 : accountslen};
+
+        return;
 
         this.dataProvider.getQueueList(3).subscribe(
             data => { this.queues = data;
@@ -83,6 +105,12 @@ export class DashboardPage {
             error => { 
                 console.log(error || 'Server error');}
                 );  
+    }
+
+    clearSearch(searchbar)
+    {
+        console.log(searchbar);
+        searchbar.value = "";
     }
     
     itemTappedTL(tab) {  this.nav.setRoot(TicketsPage, tab);}

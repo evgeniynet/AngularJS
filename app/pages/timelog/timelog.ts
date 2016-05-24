@@ -121,8 +121,6 @@ export class TimelogPage {
     }
 
     onSubmit(form) {
-        console.log(this.time.start_time);
-        return;
         //{ "ticket" : localStorage.getItem('ticketNumber') } 
         //{ "account" : account, "project": project } 
         //edat = JSON.stringify(new Date(dat2));
