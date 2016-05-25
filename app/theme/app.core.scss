@@ -386,6 +386,14 @@ scroll-content {
     background-color: transparent;
 }
 
+.nocolor{
+    color: transparent;
+}
+
+.text-color{
+    color: $text-color;
+}
+
 .imglogo{
     display: block;
     margin: auto;

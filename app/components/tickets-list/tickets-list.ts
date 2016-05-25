@@ -18,6 +18,7 @@ export class TicketsListComponent {
     @Input() mode: Array<any>;
     @Input() count: number;
     @Input() preload: number;
+    @Input() filter: string;
     tickets: Array<any>;
     cachelen: number;
     pager: any;

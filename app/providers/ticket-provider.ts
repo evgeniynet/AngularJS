@@ -87,7 +87,7 @@ export class TicketProvider {
                 this._ticketsObserver[tab].next(this._dataStore[tab]);
                 //if (data.length < pager.limit)
                 // add flag that data completed
-            }, error => console.log('Could not load tickets.'));
+            }, error => this.apiData.handleError('Could not load tickets.'));
             return cachelen;
         }
 

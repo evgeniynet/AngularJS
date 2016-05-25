@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {IonicApp, Config, Events, Nav} from 'ionic-angular';
+import {Config, Events} from 'ionic-angular';
 import {Http, Headers, RequestOptions, Request} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {ApiSite, dontClearCache} from './config';
@@ -18,7 +18,7 @@ export class ApiData {
 //userKey, userOrgKey, userInstanceKey: string; 
 //mock: boolean = dontClearCache;
 
-    constructor(private app: IonicApp, private http: Http, private config: Config, private events: Events) {
+    constructor(private http: Http, private config: Config, private events: Events) {
 }
 
 request(method, data?, type?, headers?) {
@@ -109,8 +109,8 @@ handleError(error) : any {
     if (error.constructor !== String)
         error = (error || {}).json().error;
 
-    let nav = this.app.getComponent('nav');
-    nav.alert(error + ". Please contact Administator!", true);
+    this.events.publish("connection:error", (error || "") + " Please contact Administator!");
+
     return Observable.throw(new Error(error));
 }
 }

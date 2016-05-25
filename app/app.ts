@@ -52,7 +52,7 @@ class MyApp {
   pages: Array<any>;
   rootPage: any;
 
-  constructor(private app: IonicApp, private platform: Platform, private config: Config, /*private toastr: ToastsManager,*/ private events: Events, private menu: MenuController, private ticketProvider: TicketProvider) {
+  constructor(private app: IonicApp, private platform: Platform, private config: Config, private events: Events, private menu: MenuController, private ticketProvider: TicketProvider) {
 
     // set up our app
     this.initializeApp();
@@ -185,6 +185,7 @@ class MyApp {
           //console.log('Platform ready');
 
           StatusBar.styleDefault();
+          //StatusBar.overlaysWebView(false);
 
           this.nav.alert = function(message, isNeg) {
             let toast = Toast.create({
@@ -255,10 +256,14 @@ class MyApp {
       this.openPage(LoginPage);
             //this.getNav().setRoot(TodosPage);
           });
+    this.events.subscribe('connection:error', (data) => {
+    this.nav.alert(data, true);
+          });
   }
 
   unsubscribeToEvents() {
     this.events.unsubscribe('login:failed', null);
+    this.events.unsubscribe('connection:error', null);
   }
 
 }

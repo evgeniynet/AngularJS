@@ -1,25 +1,8 @@
-import {Directive, Renderer, ElementRef} from "@angular/core";
-@Directive({
-  selector : '[focuser]'
-})
-export default class Focuser {
-  constructor(public renderer: Renderer, public elementRef: ElementRef) {}
-
-  ngOnInit() {
-    //search bar is wrapped with a div so we get the child input
-    const searchInput = this.elementRef.nativeElement.querySelector('input');
-    console.log(searchInput);
-    setTimeout(() => {
-      //delay required or ionic styling gets finicky
-      this.renderer.invokeElementMethod(searchInput, 'focus', []);
-    }, 0);
-  }
-}
-
 import {Page, Config, Nav} from 'ionic-angular';
 import {DataProvider} from '../../providers/data-provider';
 import {TicketProvider} from '../../providers/ticket-provider';
 import * as helpers from '../../directives/helpers';
+import {Focuser} from '../../directives/directives';
 import {QueuesListComponent, AccountsListComponent, ActionButtonComponent} from '../../components/components';
 import {TicketsPage} from '../tickets/tickets';
 import {AccountDetailsPage} from '../account-details/account-details';
@@ -112,10 +95,9 @@ export class DashboardPage {
 
     getItems(searchbar) {
     // Reset items back to all of the items
-
     // set q to the value of the searchbar
-    var q = searchbar.value;
-
+    var q = searchbar.target.value;
+    console.log(q);
   }
     
     itemTappedTL(tab) {  this.nav.setRoot(TicketsPage, tab);}

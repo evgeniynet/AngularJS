@@ -71,8 +71,12 @@ export class ExpenseCreatePage {
 
     onSubmit(form) {
         if (form.valid) {
+            let amount = Number(form.value.amount);
+            if (isNaN(amount) || amount <= 0) {
+                this.nav.alert("Not enough amount", true);
+                return;
+            }
             var note = htmlEscape(this.expense.note.trim()).substr(0, 5000);
-
             var isEdit = !!this.expense.expense_id;
             //TODO if other user changes what id should I write? 
             let data = {

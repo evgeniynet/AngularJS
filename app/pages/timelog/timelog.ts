@@ -1,6 +1,6 @@
 import {Page, Config, Nav, NavParams, ViewController} from 'ionic-angular';
-import {forwardRef} from '@angular/core';
-import {getDateTime, htmlEscape} from '../../directives/helpers';
+import {forwardRef, ViewChild} from '@angular/core';
+import {getDateTime, getPickerDateTimeFormat, htmlEscape} from '../../directives/helpers';
 import {TimeProvider} from '../../providers/time-provider';
 import {ClassListComponent} from '../../components/class-list/class-list';
 import {SelectListComponent} from '../../components/select-list/select-list';
@@ -19,6 +19,10 @@ export class TimelogPage {
     timenote: string;
     he: any;
     selects: any = {};
+    displayFormat: string;
+    minuteValues: Array<number> = [0, 15, 30, 45, 0];
+    @ViewChild('starttime') starttime:DateTime;
+    @ViewChild('stoptime') stoptime:DateTime;
 
     constructor(private nav: Nav, private navParams: NavParams, private timeProvider: TimeProvider, private config: Config, private view: ViewController) {
     }
@@ -32,6 +36,13 @@ export class TimelogPage {
     {
         this.timecount = (Number(this.timecount) + this.inc).toFixed(2);
     }
+
+    ngAfterViewInit() {
+      //console.log(this.starttime.min);
+      //this.starttime.displayFormat = this.displayFormat;
+//console.log(this.starttime.displayFormat);
+
+    }
     
     ngOnInit()
     {
@@ -43,6 +54,19 @@ export class TimelogPage {
         this.isbillable = typeof this.time.billable === 'undefined' ? true : this.time.billable;
 
         this.inc = this.config.getCurrent("time_hour_increment") > 0 ? this.config.getCurrent("time_hour_increment") : 0.25;
+
+        this.displayFormat = getPickerDateTimeFormat(false, true);
+
+        if (this.inc >= 1)
+                this.minuteValues = [0];   
+        else if (this.inc != 0.25)
+        { 
+            this.minuteValues = [];
+            let min = 0;
+            do { this.minuteValues.push(min); min += 60*this.inc;}
+            while (min < 60);
+            this.minuteValues.push(0);
+        }
 
         this.timecount = (this.time.hours || this.mintime).toFixed(2);
 
@@ -152,9 +176,9 @@ export class TimelogPage {
                 "task_type_id": this.selects.tasktype.selected,
                 "hours": hours,
                 "is_billable": this.isbillable,
-                "date": "", //TODO add date select dat1 ? sdat : "",
-                "start_date": "",//dat1 ? sdat : "",
-                "stop_date": ""//dat2 ? edat : ""
+                "date": this.time.start_time || "", 
+                "start_date": this.time.start_time || "",
+                "stop_date": this.time.stop_time || ""
             };
 
             this.timeProvider.addTime(this.time.time_id, data, isEdit ? "PUT" : "POST").subscribe(
@@ -173,10 +197,16 @@ export class TimelogPage {
         return date ? getDateTime(date, showmonth, istime) : null;
     }
 
+    setMinTime(date) {
+        return (date || this.time.date || new Date().toJSON()).substring(0,4);
+    }
+
+    setMaxTime(date) {
+        return (date || this.time.date || new Date().toJSON()).substring(0,4);
+    }
+
     getStartDate(time) {
-        if (time)
-           return time.substring(0,19);
-       return "";
+        return (time || this.time.date || new Date().toJSON()).substring(0,19);
     }
 
     setStartDate(time){

@@ -2,16 +2,19 @@ import {Page, Config, Nav, NavParams, Modal} from 'ionic-angular';
 import {TicketCreatePage} from '../modals/modals'; 
 import {TicketDetailsPage} from '../ticket-details/ticket-details';
 import {TicketsListComponent} from '../../components/components';
+import {Focuser} from '../../directives/directives';
 
 @Page({
     templateUrl: 'build/pages/tickets/tickets.html',
-    directives: [TicketsListComponent],
+    directives: [TicketsListComponent, Focuser],
 })
 export class TicketsPage {
 
     counts: any;
     is_tech: boolean;
     ticket_tab: string;
+    searchQuery: string = '';
+    test: boolean;
     
     constructor(private nav: Nav, private navParams: NavParams, private config: Config) {
            this.counts = {};
@@ -44,6 +47,17 @@ export class TicketsPage {
             setTimeout(() => {
                 this.nav.present(myModal);
             }, 500);
+    }
+
+    clearSearch(searchbar) {
+        searchbar.value = "";
+    }
+
+    getItems(searchbar) {
+        // Reset items back to all of the items
+        // set q to the value of the searchbar
+        var q = searchbar.value;
+        console.log(q);
     }
 
 }

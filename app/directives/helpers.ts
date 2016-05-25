@@ -208,6 +208,16 @@ export function symbolEscape(str) {
 
 }
 
+export function getPickerDateTimeFormat(showmonth?, istime?) {
+    let format : string = "";
+    if (!showmonth)
+        format = localStorage.getItem("dateformat") !== "1" ? "MM/DD/YYYY" : "DD/MM/YYYY";
+    else
+        format = localStorage.getItem("dateformat") !== "1" ? "MMM DD / YYYY" : "DD MMM YYYY";
+
+    return format + (istime ? (localStorage.getItem("timeformat") !== "1" ? " hh:mm A" : " HH:mm") : "");
+}
+
 function getDateTimeFormat(showmonth?, istime?) {
     let format : string = "";
     if (!showmonth) 

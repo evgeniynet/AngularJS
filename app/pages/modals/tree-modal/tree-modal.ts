@@ -34,10 +34,10 @@ onRequest(parent: ITreeNode) {
 }
 
 
-    dismiss() {
+    dismiss(isCancel) {
         //let data = { 'foo': 'bar' };
         let item = {};
-        if (this.selectedNode)
+        if (this.selectedNode && !isCancel)
             item = {
                 id: this.selectedNode.id,
                 name: this.selectedNode.name
