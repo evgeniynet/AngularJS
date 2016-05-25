@@ -24,6 +24,8 @@ export class SignupPage {
     }
 
     onSignup(form) {
+        console.log(form.value.name);
+        return;
         if (form.valid) { 
         	let data = {"name": form.value.name, 
                        "email": form.value.email, 
