@@ -1,4 +1,4 @@
-import {IONIC_DIRECTIVES, Nav, Modal, Alert, Config} from 'ionic-angular';
+import {IONIC_DIRECTIVES, Nav, Modal, Alert, Config, Loading} from 'ionic-angular';
 import {ApiData} from '../../providers/api-data';
 import {getFullName} from '../../directives/helpers';
 import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
@@ -61,15 +61,27 @@ export class SelectListComponent {
      {
          if (this.url != this.list.url || !this.list.items || this.list.items.length == 0){
              if (this.list.url) {
+                 let loading = null;
+                 if (show){
+                     loading = Loading.create({
+                     content: "Please wait...",
+                     //duration: 2000,
+                     dismissOnPageChange: true
+                 });
+                 this.nav.present(loading);
+             }
+
                  this.apiData.get(this.list.url).subscribe(
                      data => {
                          this.list.items = data;
                          if (show) {
+                             loading.dismiss();
                              this.proceed_list();
                          }
                          this.url = this.list.url;
                      },
                      error => {
+                         if (show) loading.dismiss();
                          this.error("Cannot get " + this.list.name + " list! Error: " + error);
                          console.log(error || 'Server error');
                      }
