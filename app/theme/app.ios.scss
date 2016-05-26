@@ -60,9 +60,9 @@
     text-overflow: ellipsis;
 }
 
-.action-but{
+/*.action-but{
     padding-left: 0.23em !important;
-}
+}*/
 
 .action-sheet-button{
       color: $blue2;
@@ -93,4 +93,16 @@ ion-datetime {
 
 .text-input{
     line-height: 1px;
+}
+
+ion-buttons {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0;
+    -ms-flex: 0;
+    flex: 0;
+    order: 3;
+}
+
+.button-icon-only ion-icon{
+   padding: 0;
 }

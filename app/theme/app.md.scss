@@ -53,6 +53,7 @@
 
 .searchbar-search-icon {
     left: 11px;
+    top: 3px;
 }
 
 .searchbar-input{
@@ -78,6 +79,7 @@
 .item p {
     font-size: 1.3rem;
     color: $text2;
+    margin: 0 0 0px;
 }
 
 .button {
@@ -176,3 +178,8 @@ ion-datetime {
 .text-input{
     line-height: 1px;
 }
+
+ion-buttons {
+    order: 3;
+}
+
