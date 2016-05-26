@@ -4,27 +4,28 @@
       <img class="imglogo img-padding" src="img/logo.png">
       <form #loginForm="ngForm" novalidate>
       <div class="tooltips">
-          <input class="width100 blue3 subject-create commentText" [(ngModel)]="login.name" placeholder="Company name" ngControl="name" #name="ngForm" required minLength="3" /> 
+          <input class="width100 blue3 subject-create commentText" [(ngModel)]="login.name" ngControl="name" #name="ngForm" required minlength="3" placeholder="Company name (required)"/> 
           <span *ngIf="name.dirty && !name.valid">Name is required</span></div>
       <div class="tooltips">
-<input class="width100 blue3 subject-create commentText" placeholder="Email (required)"/></div>
+<input class="width100 blue3 subject-create commentText" type="email" [(ngModel)]="login.username" ngControl="email" #username="ngForm" required pattern="^[^@\s]+@[^@\s]+(\.[^@\s]+)+$" placeholder="Email (required)"/>
+<span *ngIf="username.dirty && !username.valid">Valid Email is required</span></div>
         <div class="tooltips"><div class="width19 left signup-font">https://</div>
-            <input class="width50 blue3 subject-create commentText left" placeholder="Company url (optional)"/><div class="right width28 signup-font ellipsis">.sherpadesk.com</div>
+            <input class="width50 blue3 subject-create commentText left" [(ngModel)]="login.url" placeholder="Company url (optional)"/><div class="right width28 signup-font ellipsis">.sherpadesk.com</div>
          </div>
         <div class="tooltips">
-          <input class="width100 blue3 subject-create commentText" placeholder="First Name"/> 
+          <input class="width100 blue3 subject-create commentText" [(ngModel)]="login.firstname" ngControl="firstname" #firstname="ngForm" required minlength="3" placeholder="First Name (required)"/> 
+         <span *ngIf="firstname.dirty && !firstname.valid">First Name is required</span></div>
+        <div class="tooltips">
+          <input class="width100 blue3 subject-create commentText" [(ngModel)]="login.lastname" ngControl="lastname" #lastname="ngForm" required minlength="3" placeholder="Last Name (required)"/> 
+         <span *ngIf="lastname.dirty && !lastname.valid">Valid Email is required</span></div>
+        <div class="tooltips">
+          <input class="width100 blue3 subject-create commentText" [(ngModel)]="login.password" type="password" placeholder="Password (optional)"/> 
          </div>
         <div class="tooltips">
-          <input class="width100 blue3 subject-create commentText" placeholder="Last Name"/> 
+          <input class="width100 blue3 subject-create commentText" [(ngModel)]="login.password_confirm" type="password" placeholder="Confirm Pass (optional)"/> 
          </div>
         <div class="tooltips">
-          <input class="width100 blue3 subject-create commentText" placeholder="Password (optional)"/> 
-         </div>
-        <div class="tooltips">
-          <input class="width100 blue3 subject-create commentText" placeholder="Confirm Pass (optional)"/> 
-         </div>
-        <div class="tooltips">
-          <input class="width100 blue3 subject-create commentText" placeholder="How'd You Hear About Us"/> 
+          <input class="width100 blue3 subject-create commentText" [(ngModel)]="login.how" placeholder="How'd You Hear About Us"/> 
          </div>
         <br>
           <button [disabled]="!loginForm.valid" class="login-margin" block secondary (click)="onSignup()">Create My Account</button>
