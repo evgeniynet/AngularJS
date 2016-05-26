@@ -1,10 +1,10 @@
 <ion-toolbar>
-    <ion-buttons start>
+    <ion-buttons start class="searchbar">
         <button class="width70px" (click)="dismiss()">
-            <span class="searchbar-input">Cancel</span>
+            <span>Cancel</span>
         </button>
     </ion-buttons>
-    <ion-searchbar class="searchbar-input" [ngModel]="searchQuery" (input)="getItems($event)" [placeholder]="name" [hideCancelButton]="true"></ion-searchbar>
+    <ion-searchbar [ngModel]="searchQuery" (input)="getItems($event)" [placeholder]="name" [hideCancelButton]="true"></ion-searchbar>
     
 </ion-toolbar>
 
