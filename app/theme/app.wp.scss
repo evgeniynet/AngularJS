@@ -59,8 +59,9 @@ body {
     color: #FFFFFF;
 }
 
-.searchbar-search-icon {
+.searchbar-search-icon{
     left: 11px;
+    top: 1px;
 }
 
 .searchbar-input{
@@ -86,6 +87,7 @@ body {
 .item p {
     font-size: 1.3rem;
     color: $text;
+    margin: 0 0 0px;
 }
 
 .button {
@@ -207,12 +209,16 @@ ion-list .item-inner {
 }
 
 .button-icon-only ion-icon{
-    padding: 0.3em 0.25em 0.25em 0.25em !important;
+    padding: 0.25em 0.25em 0.25em 0.25em !important;
 }
 
 ion-datetime {
     padding: 12px 15px 13px 16px;
     max-width: 70%;
+}
+
+ion-buttons {
+    order: 3;
 }
 
 @font-face {
