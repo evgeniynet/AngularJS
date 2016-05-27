@@ -13,8 +13,9 @@ export function getParameterByName(name) {
     return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
 }
 
-export function cleanQuerystring() {
-    try {window.history.replaceState( {} , '', location.origin + location.pathname );}
+export function cleanQuerystring(param?, value?) {
+    var url = addp(location.origin + location.pathname, param, value);
+    try {window.history.replaceState( {} , '', url );}
     catch (err){}
 }
     

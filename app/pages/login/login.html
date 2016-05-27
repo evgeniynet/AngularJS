@@ -18,11 +18,13 @@
           <ul class="googleStripes">
         <li></li><li></li><li></li><li></li>
       </ul>
-              <button class="login-margin text-google itemTech grey3 itemTech2" (click)="onGoogleSignip()" block light><span>Sign in with&nbsp;<big>Google</big></span></button>
-              </div>
+                    </div>
+      </form>
+      <form ngNoForm method="POST" [action]="google_action">
+              <button type="submit" class="login-margin text-google itemTech grey3 itemTech2" (click)="onGoogleSignin()" block light><span>Sign in with&nbsp;<big>Google</big></span></button>
+              </form>
           <br>
   <button  (click)="onSignup()" block dark class="login-margin login-text">Start a New SherpaDesk Organization</button>
-      </form>
       <ion-card-content class="container card-content" style="margin-top: 30px;">
         <p class="text margin left width90 textLogin" style="padding-top: 15px;">We have just updated the Sherpadesk mobile version with a newer interface and improved functionality.  This is a BETA release and we would appreciate any feedback or issues you have with the new update. Thanks! - Sherpadesk
         <br/> <a href="http://m.sherpadesk.com">Previous version of site</a></p>

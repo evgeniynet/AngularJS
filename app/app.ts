@@ -55,6 +55,9 @@ class MyApp {
 
   constructor(private app: IonicApp, private platform: Platform, private config: Config, private events: Events, private menu: MenuController, private ticketProvider: TicketProvider, private dataProvider: DataProvider) {
 
+    if (!this.isStorage())
+       return;
+
     // set up our app
     this.initializeApp();
 
@@ -123,6 +126,35 @@ class MyApp {
       this.current.recent[property]  = value;
     }
 
+    var key = helpers.getParameterByName('t');
+    var email = helpers.getParameterByName('e');
+    var platform_string = helpers.getParameterByName('ionicPlatform');
+
+    if (key) {
+      helpers.cleanQuerystring('ionicPlatform', platform_string);
+      localStorage.clear();
+      localStorage.setItem('is_google', "true");
+      localStorage.setItem("username", email.replace("#", ""));
+      config.clearCurrent();
+      config.setCurrent({ "key": key });
+      config.saveCurrent();
+      this.rootPage = OrganizationsPage;
+      return;
+    }
+    else {
+      var error = helpers.getParameterByName('f');
+      if (error) {
+        helpers.cleanQuerystring('ionicPlatform', platform_string);
+        let toast = Toast.create({
+          message: error,
+          showCloseButton: true,
+          duration: 6000,
+          cssClass: "toast-error"
+        });
+        setTimeout(() => this.nav.present(toast), 3000);
+      }
+    }
+
     config.current = config.getCurrent();
 
         //set test config object
@@ -185,11 +217,12 @@ class MyApp {
           ];
 
         if (isRedirect) {
+          console.log(this.config.current);
           if (this.config.current.is_tech) {
-            this.rootPage = DashboardPage;
+            this.nav.setRoot(DashboardPage, null, { animation: "wp-transition" });
           }
           else {
-            this.rootPage = TicketsPage;
+            this.nav.setRoot(TicketsPage, null, { animation: "wp-transition" });
           }
         }
       },
@@ -212,6 +245,24 @@ class MyApp {
       }
     ); 
   }
+
+isStorage() {
+    var mod = 'modernizr';
+    try {
+        localStorage.setItem(mod, mod);
+        localStorage.removeItem(mod);
+        return true;
+    } catch(e) {
+      let toast = Toast.create({
+        message: "Please enable Cookies to work with site!",
+        enableBackdropDismiss: false,
+        showCloseButton: true,
+        cssClass: "toast-error"
+      });
+      this.nav.present(toast);
+        return false;
+    }
+}
 
 initializeApp() {
   this.platform.ready().then(() => {

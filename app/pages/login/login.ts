@@ -1,4 +1,7 @@
 import {Page, Config, Nav} from 'ionic-angular';
+import {forwardRef} from '@angular/core';
+import {ApiSite} from '../../providers/config';
+//import {NgForm} from '@angular/common';
 import {saveCache} from '../../directives/helpers';
 import {DataProvider} from '../../providers/data-provider';
 import {OrganizationsPage} from '../organizations/organizations';
@@ -10,8 +13,11 @@ import {SignupPage} from '../signup/signup';
 export class LoginPage {
     
     login: any;
+    google_action: string = "";
+    //@ViewChild('google_openid') google_openid: NgForm;
 
     constructor(private nav: Nav, private dataProvider: DataProvider, private config: Config) {
+        this.google_action = ApiSite + 'auth/auth0';
   }
     
     onPageLoaded()
@@ -45,8 +51,14 @@ export class LoginPage {
             this.nav.alert('Please enter email and password!', true);
     }
 
-    onGoogleSignip() {
-        this.nav.push(SignupPage);
+    ngAfterViewInit() {
+        //console.log(this.starttime.min);
+        //this.google_openid.action = this.starttime.displayFormat = this.displayFormat;
+        //console.log(this.starttime.displayFormat);
+    }
+
+    onGoogleSignin() {
+        console.log("onGoogleSignin");
     }
     
     onSignup() {
