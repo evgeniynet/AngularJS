@@ -84,6 +84,6 @@ export class SignupPage {
     }
     
     onCancel() {
-        this.nav.push(LoginPage);
+        this.nav.push(LoginPage, null, { animation: "wp-transition" });
     }
 }

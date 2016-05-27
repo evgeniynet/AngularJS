@@ -21,8 +21,8 @@ export class TimelogPage {
     selects: any = {};
     displayFormat: string;
     minuteValues: Array<number> = [0, 15, 30, 45, 0];
-    @ViewChild('starttime') starttime:DateTime;
-    @ViewChild('stoptime') stoptime:DateTime;
+    //@ViewChild('starttime') starttime:DateTime;
+    //@ViewChild('stoptime') stoptime:DateTime;
 
     constructor(private nav: Nav, private navParams: NavParams, private timeProvider: TimeProvider, private config: Config, private view: ViewController) {
     }

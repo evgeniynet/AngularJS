@@ -1,4 +1,4 @@
-import {Page, Config, Nav} from 'ionic-angular';
+import {Page, Config, Nav, Events} from 'ionic-angular';
 import {DataProvider} from '../../providers/data-provider';
 import {saveCache} from '../../directives/helpers';
 import {LoginPage} from '../login/login';
@@ -10,9 +10,9 @@ import {TicketsPage} from '../tickets/tickets';
 })
 export class OrganizationsPage {
 
-    list: Array<any>;
+    list: Array<any> = [];
 
-    constructor(private nav: Nav, private dataProvider: DataProvider, private config: Config) {
+    constructor(private nav: Nav, private dataProvider: DataProvider, private config: Config, private events: Events) {
         //partly logout
         localStorage.clear();
         let he = this.config.getCurrent("user");
@@ -23,16 +23,18 @@ export class OrganizationsPage {
         this.config.setCurrent({"key": key});
         this.config.saveCurrent();
         
-        this.list = [];
         this.dataProvider.getOrganizations(key).subscribe(
             data => {
                 
                 this.list = data;
             }, 
             error => { 
-                this.nav.alert(error || 'Server error', true);
-                //setTimeout(() => { this.nav.pop(); }, 3000);
-                console.log(error || 'Server error');}
+                this.nav.alert("Cannot get list of Organizations", true);
+                let name = localStorage.getItem("username");
+        localStorage.clear();
+        localStorage.setItem("username", name || "");
+        this.nav.setRoot(LoginPage, null, { animation: "wp-transition" });
+                }
                 ); 
     }
 
@@ -57,25 +59,7 @@ export class OrganizationsPage {
     
     onSelectInst(instance) {
         this.config.setCurrent({ "org": instance.org, "instance": instance.inst });
-        this.dataProvider.getConfig().subscribe(
-            data => {
-                this.config.setCurrent(data);
-                this.config.saveCurrent();
-                if (this.config.getCurrent("is_tech"))
-                    this.nav.setRoot(DashboardPage);
-                else
-                    this.nav.setRoot(TicketsPage);     
-            }, 
-            error => { 
-                this.nav.alert(error || 'Server error', true);
-                let key = this.config.getCurrent("key");
-                this.config.clearCurrent();
-                this.config.setCurrent({ "key": key });
-                this.config.saveCurrent();
-                setTimeout(() => {
-                    this.nav.setRoot(LoginPage);
-                }, 3000);
-                console.log(error || 'Server error');}
-                ); 
+        this.config.saveCurrent();
+        this.events.publish("config:get", true);
     }
 }

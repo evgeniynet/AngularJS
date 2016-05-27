@@ -20,6 +20,7 @@ import {TicketCreatePage, CloseTicketModal, AddUserModal} from './pages/modals/m
 import {DashboardPage} from './pages/dashboard/dashboard';
 import {OrganizationsPage} from './pages/organizations/organizations';
 import {LoginPage} from './pages/login/login';
+import {SignupPage} from './pages/signup/signup';
 import {ExpenseCreatePage} from './pages/expense-create/expense-create';
 import {ExpensesPage} from './pages/expenses/expenses';
 
@@ -52,10 +53,12 @@ class MyApp {
   pages: Array<any>;
   rootPage: any;
 
-  constructor(private app: IonicApp, private platform: Platform, private config: Config, private events: Events, private menu: MenuController, private ticketProvider: TicketProvider) {
+  constructor(private app: IonicApp, private platform: Platform, private config: Config, private events: Events, private menu: MenuController, private ticketProvider: TicketProvider, private dataProvider: DataProvider) {
 
     // set up our app
     this.initializeApp();
+
+    //this.rootPage = SignupPage; return;
     
     config.getCurrent = function(property) {
       let tconfig = this.current || JSON.parse(localStorage.getItem("current") || "null") || {};
@@ -93,8 +96,8 @@ class MyApp {
     config.saveCurrent = function(){
       let curr = this.getCurrent();
       localStorage.setItem("current",  JSON.stringify(curr));
-      localStorage.setItem("dateformat", curr.user.date_format);
-      localStorage.setItem('timeformat', curr.user.time_format);
+      localStorage.setItem("dateformat", curr.user.date_format || 0);
+      localStorage.setItem('timeformat', curr.user.time_format || 0);
       localStorage.setItem('currency', curr.currency || "$");
     }
 
@@ -137,7 +140,7 @@ class MyApp {
           return;
         }
 
-        config.saveCurrent();
+        //config.saveCurrent();
 
         // set first pages
         //this.rootPage = HelloIonicPage; return;
@@ -150,38 +153,68 @@ class MyApp {
         //this.rootPage = TicketCreatePage; return;
         //this.rootPage = AddUserModal; return;
 
-        // set our app's pages
-        if (config.current.is_tech) 
-          this.pages = [
-        { title: 'Dashboard', component: DashboardPage, icon: "speedometer", is_active: true },
-        { title: 'Tickets', component: TicketsPage, icon: "create", is_active: true },
-        { title: 'Timelogs', component: TimelogsPage, icon: "md-time", is_active: config.current.is_time_tracking },
-        { title: 'Accounts', component: AccountsPage, icon: "people", is_active: config.current.is_account_manager },
-        { title: 'Invoices', component: InvoicesPage, icon: "card", is_active: config.current.is_time_tracking && config.current.is_invoice },
-        { title: 'Queues', component: QueuesPage, icon: "list-box", is_active: config.current.is_unassigned_queue },
-        { title: 'Switch Org', component: OrganizationsPage, icon: "md-swap", is_active: true },
-        { title: 'Signout', component: LoginPage, icon: "md-log-in", is_active: true },
-        { title: 'Full App', component: null, icon: "md-share-alt", is_active: true },
-        ];
-        else
-          this.pages = [
-        { title: 'Tickets', component: TicketsPage, icon: "create", is_active: true },
-        { title: 'Switch Org', component: OrganizationsPage, icon: "md-swap", is_active: true },
-        { title: 'Signout', component: LoginPage, icon: "md-log-in", is_active: true },
-        { title: 'Full App', component: null, icon: "md-share-alt", is_active: true },
-        ];
+        setInterval(() => this.redirect(), 2 * 60 * 1000);
 
-        if (config.current.is_tech)
-        {
-          this.rootPage = DashboardPage;
-        }
-        else {
-          this.rootPage = TicketsPage; 
-        }
+        this.redirect(true); 
       }
 
-      initializeApp() {
-        this.platform.ready().then(() => {
+  redirect(isRedirect?) {
+    this.dataProvider.getConfig().subscribe(
+      data => {
+        this.config.setCurrent(data);
+        this.config.saveCurrent();
+        // set our app's pages
+        if (this.config.current.is_tech)
+          this.pages = [
+            { title: 'Dashboard', component: DashboardPage, icon: "speedometer", is_active: true },
+            { title: 'Tickets', component: TicketsPage, icon: "create", is_active: true },
+            { title: 'Timelogs', component: TimelogsPage, icon: "md-time", is_active: this.config.current.is_time_tracking },
+            { title: 'Accounts', component: AccountsPage, icon: "people", is_active: this.config.current.is_account_manager },
+            { title: 'Invoices', component: InvoicesPage, icon: "card", is_active: this.config.current.is_time_tracking && this.config.current.is_invoice },
+            { title: 'Queues', component: QueuesPage, icon: "list-box", is_active: this.config.current.is_unassigned_queue },
+            { title: 'Switch Org', component: OrganizationsPage, icon: "md-swap", is_active: true },
+            { title: 'Signout', component: LoginPage, icon: "md-log-in", is_active: true },
+            { title: 'Full App', component: null, icon: "md-share-alt", is_active: true },
+          ];
+        else
+          this.pages = [
+            { title: 'Tickets', component: TicketsPage, icon: "create", is_active: true },
+            { title: 'Switch Org', component: OrganizationsPage, icon: "md-swap", is_active: true },
+            { title: 'Signout', component: LoginPage, icon: "md-log-in", is_active: true },
+            { title: 'Full App', component: null, icon: "md-share-alt", is_active: true },
+          ];
+
+        if (isRedirect) {
+          if (this.config.current.is_tech) {
+            this.rootPage = DashboardPage;
+          }
+          else {
+            this.rootPage = TicketsPage;
+          }
+        }
+      },
+      error => {
+        //console.log(this.nav);
+        let toast = Toast.create({
+          message: error || 'Server error',
+          duration: 3000,
+          cssClass: "toast-error"
+        });
+        this.nav.present(toast);
+        let name = localStorage.getItem("username");
+        localStorage.clear();
+        localStorage.setItem("username", name || "");
+        //let key = this.config.getCurrent("key");
+        //this.config.clearCurrent();
+        //this.config.setCurrent({ "key": key });
+        //this.config.saveCurrent()
+        this.nav.setRoot(LoginPage, null, { animation: "wp-transition" });
+      }
+    ); 
+  }
+
+initializeApp() {
+  this.platform.ready().then(() => {
           //console.log('Platform ready');
 
           StatusBar.styleDefault();
@@ -200,10 +233,10 @@ class MyApp {
             this.present(toast);
           };
         });
-      }
+}
 
-      openPage(page, param?) {
-        this.menu.close();
+openPage(page, param?) {
+  this.menu.close();
 
         //if null open new tab
         if (!page.component)
@@ -257,13 +290,17 @@ class MyApp {
             //this.getNav().setRoot(TodosPage);
           });
     this.events.subscribe('connection:error', (data) => {
-    this.nav.alert(data, true);
-          });
+      this.nav.alert(data, true);
+    });
+    this.events.subscribe('config:get', (data) => {
+      this.redirect(data);
+    });
   }
 
   unsubscribeToEvents() {
     this.events.unsubscribe('login:failed', null);
     this.events.unsubscribe('connection:error', null);
+    this.events.unsubscribe('config:get', null);
   }
 
 }
