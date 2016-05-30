@@ -201,7 +201,7 @@ class MyApp {
 
         setInterval(() => this.redirect(), 2 * 60 * 1000);
 
-        this.redirect(true); 
+        setTimeout(() => this.redirect(true), dontClearCache ? 1000 : 0);
       }
 
   redirect(isRedirect?) {
