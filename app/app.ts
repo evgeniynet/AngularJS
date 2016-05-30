@@ -172,6 +172,20 @@ class MyApp {
           return;
         }
 
+    setTimeout(() =>
+      this.nav.alert = function(message, isNeg) {
+        let toast = Toast.create({
+          message: message,
+          duration: 3000,
+          cssClass: isNeg ? "toast-error" : "toast-ok"
+        });
+
+        toast.onDismiss(() => {
+          //console.log('Dismissed toast');
+        });
+        this.present(toast);
+      }, 0);
+
         //config.saveCurrent();
 
         // set first pages
@@ -217,7 +231,6 @@ class MyApp {
           ];
 
         if (isRedirect) {
-          console.log(this.config.current);
           if (this.config.current.is_tech) {
             this.nav.setRoot(DashboardPage, null, { animation: "wp-transition" });
           }
@@ -266,25 +279,16 @@ isStorage() {
 
 initializeApp() {
   this.platform.ready().then(() => {
-          //console.log('Platform ready');
-
-          StatusBar.styleDefault();
+          console.log('Platform ready');
+          document.addEventListener("deviceready", this.onDeviceReady, false);
           //StatusBar.overlaysWebView(false);
-
-          this.nav.alert = function(message, isNeg) {
-            let toast = Toast.create({
-              message: message,
-              duration: 3000,
-              cssClass: isNeg ? "toast-error" : "toast-ok"
-            });
-
-            toast.onDismiss(() => {
-        //console.log('Dismissed toast');
-      });
-            this.present(toast);
-          };
         });
 }
+
+  onDeviceReady() {
+    console.log("Cordova");
+    StatusBar.styleDefault();
+  }
 
 openPage(page, param?) {
   this.menu.close();
