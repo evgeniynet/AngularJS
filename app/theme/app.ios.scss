@@ -101,8 +101,20 @@ ion-buttons {
     -ms-flex: 0;
     flex: 0;
     order: 3;
+        margin: 0 1.2rem;
 }
 
 .button-icon-only ion-icon{
    padding: 0;
 }
+
+.button-fab ion-icon {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0;
+    -ms-flex: 0;
+    flex: 0;
+    }
+
+ion-searchbar {
+    display: -webkit-inline-box;
+    }
