@@ -1,13 +1,13 @@
 import {Pipe} from '@angular/core';
 import {FileUrlHelper} from '../directives/helpers';
 
-var isPhonegap = false;
-
 @Pipe({
     name: 'Files'
 })
 export class FilesPipe {
     transform(value, args) {
+
+        var isPhonegap = localStorage.getItem("isPhonegap") === "true";
        
         value = value || "";
         

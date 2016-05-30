@@ -94,22 +94,21 @@ getPaged(url, pager) {
 }
 
 handleError(error) : any {
-   // console.error(error);
     /*if ((request.status == 403 && settings.url !== ApiSite + "organizations") || (request.status == 404 && settings.url === ApiSite + "config"))
     {
         logout(settings.url !== ApiSite + "login", request.statusText);
     }*/
     if (
-        ~(error.status || error).toString().indexOf("403")          ||
+        (~(error.status || error).toString().indexOf("403") && !(~error.url.indexOf("organizations")))  ||
        (error.status == 404 && ~(error._body || {}).toString().indexOf("User with token"))
     )
         {
             this.events.publish("login:failed", null);
         }
     if (error.constructor !== String)
-        error = (error || {}).json().error;
+        error = (error || {}).json().error || (error._body + " (" + error.status + ") ");
 
-    this.events.publish("connection:error", (error || "") + " Please contact Administator!");
+    //this.events.publish("connection:error", (error || "Error occured") + " Please contact Administator!");
 
     return Observable.throw(new Error(error));
 }

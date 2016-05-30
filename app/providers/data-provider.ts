@@ -48,6 +48,15 @@ export class DataProvider {
         });
         return this.apiData.request(url, " ", "", headers);
     }
+
+    registerOrganization(data) {
+        let url = "organizations";
+        var headers = new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        });
+        return this.apiData.request(url, data, "POST", headers);
+    }
     
     getConfig() {
         let url = "config";

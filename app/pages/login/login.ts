@@ -34,7 +34,7 @@ export class LoginPage {
                     this.config.setCurrent({ key:data.api_token });
                     this.config.saveCurrent();
                     localStorage.setItem("username", form.value.email || "");
-                    this.nav.push(OrganizationsPage, null, { animation: "wp-transition" });
+                    this.nav.setRoot(OrganizationsPage, null, { animation: "wp-transition" });
                 }, 
                 error => {
                     let message = 'There was a problem with your login.  Check your login and password.';
@@ -62,6 +62,6 @@ export class LoginPage {
     }
     
     onSignup() {
-        this.nav.push(SignupPage, null, { animation: "wp-transition" });
+        this.nav.setRoot(SignupPage, null, { animation: "wp-transition" });
     }
 }

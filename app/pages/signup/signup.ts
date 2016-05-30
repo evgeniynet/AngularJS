@@ -1,4 +1,4 @@
-import {Page, Config, Nav} from 'ionic-angular';
+import {Page, Config, Nav, Events, Alert} from 'ionic-angular';
 import {saveCache} from '../../directives/helpers';
 import {DataProvider} from '../../providers/data-provider';
 import {LoginPage} from '../login/login';
@@ -12,78 +12,118 @@ import {DashboardPage} from '../dashboard/dashboard';
 export class SignupPage {
 
 	login: any;
+    is_force_registration: boolean = false;
+    isPhonegap: boolean;
 
-	constructor(private nav: Nav, private dataProvider: DataProvider, private config: Config) {
+    constructor(private nav: Nav, private dataProvider: DataProvider, private config: Config, private events: Events) {
+        this.isPhonegap = localStorage.getItem("isPhonegap") === "true";
   }
 
       onPageLoaded()
     { 
         //logout
         this.login = {username: localStorage.getItem("username") || ''};
+        this.is_force_registration = false;
         //$("#url").val(t.toLowerCase().replace(/[^a-zA-Z0-9-]/g, ''));
     }
 
     onSignup(form) {
-        console.log(form.value.name);
-        return;
         if (form.valid) { 
         	let data = {"name": form.value.name, 
                        "email": form.value.email, 
                        "url": form.value.url, 
-                       "is_force_registration": form.value.force,
+                       "is_force_registration": this.is_force_registration,
+                       "is_force_redirect": false,
                        "firstname": form.value.firstname,
                        "lastname": form.value.lastname,
                        "password": form.value.password,
                        "password_confirm": form.value.password_confirm,
                        "how": form.value.how,
-                       "note": "registered by iPhone app" //isPhonegap ? "registered by iPhone app" : "registered from m.sherpadesk.com"
+                       "note": this.isPhonegap ? "registered by iPhone app" : "registered from m.sherpadesk.com"
                       };
-        	this.apiData.get("organizations", data, "POST").subscribe(
+            console.log(form);
+        	this.dataProvider.registerOrganization(data).subscribe(
                 data => {
                     if (!data.api_token)
                     {
-                        this.nav.push(LoginPage);
+                        this.nav.setRoot(LoginPage,  null, { animation: "wp-transition" });
                         return;
                     }
-                    if (!returnData.organization || !returnData.instance)
+                    if (!data.organization || !data.instance)
                     {
-                        this.nav.push(OrganizationsPage);
+                        this.nav.setRoot(OrganizationsPage, null, { animation: "wp-transition" });
                         return;
                     }
 
                     //sets user role to user in local storage
-                    let cur = this.config.getCurrent();
-                    cur.key = data.api_token;
-                    cur.org = data.organization;
-                    cur.instance = data.instance;
-                    cur.user.email = instance;
+                    this.config.setCurrent({
+                        "key": data.api_token,
+                        "org": data.organization,
+                        "instance": data.instance
+                    });
+                    //this.config.current.user.email = form.value.email;
                     this.config.saveCurrent();
                     //spicePixelTrackConversion();
                     //getappTrackConversion(url);
                     this.nav.alert("Thanks for registration! You are redirected to new org now ...");
-                    //getInstanceConfig(returnData.organization, returnData.instance);
+                    setTimeout(() => this.events.publish("config:get", true), 3000);
                 }, 
                 error => {
-                	//showmodal
-                    let message = 'There was a problem with your login.  Check your login and password.';
-                    
-                    if(form.value.email && ~form.value.email.indexOf("@gmail.com")){
-                        message = "Wrong Password, Google sign password is not neeeded";
+                    if (~error.toString().indexOf("409"))
+                    {
+                        this.presentConfirm();
                     }
-                    this.nav.alert(message, true);
-                    this.login.password = "";
+                    else
+                        this.nav.alert(error, true);
                 }
             ); 
         }
         else
-            this.nav.alert('Please enter email and password!', true);
+            this.nav.alert('Please fill the form!', true);
+    }
+
+    presentConfirm() {
+        let alert = Alert.create({
+            title: "Wait. Haven't I seen you?",
+            subTitle: "This email is already in use.",
+            message: 'Would you like to',
+            cssClass: "hello",
+            buttons: [
+                {
+                    text: 'Login',
+                    role: 'cancel',
+                    handler: () => {
+                        localStorage.setItem("username", this.login.email);
+                        alert.dismiss().then(() => {
+                            this.nav.setRoot(LoginPage, null, { animation: "wp-transition" });
+                        });
+                        return false;
+                    }
+                },
+                {
+                    text: 'Create New Org',
+                    handler: () => {
+                        // user has clicked the alert button
+                        // begin the alert's dimiss transition
+                        let navTransition = alert.dismiss();
+                        this.is_force_registration = true;
+                        navTransition.then(() => {
+                            var form = {valid: true, value: this.login}
+                            this.onSignup(form);
+                        });
+                        return false;
+                    }
+                }
+            ]
+        });
+        this.nav.present(alert);
     }
 
     onGoogleSignip() {
-        this.nav.push(SignupPage);
+        this.nav.setRoot(SignupPage), null, { animation: "wp-transition" };
     }
     
     onCancel() {
-        this.nav.push(LoginPage, null, { animation: "wp-transition" });
+        this.nav.setRoot(LoginPage, null, { animation: "wp-transition" });
     }
 }

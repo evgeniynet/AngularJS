@@ -60,8 +60,6 @@ class MyApp {
 
     // set up our app
     this.initializeApp();
-
-    //this.rootPage = SignupPage; return;
     
     config.getCurrent = function(property) {
       let tconfig = this.current || JSON.parse(localStorage.getItem("current") || "null") || {};
@@ -79,13 +77,14 @@ class MyApp {
 
     config.setCurrent = function(nconfig) {
       let tconfig = nconfig || {};
-      tconfig.user = nconfig.user || this.current.user || {};
+      let current = this.current || {};
+      tconfig.user = nconfig.user || current.user || {};
       tconfig.is_tech = nconfig.is_tech || tconfig.user.is_techoradmin || false; 
-      tconfig.stat = nconfig.stat || this.current.stat || {};
-      tconfig.recent = nconfig.recent || this.current.recent || {};
-      tconfig.key = nconfig.key || this.current.key || "";
-      tconfig.org = nconfig.org || this.current.org || "";
-      tconfig.instance = nconfig.instance || this.current.instance || "";
+      tconfig.stat = nconfig.stat || current.stat || {};
+      tconfig.recent = nconfig.recent || current.recent || {};
+      tconfig.key = nconfig.key || current.key || "";
+      tconfig.org = nconfig.org || current.org || "";
+      tconfig.instance = nconfig.instance || current.instance || "";
       this.current = tconfig;
       //this.saveCurrent();
       return tconfig;
@@ -126,6 +125,20 @@ class MyApp {
       this.current.recent[property]  = value;
     }
 
+    setTimeout(() =>
+      this.nav.alert = function(message, isNeg) {
+        let toast = Toast.create({
+          message: message,
+          duration: 3000,
+          cssClass: isNeg ? "toast-error" : "toast-ok"
+        });
+
+        toast.onDismiss(() => {
+          //console.log('Dismissed toast');
+        });
+        this.present(toast);
+      }, 0);
+
     var key = helpers.getParameterByName('t');
     var email = helpers.getParameterByName('e');
     var platform_string = helpers.getParameterByName('ionicPlatform');
@@ -155,6 +168,7 @@ class MyApp {
       }
     }
 
+    //this.rootPage = SignupPage; return;
     config.current = config.getCurrent();
 
         //set test config object
@@ -171,20 +185,6 @@ class MyApp {
           this.rootPage = OrganizationsPage;
           return;
         }
-
-    setTimeout(() =>
-      this.nav.alert = function(message, isNeg) {
-        let toast = Toast.create({
-          message: message,
-          duration: 3000,
-          cssClass: isNeg ? "toast-error" : "toast-ok"
-        });
-
-        toast.onDismiss(() => {
-          //console.log('Dismissed toast');
-        });
-        this.present(toast);
-      }, 0);
 
         //config.saveCurrent();
 
@@ -279,15 +279,18 @@ isStorage() {
 
 initializeApp() {
   this.platform.ready().then(() => {
-          console.log('Platform ready');
-          document.addEventListener("deviceready", this.onDeviceReady, false);
+    var isPhonegap = localStorage.getItem("isPhonegap") === "true";
+    if (isPhonegap)
+      StatusBar.styleDefault();
+          //console.log('Platform ready');
+          //document.addEventListener("deviceready", this.onDeviceReady, false);
           //StatusBar.overlaysWebView(false);
         });
 }
 
   onDeviceReady() {
     console.log("Cordova");
-    StatusBar.styleDefault();
+    
   }
 
 openPage(page, param?) {
@@ -341,7 +344,7 @@ openPage(page, param?) {
 
   subscribeToEvents() {
     this.events.subscribe('login:failed', () => {
-      this.openPage(LoginPage);
+      this.openPage({ component: LoginPage });
             //this.getNav().setRoot(TodosPage);
           });
     this.events.subscribe('connection:error', (data) => {

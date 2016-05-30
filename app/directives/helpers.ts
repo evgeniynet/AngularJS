@@ -117,8 +117,8 @@ export function htmlEscape(str) {
 }
     
 export const FileUrlHelper = {
-        isPhonegap : function () {return Config.isPhonegap;},
-        ReplaceAll : function (note, find, replace) {
+    isPhonegap: function() { return localStorage.getItem("isPhonegap") === "true"},
+    ReplaceAll: function(note, find, replace) {
             return note.split(find).join(replace);
         },
 
@@ -189,11 +189,20 @@ export const FileUrlHelper = {
             else
                 img = "<ion-icon name=\"md-document\" role=img dark class=\"button_circle ion-md-document\" aria-label=\"md-document\"></ion-icon>&nbsp;" + (name ||  decodeURIComponent(file.split("/").slice(-1))) + "<p></p>";
             return "<p/><a class=\"comment_image_link\"" + 
-                (!FileUrlHelper.isPhonegap ? (" href=# onclick='openURL(\"" +file + "\")'>"+img+"</a>") :
+                (FileUrlHelper.isPhonegap ? (" href=# onclick='openURL(\"" +file + "\")'>"+img+"</a>") :
                  (" target=\"_blank\" href=\"" +file + "\">"+img + "</a>"));
-                //TODO: revert !FileUrlHelper.isPhonegap to FileUrlHelper.isPhonegap
         }
     };
+
+//open link    in blank
+function openURL(urlString) {
+    return window.open(urlString, '_blank', 'location=no,EnableViewPortScale=yes');
+}
+
+//open link    in system
+function openURLsystem(urlString) {
+    return window.open(urlString, '_system');
+}
 
 //HTML decode
 export function symbolEscape(str) {
