@@ -188,8 +188,8 @@ export const FileUrlHelper = {
                 img = "<img class=\"attachment\" src=\"" + file + "\">";
             else
                 img = "<ion-icon name=\"md-document\" role=img dark class=\"button_circle ion-md-document\" aria-label=\"md-document\"></ion-icon>&nbsp;" + (name ||  decodeURIComponent(file.split("/").slice(-1))) + "<p></p>";
-            return "<p/><a class=\"comment_image_link\"" + 
-                (FileUrlHelper.isPhonegap ? (" href=# onclick='openURL(\"" +file + "\")'>"+img+"</a>") :
+            return "<p/><a class=\"comment_image_link\"" +
+                (FileUrlHelper.isPhonegap() ? (" href=# onclick='window.open(\"" + file + "\", \"_blank\", \"location=no,EnableViewPortScale=yes\")'>" + img + "</a>") :
                  (" target=\"_blank\" href=\"" +file + "\">"+img + "</a>"));
         }
     };

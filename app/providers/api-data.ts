@@ -99,7 +99,7 @@ handleError(error) : any {
         logout(settings.url !== ApiSite + "login", request.statusText);
     }*/
     if (
-        (~(error.status || error).toString().indexOf("403") && !(~error.url.indexOf("organizations")))  ||
+        (~(error.status || error).toString().indexOf("403") && !(~(error.url || "").indexOf("organizations")))  ||
        (error.status == 404 && ~(error._body || {}).toString().indexOf("User with token"))
     )
         {
