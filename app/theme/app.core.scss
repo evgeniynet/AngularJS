@@ -333,7 +333,7 @@ scroll-content {
 }
 
 .button.activated{
-    background-color: transparent;
+    background-color: map-get($colors, secondary);
 }
 
 .menu-content-reveal {

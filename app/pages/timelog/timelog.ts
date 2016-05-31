@@ -25,6 +25,7 @@ export class TimelogPage {
     //@ViewChild('stoptime') stoptime:DateTime;
 
     constructor(private nav: Nav, private navParams: NavParams, private timeProvider: TimeProvider, private config: Config, private view: ViewController) {
+    nav.swipeBackEnabled = false;
     }
 
     decrement()

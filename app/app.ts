@@ -70,6 +70,9 @@ class MyApp {
       if (!tconfig.recent)
         tconfig.recent = {};
       tconfig.is_tech = tconfig.is_tech || tconfig.user.is_techoradmin || false; 
+      tconfig.isPhonegap = tconfig.isPhonegap || tconfig.isPhonegap || false; 
+      tconfig.isGoogle = tconfig.isGoogle || tconfig.isGoogle || false; 
+      tconfig.username = tconfig.username || tconfig.username || false; 
       if (property)
         return tconfig[property] || "";
       return tconfig; 
@@ -79,7 +82,10 @@ class MyApp {
       let tconfig = nconfig || {};
       let current = this.current || {};
       tconfig.user = nconfig.user || current.user || {};
-      tconfig.is_tech = nconfig.is_tech || tconfig.user.is_techoradmin || false; 
+      tconfig.is_tech = nconfig.is_tech || nconfig.user.is_techoradmin || false; 
+      tconfig.isPhonegap = nconfig.isPhonegap || current.isPhonegap || false; 
+      tconfig.isGoogle = nconfig.isGoogle || current.isGoogle || false; 
+      tconfig.username = nconfig.username || current.username || false; 
       tconfig.stat = nconfig.stat || current.stat || {};
       tconfig.recent = nconfig.recent || current.recent || {};
       tconfig.key = nconfig.key || current.key || "";
@@ -101,6 +107,9 @@ class MyApp {
       localStorage.setItem("dateformat", curr.user.date_format || 0);
       localStorage.setItem('timeformat', curr.user.time_format || 0);
       localStorage.setItem('currency', curr.currency || "$");
+      localStorage.setItem('isPhonegap', curr.isPhonegap || "");
+      localStorage.setItem('isGoogle', curr.isGoogle || "");
+      localStorage.setItem('username', curr.username || "");
     }
 
     config.getStat = function(property){
@@ -139,6 +148,10 @@ class MyApp {
         this.present(toast);
       }, 0);
 
+    //this.rootPage = SignupPage; return;
+    config.current = config.getCurrent();
+    config.setCurrent({ "isPhonegap": localStorage.getItem("isPhonegap") === "true" || !!navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/) });
+
     var key = helpers.getParameterByName('t');
     var email = helpers.getParameterByName('e');
     var platform_string = helpers.getParameterByName('ionicPlatform');
@@ -146,10 +159,8 @@ class MyApp {
     if (key) {
       helpers.cleanQuerystring('ionicPlatform', platform_string);
       localStorage.clear();
-      localStorage.setItem('is_google', "true");
-      localStorage.setItem("username", email.replace("#", ""));
-      config.clearCurrent();
-      config.setCurrent({ "key": key });
+      //config.clearCurrent();
+      config.setCurrent({ "key": key, "isGoogle": true, "username": email.replace("#", "") });
       config.saveCurrent();
       this.rootPage = OrganizationsPage;
       return;
@@ -167,9 +178,6 @@ class MyApp {
         setTimeout(() => this.nav.present(toast), 3000);
       }
     }
-
-    //this.rootPage = SignupPage; return;
-    config.current = config.getCurrent();
 
         //set test config object
         if (dontClearCache)
@@ -247,13 +255,8 @@ class MyApp {
           cssClass: "toast-error"
         });
         this.nav.present(toast);
-        let name = localStorage.getItem("username");
         localStorage.clear();
-        localStorage.setItem("username", name || "");
-        //let key = this.config.getCurrent("key");
-        //this.config.clearCurrent();
-        //this.config.setCurrent({ "key": key });
-        //this.config.saveCurrent()
+        localStorage.setItem("username", this.config.current.username || "");
         this.nav.setRoot(LoginPage, null, { animation: "wp-transition" });
       }
     ); 
@@ -279,8 +282,7 @@ isStorage() {
 
 initializeApp() {
   this.platform.ready().then(() => {
-    var isPhonegap = localStorage.getItem("isPhonegap") === "true";
-    if (isPhonegap)
+    if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/))
       StatusBar.styleDefault();
           //console.log('Platform ready');
           //document.addEventListener("deviceready", this.onDeviceReady, false);

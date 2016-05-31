@@ -11,21 +11,21 @@ import {DashboardPage} from '../dashboard/dashboard';
 })
 export class SignupPage {
 
-	login: any;
+	login: any = {};
     is_force_registration: boolean = false;
-    isPhonegap: boolean;
 
     constructor(private nav: Nav, private dataProvider: DataProvider, private config: Config, private events: Events) {
-        this.isPhonegap = localStorage.getItem("isPhonegap") === "true";
   }
 
       onPageLoaded()
     { 
         //logout
-        this.login = {username: localStorage.getItem("username") || ''};
         this.is_force_registration = false;
-        //$("#url").val(t.toLowerCase().replace(/[^a-zA-Z0-9-]/g, ''));
     }
+
+getUrl(name){
+    this.login.url = name.value ? name.value.toLowerCase().replace(/[^a-zA-Z0-9-]/g, '') : "";
+}
 
     onSignup(form) {
         if (form.valid) { 
@@ -39,9 +39,9 @@ export class SignupPage {
                        "password": form.value.password,
                        "password_confirm": form.value.password_confirm,
                        "how": form.value.how,
-                       "note": this.isPhonegap ? "registered by iPhone app" : "registered from m.sherpadesk.com"
+                       "note": localStorage.getItem("isPhonegap") === "true" ? "registered by iPhone app" : "registered from m.sherpadesk.com"
                       };
-            console.log(form);
+
         	this.dataProvider.registerOrganization(data).subscribe(
                 data => {
                     if (!data.api_token)
@@ -93,7 +93,7 @@ export class SignupPage {
                     text: 'Login',
                     role: 'cancel',
                     handler: () => {
-                        localStorage.setItem("username", this.login.email);
+                        this.config.current.username = this.login.email;
                         alert.dismiss().then(() => {
                             this.nav.setRoot(LoginPage, null, { animation: "wp-transition" });
                         });

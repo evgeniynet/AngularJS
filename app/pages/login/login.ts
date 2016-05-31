@@ -23,17 +23,16 @@ export class LoginPage {
     onPageLoaded()
     { 
         //logout
-        this.login = {username: localStorage.getItem("username") };
+        this.login = {username: this.config.current.username || "" };
         localStorage.clear();
-        this.config.clearCurrent();
+        //this.config.clearCurrent();
     }
 
     onLogin(form) {
         if (form.valid) { this.dataProvider.checkLogin(form.value.email,form.value.password).subscribe(
                 data => {
-                    this.config.setCurrent({ key:data.api_token });
+                    this.config.setCurrent({ "key": data.api_token, "username": form.value.email || "" });
                     this.config.saveCurrent();
-                    localStorage.setItem("username", form.value.email || "");
                     this.nav.setRoot(OrganizationsPage, null, { animation: "wp-transition" });
                 }, 
                 error => {

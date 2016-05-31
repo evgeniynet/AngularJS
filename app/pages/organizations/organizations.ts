@@ -15,24 +15,16 @@ export class OrganizationsPage {
     constructor(private nav: Nav, private dataProvider: DataProvider, private config: Config, private events: Events) {
         //partly logout
         localStorage.clear();
-        let he = this.config.getCurrent("user");
-        if (he.email)
-            localStorage.setItem("username", he.email);
-        let key = this.config.getCurrent("key");
-        this.config.clearCurrent();
-        this.config.setCurrent({"key": key});
+        this.config.current.org = "";
         this.config.saveCurrent();
         
-        this.dataProvider.getOrganizations(key).subscribe(
+        this.dataProvider.getOrganizations(this.config.getCurrent("key")).subscribe(
             data => {
-                
                 this.list = data;
             }, 
             error => { 
                 this.nav.alert("Cannot get list of Organizations", true);
-                let name = localStorage.getItem("username");
         localStorage.clear();
-        localStorage.setItem("username", name || "");
         this.nav.setRoot(LoginPage, null, { animation: "wp-transition" });
                 }
                 ); 

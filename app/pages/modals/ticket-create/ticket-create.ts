@@ -21,6 +21,7 @@ export class TicketCreatePage {
 
     constructor(private nav: Nav, private navParams: NavParams, private ticketProvider: TicketProvider, private config: Config,
                  private viewCtrl: ViewController) {
+        nav.swipeBackEnabled = false;
     }
 
     ngOnInit()

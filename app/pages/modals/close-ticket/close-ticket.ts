@@ -20,6 +20,7 @@ export class CloseTicketModal {
 
     constructor(private nav: Nav, private navParams: NavParams, private apiData: ApiData, private ticketProvider: TicketProvider, private config: Config,
         private viewCtrl: ViewController) {
+        nav.swipeBackEnabled = false;
     }
 
 

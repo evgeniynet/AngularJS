@@ -18,6 +18,7 @@ export class TreeModal {
     private params: NavParams,
      private viewCtrl: ViewController
     ) {
+        nav.swipeBackEnabled = false;
         this.name = this.params.data.name;
         this.Nodes = this.params.data.items;
     }

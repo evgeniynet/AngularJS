@@ -8,16 +8,15 @@ export class BasicSelectModal {
 
     items: Array<any>;
     name: string;
-    searchQuery: string;
+    searchQuery: string = '';
     data: any;
-    is_empty: boolean;
+    is_empty: boolean = false;
 
     constructor(
         private params: NavParams,
         private viewCtrl: ViewController
     ) {
-        this.is_empty = false;
-        this.searchQuery = '';
+        nav.swipeBackEnabled = false;
         this.name = this.params.data.name;
         this.data = this.params.data.items;
         this.items = this.data;
