@@ -1,5 +1,6 @@
 var gulp = require('gulp'),
     gulpWatch = require('gulp-watch'),
+    uglify = require('gulp-uglify'),
     del = require('del'),
     runSequence = require('run-sequence'),
     argv = process.argv;
@@ -38,14 +39,7 @@ gulp.task('watch', ['clean'], function(done){
     function(){
       gulpWatch('app/**/*.scss', function(){ gulp.start('sass'); });
       gulpWatch('app/**/*.html', function(){ gulp.start('html'); });
-      buildBrowserify({ watch: true, 
-        minify:true,
-        uglifyOptions: {
-          mangle: false
-        },
-  browserifyOptions: {
-  debug: false, syntax: false // sourcemaps off
-} }).on('end', done);
+      buildBrowserify({ watch: true }).on('end', done);
     }
   );
 });
@@ -65,7 +59,17 @@ gulp.task('build', ['clean'], function(done){
     }
   );
 });
-gulp.task('sass', buildSass);
+gulp.task('sass', function(){
+  return buildSass({
+    sassOptions: {
+      outputStyle: "compressed",
+      includePaths: [
+    'node_modules/ionic-angular',
+    'node_modules/ionicons/dist/scss'
+  ]
+    }
+  });
+});
 gulp.task('html', copyHTML);
 gulp.task('fonts', copyFonts);
 //gulp.task('scripts', copyScripts);
@@ -73,7 +77,7 @@ gulp.task('scripts', function () {
     return copyScripts({
         src: [
             'node_modules/es6-shim/es6-shim.min.js',
-            'node_modules/zone.js/dist/zone.js',
+            'node_modules/zone.js/dist/zone.min.js',
             'node_modules/reflect-metadata/Reflect.js',
             //'node_modules/intl/dist/Intl.min.js', // Fix internationalization on safari browsers (used in angular2 currency pipes)
             //'node_modules/intl/locale-data/jsonp/ru.js', // Russian locale
