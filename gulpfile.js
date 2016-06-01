@@ -39,8 +39,12 @@ gulp.task('watch', ['clean'], function(done){
       gulpWatch('app/**/*.scss', function(){ gulp.start('sass'); });
       gulpWatch('app/**/*.html', function(){ gulp.start('html'); });
       buildBrowserify({ watch: true, 
+        minify:true,
+        uglifyOptions: {
+          mangle: false
+        },
   browserifyOptions: {
-  debug: true, syntax: false // sourcemaps off
+  debug: false, syntax: false // sourcemaps off
 } }).on('end', done);
     }
   );
@@ -50,13 +54,13 @@ gulp.task('build', ['clean'], function(done){
     ['sass', 'html', 'fonts', 'scripts'],
     function(){
       buildBrowserify({
-            minify: false,
-  browserifyOptions: {
-  debug: true, syntax: false // sourcemaps off
-}, 
+            minify: true,
         uglifyOptions: {
           mangle: false
         },
+  browserifyOptions: {
+  debug: false, syntax: false // sourcemaps off
+}, 
         tsifyOptions: { noImplicitAny: false, allowSyntheticDefaultImports: true,  removeComments: true, skipDefaultLibCheck: true, target: "ES5"} }).on('end', done);
     }
   );
