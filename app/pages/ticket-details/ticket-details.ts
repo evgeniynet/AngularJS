@@ -297,7 +297,7 @@ export class TicketDetailsPage {
 
     getFullapplink(ticketkey) {
         let curr = this.config.getCurrent();
-        return fullapplink(AppSite, ticketkey, curr.instance, curr.org);
+        fullapplink(AppSite, ticketkey, curr.instance, curr.org);
     }
     
     getFullName (firstname,lastname,email,name) {

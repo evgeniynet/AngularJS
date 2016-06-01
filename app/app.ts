@@ -70,9 +70,10 @@ class MyApp {
       if (!tconfig.recent)
         tconfig.recent = {};
       tconfig.is_tech = tconfig.is_tech || tconfig.user.is_techoradmin || false; 
-      tconfig.isPhonegap = tconfig.isPhonegap || tconfig.isPhonegap || false; 
-      tconfig.isGoogle = tconfig.isGoogle || tconfig.isGoogle || false; 
-      tconfig.username = tconfig.username || tconfig.username || false; 
+      tconfig.isPhonegap = tconfig.isPhonegap || false; 
+      tconfig.isExtension = tconfig.isExtension || false; 
+      tconfig.isGoogle = tconfig.isGoogle || false; 
+      tconfig.username = tconfig.username || false; 
       if (property)
         return tconfig[property] || "";
       return tconfig; 
@@ -84,6 +85,7 @@ class MyApp {
       tconfig.user = nconfig.user || current.user || {};
       tconfig.is_tech = nconfig.is_tech || nconfig.user.is_techoradmin || false; 
       tconfig.isPhonegap = nconfig.isPhonegap || current.isPhonegap || false; 
+      tconfig.isExtension = nconfig.isExtension || current.isExtension || false; 
       tconfig.isGoogle = nconfig.isGoogle || current.isGoogle || false; 
       tconfig.username = nconfig.username || current.username || false; 
       tconfig.stat = nconfig.stat || current.stat || {};
@@ -108,6 +110,7 @@ class MyApp {
       localStorage.setItem('timeformat', curr.user.time_format || 0);
       localStorage.setItem('currency', curr.currency || "$");
       localStorage.setItem('isPhonegap', curr.isPhonegap || "");
+      localStorage.setItem('isExtension', curr.isExtension || "");
       localStorage.setItem('isGoogle', curr.isGoogle || "");
       localStorage.setItem('username', curr.username || "");
     }
@@ -150,7 +153,7 @@ class MyApp {
 
     //this.rootPage = SignupPage; return;
     config.current = config.getCurrent();
-    config.setCurrent({ "isPhonegap": localStorage.getItem("isPhonegap") === "true" || !!navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/) });
+    config.setCurrent({ "isPhonegap": localStorage.getItem("isPhonegap") === "true", "isExtension" : window.self !== window.top });
 
     var key = helpers.getParameterByName('t');
     var email = helpers.getParameterByName('e');
@@ -282,9 +285,10 @@ isStorage() {
 
 initializeApp() {
   this.platform.ready().then(() => {
-    if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/))
-      StatusBar.styleDefault();
-          //console.log('Platform ready');
+    if (localStorage.getItem("isPhonegap") === "true")
+      {console.log('cordova ready');
+      StatusBar.styleDefault();}
+          
           //document.addEventListener("deviceready", this.onDeviceReady, false);
           //StatusBar.overlaysWebView(false);
         });
@@ -302,8 +306,7 @@ openPage(page, param?) {
         if (!page.component)
         {
           let curr = this.config.getCurrent();
-          let url = helpers.fullapplink(AppSite, "", curr.instance, curr.org);
-          window.open(url, "_blank");
+          helpers.fullapplink(AppSite, "", curr.instance, curr.org);
           return;
         }
     // close the menu when clicking a link from the menu

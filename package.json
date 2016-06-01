@@ -39,7 +39,22 @@
     "cordova-plugin-whitelist",
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
-    "ionic-plugin-keyboard"
+    "ionic-plugin-keyboard",
+    "cordova-plugin-network-information",
+    "cordova-plugin-badge",
+    "cordova-plugin-dialogs",
+    "cordova-plugin-inappbrowser",
+    "de.appplant.cordova.plugin.local-notification",
+    {
+      "variables": {
+        "URL_SCHEME": "sherpadesk"
+      },
+      "locator": "cordova-plugin-customurlscheme",
+      "id": "cordova-plugin-customurlscheme"
+    },
+    "cordova-plugin-app-preferences",
+    "cordova-plugin-background-mode",
+    "cordova-plugin-app-event"
   ],
   "cordovaPlatforms": [
     "ios",
