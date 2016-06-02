@@ -29,6 +29,7 @@ export class AjaxSelectModal {
 
     constructor(private nav: Nav, private navParams: NavParams, private config: Config, private apiData: ApiData,
         private viewCtrl: ViewController/*, private jsonp: Jsonp*/) {
+        nav.swipeBackEnabled = false;
     }
 
     ngOnInit() {

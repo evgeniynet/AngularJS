@@ -13,6 +13,7 @@ export class AddUserModal {
 
 	constructor(private nav: Nav, private navParams: NavParams, private dataProvider: DataProvider, private config: Config,
 		private viewCtrl: ViewController) {
+        nav.swipeBackEnabled = false;
     }
 
     ngOnInit() {

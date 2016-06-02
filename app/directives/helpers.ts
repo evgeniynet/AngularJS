@@ -75,28 +75,15 @@ export function addp (url: string, param: string, value?: any) {
         if (ticketkey)
             url = addp(url, "tkt", ticketkey);
         url = addp(url, "dept", inst);
-        return addp(url, "org", org);
-        /*
-    if (isPhonegap) {
-        //alert("gap!");
-        $("."+classn).on('click', function (e) {
-            openURLsystem(urlString);});
-    } else if (isExtension) {
-
-        $("."+classn).on('click', function (e) {
-            //alert('Please register in new window and reopen Sherpadesk extension again.');
+        url = addp(url, "org", org);
+        if (localStorage.getItem("isPhonegap") === "true")
+            openURLsystem(url);
+        else if (localStorage.getItem("isExtension") === "true") {
             var origOpenFunc = window.__proto__.open;
-            origOpenFunc.apply(window, [urlString, "_blank"]); 
-        });
-    }
-    else
-    {
-        $("."+classn).attr("target", "_blank");
-        $("."+classn).attr("href", urlString);
-    }
-
-    return urlString;
-    */
+            origOpenFunc.apply(window, [url, "_blank"]);
+        }
+        else
+            window.open(url, "_blank");
 }
 
 //HTML encode
@@ -195,12 +182,12 @@ export const FileUrlHelper = {
     };
 
 //open link    in blank
-function openURL(urlString) {
+export function openURL(urlString) {
     return window.open(urlString, '_blank', 'location=no,EnableViewPortScale=yes');
 }
 
 //open link    in system
-function openURLsystem(urlString) {
+export function openURLsystem(urlString) {
     return window.open(urlString, '_system');
 }
 

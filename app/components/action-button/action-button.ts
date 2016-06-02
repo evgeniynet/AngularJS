@@ -16,6 +16,7 @@ export class ActionButtonComponent {
 
     @Input() data: any;
     current: any;
+    actionSheet: any;
 
     constructor(private navParams: NavParams, private nav: Nav, private config: Config) {
         this.current = config.getCurrent();
@@ -68,7 +69,8 @@ export class ActionButtonComponent {
                     text: 'Add Invoice',
                     role: '',
                     handler: () => {
-                        this.nav.push(UnInvoicesPage);
+                        this.actionSheet.dismiss().then(() => this.nav.push(UnInvoicesPage));
+                        return false;
                     }
                 });
         }
@@ -93,13 +95,13 @@ export class ActionButtonComponent {
         }
         );
 
-        let actionSheet = ActionSheet.create({
+        this.actionSheet = ActionSheet.create({
             title: '',
             buttons: but
         });
 
         //setTimeout( () => {
-            this.nav.present(actionSheet);
+            this.nav.present(this.actionSheet);
         //});
     }
 }

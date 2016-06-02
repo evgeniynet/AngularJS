@@ -17,6 +17,7 @@ export class ExpenseCreatePage {
     selects: any;
 
     constructor(private nav: Nav, private navParams: NavParams, private apiData: ApiData, private config: Config, private view: ViewController) {
+    nav.swipeBackEnabled = false;
     }
     
     ngOnInit()

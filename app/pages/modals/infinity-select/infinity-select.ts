@@ -21,6 +21,7 @@ export class InfinitySelectModal {
     constructor(private nav: Nav, private navParams: NavParams, private config: Config, private apiData: ApiData,
         private viewCtrl: ViewController) 
     {
+        nav.swipeBackEnabled = false;
     }
 
     ngOnInit() {

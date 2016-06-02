@@ -13,15 +13,14 @@ export class UnInvoicesPage {
     LIMIT: number = 15;
     count: number;
     account: any;
-    is_empty: boolean;
+    is_empty: boolean = false;
     busy: boolean;
     params: any;
     pager: any;
-    invoices: Array<any>;
+    invoices: Array<any> = [];
 
     constructor(private nav: Nav, private dataProvider: DataProvider, private config: Config, private navParams: NavParams) {
-        this.is_empty = false;
-        this.invoices = [];
+        nav.swipeBackEnabled = false;
   }
 
     onPageLoaded() {
