@@ -1,5 +1,5 @@
 import {NgZone, ViewChild} from '@angular/core';
-import {App, IonicApp, Config, Platform, Nav, NavParams, Events, MenuController, Toast} from 'ionic-angular';
+import {IonicApp, Config, Platform, Nav, NavParams, Events, MenuController, Toast} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 import {OnInit, OnDestroy} from '@angular/core';
 import {ApiData} from './providers/api-data';
