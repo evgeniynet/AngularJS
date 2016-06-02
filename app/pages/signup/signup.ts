@@ -1,10 +1,11 @@
-import {Page, Config, Nav, Events, Alert} from 'ionic-angular';
+import {Page, Config, Nav, Events, Alert, Modal} from 'ionic-angular';
 import {saveCache} from '../../directives/helpers';
 import {DataProvider} from '../../providers/data-provider';
 import {LoginPage} from '../login/login';
 import {OrganizationsPage} from '../organizations/organizations';
 import {TicketsPage} from '../tickets/tickets';
 import {DashboardPage} from '../dashboard/dashboard';
+import {PrivacyModal} from '../modals/modals';
 
 @Page({
   templateUrl: 'build/pages/signup/signup.html',
@@ -121,6 +122,10 @@ getUrl(name){
 
     onGoogleSignip() {
         this.nav.setRoot(SignupPage), null, { animation: "wp-transition" };
+    }
+
+    gotoPrivacy(){
+        this.nav.present(Modal.create(PrivacyModal));
     }
     
     onCancel() {
