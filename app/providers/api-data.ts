@@ -98,18 +98,30 @@ handleError(error) : any {
     {
         logout(settings.url !== ApiSite + "login", request.statusText);
     }*/
+
+    let message: string = "";
+    try {
+        var e = JSON.parse(error._body);
+        message = ((e || {}).ResponseStatus || {}).Message;
+    } catch (e) {
+        message = error._body; 
+    }
+    console.log(message);
+    message = message || "Error. Please contact Administrator";
+    let url = error.url || "";
+    let status = error.status.toString();
     if (
-        (~(error.status || error).toString().indexOf("403") && !(~(error.url || "").indexOf("organizations")))  ||
-       (error.status == 404 && ~(error._body || {}).toString().indexOf("User with token"))
+        (status == "403" && !~url.indexOf("organizations"))  ||
+       (status == "404" && ~url.indexOf("config"))
     )
         {
-            this.events.publish("login:failed", null);
+            this.events.publish("login:failed");
         }
-    if (error.constructor !== String)
-        error = (error || {}).json().error || (error._body + " (" + error.status + ") ");
+    
+    message += " (" + status + ") ";
 
     //this.events.publish("connection:error", (error || "Error occured") + " Please contact Administator!");
 
-    return Observable.throw(new Error(error));
+    return Observable.throw(new Error(message));
 }
 }

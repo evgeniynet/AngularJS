@@ -1,6 +1,5 @@
 var gulp = require('gulp'),
     gulpWatch = require('gulp-watch'),
-    uglify = require('gulp-uglify'),
     del = require('del'),
     runSequence = require('run-sequence'),
     argv = process.argv;

@@ -78,11 +78,7 @@ export function addp (url: string, param: string, value?: any) {
         url = addp(url, "org", org);
         if (localStorage.getItem("isPhonegap") === "true")
             openURLsystem(url);
-        else if (localStorage.getItem("isExtension") === "true") {
-            var origOpenFunc = window.__proto__.open;
-            origOpenFunc.apply(window, [url, "_blank"]);
-        }
-        else
+        else //if (localStorage.getItem("isExtension") === "true")
             window.open(url, "_blank");
 }
 

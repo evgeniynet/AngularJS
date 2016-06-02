@@ -1,5 +1,5 @@
 import {NgZone, ViewChild} from '@angular/core';
-import {IonicApp, Config, Platform, Nav, NavParams, Events, MenuController, Toast} from 'ionic-angular';
+import {App, IonicApp, Config, Platform, Nav, NavParams, Events, MenuController, Toast} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 import {OnInit, OnDestroy} from '@angular/core';
 import {ApiData} from './providers/api-data';
@@ -241,6 +241,10 @@ class MyApp {
             { title: 'Full App', component: null, icon: "md-share-alt", is_active: true },
           ];
 
+        //if (this.config.current.isPhonegap && this.config.current.key)
+        //  initOrgPreferences(this.config.current.org + "-" + this.config.current.instance + ":" + this.config.current.key);
+        //getInfo4Extension();
+
         if (isRedirect) {
           if (this.config.current.is_tech) {
             this.nav.setRoot(DashboardPage, null, { animation: "wp-transition" });
@@ -258,9 +262,10 @@ class MyApp {
           cssClass: "toast-error"
         });
         this.nav.present(toast);
-        localStorage.clear();
-        localStorage.setItem("username", this.config.current.username || "");
-        this.nav.setRoot(LoginPage, null, { animation: "wp-transition" });
+        this.config.current.org = "";
+        //localStorage.clear();
+        //localStorage.setItem("username", this.config.current.username || "");
+        //this.nav.setRoot(LoginPage, null, { animation: "wp-transition" });
       }
     ); 
   }

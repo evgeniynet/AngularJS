@@ -20,7 +20,18 @@ export class OrganizationsPage {
         
         this.dataProvider.getOrganizations(this.config.getCurrent("key")).subscribe(
             data => {
-                this.list = data;
+                if (data.length == 1)
+                {
+                    if (data.instances.length == 1)
+                        this.onSelectInst({ org: data.key, inst: data.instances[0].key });
+                    else
+                    {
+                        this.list = data;
+                        this.toggle(data[0]);
+                    }
+                }
+                else
+                    this.list = data;
             }, 
             error => { 
                 this.nav.alert("Cannot get list of Organizations", true);
