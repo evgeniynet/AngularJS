@@ -73,6 +73,7 @@ class MyApp {
       tconfig.isPhonegap = tconfig.isPhonegap || false; 
       tconfig.isExtension = tconfig.isExtension || false; 
       tconfig.isGoogle = tconfig.isGoogle || false; 
+      tconfig.is_multiple_org = tconfig.is_multiple_org || false; 
       tconfig.username = tconfig.username || false; 
       if (property)
         return tconfig[property] || "";
@@ -87,6 +88,7 @@ class MyApp {
       tconfig.isPhonegap = nconfig.isPhonegap || current.isPhonegap || false; 
       tconfig.isExtension = nconfig.isExtension || current.isExtension || false; 
       tconfig.isGoogle = nconfig.isGoogle || current.isGoogle || false; 
+      tconfig.is_multiple_org = nconfig.is_multiple_org || current.is_multiple_org || false; 
       tconfig.username = nconfig.username || current.username || false; 
       tconfig.stat = nconfig.stat || current.stat || {};
       tconfig.recent = nconfig.recent || current.recent || {};
@@ -229,14 +231,14 @@ class MyApp {
             { title: 'Accounts', component: AccountsPage, icon: "people", is_active: this.config.current.is_account_manager },
             { title: 'Invoices', component: InvoicesPage, icon: "card", is_active: this.config.current.is_time_tracking && this.config.current.is_invoice },
             { title: 'Queues', component: QueuesPage, icon: "list-box", is_active: this.config.current.is_unassigned_queue },
-            { title: 'Switch Org', component: OrganizationsPage, icon: "md-swap", is_active: true },
+            { title: 'Switch Org', component: OrganizationsPage, icon: "md-swap", is_active: this.config.current.is_multiple_org },
             { title: 'Signout', component: LoginPage, icon: "md-log-in", is_active: true },
             { title: 'Full App', component: null, icon: "md-share-alt", is_active: true },
           ];
         else
           this.pages = [
             { title: 'Tickets', component: TicketsPage, icon: "create", is_active: true },
-            { title: 'Switch Org', component: OrganizationsPage, icon: "md-swap", is_active: true },
+            { title: 'Switch Org', component: OrganizationsPage, icon: "md-swap", is_active: this.config.current.is_multiple_org },
             { title: 'Signout', component: LoginPage, icon: "md-log-in", is_active: true },
             { title: 'Full App', component: null, icon: "md-share-alt", is_active: true },
           ];

@@ -20,10 +20,14 @@ export class OrganizationsPage {
         
         this.dataProvider.getOrganizations(this.config.getCurrent("key")).subscribe(
             data => {
+                this.config.current.is_multiple_org = true;
                 if (data.length == 1)
                 {
-                    if (data.instances.length == 1)
-                        this.onSelectInst({ org: data.key, inst: data.instances[0].key });
+                    if (data[0].instances.length == 1)
+                    {
+                        this.config.current.is_multiple_org = false;
+                        this.onSelectInst({ org: data[0].key, inst: data[0].instances[0].key });
+                    }
                     else
                     {
                         this.list = data;
