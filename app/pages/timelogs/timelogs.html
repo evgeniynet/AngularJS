@@ -6,7 +6,7 @@
 <ion-content>
     
     <ion-list class="list general-alignment2" no-lines>
-    <div *ngIf="!is_empty" class="imgloading"><img [hidden]="timelogs | async" class="imglogo img-padding" src="img/loading2.gif"></div>
+    <img *ngIf="busy" class="imglogo img-padding" src="img/loading2.gif">
         <ion-item *ngFor="let time of timelogs | async" (click)="itemTapped(time)" class="margin-top0">
     <ion-avatar item-left>
         <img *ngIf="time.user_email" [alt]="time.user_firstname" class="img" [src]="time.user_email | Gravatar"/>

@@ -15,16 +15,16 @@ export class TimelogsPage {
     LIMIT: number = 15;
     count: number;
     account: any;
-    is_empty: boolean;
+    is_empty: boolean = false;
     params: any;
     pager: any;
     cachelen: number;
     cachename: string;
-    timelogs: Array<any>;
+    timelogs: any;
+    busy: boolean;
 
 
     constructor(private nav: Nav, private timeProvider: TimeProvider, private config: Config, private navParams: NavParams) {
-        this.is_empty = false;
         this.pager = { page: 0, limit: this.LIMIT };
   }
     
@@ -43,6 +43,18 @@ export class TimelogsPage {
         if (this.params.count !== 0) {
             this.timeProvider.getTimelogs(this.params.account.id, this.pager);
             this.timelogs = this.timeProvider.times$[this.cachename];
+            if (!this.cachelen)
+            {
+                var timer = setTimeout(() => {
+                    this.busy = true;
+                }, 500);
+                this.timelogs.subscribe(
+                    data => {
+                        clearTimeout(timer);
+                        this.busy = false;
+                        this.is_empty = !data.length;
+                    });
+            }
         }
         else
             this.is_empty = true;
@@ -56,7 +68,7 @@ export class TimelogsPage {
         }
         this.pager.page += 1;
         this.timeProvider.getTimelogs(this.params.account.id, this.pager);
-        this.timeProvider.times$[this.cachename].subscribe(
+        this.timelogs.subscribe(
             data => {
                 infiniteScroll.complete();
                 infiniteScroll.enable(!(data.length % this.LIMIT));

@@ -19,13 +19,13 @@ export class TicketsListComponent {
     @Input() count: number;
     @Input() preload: number;
     @Input() filter: string;
-    tickets: Array<any>;
+    tickets: any;
     cachelen: number;
     pager: any;
-    is_empty: boolean;
+    is_empty: boolean = false;
+    busy: boolean;
 
     constructor(private nav: Nav, private navParams: NavParams, private config: Config, private ticketProvider: TicketProvider) {
-        this.is_empty = false;
         this.pager = { page: 0, limit: this.LIMIT};
     }
 
@@ -73,6 +73,17 @@ export class TicketsListComponent {
          if (this.count !== 0) {
              this.ticketProvider.getTicketsList(this.mode[0], this.mode[1], this.pager);
              this.tickets = this.ticketProvider.tickets$[this.mode[0] + (this.mode[1] || "")];
+             if (!this.ticketProvider._dataStore[this.mode[0] + (this.mode[1] || "")].length) {
+                 var timer = setTimeout(() => {
+                     this.busy = true;
+                 }, 500);
+                 this.tickets.subscribe(
+                     data => {
+                         clearTimeout(timer);
+                         this.busy = false;
+                         this.is_empty = !data.length;
+                     });
+             }
          }
          else {
              this.is_empty = true;
@@ -159,7 +170,7 @@ export class TicketsListComponent {
          }
          this.pager.page += 1; 
          this.ticketProvider.getTicketsList(this.mode[0], this.mode[1], this.pager);
-         this.ticketProvider.tickets$[this.mode[0] + (this.mode[1] || "")].subscribe(
+         this.tickets.subscribe(
              data => { 
                  infiniteScroll.complete();
                  infiniteScroll.enable(!(data.length % this.LIMIT));

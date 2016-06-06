@@ -106,7 +106,7 @@ export class SelectListComponent {
  {
      if (!this.list.items || this.list.items.length == 0)
      {
-         this.list.value += " (no " + this.list.name + "(s) found)";
+         this.list.value += " (no " + this.list.name + "s found)";
          //this.error(this.list.name + ' list is empty!');
          return;
      }
