@@ -24,8 +24,6 @@ export class QueueTicketsPage {
                     this.nav.push(TicketDetailsPage, data1);
                 }, 500);
         });
-        setTimeout(() => {
-            this.nav.present(myModal);
-        }, 500);
+        this.nav.present(myModal);
     }
 }

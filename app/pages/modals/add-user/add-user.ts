@@ -37,7 +37,7 @@ export class AddUserModal {
                 },
                 error => {
                     this.nav.alert(form.value.email + ' already exists! Please try again', true);
-                    setTimeout(() => { console.log(error || 'Server error'); });
+                    console.log(error || 'Server error');
                 });
     }
 }

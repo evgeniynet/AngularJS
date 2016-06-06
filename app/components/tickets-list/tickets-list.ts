@@ -146,9 +146,7 @@ export class TicketsListComponent {
                  this.is_empty = false;
              }
          });
-         setTimeout(() => {
-             this.nav.present(myModal);
-         }, 500);
+         this.nav.present(myModal);
      }
 
 

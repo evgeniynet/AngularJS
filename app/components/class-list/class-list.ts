@@ -155,9 +155,7 @@ export class ClassListComponent {
                  this.emit_changed(data);
              }
          });
-         setTimeout(() => {
-             this.nav.present(myModal);
-         }, 500);
+         this.nav.present(myModal);
      }
 
     }

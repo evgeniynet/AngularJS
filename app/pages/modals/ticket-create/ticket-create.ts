@@ -150,9 +150,7 @@ export class TicketCreatePage {
             this.selects[type].value = getFullName(data.firstname, data.lastname, data.email);
         }
         });
-        setTimeout(() => {
-            this.nav.present(myModal);
-        }, 500);
+        this.nav.present(myModal);
     }
 }
 

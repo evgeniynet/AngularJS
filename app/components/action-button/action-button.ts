@@ -34,13 +34,9 @@ export class ActionButtonComponent {
             //console.log(this.nav);
             //console.log(this.data);
             if (data1 && !this.data.tech && !this.data.account)
-                setTimeout(() => {
-                    this.nav.push(TicketDetailsPage, data1);
-                }, 500);
+                this.nav.push(TicketDetailsPage, data1);
         });
-        setTimeout(() => {
-            this.nav.present(myModal);
-        }, 500);
+        this.nav.present(myModal);
     }
     
     presentActionSheet() {
@@ -50,7 +46,8 @@ export class ActionButtonComponent {
             text: 'Add Ticket',
             role: '',
             handler: () => {
-                this.openModal(TicketCreatePage);
+                this.actionSheet.dismiss().then(() => this.openModal(TicketCreatePage));
+                return false;
             }
         }];
         if (this.current.is_time_tracking) {
@@ -59,7 +56,8 @@ export class ActionButtonComponent {
                 text: 'Add Time',
                 role: '',
                 handler: () => {
-                    this.openModal(TimelogPage);
+                    this.actionSheet.dismiss().then(() => this.openModal(TimelogPage));
+                    return false;
                 }
             });
             if (this.current.is_invoice)
@@ -81,7 +79,8 @@ export class ActionButtonComponent {
                 text: 'Add Expense',
                 role: '',
                 handler: () => {
-                    this.openModal(ExpenseCreatePage);
+                    this.actionSheet.dismiss().then(() => this.openModal(ExpenseCreatePage));
+                    return false;
                 }
             });
 

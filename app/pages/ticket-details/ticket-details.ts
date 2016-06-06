@@ -167,7 +167,7 @@ export class TicketDetailsPage {
 
         setTimeout(() => {
             this.nav.pop();
-        }, 3000);
+        }, 1000);
     }
 
     saveSelect(event){
@@ -265,34 +265,28 @@ export class TicketDetailsPage {
     closeTicket()
     {
         let myModal = Modal.create(CloseTicketModal, { "number": this.ticket.number, "key": this.ticket.key, "subject": this.ticket.subject });
-        myModal.onDismiss(data => {
-            console.log(data);
-        });
-        setTimeout(() => {
-            this.nav.present(myModal);
-        }, 500);
+        //myModal.onDismiss(data => {
+        //    console.log(data);
+        //});
+        this.nav.present(myModal);
     }   
 
     addTime()
     {
         let myModal = Modal.create(TimelogPage, { "number": this.ticket.number, "ticket_number": this.ticket.key, "subject": this.ticket.subject, "account_id": this.ticket.account_id });
-        myModal.onDismiss(data => {
-            console.log(data);
-        });
-        setTimeout(() => {
-            this.nav.present(myModal);
-        }, 500);
+        //myModal.onDismiss(data => {
+        //    console.log(data);
+        //});
+        this.nav.present(myModal);
     }
 
     addExpense()
     {
         let myModal = Modal.create(ExpenseCreatePage, { "number": this.ticket.number, "ticket_number": this.ticket.key, "subject": this.ticket.subject, "account_id": this.ticket.account_id });
-        myModal.onDismiss(data => {
-            console.log(data);
-        });
-        setTimeout(() => {
-            this.nav.present(myModal);
-        }, 500);
+        //myModal.onDismiss(data => {
+        //    console.log(data);
+        //});
+        this.nav.present(myModal);
     }
 
     getFullapplink(ticketkey) {

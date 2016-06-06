@@ -4,6 +4,15 @@ var gulp = require('gulp'),
     runSequence = require('run-sequence'),
     argv = process.argv;
 
+var embedTemplates = require('gulp-angular-embed-templates');
+ 
+gulp.task('embed', function () {
+    gulp.src('app/**/*.ts') // also can use *.js files 
+        .pipe(embedTemplates({sourceType:'ts', basePath: 'www/', minimize: { quotes: true }}))
+        .pipe(gulp.dest('./dist'));
+});
+
+
 /**
  * Ionic hooks
  * Add ':before' or ':after' to any Ionic project command name to run the specified
@@ -42,7 +51,26 @@ gulp.task('watch', ['clean'], function(done){
     }
   );
 });
-gulp.task('build', ['clean'], function(done){
+
+gulp.task('compile', [], function(done){
+  runSequence(
+    ['sass', 'html', 'fonts', 'scripts'],
+    function(){
+      buildBrowserify({
+            watch: true,
+            minify: true,
+        uglifyOptions: {
+          mangle: false
+        },
+  browserifyOptions: {
+  debug: false, syntax: false // sourcemaps off
+}, 
+        tsifyOptions: { noImplicitAny: false, allowSyntheticDefaultImports: true,  removeComments: true, skipDefaultLibCheck: true, target: "ES5"} }).on('end', done);
+    }
+  );
+});
+
+gulp.task('build', [], function(done){
   runSequence(
     ['sass', 'html', 'fonts', 'scripts'],
     function(){

@@ -37,11 +37,12 @@ export class AjaxSelectModal {
         this.name = this.navParams.data.name || "List";
         this.url = this.navParams.data.url || "";
         this.data = this.navParams.data.items || {};
-        this.pager = { limit: 10 };
+        this.pager = { limit: 20 };
         this.items = this.data;
         this.count = this.items.length;
         this.is_empty = false;
-
+        console.log("init");
+        console.log(this.items);
         if (this.items.length === 0) {
             var timer = setTimeout(() => {
                 this.busy = true;
@@ -97,6 +98,8 @@ export class AjaxSelectModal {
         this.items = [];
         this.apiData.getPaged(addp(this.url, "search", term), this.pager).subscribe(
             data => {
+                console.log("data");
+                console.log(data);
                 if (data.length && !data[0].name) {
                     var results = [];
                     data.forEach(item => {
@@ -122,6 +125,8 @@ export class AjaxSelectModal {
                     this.items = data;
 
                 this.count = data.length;
+                console.log("items");
+                console.log(this.items);
             },
             error => {
                 if (timer) {
