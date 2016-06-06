@@ -52,12 +52,18 @@ gulp.task('watch', ['clean'], function(done){
   );
 });
 
-gulp.task('compile', [], function(done){
+gulp.task('prepare', [], function(done){
   runSequence(
     ['sass', 'html', 'fonts', 'scripts'],
+    function(){    
+})});
+
+gulp.task('compile', [], function(done){
+  runSequence(
+    ['scripts'],
     function(){
       buildBrowserify({
-            watch: true,
+        watch: true,
             minify: true,
         uglifyOptions: {
           mangle: false
