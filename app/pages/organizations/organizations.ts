@@ -1,4 +1,4 @@
-import {Page, Config, Nav, Events} from 'ionic-angular';
+import {Page, Config, Nav, Events, Loading} from 'ionic-angular';
 import {DataProvider} from '../../providers/data-provider';
 import {saveCache} from '../../directives/helpers';
 import {LoginPage} from '../login/login';
@@ -65,6 +65,12 @@ export class OrganizationsPage {
     }
     
     onSelectInst(instance) {
+            let loading = Loading.create({
+                content: "Loading configuration...",
+                //duration: 2000,
+                dismissOnPageChange: true
+            });
+            this.nav.present(loading);
         this.config.setCurrent({ "org": instance.org, "instance": instance.inst });
         this.config.saveCurrent();
         this.events.publish("config:get", true);

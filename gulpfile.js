@@ -54,7 +54,7 @@ gulp.task('watch', ['clean'], function(done){
 
 gulp.task('prepare', [], function(done){
   runSequence(
-    ['sass', 'html', 'fonts', 'scripts'],
+    ['sass', 'html', 'fonts'],
     function(){    
 })});
 

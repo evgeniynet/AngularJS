@@ -4,7 +4,7 @@
       <img class="imglogo img-padding" src="img/logo.png">
       <form #loginForm="ngForm" novalidate>
       <div class="tooltips">
-          <input class="width100 blue3 subject-create commentText" [ngModel]="login.name" (ngModelChange)="getUrl(name)" ngControl="name" #name="ngForm" required minlength="3" placeholder="Company name (required)"/> 
+          <input autofocus class="width100 blue3 subject-create commentText" [ngModel]="login.name" (ngModelChange)="getUrl(name)" ngControl="name" #name="ngForm" required minlength="3" placeholder="Company name (required)"/> 
           <span *ngIf="name.dirty && !name.valid">Name is required</span></div>
       <div class="tooltips">
 <input class="width100 blue3 subject-create commentText" type="email" [(ngModel)]="login.email" ngControl="email" #username="ngForm" required pattern="^[^@\s]+@[^@\s]+(\.[^@\s]+)+$" placeholder="Email (required)"/>

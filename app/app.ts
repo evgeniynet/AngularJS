@@ -44,7 +44,13 @@ export interface Stat {
   providers: [ApiData, DataProvider, TicketProvider, TimeProvider],
   prodMode : true,
   config: {
-    tabbarPlacement: 'top'
+    tabbarPlacement: 'top',
+    pageTransitionDelay: 0,
+    prodMode: true,
+    activator: "ripple",
+    ios: {
+      activator: 'ripple'
+    } 
   }
 })
 class MyApp {
@@ -56,7 +62,10 @@ class MyApp {
   constructor(private app: IonicApp, private platform: Platform, private config: Config, private events: Events, private menu: MenuController, private ticketProvider: TicketProvider, private dataProvider: DataProvider) {
 
     if (!this.isStorage())
+    {
+      console.log("Please enable coockies!")
        return;
+    }
 
     // set up our app
     this.initializeApp();
@@ -143,13 +152,14 @@ class MyApp {
       this.nav.alert = function(message, isNeg) {
         let toast = Toast.create({
           message: message,
-          duration: 3000,
-          cssClass: isNeg ? "toast-error" : "toast-ok"
+          duration: isNeg ? 7000 : 3000,
+          cssClass: isNeg ? "toast-error" : "toast-ok",
+          showCloseButton: isNeg,
+          closeButtonText: "X"
         });
-
-        toast.onDismiss(() => {
+        //toast.onDismiss(() => {
           //console.log('Dismissed toast');
-        });
+        //});
         this.present(toast);
       }, 0);
 
@@ -174,13 +184,7 @@ class MyApp {
       var error = helpers.getParameterByName('f');
       if (error) {
         helpers.cleanQuerystring('ionicPlatform', platform_string);
-        let toast = Toast.create({
-          message: error,
-          showCloseButton: true,
-          duration: 6000,
-          cssClass: "toast-error"
-        });
-        setTimeout(() => this.nav.present(toast), 3000);
+        setTimeout(() => this.nav.alert(error, true), 3000);
       }
     }
 
@@ -258,12 +262,7 @@ class MyApp {
       },
       error => {
         //console.log(this.nav);
-        let toast = Toast.create({
-          message: error || 'Server error',
-          duration: 3000,
-          cssClass: "toast-error"
-        });
-        this.nav.present(toast);
+        this.nav.alert(error || 'Server error', true);
         this.config.current.org = "";
         //localStorage.clear();
         //localStorage.setItem("username", this.config.current.username || "");

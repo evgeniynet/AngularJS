@@ -11,6 +11,7 @@ export class Focuser {
 		setTimeout(() => {
 			//delay required or ionic styling gets finicky
 			this.renderer.invokeElementMethod(searchInput, 'focus', []);
+			this.renderer.setElementProperty(searchInput, 'autofocus', 'autofocus');
 		}, 300);
 	}
 }
