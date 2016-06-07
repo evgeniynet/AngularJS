@@ -66,6 +66,6 @@ export class LoginPage {
     }
     
     onSignup() {
-        this.nav.setRoot(SignupPage, null, { animation: "wp-transition" });
+        this.nav.push(SignupPage, null, { animation: "wp-transition" });
     }
 }

@@ -31,7 +31,7 @@
         <br>
           <button [disabled]="!loginForm.valid" class="login-margin" block secondary (click)="onSignup(loginForm)">Create My Account</button>
           <br>
-          <button class="login-margin grey3" block (click)="onCancel()">Back to Login Page</button>
+          <button class="login-margin grey3" block nav-pop>Back to Login Page</button>
           <br>
           By clicking the button above I agree to
           <a href=# (click)="gotoPrivacy()">Terms of Use and Privacy Policy</a>

@@ -61,6 +61,7 @@ class MyApp {
 
   constructor(private app: IonicApp, private platform: Platform, private config: Config, private events: Events, private menu: MenuController, private ticketProvider: TicketProvider, private dataProvider: DataProvider) {
 
+    menu.swipeEnable(false);
     if (!this.isStorage())
     {
       console.log("Please enable coockies!")
@@ -215,7 +216,6 @@ class MyApp {
         //this.rootPage = AccountsPage; return;
         //this.rootPage = TicketCreatePage; return;
         //this.rootPage = AddUserModal; return;
-
         setInterval(() => this.redirect(), 2 * 60 * 1000);
 
         setTimeout(() => this.redirect(true), dontClearCache ? 1000 : 0);
@@ -224,6 +224,7 @@ class MyApp {
   redirect(isRedirect?) {
     this.dataProvider.getConfig().subscribe(
       data => {
+        menu.swipeEnable(true);
         this.config.setCurrent(data);
         this.config.saveCurrent();
         // set our app's pages
@@ -261,6 +262,7 @@ class MyApp {
         }
       },
       error => {
+        this.menu.swipeEnable(false);
         //console.log(this.nav);
         this.nav.alert(error || 'Server error', true);
         this.config.current.org = "";
