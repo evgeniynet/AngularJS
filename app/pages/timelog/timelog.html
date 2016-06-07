@@ -12,15 +12,15 @@
 <ion-content class="timelog">
     <div class="list max-width700">
     <div class="img-top">
-    <div  (click)="decrement()" class="left width30 button-timelog">
+    <a detail-none href=# (click)="decrement()" class="left width30 button-timelog">
   <ion-item no-lines class="width100 blue4"><ion-icon name="remove" class="padding-left8"></ion-icon></ion-item>
-        </div>
+        </a>
     <ion-item no-lines class="blue3 left width30 button-timelog line-height5">
  <ion-input class="timelog-input width100 right margin padding-1px" [(ngModel)]="timecount"></ion-input>
         </ion-item>
-    <div (click)="increment()" class="right width30 button-timelog dashboardRight">
+    <a detail-none href=# (click)="increment()" class="right width30 button-timelog dashboardRight">
 <ion-item no-lines class="width100 blue4"><ion-icon name="add" class="padding-left8"></ion-icon></ion-item>
-        </div>
+        </a>
   </div>
     <ion-item no-lines class="blue3"><!--left button-calc -->
   <ion-label class="grey2 textLogin">Start Time</ion-label>
