@@ -76,7 +76,7 @@ gulp.task('compile', [], function(done){
   );
 });
 
-gulp.task('build', [], function(done){
+gulp.task('build', ['clean'], function(done){
   runSequence(
     ['sass', 'html', 'fonts', 'scripts'],
     function(){
