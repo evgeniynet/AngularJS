@@ -9,11 +9,11 @@
     
     <div>
     <ion-list class="general-alignment2">
-        <ion-item class="margin" (click)="itemTapped(invoice)" *ngFor="let invoice of invoices">
+        <a detail-none href=# ion-item class="margin" (click)="itemTapped(invoice)" *ngFor="let invoice of invoices">
     <p class="width45 tkts-table left invoices color">{{setDate(invoice.end_date || invoice.date, true)}}</p> 
     <h2 class="width55 tkts-table right color">{{invoice.account_name || invoice.customer}}</h2>
         <p item-right class="text width30 text-right color">{{getCurrency(invoice.total_cost)}}</p>
-        </ion-item>
+        </a>
         </ion-list>
 
 <ion-infinite-scroll (infinite)="doInfinite($event)" threshold="30%">

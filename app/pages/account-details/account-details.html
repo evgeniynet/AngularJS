@@ -20,15 +20,15 @@
             <ion-list class="list img-top" no-lines style="height: 150px;">
         <div class="blue1 left width65 general-alignment height174">
   <ion-item class="textLogin">Open Tickets</ion-item>
-  <ion-item (click)="openPage(0,account.account_statistics.invoices)" class="textLogin">Invoices</ion-item>
-  <ion-item (click)="openPage(1, account.account_statistics.expenses)" class="textLogin">Expenses</ion-item>
-  <ion-item (click)="openPage(2, account.account_statistics.hours)" class="textLogin">Hours</ion-item>
+  <a detail-none href=# ion-item (click)="openPage(0,account.account_statistics.invoices)" class="textLogin">Invoices</a>
+  <a detail-none href=# ion-item (click)="openPage(1, account.account_statistics.expenses)" class="textLogin">Expenses</a>
+  <a detail-none href=# ion-item (click)="openPage(2, account.account_statistics.hours)" class="textLogin">Hours</a>
     <br>
         </div>
         <div class="right width35 general-alignment">
-            <ion-item class="blue2">{{account.account_statistics.ticket_counts.open || 0}}</ion-item>
-            <ion-item (click)="openPage(0)" class="blue2">{{account.account_statistics.invoices || 0}}</ion-item>
-            <ion-item (click)="openPage(1)" class="blue2">{{getCurrency(account.account_statistics.expenses)}}</ion-item>
+            <a detail-none href=# ion-item class="blue2">{{account.account_statistics.ticket_counts.open || 0}}</a>
+            <a detail-none href=# ion-item (click)="openPage(0)" class="blue2">{{account.account_statistics.invoices || 0}}</a>
+            <a detail-none href=# ion-item (click)="openPage(1)" class="blue2">{{getCurrency(account.account_statistics.expenses)}}</a>
             <a detail-none href=# ion-item (click)="openPage(2)" class="blue2" [innerHTML]="account.account_statistics.hours | More:[10000,'<div class=item-inner><div class=input-wrapper><ion-label>VV</ion-label></div></div>']"></a>
         </div>
 </ion-list>
