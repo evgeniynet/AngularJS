@@ -14,6 +14,7 @@ export class LoginPage {
     
     login: any;
     google_action: string = "";
+    busy: boolean = false;
     //@ViewChild('google_openid') google_openid: NgForm;
 
     constructor(private nav: Nav, private dataProvider: DataProvider, private config: Config) {
@@ -43,11 +44,15 @@ export class LoginPage {
                     }
                     this.nav.alert(message, true);
                     this.login.password = "";
+                    this.busy = false;
                 }
             ); 
         }
         else
-            this.nav.alert('Please enter email and password!', true);
+            {
+                this.nav.alert('Please enter email and password!', true);
+            this.busy = false;
+        }
     }
 
     ngAfterViewInit() {
