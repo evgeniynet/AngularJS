@@ -81,7 +81,7 @@ export class TicketsListComponent {
                      data => {
                          clearTimeout(timer);
                          this.busy = false;
-                         this.is_empty = !!data.length;
+                         this.is_empty = !data.length;
                      });
              }
          }

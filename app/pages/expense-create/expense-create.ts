@@ -24,6 +24,8 @@ export class ExpenseCreatePage {
     {
         this.expense = this.navParams.data || {};
 
+        this.expense.amount = this.getFixed(this.expense.amount);
+
         this.isbillable = typeof this.expense.billable === 'undefined' ? true : this.expense.billable;
         
         this.he = this.config.getCurrent("user");

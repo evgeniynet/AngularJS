@@ -16,7 +16,7 @@
     font-size: 1.6rem;
 }
 
-.class-list div{
+.class-list a{
     display: block;
     color: $text-color;
     background-color: $class-list;
@@ -36,11 +36,11 @@ ul .inner {
     overflow: hidden;
 }
 
-.class-list li li div{
+.class-list li li a{
     background-color: $class-list2;
 }
 
-.class-list li li li div{
+.class-list li li li a{
     background-color: $class-list3;
 }
 

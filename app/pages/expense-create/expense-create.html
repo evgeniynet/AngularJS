@@ -14,9 +14,7 @@
   
 <form #addForm="ngForm">
     <ion-list class="list max-width700 general-alignment" no-lines >
-<div class="tooltips">
-<input class="width100 textLogin commentText subject-create" placeholder="Amount" pattern="\d+" ngControl="amount" required #amount="ngForm" [value]="getFixed(expense.amount)"/> 
-<span [hidden]="amount.valid || amount.untouched">Amount should be more than 0</span></div>  
+<input class="width100 textLogin commentText subject-create" placeholder="Amount" required ngControl="amount" [ngModel]="expense.amount"/> 
  <div class="class-margin">
    <select-list *ngIf="!expense.number" [list]="selects.account"  ajax="true" preload="true" (onChanged)='saveSelect($event)'></select-list>
 
