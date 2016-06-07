@@ -2,7 +2,7 @@
 <ion-list class="list indent-bottom general-alignment2" no-lines>
 <img *ngIf="busy" class="imglogo img-padding" src="img/loading2.gif">
     <ion-item-sliding class="border" *ngFor="let ticket of tickets | async" #slidingItem> 
-        <ion-item (click)="itemTapped($event, ticket, slidingItem)"  class="item margin">
+        <a detail-none href=# ion-item (click)="itemTapped($event, ticket, slidingItem)"  class="item margin">
         <ion-avatar padding item-left class="img_padding margin admin padding-left">
             <li class="center avatarText">
                 <span class="margin text-bold" item-left>#{{ticket.number}}</span>
@@ -14,7 +14,7 @@
        <h2 class="ellipsis ticket-subject color"><ion-icon dark name="mail" class="icon-ticket"></ion-icon>&nbsp;{{ticket.subject}}</h2>
             <h3 class="tickets" [innerHTML]="ticket.initial_post | Linebreaks"></h3>
             <p class="grey2 right class_name space-initial text-right">{{ticket.class_name}}</p></li></div>
-    </ion-item>
+    </a>
         <ion-item-options>
         <button (click)="addPost(ticket, slidingItem)" class="grey3 disable-hover button button-default">
             <ion-icon></ion-icon>

@@ -21,7 +21,7 @@
     <a detail-none href=# (click)="increment()" class="right width30 button-timelog dashboardRight">
 <ion-item no-lines class="width100 blue4"><ion-icon name="add" class="padding-left8"></ion-icon></ion-item>
         </a>
-  </div>
+        </div>
     <ion-item no-lines class="blue3"><!--left button-calc -->
   <ion-label class="grey2 textLogin">Start Time</ion-label>
     <ion-datetime [ngClass]="{'nocolor': !time.start_time, 'text-color': time.start_time}" #starttime [displayFormat]="displayFormat" [min]="setMinTime(time.start_time)" [max]="setMaxTime(time.stop_time)" 

@@ -1,13 +1,13 @@
 <div>
     <ion-card-content class="container card-content" *ngFor="let post of posts">
         <div></div>
-        <ion-avatar class="center ticketImg left textLogin">
+        <ion-avatar class="center ticketImg left textLogin margin-top0">
             <img *ngIf="post.user_email" [alt]="post.user_firstname" class="img" [src]="post.user_email | Gravatar"/>
             <p class="tech text-avatar margin-top-10 padding">{{getFullName(post.user_firstname)}}</p>
         </ion-avatar>
-        <p class="text_list date width35 text-right right margin-right15">{{setDate(post.record_date, true)}}</p> 
-            <p class="text_list width35 text-right right margin-right15 color2">{{post.log_type}}</p>
-        <p class="padding-top20 text margin left width90 textLogin" [innerHTML]="post.note | Linebreaks| Files : attachments"></p>
+        <p class="text_list width35 text-right right margin-right15 margin-bottom3">{{setDate(post.record_date, true)}}</p> 
+            <p class="text_list width62 text-right right margin-right15 color2 margin-top0">{{post.log_type}}</p>
+        <p class="padding-top40 text margin left width90 textLogin" [innerHTML]="post.note | Linebreaks| Files : attachments"></p>
         <ion-item no-lines class="margin resp"></ion-item>
     </ion-card-content>
 </div>
