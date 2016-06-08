@@ -135,6 +135,15 @@ export class TicketProvider {
             };
             return this.apiData.get(url, data, "POST");
         }
+
+        addTicketNote(id, note) {
+            let url = `tickets/${id}`;
+            let data = {
+                "action": "note",
+                "workpad": note,
+            };
+            return this.apiData.get(url, data, "POST");
+        }
   }
 
 /*

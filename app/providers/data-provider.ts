@@ -123,6 +123,14 @@ getAccountDetails(id,is_no_stat?) {
     return this.apiData.get(url);
 }
 
+    addAccountNote(id, note) {
+        let url = `accounts/${id}`;
+        let data = {
+            "note": note,
+        };
+        return this.apiData.get(url, data, "POST");
+    }
+
 
 addUser(email, firstname, lastname, role) {
     let url = "users";

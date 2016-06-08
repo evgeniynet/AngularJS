@@ -106,10 +106,9 @@ handleError(error) : any {
     } catch (e) {
         message = error._body; 
     }
-    console.log(message);
     message = message || "Error. Please contact Administrator";
     let url = error.url || "";
-    let status = error.status.toString();
+    let status = (error.status || {}).toString();
     if (
         (status == "403" && !~url.indexOf("organizations"))  ||
        (status == "404" && ~url.indexOf("config"))

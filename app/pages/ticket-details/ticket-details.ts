@@ -28,6 +28,7 @@ export class TicketDetailsPage {
     selects: any;
     ticketnote: string;
     attachments: any;
+    workpad: string = "";
 
     constructor(private nav: Nav, private navParams: NavParams, private ticketProvider: TicketProvider, private config: Config) {
         this.ticket = {};
@@ -146,6 +147,7 @@ export class TicketDetailsPage {
         
         if (!isShortInfo)
         {
+            this.workpad = data.workpad || "";
             this.attachments = (data.attachments || []).slice().reverse();
             this.posts = data.ticketlogs;
 
@@ -182,7 +184,7 @@ export class TicketDetailsPage {
 
             this.ticketProvider.addTicketPost(this.ticket.id, post).subscribe(
                 data => {
-                    this.nav.alert('Note added :)');
+                    this.nav.alert('New post added :)');
                     this.ticketnote = "";
                     this.active = false;
                     setTimeout(() => this.active = true, 0);
@@ -193,6 +195,20 @@ export class TicketDetailsPage {
                 }
                 );
         }
+    } 
+
+    saveNote() {
+        var note = this.workpad || " "; //htmlEscape((this.workpad || "").trim()).substr(0, 5000);
+
+            this.ticketProvider.addTicketNote(this.ticket.id, note).subscribe(
+                data => {
+                    this.nav.alert('Note saved :)');
+                    this.ticket.workpad = note;
+                },
+                error => {
+                    console.log(error || 'Server error');
+                }
+                );
     }
 
     onUpdate() {

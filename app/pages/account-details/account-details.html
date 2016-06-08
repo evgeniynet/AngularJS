@@ -133,11 +133,11 @@
         
         <ion-list class="list margin-top63 max-width700" *ngSwitchWhen="'Notes'">
             
-            <div *ngIf="account.note?.length" class="width100 textLogin note-account" [innerHTML]="account.note || ''" type="text"></div>
+            <div *ngIf="note.length" class="width100 textLogin note-account" [innerHTML]="note" type="text"></div>
           
-              <textarea [value]="account.note || ''" class="width100 textLogin commentText" type="text" placeholder="Notes:"></textarea>
+              <textarea [(ngModel)]="note" class="width100 textLogin commentText" type="text" placeholder="Notes:"></textarea>
     <button secondary 
-            class="button_reply img-top right">Save Notes</button>
+            class="button_reply img-top right" (click)="saveNote()">Save Notes</button>
         </ion-list>
             <ion-list class="list margin-top45" no-lines *ngSwitchWhen="'Files'">
                 

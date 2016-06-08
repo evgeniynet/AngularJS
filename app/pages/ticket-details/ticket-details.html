@@ -75,11 +75,11 @@
       <button secondary block (click)="onUpdate()" type="submit" class="img-top disable-hover button button-default button-block">Update</button>
     </div>
     <ion-list class="list general-alignment max-width700" *ngSwitchWhen="'Notes'">
-            <div *ngIf="ticket.note?.length" class="width100 textLogin note-account" [innerHTML]="ticket.note" type="text"></div>
+            <div *ngIf="workpad.length" class="width100 textLogin note-account" [innerHTML]="workpad" type="text"></div>
           
-              <textarea [value]="ticket.note" class="width100 textLogin commentText" type="text" placeholder="Notes:"></textarea>
+              <textarea [(ngModel)]="workpad" class="width100 textLogin commentText" type="text" placeholder="Notes:"></textarea>
     <button secondary 
-            class="button_reply img-top right">Save Notes</button>
+            class="button_reply img-top right" (click)="saveNote()">Save Notes</button>
         </ion-list>
             <ion-list class="list img-top" no-lines *ngSwitchWhen="'Files'">
                  <div [hidden]="attachments?.length" class="table grey2 menu-text">No Files yet</div>
