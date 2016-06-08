@@ -11,7 +11,7 @@
 <div class="tickets mycontent">
 <ion-searchbar *ngIf="test" [focuser] (cancel)="test = !test" [ngModel]="searchQuery" (input)="getItems($event)"></ion-searchbar>
     <div *ngIf="is_tech" class="tabsTicket margin-bottom31">
-        <ion-segment  class="position-button" [(ngModel)]="ticket_tab">
+        <ion-segment [(ngModel)]="ticket_tab">
 <ion-segment-button  value="user">User</ion-segment-button>
 <ion-segment-button value="tech">Tech</ion-segment-button>
 <ion-segment-button value="alt">Alt</ion-segment-button>
