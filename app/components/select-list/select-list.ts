@@ -44,6 +44,7 @@ export class SelectListComponent {
             (this.list.name == "Location" && !this.config.current.is_location_tracking) ||
             (this.list.name == "Priority" && !this.config.current.is_priorities_general) ||
             (this.list.name == "Account" && !this.config.current.is_account_manager) ||
+            (this.list.name == "Level" && !this.config.current.is_ticket_levels) ||
             ((this.list.name == "Resolution" || this.list.name == "Category") && !this.config.current.is_resolution_tracking)) 
         {
             this.list.hidden = true;

@@ -241,6 +241,8 @@ class MyApp {
         data.is_invoice = false;
         //Projects
         data.is_project_tracking = false;
+        //Levels
+        data.is_ticket_levels = false;
         //Accounts
         data.is_account_manager = false;
         //Queues
