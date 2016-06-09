@@ -223,6 +223,31 @@ class MyApp {
   redirect(isRedirect?) {
     this.dataProvider.getConfig().subscribe(
       data => {
+        //Time
+        data.is_time_tracking = false;
+        //Resolution on close ticket
+        data.is_resolution_tracking = false;
+        //Confirmation on close ticket
+        data.is_confirmation_tracking = false;
+        //Priorities
+        data.is_priorities_general = false;
+        //Locations
+        data.is_location_tracking = false;
+        //Expenses
+        data.is_expenses = false;
+        //Classes
+        data.is_class_tracking = false;
+        //Invoices
+        data.is_invoice = false;
+        //Projects
+        data.is_project_tracking = false;
+        //Accounts
+        data.is_account_manager = false;
+        //Queues
+        data.is_unassigned_queue = false;
+        //All Open tickets (true to hide)
+        data.is_limit_assigned_tkts = true;
+
         this.config.setCurrent(data);
         this.config.saveCurrent();
         // set our app's pages

@@ -12,20 +12,22 @@ const alertLimit = 10;
     directives: [IONIC_DIRECTIVES]
 })
 export class ClassListComponent {
-    @Input() list: any;
+    @Input() list: any = {};
     @Input() preload: boolean;
     @Output() public onChanged:EventEmitter<any> = new EventEmitter(false);
-    init: boolean;
-    selected: Object;
+    init: boolean = true;
+    selected: Object = {};
     url: any;
 
      constructor(private nav: Nav, private apiData: ApiData, private config: Config) {
-         this.init = true;
-         this.list = {};
-         this.selected = {};
      }  
 
      ngOnInit() {
+         if (!this.config.current.is_class_tracking)
+         {
+             this.list.hidden = true;
+             return;
+         }
          if (this.list.url) {
              this.url = this.list.url;
              if (this.preload) {

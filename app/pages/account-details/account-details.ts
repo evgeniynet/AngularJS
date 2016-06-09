@@ -44,7 +44,7 @@ export class AccountDetailsPage {
     }
 
     saveNote() {
-        var note = this.note || " "; // htmlEscape((this.workpad || "").trim()).substr(0, 5000);
+        var note = this.note || ""; // htmlEscape((this.workpad || "").trim()).substr(0, 5000);
 
         this.dataProvider.addAccountNote(this.account.id, note).subscribe(
             data => {

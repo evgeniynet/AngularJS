@@ -277,15 +277,35 @@ export class TicketDetailsPage {
             );
     }
 
+    reopenTicket() {
+        let data = {
+            "status": "open",
+            "note_text": ""
+        };
 
-    closeTicket()
-    {
+        this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(
+            data => {
+                this.nav.alert('Ticket has been Reopened!');
+                this.ticket.status = "Open";
+            },
+            error => {
+                console.log(error || 'Server error');
+            }
+            );
+    }
+
+
+    closeTicket() {
+        if (this.ticket.status == 'Closed') {
+            this.reopenTicket();
+            return;
+        }
         let myModal = Modal.create(CloseTicketModal, { "number": this.ticket.number, "key": this.ticket.key, "subject": this.ticket.subject });
         //myModal.onDismiss(data => {
         //    console.log(data);
         //});
         this.nav.present(myModal);
-    }   
+    }  
 
     addTime()
     {

@@ -26,8 +26,10 @@ export class TicketsPage {
         let param = this.navParams.data || {};
         if (param.count)
             this.counts[param.tab] = param.count;
-        this.ticket_tab = this.is_tech ? 
-            (param.tab || "tech") : "user";
+        if (this.is_tech)
+            this.ticket_tab = this.config.current.is_limit_assigned_tkts ? "tech" : param.tab;
+        else
+            this.ticket_tab = "user";
         this.nav.tickets_tab = null;
     }
 

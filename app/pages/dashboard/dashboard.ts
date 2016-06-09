@@ -15,44 +15,17 @@ import {MorePipe} from '../../pipes/pipes';
 })
 export class DashboardPage {
 
-    counts: Object;
-    accounts: Array<any>;
-    queues: Array<any>;
+    counts: Object = { open_as_tech: 0 };
+    accounts: Array<any> = [];
+    queues: Array<any> = [];
     searchQuery: string = '';
     test: boolean;
 
     constructor(private nav: Nav, private config: Config, private dataProvider: DataProvider, private ticketProvider: TicketProvider) {
-        this.counts = {open_as_tech: 0}; 
     }
     
     onPageLoaded()
     {       
-        this.counts = {open_as_tech: 0}; 
-        this.accounts = helpers.loadCache("dashaccounts");
-        this.queues = helpers.loadCache("dashqueues");
-
-        let accountslen = this.config.getStat("accounts");
-
-        let pager = { limit: ~accountslen ? 500 : accountslen};
-
-        this.dataProvider.getQueueList(3).subscribe(
-            data => { this.queues = data;
-                helpers.saveCache("dashqueues", data);
-            }, 
-            error => { 
-                console.log(error || 'Server error');}
-                ); 
-
-        if (!this.accounts || this.accounts.length ==0)
-            this.dataProvider.getAccountList(true, pager, true, true).subscribe(
-                data => {
-                    this.accounts = data;
-                    this.config.setStat("accounts", data.length);
-                }, 
-                error => { 
-                    console.log(error || 'Server error');}
-                    ); 
-
         this.ticketProvider.getTicketsCounts();
         this.ticketProvider.tickets$["tickets/counts"].subscribe(
             data => {
@@ -70,6 +43,49 @@ export class DashboardPage {
             }
         );
 
+        if (this.config.current.is_unassigned_queue) {
+            this.queues = helpers.loadCache("dashqueues");
+
+            this.dataProvider.getQueueList(3).subscribe(
+                data => {
+                this.queues = data;
+                    helpers.saveCache("dashqueues", data);
+                },
+                error => {
+                    console.log(error || 'Server error');
+                }
+            );
+
+        }
+
+        if (this.config.current.is_account_manager) {
+            this.accounts = helpers.loadCache("dashaccounts");
+
+            let accountslen = this.config.getStat("accounts");
+
+            let pager = { limit: ~accountslen ? 500 : accountslen };
+
+            if (!this.accounts || this.accounts.length == 0)
+                this.dataProvider.getAccountList(true, pager, true, true).subscribe(
+                    data => {
+                        this.accounts = data;
+                        this.config.setStat("accounts", data.length);
+                    },
+                    error => {
+                        console.log(error || 'Server error');
+                    }
+                );
+
+            this.dataProvider.getAccountList(true, pager).subscribe(
+                data => {
+                    this.accounts = data;
+                    helpers.saveCache("dashaccounts", data);
+                },
+                error => {
+                    console.log(error || 'Server error');
+                }
+            );  
+        }
         
         if (!this.ticketProvider._dataStore.tech.length){
             this.ticketProvider.getTicketsList("tech", "", { "limit": 6 }); 
@@ -77,15 +93,6 @@ export class DashboardPage {
         if (!this.ticketProvider._dataStore.user.length){
             this.ticketProvider.getTicketsList("user", "", { "limit": 6 }); 
         }
-
-        this.dataProvider.getAccountList(true, pager).subscribe(
-            data => {
-                this.accounts = data;
-                helpers.saveCache("dashaccounts", data);
-            }, 
-            error => { 
-                console.log(error || 'Server error');}
-                );  
     }
 
     clearSearch(searchbar)
@@ -100,7 +107,13 @@ export class DashboardPage {
     console.log(q);
   }
     
-    itemTappedTL(tab) {  this.nav.setRoot(TicketsPage, tab);}
+    itemTappedTL(tab) {  
+        if (this.config.current.is_limit_assigned_tkts && tab.tab == 'all')
+        {
+            this.nav.alert("Please contact Administator to obtain permission to view All Tickets", true);
+            return;
+        }
+        this.nav.setRoot(TicketsPage, tab);}
     
     itemTappedAD() {this.nav.setRoot(AccountDetailsPage);}
 

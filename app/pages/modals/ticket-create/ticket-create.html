@@ -10,7 +10,7 @@
 
 <ion-content>
     <div class="list max-width700 general-alignment">
-        
+    <template [ngIf]="config.current.is_tech"> 
             <select-list customwidth="true" class="left button-calc" ajax="true" [list]="selects.user" (onChanged)='saveSelect($event)' preload="true"></select-list>
             <div class="width10"><button (click)="addUser('user')" secondary fab class="buttonTicket button-ticket"><ion-icon class="button_circle2" name="md-add"></ion-icon></button>    </div>
         
@@ -23,7 +23,7 @@
             
         <select-list [list]="selects.project" preload="true" (onChanged)='saveSelect($event)'></select-list>
         <class-list preload="true" [list]="selects.class" (onChanged)='saveSelect($event)'></class-list>
-        
+       </template> 
     </div>
     <br>
     <form #addForm="ngForm">

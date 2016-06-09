@@ -15,11 +15,9 @@ import {UnInvoicesPage} from '../../pages/uninvoices/uninvoices';
 export class ActionButtonComponent {
 
     @Input() data: any;
-    current: any;
     actionSheet: any;
 
     constructor(private navParams: NavParams, private nav: Nav, private config: Config) {
-        this.current = config.getCurrent();
         this.data = {};
     }
     
@@ -40,6 +38,11 @@ export class ActionButtonComponent {
     }
     
     presentActionSheet() {
+        if (!this.config.current.is_tech)
+        {
+            this.openModal(TicketCreatePage);
+            return;
+        }
         let but = [
         {
             icon: 'create',
@@ -50,7 +53,7 @@ export class ActionButtonComponent {
                 return false;
             }
         }];
-        if (this.current.is_time_tracking) {
+        if (this.config.current.is_time_tracking) {
             but.push({
                 icon: 'md-time',
                 text: 'Add Time',
@@ -60,7 +63,7 @@ export class ActionButtonComponent {
                     return false;
                 }
             });
-            if (this.current.is_invoice)
+            if (this.config.current.is_invoice)
                 but.push(
                 {
                     icon: 'card',
@@ -73,7 +76,7 @@ export class ActionButtonComponent {
                 });
         }
 
-        if (this.current.is_expenses)
+        if (this.config.current.is_expenses)
             but.push({
                 icon: 'calculator',
                 text: 'Add Expense',

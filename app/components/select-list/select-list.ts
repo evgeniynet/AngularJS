@@ -19,14 +19,12 @@ export class SelectListComponent {
     @Input() preload: boolean;
     @Input() ajax: boolean;
     @Output() public onChanged: EventEmitter<any> = new EventEmitter(false);
-    selected: Object;
-    init: boolean;
+    selected: Object = {};
+    init: boolean = true;
     url: string;
 
     constructor(private nav: Nav, private apiData: ApiData, private config: Config) {
-        this.init = true;
         this.list = {};
-        this.selected = {};
     }  
 
 /*
@@ -42,6 +40,16 @@ export class SelectListComponent {
     }
 */
     ngOnInit() {
+        if ((this.list.name == "Project" && !this.config.current.is_project_tracking) ||
+            (this.list.name == "Location" && !this.config.current.is_location_tracking) ||
+            (this.list.name == "Priority" && !this.config.current.is_priorities_general) ||
+            (this.list.name == "Account" && !this.config.current.is_account_manager) ||
+            ((this.list.name == "Resolution" || this.list.name == "Category") && !this.config.current.is_resolution_tracking)) 
+        {
+            this.list.hidden = true;
+            return;
+        }
+
         if (this.list.url)
         {
             this.url = this.list.url;
