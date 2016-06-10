@@ -16,7 +16,7 @@
 
     <select-list [list]="selects.category" preload="true" (onChanged)='saveSelect($event)'></select-list>
 
-    <form #addForm="ngForm" class="response-ticket">
+    <form #addForm="ngForm" class="response-ticket img-top">
       
       <template [ngIf]="config.current.is_confirmation_tracking">
         <ion-item no-lines class="left toggle-width">
