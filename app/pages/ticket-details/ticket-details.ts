@@ -211,6 +211,33 @@ export class TicketDetailsPage {
                 );
     }
 
+    onClose(form) {
+        if (form.valid) {
+            var post = htmlEscape(this.ticketnote.trim()).substr(0, 5000);
+
+            let data = {
+                "status": "closed",
+                "note_text": post,
+                "is_send_notifications": true,
+                "resolved": true,
+                "resolution_id": 0,
+                "confirmed": true,
+                "confirm_note": ""
+
+            };
+
+            this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(
+                data => {
+                    this.nav.alert('Ticket has been closed :)');
+                    this.ticket.status = "Closed";
+                },
+                error => {
+                    console.log(error || 'Server error');
+                }
+            );
+        }
+    }
+
     onUpdate() {
         let data = {
             "class_id": this.selects.class.selected,
