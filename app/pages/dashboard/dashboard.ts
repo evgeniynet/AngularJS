@@ -20,12 +20,14 @@ export class DashboardPage {
     queues: Array<any> = [];
     searchQuery: string = '';
     test: boolean;
+    simple: boolean = false;
 
     constructor(private nav: Nav, private config: Config, private dataProvider: DataProvider, private ticketProvider: TicketProvider) {
     }
     
     onPageLoaded()
     {       
+        this.simple = !this.config.current.is_time_tracking && !this.config.current.is_expenses;
         this.ticketProvider.getTicketsCounts();
         this.ticketProvider.tickets$["tickets/counts"].subscribe(
             data => {
@@ -70,12 +72,15 @@ export class DashboardPage {
                     data => {
                         this.accounts = data;
                         this.config.setStat("accounts", data.length);
+                        if (this.simple)
+                            helpers.saveCache("dashaccounts", data);
                     },
                     error => {
                         console.log(error || 'Server error');
                     }
                 );
 
+            if (!this.simple)
             this.dataProvider.getAccountList(true, pager).subscribe(
                 data => {
                     this.accounts = data;

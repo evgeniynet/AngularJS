@@ -110,9 +110,7 @@ handleError(error) : any {
     let url = error.url || "";
     let status = (error.status || {}).toString();
     if (
-        (status == "403" && !~url.indexOf("organizations"))  ||
-       (status == "404" && ~url.indexOf("config"))
-    )
+        (status == "403" && !~url.indexOf("organizations"))  || ~url.indexOf("config"))
         {
             this.events.publish("login:failed");
         }

@@ -30,9 +30,12 @@ export class LoginPage {
     }
 
     onLogin(form) {
-        if (form.valid) { this.dataProvider.checkLogin(form.value.email,form.value.password).subscribe(
+        this.busy = true;
+        if (form.valid) { 
+            this.config.current.username = form.value.email || "";
+            this.dataProvider.checkLogin(form.value.email,form.value.password).subscribe(
                 data => {
-                    this.config.setCurrent({ "key": data.api_token, "username": form.value.email || "" });
+                    this.config.setCurrent({ "key": data.api_token});
                     this.config.saveCurrent();
                     this.nav.setRoot(OrganizationsPage, null, { animation: "wp-transition" });
                 }, 
@@ -40,7 +43,7 @@ export class LoginPage {
                     let message = 'There was a problem with your login.  Check your login and password.';
                     
                     if(form.value.email && ~form.value.email.indexOf("@gmail.com")){
-                        message = "Wrong Password, Google sign password is not neeeded";
+                        message = "Wrong Password, maybe you used Google password";
                     }
                     this.nav.alert(message, true);
                     this.login.password = "";

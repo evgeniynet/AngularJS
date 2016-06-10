@@ -32,13 +32,13 @@
     </ion-list>
     
     <ion-list class="list" *ngIf="config.current.is_account_manager">
-        <div *ngIf="accounts?.length" class="table">
+        <div *ngIf="accounts?.length" [class.hiddenviz]="simple" class="table">
         <span class="box1 box7 box5 box10">&nbsp;&nbsp;&nbsp;</span>
         <span class="box2 box7 box10">Hours</span>
         <span class="box3 box7 box10">Expenses</span>
         <span class="box4 box7 box6 box10">Tkts</span>
     </div>
-    <accounts-list  *ngIf="config.current.is_account_manager" [accounts]="accounts"></accounts-list>
+    <accounts-list  *ngIf="config.current.is_account_manager" [simple]="simple" [accounts]="accounts"></accounts-list>
     </ion-list>
 </ion-content>
 <action-button></action-button>

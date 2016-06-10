@@ -12,7 +12,7 @@
           <span *ngIf="password.dirty && !password.valid">Password is required</span></div>
         <br>
           <button class="login-margin"
-                  [disabled]="!loginForm.valid || busy" (click)="onLogin(loginForm); busy=true;" type="submit" block secondary>Login</button>
+                  [disabled]="!loginForm.valid || busy" (click)="onLogin(loginForm)" type="submit" block secondary>Login</button>
           <br>
           <div>
           <ul class="googleStripes">
