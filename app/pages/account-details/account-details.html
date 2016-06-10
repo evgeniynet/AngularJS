@@ -15,13 +15,12 @@
     
     <div [ngSwitch]="details_tab">
         <div [hidden]="details_tab != 'Stat'">
-            <ion-list class="list img-top" no-lines style="height: 150px;">
-        <div class="blue1 left width65 height174 img-top">
+            <ion-list class="list img-top" no-lines>
+        <div class="blue1 left width65 img-top">
   <ion-item class="textLogin">Open Tickets</ion-item>
   <a *ngIf="config.current.is_invoice && config.current.is_time_tracking" detail-none href=# ion-item (click)="openPage(0,account.account_statistics.invoices)" class="textLogin">Invoices</a>
   <a *ngIf="config.current.is_expenses" detail-none href=# ion-item (click)="openPage(1, account.account_statistics.expenses)" class="textLogin">Expenses</a>
   <a  *ngIf="config.current.is_time_tracking" detail-none href=# ion-item (click)="openPage(2, account.account_statistics.hours)" class="textLogin">Hours</a>
-    <br>
         </div>
         <div class="right width35 img-top">
             <a detail-none href=# ion-item class="blue2">{{account.account_statistics.ticket_counts.open || 0}}</a>
@@ -115,10 +114,10 @@
             
             <ion-item *ngIf="account.projects?.length" no-lines class="margin color">
     <p class="text width32 text-left left"></p>
-    <h3 class="width17 left table table_account">Open</h3>
-            <h3 class="width17 left table table_account">Logged</h3>
-    <h3 class="width17 left table table_account">Remain</h3>  
-    <h3 class="width17 right table table_account">Complete</h3>
+    <p class="width17 left table table_account">Open</p>
+            <p class="width17 left table table_account">Logged</p>
+    <p class="width17 left table table_account">Remain</p>  
+    <p class="width17 right table table_account">Complete</p>
         </ion-item>
         
            
@@ -127,7 +126,7 @@
     <h3 class="width17 left table">{{project.open_tickets}}</h3> 
     <h3 class="width17 left table">{{project.logged_hours}}</h3> 
     <h3 class="width17 left table">{{project.remaining_hours}}</h3> 
-    <h3 class="width17 right table">{{project.complete}}</h3>
+    <h3 class="width17 right table">{{project.complete}}%</h3>
         </ion-item>
         </ion-list>
         
