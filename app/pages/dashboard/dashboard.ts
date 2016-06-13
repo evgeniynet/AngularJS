@@ -1,6 +1,7 @@
 import {Page, Config, Nav} from 'ionic-angular';
 import {DataProvider} from '../../providers/data-provider';
 import {TicketProvider} from '../../providers/ticket-provider';
+import {TimeProvider} from '../../providers/time-provider';
 import * as helpers from '../../directives/helpers';
 import {Focuser} from '../../directives/directives';
 import {QueuesListComponent, AccountsListComponent, ActionButtonComponent} from '../../components/components';
@@ -21,8 +22,9 @@ export class DashboardPage {
     searchQuery: string = '';
     test: boolean;
     simple: boolean = false;
+    timer: any;
 
-    constructor(private nav: Nav, private config: Config, private dataProvider: DataProvider, private ticketProvider: TicketProvider) {
+    constructor(private nav: Nav, private config: Config, private dataProvider: DataProvider, private ticketProvider: TicketProvider, private timeProvider: TimeProvider) {
     }
     
     onPageLoaded()
@@ -95,9 +97,18 @@ export class DashboardPage {
         if (!this.ticketProvider._dataStore.tech.length){
             this.ticketProvider.getTicketsList("tech", "", { "limit": 6 }); 
         }
-        if (!this.ticketProvider._dataStore.user.length){
-            this.ticketProvider.getTicketsList("user", "", { "limit": 6 }); 
-        }
+
+        this.timer = setTimeout(() => {
+            if (!this.ticketProvider._dataStore.user.length) {
+                this.ticketProvider.getTicketsList("user", "", { "limit": 6 });
+            }
+            if (!(this.timeProvider._dataStore["time?account=-1"] || {}).length)
+                this.timeProvider.getTimelogs("-1", { "limit": 15 });
+        }, 2500);
+    }
+
+    ngOnDestroy(){
+        clearTimeout(this.timer);  
     }
 
     clearSearch(searchbar)
@@ -109,7 +120,7 @@ export class DashboardPage {
     // Reset items back to all of the items
     // set q to the value of the searchbar
     var q = searchbar.target.value;
-    console.log(q);
+    //console.log(q);
   }
     
     itemTappedTL(tab) {  

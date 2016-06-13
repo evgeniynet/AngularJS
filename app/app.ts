@@ -223,6 +223,8 @@ class MyApp {
   redirect(isRedirect?) {
     this.dataProvider.getConfig().subscribe(
       data => {
+        /*
+        //Debug config values
         //Time
         data.is_time_tracking = false;
         //Resolution on close ticket
@@ -249,7 +251,7 @@ class MyApp {
         data.is_unassigned_queue = false;
         //All Open tickets (true to hide)
         data.is_limit_assigned_tkts = true;
-
+        */
         this.config.setCurrent(data);
         this.config.saveCurrent();
         // set our app's pages

@@ -10,8 +10,12 @@ export class Focuser {
 		const searchInput = this.elementRef.nativeElement.querySelector('input');
 		setTimeout(() => {
 			//delay required or ionic styling gets finicky
+			this.renderer.invokeElementMethod(searchInput, 'setSelectionRange', [0, 999]);
+		}, 500);
+		setTimeout(() => {
+			//delay required or ionic styling gets finicky
 			this.renderer.invokeElementMethod(searchInput, 'focus', []);
-			this.renderer.setElementProperty(searchInput, 'autofocus', 'autofocus');
+			//this.renderer.setElementProperty(searchInput, 'autofocus', 'autofocus');
 		}, 300);
 	}
 }
