@@ -5,11 +5,9 @@ import {Observable} from 'rxjs/Observable';
 import {ApiSite, dontClearCache} from './config';
 import {addp} from '../directives/helpers';
 import {MOCKS} from './mocks';
-//import 'rxjs/Rx'
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
-//import 'rxjs/add/operator/share';
 
 
 @Injectable()
@@ -109,15 +107,14 @@ handleError(error) : any {
     message = message || "Error. Please contact Administrator";
     let url = error.url || "";
     let status = (error.status || {}).toString();
+    message += " (" + status + ") ";
     if (
         (status == "403" && !~url.indexOf("organizations"))  || ~url.indexOf("config"))
         {
             this.events.publish("login:failed");
         }
-    
-    message += " (" + status + ") ";
 
-    //this.events.publish("connection:error", (error || "Error occured") + " Please contact Administator!");
+    this.events.publish("connection:error", (message || "Error occured") + " Please contact Administator!");
 
     return Observable.throw(new Error(message));
 }

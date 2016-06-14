@@ -222,6 +222,7 @@ export class TimelogPage {
 
 
     getFixed(value) {
+        console.log(value);
         return Number(value || "0").toFixed(2).toString();
     }
     

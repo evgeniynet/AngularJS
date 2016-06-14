@@ -1,8 +1,8 @@
-import {Page, Config, Nav} from 'ionic-angular';
+import {Page, Config, Nav, Loading} from 'ionic-angular';
 import {forwardRef} from '@angular/core';
 import {ApiSite} from '../../providers/config';
 //import {NgForm} from '@angular/common';
-import {saveCache} from '../../directives/helpers';
+import {saveCache, openURL} from '../../directives/helpers';
 import {DataProvider} from '../../providers/data-provider';
 import {OrganizationsPage} from '../organizations/organizations';
 import {SignupPage} from '../signup/signup';
@@ -18,6 +18,7 @@ export class LoginPage {
     //@ViewChild('google_openid') google_openid: NgForm;
 
     constructor(private nav: Nav, private dataProvider: DataProvider, private config: Config) {
+        if (!config.current.isPhonegap)
         this.google_action = ApiSite + 'auth/auth0';
   }
     
@@ -65,7 +66,29 @@ export class LoginPage {
     }
 
     onGoogleSignin() {
-        console.log("onGoogleSignin");
+        if (this.config.current.isPhonegap) {
+            var win = openURL(ApiSite + 'auth/auth0');
+                    var onExit = function() { location.reload();};
+                    win.addEventListener( "loadstop", function() {
+                        var loop = setInterval(function() {
+                            win.executeScript(
+                                {
+                                    code: "localStorage.getItem('isGoogle')"
+                                },
+                                function( values ) {
+                                    var name = values[0];
+                                    if (name) {
+                                        clearInterval(loop);
+                                        win.close();
+                                        onExit();
+                                    }
+                                }
+                            );
+                        });
+                    });
+                    win.addEventListener('exit', onExit);
+                    return;
+                }
     }
     
     onSignup() {

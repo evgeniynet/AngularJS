@@ -14,5 +14,6 @@
        </ion-content>
 
 </ion-menu>
+<div *ngIf="is_offline" class="offline_status {{config.current.isPhonegap ? 'ios7style' : ''}}">OFFLINE</div>
 
 <ion-nav id="nav" [root]="rootPage" #content swipe-back-enabled="false"></ion-nav>

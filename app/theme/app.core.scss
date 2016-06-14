@@ -862,3 +862,19 @@ div.imgloading
 {
     visibility: hidden;
 }
+
+.offline_status 
+{
+position: absolute;
+z-index: 999;
+background-color: red;
+width: 100%;
+text-align: center;
+min-height: 15px;
+}
+
+.ios7style
+{
+   top: 18px;
+}
+

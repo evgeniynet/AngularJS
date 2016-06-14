@@ -63,7 +63,7 @@ gulp.task('compile', [], function(done){
     ['scripts'],
     function(){
       buildBrowserify({
-        watch: true,
+        watch: false,
             minify: true,
         uglifyOptions: {
           mangle: false
@@ -81,13 +81,13 @@ gulp.task('build', ['clean'], function(done){
     ['sass', 'html', 'fonts', 'scripts'],
     function(){
       buildBrowserify({
-            minify: true,
+            /*minify: true,
         uglifyOptions: {
           mangle: false
         },
   browserifyOptions: {
   debug: false, syntax: false // sourcemaps off
-}, 
+}, */
         tsifyOptions: { noImplicitAny: false, allowSyntheticDefaultImports: true,  removeComments: true, skipDefaultLibCheck: true, target: "ES5"} }).on('end', done);
     }
   );
@@ -95,7 +95,7 @@ gulp.task('build', ['clean'], function(done){
 gulp.task('sass', function(){
   return buildSass({
     sassOptions: {
-      outputStyle: "compressed",
+      //outputStyle: "compressed",
       includePaths: [
     'node_modules/ionic-angular',
     'node_modules/ionicons/dist/scss'

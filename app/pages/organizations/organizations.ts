@@ -71,7 +71,8 @@ export class OrganizationsPage {
                 dismissOnPageChange: true
             });
             this.nav.present(loading);
-        this.config.setCurrent({ "org": instance.org, "instance": instance.inst });
+            this.config.current.org = instance.org;
+            this.config.current.instance = instance.inst;
         this.config.saveCurrent();
         this.events.publish("config:get", true);
     }

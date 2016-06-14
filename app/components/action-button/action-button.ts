@@ -93,6 +93,7 @@ export class ActionButtonComponent {
             role: 'cancel',
             handler: () => {
                 console.log('Cancel clicked');
+                return true;
             }
         }
         );

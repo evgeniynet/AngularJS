@@ -16,7 +16,6 @@ export class BasicSelectModal {
         private params: NavParams,
         private viewCtrl: ViewController
     ) {
-        nav.swipeBackEnabled = false;
         this.name = this.params.data.name;
         this.data = this.params.data.items;
         this.items = this.data;

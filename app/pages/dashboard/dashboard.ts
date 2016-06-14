@@ -7,6 +7,7 @@ import {Focuser} from '../../directives/directives';
 import {QueuesListComponent, AccountsListComponent, ActionButtonComponent} from '../../components/components';
 import {TicketsPage} from '../tickets/tickets';
 import {AccountDetailsPage} from '../account-details/account-details';
+import {AjaxSearchPage} from '../ajax-search/ajax-search';
 import {MorePipe} from '../../pipes/pipes';
 
 @Page({
@@ -116,11 +117,11 @@ export class DashboardPage {
         searchbar.value = "";
     }
 
-    getItems(searchbar) {
+    getTicket(searchbar) {
     // Reset items back to all of the items
     // set q to the value of the searchbar
-    var q = searchbar.target.value;
-    //console.log(q);
+    let list = {search : searchbar.target.value};
+    //this.nav.push(AjaxSearchPage, list);
   }
     
     itemTappedTL(tab) {  

@@ -9,7 +9,7 @@
     </ion-buttons>
 </ion-navbar>
 <ion-content class="dashboard">
-<ion-searchbar *ngIf="test" [focuser] (cancel)="test = !test" [ngModel]="searchQuery" (search)="getItems($event)"></ion-searchbar>
+<ion-searchbar *ngIf="test" [focuser] (cancel)="test = !test" [ngModel]="searchQuery" (search)="getTicket($event)"></ion-searchbar>
     <ion-list class="list height" no-lines margin-top>
         <a detail-none href=# (click)="itemTappedTL({tab:'tech', count: counts.open_as_tech})" class="width50 left blue3 decoration_none">
             <ion-item class="mainStat itemTech">{{counts.open_as_tech}}</ion-item>

@@ -1,12 +1,12 @@
 import {NgZone, ViewChild} from '@angular/core';
 import {App, IonicApp, Config, Platform, Nav, NavParams, Events, MenuController, Toast} from 'ionic-angular';
-import {StatusBar} from 'ionic-native';
+import {StatusBar, Network, Connection} from 'ionic-native';
 import {OnInit, OnDestroy} from '@angular/core';
 import {ApiData} from './providers/api-data';
 import {DataProvider} from './providers/data-provider';
 import {TicketProvider} from './providers/ticket-provider';
 import {TimeProvider} from './providers/time-provider';
-import {AppSite, dontClearCache} from './providers/config';
+import {AppSite, MobileSite, dontClearCache} from './providers/config';
 import {MOCKS} from './providers/mocks';
 import * as helpers from './directives/helpers';
 import {QueuesPage} from './pages/queues/queues';
@@ -58,6 +58,10 @@ class MyApp {
   @ViewChild(Nav) nav: Nav;
   pages: Array<any>;
   rootPage: any;
+  is_offline: boolean = false;
+  offlineTimer: any;
+  disconnectSubscription: any;
+  connectSubscription: any;
 
   constructor(private app: IonicApp, private platform: Platform, private config: Config, private events: Events, private menu: MenuController, private ticketProvider: TicketProvider, private dataProvider: DataProvider) {
 
@@ -79,11 +83,11 @@ class MyApp {
       if (!tconfig.recent)
         tconfig.recent = {};
       tconfig.is_tech = tconfig.is_tech || tconfig.user.is_techoradmin || false; 
-      tconfig.isPhonegap = tconfig.isPhonegap || false; 
-      tconfig.isExtension = tconfig.isExtension || false; 
-      tconfig.isGoogle = tconfig.isGoogle || false; 
+      tconfig.isPhonegap = tconfig.isPhonegap || localStorage.getItem('isPhonegap') === 'true';
+      tconfig.isExtension = tconfig.isExtension || localStorage.getItem('isExtension') === 'true'; 
+      tconfig.isGoogle = tconfig.isGoogle || localStorage.getItem('isGoogle') === 'true'; 
       tconfig.is_multiple_org = tconfig.is_multiple_org || false; 
-      tconfig.username = tconfig.username || false; 
+      tconfig.username = tconfig.username || localStorage.getItem('username') || ""; 
       if (property)
         return tconfig[property] || "";
       return tconfig; 
@@ -154,7 +158,7 @@ class MyApp {
           message: message,
           duration: isNeg ? 7000 : 3000,
           cssClass: isNeg ? "toast-error" : "toast-ok",
-          showCloseButton: isNeg,
+          showCloseButton: true,
           closeButtonText: "X"
         });
         //toast.onDismiss(() => {
@@ -165,7 +169,8 @@ class MyApp {
 
     //this.rootPage = SignupPage; return;
     config.current = config.getCurrent();
-    config.setCurrent({ "isPhonegap": localStorage.getItem("isPhonegap") === "true", "isExtension" : window.self !== window.top });
+    config.current.isPhonegap = localStorage.getItem("isPhonegap") === "true";
+    config.current.isExtension =  window.self !== window.top;
 
     var key = helpers.getParameterByName('t');
     var email = helpers.getParameterByName('e');
@@ -175,7 +180,9 @@ class MyApp {
       helpers.cleanQuerystring('ionicPlatform', platform_string);
       localStorage.clear();
       //config.clearCurrent();
-      config.setCurrent({ "key": key, "isGoogle": true, "username": email.replace("#", "") });
+      config.current.key = key;
+      config.current.isGoogle = true;
+      config.current.username = email.replace("#", "");
       config.saveCurrent();
       this.rootPage = OrganizationsPage;
       return;
@@ -223,80 +230,89 @@ class MyApp {
   redirect(isRedirect?) {
     this.dataProvider.getConfig().subscribe(
       data => {
-        /*
-        //Debug config values
-        //Time
-        data.is_time_tracking = false;
-        //Resolution on close ticket
-        data.is_resolution_tracking = false;
-        //Confirmation on close ticket
-        data.is_confirmation_tracking = false;
-        //Priorities
-        data.is_priorities_general = false;
-        //Locations
-        data.is_location_tracking = false;
-        //Expenses
-        data.is_expenses = false;
-        //Classes
-        data.is_class_tracking = false;
-        //Invoices
-        data.is_invoice = false;
-        //Projects
-        data.is_project_tracking = false;
-        //Levels
-        data.is_ticket_levels = false;
-        //Accounts
-        data.is_account_manager = false;
-        //Queues
-        data.is_unassigned_queue = false;
-        //All Open tickets (true to hide)
-        data.is_limit_assigned_tkts = true;
-        */
-        this.config.setCurrent(data);
-        this.config.saveCurrent();
-        // set our app's pages
-        if (this.config.current.is_tech)
-          this.pages = [
-            { title: 'Dashboard', component: DashboardPage, icon: "speedometer", is_active: true },
-            { title: 'Tickets', component: TicketsPage, icon: "create", is_active: true },
-            { title: 'Timelogs', component: TimelogsPage, icon: "md-time", is_active: this.config.current.is_time_tracking },
-            { title: 'Accounts', component: AccountsPage, icon: "people", is_active: this.config.current.is_account_manager },
-            { title: 'Invoices', component: InvoicesPage, icon: "card", is_active: this.config.current.is_time_tracking && this.config.current.is_invoice },
-            { title: 'Queues', component: QueuesPage, icon: "list-box", is_active: this.config.current.is_unassigned_queue },
-            { title: 'Switch Org', component: OrganizationsPage, icon: "md-swap", is_active: this.config.current.is_multiple_org },
-            { title: 'Signout', component: LoginPage, icon: "md-log-in", is_active: true },
-            { title: 'Full App', component: null, icon: "md-share-alt", is_active: true },
-          ];
-        else
-          this.pages = [
-            { title: 'Tickets', component: TicketsPage, icon: "create", is_active: true },
-            { title: 'Switch Org', component: OrganizationsPage, icon: "md-swap", is_active: this.config.current.is_multiple_org },
-            { title: 'Signout', component: LoginPage, icon: "md-log-in", is_active: true },
-            { title: 'Full App', component: null, icon: "md-share-alt", is_active: true },
-          ];
-
-        //if (this.config.current.isPhonegap && this.config.current.key)
-        //  initOrgPreferences(this.config.current.org + "-" + this.config.current.instance + ":" + this.config.current.key);
-        //getInfo4Extension();
-
-        if (isRedirect) {
-          if (this.config.current.is_tech) {
-            this.nav.setRoot(DashboardPage, null, { animation: "wp-transition" });
-          }
-          else {
-            this.nav.setRoot(TicketsPage, null, { animation: "wp-transition" });
-          }
-        }
+        this.onLine(true);
+        this.redirect_logic(isRedirect, data);
       },
       error => {
-        //console.log(this.nav);
         this.nav.alert(error || 'Server error', true);
-        this.config.current.org = "";
+        if (this.is_offline && this.config.getCurrent("user").firstname) {
+          this.redirect_logic(isRedirect, this.config.getCurrent());
+        }
+        else
+          this.config.current.org = "";
         //localStorage.clear();
         //localStorage.setItem("username", this.config.current.username || "");
         //this.nav.setRoot(LoginPage, null, { animation: "wp-transition" });
       }
     ); 
+  }
+
+  redirect_logic(isRedirect?, data?)
+  {
+    /*
+//Debug config values
+//Time
+data.is_time_tracking = false;
+//Resolution on close ticket
+data.is_resolution_tracking = false;
+//Confirmation on close ticket
+data.is_confirmation_tracking = false;
+//Priorities
+data.is_priorities_general = false;
+//Locations
+data.is_location_tracking = false;
+//Expenses
+data.is_expenses = false;
+//Classes
+data.is_class_tracking = false;
+//Invoices
+data.is_invoice = false;
+//Projects
+data.is_project_tracking = false;
+//Levels
+data.is_ticket_levels = false;
+//Accounts
+data.is_account_manager = false;
+//Queues
+data.is_unassigned_queue = false;
+//All Open tickets (true to hide)
+data.is_limit_assigned_tkts = true;
+*/
+    this.config.setCurrent(data);
+    this.config.saveCurrent();
+    // set our app's pages
+    if (this.config.current.is_tech)
+      this.pages = [
+        { title: 'Dashboard', component: DashboardPage, icon: "speedometer", is_active: true },
+        { title: 'Tickets', component: TicketsPage, icon: "create", is_active: true },
+        { title: 'Timelogs', component: TimelogsPage, icon: "md-time", is_active: this.config.current.is_time_tracking },
+        { title: 'Accounts', component: AccountsPage, icon: "people", is_active: this.config.current.is_account_manager },
+        { title: 'Invoices', component: InvoicesPage, icon: "card", is_active: this.config.current.is_time_tracking && this.config.current.is_invoice },
+        { title: 'Queues', component: QueuesPage, icon: "list-box", is_active: this.config.current.is_unassigned_queue },
+        { title: 'Switch Org', component: OrganizationsPage, icon: "md-swap", is_active: this.config.current.is_multiple_org },
+        { title: 'Signout', component: LoginPage, icon: "md-log-in", is_active: true },
+        { title: 'Full App', component: null, icon: "md-share-alt", is_active: true },
+      ];
+    else
+      this.pages = [
+        { title: 'Tickets', component: TicketsPage, icon: "create", is_active: true },
+        { title: 'Switch Org', component: OrganizationsPage, icon: "md-swap", is_active: this.config.current.is_multiple_org },
+        { title: 'Signout', component: LoginPage, icon: "md-log-in", is_active: true },
+        { title: 'Full App', component: null, icon: "md-share-alt", is_active: true },
+      ];
+
+    //if (this.config.current.isPhonegap && this.config.current.key)
+    //  initOrgPreferences(this.config.current.org + "-" + this.config.current.instance + ":" + this.config.current.key);
+    //getInfo4Extension();
+
+    if (isRedirect) {
+      if (this.config.current.is_tech) {
+        this.nav.setRoot(DashboardPage, null, { animation: "wp-transition" });
+      }
+      else {
+        this.nav.setRoot(TicketsPage, null, { animation: "wp-transition" });
+      }
+    }
   }
 
 isStorage() {
@@ -317,20 +333,51 @@ isStorage() {
     }
 }
 
-initializeApp() {
-  this.platform.ready().then(() => {
-    if (localStorage.getItem("isPhonegap") === "true")
-      {console.log('cordova ready');
-      StatusBar.styleDefault();}
-          
-          //document.addEventListener("deviceready", this.onDeviceReady, false);
-          //StatusBar.overlaysWebView(false);
+  initializeApp() {
+    this.platform.ready().then(() => {
+      if (localStorage.getItem("isPhonegap") === "true") {
+        console.log('cordova ready');
+        StatusBar.styleDefault();
+
+        this.disconnectSubscription = Network.onDisconnect().subscribe(() => {
+          this.onLine(false);
         });
+
+        this.connectSubscription = Network.onConnect().subscribe(() => {
+          this.onLine(true);
+        });
+      }
+    });
+  }
+
+checkConnection() {
+  if (navigator.onLine) {
+    if (localStorage.getItem("isPhonegap") !== "true"){
+      var img = new Image();
+      //img.style.display = 'none';
+      img.onload = () => this.onLine(true);
+      img.onerror = () => this.onLine(false);
+      img.src = MobileSite + "img/select_arrow.png?rand=" + Math.random();
+    }
+  }
+  else {
+    this.onLine(false);
+  }
 }
 
-  onDeviceReady() {
-    console.log("Cordova");
-    
+  onLine(isOnline?){
+    if (this.is_offline != !isOnline)
+    {
+      this.nav.alert(!isOnline ? "Sorry! You are offline now. Please check your internet connection!" : "Whahoo! You online now!", !isOnline);
+      if (localStorage.getItem("isPhonegap") !== "true") {
+      if (!isOnline) {
+        this.offlineTimer = setInterval(() => this.checkConnection(), 10 * 1000);
+      }
+      else
+        clearInterval(this.offlineTimer);
+    }
+    }
+    this.is_offline = !isOnline;
   }
 
 openPage(page, param?) {
@@ -379,6 +426,12 @@ openPage(page, param?) {
 
   ngOnDestroy() {
     this.unsubscribeToEvents();
+    clearInterval(this.offlineTimer);
+
+    if (localStorage.getItem("isPhonegap") === "true"){
+    this.disconnectSubscription.unsubscribe();
+    this.connectSubscription.unsubscribe();
+  }
   }
 
   subscribeToEvents() {
@@ -387,7 +440,7 @@ openPage(page, param?) {
             //this.getNav().setRoot(TodosPage);
           });
     this.events.subscribe('connection:error', (data) => {
-      this.nav.alert(data, true);
+      this.checkConnection();
     });
     this.events.subscribe('config:get', (data) => {
       this.redirect(data);
