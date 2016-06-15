@@ -12,7 +12,7 @@ import {GravatarPipe, MorePipe, LinebreaksPipe} from '../../pipes/pipes';
 })
 export class TimelogsPage {
 
-    LIMIT: number = 15;
+    LIMIT: number = 100;
     count: number;
     account: any;
     is_empty: boolean = false;

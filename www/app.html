@@ -1,4 +1,4 @@
-<html lang="en"><head>
+<!DOCTYPE html lang="en"><head>
 <meta charset="utf-8"><meta property="og:title" content="SherpaDesk | Track Time and Customer Support Management System">  <meta property="og:description" content="SherpaDesk is a help desk solution for all your customer support management needs. Manage tickets, track time, and send invoices easily.">
 <link rel="shortcut icon" href="favicon.ico?v=4" type="image/x-icon">
 <link rel="apple-touch-icon image_src" href="img/appicon.png">
@@ -57,10 +57,47 @@ else if (window.attachEvent)
 window.attachEvent("onload", downloadJSAtOnload);
 else window.onload = downloadJSAtOnload;
 
+function detectIE() {
+  var ua = window.navigator.userAgent;
+
+  var msie = ua.indexOf('MSIE ');
+  if (msie > 0) {
+    // IE 10 or older => return version number
+    return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
+  }
+
+  var trident = ua.indexOf('Trident/');
+  if (trident > 0) {
+    // IE 11 => return version number
+    var rv = ua.indexOf('rv:');
+    return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
+  }
+
+  var edge = ua.indexOf('Edge/');
+  if (edge > 0) {
+    // Edge (IE 12+) => return version number
+    return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
+  }
+  return false;
+}
+
 //Operating on classes doesn't work with SVG elements in IE 11
+if (detectIE) {
 if (!("classList" in document.createElementNS("http://www.w3.org/2000/svg","g"))) {
     var descr = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'classList');
     Object.defineProperty(SVGElement.prototype, 'classList', descr);
+}
+//remove() as a method on HTMLElements is quite new and not yet supported by Internet Explorer.
+Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+}
+NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+}
 }
 
 //preload image

@@ -368,7 +368,7 @@ checkConnection() {
   onLine(isOnline?){
     if (this.is_offline != !isOnline)
     {
-      this.nav.alert(!isOnline ? "Sorry! You are offline now. Please check your internet connection!" : "Whahoo! You online now!", !isOnline);
+      this.nav.alert(!isOnline ? "Sorry! You are offline now. Please check your internet connection!" : "Hey! You online now!", !isOnline);
       if (localStorage.getItem("isPhonegap") !== "true") {
       if (!isOnline) {
         this.offlineTimer = setInterval(() => this.checkConnection(), 10 * 1000);
