@@ -42,7 +42,7 @@
 
 .toolbar-title {
     color: #fff;
-    padding: 0 84px;
+//    padding: 0 84px;
     font-size: 1.7rem;
     font-weight: 600;
     }
@@ -54,13 +54,17 @@
 .searchbar-search-icon {
     left: 11px;
     top: 3px;
+    margin-left: 0px;
 }
 
 .searchbar-input{
     text-align: center;
-    padding: 6px 0px 0px 6px;
     background-color: $blue1;
     line-height: 2rem;
+}
+
+ion-searchbar {
+    background: rgba(0,0,0,0.2);
 }
 
 .invoiceCircle {
@@ -78,8 +82,8 @@
 
 .item p {
     font-size: 1.3rem;
-    color: $text2;
-    margin: 0 0 0px;
+//    color: $text2;
+//    margin: 0 0 0px;
 }
 
 .button {
@@ -183,3 +187,6 @@ ion-buttons {
     order: 3;
 }
 
+.toolbar {
+    min-height: 44px;
+}
