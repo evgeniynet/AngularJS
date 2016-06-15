@@ -1,5 +1,6 @@
 import {Page, Config, Nav, NavParams} from 'ionic-angular';
 import {TimeProvider} from '../../providers/time-provider';
+import {addp} from '../../directives/helpers';
 import {TimelogPage} from '../timelog/timelog';
 import {ActionButtonComponent} from '../../components/action-button/action-button';
 import {getDateTime} from '../../directives/helpers';
@@ -12,7 +13,7 @@ import {GravatarPipe, MorePipe, LinebreaksPipe} from '../../pipes/pipes';
 })
 export class TimelogsPage {
 
-    LIMIT: number = 100;
+    LIMIT: number = 25;
     count: number;
     account: any;
     is_empty: boolean = false;
@@ -32,9 +33,9 @@ export class TimelogsPage {
     {
         this.params = this.navParams.data || {};
         this.pager = { page: 0 };
-        this.params.account = { id: this.params.account_id || -1, name: this.params.account_name || this.config.getCurrent("user").account_name };
+        this.params.account = { id: this.params.account_id || "", name: this.params.account_name || this.config.getCurrent("user").account_name };
 
-        this.cachename = "time?account=" + this.params.account.id;
+        this.cachename = addp("time", "account", this.params.account.id);
         this.cachelen = (this.timeProvider._dataStore[this.cachename] || {}).length;
 
         if (this.params.is_empty)

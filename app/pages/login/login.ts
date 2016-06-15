@@ -68,7 +68,9 @@ export class LoginPage {
     onGoogleSignin() {
         if (this.config.current.isPhonegap) {
             var win = openURL(ApiSite + 'auth/auth0');
-                    var onExit = function() { location.reload();};
+            var onExit = function() {
+                //location.reload();
+            };
                     win.addEventListener( "loadstop", function() {
                         var loop = setInterval(function() {
                             win.executeScript(

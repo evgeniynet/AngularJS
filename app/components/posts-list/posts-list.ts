@@ -1,6 +1,5 @@
 import {IONIC_DIRECTIVES} from 'ionic-angular';
 import {Component, Input} from '@angular/core';
-//import {TicketDetailsPage} from '../../pages/ticket-details/ticket-details';
 import {getDateTime, getFullName} from '../../directives/helpers';
 import {GravatarPipe, LinebreaksPipe, DaysoldPipe, FilesPipe} from '../../pipes/pipes';
 
@@ -20,12 +19,4 @@ export class PostsListComponent {
         this.posts = [];
         this.attachments = [];
     }  
-     
-getFullName (firstname,lastname,email,name) {
-    return getFullName (firstname,lastname,email,name);
-}
-  
-    setDate(date, showmonth?, istime?) {
-        return date ? getDateTime(date, showmonth, istime) : null;
-    }
 }

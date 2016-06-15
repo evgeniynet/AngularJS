@@ -1,6 +1,8 @@
-import {Nav, NavParams, Page, Config, ViewController} from 'ionic-angular';
-import {ApiData} from '../../providers/api-data';
+import {Nav, NavParams, Page, Config} from 'ionic-angular';
+import {TicketProvider} from '../../providers/ticket-provider';
 import {getFullName, addp} from '../../directives/helpers';
+import {TicketDetailsPage} from '../ticket-details/ticket-details';
+import {Focuser} from '../../directives/directives';
 import {Control} from '@angular/common';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -11,66 +13,74 @@ import 'rxjs/add/observable/of';
 import {URLSearchParams, Jsonp} from '@angular/http';
 
 @Page({
-    templateUrl: 'build/pages/modals/ajax-select/ajax-select.html',
+    templateUrl: 'build/pages/ajax-search/ajax-search.html',
+    directives: [Focuser],
 })
 export class AjaxSearchPage {
 
-    items: any;
-    //term = new Control();
     url: string;
     term: string;
     search: string;
     name: string;
-    data: any;
+    data: any = [];
+    items: any = [];
     pager: any;
     count: number;
-    is_empty: boolean;
+    is_empty: boolean = false;
     busy: boolean;
 
-    constructor(private nav: Nav, private navParams: NavParams, private config: Config, private apiData: ApiData,
-        private viewCtrl: ViewController/*, private jsonp: Jsonp*/) {
-        nav.swipeBackEnabled = false;
+    constructor(private nav: Nav, private navParams: NavParams, private config: Config, private ticketProvider: TicketProvider) {
     }
 
     ngOnInit() {
         this.term = this.navParams.data.search || "";
+        /*
         this.name = this.navParams.data.name || "List";
         this.url = this.navParams.data.url || "";
         this.data = this.navParams.data.items || {};
+        */
         this.pager = { limit: 20 };
-        this.items = this.data;
+        if (this.ticketProvider._dataStore.all.length)
+            this.data = this.ticketProvider._dataStore.all;
+        else if (this.ticketProvider._dataStore.tech.length)
+            this.data = this.ticketProvider._dataStore.tech;
+        else if (this.ticketProvider._dataStore.user.length)
+            this.data = this.ticketProvider._dataStore.user;
+        let q = this.term.toLowerCase();
+        if (this.data.length)
+        {
+        if (q.length > 2)
+            this.items = this.data.filter((v) => this.searchCriteria(v, q));
+        else
+            this.items = this.data;
+        }
         this.count = this.items.length;
-        this.is_empty = false;
         if (this.items.length === 0) {
             var timer = setTimeout(() => {
-                this.busy = true;
+                this.is_empty = true;
+                //this.busy = true;
             }, 500);
 
-            this.getItems(null, timer);
+            //this.getItems(null, timer);
         }
     }
 
-    dismiss(item) {
-        //let data = { 'foo': 'bar' };
-        item = item || {};
-        this.viewCtrl.dismiss(item);
+    dismiss(ticket)
+    {
+        this.nav.push(TicketDetailsPage, ticket);
     }
 
-/*
-    newsearch(searchbar) {
-        // Reset items back to all of the items
-        //this.items = this.data;
-
-        // set q to the value of the searchbar
-        var q = searchbar.value;
-
-        // if the value is an empty string don't filter the items
-        if (q.trim() == '') {
-            return;
-        }
-        this.items =  q.length > 3 ? this.search(q) : Observable.of(this.data.filter((v) => v.name.toLowerCase().indexOf(q.toLowerCase()) > -1));
+    searchCriteria (ticket, term)
+    {
+        return ticket.number.toString().indexOf(term) > -1
+            || ticket.subject.toLowerCase().indexOf(term) > -1
+            || ticket.initial_post.toLowerCase().indexOf(term) > -1
+            || ticket.user_firstname.toLowerCase().indexOf(term) > -1
+            || ticket.user_lastname.toLowerCase().indexOf(term) > -1
+            || ticket.location_name.toLowerCase().indexOf(term) > -1
+            || ticket.class_name.toLowerCase().indexOf(term) > -1
     }
-*/
+
     searchItems(searchbar) {
         // Reset items back to all of the items
         this.items = this.data;
@@ -83,17 +93,17 @@ export class AjaxSearchPage {
             return;
         }
 
-        if (q.length < 3)
-            this.items = this.items.filter((v) => v.name.toLowerCase().indexOf(q.toLowerCase()) > -1);
-        else {
-            var timer = setTimeout(() => { this.busy = true; }, 500);
-            this.getItems(q, timer);
-        }
+        //if (q.length > 2)
+        this.items = this.data.filter((v) => this.searchCriteria(v, q));
+        //else {
+        //    var timer = setTimeout(() => { this.busy = true; }, 500);
+        //    this.getItems(q, timer);
+        //}
         this.is_empty = !this.items.length;
     }
 
     getItems(term, timer) {
-        this.items = [];
+        /*this.items = [];
         this.apiData.getPaged(addp(this.url, "search", term), this.pager).subscribe(
             data => {
                 if (data.length && !data[0].name) {
@@ -130,5 +140,6 @@ export class AjaxSearchPage {
                 console.log(error || 'Server error');
             }
             );
+            */
     }
 }

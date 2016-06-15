@@ -59,7 +59,7 @@ export class AccountDetailsPage {
 
     openPage(page, count)
     {
-        this.nav.push(this.pages[page], {"is_empty": !count, "account_id": this.account.id, "account_name": this.account.name});
+        this.nav.push(this.pages[page], {"is_empty": !count, "account_id": this.account.id || "-1", "account_name": this.account.name});
     }
     
     getCurrency(value) {

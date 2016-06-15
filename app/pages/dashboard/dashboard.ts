@@ -103,8 +103,8 @@ export class DashboardPage {
             if (!this.ticketProvider._dataStore.user.length) {
                 this.ticketProvider.getTicketsList("user", "", { "limit": 6 });
             }
-            if (!(this.timeProvider._dataStore["time?account=-1"] || {}).length)
-                this.timeProvider.getTimelogs("-1", { "limit": 15 });
+            if (!(this.timeProvider._dataStore["time"] || {}).length)
+                this.timeProvider.getTimelogs("", { "limit": 25 });
         }, 2500);
     }
 
@@ -118,11 +118,14 @@ export class DashboardPage {
     }
 
     getTicket(searchbar) {
-    // Reset items back to all of the items
-    // set q to the value of the searchbar
-    let list = {search : searchbar.target.value};
-    //this.nav.push(AjaxSearchPage, list);
-  }
+        // Reset items back to all of the items
+        // set q to the value of the searchbar
+        if (searchbar.target.value.trim().length > 2) {
+            let list = { search: searchbar.target.value };
+            this.test = false;
+            this.nav.push(AjaxSearchPage, list);
+        }
+    }
     
     itemTappedTL(tab) {  
         if (this.config.current.is_limit_assigned_tkts && tab.tab == 'all')

@@ -6,6 +6,8 @@ import {Pipe} from '@angular/core';
 export class DaysoldPipe {
     transform(value) {
         value = value || 0;
+        if (isNaN(value))
+            value = Math.round((Date.now() - new Date(value)) / 60000);
         var daysOld: number = value / 60;
         var result : string = "";
 
