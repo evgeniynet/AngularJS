@@ -73,7 +73,7 @@ export class LoginPage {
         {
             var win = openURL(ApiSite + 'auth/auth0');
             var onExit = function() {
-                location.reload();
+                location.href = 'index.html';
             };
                     win.addEventListener( "loadstop", function() {
                         var loop = setInterval(function() {
