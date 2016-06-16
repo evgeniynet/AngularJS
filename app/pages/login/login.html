@@ -20,9 +20,9 @@
       </ul>
                     </div>
       </form>
-      <form ngNoForm method="POST" [action]="google_action">
-              <button type="submit" class="login-margin text-google itemTech grey3 itemTech2" (click)="onGoogleSignin()" block light><span>Sign in with&nbsp;<big>Google</big></span></button>
-              </form>
+      <!--form ngNoForm method="POST" [action]="google_action" #googleForm-->
+              <button class="login-margin text-google itemTech grey3 itemTech2" (click)="onGoogleSignin()" block light><span>Sign in with&nbsp;<big>Google</big></span></button>
+              <!--/form-->
           <br>
   <button  (click)="onSignup()" block dark class="login-margin">Create New Account</button>
       <ion-card-content class="container card-content" style="margin-top: 30px;">
