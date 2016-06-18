@@ -6,8 +6,8 @@
         </button>
     </ion-buttons>
   <ion-title [hidden]="time.time_id || time.number">Add Time</ion-title>
-  <ion-title class="ellipsis" [hidden]="!time.time_id">Timelog #{{time.time_id}} by {{time.user_name}} @ {{setDate(time.date, false, true)}}</ion-title>
-  <ion-title class="ellipsis" [hidden]="!time.number">Add Time to #{{time.number}} {{time.subject}}</ion-title>
+  <ion-title class="ellipsis padding-right24" [hidden]="!time.time_id">Timelog #{{time.time_id}} by {{time.user_name}} @ {{setDate(time.date, false, true)}}</ion-title>
+  <ion-title class="ellipsis padding-right24" [hidden]="!time.number">Add Time to #{{time.number}} {{time.subject}}</ion-title>
 </ion-toolbar>
 <ion-content class="timelog">
     <div class="list max-width700">
