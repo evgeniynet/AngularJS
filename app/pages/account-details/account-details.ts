@@ -20,6 +20,7 @@ export class AccountDetailsPage {
     details_tab: string;
     tabsTicket: string; 
     note: string = "";
+    is_editnote: boolean = false;
 
     constructor(private nav: Nav, private navParams: NavParams, private dataProvider: DataProvider, private config: Config) {
         this.details_tab = "Stat";
@@ -28,7 +29,8 @@ export class AccountDetailsPage {
     
     onPageLoaded()
     {
-                // If we navigated to this page, we will have an item available as a nav param
+        this.is_editnote = false;
+        // If we navigated to this page, we will have an item available as a nav param
         this.account = this.navParams.data || {};
         this.details_tab = "Stat";
         this.tabsTicket = "Open";
@@ -50,6 +52,7 @@ export class AccountDetailsPage {
             data => {
                 this.nav.alert('Note saved :)');
                 this.account.note = note;
+                this.is_editnote = false;
             },
             error => {
                 console.log(error || 'Server error');

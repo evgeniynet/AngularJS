@@ -19,8 +19,7 @@ import {GravatarPipe, LinebreaksPipe, DaysoldPipe} from '../../pipes/pipes';
 export class TicketDetailsPage {
     
     counts: any;
-    ticket: any;
-    posts: any;
+    ticket: any = {};
     details_tab: string;
     active: boolean;
     he: any;
@@ -29,29 +28,30 @@ export class TicketDetailsPage {
     ticketnote: string;
     attachments: any;
     workpad: string = "";
+    is_editnote: boolean = false;
+    posts: any = [
+    {
+        "id": 0,
+        "ticket_key": "",
+        "user_id": 0,
+        "user_email": " ",
+        "user_firstname": " ",
+        "user_lastname": " ",
+        "record_date": "2016-01-01T00:00:00.0000000",
+        "log_type": " ",
+        "note": " ",
+        "ticket_time_id": 0,
+        "sent_to": " ",
+        "is_waiting": false,
+        "sla_used": 0
+    }];
 
     constructor(private nav: Nav, private navParams: NavParams, private ticketProvider: TicketProvider, private config: Config) {
-        this.ticket = {};
-        this.ticket.customfields = [];
-        this.posts = [
-            {
-                "id": 0,
-                "ticket_key": "",
-                "user_id": 0,
-                "user_email": " ",
-                "user_firstname": " ",
-                "user_lastname": " ",
-                "record_date": "2016-01-01T00:00:00.0000000",
-                "log_type": " ",
-                "note": " ",
-                "ticket_time_id": 0,
-                "sent_to": " ",
-                "is_waiting": false,
-                "sla_used": 0
-            }];
     }
 
     onPageLoaded() {
+        this.is_editnote = false;
+        this.ticket.customfields = [];
         this.active = true;
         this.he = this.config.getCurrent("user");
         this.details_tab = "Reply";
@@ -204,6 +204,7 @@ export class TicketDetailsPage {
                 data => {
                     this.nav.alert('Note saved :)');
                     this.ticket.workpad = note;
+                    this.is_editnote = false;
                 },
                 error => {
                     console.log(error || 'Server error');

@@ -6,7 +6,7 @@
         </button>
     </ion-buttons>
 <ion-title [hidden]="expense.expense_id || expense.number">Create Expense</ion-title>
-<ion-title class="ellipsis" [hidden]="!expense.expense_id || !expense.number">Expense by {{expense.user_name}} @ {{setDate(expense.date, false, true)}}</ion-title>
+<ion-title class="ellipsis" [hidden]="!expense.expense_id">Expense by {{expense.user_name}} @ {{setDate(expense.date, false, true)}}</ion-title>
 <ion-title class="ellipsis" [hidden]="!expense.number">Create Expense to #{{expense.number}} {{expense.subject}}</ion-title>
 </ion-toolbar>
 

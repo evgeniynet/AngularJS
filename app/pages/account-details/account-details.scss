@@ -1,7 +1,7 @@
 .table_account{
     -webkit-box-orient: vertical;
     overflow: hidden;
-    text-overflow: ellipsis;
+    /*text-overflow: ellipsis;*/
 }
 
 .note-account {
@@ -10,6 +10,7 @@
     margin-bottom: 15px;
     padding: 10px;
     height: 100%;
+    min-height: 100px;
 }
 
 

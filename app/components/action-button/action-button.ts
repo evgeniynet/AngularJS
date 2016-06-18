@@ -78,7 +78,7 @@ export class ActionButtonComponent {
 
         if (this.config.current.is_expenses)
             but.push({
-                icon: 'calculator',
+                icon: 'ios-list-box-outline',
                 text: 'Add Expense',
                 role: '',
                 handler: () => {

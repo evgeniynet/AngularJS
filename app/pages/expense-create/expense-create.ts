@@ -17,7 +17,6 @@ export class ExpenseCreatePage {
     selects: any;
 
     constructor(private nav: Nav, private navParams: NavParams, private apiData: ApiData, private config: Config, private view: ViewController) {
-    nav.swipeBackEnabled = false;
     }
     
     ngOnInit()
@@ -74,8 +73,8 @@ export class ExpenseCreatePage {
 
     onSubmit(form) {
         if (form.valid) {
-            let amount = Number(form.value.amount);
-            if (isNaN(amount) || amount <= 0) {
+            let amount = isNaN(form.value.amount) ? 0 : Number(form.value.amount);
+            if (amount <= 0) {
                 this.nav.alert("Not enough amount", true);
                 return;
             }
@@ -89,7 +88,7 @@ export class ExpenseCreatePage {
                 "tech_id": isEdit? this.expense.user_id : this.he.user_id,
                 "note": this.expense.note,
                 "note_internal": this.expense.note_internal,
-                "amount": this.expense.amount,
+                "amount": amount,
                 "is_billable": this.isbillable,
                 "vendor": this.expense.vendor
             };
@@ -99,7 +98,7 @@ export class ExpenseCreatePage {
             this.apiData.get("expenses" + (!isEdit ? "" : ("/" + this.expense.expense_id)), data, isEdit ? "PUT" : "POST").subscribe(
                 data => {
                     this.nav.alert('Expense was successfully added :)');
-                    this.close();
+                    setTimeout(() => this.close(), 500);
                 },
                 error => {
                     console.log(error || 'Server error');

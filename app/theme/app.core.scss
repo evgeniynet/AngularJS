@@ -883,7 +883,9 @@ min-height: 15px;
 }
 
 
-.loading-wrapper {
-    color: #fff;
-    background: #34495e;
+.loading-wrapper1 {
+    color: #fff !important;
+    background: $background-color !important;
+    box-shadow: 0px 0px 10px 5px white !important;
 }
+

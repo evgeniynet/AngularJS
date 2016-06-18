@@ -6,7 +6,7 @@
 
 <ion-content>
   <ion-toolbar class="blue3">
-     <h4 class="subject-padding ticket-details margin-top0 padding subject-ticket text-left width48 left">{{ticket.subject}}</h4>
+   <h4 class="subject-padding ticket-details margin-top0 padding subject-ticket text-left width48 left">{{ticket.subject}}</h4>
    <span class="left width45" no-lines>
     <p *ngIf="config.current.is_class_tracking" class="text-right grey4 margin">{{ticket.class_name}}</p>
     <p *ngIf="config.current.is_location_tracking" class="text-right margin">{{ticket.location_name}}</p>
@@ -16,23 +16,23 @@
     <p *ngIf="config.current.is_time_tracking && ticket.total_hours > 0" class="text-right grey4 margin">{{ticket.total_hours}} Hours</p>
     <p *ngIf="ticket.sla_complete_date != null" class="text-right grey4 margin">SLA: {{setDate(ticket.sla_complete_date, false, true)}}</p></span>
   </ion-toolbar>
-    <ion-segment class="tabsTicket"  [(ngModel)]="details_tab">
-      <ion-segment-button class="segment-ticket" value="Reply">
-        Reply
-      </ion-segment-button>
-      <ion-segment-button class="segment-ticket" value="Info">
-        Info
-      </ion-segment-button>
-      <ion-segment-button class="segment-ticket" value="Notes">
-        Notes
-      </ion-segment-button>
-      <ion-segment-button class="segment-ticket" value="Files">
-        Files
-      </ion-segment-button>
-      <ion-segment-button class="segment-ticket" value="Options">
-        Options
-      </ion-segment-button>
-    </ion-segment>
+  <ion-segment class="tabsTicket"  [(ngModel)]="details_tab">
+    <ion-segment-button class="segment-ticket" value="Reply">
+      Reply
+    </ion-segment-button>
+    <ion-segment-button class="segment-ticket" value="Info">
+      Info
+    </ion-segment-button>
+    <ion-segment-button class="segment-ticket" value="Notes">
+      Notes
+    </ion-segment-button>
+    <ion-segment-button class="segment-ticket" value="Files">
+      Files
+    </ion-segment-button>
+    <ion-segment-button class="segment-ticket" value="Options">
+      Options
+    </ion-segment-button>
+  </ion-segment>
   <div [ngSwitch]="details_tab">
    <div class="list general-alignment" *ngSwitchWhen="'Reply'">
 
@@ -70,11 +70,11 @@
       <button secondary block (click)="onUpdate()" type="submit" class="img-top disable-hover button button-default button-block">Update</button>
     </div>
     <ion-list class="list general-alignment max-width700" *ngSwitchWhen="'Notes'">
-      <div *ngIf="workpad.length" class="width100 textLogin note-account" [innerHTML]="workpad" type="text"></div>
+      <div [hidden]="is_editnote || !workpad.length" class="width100 textLogin note-account" [innerHTML]="workpad" type="text"></div>
 
-      <textarea [(ngModel)]="workpad" class="width100 textLogin commentText" type="text" placeholder="Notes:"></textarea>
-      <button secondary 
-      class="button_reply img-top right" (click)="saveNote()">Save Notes</button>
+      <textarea [hidden]="!is_editnote" [(ngModel)]="workpad" class="width100 textLogin commentText" type="text" placeholder="Notes:"></textarea>
+      <button [hidden]="is_editnote" secondary class="button_reply img-top right" (click)="is_editnote = true">{{workpad.length ? 'Edit' : 'Add'}} Notes</button>
+      <button [hidden]="!is_editnote" secondary class="button_reply img-top right" (click)="saveNote()">Save Notes</button>
     </ion-list>
     <ion-list class="list img-top" no-lines *ngSwitchWhen="'Files'">
      <div [hidden]="attachments?.length" class="table grey2 menu-text">No Files yet</div>
@@ -84,7 +84,7 @@
     </ion-item>
   </ion-list>
   <div *ngSwitchWhen="'Options'" class="list max-width700 general-alignment">
-  <button *ngIf="config.current.is_time_tracking" (click)="addTime()" secondary block type="submit" class="disable-hover button button-default button-block class-margin">Add Time</button>
+    <button *ngIf="config.current.is_time_tracking" (click)="addTime()" secondary block type="submit" class="disable-hover button button-default button-block class-margin">Add Time</button>
     <button *ngIf="config.current.is_expenses" (click)="addExpense()" secondary block type="submit" class="disable-hover button button-default button-block general-alignment2 class-margin">Add Expense</button>
 
     <select-list preload="true" [isbutton]="true" [list]="selects.technician" (onChanged)='transferTicket($event)'></select-list>
