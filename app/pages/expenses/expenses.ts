@@ -27,19 +27,22 @@ export class ExpensesPage {
         this.params = this.navParams.data || {};
         this.pager = { page: 0 };
         this.params.account = { id: this.params.account_id || -1, name: this.params.account_name || this.config.getCurrent("user").account_name };
+    }
 
-        if (this.params.is_empty)
-            this.params.count = 0;
+onPageWillEnter()
+    {
+    if (this.params.is_empty)
+        this.params.count = 0;
 
-        if (this.params.count !== 0) {
-            var timer = setTimeout(() => {
-                this.busy = true;
-            }, 500);
+    if (this.params.count !== 0) {
+        var timer = setTimeout(() => {
+            this.busy = true;
+        }, 500);
 
-            this.getItems(null, timer);
-        }
-        else
-            this.is_empty = true;
+        this.getItems(null, timer);
+    }
+    else
+        this.is_empty = true;
     }
 
 

@@ -34,16 +34,20 @@ export class AccountDetailsPage {
         this.account = this.navParams.data || {};
         this.details_tab = "Stat";
         this.tabsTicket = "Open";
-
-        this.dataProvider.getAccountDetails(this.account.id).subscribe(
-            data => {
-                this.account = data;
-                this.note = data.note || "";
-            }, 
-            error => { 
-                console.log(error || 'Server error');}
-        ); 
     }
+
+    onPageWillEnter()
+{
+            this.dataProvider.getAccountDetails(this.account.id).subscribe(
+    data => {
+        this.account = data;
+        this.note = data.note || "";
+    },
+    error => {
+        console.log(error || 'Server error');
+    }
+); 
+        }
 
     saveNote() {
         var note = this.note || ""; // htmlEscape((this.workpad || "").trim()).substr(0, 5000);
