@@ -43,9 +43,13 @@ export class InvoiceDetailsPage {
         return getCurrency(value);
     }
 
+    changeContact(recipient) {
+        recipient.is_accounting_contact = !recipient.is_accounting_contact;
+    }
+
     send() {
-        if (!this.invoice.recipients.filter(v => v.is_accounting_contact)) {
-            this.nav.alert("No accounting contacts selected", false);
+        if (!this.invoice.recipients.filter(v => v.is_accounting_contact).length) {
+            this.nav.alert("No accounting contacts selected", true);
             return;
         }
         var emails = "";
