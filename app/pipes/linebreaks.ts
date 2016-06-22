@@ -5,8 +5,13 @@ import {Pipe} from '@angular/core';
 })
 export class LinebreaksPipe {
     transform(value, args) {
-        value = value || "";
-        value = value.replace(/&lt;br&gt;/gi, "\n").replace(/\r/g, '').replace(/\n\s*\n/g, '\n').replace(/\n/g, "<br>");
+        value = (value || "").trim();
+        if (value.length)
+        	value = value
+				.replace(/&lt;br&gt;/gi, "\n")
+				.replace(/<br\s*[\/]?>/gi, "\n")
+				.replace(/\n/g, "<p></p>");
+        //value = value.replace(/&lt;br&gt;/gi, "\n").replace(/\r/g, '').replace(/\n\s*\n/g, '\n').replace(/\n/g, "<br>");
         return value;
     }
 }

@@ -85,12 +85,12 @@ export function addp (url: string, param: string, value?: any) {
 //HTML encode
 export function htmlEscape(str) {
     return String(str)
-        .replace(/&/g, '&amp;amp;')
-        .replace(/&quot;/g, '&amp;quot;')
-        .replace(/&apos;/g, '&amp;apos;')
-        .replace(/&lt;/g, '&amp;lt;')
-        .replace(/&gt;/g, '&amp;gt;')
-        .replace(/&/g, '&amp;')
+        //.replace(/&/g, '&amp;amp;')
+        //.replace(/&quot;/g, '&amp;quot;')
+        //.replace(/&apos;/g, '&amp;apos;')
+        //.replace(/&lt;/g, '&amp;lt;')
+        //.replace(/&gt;/g, '&amp;gt;')
+        //.replace(/&/g, '&amp;')
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&apos;')
         .replace(/</g, '&lt;')
