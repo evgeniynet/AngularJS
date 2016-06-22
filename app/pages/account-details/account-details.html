@@ -1,5 +1,5 @@
 <ion-navbar *navbar><button menuToggle><ion-icon name="menu"></ion-icon></button>
-  <ion-title>{{account.name}}</ion-title>
+  <ion-title class="padding-right24">{{account.name}}</ion-title>
 </ion-navbar>
 
 <ion-content class="account-details">
@@ -136,7 +136,7 @@
 
       <textarea [hidden]="!is_editnote" [(ngModel)]="note" class="width100 textLogin commentText" type="text" placeholder="Notes:"></textarea>
 
-      <button [hidden]="is_editnote" secondary class="button_reply img-top right" (click)="is_editnote = true">{{note.length ? 'Edit' : 'Add'}} Notes</button>
+      <button [hidden]="is_editnote" secondary class="button_reply right width100" (click)="is_editnote = true">{{note.length ? 'Edit' : 'Add'}} Notes</button>
       <button [hidden]="!is_editnote" secondary class="button_reply img-top right" (click)="saveNote()">Save Notes</button>
     </ion-list>
     <ion-list class="list margin-top21" no-lines *ngSwitchWhen="'Files'">

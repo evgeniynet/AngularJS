@@ -7,7 +7,7 @@
             <a detail-none href=# ion-item [hidden]="!org.is_expired" class="blue1 org expired" (click)="alertOrg(org.name)">{{org.name}} (Expired)</a>
             <a detail-none href=# ion-item [hidden]="org.is_expired" class="blue1 org" (click)="toggle(org)">{{org.name}}  {{org.instances.length == 1 ? org.instances[0].name : '' }}</a>
             <div *ngIf="org.expanded && org.instances.length > 1">
-                <a detail-none href=# ion-item *ngFor="let inst of org.instances" (click)="onSelectInst({org: org.key, inst: inst.key})" class="blue2 org2">{{inst.name}}</a>
+                <a detail-none href=# ion-item *ngFor="let inst of org.instances" (click)="onSelectInst({org: org.key, inst: inst.key})" class="blue1 org2">{{inst.name}}</a>
             </div>
         </div>
     </ion-list>
