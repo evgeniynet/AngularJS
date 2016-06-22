@@ -1,4 +1,4 @@
-let Site = 'bigwebapps.com/';
+let Site = 'sherpadesk.com/';
 export let MobileSite = 'http://m.' + Site;
 export let AppSite = 'https://app.' + Site;
 export let ApiSite = 'http://api.' + Site;
