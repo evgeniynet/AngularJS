@@ -5,15 +5,17 @@ var gulp = require('gulp'),
     argv = process.argv;
 
 var embedTemplates = require('gulp-angular-embed-templates');
- 
-gulp.task('embed', function () {
-    gulp.src('app/**/*.ts') // also can use *.js files 
-        .pipe(embedTemplates({sourceType:'ts', basePath: 'www/', minimize: { quotes: true }}))
-        .pipe(gulp.dest('./dist'));
-});
-
-
 /**
+
+gulp prepare
+gulp move1
+gulp clean1
+gulp embed
+gulp compile
+gulp clean2
+gulp move2
+gulp clean3
+
  * Ionic hooks
  * Add ':before' or ':after' to any Ionic project command name to run the specified
  * tasks before or after the command.
@@ -58,6 +60,40 @@ gulp.task('prepare', [], function(done){
     function(){    
 })});
 
+gulp.task('move1',[], function(){
+  // the base option sets the relative root for the set of files,
+  // preserving the folder structure
+  gulp.src(['./app/**/*.*'], { base: './app/' })
+  .pipe(gulp.dest('__app'));
+});
+
+gulp.task('clean1', function(){
+  return del('app');
+});
+
+
+gulp.task('clean2', function(){
+  return del('app');
+});
+
+
+gulp.task('move2',[], function(){
+  // the base option sets the relative root for the set of files,
+  // preserving the folder structure
+  gulp.src(['./__app/**/*.*'], { base: './__app/' })
+  .pipe(gulp.dest('app'));
+});
+
+gulp.task('clean3', function(){
+  return del('__app');
+});
+
+gulp.task('embed', function () {
+    gulp.src('__app/**/*.ts') // also can use *.js files 
+        .pipe(embedTemplates({sourceType:'ts', basePath: 'www/', minimize: { quotes: true }}))
+        .pipe(gulp.dest('./app'));
+});
+
 gulp.task('compile', [], function(done){
   runSequence(
     ['scripts'],
@@ -75,6 +111,12 @@ gulp.task('compile', [], function(done){
     }
   );
 });
+
+gulp.task('cl', [], function(done){
+  runSequence(
+    ['prepare', 'move1', 'clean1', 'embed', 'compile', 'clean2', 'move2', 'clean3'],
+    function(){    
+})});
 
 gulp.task('build', ['clean'], function(done){
   runSequence(
