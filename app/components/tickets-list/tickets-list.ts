@@ -144,6 +144,10 @@ export class TicketsListComponent {
 
      closeTicket(ticket, slidingItem) {
          slidingItem.close();
+         if (ticket.status == 'Closed'){
+             this.reopenTicket(ticket);
+             return;
+         }
          let myModal = Modal.create(CloseTicketModal, ticket);
          myModal.onDismiss(data => {
              if (!data)
@@ -158,6 +162,23 @@ export class TicketsListComponent {
              }
          });
          this.nav.present(myModal);
+     }
+
+     reopenTicket(ticket) {
+         let data = {
+             "status": "open",
+             "note_text": ""
+         };
+
+         this.ticketProvider.closeOpenTicket(ticket.key, data).subscribe(
+             data => {
+                 this.nav.alert('Ticket has been Reopened!');
+                 ticket.status = "Open";
+             },
+             error => {
+                 console.log(error || 'Server error');
+             }
+         );
      }
 
 
