@@ -1,6 +1,6 @@
 import {Page, Config, Nav, Loading} from 'ionic-angular';
 import {forwardRef} from '@angular/core';
-import {ApiSite} from '../../providers/config';
+import {ApiSite, MobileSite, isSD} from '../../providers/config';
 //import {NgForm} from '@angular/common';
 import {saveCache, openURL} from '../../directives/helpers';
 import {DataProvider} from '../../providers/data-provider';
@@ -15,6 +15,8 @@ export class LoginPage {
     login: any;
     google_action: string = "";
     busy: boolean = false;
+    site: string = MobileSite;
+    is_sd: boolean = isSD;
     //@ViewChild('google_openid') google_openid: NgForm;
 
     constructor(private nav: Nav, private dataProvider: DataProvider, private config: Config) {
