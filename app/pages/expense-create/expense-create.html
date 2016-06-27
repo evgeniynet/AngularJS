@@ -6,8 +6,8 @@
         </button>
     </ion-buttons>
 <ion-title [hidden]="expense.expense_id || expense.number">Create Expense</ion-title>
-<ion-title class="ellipsis" [hidden]="!expense.expense_id">Expense by {{expense.user_name}} @ {{setDate(expense.date, false, true)}}</ion-title>
-<ion-title class="ellipsis" [hidden]="!expense.number">Create Expense to #{{expense.number}} {{expense.subject}}</ion-title>
+<ion-title class="ellipsis padding-right24" [hidden]="!expense.expense_id">Expense by {{expense.user_name}} @ {{setDate(expense.date, false, true)}}</ion-title>
+<ion-title class="ellipsis padding-right24" [hidden]="!expense.number">Create Expense to #{{expense.number}} {{expense.subject}}</ion-title>
 </ion-toolbar>
 
 <ion-content class="expense-create">
@@ -26,10 +26,9 @@
     <br>
 <textarea [(ngModel)]="expense.vendor" class="width100 textLogin commentText subject-create" type="text" placeholder="Vendor"></textarea>
 <textarea [(ngModel)]="expense.note_internal" class="width100 textLogin commentText subject-create" type="text" placeholder="Internal Notes"></textarea>
-        <br>
     <ion-item no-lines class="left toggle-width">
 <ion-toggle class="toggle" [(ngModel)]="isbillable"></ion-toggle></ion-item>
-        <p class="left width30 text-toggle">Billable</p>
+        <p class="left width30 text-toggle color">Billable</p>
         <div>
   <button (click)="onSubmit(addForm)" secondary block="" type="submit" [disabled]="!addForm.valid" class="disable-hover button button-default button-block">{{expense.expense_id ? 'Update' : 'Add'}} Expense</button>
     </div>
