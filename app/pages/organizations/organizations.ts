@@ -1,5 +1,7 @@
 import {Page, Config, Nav, Events, Loading} from 'ionic-angular';
 import {DataProvider} from '../../providers/data-provider';
+import {TicketProvider} from '../../providers/ticket-provider';
+import {TimeProvider} from '../../providers/time-provider';
 import {saveCache} from '../../directives/helpers';
 import {LoginPage} from '../login/login';
 import {DashboardPage} from '../dashboard/dashboard';
@@ -12,10 +14,12 @@ export class OrganizationsPage {
 
     list: Array<any> = [];
 
-    constructor(private nav: Nav, private dataProvider: DataProvider, private config: Config, private events: Events) {
+    constructor(private nav: Nav, private dataProvider: DataProvider, private config: Config, private events: Events, private ticketProvider: TicketProvider, private timeProvider: TimeProvider) {
         //partly logout
         localStorage.clear();
         this.config.current.org = "";
+        this.ticketProvider._dataStore = {all: [],alt: [],tech: [],user: []};
+        this.dataProvider._dataStore = this.timeProvider._dataStore = {};
         this.config.saveCurrent();
         
         this.dataProvider.getOrganizations(this.config.getCurrent("key")).subscribe(
