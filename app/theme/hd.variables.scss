@@ -1,0 +1,96 @@
+// http://ionicframework.com/docs/v2/theming/
+
+
+// App Shared Variables
+// --------------------------------------------------
+// To customize the look and feel of this app, you can override
+// the Sass variables found in Ionic's source scss files. Setting
+// variables before Ionic's Sass will use these variables rather than
+// Ionic's default Sass variable values. App Shared Sass imports belong
+// in the app.core.scss file and not this file. Sass variables specific
+// to the mode belong in either the app.ios.scss or app.md.scss files.
+
+
+// App Shared Color Variables
+// --------------------------------------------------
+// It's highly recommended to change the default colors
+// to match your app's branding. Ionic uses a Sass map of
+// colors so you can add, rename and remove colors as needed.
+// The "primary" color is the only required color in the map.
+// Both iOS and MD colors can be further customized if colors
+// are different per mode.
+
+$colors: (
+    primary: #fff,
+    secondary:  #42bd41,
+    dark:       #fca83f
+  );
+
+$class-list: #5D5C5C;
+$class-list2: #787878;
+$class-list3: #999;
+$response: #999;
+$red: #a94442;
+$red2: #e74c3c;
+$grey: #5f5f5f;
+$grey2: #5D5C5C;
+$grey3: rgba(131,131,131,0.82);
+$grey4: #dadada;
+$blue1: #ffac30;
+$blue2: #f90;
+$blue3: #333;
+$blue4: map-get($colors, dark);
+$blue5: rgba(255, 183, 93, 0.99);
+$blue6: #F9AB4A;
+$blue7: rgb(255, 230, 175);
+$yellow: #f1c40f;
+$black1: #000;
+$login: #f90;
+$green: map-get($colors, secondary);
+$transparent: rgba(255, 255, 255, 0);
+$background-color: map-get($colors, primary);
+$background: #5f5f5f;
+$toolbar-background: $blue1;
+$text-color: #fff;
+$text: #333;
+$text2: #fff;
+$text3: #f90;
+$toolbar-border-color: $blue1;
+$toolbar-text-color: $text-color;
+$toolbar-inactive-color: $black1;
+$sherpa_bg: #161E27; 
+$headings-line-height: $background-color;
+$font-size: 2rem;
+$card-ios-header-color: $text-color;
+$card-md-header-color: $text-color;
+$card-ios-background-color: $blue3;
+$card-ios-border-radius: 23px;
+$segment: #f90;
+//$segment-button-ios-bg-color-activated: $text-color;
+$color-value: #f90;
+$item-ios-body-text-font-size: $font-size;
+$item-md-body-text-font-size: $font-size;
+$item-ios-paragraph-text-color: $text-color;
+$item-md-paragraph-text-color: $text-color;
+$item-ios-note-color: #aeacb4;
+$item-md-note-color: #aeacb4;
+$button-ios-border-radius: 0px;
+$button-md-border-radius: 0px;
+$checkbox-ios-icon-border-radius: 0px;
+$checkbox-md-icon-border-radius: 0px;
+$label-ios-text-color: $text-color;
+$label-md-text-color: $text-color;
+$segment-button-ios-border-radius: 0px;
+$item-ios-avatar-size: 5rem;
+$item-md-avatar-size: 5rem;
+$searchbar-ios-input-search-icon-color: $text-color;
+$searchbar-md-input-search-icon-color: $text-color;
+$searchbar-ios-input-placeholder-color: $text-color;
+$searchbar-md-input-placeholder-color: $text-color;
+$menu-width: 270px;
+$picker-ios-background-color: #fff;
+$picker-ios-button-text-color: #000 !important;
+$searchbar: rgba(0, 0, 0, 0.53);
+$time: $response;
+$close-ticket: $login;
+$inst: $text;
