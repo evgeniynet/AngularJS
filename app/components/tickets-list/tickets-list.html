@@ -23,7 +23,7 @@
 
         <button (click)="closeTicket(ticket, slidingItem)" class="disable-hover button button-default close-ticket">
             <ion-icon></ion-icon>
-            {{ticket.status != 'Closed' ? "Close" : "ReOpen"}} Ticket
+            <p class="close-ticket2">{{ticket.status != 'Closed' ? "Close" : "ReOpen"}} Ticket</p>
         </button>
         </ion-item-options>
     </ion-item-sliding>

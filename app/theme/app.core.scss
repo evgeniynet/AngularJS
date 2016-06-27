@@ -103,6 +103,8 @@ color: $black1;
     background-color: $segment !important;
 }
 
+
+
 // text/
 .text-left {
     text-align: left !important;
@@ -280,7 +282,7 @@ scroll-content {
 
 .admin{
     -webkit-box-orient: vertical;
-    width: 75px;
+    width: 80px;
     text-align: center;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -590,6 +592,12 @@ border-left: 1px solid rgba(255, 255, 255, 0.4);
 
 .close-ticket{
     background-color: $close-ticket; 
+}
+
+.close-ticket2{
+    font-size: 14px;
+    padding: 7px;
+    margin-top: 14px !important;
 }
 
 .alert-button {
