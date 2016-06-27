@@ -13,14 +13,13 @@
         <br>
           <button class="login-margin"
                   [disabled]="!loginForm.valid || busy" (click)="onLogin(loginForm)" type="submit" block secondary>Login</button>
-          <br>
+                </form><br>
           <template [ngIf]="is_sd">
           <div>
           <ul class="googleStripes">
         <li></li><li></li><li></li><li></li>
       </ul>
                     </div>
-      </form>
       <!--form ngNoForm method="POST" [action]="google_action" #googleForm-->
               <button class="login-margin text-google itemTech grey3 itemTech2" (click)="onGoogleSignin()" block light><span>Sign in with&nbsp;<big>Google</big></span></button>
               <!--/form-->
