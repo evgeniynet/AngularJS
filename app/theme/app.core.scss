@@ -200,6 +200,10 @@ max-width: 700px;}
     padding-left: 0px !important;
 }
 
+.padding-left8{
+    padding-left: 8px !important;
+}
+
 .padding-top20{
     padding-top: 20px;
 }
@@ -584,6 +588,10 @@ border-left: 1px solid rgba(255, 255, 255, 0.4);
     background-color: $text-color;
 }
 
+.close-ticket{
+    background-color: $close-ticket; 
+}
+
 .alert-button {
     font-size: 17px;
 }
@@ -740,8 +748,8 @@ div.tooltips span {
     padding-right: 6px;
     min-width: 140px;
     color: $red;
-    background: $grey2;
-    border: 2px solid $black1;
+    background: map-get($colors, primary);
+    border: 2px solid $red;
     height: 33px;
     line-height: 30px;
     text-align: center;
@@ -755,7 +763,7 @@ div.tooltips span:before {
     left: 50%;
     margin-left: -12px;
     width: 0; height: 0;
-    border-bottom: 12px solid $black1;
+    border-bottom: 12px solid $red;
     border-right: 12px solid transparent;
     border-left: 12px solid transparent;
 }
@@ -766,7 +774,7 @@ div.tooltips span:after {
     left: 50%;
     margin-left: -8px;
     width: 0; height: 0;
-    border-bottom: 8px solid $grey2;
+    border-bottom: 8px solid map-get($colors, primary);
     border-right: 8px solid transparent;
     border-left: 8px solid transparent;
 }
@@ -890,10 +898,18 @@ min-height: 15px;
 
 .loading-wrapper1 {
     color: #fff !important;
-    background: $background-color !important;
+    background: $login;
     box-shadow: 0px 0px 10px 5px white !important;
 }
 
 .picker-col {
     padding: 0 0px;
     }
+
+ion-searchbar {
+    background: $searchbar;
+}
+
+.inst{
+  background-color: $inst;
+}

@@ -21,7 +21,7 @@
             Add Response
         </button>
 
-        <button secondary (click)="closeTicket(ticket, slidingItem)" class="disable-hover button button-default button-secondary">
+        <button (click)="closeTicket(ticket, slidingItem)" class="disable-hover button button-default close-ticket">
             <ion-icon></ion-icon>
             {{ticket.status != 'Closed' ? "Close" : "ReOpen"}} Ticket
         </button>
