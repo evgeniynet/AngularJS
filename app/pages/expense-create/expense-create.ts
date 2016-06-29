@@ -15,6 +15,7 @@ export class ExpenseCreatePage {
     isbillable: boolean;
     he: any;
     selects: any;
+    title: string;
 
     constructor(private nav: Nav, private navParams: NavParams, private apiData: ApiData, private config: Config, private view: ViewController) {
     }
@@ -22,6 +23,14 @@ export class ExpenseCreatePage {
     ngOnInit()
     {
         this.expense = this.navParams.data || {};
+
+        let name = (this.expense.user_name + " " + this.expense.user_email).trim().split(' ')[0];
+        if (this.expense.expense_id)
+        this.title = `Expense by ${name} @ ` + setDate(expense.date, false, true);
+        else if (this.expense.number)
+            this.title = `Add expense to #${this.expense.number} ${this.expense.subject}`;
+        else
+            this.title = "Create Expense";
 
         this.expense.amount = this.getFixed(this.expense.amount);
 

@@ -12,12 +12,18 @@ import {InvoicesPage} from '../invoices/invoices';
 export class InvoiceDetailsPage {
 
     invoice: any;
+    title: string;
 
     constructor(private nav: Nav, private navParams: NavParams, private dataProvider: DataProvider, private apiData: ApiData, private config: Config) {
     }
 
     onPageLoaded() {
         this.invoice = this.navParams.data || {};
+        if (this.invoice.id)
+        this.title = `Send Invoice #${this.invoice.id} to ${this.invoice.account_name}`;
+        else 
+            this.title = `Create Invoice @ ${this.invoice.account_name}`;
+
         //this.invoice.account = { id: this.params.account_id || 0, name: this.params.account_name || this.config.getCurrent("user").account_name };
         this.dataProvider.getInvoice(this.invoice.id, this.invoice.account_id, this.invoice.project_id).subscribe(
             data => {

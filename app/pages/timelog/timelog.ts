@@ -17,6 +17,7 @@ export class TimelogPage {
     mintime: number;
     time: any = {};
     timenote: string;
+    title: string;
     he: any;
     selects: any = {};
     displayFormat: string;
@@ -25,7 +26,6 @@ export class TimelogPage {
     //@ViewChild('stoptime') stoptime:DateTime;
 
     constructor(private nav: Nav, private navParams: NavParams, private timeProvider: TimeProvider, private config: Config, private view: ViewController) {
-    nav.swipeBackEnabled = false;
     }
 
     decrement()
@@ -48,6 +48,14 @@ export class TimelogPage {
     ngOnInit()
     {
         this.time = this.navParams.data || {};
+
+        let name = (this.time.user_name + " " + this.time.user_email).trim().split(' ')[0];
+        if (this.time.time_id)
+        this.title = `Timelog #${this.time.time_id} by ${name} @ ` + setDate(time.date, false, true);
+        else if (this.time.number)
+            this.title = `Add Time to #${this.time.number} ${this.time.subject}`;
+        else
+            this.title = "Add Time";
         
         this.mintime = this.config.getCurrent("time_minimum_time") || 0.25;
         this.mintime = this.mintime > 0 ? this.mintime : 0.25;

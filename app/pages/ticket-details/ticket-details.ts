@@ -329,9 +329,10 @@ export class TicketDetailsPage {
             return;
         }
         let myModal = Modal.create(CloseTicketModal, { "number": this.ticket.number, "key": this.ticket.key, "subject": this.ticket.subject });
-        //myModal.onDismiss(data => {
-        //    console.log(data);
-        //});
+        myModal.onDismiss(data => {
+            if (data)
+                this.ticket.status = "Closed";
+        });
         this.nav.present(myModal);
     }  
 

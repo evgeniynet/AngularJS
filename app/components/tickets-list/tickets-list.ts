@@ -29,9 +29,9 @@ export class TicketsListComponent {
         this.pager = { page: 0, limit: this.LIMIT};
     }
 
-     
-     ngOnChanges(event) {
-         if ("count" in event) {
+    
+    ngOnChanges(event) {
+        if ("count" in event) {
              //TODO: add loading event
              if (event.count.isFirstChange())
                  return;
@@ -43,10 +43,11 @@ export class TicketsListComponent {
                  this.onLoad();
                  this.is_empty = false;
              }
-     }
+         }
      }
 
      ngOnInit() {
+         this.he = this.config.getCurrent("user");
          this.cachelen = (this.ticketProvider._dataStore[this.mode[0] + (this.mode[1] || "")] || {}).length;
          if (this.mode[0] == "all")
          {
@@ -96,6 +97,10 @@ export class TicketsListComponent {
              //only if no pageloaded
              //if (~['all','alt','user','tech'].indexOf(this.mode[0]))
              //    this.nav.tickets_tab = this.mode[0];
+             if (ticket.technician_email == this.he.email)
+                 ticket.is_new_tech_post = false; 
+             if (ticket.technician_email == this.he.email)
+                 ticket.is_new_user_post = false;
              this.nav.push(TicketDetailsPage, ticket);
          }
      }
@@ -103,41 +108,41 @@ export class TicketsListComponent {
      addPost(ticket, slidingItem) {
          slidingItem.close();
          let prompt = Alert.create({
-      title: 'Add Response to #' + ticket.number,
-      inputs: [
-        {
-          name: 'note',
-          placeholder: 'Note'
-        },
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Post',
-          handler: data => {
-              
-              if (!data.note.trim())
-                  return;
+             title: 'Add Response to #' + ticket.number,
+             inputs: [
+             {
+                 name: 'note',
+                 placeholder: 'Note'
+             },
+             ],
+             buttons: [
+             {
+                 text: 'Cancel',
+                 handler: data => {
+                     console.log('Cancel clicked');
+                 }
+             },
+             {
+                 text: 'Post',
+                 handler: data => {
+                     
+                     if (!data.note.trim())
+                         return;
 
-              var post = htmlEscape(data.note.trim()).substr(0, 5000);
+                     var post = htmlEscape(data.note.trim()).substr(0, 5000);
 
-              this.ticketProvider.addTicketPost(ticket.id, post).subscribe(
-                  data => {
-                      this.nav.alert('Note added :)');
-                  },
-                  error => {
-                      console.log(error || 'Server error');
-                  }
-              );
-          }
-        }
-      ]
-    });
+                     this.ticketProvider.addTicketPost(ticket.id, post).subscribe(
+                         data => {
+                             this.nav.alert('Note added :)');
+                         },
+                         error => {
+                             console.log(error || 'Server error');
+                         }
+                         );
+                 }
+             }
+             ]
+         });
 
          this.nav.present(prompt);
      }
@@ -178,7 +183,7 @@ export class TicketsListComponent {
              error => {
                  console.log(error || 'Server error');
              }
-         );
+             );
      }
 
 
@@ -195,6 +200,6 @@ export class TicketsListComponent {
              data => { 
                  infiniteScroll.complete();
                  infiniteScroll.enable(!(data.length % this.LIMIT));
-              });
+             });
      }
  }

@@ -109,7 +109,7 @@ handleError(error) : any {
     let status = (error.status || {}).toString();
     message += " (" + status + ") ";
     if (
-        (status == "403" && !~url.indexOf("organizations"))  || ~url.indexOf("config"))
+        (status == "403" && !~url.indexOf("organizations"))  || ~url.indexOf("config") || ~message.indexOf("User with token"))
         {
             this.events.publish("login:failed");
         }
