@@ -1,7 +1,6 @@
 
 <ion-navbar *navbar><button menuToggle><ion-icon name="menu"></ion-icon></button>
-  <ion-title class="ellipsis padding-right24" [hidden]="!invoice.id">Send Invoice #{{invoice.id}} to {{invoice.account_name}}</ion-title>
-  <ion-title class="ellipsis" [hidden]="invoice.id">Create Invoice @ {{ invoice.account_name }}</ion-title>
+  <ion-title class="ellipsis padding-right24">{{title}}</ion-title>
 </ion-navbar>
 
 <ion-content padding class="invoice-details">

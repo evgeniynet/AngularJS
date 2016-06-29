@@ -38,6 +38,11 @@ export class TimelogPage {
         this.timecount = (Number(this.timecount) + this.inc).toFixed(2);
     }
 
+    onPageWillEnter() {
+        if (this.title.length > 8)
+            this.view.setBackButtonText('');
+    }
+
     ngAfterViewInit() {
       //console.log(this.starttime.min);
       //this.starttime.displayFormat = this.displayFormat;
@@ -51,7 +56,7 @@ export class TimelogPage {
 
         let name = (this.time.user_name + " " + this.time.user_email).trim().split(' ')[0];
         if (this.time.time_id)
-        this.title = `Timelog #${this.time.time_id} by ${name} @ ` + setDate(time.date, false, true);
+        this.title = `Timelog #${this.time.time_id} by ${name} @ ` + this.setDate(this.time.date, false, true);
         else if (this.time.number)
             this.title = `Add Time to #${this.time.number} ${this.time.subject}`;
         else

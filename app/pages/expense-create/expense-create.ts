@@ -6,7 +6,7 @@ import {ClassListComponent} from '../../components/class-list/class-list';
 import {SelectListComponent} from '../../components/select-list/select-list';
 
 @Page({
-  templateUrl: 'build/pages/expense-create/expense-create.html',
+    templateUrl: 'build/pages/expense-create/expense-create.html',
     directives: [ClassListComponent, forwardRef(() => SelectListComponent)],
 })
 export class ExpenseCreatePage {
@@ -26,7 +26,7 @@ export class ExpenseCreatePage {
 
         let name = (this.expense.user_name + " " + this.expense.user_email).trim().split(' ')[0];
         if (this.expense.expense_id)
-        this.title = `Expense by ${name} @ ` + setDate(expense.date, false, true);
+            this.title = `Expense by ${name} @ ` + this.setDate(this.expense.date, false, true);
         else if (this.expense.number)
             this.title = `Add expense to #${this.expense.number} ${this.expense.subject}`;
         else
@@ -58,6 +58,11 @@ export class ExpenseCreatePage {
             },
         };      
     }
+
+    onPageWillEnter() {
+        if (this.title.length > 14)
+            this.view.setBackButtonText('');
+    }
     
 
     saveSelect(event) {
@@ -66,15 +71,15 @@ export class ExpenseCreatePage {
         //change url on related lists
         switch (name) {
             case "account":
-                if (this.selects.account.selected === event.id) {
-                    break;
-                }
-                this.selects.project.url = `projects?account=${event.id}&is_with_statistics=false`;
-                this.selects.project.value = "Default";
-                this.selects.project.selected = 0;
-                account_id = event.id;
-                this.selects.project.hidden = false;
+            if (this.selects.account.selected === event.id) {
                 break;
+            }
+            this.selects.project.url = `projects?account=${event.id}&is_with_statistics=false`;
+            this.selects.project.value = "Default";
+            this.selects.project.selected = 0;
+            account_id = event.id;
+            this.selects.project.hidden = false;
+            break;
         }
         this.selects[name].selected = event.id;
         this.selects[name].value = event.name;
@@ -112,7 +117,7 @@ export class ExpenseCreatePage {
                 error => {
                     console.log(error || 'Server error');
                 }
-            );
+                );
         }
     }
 

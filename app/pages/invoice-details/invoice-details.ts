@@ -1,4 +1,4 @@
-import {Page, Config, Nav, NavParams} from 'ionic-angular';
+import {Page, Config, Nav, NavParams, ViewController} from 'ionic-angular';
 import {getDateTime, getCurrency} from '../../directives/helpers';
 import {GravatarPipe} from '../../pipes/pipes';
 import {DataProvider} from '../../providers/data-provider';
@@ -14,7 +14,7 @@ export class InvoiceDetailsPage {
     invoice: any;
     title: string;
 
-    constructor(private nav: Nav, private navParams: NavParams, private dataProvider: DataProvider, private apiData: ApiData, private config: Config) {
+    constructor(private nav: Nav, private navParams: NavParams, private dataProvider: DataProvider, private apiData: ApiData, private config: Config, private view: ViewController) {
     }
 
     onPageLoaded() {
@@ -40,6 +40,10 @@ export class InvoiceDetailsPage {
             }
         );
   }
+
+  onPageWillEnter() {
+            this.view.setBackButtonText('');
+    }
 
     setDate(date, showmonth?, istime?) {
         return getDateTime(date || new Date(), showmonth, istime);
