@@ -2,8 +2,8 @@
 <ion-toolbar>
 <ion-buttons>
         <button (click)="close()">
-            <span primary>Cancel</span>
-        </button>
+<ion-icon primary class="invoiceCircle" name="close-circle"></ion-icon>        
+    </button>
     </ion-buttons>
 <ion-title [hidden]="expense.expense_id || expense.number">Create Expense</ion-title>
 <ion-title class="ellipsis padding-right24" [hidden]="!expense.expense_id">Expense by {{expense.user_name}} @ {{setDate(expense.date, false, true)}}</ion-title>
