@@ -172,6 +172,8 @@ class MyApp {
     config.current.isPhonegap = localStorage.getItem("isPhonegap") === "true";
     config.current.isExtension =  window.self !== window.top;
 
+//"FullSingular"].ToString(), ", ", drvCustomName["FullPlural"].ToString(), ", ", drvCustomName["AbbreviatedSingular"].ToString(), ", ", drvCustomName["AbbreviatedPlural"
+
     var key = helpers.getParameterByName('t');
     var email = helpers.getParameterByName('e');
     var platform_string = helpers.getParameterByName('ionicPlatform');
@@ -278,15 +280,22 @@ data.is_unassigned_queue = false;
 //All Open tickets (true to hide)
 data.is_limit_assigned_tkts = true;
 */
+    data.names = {
+        "ticket": {s: "Ticket1", p: "Tickets1", a:"Tkt1", ap: "Tkts1"},
+        "account": {s: "Account1", p: "Accounts1", a:"Acc1", ap: "Accs1"},
+        "tech": {s: "Technician1", p: "Technicians1", a:"Tech1", ap: "Techs1"},
+        "location": {s: "Location1", p: "Locations1", a:"Loc1", ap: "Locs1"},
+        "user": {s: "End User1", p: "End Users1", a:"User1", ap: "Users1"}
+    };
     this.config.setCurrent(data);
     this.config.saveCurrent();
     // set our app's pages
     if (this.config.current.is_tech)
       this.pages = [
         { title: 'Dashboard', component: DashboardPage, icon: "speedometer", is_active: true },
-        { title: 'Tickets', component: TicketsPage, icon: "create", is_active: true },
+        { title: data.names.ticket.p, component: TicketsPage, icon: "create", is_active: true },
         { title: 'Timelogs', component: TimelogsPage, icon: "md-time", is_active: this.config.current.is_time_tracking },
-        { title: 'Accounts', component: AccountsPage, icon: "people", is_active: this.config.current.is_account_manager },
+        { title: data.names.account.p, component: AccountsPage, icon: "people", is_active: this.config.current.is_account_manager },
         { title: 'Invoices', component: InvoicesPage, icon: "card", is_active: this.config.current.is_time_tracking && this.config.current.is_invoice },
         { title: 'Queues', component: QueuesPage, icon: "list-box", is_active: this.config.current.is_unassigned_queue },
         { title: 'Switch Org', component: OrganizationsPage, icon: "md-swap", is_active: this.config.current.is_multiple_org },
@@ -295,7 +304,7 @@ data.is_limit_assigned_tkts = true;
       ];
     else
       this.pages = [
-        { title: 'Tickets', component: TicketsPage, icon: "create", is_active: true },
+        { title: data.names.ticket.p, component: TicketsPage, icon: "create", is_active: true },
         { title: 'Switch Org', component: OrganizationsPage, icon: "md-swap", is_active: this.config.current.is_multiple_org },
         { title: 'Signout', component: LoginPage, icon: "md-log-in", is_active: true },
         { title: 'Full App', component: null, icon: "md-share-alt", is_active: true },

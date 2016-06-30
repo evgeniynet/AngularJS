@@ -17,11 +17,11 @@ export class TicketsPage {
     test: boolean;
     
     constructor(private nav: Nav, private navParams: NavParams, private config: Config) {
-           this.counts = {};
+        this.counts = {};
     }
     
     onPageLoaded()
-    {
+    {      
         this.is_tech = this.config.getCurrent("is_tech");
         let param = this.navParams.data || {};
         if (param.count)
