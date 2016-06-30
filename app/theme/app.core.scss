@@ -372,7 +372,7 @@ scroll-content {
 
 .padding-right24{
     padding-right: 24px !important;
-    padding-left: 59px !important;
+    padding-left: 30px !important;
 }
 
 .button.activated{
@@ -925,4 +925,13 @@ ion-searchbar {
 
 .inst{
   background-color: $inst;
+}
+
+.bar-button:after {
+    right: -10px;
+    left: -30px;
+}
+
+.bar-button {
+    z-index: 9;
 }

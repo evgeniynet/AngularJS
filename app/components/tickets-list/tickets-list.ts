@@ -24,6 +24,7 @@ export class TicketsListComponent {
     pager: any;
     is_empty: boolean = false;
     busy: boolean;
+    he: any;
 
     constructor(private nav: Nav, private navParams: NavParams, private config: Config, private ticketProvider: TicketProvider) {
         this.pager = { page: 0, limit: this.LIMIT};

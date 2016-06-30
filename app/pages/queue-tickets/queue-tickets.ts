@@ -1,4 +1,4 @@
-import {Page, Nav, NavParams, Modal} from 'ionic-angular';
+import {Page, Nav, NavParams, Modal, ViewController} from 'ionic-angular';
 import {TicketCreatePage} from '../modals/modals';
 import {TicketDetailsPage} from '../ticket-details/ticket-details';
 import {TicketsListComponent} from '../../components/tickets-list/tickets-list';
@@ -11,10 +11,14 @@ export class QueueTicketsPage {
 
 	queue: any;
 	
-    constructor(private nav: Nav, private navParams: NavParams) {
+    constructor(private nav: Nav, private navParams: NavParams, private view: ViewController) {
         this.queue = this.navParams.data;
   }
 
+onPageWillEnter() {
+            this.view.setBackButtonText('');
+    }
+    
     addTicket() {
         let myModal = Modal.create(TicketCreatePage, { 'tech': { id: this.queue.id, name: 'Queue ' + this.queue.fullname } });
         myModal.onDismiss(data1 => {

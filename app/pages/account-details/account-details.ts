@@ -1,4 +1,4 @@
-import {Page, Config, Nav, NavParams} from 'ionic-angular';
+import {Page, Config, Nav, NavParams, ViewController} from 'ionic-angular';
 import {DataProvider} from '../../providers/data-provider';
 import {InvoicesPage} from '../invoices/invoices';
 import {TimelogsPage} from '../timelogs/timelogs';
@@ -22,7 +22,7 @@ export class AccountDetailsPage {
     note: string = "";
     is_editnote: boolean = false;
 
-    constructor(private nav: Nav, private navParams: NavParams, private dataProvider: DataProvider, private config: Config) {
+    constructor(private nav: Nav, private navParams: NavParams, private dataProvider: DataProvider, private config: Config, private view: ViewController) {
         this.details_tab = "Stat";
         this.pages = [InvoicesPage, ExpensesPage, TimelogsPage];
   }
@@ -38,6 +38,7 @@ export class AccountDetailsPage {
 
     onPageWillEnter()
 {
+     this.view.setBackButtonText('');
             this.dataProvider.getAccountDetails(this.account.id).subscribe(
     data => {
         this.account = data;

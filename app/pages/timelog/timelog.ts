@@ -17,7 +17,7 @@ export class TimelogPage {
     mintime: number;
     time: any = {};
     timenote: string;
-    title: string;
+    title: string = "";
     he: any;
     selects: any = {};
     displayFormat: string;
@@ -36,11 +36,6 @@ export class TimelogPage {
     increment()
     {
         this.timecount = (Number(this.timecount) + this.inc).toFixed(2);
-    }
-
-    onPageWillEnter() {
-        if (this.title.length > 8)
-            this.view.setBackButtonText('');
     }
 
     ngAfterViewInit() {

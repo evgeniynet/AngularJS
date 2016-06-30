@@ -58,13 +58,7 @@ export class ExpenseCreatePage {
             },
         };      
     }
-
-    onPageWillEnter() {
-        if (this.title.length > 14)
-            this.view.setBackButtonText('');
-    }
     
-
     saveSelect(event) {
         let name = event.type;
         let account_id = this.selects.account.selected;
