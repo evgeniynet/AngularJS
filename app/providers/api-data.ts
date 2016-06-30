@@ -96,11 +96,14 @@ handleError(error) : any {
     {
         logout(settings.url !== ApiSite + "login", request.statusText);
     }*/
-
+//console.log(error);
     let message: string = "";
     try {
         var e = JSON.parse(error._body);
-        message = ((e || {}).ResponseStatus || {}).Message;
+        if (typeof e === 'string')
+            message = e;
+        else
+            message = ((e || {}).ResponseStatus || {}).Message;
     } catch (e) {
         message = error._body; 
     }

@@ -1,5 +1,5 @@
 import {Page, Config, Nav, Events, Alert, Modal} from 'ionic-angular';
-import {saveCache} from '../../directives/helpers';
+import {saveCache, spicePixelTrackConversion, getappTrackConversion} from '../../directives/helpers';
 import {DataProvider} from '../../providers/data-provider';
 import {LoginPage} from '../login/login';
 import {OrganizationsPage} from '../organizations/organizations';
@@ -25,12 +25,14 @@ export class SignupPage {
     }
 
 getUrl(name){
+    this.login.name = name.value || "";
     this.login.url = name.value ? name.value.toLowerCase().replace(/[^a-zA-Z0-9-]/g, '') : "";
 }
 
     onSignup(form) {
         if (form.valid) { 
-        	let data = {"name": form.value.name, 
+        	let data = {
+                       "name": form.value.name, 
                        "email": form.value.email, 
                        "url": form.value.url, 
                        "is_force_registration": this.is_force_registration,
@@ -64,8 +66,8 @@ getUrl(name){
                     });
                     //this.config.current.user.email = form.value.email;
                     this.config.saveCurrent();
-                    //spicePixelTrackConversion();
-                    //getappTrackConversion(url);
+                    spicePixelTrackConversion();
+                    getappTrackConversion(form.value.url);
                     this.nav.alert("Thanks for registration! You are redirected to new org now ...");
                     setTimeout(() => this.events.publish("config:get", true), 3000);
                 }, 

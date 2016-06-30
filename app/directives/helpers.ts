@@ -251,7 +251,41 @@ export function toTitleCase(str) {
   return str.replace(/\w\S*/g, function(txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
 }
 
+export function getappTrackConversion(id) {
+    var r = document.referrer;
+    var h = window.location.href;
+    var p = '1'; // Price of conversion (optional)
+    var e = id || ''; // External ID (optional)
+    var listing_id = '102459';
 
+    var a = document.createElement('script');
+    a.type = 'text/javascript';
+    a.async = true;
+    a.src = 'https://www.getapp.com/conversion/' + encodeURIComponent(listing_id) +
+        '/r.js?p=' + encodeURIComponent(p) + '&h=' + encodeURIComponent(h) +
+        '&r=' + encodeURIComponent(r) + '&e=' + encodeURIComponent(e);
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(a, s);
+}
+
+export function spicePixelTrackConversion() {
+    var img = new Image();
+    var div = document.getElementsByTagName('body')[0];
+
+    img.onload = function() {
+        div.appendChild(img);
+    };
+
+    img.src = 'http://px.spiceworks.com/px/8oxz';
+    var SWPX = SWPX || {};
+    SWPX.cmd = SWPX.cmd || [];
+    SWPX.cmd.push(function() {
+        SWPX.pixel.setPixel('8oxz');
+        // Uncomment the following line to place an identifer
+        SWPX.pixel.setIdentifier('121806');
+        SWPX.pixel.fire();
+    });
+}
 
 var dateFormat : any = function (date?, mask?, utc?) {
     var token = /d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTt])\1?|[LloSZ]|"[^"]*"|'[^']*'/g,
