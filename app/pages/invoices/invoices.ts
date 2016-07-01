@@ -1,4 +1,4 @@
-import {Page, Config, Nav, NavParams} from 'ionic-angular';
+import {Page, Config, Nav, NavParams, ViewController} from 'ionic-angular';
 import {DataProvider} from '../../providers/data-provider';
 import {MorePipe} from '../../pipes/pipes';
 import {InvoiceDetailsPage} from '../invoice-details/invoice-details';
@@ -20,7 +20,7 @@ export class InvoicesPage {
     pager: any;
     invoices: Array<any>;
 
-    constructor(private nav: Nav, private dataProvider: DataProvider, private config: Config, private navParams: NavParams) {
+    constructor(private nav: Nav, private dataProvider: DataProvider, private config: Config, private navParams: NavParams, private view: ViewController) {
         this.is_empty = false;
         this.invoices = [];
   }
@@ -41,6 +41,11 @@ export class InvoicesPage {
         }
         else
             this.is_empty = true;
+    }
+
+    onPageWillEnter() {
+        if (this.params.account_name)
+            this.view.setBackButtonText('');
     }
 
 

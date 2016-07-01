@@ -1,4 +1,4 @@
-import {Page, Config, Nav, NavParams} from 'ionic-angular';
+import {Page, Config, Nav, NavParams, ViewController} from 'ionic-angular';
 import {TimeProvider} from '../../providers/time-provider';
 import {addp} from '../../directives/helpers';
 import {TimelogPage} from '../timelog/timelog';
@@ -25,7 +25,7 @@ export class TimelogsPage {
     busy: boolean;
 
 
-    constructor(private nav: Nav, private timeProvider: TimeProvider, private config: Config, private navParams: NavParams) {
+    constructor(private nav: Nav, private timeProvider: TimeProvider, private config: Config, private navParams: NavParams, private view: ViewController) {
         this.pager = { page: 0, limit: this.LIMIT };
   }
     
@@ -59,6 +59,11 @@ export class TimelogsPage {
         }
         else
             this.is_empty = true;
+    }
+
+    onPageWillEnter() {
+        if (this.params.account_name)
+            this.view.setBackButtonText('');
     }
 
     doInfinite(infiniteScroll) {
