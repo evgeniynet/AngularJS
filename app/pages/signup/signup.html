@@ -9,8 +9,8 @@
       <div class="tooltips">
 <input class="width100 blue3 subject-create commentText" type="email" [(ngModel)]="login.email" ngControl="email" #username="ngForm" required pattern="^[^@\s]+@[^@\s]+(\.[^@\s]+)+$" placeholder="Email (required)"/>
 <span *ngIf="username.dirty && !username.valid">Valid Email is required</span></div>
-        <div class="tooltips"><div class="width19 left signup-font">https://</div>
-            <input class="width32 blue3 subject-create commentText left" [(ngModel)]="login.url" ngControl="url" placeholder="Company url (optional)"/><div class="text-right right width48 signup-font ellipsis">.sherpadesk.com</div>
+        <div class="tooltips"><div class="width21 left signup-font">https://</div>
+            <input class="width30 blue3 subject-create commentText left padding5" [(ngModel)]="login.url" ngControl="url" placeholder="Company url (optional)"/><div class="text-right right width48 signup-font ellipsis">.sherpadesk.com</div>
          </div>
         <div class="tooltips">
           <input class="width100 blue3 subject-create commentText" [(ngModel)]="login.firstname" ngControl="firstname" #firstname="ngForm" required minlength="3" placeholder="First Name (required)"/> 

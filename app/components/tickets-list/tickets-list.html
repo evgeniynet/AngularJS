@@ -6,14 +6,14 @@
         <ion-avatar padding item-left class="img_padding margin admin padding-left">
             <li class="center avatarText">
                 <span class="margin text-bold" item-left>#{{ticket.number}}</span>
-                <img *ngIf="ticket.user_email" [alt]="ticket.user_firstname" class="img" [src]="ticket.user_email | Gravatar"/>
+                <img *ngIf="ticket.user_email" [alt]="ticket.user_firstname" class="img img-top" [src]="ticket.user_email | Gravatar"/>
                 <p class="admin color">{{ticket.user_firstname}}  {{ticket.user_lastname}}</p> </li>
         </ion-avatar>
         <div class="alignment">
         <li class="tkts-table">
        <h2 class="ellipsis ticket-subject color"><ion-icon *ngIf="(ticket.is_new_tech_post && ticket.technician_email != he.email) || (ticket.is_new_user_post && ticket.user_email != he.email)" dark name="mail" class="icon-ticket"></ion-icon>&nbsp;{{ticket.subject}}</h2>
-            <h3 class="tickets" [innerHTML]="ticket.initial_post | Linebreaks"></h3>
-            <p class="grey2 right class_name space-initial text-right">{{ticket.class_name}}</p></li></div>
+            <h3 class="tickets margin" [innerHTML]="ticket.initial_post | Linebreaks"></h3>
+            <p class="grey2 right space-initial text-right">{{ticket.class_name}}</p></li></div>
     </a>
         <ion-item-options>
         <button (click)="addPost(ticket, slidingItem)" class="grey3 disable-hover button button-default">
