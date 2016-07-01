@@ -41,6 +41,10 @@
     color: $text-color;
 }
 
+.item p {
+     margin: 0 0 0px;
+}
+
 .itemTech {
     margin-top: 0px !important;
     border-top-left-radius: 0px !important;
@@ -202,6 +206,10 @@ max-width: 700px;}
     padding: 0px !important;
 }
 
+.padding5 {
+    padding: 5px !important;
+}
+
 .padding-left{
     padding-left: 0px !important;
 }
@@ -291,7 +299,7 @@ scroll-content {
     overflow: hidden;
     text-overflow: ellipsis;
     padding-right: 15px;
-    padding-bottom: 17px;
+    padding-bottom: 20px;
 }
 
 .general-alignment{
@@ -372,8 +380,13 @@ scroll-content {
 
 .padding-right24{
     padding-right: 24px !important;
-    padding-left: 30px !important;
+    padding-left: 42px !important;
 }
+
+.padding-left87{
+    padding-left: 87px !important;
+}
+
 
 .button.activated{
     background-color: transparent;}
