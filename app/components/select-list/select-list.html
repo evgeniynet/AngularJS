@@ -1,5 +1,5 @@
     <button *ngIf="!list.hidden" (click)="open()" class="width100 button-icon-only {{ isbutton? 'blue2 general-alignment2' : 'blue4'}} class-margin disable-hover button button-default">
-    <p [hidden]="isbutton" class="textLogin text-left text-bold">{{list.name}}:&nbsp;</p>
+    <p [hidden]="isbutton" class="textLogin text-left text-bold">{{name}}:&nbsp;</p>
         <ion-label class="{{isbutton ? 'center' : 'tkts-table'}} select-list">{{list.value}}</ion-label>
         <ion-icon [hidden]="isbutton" class="padding-right15" name="arrow-down"></ion-icon>
     </button>

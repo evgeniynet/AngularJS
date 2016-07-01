@@ -46,7 +46,7 @@ export class ActionButtonComponent {
         let but = [
         {
             icon: 'create',
-            text: 'Add Ticket',
+            text: 'Add ' + this.config.current.names.ticket.s,
             role: '',
             handler: () => {
                 this.actionSheet.dismiss().then(() => this.openModal(TicketCreatePage));

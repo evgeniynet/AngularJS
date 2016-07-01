@@ -22,6 +22,7 @@ export class SelectListComponent {
     selected: Object = {};
     init: boolean = true;
     url: string;
+    name: string = "";
 
     constructor(private nav: Nav, private apiData: ApiData, private config: Config) {
         this.list = {};
@@ -50,6 +51,8 @@ export class SelectListComponent {
             this.list.hidden = true;
             return;
         }
+
+        this.name = (this.config.current.names[this.list.name.toLowerCase()] || {}).s || this.list.name;
 
         if (this.list.url)
         {
@@ -91,14 +94,14 @@ export class SelectListComponent {
                      },
                      error => {
                          if (show) loading.dismiss();
-                         this.error("Cannot get " + this.list.name + " list! Error: " + error);
+                         this.error("Cannot get " + this.name + " list! Error: " + error);
                          console.log(error || 'Server error');
                      }
                  );
              }
              else {
                  this.list.hidden = true;
-                 this.error(this.list.name + ' list is empty!');
+                 this.error(this.name + ' list is empty!');
              }
      }
      else if (show) {
@@ -115,7 +118,7 @@ export class SelectListComponent {
  {
      if (!this.list.items || this.list.items.length == 0)
      {
-         this.list.value += " (no " + this.list.name + "s found)";
+         this.list.value += " (no " + this.name + "s found)";
          //this.error(this.list.name + ' list is empty!');
          return;
      }
@@ -147,7 +150,7 @@ export class SelectListComponent {
  }
 
  openRadio() {         
-     let title=this.list.name;
+     let title=this.name;
 
      let alert = Alert.create({
          title: 'Choose '+title,

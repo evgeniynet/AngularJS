@@ -28,7 +28,7 @@ export class ExpenseCreatePage {
         if (this.expense.expense_id)
             this.title = `Expense by ${name} @ ` + this.setDate(this.expense.date, false, true);
         else if (this.expense.number)
-            this.title = `Add expense to #${this.expense.number} ${this.expense.subject}`;
+            this.title = `Add Expense to #${this.expense.number} ${this.expense.subject}`;
         else
             this.title = "Create Expense";
 
