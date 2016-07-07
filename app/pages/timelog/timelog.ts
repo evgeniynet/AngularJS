@@ -51,7 +51,7 @@ export class TimelogPage {
 
         let name = (this.time.user_name + " " + this.time.user_email).trim().split(' ')[0];
         if (this.time.time_id)
-        this.title = `Timelog #${this.time.time_id} by ${name} @ ` + this.setDate(this.time.date, false, true);
+        this.title = `Timelog #${this.time.time_id} by\u00a0${name} on\u00a0` + this.setDate(this.time.date, false, true);
         else if (this.time.number)
             this.title = `Add Time to #${this.time.number} ${this.time.subject}`;
         else

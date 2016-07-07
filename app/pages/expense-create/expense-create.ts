@@ -26,9 +26,9 @@ export class ExpenseCreatePage {
 
         let name = (this.expense.user_name + " " + this.expense.user_email).trim().split(' ')[0];
         if (this.expense.expense_id)
-            this.title = `Expense by ${name} @ ` + this.setDate(this.expense.date, false, true);
+            this.title = `Expense by ${name} on\u00a0` + this.setDate(this.expense.date, false, true);
         else if (this.expense.number)
-            this.title = `Add Expense to #${this.expense.number} ${this.expense.subject}`;
+            this.title = `Add Expense to\u00a0#${this.expense.number} ${this.expense.subject}`;
         else
             this.title = "Create Expense";
 
