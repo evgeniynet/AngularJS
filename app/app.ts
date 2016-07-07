@@ -167,6 +167,15 @@ class MyApp {
         this.present(toast);
       }, 0);
 
+document.getElementById("pre-bootstrap1").classList.add("loaded");
+
+         setTimeout(
+                        function () {
+                          document.getElementsByTagName("ion-loading")[0].outerHTML='';
+                        },
+                        800
+                    );
+
     //this.rootPage = SignupPage; return;
     config.current = config.getCurrent();
     config.current.isPhonegap = localStorage.getItem("isPhonegap") === "true";
