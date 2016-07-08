@@ -9,12 +9,12 @@ import {ClassListComponent} from '../../components/class-list/class-list';
 import {CloseTicketModal} from '../../pages/modals/modals';
 import {TimelogPage} from '../../pages/timelog/timelog'; 
 import {ExpenseCreatePage} from '../../pages/expense-create/expense-create';
-import {GravatarPipe, LinebreaksPipe, DaysoldPipe} from '../../pipes/pipes';
+import {GravatarPipe, LinebreaksPipe, DaysoldPipe, HtmlsafePipe} from '../../pipes/pipes';
 
 @Page({
     templateUrl: 'build/pages/ticket-details/ticket-details.html',
     directives: [PostsListComponent, SelectListComponent, ClassListComponent],
-    pipes: [GravatarPipe, LinebreaksPipe, DaysoldPipe],
+    pipes: [GravatarPipe, LinebreaksPipe, DaysoldPipe, HtmlsafePipe],
 })
 export class TicketDetailsPage {
     

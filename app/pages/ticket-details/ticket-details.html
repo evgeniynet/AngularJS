@@ -6,7 +6,7 @@
 
 <ion-content>
   <ion-toolbar class="blue3">
-   <h4 class="subject-padding ticket-details margin-top0 padding subject-ticket text-left width48 left">{{ticket.subject}}</h4>
+   <h4 class="subject-padding ticket-details margin-top0 padding subject-ticket text-left width48 left">{{ticket.subject | Htmlsafe}}</h4>
    <span class="left width45" no-lines>
     <p *ngIf="config.current.is_class_tracking" class="text-right grey4 margin">{{ticket.class_name}}</p>
     <p *ngIf="config.current.is_location_tracking" class="text-right margin">{{ticket.location_name}}</p>

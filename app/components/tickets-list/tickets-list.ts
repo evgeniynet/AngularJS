@@ -4,13 +4,13 @@ import {TicketProvider} from '../../providers/ticket-provider';
 import {TicketDetailsPage} from '../../pages/ticket-details/ticket-details';
 import {CloseTicketModal} from '../../pages/modals/modals';
 import {htmlEscape} from '../../directives/helpers';
-import {GravatarPipe, LinebreaksPipe, CapitalizePipe} from '../../pipes/pipes';
+import {GravatarPipe, LinebreaksPipe, CapitalizePipe, HtmlsafePipe} from '../../pipes/pipes';
 
 @Component({
     selector: 'tickets-list',
     templateUrl: 'build/components/tickets-list/tickets-list.html',
     directives: [IONIC_DIRECTIVES],
-    pipes: [GravatarPipe, LinebreaksPipe, CapitalizePipe],
+    pipes: [GravatarPipe, LinebreaksPipe, CapitalizePipe, HtmlsafePipe],
 })
 export class TicketsListComponent {
     LIMIT: number = 6;
