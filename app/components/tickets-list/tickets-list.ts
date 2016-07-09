@@ -95,6 +95,7 @@ export class TicketsListComponent {
      itemTapped(event, ticket, slidingItem) {
          if (event.srcElement.tagName.toUpperCase() != "ION-ITEM-SLIDING") {
              slidingItem.close();
+             ticket.clicked = true;
              //only if no pageloaded
              //if (~['all','alt','user','tech'].indexOf(this.mode[0]))
              //    this.nav.tickets_tab = this.mode[0];

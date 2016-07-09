@@ -2,7 +2,7 @@
 <ion-list class="list indent-bottom general-alignment2" no-lines>
 <img *ngIf="busy" class="imglogo img-padding" src="img/loading2.gif">
     <ion-item-sliding class="border" *ngFor="let ticket of tickets | async" #slidingItem> 
-        <a detail-none href=# ion-item (click)="itemTapped($event, ticket, slidingItem)"  class="item margin">
+        <a detail-none href=# ion-item (click)="itemTapped($event, ticket, slidingItem)" class='item margin' [class.only-click]="!ticket.clicked" [class.activated]="ticket.clicked">
         <ion-avatar padding item-left class="img_padding margin admin padding-left">
             <li class="center avatarText">
                 <span class="margin text-bold" item-left>#{{ticket.number}}</span>

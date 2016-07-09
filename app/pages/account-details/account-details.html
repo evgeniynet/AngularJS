@@ -17,20 +17,20 @@
     <div [hidden]="details_tab != 'Stat'">
       <ion-list class="list img-top" no-lines>
         <div class="blue1 left width65 img-top">
-          <ion-item class="textLogin">Open {{config.current.names.ticket.p}}</ion-item>
+          <a detail-none href=#tickets ion-item class="textLogin">Open {{config.current.names.ticket.p}}</a>
           <a *ngIf="config.current.is_invoice && config.current.is_time_tracking" detail-none href=# ion-item (click)="openPage(0,account.account_statistics.invoices)" class="textLogin">Invoices</a>
           <a *ngIf="config.current.is_expenses" detail-none href=# ion-item (click)="openPage(1, account.account_statistics.expenses)" class="textLogin">Expenses</a>
           <a  *ngIf="config.current.is_time_tracking" detail-none href=# ion-item (click)="openPage(2, account.account_statistics.hours)" class="textLogin">Hours</a>
         </div>
         <div class="right width35 img-top">
-          <a detail-none href=# ion-item class="blue2">{{account.account_statistics.ticket_counts.open || 0}}</a>
+          <a detail-none href=#tickets ion-item class="blue2">{{account.account_statistics.ticket_counts.open || 0}}</a>
           <a *ngIf="config.current.is_invoice && config.current.is_time_tracking" detail-none href=# ion-item (click)="openPage(0)" class="blue2">{{account.account_statistics.invoices || 0}}</a>
           <a  *ngIf="config.current.is_expenses" detail-none href=# ion-item (click)="openPage(1)" class="blue2">{{getCurrency(account.account_statistics.expenses)}}</a>
-          <a *ngIf="config.current.is_time_tracking" detail-none href=# ion-item (click)="openPage(2)" class="blue2" [innerHTML]="account.account_statistics.hours | More:[10000,'<div class=item-inner><div class=input-wrapper><ion-label>VV</ion-label></div></div>']"></a>
+          <a *ngIf="config.current.is_time_tracking" detail-none href=# ion-item (click)="openPage(2)" class="blue2" [innerHTML]="account.account_statistics.hours | More:[10000,'<div class=item-inner><div class=input-wrapper><ion-label>VV</ion-label></div></div><ion-button-effect></ion-button-effect>']"></a>
         </div>
       </ion-list>
       <ion-item></ion-item>
-      <ion-item class="margin">
+      <ion-item class="margin" id="tickets">
         <div class="list">
           <ion-segment [(ngModel)]="tabsTicket" class="height32">
             <ion-segment-button class="button-open" value="Open">Open {{config.current.names.ticket.p}}</ion-segment-button>
