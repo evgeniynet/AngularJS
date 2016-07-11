@@ -18,11 +18,11 @@
     <li class="right width25 margin font-time text-align_center">
     <ion-icon class="margin color" item-right name="time">&nbsp;</ion-icon>
     <p class="font-hours color">{{getFixed(time.hours)}}</p>
-        <p class="color">{{time.date}}</p>
+        <p class="color">{{setDate(time.date)}}</p>
       </li>
  <span class="text-left width75 left">
 <!--    <h2 class="ellipsis color">{{"#"+time.ticket_number+": "+time.ticket_subject}}</h2>-->
-     <h3 class="timelogs ellipsis color tickets height64" [innerHTML]="time.note | Linebreaks"></h3></span>
+     <h3 class="timelogs ellipsis color tickets height64" [innerHTML]="((time.ticket_number ? ('#'+time.ticket_number+': '+time.ticket_subject + (time.note ? ' - ' : '')) : '') + time.note) | Linebreaks"></h3></span>
      </div>
   </a>
         </ion-item-sliding>
