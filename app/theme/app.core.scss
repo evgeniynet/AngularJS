@@ -61,7 +61,7 @@ text-decoration: none !important;
     margin-top: 0px !important;  
 }
 
-// need to remove from ionic
+/* need to remove from ionic
 .button.activated{
     background-color: $class-list;}
 
@@ -71,6 +71,7 @@ text-decoration: none !important;
 .item.activated{
     background-color: transparent;
 }
+*/
 
 ion-button-effect{
     position: absolute;
@@ -94,6 +95,10 @@ a.only-click ion-button-effect{
 
 button.action-sheet-button ion-button-effect{
     background-color: #000;
+}
+
+.bar-button-menutoggle {
+    display: flex !important;
 }
 
 .alert-button{
@@ -417,7 +422,7 @@ scroll-content {
 
 .padding-right24{
     padding-right: 24px !important;
-    padding-left: 42px !important;
+    padding-left: 72px !important;
 }
 
 .padding-left87{
@@ -981,7 +986,7 @@ ion-searchbar {
   background-color: $inst;
 }
 
-.bar-button:after {
+.show-back-button:after {
     right: -10px;
     left: -30px;
 }
