@@ -105,5 +105,9 @@ ion-buttons {
 }
 
 .toolbar-title {
-    text-overflow: clip;
+    overflow: hidden;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    height: 20px; 
+        text-overflow: initial;
     }

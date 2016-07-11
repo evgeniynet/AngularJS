@@ -12,8 +12,8 @@
 <ion-searchbar *ngIf="test" [focuser] (cancel)="test = !test" [ngModel]="searchQuery" (input)="getItems($event)"></ion-searchbar>
     <div *ngIf="is_tech" class="tabsTicket">
         <ion-segment [(ngModel)]="ticket_tab">
-<ion-segment-button  value="user">User</ion-segment-button>
-<ion-segment-button value="tech">Tech</ion-segment-button>
+<ion-segment-button  value="user">{{config.current.names.user.a}}</ion-segment-button>
+<ion-segment-button value="tech">{{config.current.names.tech.a}}</ion-segment-button>
 <ion-segment-button value="alt">Alt</ion-segment-button>
 <ion-segment-button *ngIf="!config.current.is_limit_assigned_tkts" value="all">All Open</ion-segment-button>
   </ion-segment>

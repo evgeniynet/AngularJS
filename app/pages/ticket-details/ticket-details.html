@@ -89,9 +89,9 @@
 
     <select-list preload="true" [isbutton]="true" [list]="selects.technician" (onChanged)='transferTicket($event)'></select-list>
 
-    <button *ngIf="(ticket.technician_email || ticket.tech_email) != he.email" (click)='pickUp()' block type="submit" class="blue2 class-margin">Pick Up Ticket</button>
+    <button *ngIf="(ticket.technician_email || ticket.tech_email) != he.email" (click)='pickUp()' block type="submit" class="blue2 class-margin">Pick Up {{config.current.names.ticket.s}}</button>
 
-    <button (click)="closeTicket()" block type="submit" class="general-alignment2 blue2 class-margin right">{{ticket.status != 'Closed' ? 'Close config.current.names.ticket.s' : 'ReOpen Ticket'}}</button>
+    <button (click)="closeTicket()" block type="submit" class="general-alignment2 blue2 class-margin right">{{ticket.status != 'Closed' ? 'Close' : 'ReOpen'}} {{config.current.names.ticket.s}}</button>
   </div>
 </div>
 </ion-content>

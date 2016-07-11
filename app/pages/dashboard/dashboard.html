@@ -13,7 +13,7 @@
     <ion-list class="list height" no-lines margin-top>
         <div class="width50 left blue3 decoration_none">
             <a detail-none href=# (click)="itemTappedTL({tab:'tech', count: counts.open_as_tech})" ion-item class="mainStat itemTech">{{counts.open_as_tech}}</a>
-     <a detail-none href=# (click)="itemTappedTL({tab:'tech', count: counts.open_as_tech})" ion-item class="itemTech">As Tech</a>
+     <a detail-none href=# (click)="itemTappedTL({tab:'tech', count: counts.open_as_tech})" ion-item class="itemTech">As {{config.current.names.tech.a}}</a>
           </div>
         <div class="width17 right blue3">
             <a detail-none href=# ion-item (click)="itemTappedTL({tab:'user', count: counts.open_as_user})" class="itemTech" [innerHTML]="counts.open_as_user | More:[100,'<div class=item-inner><div class=input-wrapper><ion-label>VV</ion-label></div></div><ion-button-effect></ion-button-effect>']"></a>
@@ -21,9 +21,9 @@
             <a detail-none href=# ion-item (click)="itemTappedTL({tab:'all', count: counts.open_all})" class="itemTech" [innerHTML]="counts.open_all | More:[100,'<div class=item-inner><div class=input-wrapper><ion-label>VV</ion-label></div></div><ion-button-effect></ion-button-effect>']"></a>
          </div>
  <div class="width33 right blue3 dashborder">
-    <a detail-none href=# ion-item (click)="itemTappedTL({tab:'user', count: counts.open_as_user})" class="itemTech dashboardRight">As User</a>
-    <a detail-none href=# ion-item (click)="itemTappedTL({tab:'alt', count: counts.open_as_alttech})" class="itemTech dashboardRight">Alt Tech</a>
-    <a detail-none href=# ion-item (click)="itemTappedTL({tab:'all', count: counts.open_all})" class="itemTech dashboardRight dashboard">All Open</a>
+    <a detail-none href=# ion-item (click)="itemTappedTL({tab:'user', count: counts.open_as_user})" class="itemTech dashboardRight dashboard font-size1 tkts-table">As {{config.current.names.user.a}}</a>
+    <a detail-none href=# ion-item (click)="itemTappedTL({tab:'alt', count: counts.open_as_alttech})" class="itemTech dashboardRight dashboard font-size1 tkts-table">Alt {{config.current.names.tech.a}}</a>
+    <a detail-none href=# ion-item (click)="itemTappedTL({tab:'all', count: counts.open_all})" class="itemTech dashboardRight dashboard font-size1 tkts-table">All Open</a>
          </div>
         <br>
          </ion-list>
@@ -36,7 +36,7 @@
         <span class="box1 box7 box5 box10">&nbsp;&nbsp;&nbsp;</span>
         <span class="box2 box7 box10">Hours</span>
         <span class="box3 box7 box10">Expenses</span>
-        <span class="box4 box7 box6 box10">Tkts</span>
+        <span class="box4 box7 box6 box10">{{config.current.names.ticket.ap}}</span>
     </div>
     <accounts-list  *ngIf="config.current.is_account_manager" [simple]="simple" [accounts]="accounts"></accounts-list>
     </ion-list>

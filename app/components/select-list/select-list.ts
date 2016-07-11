@@ -52,7 +52,11 @@ export class SelectListComponent {
             return;
         }
 
-        this.name = (this.config.current.names[this.list.name.toLowerCase()] || {}).s || this.list.name;
+        let listname = this.list.name.toLowerCase();
+        if ( listname == "tech" || listname == "user")
+            this.name = (this.config.current.names[listname] || {}).a;
+        else
+            this.name = (this.config.current.names[listname] || {}).s || this.list.name;
 
         if (this.list.url)
         {
