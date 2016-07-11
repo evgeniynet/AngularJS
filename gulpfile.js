@@ -137,7 +137,7 @@ gulp.task('build', ['clean'], function(done){
 gulp.task('sass', function(){
   return buildSass({
     sassOptions: {
-      outputStyle: "compressed",
+//      outputStyle: "compressed",
       includePaths: [
     'node_modules/ionic-angular',
     'node_modules/ionicons/dist/scss'
