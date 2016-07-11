@@ -1,4 +1,4 @@
-import {Page, Nav, NavParams, Modal, ViewController} from 'ionic-angular';
+import {Page, Config, Nav, NavParams, Modal, ViewController} from 'ionic-angular';
 import {TicketCreatePage} from '../modals/modals';
 import {TicketDetailsPage} from '../ticket-details/ticket-details';
 import {TicketsListComponent} from '../../components/tickets-list/tickets-list';
@@ -11,7 +11,7 @@ export class QueueTicketsPage {
 
 	queue: any;
 	
-    constructor(private nav: Nav, private navParams: NavParams, private view: ViewController) {
+    constructor(private nav: Nav, private navParams: NavParams, private view: ViewController, private config: Config) {
         this.queue = this.navParams.data;
   }
 

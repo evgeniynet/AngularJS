@@ -11,7 +11,7 @@ font-size: 14px;
 }
 
 .font-hours{
-    font-size: 19px;
+    font-size: 19px !important;
     font-weight: 600;
 }
 
@@ -28,7 +28,7 @@ height: 64px !important;
 }
 
 .ava{
-    margin-bottom: 7px;
+    margin-bottom: 13px;
     margin-top: 8px;
 }
 
@@ -38,4 +38,8 @@ height: 64px !important;
 
 .padding-bottom5px{
     padding-bottom: 5px;
+}
+
+.padding-bottom0{
+    padding-bottom: 0px !important;
 }

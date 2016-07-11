@@ -75,7 +75,7 @@ export class TicketDetailsPage {
             },
             "technician": {
                 name: "Technician",
-                value: "Transfer Ticket",
+                value: "Transfer "+this.config.current.names.ticket.s,
                 selected: data.tech_id,
                 url: "technicians",
                 hidden: false

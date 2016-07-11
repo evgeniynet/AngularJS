@@ -8,21 +8,20 @@
     <ion-list class="list general-alignment2" no-lines>
         <img *ngIf="busy" class="imglogo img-padding" src="img/loading2.gif">
         <ion-item-sliding class="border padding-bottom5px" *ngFor="let time of timelogs | async" #slidingItem>
-        <a detail-none href=# ion-item (click)="itemTapped(time)" class="general-alignment2">
-    <ion-avatar padding item-left class="img_padding margin admin padding-left padding-top5">
+        <a detail-none href=# ion-item (click)="itemTapped(time)" class="margin-top0">
+    <ion-avatar padding item-left class="img_padding margin admin padding-left padding-bottom0">
             <li class="center avatarText height77">
-                <ion-icon class="margin color" item-right name="time">&nbsp;</ion-icon>
-    <span class="font-hours color">{{getFixed(time.hours)}}</span> 
                 <img *ngIf="time.user_email" [alt]="time.user_firstname" class="ava" [src]="time.user_email | Gravatar"/>
                 <p class="admin color">{{time.user_name}} {{time.user_lastname}}</p></li>
         </ion-avatar>
             <div>
-<!--                <li class="right width30 margin font-time text-right">
+    <li class="right width25 margin font-time text-align_center">
     <ion-icon class="margin color" item-right name="time">&nbsp;</ion-icon>
-    <span class="font-hours color">{{getFixed(time.hours)}}</span>  
-      </li>-->
- <span class="text-left width100 left">
-    <h2 class="ellipsis color">{{"#"+time.ticket_number+": "+time.ticket_subject}}</h2>
+    <p class="font-hours color">{{getFixed(time.hours)}}</p>
+        <p class="color">{{time.date}}</p>
+      </li>
+ <span class="text-left width75 left">
+<!--    <h2 class="ellipsis color">{{"#"+time.ticket_number+": "+time.ticket_subject}}</h2>-->
      <h3 class="timelogs ellipsis color tickets height64" [innerHTML]="time.note | Linebreaks"></h3></span>
      </div>
   </a>

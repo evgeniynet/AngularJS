@@ -4,7 +4,7 @@
 
 <ion-content class="account-details">
   <ion-segment [(ngModel)]="details_tab">
-    <ion-segment-button  value="Stat">Acc Stat</ion-segment-button>
+    <ion-segment-button  value="Stat">{{config.current.names.account.a}} Stat</ion-segment-button>
     <ion-segment-button value="Info">Info</ion-segment-button>
     <ion-segment-button  *ngIf="config.current.is_project_tracking" value="Projects">Projects</ion-segment-button>
     <ion-segment-button value="Notes">Notes</ion-segment-button>
@@ -13,11 +13,11 @@
 
 
 
-  <div [ngSwitch]="details_tab">
+  <div [ngSwitch]="details_tab">{{config.current.names.tech.a}}
     <div [hidden]="details_tab != 'Stat'">
       <ion-list class="list img-top" no-lines>
         <div class="blue1 left width65 img-top">
-          <ion-item class="textLogin">Open {{config.current.names.ticket.p}}</ion-item>
+          <ion-item class="textLogin">Open {{config.current.names.ticket.ap}}</ion-item>
           <a *ngIf="config.current.is_invoice && config.current.is_time_tracking" detail-none href=# ion-item (click)="openPage(0,account.account_statistics.invoices)" class="textLogin">Invoices</a>
           <a *ngIf="config.current.is_expenses" detail-none href=# ion-item (click)="openPage(1, account.account_statistics.expenses)" class="textLogin">Expenses</a>
           <a  *ngIf="config.current.is_time_tracking" detail-none href=# ion-item (click)="openPage(2, account.account_statistics.hours)" class="textLogin">Hours</a>
@@ -33,8 +33,8 @@
       <ion-item class="margin">
         <div class="list">
           <ion-segment [(ngModel)]="tabsTicket" class="height32">
-            <ion-segment-button class="button-open" value="Open">Open {{config.current.names.ticket.p}}</ion-segment-button>
-            <ion-segment-button class="button-open" value="Close">Closed {{config.current.names.ticket.p}}</ion-segment-button>
+            <ion-segment-button class="button-open" value="Open">Open {{config.current.names.ticket.ap}}</ion-segment-button>
+            <ion-segment-button class="button-open" value="Close">Closed {{config.current.names.ticket.ap}}</ion-segment-button>
           </ion-segment>
         </div></ion-item>
         <br>
