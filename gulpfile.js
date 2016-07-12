@@ -98,7 +98,7 @@ gulp.task('run:before', [shouldWatch ? 'watch' : 'build']);
     function(){
       buildBrowserify({
         watch: false,
-        minify: false,
+        minify: true,
         uglifyOptions: {
           mangle: false
         },
