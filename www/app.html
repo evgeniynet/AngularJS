@@ -18,7 +18,7 @@
 </head>
 <style>
             #pre-bootstrap1 {
-                opacity: 0.7 ;
+                opacity: 0.6 ;
                 transition: all linear 1100ms ;
                     -webkit-transition: all linear 1100ms ;
             }
@@ -52,6 +52,10 @@ document.body.appendChild(element);
 
 element = document.createElement("script");
 element.src = "build/js/zone.min.js";
+document.body.appendChild(element);
+
+element = document.createElement("script");
+element.src = "build/js/my.js";
 document.body.appendChild(element);
 
 element = document.createElement("script");

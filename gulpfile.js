@@ -1,8 +1,8 @@
 var gulp = require('gulp'),
-    gulpWatch = require('gulp-watch'),
-    del = require('del'),
-    runSequence = require('run-sequence'),
-    argv = process.argv;
+gulpWatch = require('gulp-watch'),
+del = require('del'),
+runSequence = require('run-sequence'),
+argv = process.argv;
 
 var embedTemplates = require('gulp-angular-embed-templates');
 /**
@@ -20,10 +20,10 @@ gulp clean3
  * Add ':before' or ':after' to any Ionic project command name to run the specified
  * tasks before or after the command.
  */
-gulp.task('serve:before', ['watch']);
-gulp.task('emulate:before', ['build']);
-gulp.task('deploy:before', ['build']);
-gulp.task('build:before', ['build']);
+ gulp.task('serve:before', ['watch']);
+ gulp.task('emulate:before', ['build']);
+ gulp.task('deploy:before', ['build']);
+ gulp.task('build:before', ['build']);
 
 // we want to 'watch' when livereloading
 var shouldWatch = argv.indexOf('-l') > -1 || argv.indexOf('--livereload') > -1;
@@ -37,13 +37,13 @@ gulp.task('run:before', [shouldWatch ? 'watch' : 'build']);
  * changes, but you are of course welcome (and encouraged) to customize your
  * build however you see fit.
  */
-var buildBrowserify = require('ionic-gulp-browserify-typescript');
-var buildSass = require('ionic-gulp-sass-build');
-var copyHTML = require('ionic-gulp-html-copy');
-var copyFonts = require('ionic-gulp-fonts-copy');
-var copyScripts = require('ionic-gulp-scripts-copy');
+ var buildBrowserify = require('ionic-gulp-browserify-typescript');
+ var buildSass = require('ionic-gulp-sass-build');
+ var copyHTML = require('ionic-gulp-html-copy');
+ var copyFonts = require('ionic-gulp-fonts-copy');
+ var copyScripts = require('ionic-gulp-scripts-copy');
 
-gulp.task('watch', ['clean'], function(done){
+ gulp.task('watch', ['clean'], function(done){
   runSequence(
     ['sass', 'html', 'fonts', 'scripts'],
     function(){
@@ -51,74 +51,78 @@ gulp.task('watch', ['clean'], function(done){
       gulpWatch('app/**/*.html', function(){ gulp.start('html'); });
       buildBrowserify({ watch: true }).on('end', done);
     }
-  );
+    );
 });
 
-gulp.task('prepare', [], function(done){
+ gulp.task('prepare', function(done){
   runSequence(
     ['sass', 'html', 'fonts'],
     function(){    
-})});
+    })});
 
-gulp.task('move1',[], function(){
-  // the base option sets the relative root for the set of files,
-  // preserving the folder structure
-  gulp.src(['./app/**/*.*'], { base: './app/' })
+ gulp.task('move1', function(done){
+  return gulp.src(['./app/**/*.*'], { base: './app/' })
   .pipe(gulp.dest('__app'));
 });
 
-gulp.task('clean1', function(){
+ gulp.task('clean1', function(done){
   return del('app');
 });
 
 
-gulp.task('clean2', function(){
+ gulp.task('clean2', function(done){
   return del('app');
 });
 
 
-gulp.task('move2',[], function(){
+ gulp.task('move2', function(done){
   // the base option sets the relative root for the set of files,
   // preserving the folder structure
-  gulp.src(['./__app/**/*.*'], { base: './__app/' })
+  return gulp.src(['./__app/**/*.*'], { base: './__app/' })
   .pipe(gulp.dest('app'));
 });
 
-gulp.task('clean3', function(){
+ gulp.task('clean3', function(done){
   return del('__app');
 });
 
-gulp.task('embed', function () {
-    gulp.src('__app/**/*.ts') // also can use *.js files 
-        .pipe(embedTemplates({sourceType:'ts', basePath: 'www/', minimize: { quotes: true }}))
-        .pipe(gulp.dest('./app'));
-});
+ gulp.task('embed', function (done) {
+    return gulp.src('__app/**/*.ts') // also can use *.js files 
+    .pipe(embedTemplates({sourceType:'ts', basePath: 'www/', minimize: { quotes: true }}))
+    .pipe(gulp.dest('./app'));
+  });
 
-gulp.task('compile', [], function(done){
+ gulp.task('compile', function(done){
   runSequence(
     ['scripts'],
     function(){
       buildBrowserify({
         watch: false,
-            minify: true,
+        minify: false,
         uglifyOptions: {
           mangle: false
         },
-  browserifyOptions: {
+        browserifyOptions: {
   debug: false, syntax: false // sourcemaps off
 }, 
-        tsifyOptions: { noImplicitAny: false, allowSyntheticDefaultImports: true,  removeComments: true, skipDefaultLibCheck: true, target: "ES5"} }).on('end', done);
+tsifyOptions: { noImplicitAny: false, allowSyntheticDefaultImports: true,  removeComments: true, skipDefaultLibCheck: true, target: "ES5"} }).on('end', done);
     }
-  );
+    );
 });
 
-gulp.task('cl', [], function(done){
+ gulp.task('prod', function(done){
   runSequence(
-    ['prepare', 'move1', 'clean1', 'embed', 'compile', 'clean2', 'move2', 'clean3'],
-    function(){    
-})});
+    ['sass', 'html', 'fonts'], 
+    'move1',
+    'clean1',
+    'embed', 
+    'compile', 
+    'clean2',
+    'move2',
+    'clean3' 
+);});
 
-gulp.task('build', ['clean'], function(done){
+ gulp.task('build', ['clean'], function(done){
   runSequence(
     ['sass', 'html', 'fonts', 'scripts'],
     function(){
@@ -130,36 +134,36 @@ gulp.task('build', ['clean'], function(done){
   browserifyOptions: {
   debug: false, syntax: false // sourcemaps off
 }, */
-        tsifyOptions: { noImplicitAny: false, allowSyntheticDefaultImports: true,  removeComments: true, skipDefaultLibCheck: true, target: "ES5"} }).on('end', done);
+tsifyOptions: { noImplicitAny: false, allowSyntheticDefaultImports: true,  removeComments: true, skipDefaultLibCheck: true, target: "ES5"} }).on('end', done);
     }
-  );
+    );
 });
-gulp.task('sass', function(){
+ gulp.task('sass', function(){
   return buildSass({
     sassOptions: {
 //      outputStyle: "compressed",
-      includePaths: [
-    'node_modules/ionic-angular',
-    'node_modules/ionicons/dist/scss'
-  ]
-    }
-  });
+includePaths: [
+'node_modules/ionic-angular',
+'node_modules/ionicons/dist/scss'
+]
+}
 });
-gulp.task('html', copyHTML);
-gulp.task('fonts', copyFonts);
+});
+ gulp.task('html', copyHTML);
+ gulp.task('fonts', copyFonts);
 //gulp.task('scripts', copyScripts);
 gulp.task('scripts', function () {
-    return copyScripts({
-        src: [
-            'node_modules/es6-shim/es6-shim.min.js',
-            'node_modules/zone.js/dist/zone.min.js',
-            'node_modules/reflect-metadata/Reflect.js',
+  return copyScripts({
+    src: [
+    'node_modules/es6-shim/es6-shim.min.js',
+    'node_modules/zone.js/dist/zone.min.js',
+    'node_modules/reflect-metadata/Reflect.js',
             //'node_modules/intl/dist/Intl.min.js', // Fix internationalization on safari browsers (used in angular2 currency pipes)
             //'node_modules/intl/locale-data/jsonp/ru.js', // Russian locale
             //'node_modules/intl/locale-data/jsonp/en.js', // English locale
             'resources/lib/shims_for_IE.js'
-        ]
-    });
+            ]
+          });
 });
 
 gulp.task('clean', function(){
