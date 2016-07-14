@@ -62,6 +62,7 @@ class MyApp {
   offlineTimer: any;
   disconnectSubscription: any;
   connectSubscription: any;
+  interval: any;
 
   constructor(private app: IonicApp, private platform: Platform, private config: Config, private events: Events, private menu: MenuController, private ticketProvider: TicketProvider, private dataProvider: DataProvider) {
 
@@ -233,7 +234,7 @@ document.getElementById("pre-bootstrap1").classList.add("loaded");
         //this.rootPage = AccountsPage; return;
         //this.rootPage = TicketCreatePage; return;
         //this.rootPage = AddUserModal; return;
-        setInterval(() => this.redirect(), 2 * 60 * 1000);
+        this.interval = setInterval(() => this.redirect(), 2 * 60 * 1000);
 
         setTimeout(() => this.redirect(true), dontClearCache ? 1000 : 0);
       }
@@ -245,6 +246,8 @@ document.getElementById("pre-bootstrap1").classList.add("loaded");
         this.redirect_logic(isRedirect, data);
       },
       error => {
+        if (this.interval)
+          clearInterval(this.interval);
         this.nav.alert(error || 'Server error', true);
         if (this.is_offline && this.config.getCurrent("user").firstname) {
           this.redirect_logic(isRedirect, this.config.getCurrent());
@@ -409,6 +412,8 @@ openPage(page, param?) {
           return;
         }
     // close the menu when clicking a link from the menu
+    if (this.interval && (page.component == LoginPage || page.component == OrganizationsPage))
+      clearInterval(this.interval);
 
     if (page.index) {
           this.nav.setRoot(page.component || page, {tabIndex: page.index});/*.then(() => {
@@ -445,6 +450,7 @@ openPage(page, param?) {
   ngOnDestroy() {
     this.unsubscribeToEvents();
     clearInterval(this.offlineTimer);
+    clearInterval(this.interval);
 
     if (localStorage.getItem("isPhonegap") === "true"){
     this.disconnectSubscription.unsubscribe();
