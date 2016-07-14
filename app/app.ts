@@ -1,12 +1,13 @@
 import {NgZone, ViewChild} from '@angular/core';
-import {App, IonicApp, Config, Platform, Nav, NavParams, Events, MenuController, Toast} from 'ionic-angular';
+import {App, IonicApp, Config, Platform, Nav, NavParams, Events, MenuController, Toast, Alert} from 'ionic-angular';
 import {StatusBar, Network, Connection} from 'ionic-native';
 import {OnInit, OnDestroy} from '@angular/core';
+import {ApiData} from './providers/api-data';
 import {ApiData} from './providers/api-data';
 import {DataProvider} from './providers/data-provider';
 import {TicketProvider} from './providers/ticket-provider';
 import {TimeProvider} from './providers/time-provider';
-import {AppSite, MobileSite, dontClearCache} from './providers/config';
+import {AppSite, MobileSite, dontClearCache, appVersion} from './providers/config';
 import {MOCKS} from './providers/mocks';
 import * as helpers from './directives/helpers';
 import {QueuesPage} from './pages/queues/queues';
@@ -86,6 +87,7 @@ class MyApp {
       tconfig.is_tech = tconfig.is_tech || tconfig.user.is_techoradmin || false; 
       tconfig.isPhonegap = tconfig.isPhonegap || localStorage.getItem('isPhonegap') === 'true';
       tconfig.isExtension = tconfig.isExtension || localStorage.getItem('isExtension') === 'true'; 
+      tconfig.version = tconfig.version || localStorage.getItem('version'); 
       tconfig.isGoogle = tconfig.isGoogle || localStorage.getItem('isGoogle') === 'true'; 
       tconfig.is_multiple_org = tconfig.is_multiple_org || false; 
       tconfig.username = tconfig.username || localStorage.getItem('username') || ""; 
@@ -99,6 +101,7 @@ class MyApp {
       let current = this.current || {};
       tconfig.user = nconfig.user || current.user || {};
       tconfig.is_tech = nconfig.is_tech || nconfig.user.is_techoradmin || false; 
+      tconfig.version = nconfig.version || current.version || "0"; 
       tconfig.isPhonegap = nconfig.isPhonegap || current.isPhonegap || false; 
       tconfig.isExtension = nconfig.isExtension || current.isExtension || false; 
       tconfig.isGoogle = nconfig.isGoogle || current.isGoogle || false; 
@@ -125,6 +128,7 @@ class MyApp {
       localStorage.setItem("dateformat", curr.user.date_format || 0);
       localStorage.setItem('timeformat', curr.user.time_format || 0);
       localStorage.setItem('currency', curr.currency || "$");
+      localStorage.setItem('version', curr.version || "0");
       localStorage.setItem('isPhonegap', curr.isPhonegap || "");
       localStorage.setItem('isExtension', curr.isExtension || "");
       localStorage.setItem('isGoogle', curr.isGoogle || "");
@@ -181,6 +185,7 @@ document.getElementById("pre-bootstrap1").classList.add("loaded");
     config.current = config.getCurrent();
     config.current.isPhonegap = localStorage.getItem("isPhonegap") === "true";
     config.current.isExtension =  window.self !== window.top;
+    config.current.version = appVersion;
 
 //"FullSingular"].ToString(), ", ", drvCustomName["FullPlural"].ToString(), ", ", drvCustomName["AbbreviatedSingular"].ToString(), ", ", drvCustomName["AbbreviatedPlural"
 
@@ -234,7 +239,6 @@ document.getElementById("pre-bootstrap1").classList.add("loaded");
         //this.rootPage = AccountsPage; return;
         //this.rootPage = TicketCreatePage; return;
         //this.rootPage = AddUserModal; return;
-        this.interval = setInterval(() => this.redirect(), 2 * 60 * 1000);
 
         setTimeout(() => this.redirect(true), dontClearCache ? 1000 : 0);
       }
@@ -243,11 +247,11 @@ document.getElementById("pre-bootstrap1").classList.add("loaded");
     this.dataProvider.getConfig().subscribe(
       data => {
         this.onLine(true);
+        this.interval = setInterval(() => this.redirect(), 2 * 60 * 1000);
         this.redirect_logic(isRedirect, data);
       },
       error => {
-        if (this.interval)
-          clearInterval(this.interval);
+        clearInterval(this.interval);
         this.nav.alert(error || 'Server error', true);
         if (this.is_offline && this.config.getCurrent("user").firstname) {
           this.redirect_logic(isRedirect, this.config.getCurrent());
@@ -326,7 +330,15 @@ data.is_limit_assigned_tkts = true;
     //  initOrgPreferences(this.config.current.org + "-" + this.config.current.instance + ":" + this.config.current.key);
     //getInfo4Extension();
 
-    if (isRedirect) {
+    if (this.config.current.version !== data.mobile_ver && Number(data.mobile_ver) > Number(this.config.current.version))
+      this.presentConfirm(data.mobile_ver, isRedirect);
+else
+  this.force_redirect(isRedirect);
+  }
+
+force_redirect(isRedirect)
+{
+  if (isRedirect) {
       if (this.config.current.is_tech) {
         this.nav.setRoot(DashboardPage, null, { animation: "wp-transition" });
       }
@@ -334,7 +346,36 @@ data.is_limit_assigned_tkts = true;
         this.nav.setRoot(TicketsPage, null, { animation: "wp-transition" });
       }
     }
-  }
+}
+
+presentConfirm(version, isRedirect) {
+        this.config.current.version = version;
+        let alert = Alert.create({
+            title: "Wait. There is update available!",
+            subTitle: "Page'll just be reloaded in 2 seconds",
+            message: 'Would you like to do it now?',
+            cssClass: "hello",
+            buttons: [
+                {
+                    text: 'Yes, do',
+                    role: 'cancel',
+                    handler: () => {
+                        location.reload();
+                    }
+                },
+                {
+                    text: 'No, later',
+                    handler: () => {
+                        alert.dismiss().then(() => {
+                            this.force_redirect(isRedirect);
+                        });
+                        return false;
+                    }
+                }
+            ]
+        });
+        this.nav.present(alert);
+    }
 
 isStorage() {
     var mod = 'modernizr';

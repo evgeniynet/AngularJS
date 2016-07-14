@@ -1,6 +1,6 @@
 import {Page, Config, Nav, Loading} from 'ionic-angular';
 import {forwardRef} from '@angular/core';
-import {ApiSite, MobileSite, isSD} from '../../providers/config';
+import {ApiSite, MobileSite, isSD, appVersion} from '../../providers/config';
 //import {NgForm} from '@angular/common';
 import {saveCache, openURL} from '../../directives/helpers';
 import {DataProvider} from '../../providers/data-provider';
@@ -29,6 +29,7 @@ export class LoginPage {
         //logout
         this.login = {username: this.config.current.username || "" };
         localStorage.clear();
+        this.config.current.version = appVersion;
         //this.config.clearCurrent();
     }
 
