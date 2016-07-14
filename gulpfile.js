@@ -141,7 +141,7 @@ tsifyOptions: { noImplicitAny: false, allowSyntheticDefaultImports: true,  remov
  gulp.task('sass', function(){
   return buildSass({
     sassOptions: {
-//      outputStyle: "compressed",
+      outputStyle: "compressed",
 includePaths: [
 'node_modules/ionic-angular',
 'node_modules/ionicons/dist/scss'
