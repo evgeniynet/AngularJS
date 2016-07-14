@@ -2,7 +2,8 @@
 <ion-content padding class="organizations">
     
     <ion-list class="list max-width" no-lines>
- <img class="imglogo img-padding" src="img/logo.png">
+ <a title="Sherpadesk Support Portal"
+ href="https://support.sherpadesk.com/portal/" onclick="window.open('https://support.sherpadesk.com/portal/', '_system');return false;"><img class="imglogo img-padding" src="img/logo.png"></a>
         <div *ngFor="let org of list"> 
             <a detail-none href=# ion-item [hidden]="!org.is_expired" class="blue1 org expired" (click)="alertOrg(org.name)">{{org.name}} (Expired)</a>
             <a detail-none href=# ion-item [hidden]="org.is_expired" class="blue1 org" (click)="toggle(org)"><ion-label class="padding-left8">{{org.name}}  {{org.instances.length == 1 ? org.instances[0].name : '' }}</ion-label></a>

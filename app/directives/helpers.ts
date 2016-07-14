@@ -76,10 +76,10 @@ export function addp (url: string, param: string, value?: any) {
             url = addp(url, "tkt", ticketkey);
         url = addp(url, "dept", inst);
         url = addp(url, "org", org);
-        if (localStorage.getItem("isPhonegap") === "true")
-            openURLsystem(url);
-        else //if (localStorage.getItem("isExtension") === "true")
-            window.open(url, "_blank");
+        //if (localStorage.getItem("isPhonegap") === "true")
+        //    openURLsystem(url);
+        //else //if (localStorage.getItem("isExtension") === "true")
+            window.open(url, "_system");
 }
 
 //HTML encode
