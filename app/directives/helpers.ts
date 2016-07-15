@@ -1,4 +1,5 @@
 import * as Config from '../providers/config';
+//import {Events} from 'ionic-angular';
  
 export function saveCache(url, data) {
     localStorage.setItem(url, JSON.stringify(data || {})); 
@@ -44,18 +45,6 @@ export function parseXml(xmlStr) {
     } else {
         console.log("No XML parser found");
         return null;
-    }
-}
-
-export function getInfo4Extension()
-{
-    var isExtension = false;
-    if (isExtension)
-    {
-        var loginStr = "login?t=" + localStorage.getItem("userKey") +
-            "&o=" + localStorage.getItem('userOrgKey') +
-            "&i=" + localStorage.getItem('userInstanceKey'); 
-        window.top.postMessage(loginStr,"*");
     }
 }
 

@@ -1,8 +1,8 @@
 import {Page, Config, Nav, Loading} from 'ionic-angular';
 import {forwardRef} from '@angular/core';
-import {ApiSite, MobileSite, isSD, appVersion} from '../../providers/config';
+import {ApiSite, Site, isSD, appVersion, AppTitle} from '../../providers/config';
 //import {NgForm} from '@angular/common';
-import {saveCache, openURL} from '../../directives/helpers';
+import {openURL, openURLsystem} from '../../directives/helpers';
 import {DataProvider} from '../../providers/data-provider';
 import {OrganizationsPage} from '../organizations/organizations';
 import {SignupPage} from '../signup/signup';
@@ -15,17 +15,20 @@ export class LoginPage {
     login: any;
     google_action: string = "";
     busy: boolean = false;
-    site: string = MobileSite;
     is_sd: boolean = isSD;
     //@ViewChild('google_openid') google_openid: NgForm;
 
     constructor(private nav: Nav, private dataProvider: DataProvider, private config: Config) {
         if (!config.current.isPhonegap)
         this.google_action = ApiSite + 'auth/auth0';
+        //clear also chrome ext if needed
+        if (config.current.isExtension)
+            window.top.postMessage("logout", "*");
   }
     
     onPageLoaded()
     { 
+        document.title = AppTitle + "Mobile App" ; 
         //logout
         this.login = {username: this.config.current.username || "" };
         localStorage.clear();
@@ -66,6 +69,11 @@ export class LoginPage {
         //console.log(this.starttime.min);
         //this.google_openid.action = this.starttime.displayFormat = this.displayFormat;
         //console.log(this.starttime.displayFormat);
+    }
+
+    support()
+    {
+        openURLsystem(`https://support.${Site}portal/`);
     }
 
     onGoogleSignin() {

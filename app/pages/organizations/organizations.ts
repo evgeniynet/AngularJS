@@ -2,7 +2,8 @@ import {Page, Config, Nav, Events, Loading} from 'ionic-angular';
 import {DataProvider} from '../../providers/data-provider';
 import {TicketProvider} from '../../providers/ticket-provider';
 import {TimeProvider} from '../../providers/time-provider';
-import {saveCache} from '../../directives/helpers';
+import {Site, isSD} from '../../providers/config';
+import {openURLsystem} from '../../directives/helpers';
 import {LoginPage} from '../login/login';
 import {DashboardPage} from '../dashboard/dashboard';
 import {TicketsPage} from '../tickets/tickets';
@@ -21,6 +22,9 @@ export class OrganizationsPage {
         this.ticketProvider._dataStore = {all: [],alt: [],tech: [],user: []};
         this.dataProvider._dataStore = this.timeProvider._dataStore = {};
         this.config.saveCurrent();
+        //clear also chrome ext if needed
+        if (config.current.isExtension)
+            window.top.postMessage("logout", "*");
         
         this.dataProvider.getOrganizations(this.config.getCurrent("key")).subscribe(
             data => {
@@ -43,10 +47,15 @@ export class OrganizationsPage {
             }, 
             error => { 
                 this.nav.alert("Cannot get list of Organizations", true);
-        localStorage.clear();
-        this.nav.setRoot(LoginPage, null, { animation: "wp-transition" });
-                }
-                ); 
+                localStorage.clear();
+                this.nav.setRoot(LoginPage, null, { animation: "wp-transition" });
+            }
+            ); 
+    }
+
+    onPageLoaded()
+    {
+      document.title = "Organizations : " + document.title ;  
     }
 
     toggle(org){
@@ -64,19 +73,24 @@ export class OrganizationsPage {
         }
     }
     
+    support()
+    {
+        openURLsystem(`https://support.${Site}portal/`);
+    }
+    
     alertOrg(name){
         this.nav.alert(name + " has expired or inactivated. Contact SherpaDesk for assistance. Email: support@sherpadesk.com Phone: +1 (866) 996-1200, then press 2", true);
     }
     
     onSelectInst(instance) {
-            let loading = Loading.create({
-                content: "Loading configuration...",
+        let loading = Loading.create({
+            content: "Loading configuration...",
                 //duration: 2000,
                 dismissOnPageChange: true
             });
-            this.nav.present(loading);
-            this.config.current.org = instance.org;
-            this.config.current.instance = instance.inst;
+        this.nav.present(loading);
+        this.config.current.org = instance.org;
+        this.config.current.instance = instance.inst;
         this.config.saveCurrent();
         this.events.publish("config:get", true);
     }
