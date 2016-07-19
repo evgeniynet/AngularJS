@@ -63,6 +63,7 @@ class MyApp {
   disconnectSubscription: any;
   connectSubscription: any;
   interval: any;
+  img: any = new Image();
 
   constructor(private app: IonicApp, private platform: Platform, private config: Config, private events: Events, private menu: MenuController, private ticketProvider: TicketProvider, private dataProvider: DataProvider) {
 
@@ -417,11 +418,10 @@ this.config.saveCurrent();
   checkConnection() {
     if (navigator.onLine) {
       if (localStorage.getItem("isPhonegap") !== "true"){
-        var img = new Image();
       //img.style.display = 'none';
-      img.onload = () => this.onLine(true);
-      img.onerror = () => this.onLine(false);
-      img.src = MobileSite + "img/select_arrow.png?rand=" + Math.random();
+      this.img.onload = () => this.onLine(true);
+      this.img.onerror = () => this.onLine(false);
+      this.img.src = MobileSite + "img/select_arrow.png?rand=" + Math.random();
     }
   }
   else {

@@ -19,7 +19,6 @@ export class AccountDetailsPage {
     pages: Array<any>;
     details_tab: string;
     tabsTicket: string; 
-    note: string = "";
     is_editnote: boolean = false;
 
     constructor(private nav: Nav, private navParams: NavParams, private dataProvider: DataProvider, private config: Config, private view: ViewController) {
@@ -42,7 +41,6 @@ export class AccountDetailsPage {
             this.dataProvider.getAccountDetails(this.account.id).subscribe(
     data => {
         this.account = data;
-        this.note = data.note || "";
     },
     error => {
         console.log(error || 'Server error');
@@ -50,19 +48,23 @@ export class AccountDetailsPage {
 ); 
         }
 
-    saveNote() {
-        var note = this.note || ""; // htmlEscape((this.workpad || "").trim()).substr(0, 5000);
-
+    saveNote(form) {
+        var note = (form.value || "").trim(); 
+        if (note != (this.account.note || "").trim()) {
         this.dataProvider.addAccountNote(this.account.id, note).subscribe(
-            data => {
-                this.nav.alert('Note saved :)');
-                this.account.note = note;
-                this.is_editnote = false;
-            },
+            data => this.saveNoteSuccess(note),
             error => {
                 console.log(error || 'Server error');
             }
-        );
+        );}
+        else
+        this.saveNoteSuccess(note);
+    }
+
+    saveNoteSuccess(note){
+        this.nav.alert('Note saved :)');
+        this.account.note = note;
+        this.is_editnote = false;
     }
 
     openPage(page, count)

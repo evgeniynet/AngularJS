@@ -132,12 +132,12 @@
 
     <ion-list class="list general-alignment max-width700" *ngSwitchWhen="'Notes'">
 
-      <div [hidden]="is_editnote || !note.length" class="width100 textLogin note-account" [innerHTML]="note" type="text"></div>
+      <div [hidden]="is_editnote || !account?.note?.length" class="width100 textLogin note-account" [innerHTML]="account?.note" type="text"></div>
 
-      <textarea [hidden]="!is_editnote" [(ngModel)]="note" class="width100 textLogin commentText" type="text" placeholder="Notes:"></textarea>
+      <textarea [hidden]="!is_editnote" [ngModel]="account?.note" class="width100 textLogin commentText" #notetext type="text" placeholder="Notes:"></textarea>
 
-      <button [hidden]="is_editnote" secondary class="button_reply right width100" (click)="is_editnote = true">{{note.length ? 'Edit' : 'Add'}} Notes</button>
-      <button [hidden]="!is_editnote" secondary class="button_reply img-top right" (click)="saveNote()">Save Notes</button>
+      <button [hidden]="is_editnote" secondary class="button_reply right width100" (click)="is_editnote = true">{{account?.note?.length ? 'Edit' : 'Add'}} Notes</button>
+      <button [hidden]="!is_editnote" secondary class="button_reply img-top right" (click)="saveNote(notetext)">Save Notes</button>
     </ion-list>
     <ion-list class="list margin-top21" no-lines *ngSwitchWhen="'Files'">
 

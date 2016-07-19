@@ -27,7 +27,6 @@ export class TicketDetailsPage {
     selects: any;
     ticketnote: string;
     attachments: any;
-    workpad: string = "";
     is_editnote: boolean = false;
     posts: any = [
     {
@@ -147,7 +146,6 @@ export class TicketDetailsPage {
         
         if (!isShortInfo)
         {
-            this.workpad = data.workpad || "";
             this.attachments = (data.attachments || []).slice().reverse();
             this.posts = data.ticketlogs;
 
@@ -197,19 +195,24 @@ export class TicketDetailsPage {
         }
     } 
 
-    saveNote() {
-        var note = this.workpad || " "; //htmlEscape((this.workpad || "").trim()).substr(0, 5000);
-
+    saveNote(form) {
+        var note = (form.value || "").trim(); //htmlEscape((this.workpad || "").trim()).substr(0, 5000);
+        if (note != (this.ticket.workpad || "").trim()) {
             this.ticketProvider.addTicketNote(this.ticket.id, note).subscribe(
-                data => {
-                    this.nav.alert('Note saved :)');
-                    this.ticket.workpad = note;
-                    this.is_editnote = false;
-                },
+                data => this.saveNoteSuccess(note),
                 error => {
                     console.log(error || 'Server error');
                 }
                 );
+        }
+        else
+        this.saveNoteSuccess(note);
+    }
+
+    saveNoteSuccess(note){
+        this.nav.alert('Note saved :)');
+        this.ticket.workpad = note;
+        this.is_editnote = false;
     }
 
     onClose(form) {

@@ -70,11 +70,11 @@
       <button secondary block (click)="onUpdate()" type="submit" class="img-top disable-hover button button-default button-block">Update</button>
     </div>
     <ion-list class="list general-alignment max-width700" *ngSwitchWhen="'Notes'">
-      <div [hidden]="is_editnote || !workpad.length" class="width100 textLogin note-account" [innerHTML]="workpad" type="text"></div>
+      <div [hidden]="is_editnote || !ticket?.workpad?.length" class="width100 textLogin note-account" [innerHTML]="ticket?.workpad" type="text"></div>
 
-      <textarea [hidden]="!is_editnote" [(ngModel)]="workpad" class="width100 textLogin commentText" type="text" placeholder="Notes:"></textarea>
-      <button [hidden]="is_editnote" secondary class="button_reply right width100" (click)="is_editnote = true">{{workpad.length ? 'Edit' : 'Add'}} Notes</button>
-      <button [hidden]="!is_editnote" secondary class="button_reply img-top right " (click)="saveNote()">Save Notes</button>
+      <textarea [hidden]="!is_editnote" [ngModel]="ticket?.workpad" class="width100 textLogin commentText" #workpadtext type="text" placeholder="Notes:"></textarea>
+      <button [hidden]="is_editnote" secondary class="button_reply right width100" (click)="is_editnote = true">{{ticket?.workpad?.length ? 'Edit' : 'Add'}} Notes</button>
+      <button [hidden]="!is_editnote" secondary class="button_reply img-top right " (click)="saveNote(workpadtext)">Save Notes</button>
     </ion-list>
     <ion-list class="list img-top" no-lines *ngSwitchWhen="'Files'">
      <div [hidden]="attachments?.length" class="table grey2 menu-text">No Files yet</div>

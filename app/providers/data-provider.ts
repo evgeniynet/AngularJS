@@ -128,7 +128,7 @@ getAccountDetails(id,is_no_stat?) {
         let data = {
             "note": note,
         };
-        return this.apiData.get(url, data, "POST");
+        return this.apiData.get(url, data, "PUT");
     }
 
 
