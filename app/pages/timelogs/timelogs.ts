@@ -14,7 +14,6 @@ import {GravatarPipe, MorePipe, LinebreaksPipe} from '../../pipes/pipes';
 export class TimelogsPage {
 
     LIMIT: number = 25;
-    count: number;
     account: any;
     is_empty: boolean = false;
     params: any;
@@ -67,7 +66,7 @@ export class TimelogsPage {
     }
 
     doInfinite(infiniteScroll) {
-        if (this.is_empty || (this.cachelen > 0 && (this.cachelen >= this.count)) || (this.count > 0 && (this.count < this.LIMIT))) {
+        if (this.is_empty || (this.cachelen > 0 && (this.cachelen >= this.params.count || this.cachelen < this.LIMIT)) || (this.params.count > 0 && (this.params.count < this.LIMIT))) {
             infiniteScroll.enable(false);
             infiniteScroll.complete();
             return;

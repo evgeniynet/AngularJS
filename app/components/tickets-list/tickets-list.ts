@@ -190,7 +190,7 @@ export class TicketsListComponent {
 
 
      doInfinite(infiniteScroll) {
-         if (this.is_empty || (this.count > 0 && (this.count < this.LIMIT)) || (this.cachelen > 0 && (this.cachelen >= this.count)))
+         if (this.is_empty || (this.count > 0 && (this.count < this.LIMIT)) || (this.cachelen > 0 && (this.cachelen >= this.count || this.cachelen < this.LIMIT)))
          {
              infiniteScroll.enable(false);
              infiniteScroll.complete();

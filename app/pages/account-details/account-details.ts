@@ -20,6 +20,7 @@ export class AccountDetailsPage {
     details_tab: string;
     tabsTicket: string; 
     is_editnote: boolean = false;
+    is_ready: boolean = false;
 
     constructor(private nav: Nav, private navParams: NavParams, private dataProvider: DataProvider, private config: Config, private view: ViewController) {
         this.details_tab = "Stat";
@@ -41,6 +42,7 @@ export class AccountDetailsPage {
             this.dataProvider.getAccountDetails(this.account.id).subscribe(
     data => {
         this.account = data;
+        this.is_ready = true;
     },
     error => {
         console.log(error || 'Server error');
@@ -69,7 +71,9 @@ export class AccountDetailsPage {
 
     openPage(page, count)
     {
-        this.nav.push(this.pages[page], {"is_empty": !count, "account_id": this.account.id || "-1", "account_name": this.account.name});
+        setTimeout(() =>
+        this.nav.push(this.pages[page], {"is_empty": !count, "account_id": this.account.id || "-1", "account_name": this.account.name}),
+        this.is_ready ? 0 : 2000);
     }
     
     getCurrency(value) {

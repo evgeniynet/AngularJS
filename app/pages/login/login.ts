@@ -30,7 +30,7 @@ export class LoginPage {
     { 
         document.title = AppTitle + "Mobile App" ; 
         //logout
-        this.login = {username: this.config.current.username || "" };
+        this.login = {username: this.config.getCurrent("username") || "" };
         localStorage.clear();
         this.config.current.version = appVersion;
         //this.config.clearCurrent();
