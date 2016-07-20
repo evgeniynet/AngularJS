@@ -79,7 +79,7 @@ export class TicketProvider {
                 
             }
             this.apiData.getPaged(url, pager).subscribe(data => {
-                if (pager.page > 0)
+                if (pager.page > 0 && cachelen > 0)
                     this._dataStore[tab].push(...data);
                 else
                     this._dataStore[tab] = data;

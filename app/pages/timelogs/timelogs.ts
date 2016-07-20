@@ -67,17 +67,20 @@ export class TimelogsPage {
     }
 
     doInfinite(infiniteScroll) {
-        if (this.is_empty || (this.cachelen > 0 && (this.cachelen % this.LIMIT)) || (this.count > 0 && (this.count < this.LIMIT))) {
+        if (this.is_empty || (this.cachelen > 0 && (this.cachelen >= this.count)) || (this.count > 0 && (this.count < this.LIMIT))) {
             infiniteScroll.enable(false);
             infiniteScroll.complete();
             return;
         }
         this.pager.page += 1;
+        let cachedlen = (this.timeProvider._dataStore[this.cachename] || {}).length;
         this.timeProvider.getTimelogs(this.params.account.id, this.pager);
         this.timelogs.subscribe(
             data => {
                 infiniteScroll.complete();
-                infiniteScroll.enable(!(data.length % this.LIMIT));
+                let len = data.length;
+                infiniteScroll.enable(!(cachedlen == len || len % this.LIMIT));
+                this.cachelen = len;
             });
     }
     
