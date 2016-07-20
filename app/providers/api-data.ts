@@ -106,6 +106,8 @@ handleError(error) : any {
             message = ((e || {}).ResponseStatus || {}).Message;
     } catch (e) {
         message = error._body; 
+        if (message == "[object ProgressEvent]")
+            message = "Cannot connect to API server";
     }
     message = message || "Error. Please contact Administrator";
     let url = error.url || "";
