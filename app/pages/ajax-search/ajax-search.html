@@ -1,10 +1,10 @@
 <ion-navbar *navbar><button menuToggle><ion-icon name="menu"></ion-icon></button>
-  <ion-title class="padding-right24">Search Tickets</ion-title>
+  <ion-title class="padding-right24">Search {{config.current.names.ticket.p}}</ion-title>
 </ion-navbar>
 
 
 <ion-content class="has-header">
-  <ion-searchbar [focuser] debounce="400" [(ngModel)]="term" (input)="searchItems($event)" placeholder="Search Tickets (min 3 chars)" hideCancelButton="true"></ion-searchbar>
+  <ion-searchbar [focuser] debounce="400" [(ngModel)]="term" (input)="searchItems($event)" placeholder="Search {{config.current.names.ticket.p}} (min 3 chars)" hideCancelButton="true"></ion-searchbar>
 <img *ngIf="busy" class="imglogo img-padding" src="img/loading2.gif">
     <ion-list class="list">
         
@@ -16,6 +16,6 @@
         </a>
 
     </ion-list>
-<div *ngIf="is_empty" class="table grey2 menu-text">No Tickets found yet</div>
+<div *ngIf="is_empty" class="table grey2 menu-text">No {{config.current.names.ticket.ap}} found yet</div>
 
 </ion-content>
