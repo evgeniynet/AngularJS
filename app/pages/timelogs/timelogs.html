@@ -7,7 +7,7 @@
     
     <ion-list class="list general-alignment2" no-lines>
         <img *ngIf="busy" class="imglogo img-padding" src="img/loading2.gif">
-        <ion-item-sliding class="timelog-item border" *ngFor="let time of timelogs | async" #slidingItem>
+        <ion-item-sliding class="timelog-item" *ngFor="let time of timelogs | async" #slidingItem>
         <a detail-none href=# ion-item (click)="itemTapped(time)">
     <ion-avatar padding item-left>
             <li>
