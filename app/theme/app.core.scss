@@ -139,9 +139,9 @@ color: $black1;
 }
 
 
-.segment-ticket{
+/*.segment-ticket{
     background-color: $segment !important;
-}
+}*/
 
 
 
@@ -604,6 +604,7 @@ scroll-content {
 
 .ticketImg {
     height: 0px;
+    width: 66px;
 }
 
 .item:last-child, ion-list > ion-item-sliding:last-child .item {
@@ -997,4 +998,17 @@ ion-searchbar {
 
 .bar-button {
     z-index: 9;
+}
+
+
+
+.alert-title {
+    font-size: 21px;
+    padding-left: 43px;
+    padding-right: 35px;
+}
+
+.alert-wrapper {
+    background-image: url("../../img/sherpaDesk-logo-finalB.png");
+    background-repeat: no-repeat;
 }
