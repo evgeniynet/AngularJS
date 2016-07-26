@@ -26,7 +26,7 @@
     <p class="left width35 text-toggle color">Confirm Now?</p>
 </template>  
     <div class="tooltips">
-        <textarea class="width100 textLogin commentText color" [(ngModel)]="ticketnote" type="text" placeholder="Add closing comments" ngControl="note" #note="ngForm" required maxlength="4000"></textarea>
+        <textarea class="width100 textLogin commentText" [(ngModel)]="ticketnote" type="text" placeholder="Add closing comments" ngControl="note" #note="ngForm" required maxlength="4000"></textarea>
         <span [hidden]="note.valid || note.untouched">Note is required and less 5000 chars</span></div>
         <button secondary 
         class="button_reply img-top right" [disabled]="!addForm.valid" (click)="onSubmit(addForm)"  type="submit">Close {{config.current.names.ticket.s}}</button>
