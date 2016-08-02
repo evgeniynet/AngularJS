@@ -21,6 +21,7 @@ export class TicketsListComponent {
     @Input() filter: string;
     tickets: any;
     cachelen: number;
+    cachename: string;
     pager: any;
     is_empty: boolean = false;
     busy: boolean;
@@ -49,7 +50,8 @@ export class TicketsListComponent {
 
      ngOnInit() {
          this.he = this.config.getCurrent("user");
-         this.cachelen = (this.ticketProvider._dataStore[this.mode[0] + (this.mode[1] || "")] || {}).length;
+         this.cachename = this.mode[0] + (this.mode[1] || "");
+         this.cachelen = (this.ticketProvider._dataStore[this.cachename] || {}).length;
          if (this.mode[0] == "all")
          {
              this.pager.limit = this.LIMIT = 15;
@@ -69,13 +71,13 @@ export class TicketsListComponent {
              return;
 
          let stat = this.config.getStat("tickets")[this.mode[0]];
-         //console.log(this.mode[0] + (this.mode[1] || "") + " - stat:" + stat);
+         //console.log(this.cachename + " - stat:" + stat);
          this.count = !stat ? this.count : stat;
-         //console.log(this.mode[0] + (this.mode[1] || "") + " - count:" + this.count);
+         //console.log(this.cachename + " - count:" + this.count);
          if (this.count !== 0) {
              this.ticketProvider.getTicketsList(this.mode[0], this.mode[1], this.pager);
-             this.tickets = this.ticketProvider.tickets$[this.mode[0] + (this.mode[1] || "")];
-             if (!this.ticketProvider._dataStore[this.mode[0] + (this.mode[1] || "")].length) {
+             this.tickets = this.ticketProvider.tickets$[this.cachename];
+             if (!this.ticketProvider._dataStore[this.cachename].length) {
                  var timer = setTimeout(() => {
                      this.busy = true;
                  }, 500);
@@ -197,7 +199,7 @@ export class TicketsListComponent {
              return;
          }
          this.pager.page += 1; 
-         let cachedlen = (this.timeProvider._dataStore[this.cachename] || {}).length;
+         let cachedlen = (this.ticketProvider._dataStore[this.cachename] || {}).length;
          this.ticketProvider.getTicketsList(this.mode[0], this.mode[1], this.pager);
          this.tickets.subscribe(
              data => { 

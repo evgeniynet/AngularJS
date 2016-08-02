@@ -22,6 +22,8 @@ export class TimelogPage {
     selects: any = {};
     displayFormat: string;
     minuteValues: Array<number> = [0, 15, 30, 45, 0];
+    start_time: string = "";
+    stop_time: string = "";
     //@ViewChild('starttime') starttime:DateTime;
     //@ViewChild('stoptime') stoptime:DateTime;
 
@@ -44,10 +46,22 @@ export class TimelogPage {
 //console.log(this.starttime.displayFormat);
 
     }
+
+    AddHours(date, hours)
+    {
+        if (date){
+            let temp = new Date(date);
+            return new Date(temp.setTime(temp.getTime() + (hours*60*60*1000))).toJSON();
+        }
+        return date;
+    }
     
     ngOnInit()
     {
         this.time = this.navParams.data || {};
+        //fix timezone
+        this.start_time = this.AddHours(this.time.start_time, this.time.time_offset);
+        this.stop_time = this.AddHours(this.time.stop_time, this.time.time_offset);
 
         let name = (this.time.user_name + " " + this.time.user_email).trim().split(' ')[0];
         if (this.time.time_id)
@@ -186,12 +200,15 @@ export class TimelogPage {
                 "hours": hours,
                 "is_billable": this.isbillable,
                 "date": this.time.start_time || "", 
-                "start_date": this.time.start_time || "",
-                "stop_date": this.time.stop_time || ""
+                "start_date": this.AddHours(this.start_time, this.time.time_offset * -1) || "",
+                "stop_date": this.AddHours(this.stop_time, this.time.time_offset * -1) || ""
             };
 
             this.timeProvider.addTime(this.time.time_id, data, isEdit ? "PUT" : "POST").subscribe(
-                data => {
+                res => {
+                    this.time.start_time = data.start_date;
+                    this.time.stop_time = data.stop_date;
+
                     this.nav.alert('Time was successfully added :)');
                     this.close();
                 },
@@ -220,12 +237,12 @@ export class TimelogPage {
 
     setStartDate(time){
         if (time)
-           this.time.start_time = time.substring(0,19);
+           this.start_time = time.substring(0,19);
     }
 
     setStopDate(time){
         if (time)
-           this.time.stop_time = time.substring(0,19);
+           this.stop_time = time.substring(0,19);
     }
 
 
