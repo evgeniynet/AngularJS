@@ -235,6 +235,7 @@ if (key) {
         this.dataProvider.getConfig().subscribe(
           data => {
             this.onLine(true);
+            clearInterval(this.interval);
             this.interval = setInterval(() => this.redirect(), 2 * 60 * 1000);
             this.redirect_logic(isRedirect, data);
           },
@@ -284,6 +285,7 @@ data.is_unassigned_queue = false;
 //All Open tickets (true to hide)
 data.is_limit_assigned_tkts = true;
 */
+/*
 data.names = {
   "ticket": {s: "Ticket1", p: "Tickets1", a:"Tkt1", ap: "Tkts1"},
   "account": {s: "Account1", p: "Accounts1", a:"Acc1", ap: "Accs1"},
@@ -291,6 +293,7 @@ data.names = {
   "location": {s: "Location1", p: "Locations1", a:"Loc1", ap: "Locs1"},
   "user": {s: "End User1", p: "End Users1", a:"User1", ap: "Users1"}
 };
+*/ 
 this.config.setCurrent(data);
 this.config.saveCurrent();
     // set our app's pages
@@ -334,7 +337,7 @@ this.config.saveCurrent();
   force_redirect(isRedirect)
   {
     if (isRedirect) {
-      let page = this.config.current.is_tech ? DashboardPage : TicketsPage;
+      let page : any = this.config.current.is_tech ? DashboardPage : TicketsPage;
         
         // set first pages
         //page = TicketsPage; 
@@ -435,6 +438,7 @@ onLine(isOnline?){
     this.nav.alert(!isOnline ? "Sorry! You are offline now. Please check your internet connection!" : "Hey! You online now!", !isOnline);
     if (localStorage.getItem("isPhonegap") !== "true") {
       if (!isOnline) {
+        clearInterval(this.offlineTimer);
         this.offlineTimer = setInterval(() => this.checkConnection(), 10 * 1000);
       }
       else
