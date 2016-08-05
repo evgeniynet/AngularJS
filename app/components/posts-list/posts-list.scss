@@ -17,4 +17,47 @@
 .card-content{
     border-radius: 20px;
     background-color: $response;
+    margin-bottom: 21px;
+    
+ion-avatar{
+    margin: 0px;
+    padding-right: 15px;
+    text-align: -webkit-center;
+    margin-top: 10px;
+    margin-bottom: 7px;
+    height: 94px;
+    float: left; 
+    padding-left: 15px;
 }
+
+ion-avatar img{
+    margin-bottom: 15px;
+    margin-top: 15px;      
+}
+    
+ion-avatar img p{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: pre-wrap;
+    height: 20px; 
+    margin-top: -10px;
+    line-height: 1.3;
+    padding: 0px !important;
+}}
+
+.postlist{
+    text-align: right !important;
+    float: right;
+    margin-right: 15px !important;
+}
+
+.postlist > p:first-child{
+    margin-bottom: 3px;
+//    width: 35%;
+    }
+
+.postlist > p:last-child{
+    margin-top: 0px !important;
+//    width: 62%;
+     color: $grey4;
+    }

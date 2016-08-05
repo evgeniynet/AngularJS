@@ -13,7 +13,22 @@
 
 .response-ticket{
     margin-bottom: 86px;
-}
+    
+textarea{
+    width: 100%;
+    text-align: left;
+    padding-left: 15px;
+    background: $blue3;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    border: none;
+    font-size: 16px;
+    padding: 10px;
+    resize: none;
+    height: 110px;
+    display: block;
+    margin-bottom: 10px;
+  }}
 
 .avatar-ticket{
     padding-right: 39px;
@@ -26,10 +41,12 @@
 }
 
 .text-avatar{
-    white-space: nowrap;
+//    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     padding-top: 26px;
+    white-space: pre-wrap;
+    height: 20px;
 }
 
 .position-subject{
@@ -54,4 +71,38 @@
 
 .margin-top0{
      margin-top: 0px !important;
+}
+
+
+.blue3{
+     background-color: $blue3;
+    
+  h4{
+    padding-top: 20px;
+    white-space: initial !important;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 24px;
+    text-overflow: ellipsis;
+    margin-top: 0px;
+    padding: 0px !important;
+    width: 64%;
+     margin-left: 15px;
+        float: left;
+        text-align: left;
+}
+    span{
+        width: 30%;
+        float: left;
+    }
+    
+   span p{
+     text-align: right;
+     color: $grey4;
+     margin: 0px;
+    }
+}
+
+.ion-segment-button{
+    background-color: $segment !important;
 }

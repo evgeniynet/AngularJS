@@ -6,30 +6,30 @@
 
 <ion-content>
   <ion-toolbar class="blue3">
-   <h4 class="subject-padding ticket-details margin-top0 padding subject-ticket text-left width64 left">{{ticket.subject | Htmlsafe}}</h4>
-   <span class="left width30" no-lines>
-    <p *ngIf="config.current.is_class_tracking" class="text-right grey4 margin">{{ticket.class_name}}</p>
-    <p *ngIf="config.current.is_location_tracking" class="text-right margin">{{ticket.location_name}}</p>
-    <p class="text-right grey4 margin" [innerText]="techname"></p>
-    <p class="text-right grey4 margin">{{ticket.days_old_in_minutes | Daysold}}</p>
-    <p  *ngIf="config.current.is_expenses && ticket.misc_cost > 0" class="text-right grey4 margin">Expenses:  {{getCurrency(ticket.misc_cost)}}</p>
-    <p *ngIf="config.current.is_time_tracking && ticket.total_hours > 0" class="text-right grey4 margin">{{ticket.total_hours}} Hours</p>
-    <p *ngIf="ticket.sla_complete_date != null" class="text-right grey4 margin">SLA: {{setDate(ticket.sla_complete_date, false, true)}}</p></span>
+   <h4>{{ticket.subject | Htmlsafe}}</h4>
+   <span no-lines>
+    <p *ngIf="config.current.is_class_tracking">{{ticket.class_name}}</p>
+    <p *ngIf="config.current.is_location_tracking">{{ticket.location_name}}</p>
+    <p [innerText]="techname"></p>
+    <p>{{ticket.days_old_in_minutes | Daysold}}</p>
+    <p  *ngIf="config.current.is_expenses && ticket.misc_cost > 0">Expenses:  {{getCurrency(ticket.misc_cost)}}</p>
+    <p *ngIf="config.current.is_time_tracking && ticket.total_hours > 0">{{ticket.total_hours}} Hours</p>
+    <p *ngIf="ticket.sla_complete_date != null">SLA: {{setDate(ticket.sla_complete_date, false, true)}}</p></span>
   </ion-toolbar>
-  <ion-segment class="tabsTicket"  [(ngModel)]="details_tab">
-    <ion-segment-button class="segment-ticket" value="Reply">
+  <ion-segment [(ngModel)]="details_tab">
+    <ion-segment-button value="Reply">
       Reply
     </ion-segment-button>
-    <ion-segment-button class="segment-ticket" value="Info">
+    <ion-segment-button value="Info">
       Info
     </ion-segment-button>
-    <ion-segment-button class="segment-ticket" value="Notes">
+    <ion-segment-button value="Notes">
       Notes
     </ion-segment-button>
-    <ion-segment-button class="segment-ticket" value="Files">
+    <ion-segment-button value="Files">
       Files
     </ion-segment-button>
-    <ion-segment-button class="segment-ticket" value="Options">
+    <ion-segment-button value="Options">
       Options
     </ion-segment-button>
   </ion-segment>
