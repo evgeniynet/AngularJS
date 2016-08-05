@@ -1,32 +1,72 @@
-.admin {
-    font-size: 1.3rem;
-}
-
-.ticketImg{
-    margin-top: 10px;
-    margin-bottom: 7px;
-    height: 94px;
-}
-
 .border{
-    border-bottom: 1px solid $grey2;
-} 
-
-.img_padding{
-    padding-bottom: 22px;
-    width: 90px;
+   border-bottom: 1px solid $grey2;
+    
+ion-avatar{
+    padding-bottom: 28px;
+    width: 80px;
+    margin: 0px !important;
+    -webkit-box-orient: vertical;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 15px;
+    padding-left: 0px !important;
 }
-
-.avatarText{
+    
+    ion-avatar li{
+    text-align: -webkit-center;
+    height: 77px;
     line-height: 8px;
     color: $grey2;
     font-size: 1.6rem;
-    height: 77px;
+}
+    
+    ion-avatar li span{
+    font-weight: bold;
+    margin: 0px !important;
+    }
+        
+    ion-avatar li img{
+      margin-top: 18px;
+      margin-bottom: 15px;
 }
 
-.tickets {
+ ion-avatar li img p{
+    color: $text !important;
+     -webkit-box-orient: vertical;
+    width: 80px;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 15px;
+    padding-bottom: 20px;
+
+}}
+
+.alignment{
+    margin-top: 7px;
+    
+  li{
+    text-align: left !important;
+    }
+    
+   h2{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+     padding-bottom: 3px;
+       color: $text !important;
+    }
+    
+    ion-icon{
+    vertical-align: middle;
+    line-height: 8px;
+    margin-left: 1px;
+    }
+    
+    h3{
     white-space: initial !important;
-        display: block;
+     display: block;
     display: -webkit-box;
     width: 100%;
     height: 65px;
@@ -35,19 +75,17 @@
     line-height: 20px !important;
     text-overflow: ellipsis;
     color: $grey2;
-}
+    margin: 0px !important;}
+        
+    p{
+        color: $grey2 !important;
+        float: right;
+        white-space: initial !important;
+        text-align: right;
+    }}
 
-.alignment{
-    margin-top: 7px;
+.ticketImg{
+    margin-top: 10px;
+    margin-bottom: 7px;
+    height: 94px;
 }
-
-.icon-ticket{
-    vertical-align: middle;
-    line-height: 8px;
-    margin-left: 1px;
-}
-
-.ticket-subject{
-    padding-bottom: 3px;
-}
-
