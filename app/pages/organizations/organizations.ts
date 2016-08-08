@@ -85,7 +85,7 @@ export class OrganizationsPage {
     onSelectInst(instance) {
         let loading = Loading.create({
             content: "Loading configuration...",
-                //duration: 2000,
+                duration: 3000,
                 dismissOnPageChange: true
             });
         this.nav.present(loading);
