@@ -59,13 +59,15 @@ export class TimelogPage {
     ngOnInit()
     {
         this.time = this.navParams.data || {};
-        //fix timezone
-        this.start_time = this.AddHours(this.time.start_time, this.time.time_offset);
-        this.stop_time = this.AddHours(this.time.stop_time, this.time.time_offset);
 
         let name = (this.time.user_name + " " + this.time.user_email).trim().split(' ')[0];
         if (this.time.time_id)
+        {
         this.title = `Timelog #${this.time.time_id} by\u00a0${name} on\u00a0` + this.setDate(this.time.date, false, true);
+                //fix timezone
+        this.start_time = this.AddHours(this.time.start_time, this.time.time_offset);
+        this.stop_time = this.AddHours(this.time.stop_time, this.time.time_offset);
+        }
         else if (this.time.number)
             this.title = `Add Time to #${this.time.number} ${this.time.subject}`;
         else
@@ -188,6 +190,7 @@ export class TimelogPage {
             var note = htmlEscape(this.timenote.trim()).substr(0, 5000);
 
             var isEdit = !!this.time.time_id;
+            var time_offset = isEdit ? (this.time.time_offset * -1) : (new Date().getTimezoneOffset() / 60);
             //TODO if other user changes what id should I write?  
             let data = {
                 "tech_id": isEdit ? this.time.user_id : this.he.user_id,
@@ -200,8 +203,8 @@ export class TimelogPage {
                 "hours": hours,
                 "is_billable": this.isbillable,
                 "date": this.time.start_time || "", 
-                "start_date": this.AddHours(this.start_time, this.time.time_offset * -1) || "",
-                "stop_date": this.AddHours(this.stop_time, this.time.time_offset * -1) || ""
+                "start_date": this.AddHours(this.start_time, time_offset)  || "",
+                "stop_date": this.AddHours(this.stop_time, time_offset)  || ""
             };
 
             this.timeProvider.addTime(this.time.time_id, data, isEdit ? "PUT" : "POST").subscribe(
@@ -224,15 +227,15 @@ export class TimelogPage {
     }
 
     setMinTime(date) {
-        return (date || this.time.date || new Date().toJSON()).substring(0,4);
+        return (date || this.time.date || this.AddHours(new Date(), -1 * new Date().getTimezoneOffset() / 60)).substring(0,4);
     }
 
     setMaxTime(date) {
-        return (date || this.time.date || new Date().toJSON()).substring(0,4);
+        return (date || this.time.date || this.AddHours(new Date(), -1 * new Date().getTimezoneOffset() / 60)).substring(0,4);
     }
 
     getStartDate(time) {
-        return (time || this.time.date || new Date().toJSON()).substring(0,19);
+        return (time || this.time.date || this.AddHours(new Date(), -1 * new Date().getTimezoneOffset() / 60)).substring(0,19);
     }
 
     setStartDate(time){
@@ -247,7 +250,6 @@ export class TimelogPage {
 
 
     getFixed(value) {
-        console.log(value);
         return Number(value || "0").toFixed(2).toString();
     }
     
