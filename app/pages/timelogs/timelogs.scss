@@ -1,5 +1,5 @@
-.p {color: $text !important}
-.h2 {color: $text !important}
+.p {color: $text !important;}
+.h2 {color: $text !important;}
 
 .timelog-item{
     padding-bottom: 5px;
@@ -7,6 +7,7 @@
 
 a{
     margin-top: 0px;
+    color: $text;
 }
 
 ion-avatar{
@@ -43,6 +44,11 @@ ion-avatar li img{
 
 ion-icon{
     padding-left: 7px;
+    color: $text;
+}
+
+    h2{
+    color: $text !important;
 }}
 
 .timelog-span{
