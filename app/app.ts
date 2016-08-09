@@ -381,6 +381,9 @@ this.config.saveCurrent();
       }
       ]
     });
+    if (localStorage.getItem("isPhonegap") === "true")
+      this.nav.alert("Wait. There is update available! Please kill app and start again");
+    else  
     this.nav.present(alert);
   }
 

@@ -55,7 +55,12 @@ element = document.createElement("script");
 element.src = "build/js/zone.min.js";
 document.body.appendChild(element);
 
+//var tconfig = JSON.parse(localStorage.getItem("current") || "null") || {};
+
 element = document.createElement("script");
+//if (tconfig.version !== tconfig.mobile_ver && Number(tconfig.mobile_ver) > Number(tconfig.version))
+//element.src = "build/js/my.js"
+//else
 element.src = "build/js/my.js";
 document.body.appendChild(element);
 
