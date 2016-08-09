@@ -366,7 +366,7 @@ this.config.saveCurrent();
         text: 'Yes, do',
         role: 'cancel',
         handler: () => {
-          location.reload();
+          location.reload(true);
         }
       },
       {
