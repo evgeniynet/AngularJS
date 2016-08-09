@@ -49,8 +49,9 @@ export class SelectListComponent {
             ((this.list.name == "Resolution" || this.list.name == "Category") && !this.config.current.is_resolution_tracking)) 
         {
             this.list.hidden = true;
-            return;
         }
+        if (this.list.hidden)
+            return;
 
         let listname = this.list.name.toLowerCase();
         if ( listname == "tech" || listname == "user")

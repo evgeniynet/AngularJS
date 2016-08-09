@@ -45,97 +45,97 @@ export class TimelogPage {
       //this.starttime.displayFormat = this.displayFormat;
 //console.log(this.starttime.displayFormat);
 
-    }
+}
 
-    AddHours(date, hours)
-    {
-        if (date){
-            let temp = new Date(date);
-            return new Date(temp.setTime(temp.getTime() + (hours*60*60*1000))).toJSON();
-        }
-        return date;
+AddHours(date, hours)
+{
+    if (date){
+        let temp = new Date(date);
+        return new Date(temp.setTime(temp.getTime() + (hours*60*60*1000))).toJSON();
     }
-    
-    ngOnInit()
-    {
-        this.time = this.navParams.data || {};
+    return date;
+}
 
-        let name = (this.time.user_name + " " + this.time.user_email).trim().split(' ')[0];
-        if (this.time.time_id)
-        {
+ngOnInit()
+{
+    this.time = this.navParams.data || {};
+
+    let name = (this.time.user_name + " " + this.time.user_email).trim().split(' ')[0];
+    if (this.time.time_id)
+    {
         this.title = `Timelog #${this.time.time_id} by\u00a0${name} on\u00a0` + this.setDate(this.time.date, false, true);
                 //fix timezone
-        this.start_time = this.AddHours(this.time.start_time, this.time.time_offset);
-        this.stop_time = this.AddHours(this.time.stop_time, this.time.time_offset);
-        }
-        else if (this.time.number)
-            this.title = `Add Time to #${this.time.number} ${this.time.subject}`;
-        else
-            this.title = "Add Time";
-        
-        this.mintime = this.config.getCurrent("time_minimum_time") || 0.25;
-        this.mintime = this.mintime > 0 ? this.mintime : 0.25;
-
-        this.isbillable = typeof this.time.billable === 'undefined' ? true : this.time.billable;
-
-        this.inc = this.config.getCurrent("time_hour_increment") > 0 ? this.config.getCurrent("time_hour_increment") : 0.25;
-
-        this.displayFormat = getPickerDateTimeFormat(false, true);
-
-        if (this.inc >= 1)
-                this.minuteValues = [0];   
-        else if (this.inc != 0.25)
-        { 
-            this.minuteValues = [];
-            let min = 0;
-            do { this.minuteValues.push(min); min += 60*this.inc;}
-            while (min < 60);
-            this.minuteValues.push(0);
-        }
-
-        this.timecount = (this.time.hours || this.mintime).toFixed(2);
-
-        this.timenote = this.time.note || "";
-        this.he = this.config.getCurrent("user");
-
-        let account_id = (this.time.account || {}).id || this.time.account_id || this.he.account_id || -1;
-        let project_id = (this.time.project || {}).id || this.time.project_id || 0;
-
-        this.selects = {
-            "account" : {
-                name: "Account", 
-                value: (this.time.account || {}).name || this.he.account_name,
-                selected: account_id,
-                url: "accounts?is_with_statistics=false",
-                hidden: false
-            },
-            "project" : {
-                name: "Project", 
-                value: this.time.project_name || "Default",
-                selected: project_id,
-                url: `projects?account=${account_id}&is_with_statistics=false`,
-                hidden: false
-            },
-            "ticket" : {
-                name: "Ticket", 
-                value: this.time.ticket_number ? `#${this.time.ticket_number}: ${this.time.ticket_subject}` : "Choose",
-                selected: this.time.ticket_number || 0,
-                url: `tickets?status=open&account=${account_id}&project=${project_id}`,
-                hidden: this.time.is_project_log || this.time.task_type_id || false
-            },
-            "tasktype" : {
-                name: "Task Type", 
-                value: this.time.task_type || "Choose",
-                selected: this.time.task_type_id || 0,
-                url: `task_types?account=${account_id}&project=${project_id}`,
-                hidden: false
+                this.start_time = this.AddHours(this.time.start_time, this.time.time_offset);
+                this.stop_time = this.AddHours(this.time.stop_time, this.time.time_offset);
             }
-        };
-    }
+            else if (this.time.number)
+                this.title = `Add Time to #${this.time.number} ${this.time.subject}`;
+            else
+                this.title = "Add Time";
 
-    saveSelect(event){
-        let name = event.type;
-        let account_id = this.selects.account.selected;
+            this.mintime = this.config.getCurrent("time_minimum_time") || 0.25;
+            this.mintime = this.mintime > 0 ? this.mintime : 0.25;
+
+            this.isbillable = typeof this.time.billable === 'undefined' ? true : this.time.billable;
+
+            this.inc = this.config.getCurrent("time_hour_increment") > 0 ? this.config.getCurrent("time_hour_increment") : 0.25;
+
+            this.displayFormat = getPickerDateTimeFormat(false, true);
+
+            if (this.inc >= 1)
+                this.minuteValues = [0];   
+            else if (this.inc != 0.25)
+            { 
+                this.minuteValues = [];
+                let min = 0;
+                do { this.minuteValues.push(min); min += 60*this.inc;}
+                while (min < 60);
+                this.minuteValues.push(0);
+            }
+
+            this.timecount = (this.time.hours || this.mintime).toFixed(2);
+
+            this.timenote = this.time.note || "";
+            this.he = this.config.getCurrent("user");
+
+            let account_id = (this.time.account || {}).id || this.time.account_id || this.he.account_id || -1;
+            let project_id = (this.time.project || {}).id || this.time.project_id || 0;
+
+            this.selects = {
+                "account" : {
+                    name: "Account", 
+                    value: (this.time.account || {}).name || this.he.account_name,
+                    selected: account_id,
+                    url: "accounts?is_with_statistics=false",
+                    hidden: false
+                },
+                "project" : {
+                    name: "Project", 
+                    value: this.time.project_name || "Default",
+                    selected: project_id,
+                    url: `projects?account=${account_id}&is_with_statistics=false`,
+                    hidden: false
+                },
+                "ticket" : {
+                    name: "Ticket", 
+                    value: this.time.ticket_number ? `#${this.time.ticket_number}: ${this.time.ticket_subject}` : "Choose",
+                    selected: this.time.ticket_number || 0,
+                    url: `tickets?status=open&account=${account_id}&project=${project_id}`,
+                    hidden: this.time.is_project_log || this.time.task_type_id || false
+                },
+                "tasktype" : {
+                    name: "Task Type", 
+                    value: this.time.task_type || "Choose",
+                    selected: this.time.task_type_id || 0,
+                    url: `task_types?account=${account_id}&project=${project_id}`,
+                    hidden: false
+                }
+            };
+        }
+
+        saveSelect(event){
+            let name = event.type;
+            let account_id = this.selects.account.selected;
         //change url on related lists
         switch (name) {
             case "account":
@@ -155,10 +155,10 @@ export class TimelogPage {
             }
             // dont change ticket on edit
             if (!this.time.task_type_id){
-            this.selects.ticket.hidden = false;
-            this.selects.ticket.url = `tickets?status=open&account=${account_id}&project=${event.id}`,
-            this.selects.ticket.value = "Default";
-            this.selects.ticket.selected = 0;
+                this.selects.ticket.hidden = false;
+                this.selects.ticket.url = `tickets?status=open&account=${account_id}&project=${event.id}`,
+                this.selects.ticket.value = "Default";
+                this.selects.ticket.selected = 0;
             }
             this.selects.tasktype.url = `task_types?account=${account_id}&project=${event.id}`,
             this.selects.tasktype.value = "Default";
@@ -202,23 +202,52 @@ export class TimelogPage {
                 "task_type_id": this.selects.tasktype.selected,
                 "hours": hours,
                 "is_billable": this.isbillable,
-                "date": this.time.start_time || "", 
+                "date": this.AddHours(this.start_time, time_offset) || "", 
                 "start_date": this.AddHours(this.start_time, time_offset)  || "",
                 "stop_date": this.AddHours(this.stop_time, time_offset)  || ""
             };
 
             this.timeProvider.addTime(this.time.time_id, data, isEdit ? "PUT" : "POST").subscribe(
                 res => {
-                    this.time.start_time = data.start_date;
-                    this.time.stop_time = data.stop_date;
-
-                    this.nav.alert('Time was successfully added :)');
-                    this.close();
-                },
-                error => {
-                    console.log(error || 'Server error');
-                }
-                );
+                    if (isEdit){
+                        this.time.start_time = data.start_date;
+                        this.time.stop_time = data.stop_date;
+                        this.time.hours = data.hours;
+                        this.time.is_billable = data.is_billable;
+                    }
+                    else
+                    {
+                        var tdate = data.date || this.AddHours(new Date(), -1 * new Date().getTimezoneOffset() / 60);
+                        var tt = {
+                            time_id:0,
+                            account_id:data.account_id,
+                            account_name:this.selects.account.value,
+                            billable:data.is_billable,
+                            date:tdate,
+                            hours:data.hours,
+                            is_project_log:data.is_project_log,
+                            note:data.note_text,
+                            project_id:data.project_id,
+                            project_name:this.selects.project.value,
+                            start_time:data.start_date,
+                            stop_time:data.stop_date,
+                            time_offset:time_offset,
+                            task_type:data.task_type_id,
+                            task_type_id:this.selects.tasktype.value,
+                            ticket_number:data.ticket_key,
+                            ticket_subject:this.selects.ticket.value,
+                            user_email:this.he.email,
+                            user_id:this.he.user_id,
+                            user_name :this.he.firstname + " " + this.he.lastname};
+                            (this.timeProvider._dataStore[this.time.cachename] || []).splice(0, 0, tt);
+                        }
+                        this.nav.alert('Time was successfully ' + (isEdit ? 'updated' : 'added') + ' :)');
+                        this.close();
+                    },
+                    error => {
+                        console.log(error || 'Server error');
+                    }
+                    );
         }
     }
 
@@ -240,12 +269,12 @@ export class TimelogPage {
 
     setStartDate(time){
         if (time)
-           this.start_time = time.substring(0,19);
+            this.start_time = time.substring(0,19);
     }
 
     setStopDate(time){
         if (time)
-           this.stop_time = time.substring(0,19);
+            this.stop_time = time.substring(0,19);
     }
 
 

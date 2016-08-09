@@ -7,7 +7,7 @@ import {getDateTime} from '../../directives/helpers';
 import {GravatarPipe, MorePipe, LinebreaksPipe} from '../../pipes/pipes';
 
 @Page({
-  templateUrl: 'build/pages/timelogs/timelogs.html',
+    templateUrl: 'build/pages/timelogs/timelogs.html',
     directives: [ActionButtonComponent],
     pipes: [GravatarPipe, MorePipe, LinebreaksPipe],
 })
@@ -22,11 +22,12 @@ export class TimelogsPage {
     cachename: string;
     timelogs: any;
     busy: boolean;
+    initial_load: boolean = true;
 
 
     constructor(private nav: Nav, private timeProvider: TimeProvider, private config: Config, private navParams: NavParams, private view: ViewController) {
         this.pager = { page: 0, limit: this.LIMIT };
-  }
+    }
     
     onPageLoaded()
     {
@@ -41,28 +42,36 @@ export class TimelogsPage {
             this.params.count = 0;
 
         if (this.params.count !== 0) {
-            this.timeProvider.getTimelogs(this.params.account.id, this.pager);
-            this.timelogs = this.timeProvider.times$[this.cachename];
-            if (!this.cachelen)
-            {
-                var timer = setTimeout(() => {
-                    this.busy = true;
-                }, 500);
-                this.timelogs.subscribe(
-                    data => {
-                        clearTimeout(timer);
-                        this.busy = false;
-                        this.is_empty = !data.length;
-                    });
-            }
+            this.getTimeLogs();
         }
         else
             this.is_empty = true;
     }
 
+    getTimeLogs()
+    {
+        this.timeProvider.getTimelogs(this.params.account.id, this.pager);
+        this.timelogs = this.timeProvider.times$[this.cachename];
+        if (!this.cachelen)
+        {
+            var timer = setTimeout(() => {
+                this.busy = true;
+            }, 500);
+            this.timelogs.subscribe(
+                data => {
+                    clearTimeout(timer);
+                    this.busy = false;
+                    this.is_empty = !data.length;
+                });
+        }
+    }
+
     onPageWillEnter() {
         if (this.params.account_name)
             this.view.setBackButtonText('');
+        if (!this.initial_load)
+            this.getTimeLogs();
+        this.initial_load = false;
     }
 
     doInfinite(infiniteScroll) {
@@ -86,6 +95,7 @@ export class TimelogsPage {
     itemTapped(time) {
         time = time || {};
         time.account = time.account || this.params.account;
+        time.cachename = this.cachename;
         this.nav.push(TimelogPage, time);
     }
     
