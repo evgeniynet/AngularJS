@@ -236,7 +236,7 @@ if (key) {
           data => {
             this.onLine(true);
             clearInterval(this.interval);
-            this.interval = setInterval(() => this.redirect(), 2 * 60 * 1000);
+            this.interval = setInterval(() => this.redirect(), 5 * 60 * 1000);
             this.redirect_logic(isRedirect, data);
           },
           error => {
