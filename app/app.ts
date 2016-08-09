@@ -356,6 +356,7 @@ this.config.saveCurrent();
 
   presentConfirm(version, isRedirect) {
     this.config.current.version = version;
+    this.config.saveCurrent();
     let alert = Alert.create({
       title: "Wait. There is update available!",
       subTitle: "Page'll just be reloaded in 2 seconds",
