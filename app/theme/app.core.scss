@@ -21,7 +21,10 @@
 @import "../components/posts-list/posts-list";
 @import "../components/tickets-list/tickets-list";
 @import "../components/queues-list/queues-list";
+@import "../components/class-list/class-list";
 @import "../pages/signup/signup";
+@import "../pages/modals/add-user/add-user";
+@import "../pages/modals/basic-select/basic-select";
 
 //item
 
@@ -354,6 +357,10 @@ scroll-content {
 
 .dashboardRight{
     margin-right: 0px;
+}
+
+.marginleft{
+    margin-left: 0px;
 }
 
 .container {
@@ -882,7 +889,7 @@ ion-spinner {
 
  .infinite-loading-text
  {
-    color: $text-color;
+    color: $text;
  }
 
 div.imgloading

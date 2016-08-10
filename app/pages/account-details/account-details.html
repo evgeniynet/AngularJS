@@ -144,7 +144,7 @@
      <div [hidden]="account.files?.length" class="table grey2 menu-text">No Files yet</div>
      <ion-item *ngFor="let file of account.files">
       <div class="left width59 tkts-table" [innerHTML]="getFileLink(file)"></div>
-      <h3 class="right width38 text-left space-initial">{{file.name}}</h3>
+      <h3 class="color right width38 text-left space-initial">{{file.name}}</h3>
     </ion-item>
 
   </ion-list>
