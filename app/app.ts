@@ -293,7 +293,7 @@ data.names = {
   "location": {s: "Location1", p: "Locations1", a:"Loc1", ap: "Locs1"},
   "user": {s: "End User1", p: "End Users1", a:"User1", ap: "Users1"}
 };
-*/ 
+*/
 this.config.setCurrent(data);
 this.config.saveCurrent();
     // set our app's pages
@@ -358,20 +358,19 @@ this.config.saveCurrent();
     this.config.current.version = version;
     this.config.saveCurrent();
     let alert = Alert.create({
-      title: "Wait. There is update available!",
-      subTitle: "Page'll just be reloaded in 2 seconds",
-      message: 'Would you like to do it now?',
+      title: "There is a new update available!",
+      message: 'Page will reload in 2 seconds',
       cssClass: "hello",
       buttons: [
       {
-        text: 'Yes, do',
+        text: "Yes, do it now",
         role: 'cancel',
         handler: () => {
           location.reload(true);
         }
       },
       {
-        text: 'No, later',
+        text: "No, I'll do it later",
         handler: () => {
           alert.dismiss().then(() => {
             this.force_redirect(isRedirect);
@@ -382,7 +381,7 @@ this.config.saveCurrent();
       ]
     });
     if (localStorage.getItem("isPhonegap") === "true")
-      this.nav.alert("Wait. There is update available! Please kill app and start again");
+      this.nav.alert("There is a new update available! Please kill app and start again to update");
     else  
     this.nav.present(alert);
   }
