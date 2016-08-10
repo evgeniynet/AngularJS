@@ -877,13 +877,13 @@ div.tooltips span:after {
 
 ion-spinner {
     * {
-      stroke: $text-color;
+      stroke: $text;
     }
 
     &.spinner-circles circle,
     &.spinner-bubbles circle,
     &.spinner-dots circle {
-      fill: $text-color;
+      fill: $text;
     }
   }
 
