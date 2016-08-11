@@ -132,10 +132,11 @@ export class TicketCreatePage {
 
             this.ticketProvider.addTicket(this.ticket).subscribe(
                 data => {
-                    this.nav.alert('Ticket was Succesfully Created :)');
+                    this.nav.alert(+ this.config.current.names.ticket.s + ' was Succesfully Created :)');
                     this.dismissPage(data);
                 }, 
                 error => { 
+                    this.nav.alert(this.he.is_techoradmin ? ("Please select " + this.config.current.names.tech.s) : error, true);
                     console.log(error || 'Server error');}
             );
         }
