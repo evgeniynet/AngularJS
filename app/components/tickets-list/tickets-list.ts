@@ -101,6 +101,7 @@ export class TicketsListComponent {
              //only if no pageloaded
              //if (~['all','alt','user','tech'].indexOf(this.mode[0]))
              //    this.nav.tickets_tab = this.mode[0];
+             ticket.cachename = this.cachename;
              if (ticket.technician_email == this.he.email)
                  ticket.is_new_tech_post = false; 
              if (ticket.technician_email == this.he.email)
@@ -162,6 +163,9 @@ export class TicketsListComponent {
              if (!data)
                  return;
              this.count -= data;
+             this.ticketProvider._dataStore[this.cachename].splice(this.ticketProvider._dataStore[this.cachename].indexOf(ticket),1);
+             //myArray.findIndex(el => el.color === 'blue');
+             //myArray.map((el) => el.color).indexOf('blue');
              if (this.count < 1)
                  this.is_empty = true;
              else {

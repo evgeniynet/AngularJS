@@ -17,7 +17,7 @@ import {GravatarPipe, LinebreaksPipe, DaysoldPipe, HtmlsafePipe} from '../../pip
     pipes: [GravatarPipe, LinebreaksPipe, DaysoldPipe, HtmlsafePipe],
 })
 export class TicketDetailsPage {
-    
+
     counts: any;
     ticket: any = {};
     details_tab: string;
@@ -28,6 +28,8 @@ export class TicketDetailsPage {
     ticketnote: string;
     attachments: any;
     is_editnote: boolean = false;
+    cachename: string = "";
+    closed_index: number = 0;
     posts: any = [
     {
         "id": 0,
@@ -55,6 +57,9 @@ export class TicketDetailsPage {
         this.he = this.config.getCurrent("user");
         this.details_tab = "Reply";
         let data = this.navParams.data || {};
+        this.cachename = data.cachename;
+        console.log(this.cachename);
+        this.posts[0].record_date = data.updated_time || this.posts[0].record_date;
         let account_id = -1;
         this.techname = getFullName(data.technician_firstname || data.tech_firstname, data.technician_lastname || data.tech_lastname, data.technician_email || data.tech_email);
         this.selects = {
@@ -155,7 +160,7 @@ export class TicketDetailsPage {
                 let t=[];
                 for (var n = xml.documentElement.firstChild; n; n = n.nextSibling)
                 { 
-                   t.push({ "id": n.attributes[0].nodeValue, "name": n.firstChild.innerHTML, "value": n.firstChild.nextSibling.innerHTML || ""}); 
+                    t.push({ "id": n.attributes[0].nodeValue, "name": n.firstChild.innerHTML, "value": n.firstChild.nextSibling.innerHTML || ""}); 
                 }
                 this.ticket.customfields = t;
             }
@@ -206,7 +211,7 @@ export class TicketDetailsPage {
                 );
         }
         else
-        this.saveNoteSuccess(note);
+            this.saveNoteSuccess(note);
     }
 
     saveNoteSuccess(note){
@@ -232,13 +237,14 @@ export class TicketDetailsPage {
 
             this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(
                 data => {
+                    this.update_tlist_logic(true);
                     this.nav.alert('Ticket has been closed :)');
                     this.ticket.status = "Closed";
                 },
                 error => {
                     console.log(error || 'Server error');
                 }
-            );
+                );
         }
     }
 
@@ -316,6 +322,7 @@ export class TicketDetailsPage {
 
         this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(
             data => {
+                this.update_tlist_logic(false);
                 this.nav.alert('Ticket has been Reopened!');
                 this.ticket.status = "Open";
             },
@@ -323,6 +330,31 @@ export class TicketDetailsPage {
                 console.log(error || 'Server error');
             }
             );
+    }
+
+    update_tlist_logic(is_close)
+    {
+        if (this.cachename){
+            if(~this.cachename.indexOf("closed")){
+                is_close = !is_close;
+                this.closed_index = 0;
+            }
+            if (is_close) {
+                this.closed_index = this.ticketProvider._dataStore[this.cachename].findIndex(tkt => tkt.key === this.ticket.key);
+                this.ticketProvider._dataStore[this.cachename].splice(this.closed_index,1);
+                if(~this.cachename.indexOf("closed"))
+                {
+                   this.ticketProvider._dataStore[this.cachename.replace("closed", "open")].splice(0, 0, this.ticket);
+                }
+            }
+            else
+                {
+                  this.ticketProvider._dataStore[this.cachename].splice(this.closed_index, 0, this.ticket);
+                  if(~this.cachename.indexOf("closed")){
+                    this.ticketProvider._dataStore[this.cachename.replace("open","closed")].splice(this.ticketProvider._dataStore[this.cachename.replace("open","closed")].findIndex(tkt => tkt.key === this.ticket.key),1);
+                }
+            }
+        }
     }
 
 
@@ -333,8 +365,10 @@ export class TicketDetailsPage {
         }
         let myModal = Modal.create(CloseTicketModal, { "number": this.ticket.number, "key": this.ticket.key, "subject": this.ticket.subject });
         myModal.onDismiss(data => {
-            if (data)
+            if (data){
                 this.ticket.status = "Closed";
+                this.update_tlist_logic(true);
+            }
         });
         this.nav.present(myModal);
     }  
