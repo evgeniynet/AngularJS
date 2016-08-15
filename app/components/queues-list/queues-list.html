@@ -1,7 +1,7 @@
-<ion-list class="tableText queues-list" no-lines>
-    <a detail-none href=# *ngFor="let queue of queues" class="table" (click)="goToQueueTicketsPage(queue)">
-        <span class="box5 box7 textLogin">{{queue.fullname}}</span>
-        <span class="box6 box7" [innerHTML]="queue.tickets_count | More:[10000]"></span>
+<ion-list class="queues-list" no-lines>
+    <a detail-none href=# *ngFor="let queue of queues" class="queues" (click)="goToQueueTicketsPage(queue)">
+        <span>{{queue.fullname}}</span>
+        <span [innerHTML]="queue.tickets_count | More:[10000]"></span>
     </a>
 </ion-list>
 <div *ngIf="is_empty" class="table grey2 menu-text">No Queues</div>
