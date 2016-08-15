@@ -17,16 +17,19 @@
 @import "../pages/timelog/timelog";
 @import "../pages/ticket-details/ticket-details";
 @import "../pages/modals/ticket-create/ticket-create";
-@import "../pages/modals/ajax-search/ajax-search";
+@import "../pages/ajax-search/ajax-search";
 @import "../components/tree-view/tree-view";
 @import "../components/posts-list/posts-list";
 @import "../components/tickets-list/tickets-list";
 @import "../components/queues-list/queues-list";
 @import "../components/class-list/class-list";
+@import "../components/select-list/select-list";
+@import "../components/accounts-list/accounts-list";
 @import "../pages/signup/signup";
 @import "../pages/modals/add-user/add-user";
 @import "../pages/modals/basic-select/basic-select";
 @import "../pages/modals/ajax-select/ajax-select";
+@import "../ionic/app/app";
 
 //item
 
@@ -59,11 +62,6 @@
 
 .decoration_none {
 text-decoration: none !important;
-}
-
-.item-nocenter {
-    text-align: justify !important;
-    margin-top: 0px !important;  
 }
 
 /* need to remove from ionic
@@ -100,10 +98,6 @@ a.only-click ion-button-effect{
 
 button.action-sheet-button ion-button-effect{
     background-color: #000;
-}
-
-.bar-button-menutoggle {
-    display: flex !important;
 }
 
 .alert-button{
@@ -144,12 +138,6 @@ color: $black1;
 }
 
 
-/*.segment-ticket{
-    background-color: $segment !important;
-}*/
-
-
-
 // text/
 .text-left {
     text-align: left !important;
@@ -168,20 +156,12 @@ p {
     padding-left: 15px;
 }
 
-.padding-left12 {
-    padding-left: 12spx;
-}
-
 .tkts-table{
     text-align: left;
 }
 
 .text-bold{
     font-weight: bold;
-}
-
-.tablText {
-    color: $label-ios-text-color;
 }
 
 .text-decor{
@@ -234,15 +214,6 @@ max-width: 700px;}
     margin: 0px !important;
 }
 
-.margin2 {
-    margin: 2px;
-}
-
-
-.margin-right15 {
-    margin-right: 15px !important;
-}
-
 .padding {
     padding: 0px !important;
 }
@@ -257,14 +228,6 @@ max-width: 700px;}
 
 .padding-left8{
     padding-left: 8px !important;
-}
-
-.padding-top20{
-    padding-top: 20px;
-}
-
-.padding-top40{
-    padding-top: 40px;
 }
 
 .names{
@@ -396,22 +359,6 @@ scroll-content {
     margin-top: 21px;
 }
 
-.margin-top38{
-    margin-top: 38px;
-}
-
-.margin-bottom31{
-    margin-bottom: 31px;
-}
-
-.min-width100{
-    min-width: 100px;
-}
-
-.min-width150{
-    min-width: 150px;
-}
-
 .select-icon .select-icon-inner {
     color: $text-color;
 }
@@ -432,14 +379,6 @@ scroll-content {
 
 .padding-left87{
     padding-left: 87px !important;
-}
-
-.padding-top10{
-    padding-top: 10px;
-}
-
-.padding-bottom20{
-    padding-bottom: 20px;
 }
 
 .menu-content-reveal {
@@ -560,11 +499,6 @@ scroll-content {
     text-overflow: ellipsis;
 }
 
-.tableText{
-     line-height: 2.4;
-    font-size: 1.9rem;
-}
-
 .space{
         white-space: nowrap !important;
        overflow: visible !important;
@@ -639,9 +573,6 @@ ion-list > .item:first-child, ion-list > ion-item-sliding:first-child .item {
     text-align: center;
 }
 
-.menu-bg{
- background-color: $sherpa_bg; 
-}
 
 .menu-text{
      line-height: 2.0 !important;
@@ -708,20 +639,8 @@ ion-datetime{
     width: 70%;
 }
 
-.width70px{
-    width: 70px;
-}
-
 .width65{
     width: 65%;
-}
-
-.width64{
-    width: 64%;
-}
-
-.width62{
-    width: 62%;
 }
 
 .width59{
@@ -730,10 +649,6 @@ ion-datetime{
 
 .width55{
     width: 55%;
-}
-
-.width51{
-    width: 51%;
 }
 
 .width50{
@@ -760,28 +675,12 @@ ion-datetime{
     width: 33%;
 }
 
-.width32{
-    width: 32%;
-}
-
 .width30{
     width: 30%;
 }
 
-.width29{
-    width: 29%;
-}
-
-.width28{
-    width: 28%;
-}
-
 .width25{
     width: 25%;
-}
-
-.width24{
-    width: 24%;
 }
 
 .width23{
@@ -792,20 +691,12 @@ ion-datetime{
     width: 21%;
 }
 
-.width20{
-    width: 20%;
-}
-
 .width19{
     width: 19%;
 }
 
 .width17{
     width: 17%;
-}
-
-.width12{
-    width: 12%;
 }
 
 .width10{
@@ -1008,8 +899,6 @@ ion-searchbar {
 .bar-button {
     z-index: 9;
 }
-
-
 
 .alert-title {
     font-size: 21px;
