@@ -1,4 +1,21 @@
-.table span.box1{
+.accountlist{
+    line-height: 2.4;
+    font-size: 1.9rem;
+    margin: 0px !important;
+    
+    span{
+    float: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}}
+
+
+.dashboard_list{
+ text-align: center;
+}
+
+.dashboard_list > span:first-child{
     background-color: $grey;
     width: 35%;
     float: left;
@@ -6,21 +23,39 @@
     text-align: left;
 }
 
-.table span.box2{
+.dashboard_list > span:nth-child(2){
     background-color: $grey;
     width: 23%;
     float: left;
 }
 
-.table span.box3{
+.dashboard_list > span:nth-child(3){
     background-color: $grey;
-    width: 23%;
+    width: 24%;
     float: left;
     margin-bottom: 10px;
 }
 
-.table span.box4{
+.dashboard_list > span:nth-child(4){
     background-color: $blue2;
     width: 18%;
     float: right;
 }
+
+.account_list{
+    text-align: center;
+}
+
+.account_list > span:first-child{
+    background-color: $grey;
+    width: 75%;
+    float: left;
+    margin-bottom: 10px;
+    text-align: left;
+    padding-left: 15px;}
+
+.account_list > span:nth-child(4){
+    background-color: $blue2;
+    width: 25%;
+    float: right;
+    margin-bottom: 10px;}

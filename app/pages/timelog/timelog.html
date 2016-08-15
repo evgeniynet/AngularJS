@@ -57,7 +57,7 @@
                        <!--span [hidden]="note.valid || note.untouched">Note is required and less 5000 chars</span></div-->
           
         <div class="img-top">
-            <button secondary block type="submit" class="disable-hover button button-default button-block margin2"
+            <button secondary block type="submit" class="disable-hover button button-default button-block"
             [disabled]="!addForm.valid" (click)="onSubmit(addForm)">{{time.time_id ? 'Update' : 'Add'}} Time</button>
     </div>
     </form>

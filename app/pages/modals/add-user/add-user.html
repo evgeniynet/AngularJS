@@ -8,18 +8,18 @@
     <ion-title>Add {{data != "tech" ? config.current.names.user.a : config.current.names.tech.a}}</ion-title>
 </ion-toolbar>
 
-<ion-content class="add-user">
-  <div class="list max-width700 general-alignment">
+<ion-content>
+  <div class="add-user">
   
   <form #addForm="ngForm" novalidate>
       <div class="tooltips">
-          <input class="width100 blue3 subject-create commentText" type="email" [ngModel]="email_m" placeholder="Email" ngControl="email" #username="ngForm" required pattern="^[^@\s]+@[^@\s]+(\.[^@\s]+)+$"/>        
+          <input type="email" [ngModel]="email_m" placeholder="Email" ngControl="email" #username="ngForm" required pattern="^[^@\s]+@[^@\s]+(\.[^@\s]+)+$"/>        
           <span *ngIf="username.dirty && !username.valid">Valid Email is required</span></div>
           <div class="tooltips">
-          <input class="width100 blue3 subject-create commentText" type="text" [ngModel]="firstname_m" placeholder="Firstname" ngControl="firstname" #firstname="ngForm" required/>        
+          <input type="text" [ngModel]="firstname_m" placeholder="Firstname" ngControl="firstname" #firstname="ngForm" required/>        
           <span *ngIf="firstname.dirty && !firstname.valid">Firstname cannot be empty</span></div>
           <div class="tooltips">
-          <input class="width100 blue3 subject-create commentText" type="text" [ngModel]="lastname_m" placeholder="Lastname" ngControl="lastname" #lastname="ngForm" required/>        
+          <input type="text" [ngModel]="lastname_m" placeholder="Lastname" ngControl="lastname" #lastname="ngForm" required/>        
           <span *ngIf="lastname.dirty && !lastname.valid">Lastname cannot be empty</span></div>
           <!--ion-item no-lines class="left toggle-width">
       <ion-toggle class="toggle" [(ngModel)]="ispassword"></ion-toggle>

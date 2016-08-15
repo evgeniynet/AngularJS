@@ -1,24 +1,26 @@
-.table span.box5{
+.queues-list{
+    margin-bottom: 40px;
+    line-height: 2.4;
+    font-size: 1.9rem;
+    
+span{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;}}
+
+.queues{
+    text-align: center;}
+
+.queues > span:first-child{
     background-color: $blue1;
     width: 75%;
     float: left;
     margin-bottom: 10px;
-}
+    text-align: left;
+    padding-left: 15px;}
 
-.table span.box6{
+.queues > span:last-child{
     background-color: $blue2;
     width: 25%;
     float: right;
-    margin-bottom: 10px;
-}
-
-.table span.box7{
-    float: left;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.queues-list{
-    margin-bottom: 40px;
-}
+    margin-bottom: 10px;}

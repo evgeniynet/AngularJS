@@ -2,20 +2,17 @@
   <ion-title class="padding-right24">Search {{config.current.names.ticket.p}}</ion-title>
 </ion-navbar>
 
-
-<ion-content class="has-header">
+<ion-content>
   <ion-searchbar [focuser] debounce="400" [(ngModel)]="term" (input)="searchItems($event)" placeholder="Search {{config.current.names.ticket.p}} (min 3 chars)" hideCancelButton="true"></ion-searchbar>
-<img *ngIf="busy" class="imglogo img-padding" src="img/loading2.gif">
-    <ion-list class="list">
-        
-        <a detail-none href=# ion-item class="basic-margin text-left" *ngFor="let item of items" (click)="dismiss(item)">
-            <h2 class="color">#{{item.number}} - {{item.subject}} ({{item.user_firstname}} {{item.user_lastname}})</h2>
+<img *ngIf="busy" src="img/loading2.gif">
+    <ion-list class="ajax">
+        <a detail-none href=# ion-item *ngFor="let item of items" (click)="dismiss(item)">
+            <h2>#{{item.number}} - {{item.subject}} ({{item.user_firstname}} {{item.user_lastname}})</h2>
             <!--ion-note item-right>
                 <h2>{{item.id}}</h2>
             </ion-note-->
         </a>
-
     </ion-list>
-<div *ngIf="is_empty" class="table grey2 menu-text">No {{config.current.names.ticket.ap}} found yet</div>
+<div *ngIf="is_empty">No {{config.current.names.ticket.ap}} found yet</div>
 
 </ion-content>

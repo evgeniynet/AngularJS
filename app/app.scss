@@ -1,0 +1,33 @@
+.menu-bg{
+ background-color: $sherpa_bg; 
+   
+ion-list{
+    margin-left: 15px;}
+    
+ion-list button{
+    text-align: justify !important;
+    margin-top: 0px !important;  
+    background-color: $sherpa_bg;}
+    
+  ion-list button i{
+    font-size: 26px;
+    padding-right: 10px;
+     width: 40px;
+    height: 40px;
+    border: 2px solid $grey;
+    border-radius: 100%;
+    float: left;
+    margin-right: 10px;
+    padding-left: 5px;
+    padding-top: 2px;
+    text-align: center;
+    }
+    
+h3{
+    line-height: 2.0 !important;
+    font-size: 2.2rem !important; 
+    }}
+
+
+
+

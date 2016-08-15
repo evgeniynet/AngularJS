@@ -1,3 +1,25 @@
 .invoices {
-  padding-top: 6px;
-}
+   margin-top: 10px;
+    
+  a{
+    margin-top: 0px !important;
+    color: $text !important;}
+    
+ a > p:first-child{
+    width: 45%;
+    float: left;
+    text-align: left;
+    color: $text !important;
+    padding-top: 6px;}
+    
+    a h2{
+    width: 55%;
+    float: right;
+    text-align: left;
+    color: $text !important;}
+
+    a > p:last-child{
+    width: 30%;
+    text-align: left;
+    color: $text !important;
+    }}
