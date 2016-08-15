@@ -1,0 +1,24 @@
+.button-select{
+ width: 100%;
+ padding: 0;
+ min-width: .9em;
+ margin-bottom: 6px !important;
+ color: #fff;
+    
+    p{
+    font-weight: bold;
+    text-align: left !important;
+    text-align: left;
+    padding-left: 15px;
+    }
+    
+    ion-label{
+    padding-bottom: 5px;
+    padding-top: 5px;
+    }
+    
+    ion-icon{
+    padding-right: 15px !important;
+    font-size: 1.8em;
+    }
+}
