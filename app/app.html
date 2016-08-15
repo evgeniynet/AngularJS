@@ -1,18 +1,14 @@
 <ion-menu id="leftMenu" [content]="content">
-
   <ion-content class="menu-bg">
-      <ion-list no-lines class="subject-ticket">
+      <ion-list no-lines>
           <div *ngFor="let p of pages" (click)="openPage(p)">
-          <button detail-none *ngIf="p.is_active" class="menu-bg item-nocenter" ion-item>
-          <i class="ionFont">
- <ion-icon name="{{p.icon}}"></ion-icon>
-          </i>
-              <h3 class="menu-text">{{p.title}}</h3>
+        <button detail-none *ngIf="p.is_active" ion-item>
+          <i><ion-icon name="{{p.icon}}"></ion-icon></i>
+              <h3>{{p.title}}</h3>
       </button>
       </div>
       </ion-list>
        </ion-content>
-
 </ion-menu>
 <div *ngIf="is_offline" class="offline_status {{config.current.isPhonegap ? 'ios7style' : ''}}">OFFLINE</div>
 
