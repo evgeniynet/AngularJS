@@ -58,7 +58,6 @@ export class TicketDetailsPage {
         this.details_tab = "Reply";
         let data = this.navParams.data || {};
         this.cachename = data.cachename;
-        console.log(this.cachename);
         this.posts[0].record_date = data.updated_time || this.posts[0].record_date;
         let account_id = -1;
         this.techname = getFullName(data.technician_firstname || data.tech_firstname, data.technician_lastname || data.tech_lastname, data.technician_email || data.tech_email);
