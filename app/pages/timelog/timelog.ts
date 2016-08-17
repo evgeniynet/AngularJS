@@ -50,6 +50,8 @@ export class TimelogPage {
 AddHours(date, hours)
 {
     if (date){
+        if (date.length == 19)
+            date = date.slice(0,-3);
         let temp = new Date(date);
         return new Date(temp.setTime(temp.getTime() + (hours*60*60*1000))).toJSON();
     }
@@ -173,7 +175,6 @@ ngOnInit()
         //{ "ticket" : localStorage.getItem('ticketNumber') } 
         //{ "account" : account, "project": project } 
         //edat = JSON.stringify(new Date(dat2));
-
         let hours = Number(this.timecount);
 
         if (hours < this.mintime)
