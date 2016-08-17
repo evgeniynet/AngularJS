@@ -2,27 +2,12 @@ import {NgZone, ViewChild} from '@angular/core';
 import {App, IonicApp, Config, Platform, Nav, NavParams, Events, MenuController, Toast, Alert} from 'ionic-angular';
 import {StatusBar, Network, Connection} from 'ionic-native';
 import {OnInit, OnDestroy} from '@angular/core';
-import {ApiData} from './providers/api-data';
-import {DataProvider} from './providers/data-provider';
-import {TicketProvider} from './providers/ticket-provider';
-import {TimeProvider} from './providers/time-provider';
+import * as providers from './providers/providers';
 import {AppSite, MobileSite, dontClearCache, appVersion} from './providers/config';
 import {MOCKS} from './providers/mocks';
 import * as helpers from './directives/helpers';
-import {QueuesPage} from './pages/queues/queues';
-import {InvoicesPage} from './pages/invoices/invoices';
-import {AccountsPage} from './pages/accounts/accounts';
-import {AccountDetailsPage} from './pages/account-details/account-details';
-import {TimelogsPage} from './pages/timelogs/timelogs';
-import {TimelogPage} from './pages/timelog/timelog';
-import {TicketsPage} from './pages/tickets/tickets';
-import {TicketCreatePage, CloseTicketModal, AddUserModal} from './pages/modals/modals';
-import {DashboardPage} from './pages/dashboard/dashboard';
-import {OrganizationsPage} from './pages/organizations/organizations';
-import {LoginPage} from './pages/login/login';
-import {SignupPage} from './pages/signup/signup';
-import {ExpenseCreatePage} from './pages/expense-create/expense-create';
-import {ExpensesPage} from './pages/expenses/expenses';
+import * as pages from './pages/pages';
+
 
 export interface Settings {
   is_tech: boolean;
@@ -41,7 +26,7 @@ export interface Stat {
 
 @App({
   templateUrl: 'build/app.html',
-  providers: [ApiData, DataProvider, TicketProvider, TimeProvider],
+  providers: [providers.ApiData, providers.DataProvider, providers.TicketProvider, providers.TimeProvider],
   prodMode : true,
   config: {
     tabbarPlacement: 'top',
@@ -65,7 +50,7 @@ class MyApp {
   interval: any;
   img: any = new Image();
 
-  constructor(private app: IonicApp, private platform: Platform, private config: Config, private events: Events, private menu: MenuController, private ticketProvider: TicketProvider, private dataProvider: DataProvider) {
+  constructor(private app: IonicApp, private platform: Platform, private config: Config, private events: Events, private menu: MenuController, private ticketProvider: providers.TicketProvider, private dataProvider: providers.DataProvider) {
 
     if (!this.isStorage())
     {
@@ -200,7 +185,7 @@ if (key) {
       config.current.isGoogle = true;
       config.current.username = email.replace("#", "");
       config.saveCurrent();
-      this.rootPage = OrganizationsPage;
+      this.rootPage = pages.OrganizationsPage;
       return;
     }
     else {
@@ -216,13 +201,13 @@ if (key) {
           config.current = config.setCurrent(MOCKS["config"]);
         else if (!config.current.key)
         {
-          this.rootPage = LoginPage;
+          this.rootPage = pages.LoginPage;
           return;
         }
 
         if (!config.current.org || !config.current.instance)
         {
-          this.rootPage = OrganizationsPage;
+          this.rootPage = pages.OrganizationsPage;
           return;
         }
 
@@ -299,21 +284,21 @@ this.config.saveCurrent();
     // set our app's pages
     if (this.config.current.is_tech)
       this.pages = [
-    { title: 'Dashboard', component: DashboardPage, icon: "speedometer", is_active: true },
-    { title: data.names.ticket.p, component: TicketsPage, icon: "create", is_active: true },
-    { title: 'Timelogs', component: TimelogsPage, icon: "md-time", is_active: this.config.current.is_time_tracking },
-    { title: data.names.account.p, component: AccountsPage, icon: "people", is_active: this.config.current.is_account_manager },
-    { title: 'Invoices', component: InvoicesPage, icon: "card", is_active: this.config.current.is_time_tracking && this.config.current.is_invoice },
-    { title: 'Queues', component: QueuesPage, icon: "list-box", is_active: this.config.current.is_unassigned_queue },
-    { title: 'Switch Org', component: OrganizationsPage, icon: "md-swap", is_active: this.config.current.is_multiple_org },
-    { title: 'Signout', component: LoginPage, icon: "md-log-in", is_active: true },
+    { title: 'Dashboard', component: pages.DashboardPage, icon: "speedometer", is_active: true },
+    { title: data.names.ticket.p, component: pages.TicketsPage, icon: "create", is_active: true },
+    { title: 'Timelogs', component: pages.TimelogsPage, icon: "md-time", is_active: this.config.current.is_time_tracking },
+    { title: data.names.account.p, component: pages.AccountsPage, icon: "people", is_active: this.config.current.is_account_manager },
+    { title: 'Invoices', component: pages.InvoicesPage, icon: "card", is_active: this.config.current.is_time_tracking && this.config.current.is_invoice },
+    { title: 'Queues', component: pages.QueuesPage, icon: "list-box", is_active: this.config.current.is_unassigned_queue },
+    { title: 'Switch Org', component: pages.OrganizationsPage, icon: "md-swap", is_active: this.config.current.is_multiple_org },
+    { title: 'Signout', component: pages.LoginPage, icon: "md-log-in", is_active: true },
     { title: 'Full App', component: null, icon: "md-share-alt", is_active: true },
     ];
     else
       this.pages = [
-    { title: data.names.ticket.p, component: TicketsPage, icon: "create", is_active: true },
-    { title: 'Switch Org', component: OrganizationsPage, icon: "md-swap", is_active: this.config.current.is_multiple_org },
-    { title: 'Signout', component: LoginPage, icon: "md-log-in", is_active: true },
+    { title: data.names.ticket.p, component: pages.TicketsPage, icon: "create", is_active: true },
+    { title: 'Switch Org', component: pages.OrganizationsPage, icon: "md-swap", is_active: this.config.current.is_multiple_org },
+    { title: 'Signout', component: pages.LoginPage, icon: "md-log-in", is_active: true },
     { title: 'Full App', component: null, icon: "md-share-alt", is_active: true },
     ];
 
@@ -337,18 +322,18 @@ this.config.saveCurrent();
   force_redirect(isRedirect)
   {
     if (isRedirect) {
-      let page : any = this.config.current.is_tech ? DashboardPage : TicketsPage;
+      let page : any = this.config.current.is_tech ? pages.DashboardPage : pages.TicketsPage;
         
         // set first pages
-        //page = TicketsPage; 
-        //page = ExpensesPage; 
-        //page = ExpenseCreatePage; 
-        //page = TimelogsPage; 
-        //page = TimelogPage; 
-        //page = AccountsPage; 
-        //page = TicketCreatePage; 
-        //page = AddUserModal;
-        //page = SignupPage; 
+        //page = pages.TicketsPage; 
+        //page = pages.ExpensesPage; 
+        //page = pages.ExpenseCreatePage; 
+        page = pages.TimelogsPage; 
+        //page = pages.TimelogPage; 
+        //page = pages.AccountsPage; 
+        //page = pages.TicketCreatePage; 
+        //page = pages.AddUserModal;
+        //page = pages.SignupPage; 
 
       this.nav.setRoot(page, null, { animation: "wp-transition" });
     }
@@ -462,7 +447,7 @@ openPage(page, param?) {
           return;
         }
     // close the menu when clicking a link from the menu
-    if (this.interval && (page.component == LoginPage || page.component == OrganizationsPage))
+    if (this.interval && (page.component == pages.LoginPage || page.component == pages.OrganizationsPage))
       clearInterval(this.interval);
 
     if (page.index) {
@@ -489,7 +474,7 @@ openPage(page, param?) {
 
   subscribeToEvents() {
     this.events.subscribe('login:failed', () => {
-      this.openPage({ component: LoginPage });
+      this.openPage({ component: pages.LoginPage });
             //this.getNav().setRoot(TodosPage);
           });
     this.events.subscribe('connection:error', (data) => {
