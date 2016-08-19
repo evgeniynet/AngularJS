@@ -1,16 +1,16 @@
 import {Page, Config, Nav, NavParams, ViewController, Modal} from 'ionic-angular';
 import {forwardRef} from '@angular/core';
 import {FORM_DIRECTIVES, Validators} from '@angular/common';
-import {TicketProvider} from '../../../providers/ticket-provider';
+import {TicketProvider} from '../../../providers/providers';
 import {htmlEscape, getFullName} from '../../../directives/helpers';
 import {ClassListComponent} from '../../../components/class-list/class-list';
 import {SelectListComponent} from '../../../components/select-list/select-list';
-import {TicketDetailsPage} from '../../ticket-details/ticket-details';
+import {TicketDetailsPage} from '../../pages';
 import {AddUserModal} from '../modals';
 
 @Page({
     templateUrl: 'build/pages/modals/ticket-create/ticket-create.html',
-    directives: [ClassListComponent, forwardRef(() => SelectListComponent)],
+    directives: [forwardRef(() => ClassListComponent), forwardRef(() => SelectListComponent)],
 })
 export class TicketCreatePage {
 

@@ -328,7 +328,7 @@ this.config.saveCurrent();
         //page = pages.TicketsPage; 
         //page = pages.ExpensesPage; 
         //page = pages.ExpenseCreatePage; 
-        page = pages.TimelogsPage; 
+        //page = pages.TimelogsPage; 
         //page = pages.TimelogPage; 
         //page = pages.AccountsPage; 
         //page = pages.TicketCreatePage; 
