@@ -9,6 +9,7 @@
    <h4>{{ticket.subject | Htmlsafe}}</h4>
    <span no-lines>
     <p *ngIf="config.current.is_class_tracking">{{ticket.class_name}}</p>
+    <p *ngIf="config.current.is_account_manager">{{ticket.account_name}}</p>
     <p *ngIf="config.current.is_location_tracking">{{ticket.location_name}}</p>
     <p [innerText]="techname"></p>
     <p>{{ticket.days_old_in_minutes | Daysold}}</p>
