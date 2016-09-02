@@ -68,7 +68,7 @@ export class DashboardPage {
 
             let accountslen = this.config.getStat("accounts");
 
-            let pager = { limit: ~accountslen ? 500 : accountslen };
+            let pager = { limit: ~accountslen ? accountslen : 500 };
 
             if (!this.accounts || this.accounts.length == 0)
                 this.dataProvider.getAccountList(true, pager, true, true).subscribe(

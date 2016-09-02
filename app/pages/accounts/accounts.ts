@@ -15,13 +15,14 @@ export class AccountsPage {
     params: any;
     pager: any;
     accounts: Array<any>;
+    LIMIT: number = 500;
 
     constructor(private nav: Nav, private config: Config, private dataProvider: DataProvider) {
   }
     
     onPageLoaded()
     {
-        this.pager = { page: 0 };
+        this.pager = { page: 0, limit: this.LIMIT };
 
         var timer = setTimeout(() => {
             this.busy = true;
@@ -47,7 +48,7 @@ export class AccountsPage {
                     this.config.current.stat.accounts += data.length;
                 }
                 if (infiniteScroll) {
-                    infiniteScroll.enable(data.length == 25);
+                    infiniteScroll.enable(data.length == this.LIMIT);
                     infiniteScroll.complete();
                 }
                 this.count = data.length;
@@ -63,7 +64,7 @@ export class AccountsPage {
     }
 
     doInfinite(infiniteScroll) {
-        if (this.count < 25) {
+        if (this.count < this.LIMIT) {
             infiniteScroll.enable(false);
             infiniteScroll.complete();
             return;
