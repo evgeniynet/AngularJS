@@ -80,6 +80,7 @@ export class AjaxSelectModal {
 
         // if the value is an empty string don't filter the items
         if (q.trim() == '' || this.busy) {
+            this.is_empty = !this.items.length;
             return;
         }
 

@@ -17,7 +17,6 @@ export class CloseTicketModal {
     ticket: any;
     selects: any;
     categories: any;
-    config : any;
 
     constructor(private nav: Nav, private navParams: NavParams, private apiData: ApiData, private ticketProvider: TicketProvider, private config: Config,
         private viewCtrl: ViewController) {

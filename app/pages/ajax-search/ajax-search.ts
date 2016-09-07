@@ -1,5 +1,5 @@
 import {Nav, NavParams, Page, Config} from 'ionic-angular';
-import {TicketProvider} from '../../providers/ticket-provider';
+import {ApiData, TicketProvider} from '../../providers/providers';
 import {getFullName, addp} from '../../directives/helpers';
 import {TicketDetailsPage} from '../ticket-details/ticket-details';
 import {Focuser} from '../../directives/directives';
@@ -29,7 +29,7 @@ export class AjaxSearchPage {
     is_empty: boolean = false;
     busy: boolean;
 
-    constructor(private nav: Nav, private navParams: NavParams, private config: Config, private ticketProvider: TicketProvider) {
+    constructor(private nav: Nav, private navParams: NavParams, private config: Config, private apiData: ApiData, private ticketProvider: TicketProvider) {
     }
 
     ngOnInit() {
@@ -49,20 +49,22 @@ export class AjaxSearchPage {
         let q = this.term.toLowerCase();
         if (this.data.length)
         {
-        if (q.length > 2)
+        if (q.length < 4)
             this.items = this.data.filter((v) => this.searchCriteria(v, q));
         else
             this.items = this.data;
         }
         this.count = this.items.length;
-        if (this.items.length === 0) {
+        if (q.length > 3) {
             var timer = setTimeout(() => {
                 this.is_empty = true;
-                //this.busy = true;
+                this.busy = true;
             }, 500);
 
-            //this.getItems(null, timer);
+            this.getItems(null, timer);
         }
+        else
+            this.is_empty = !this.items.length;
     }
 
     dismiss(ticket)
@@ -90,33 +92,24 @@ export class AjaxSearchPage {
 
         // if the value is an empty string don't filter the items
         if (q.trim() == '' || this.busy) {
+            this.is_empty = !this.items.length;
             return;
         }
 
-        //if (q.length > 2)
+        if (q.length < 4)
         this.items = this.data.filter((v) => this.searchCriteria(v, q));
-        //else {
-        //    var timer = setTimeout(() => { this.busy = true; }, 500);
-        //    this.getItems(q, timer);
-        //}
+        else {
+            var timer = setTimeout(() => { this.busy = true; }, 500);
+            this.getItems(q, timer);
+        }
         this.is_empty = !this.items.length;
     }
 
     getItems(term, timer) {
-        /*this.items = [];
+        this.items = [];
+        this.url = "tickets?status=allopen&query=all";
         this.apiData.getPaged(addp(this.url, "search", term), this.pager).subscribe(
             data => {
-                if (data.length && !data[0].name) {
-                    var results = [];
-                    data.forEach(item => {
-                        let name;
-                        //if users or techs
-                        if (item.email)
-                            name = getFullName(item.firstname, item.lastname, item.email, " ");
-                        results.push({ id: item.id, name: name });
-                    });
-                    data = results;
-                }
                 if (timer) {
                     clearTimeout(timer);
                     this.busy = false;
@@ -140,6 +133,5 @@ export class AjaxSearchPage {
                 console.log(error || 'Server error');
             }
             );
-            */
     }
 }

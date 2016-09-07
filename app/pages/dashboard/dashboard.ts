@@ -120,11 +120,11 @@ export class DashboardPage {
     getTicket(searchbar) {
         // Reset items back to all of the items
         // set q to the value of the searchbar
-        if (searchbar.target.value.trim().length > 2) {
+        //if (searchbar.target.value.trim().length > 2) {
             let list = { search: searchbar.target.value };
             this.test = false;
             this.nav.push(AjaxSearchPage, list);
-        }
+        //}
     }
     
     itemTappedTL(tab) {  

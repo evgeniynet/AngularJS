@@ -3,7 +3,7 @@
 </ion-navbar>
 
 <ion-content>
-  <ion-searchbar [focuser] debounce="400" [(ngModel)]="term" (input)="searchItems($event)" placeholder="Search {{config.current.names.ticket.p}} (min 3 chars)" hideCancelButton="true"></ion-searchbar>
+  <ion-searchbar [focuser] debounce="400" [(ngModel)]="term" (input)="searchItems($event)" placeholder="Search {{config.current.names.ticket.p}} (min 4 chars)" hideCancelButton="true"></ion-searchbar>
 <img *ngIf="busy" src="img/loading2.gif">
     <ion-list class="ajax">
         <a detail-none href=# ion-item *ngFor="let item of items" (click)="dismiss(item)">
