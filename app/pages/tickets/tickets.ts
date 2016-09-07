@@ -1,6 +1,7 @@
 import {Page, Config, Nav, NavParams, Modal} from 'ionic-angular';
 import {TicketCreatePage} from '../modals/modals'; 
 import {TicketDetailsPage} from '../ticket-details/ticket-details';
+import {AjaxSearchPage} from '../ajax-search/ajax-search';
 import {TicketsListComponent} from '../../components/components';
 import {Focuser} from '../../directives/directives';
 
@@ -56,8 +57,9 @@ export class TicketsPage {
     getItems(searchbar) {
         // Reset items back to all of the items
         // set q to the value of the searchbar
-        var q = searchbar.value;
-        console.log(q);
+        let list = { search: searchbar.target.value };
+            this.test = false;
+            this.nav.push(AjaxSearchPage, list);
     }
 
 }

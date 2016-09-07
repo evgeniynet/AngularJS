@@ -80,17 +80,19 @@ export class AjaxSelectModal {
 
         // if the value is an empty string don't filter the items
         if (q.trim() == '' || this.busy) {
-            this.is_empty = !this.items.length;
+            if (q.trim() == '') this.is_empty = !this.items.length;
             return;
         }
 
         if (q.length < 3)
+        {
             this.items = this.items.filter((v) => v.name.toLowerCase().indexOf(q.toLowerCase()) > -1);
+                    this.is_empty = !this.items.length;
+        }
         else {
             var timer = setTimeout(() => { this.busy = true; }, 500);
             this.getItems(q, timer);
         }
-        this.is_empty = !this.items.length;
     }
 
     getItems(term, timer) {

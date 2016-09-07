@@ -92,17 +92,19 @@ export class AjaxSearchPage {
 
         // if the value is an empty string don't filter the items
         if (q.trim() == '' || this.busy) {
-            this.is_empty = !this.items.length;
+            if (q.trim() == '') this.is_empty = !this.items.length;
             return;
         }
 
         if (q.length < 4)
+        {
         this.items = this.data.filter((v) => this.searchCriteria(v, q));
+                this.is_empty = !this.items.length;
+        }
         else {
             var timer = setTimeout(() => { this.busy = true; }, 500);
             this.getItems(q, timer);
         }
-        this.is_empty = !this.items.length;
     }
 
     getItems(term, timer) {
