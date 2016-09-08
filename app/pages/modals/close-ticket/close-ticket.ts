@@ -21,6 +21,7 @@ export class CloseTicketModal {
     constructor(private nav: Nav, private navParams: NavParams, private apiData: ApiData, private ticketProvider: TicketProvider, private config: Config,
         private viewCtrl: ViewController) {
         nav.swipeBackEnabled = false;
+        this.config = config;
     }
 
 
@@ -86,7 +87,13 @@ export class CloseTicketModal {
     
     onSubmit(form) {
         if (form.valid) {
-            var post = htmlEscape(this.ticketnote.trim()).substr(0, 5000);
+            var post = htmlEscape((this.ticketnote || "").trim()).substr(0, 5000);
+
+            if (this.config.current.is_ticket_require_closure_note && !post.length)
+            {
+                this.nav.alert("Note is required!",true);
+                return;
+            }
 
             let data = {
                 "status": "closed",
