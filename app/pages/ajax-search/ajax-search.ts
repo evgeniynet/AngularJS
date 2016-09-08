@@ -47,12 +47,8 @@ export class AjaxSearchPage {
         else if (this.ticketProvider._dataStore.user.length)
             this.data = this.ticketProvider._dataStore.user;
         let q = this.term.toLowerCase();
-        if (this.data.length)
-        {
-        if (q.length < 4)
+        if (this.data.length && q.length < 4){
             this.items = this.data.filter((v) => this.searchCriteria(v, q));
-        else
-            this.items = this.data;
         }
         this.count = this.items.length;
         if (q.length > 3) {
@@ -61,7 +57,7 @@ export class AjaxSearchPage {
                 this.busy = true;
             }, 500);
 
-            this.getItems(null, timer);
+            this.getItems(q, timer);
         }
         else
             this.is_empty = !this.items.length;
