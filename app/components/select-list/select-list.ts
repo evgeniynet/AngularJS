@@ -133,7 +133,7 @@ export class SelectListComponent {
              let name;
                  //if users or techs
                  if (item.email)
-                     name = getFullName(item.firstname, item.lastname, item.email, " ");
+                     name = getFullName(item.firstname, item.lastname, item.email, this.isbutton ? "" : " ");
                  //if tickets
                  else if (item.number)
                      name = `#${item.number}: ${item.subject}`;
@@ -194,6 +194,7 @@ export class SelectListComponent {
 
      openModal() {
          //TODO check counts: is more than 100 - do ajax
+         this.list.isbutton = this.isbutton;
          let modal = this.list.items.length === 25 ? (this.ajax ? AjaxSelectModal : InfinitySelectModal) : BasicSelectModal;
          let myModal = Modal.create(modal, this.list);
          myModal.onDismiss(data => {

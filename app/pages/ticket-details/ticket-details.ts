@@ -24,6 +24,7 @@ export class TicketDetailsPage {
     active: boolean;
     he: any;
     techname: string;
+    username: string;
     selects: any;
     ticketnote: string;
     attachments: any;
@@ -60,8 +61,16 @@ export class TicketDetailsPage {
         this.cachename = data.cachename;
         this.posts[0].record_date = data.updated_time || this.posts[0].record_date;
         let account_id = -1;
+        this.username = getFullName(data.user_firstname, data.user_lastname, data.user_email);
         this.techname = getFullName(data.technician_firstname || data.tech_firstname, data.technician_lastname || data.tech_lastname, data.technician_email || data.tech_email);
         this.selects = {
+            "user" : {
+                name: "User", 
+                value: this.username,
+                selected: data.user_id,
+                url: "users",
+                hidden: false
+            },
             "location": {
                 name: "Location",
                 value: data.location_name || "( Not Set )",
@@ -111,6 +120,14 @@ export class TicketDetailsPage {
                 url: "classes",
                 hidden: false
             }
+        };
+
+        this.selects.account = {
+            name: "Account", 
+            value: (data.account || {}).name || this.he.account_name,
+            selected: account_id,
+            url: "accounts?is_with_statistics=false",
+            hidden: false
         };
 
         this.ticketnote = "";
@@ -254,8 +271,9 @@ export class TicketDetailsPage {
             "priority_id": this.selects.priority.selected,
             "project_id": this.selects.project.selected,
             "location_id": this.selects.location.selected,
-            "account_id": this.ticket.account_id,
-            "tech_id": this.selects.tech.selected
+            "account_id": this.selects.account.selected,
+            "tech_id": this.selects.tech.selected,
+            "user_id": this.selects.user.selected
         };
 
         this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(

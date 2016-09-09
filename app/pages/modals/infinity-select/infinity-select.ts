@@ -17,6 +17,8 @@ export class InfinitySelectModal {
     is_empty: boolean;
     busy: boolean;
     pager: any;
+    isbutton: boolean;
+
 
     constructor(private nav: Nav, private navParams: NavParams, private config: Config, private apiData: ApiData,
         private viewCtrl: ViewController) 
@@ -31,6 +33,7 @@ export class InfinitySelectModal {
         this.data = this.navParams.data.items || {};
         this.items = this.data;
         this.count = this.items.length;
+        this.isbutton = this.navParams.data.isbutton;
         this.is_empty = false;
         this.pager = { page: 0 };
 
@@ -78,7 +81,7 @@ export class InfinitySelectModal {
                         let name;
                         //if users or techs
                         if (item.email)
-                            name = getFullName(item.firstname, item.lastname, item.email, " ");
+                            name = getFullName(item.firstname, item.lastname, item.email, this.isbutton ? "" : " ");
                         //if tickets
                         else if (item.number)
                             name = `#${item.number}: ${item.subject}`;

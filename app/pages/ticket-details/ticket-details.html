@@ -11,6 +11,7 @@
     <p *ngIf="config.current.is_class_tracking">{{ticket.class_name}}</p>
     <p *ngIf="config.current.is_account_manager">{{ticket.account_name}}</p>
     <p *ngIf="config.current.is_location_tracking">{{ticket.location_name}}</p>
+    <p [innerText]="username"></p>
     <p [innerText]="techname"></p>
     <p>{{ticket.days_old_in_minutes | Daysold}}</p>
     <p  *ngIf="config.current.is_expenses && ticket.misc_cost > 0">Expenses:  {{getCurrency(ticket.misc_cost)}}</p>
@@ -51,6 +52,10 @@
     </div>
 
     <div *ngSwitchWhen="'Info'" class="list max-width700 general-alignment">
+
+      <select-list ajax="true" [list]="selects.user" (onChanged)='saveSelect($event)' preload="true"></select-list>
+            
+      <select-list [list]="selects.account" preload="true" ajax="true" (onChanged)='saveSelect($event)'></select-list>
 
       <class-list preload="true" [list]="selects.class" (onChanged)='saveSelect($event)'></class-list>
 
