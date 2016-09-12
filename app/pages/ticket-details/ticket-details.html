@@ -69,8 +69,8 @@
       
       <select-list preload="true" [list]="selects.project" (onChanged)='saveSelect($event)'></select-list>
       <button *ngFor="let customfield of ticket.customfields" class="width100 button-icon-only {{ isbutton? 'blue2 general-alignment2' : 'blue4'}} class-margin disable-hover button button-default">
-        <p class="textLogin text-left text-bold">{{customfield.name}}&nbsp;</p>
-        <ion-label class="{{isbutton ? 'center' : 'tkts-table'}} select-list">{{customfield.value || '&nbsp;'}}&nbsp;</ion-label>
+        <p class="textLogin text-left text-bold" [innerHTML]="customfield.name"></p>
+        <ion-label class="{{isbutton ? 'center' : 'tkts-table'}} select-list">&nbsp;&nbsp;{{customfield.value || '&nbsp;'}}</ion-label>
       </button>
 
       <button secondary block (click)="onUpdate()" type="submit" class="img-top disable-hover button button-default button-block">Update</button>

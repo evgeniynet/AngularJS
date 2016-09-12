@@ -164,6 +164,8 @@ export class TicketDetailsPage {
         
         this.ticket = data;
         this.ticket.customfields = [];
+        this.username = getFullName(data.user_firstname, data.user_lastname, data.user_email);
+        this.techname = getFullName(data.technician_firstname || data.tech_firstname, data.technician_lastname || data.tech_lastname, data.technician_email || data.tech_email);
         
         if (!isShortInfo)
         {
