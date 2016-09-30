@@ -38,7 +38,7 @@ export class ActionButtonComponent {
     }
     
     presentActionSheet() {
-        if (!this.config.current.is_tech)
+        if (!this.config.current.user.is_techoradmin)
         {
             this.openModal(TicketCreatePage);
             return;

@@ -17,13 +17,13 @@ export class OrganizationsPage {
 
     constructor(private nav: Nav, private dataProvider: DataProvider, private config: Config, private events: Events, private ticketProvider: TicketProvider, private timeProvider: TimeProvider) {
         //partly logout
-        localStorage.clear();
+        localStorage.removeItem("current");
         this.config.current.org = "";
         this.ticketProvider._dataStore = {all: [],alt: [],tech: [],user: []};
         this.dataProvider._dataStore = this.timeProvider._dataStore = {};
         this.config.saveCurrent();
         //clear also chrome ext if needed
-        if (config.current.isExtension)
+        if (localStorage.getItem("isExtension") === "true")
             window.top.postMessage("logout", "*");
         
         this.dataProvider.getOrganizations(this.config.getCurrent("key")).subscribe(
@@ -47,7 +47,7 @@ export class OrganizationsPage {
             }, 
             error => { 
                 this.nav.alert("Cannot get list of Organizations", true);
-                localStorage.clear();
+                localStorage.removeItem("current");
                 this.nav.setRoot(LoginPage, null, { animation: "wp-transition" });
             }
             ); 

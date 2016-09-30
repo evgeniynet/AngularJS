@@ -10,7 +10,7 @@
 
 <ion-content>
     <div class="list max-width700 general-alignment margin-bottom10">
-    <template [ngIf]="config.current.is_tech"> 
+    <template [ngIf]="config.current.user.is_techoradmin"> 
             <select-list customwidth="true" class="left button-calc" ajax="true" [list]="selects.user" (onChanged)='saveSelect($event)' preload="true"></select-list>
             <div class="width10"><button (click)="addUser('user')" secondary fab class="buttonTicket button-ticket"><ion-icon class="button_circle2" name="md-add"></ion-icon></button>    </div>
         

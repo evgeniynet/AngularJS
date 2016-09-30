@@ -23,7 +23,7 @@ export class TicketsPage {
     
     onPageLoaded()
     {      
-        this.is_tech = this.config.getCurrent("is_tech");
+        this.is_tech = this.config.getCurrent("user").is_techoradmin;
         let param = this.navParams.data || {};
         if (param.count)
             this.counts[param.tab] = param.count;

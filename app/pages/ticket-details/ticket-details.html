@@ -44,7 +44,7 @@
         <textarea class="width100 textLogin commentText" [(ngModel)]="ticketnote" type="text" placeholder="Add Response" ngControl="note" #note="ngForm" required maxlength="4000"></textarea>
         <span [hidden]="note.valid || note.untouched">Response is required and less 5000 chars</span></div>
         <button secondary class="button_reply right" [disabled]="!addForm.valid" (click)="onSubmit(addForm)"  type="submit">Reply</button>
-        <button *ngIf="!config.current.is_tech && ticket.status != 'Closed'" secondary class="button_reply right" (click)="onClose(addForm)" [disabled]="!addForm.valid">Reply & Close</button>
+        <button *ngIf="!config.current.user.is_techoradmin && ticket.status != 'Closed'" secondary class="button_reply right" (click)="onClose(addForm)" [disabled]="!addForm.valid">Reply & Close</button>
       </form>
 
       <posts-list [posts]="posts | slice:1" [attachments]="attachments"></posts-list>

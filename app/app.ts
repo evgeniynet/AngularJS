@@ -44,6 +44,7 @@ class MyApp {
   pages: Array<any>;
   rootPage: any;
   is_offline: boolean = false;
+  is_phonegap: boolean = false;
   offlineTimer: any;
   disconnectSubscription: any;
   connectSubscription: any;
@@ -54,124 +55,25 @@ class MyApp {
 
     if (!this.isStorage())
     {
+      //todo redirect to Cookies alert
       console.log("Please enable coockies!")
       return;
     }
 
+    this.is_phonegap = localStorage.getItem("isPhonegap") === "true";
+
     // set up our app
     this.initializeApp();
-    
-    config.getCurrent = function(property) {
-      let tconfig = this.current || JSON.parse(localStorage.getItem("current") || "null") || {};
-      if (!tconfig.stat)
-        tconfig.stat = {};
-      if (!tconfig.user)
-        tconfig.user = {};
-      if (!tconfig.recent)
-        tconfig.recent = {};
-      tconfig.is_tech = tconfig.is_tech || tconfig.user.is_techoradmin || false; 
-      tconfig.isPhonegap = tconfig.isPhonegap || localStorage.getItem('isPhonegap') === 'true';
-      tconfig.isExtension = tconfig.isExtension || localStorage.getItem('isExtension') === 'true'; 
-      tconfig.version = tconfig.version || localStorage.getItem('version'); 
-      tconfig.isGoogle = tconfig.isGoogle || localStorage.getItem('isGoogle') === 'true'; 
-      tconfig.is_multiple_org = tconfig.is_multiple_org || false; 
-      tconfig.username = tconfig.username || localStorage.getItem('username') || ""; 
-      if (property)
-        return tconfig[property] || "";
-      return tconfig; 
-    };
 
-    config.setCurrent = function(nconfig) {
-      let tconfig = nconfig || {};
-      let current = this.current || {};
-      tconfig.user = nconfig.user || current.user || {};
-      tconfig.is_tech = nconfig.is_tech || nconfig.user.is_techoradmin || false; 
-      tconfig.version = nconfig.version || current.version || "0"; 
-      tconfig.isPhonegap = nconfig.isPhonegap || current.isPhonegap || false; 
-      tconfig.isExtension = nconfig.isExtension || current.isExtension || false; 
-      tconfig.isGoogle = nconfig.isGoogle || current.isGoogle || false; 
-      tconfig.is_multiple_org = nconfig.is_multiple_org || current.is_multiple_org || false; 
-      tconfig.username = nconfig.username || current.username || false; 
-      tconfig.stat = nconfig.stat || current.stat || {};
-      tconfig.recent = nconfig.recent || current.recent || {};
-      tconfig.key = nconfig.key || current.key || "";
-      tconfig.org = nconfig.org || current.org || "";
-      tconfig.instance = nconfig.instance || current.instance || "";
-      this.current = tconfig;
-      //this.saveCurrent();
-      return tconfig;
-    };
-
-    config.clearCurrent = function(config) {
-      this.current = {user: {}, stat: {}, recent: {}};
-      return config;
-    };
-
-    config.saveCurrent = function(){
-      let curr = this.getCurrent();
-      localStorage.setItem("current",  JSON.stringify(curr));
-      localStorage.setItem("dateformat", curr.user.date_format || 0);
-      localStorage.setItem('timeformat', curr.user.time_format || 0);
-      localStorage.setItem('currency', curr.currency || "$");
-      localStorage.setItem('version', curr.version || "0");
-      localStorage.setItem('isPhonegap', curr.isPhonegap || "");
-      localStorage.setItem('isExtension', curr.isExtension || "");
-      localStorage.setItem('isGoogle', curr.isGoogle || "");
-      localStorage.setItem('username', curr.username || "");
-    }
-
-    config.getStat = function(property){
-      let stat = this.getCurrent("stat")[property];
-      if (typeof stat == "undefined")
-        return -1;
-      return stat || {};
-    }
-
-    config.setStat = function(property, value){
-      this.current.stat[property]  = value;
-    }
-
-    config.getRecent = function(property){
-      let recent = this.getCurrent("recent")[property];
-      if (typeof recent == "undefined")
-        return -1;
-      return recent || {};
-    }
-
-    config.setRecent = function(property, value){
-      this.current.recent[property]  = value;
-    }
+    this.ExtendConfig();
 
     setTimeout(() =>
-      this.nav.alert = function(message, isNeg) {
-        let toast = Toast.create({
-          message: message,
-          duration: isNeg ? 7000 : 3000,
-          cssClass: isNeg ? "toast-error" : "toast-ok",
-          showCloseButton: true,
-          closeButtonText: "X"
-        });
-        //toast.onDismiss(() => {
-          //console.log('Dismissed toast');
-        //});
-        this.present(toast);
-      }, 0);
+      this.ExtendNavAlert(), 0);
 
+    // disable loading screen
     document.getElementById("pre-bootstrap1").classList.add("loaded");
-
-    setTimeout(
-      function () {
-        document.getElementsByTagName("ion-loading")[0].outerHTML='';
-      },
-      800
-      );
-
-    config.current = config.getCurrent();
-    config.current.isPhonegap = localStorage.getItem("isPhonegap") === "true";
-    config.current.isExtension =  window.self !== window.top;
-    config.current.version = appVersion;
-
-//"FullSingular"].ToString(), ", ", drvCustomName["FullPlural"].ToString(), ", ", drvCustomName["AbbreviatedSingular"].ToString(), ", ", drvCustomName["AbbreviatedPlural"
+    setTimeout(function () { document.getElementsByTagName("ion-loading")[0].outerHTML='';},
+      800);
 
 var key = helpers.getParameterByName('t');
 var email = helpers.getParameterByName('e');
@@ -179,11 +81,11 @@ var platform_string = helpers.getParameterByName('ionicPlatform');
 
 if (key) {
   helpers.cleanQuerystring('ionicPlatform', platform_string);
-  localStorage.clear();
+  localStorage.removeItem("current");
       //config.clearCurrent();
       config.current.key = key;
-      config.current.isGoogle = true;
-      config.current.username = email.replace("#", "");
+      localStorage.setItem("isGoogle", "true");
+      localStorage.setItem('username', email.replace("#", ""));
       config.saveCurrent();
       this.rootPage = pages.OrganizationsPage;
       return;
@@ -194,6 +96,7 @@ if (key) {
         helpers.cleanQuerystring('ionicPlatform', platform_string);
         setTimeout(() => this.nav.alert(error, true), 3000);
       }
+      localStorage.setItem("isGoogle", "");
     }
 
         //set test config object
@@ -284,7 +187,7 @@ data.names = {
 this.config.setCurrent(data);
 this.config.saveCurrent();
     // set our app's pages
-    if (this.config.current.is_tech)
+    if (this.config.current.user.is_techoradmin)
       this.pages = [
     { title: 'Dashboard', component: pages.DashboardPage, icon: "speedometer", is_active: true },
     { title: data.names.ticket.p, component: pages.TicketsPage, icon: "create", is_active: true },
@@ -304,18 +207,18 @@ this.config.saveCurrent();
     { title: 'Full App', component: null, icon: "md-share-alt", is_active: true },
     ];
 
-    //if (this.config.current.isPhonegap && this.config.current.key)
+    //if (localStorage.getItem("isPhonegap") === "true" && this.config.current.key)
     //  initOrgPreferences(this.config.current.org + "-" + this.config.current.instance + ":" + this.config.current.key);
     //getInfo4Extension();
     //var isExtension = localStorage.getItem("isExtension") === "true";
-    if (isRedirect && this.config.current.isExtension)
+    if (isRedirect && localStorage.getItem("isExtension") === "true")
     {
       var loginStr = "login?t=" + this.config.current.key +
       "&o=" + this.config.current.org +
       "&i=" + this.config.current.instance; 
       window.top.postMessage(loginStr,"*");
     }
-    if (this.config.current.version !== data.mobile_ver && Number(data.mobile_ver) > Number(this.config.current.version))
+    if (localStorage.getItem("version") !== data.mobile_ver && Number(data.mobile_ver) > Number(this.config.current.version))
       this.presentConfirm(data.mobile_ver, isRedirect);
     else
       this.force_redirect(isRedirect);
@@ -324,7 +227,7 @@ this.config.saveCurrent();
   force_redirect(isRedirect)
   {
     if (isRedirect) {
-      let page : any = this.config.current.is_tech ? pages.DashboardPage : pages.TicketsPage;
+      let page : any = this.config.current.user.is_techoradmin ? pages.DashboardPage : pages.TicketsPage;
         
         // set first pages
         //page = pages.TicketsPage; 
@@ -342,7 +245,7 @@ this.config.saveCurrent();
   }
 
   presentConfirm(version, isRedirect) {
-    this.config.current.version = version;
+    localStorage.setItem("version", version);
     this.config.saveCurrent();
     let alert = Alert.create({
       title: "There is a new update available!",
@@ -477,7 +380,6 @@ openPage(page, param?) {
   subscribeToEvents() {
     this.events.subscribe('login:failed', () => {
       this.openPage({ component: pages.LoginPage });
-            //this.getNav().setRoot(TodosPage);
           });
     this.events.subscribe('connection:error', (data) => {
       this.checkConnection();
@@ -492,5 +394,93 @@ openPage(page, param?) {
     this.events.unsubscribe('connection:error', null);
     this.events.unsubscribe('config:get', null);
   }
+
+  ExtendConfig() {
+    this.config.getCurrent = function(property) {
+      let tconfig = this.current || JSON.parse(localStorage.getItem("current") || "null") || {};
+      if (!tconfig.stat)
+        tconfig.stat = {};
+      if (!tconfig.user)
+        tconfig.user = {};
+      if (!tconfig.recent)
+        tconfig.recent = {};
+      tconfig.is_multiple_org = tconfig.is_multiple_org || false; 
+      if (property)
+        return tconfig[property] || "";
+      return tconfig; 
+    };
+
+    this.config.current = this.config.getCurrent();
+    localStorage.setItem('isExtension', window.self !== window.top ? "true" : "");
+    localStorage.setItem("version", appVersion);
+    //this.config.current.isPhonegap = localStorage.getItem("isPhonegap") === "true";
+
+    this.config.setCurrent = function(nconfig) {
+      let tconfig = nconfig || {};
+      let current = this.current || {};
+      tconfig.user = nconfig.user || current.user || {};
+      tconfig.is_multiple_org = nconfig.is_multiple_org || current.is_multiple_org || false; 
+      tconfig.stat = nconfig.stat || current.stat || {};
+      tconfig.recent = nconfig.recent || current.recent || {};
+      tconfig.key = nconfig.key || current.key || "";
+      tconfig.org = nconfig.org || current.org || "";
+      tconfig.instance = nconfig.instance || current.instance || "";
+      this.current = tconfig;
+      //this.saveCurrent();
+      return tconfig;
+    };
+
+    this.config.clearCurrent = function(config) {
+      this.current = {user: {}, stat: {}, recent: {}};
+      return config;
+    };
+
+    this.config.saveCurrent = function(){
+      let curr = this.getCurrent();
+      console.log(curr);
+      localStorage.setItem("current",  JSON.stringify(curr));
+      localStorage.setItem("dateformat", curr.user.date_format || 0);
+      localStorage.setItem('timeformat', curr.user.time_format || 0);
+      localStorage.setItem('currency', curr.currency || "$");
+    }
+
+    this.config.getStat = function(property){
+      let stat = this.getCurrent("stat")[property];
+      if (typeof stat == "undefined")
+        return -1;
+      return stat || {};
+    }
+
+    this.config.setStat = function(property, value){
+      this.current.stat[property]  = value;
+    }
+
+    this.config.getRecent = function(property){
+      let recent = this.getCurrent("recent")[property];
+      if (typeof recent == "undefined")
+        return -1;
+      return recent || {};
+    }
+
+    this.config.setRecent = function(property, value){
+      this.current.recent[property]  = value;
+    }
+  }
+
+  ExtendNavAlert () {
+      this.nav.alert = function(message, isNeg) {
+        let toast = Toast.create({
+          message: message,
+          duration: isNeg ? 7000 : 3000,
+          cssClass: isNeg ? "toast-error" : "toast-ok",
+          showCloseButton: true,
+          closeButtonText: "X"
+        });
+        //toast.onDismiss(() => {
+          //console.log('Dismissed toast');
+        //});
+        this.present(toast);
+      };
+    }
 
 }

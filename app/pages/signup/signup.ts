@@ -96,7 +96,7 @@ getUrl(name){
                     text: 'Login',
                     role: 'cancel',
                     handler: () => {
-                        this.config.current.username = this.login.email;
+                              localStorage.setItem('username', this.login.email || "");
                         alert.dismiss().then(() => {
                             this.nav.setRoot(LoginPage, null, { animation: "wp-transition" });
                         });

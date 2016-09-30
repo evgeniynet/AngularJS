@@ -19,10 +19,10 @@ export class LoginPage {
     //@ViewChild('google_openid') google_openid: NgForm;
 
     constructor(private nav: Nav, private dataProvider: DataProvider, private config: Config) {
-        if (!config.current.isPhonegap)
+        if (localStorage.getItem("isPhonegap") !== "true")
         this.google_action = ApiSite + 'auth/auth0';
         //clear also chrome ext if needed
-        if (config.current.isExtension)
+        if (localStorage.getItem("isExtension") === "true")
             window.top.postMessage("logout", "*");
   }
     
@@ -30,16 +30,16 @@ export class LoginPage {
     { 
         document.title = AppTitle + "Mobile App" ; 
         //logout
-        this.login = {username: this.config.getCurrent("username") || "" };
-        localStorage.clear();
-        this.config.current.version = appVersion;
+        this.login = {username: localStorage.getItem('username') || "" };
+        localStorage.removeItem("current");
+        //localStorage.setItem("version", appVersion);
         //this.config.clearCurrent();
     }
 
     onLogin(form) {
         this.busy = true;
         if (form.valid) { 
-            this.config.current.username = form.value.email || "";
+            localStorage.setItem('username', form.value.email || "");
             this.dataProvider.checkLogin(form.value.email,form.value.password).subscribe(
                 data => {
                     this.config.setCurrent({ "key": data.api_token});
@@ -77,7 +77,7 @@ export class LoginPage {
     }
 
     onGoogleSignin() {
-        if (!this.config.current.isPhonegap) {
+        if (localStorage.getItem("isPhonegap") !== "true") {
             window.location.href = ApiSite + 'auth/auth0';
         }
         else
