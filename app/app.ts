@@ -132,7 +132,9 @@ if (key) {
               this.redirect_logic(isRedirect, this.config.getCurrent());
             }
             else
-              this.events.publish("login:failed");
+              {
+                this.config.current.org = "";
+              }
         //localStorage.clear();
         //localStorage.setItem("username", this.config.current.username || "");
         //this.nav.setRoot(LoginPage, null, { animation: "wp-transition" });
