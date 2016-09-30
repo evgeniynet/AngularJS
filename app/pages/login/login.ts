@@ -31,9 +31,7 @@ export class LoginPage {
         document.title = AppTitle + "Mobile App" ; 
         //logout
         this.login = {username: localStorage.getItem('username') || "" };
-        localStorage.removeItem("current");
-        //localStorage.setItem("version", appVersion);
-        //this.config.clearCurrent();
+        this.config.clearCurrent();
     }
 
     onLogin(form) {

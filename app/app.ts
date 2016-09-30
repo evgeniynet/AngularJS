@@ -81,9 +81,7 @@ var platform_string = helpers.getParameterByName('ionicPlatform');
 
 if (key) {
   helpers.cleanQuerystring('ionicPlatform', platform_string);
-  localStorage.removeItem("current");
-      //config.clearCurrent();
-      config.current.key = key;
+      config.clearCurrent(key);
       localStorage.setItem("isGoogle", "true");
       localStorage.setItem('username', email.replace("#", ""));
       config.saveCurrent();
@@ -102,13 +100,13 @@ if (key) {
         //set test config object
         if (dontClearCache)
           config.current = config.setCurrent(MOCKS["config"]);
-        else if (!config.current.key)
+        else if (!config.current.is_logged)
         {
           this.rootPage = pages.LoginPage;
           return;
         }
 
-        if (!config.current.org || !config.current.instance)
+        if (!config.current.is_chosed)
         {
           this.rootPage = pages.OrganizationsPage;
           return;
@@ -134,7 +132,7 @@ if (key) {
               this.redirect_logic(isRedirect, this.config.getCurrent());
             }
             else
-              this.config.current.org = "";
+              this.events.publish("login:failed");
         //localStorage.clear();
         //localStorage.setItem("username", this.config.current.username || "");
         //this.nav.setRoot(LoginPage, null, { animation: "wp-transition" });
@@ -218,7 +216,8 @@ this.config.saveCurrent();
       "&i=" + this.config.current.instance; 
       window.top.postMessage(loginStr,"*");
     }
-    if (localStorage.getItem("version") !== data.mobile_ver && Number(data.mobile_ver) > Number(this.config.current.version))
+    var appVer = localStorage.getItem("version");
+    if (appVer !== data.mobile_ver && Number(data.mobile_ver) > Number(appVer))
       this.presentConfirm(data.mobile_ver, isRedirect);
     else
       this.force_redirect(isRedirect);
@@ -379,6 +378,7 @@ openPage(page, param?) {
 
   subscribeToEvents() {
     this.events.subscribe('login:failed', () => {
+      this.config.clearCurrent();
       this.openPage({ component: pages.LoginPage });
           });
     this.events.subscribe('connection:error', (data) => {
@@ -396,6 +396,11 @@ openPage(page, param?) {
   }
 
   ExtendConfig() {
+
+    localStorage.setItem('isExtension', window.self !== window.top ? "true" : "");
+    localStorage.setItem("version", appVersion);
+    //this.config.current.isPhonegap = localStorage.getItem("isPhonegap") === "true";
+    
     this.config.getCurrent = function(property) {
       let tconfig = this.current || JSON.parse(localStorage.getItem("current") || "null") || {};
       if (!tconfig.stat)
@@ -404,16 +409,18 @@ openPage(page, param?) {
         tconfig.user = {};
       if (!tconfig.recent)
         tconfig.recent = {};
-      tconfig.is_multiple_org = tconfig.is_multiple_org || false; 
+
       if (property)
         return tconfig[property] || "";
       return tconfig; 
     };
 
     this.config.current = this.config.getCurrent();
-    localStorage.setItem('isExtension', window.self !== window.top ? "true" : "");
-    localStorage.setItem("version", appVersion);
-    //this.config.current.isPhonegap = localStorage.getItem("isPhonegap") === "true";
+    this.config.current.is_logged = !!this.config.current.key;
+    this.config.current.is_chosed = !!this.config.current.instance && !!this.config.current.org && !!this.config.current.key;
+    this.config.current.is_online = !this.is_offline;
+    var appVer = localStorage.getItem("version");
+    this.config.current.is_updated = !(appVer !== this.config.current.mobile_ver && Number(this.config.current.mobile_ver) > Number(appVer));
 
     this.config.setCurrent = function(nconfig) {
       let tconfig = nconfig || {};
@@ -430,14 +437,14 @@ openPage(page, param?) {
       return tconfig;
     };
 
-    this.config.clearCurrent = function(config) {
-      this.current = {user: {}, stat: {}, recent: {}};
-      return config;
+    this.config.clearCurrent = function(key) {
+      localStorage.removeItem("current");
+      this.current = {key: key || "", user: {}, stat: {}, recent: {}};
+      //return config;
     };
 
     this.config.saveCurrent = function(){
       let curr = this.getCurrent();
-      console.log(curr);
       localStorage.setItem("current",  JSON.stringify(curr));
       localStorage.setItem("dateformat", curr.user.date_format || 0);
       localStorage.setItem('timeformat', curr.user.time_format || 0);
