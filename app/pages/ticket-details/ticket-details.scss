@@ -86,13 +86,13 @@ textarea{
     text-overflow: ellipsis;
     margin-top: 0px;
     padding: 0px !important;
-    width: 64%;
+    width: 45%;
      margin-left: 15px;
         float: left;
         text-align: left;
 }
     span{
-        width: 30%;
+        width: 49%;
         float: left;
     }
     
@@ -101,8 +101,16 @@ textarea{
      color: $grey4;
      margin: 0px;
     }
+    
+    @media (min-width: 508px)  {
+   h4{
+    width: 64%;}
+    
+    span{
+        width: 33%;}}
 }
 
 .ion-segment-button{
     background-color: $segment !important;
 }
+
