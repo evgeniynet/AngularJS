@@ -1,5 +1,5 @@
 import {Page, Config, Nav, Events, Alert, Modal} from 'ionic-angular';
-import {saveCache, spicePixelTrackConversion, getappTrackConversion} from '../../directives/helpers';
+import {spicePixelTrackConversion, getappTrackConversion} from '../../directives/helpers';
 import {DataProvider} from '../../providers/data-provider';
 import {LoginPage} from '../login/login';
 import {OrganizationsPage} from '../organizations/organizations';

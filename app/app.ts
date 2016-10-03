@@ -405,12 +405,21 @@ openPage(page, param?) {
     
     this.config.getCurrent = function(property) {
       let tconfig = this.current || JSON.parse(localStorage.getItem("current") || "null") || {};
+      tconfig.is_logged = !!tconfig.key;
+      tconfig.is_chosen = !!tconfig.instance && !!tconfig.org && !!tconfig.key;
+      tconfig.is_online = !this.is_offline;
+      
+      var appVer = localStorage.getItem("version");
+      tconfig.is_updated = !(appVer !== tconfig.mobile_ver && Number(tconfig.mobile_ver) > Number(appVer));
+
       if (!tconfig.stat)
         tconfig.stat = {};
       if (!tconfig.user)
         tconfig.user = {};
       if (!tconfig.recent)
         tconfig.recent = {};
+      if (!tconfig.cache)
+        tconfig.cache = {};
 
       if (property)
         return tconfig[property] || "";
@@ -418,11 +427,6 @@ openPage(page, param?) {
     };
 
     this.config.current = this.config.getCurrent();
-    this.config.current.is_logged = !!this.config.current.key;
-    this.config.current.is_chosen = !!this.config.current.instance && !!this.config.current.org && !!this.config.current.key;
-    this.config.current.is_online = !this.is_offline;
-    var appVer = localStorage.getItem("version");
-    this.config.current.is_updated = !(appVer !== this.config.current.mobile_ver && Number(this.config.current.mobile_ver) > Number(appVer));
 
     this.config.setCurrent = function(nconfig) {
       let tconfig = nconfig || {};
@@ -431,6 +435,7 @@ openPage(page, param?) {
       tconfig.is_multiple_org = nconfig.is_multiple_org || current.is_multiple_org || false; 
       tconfig.stat = nconfig.stat || current.stat || {};
       tconfig.recent = nconfig.recent || current.recent || {};
+      tconfig.cache = nconfig.cache || current.cache || {};
       tconfig.key = nconfig.key || current.key || "";
       tconfig.org = nconfig.org || current.org || "";
       tconfig.instance = nconfig.instance || current.instance || "";
@@ -474,6 +479,18 @@ openPage(page, param?) {
     this.config.setRecent = function(property, value){
       this.current.recent[property]  = value;
     }
+
+    this.config.getCache = function(property){
+      let cache = this.getCurrent("cache")[property];
+      if (typeof cache == "undefined")
+        return -1;
+      return cache || {};
+    }
+
+    this.config.setCache = function(property, value){
+      this.current.cache[property]  = value;
+    }
+
   }
 
   ExtendNavAlert () {

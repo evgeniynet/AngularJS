@@ -2,7 +2,6 @@ import {Page, Config, Nav} from 'ionic-angular';
 import {DataProvider} from '../../providers/data-provider';
 import {TicketProvider} from '../../providers/ticket-provider';
 import {TimeProvider} from '../../providers/time-provider';
-import * as helpers from '../../directives/helpers';
 import {Focuser} from '../../directives/directives';
 import {QueuesListComponent, AccountsListComponent, ActionButtonComponent} from '../../components/components';
 import {TicketsPage} from '../tickets/tickets';
@@ -49,12 +48,12 @@ export class DashboardPage {
         );
 
         if (this.config.current.is_unassigned_queue) {
-            this.queues = helpers.loadCache("dashqueues");
+            this.queues = this.config.getCache("dashqueues");
 
             this.dataProvider.getQueueList(3).subscribe(
                 data => {
                 this.queues = data;
-                    helpers.saveCache("dashqueues", data);
+                    this.config.setCache("dashqueues", data);
                 },
                 error => {
                     console.log(error || 'Server error');
@@ -64,7 +63,7 @@ export class DashboardPage {
         }
 
         if (this.config.current.is_account_manager) {
-            this.accounts = helpers.loadCache("dashaccounts");
+            this.accounts = this.config.getCache("dashaccounts");
 
             let accountslen = this.config.getStat("accounts");
 
@@ -76,7 +75,7 @@ export class DashboardPage {
                         this.accounts = data;
                         this.config.setStat("accounts", data.length);
                         if (this.simple)
-                            helpers.saveCache("dashaccounts", data);
+                            this.config.setCache("dashaccounts", data);
                     },
                     error => {
                         console.log(error || 'Server error');
@@ -87,7 +86,7 @@ export class DashboardPage {
             this.dataProvider.getAccountList(true, pager).subscribe(
                 data => {
                     this.accounts = data;
-                    helpers.saveCache("dashaccounts", data);
+                    this.config.setCache("dashaccounts", data);
                 },
                 error => {
                     console.log(error || 'Server error');
