@@ -106,7 +106,7 @@ if (key) {
           return;
         }
 
-        if (!config.current.is_chosed)
+        if (!config.current.is_chosen)
         {
           this.rootPage = pages.OrganizationsPage;
           return;
@@ -419,7 +419,7 @@ openPage(page, param?) {
 
     this.config.current = this.config.getCurrent();
     this.config.current.is_logged = !!this.config.current.key;
-    this.config.current.is_chosed = !!this.config.current.instance && !!this.config.current.org && !!this.config.current.key;
+    this.config.current.is_chosen = !!this.config.current.instance && !!this.config.current.org && !!this.config.current.key;
     this.config.current.is_online = !this.is_offline;
     var appVer = localStorage.getItem("version");
     this.config.current.is_updated = !(appVer !== this.config.current.mobile_ver && Number(this.config.current.mobile_ver) > Number(appVer));
