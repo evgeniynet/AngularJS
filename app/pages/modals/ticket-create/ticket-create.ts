@@ -30,7 +30,15 @@ export class TicketCreatePage {
 
         this.data = this.navParams.data || {};
 
-        let account_id = (this.data.account || {}).id || this.he.account_id || -1;
+        let recent : any = {};
+
+        if (!this.data.account)
+            {
+                recent = this.config.current.recent || {};
+            }
+
+
+        let account_id = (this.data.account || {}).id || (recent.account || {}).selected || this.he.account_id || -1;
 
         this.selects = {
             "user" : {
@@ -42,22 +50,22 @@ export class TicketCreatePage {
             },
             "location" : {
                 name: "Location", 
-                value: "Default",
-                selected: 0,
+                value: (recent.location || {}).value || "Default",
+                selected: (recent.location || {}).selected || 0,
                 url: `locations?account=${account_id}`,
                 hidden: false
             },
             "project" : {
                 name: "Project", 
-                value: "Default",
-                selected: 0,
+                value: (recent.project || {}).value || "Default",
+                selected: (recent.project || {}).selected || 0,
                 url: `projects?account=${account_id}&is_with_statistics=false`,
                 hidden: false
             },
             "class" : {
                 name: "Class", 
-                value: "Default",
-                selected: 0,
+                value: (recent.class || {}).value || "Default",
+                selected: (recent.class || {}).selected || 0,
                 url: "classes",
                 hidden: false
             }
@@ -73,7 +81,7 @@ export class TicketCreatePage {
 
         this.selects.account = {
             name: "Account", 
-            value: (this.data.account || {}).name || this.he.account_name,
+            value: (this.data.account || {}).name || (recent.account || {}).value || this.he.account_name,
             selected: account_id,
             url: "accounts?is_with_statistics=false",
             hidden: false
@@ -132,7 +140,14 @@ export class TicketCreatePage {
 
             this.ticketProvider.addTicket(this.ticket).subscribe(
                 data => {
-                    this.nav.alert(+ this.config.current.names.ticket.s + ' was Succesfully Created :)');
+                    if (!this.data.account)
+            {
+                this.config.setRecent({"account": this.selects.account,
+                                       "location": this.selects.location,
+                                               "project": this.selects.project,
+                                               "class": this.selects.class});
+            }
+                    this.nav.alert(this.config.current.names.ticket.s + ' was Succesfully Created :)');
                     this.dismissPage(data);
                 }, 
                 error => { 

@@ -28,13 +28,13 @@ export class OrganizationsPage {
         
         this.dataProvider.getOrganizations(key).subscribe(
             data => {
-                this.config.current.is_multiple_org = true;
                 if (data.length == 1)
                 {
                     if (data[0].instances.length == 1)
                     {
-                        this.config.current.is_multiple_org = false;
+                        this.config.setCurrent({is_multiple_org : false});
                         this.onSelectInst({ org: data[0].key, inst: data[0].instances[0].key });
+                        return;
                     }
                     else
                     {
@@ -44,6 +44,7 @@ export class OrganizationsPage {
                 }
                 else
                     this.list = data;
+                this.config.setCurrent({is_multiple_org : true});
             }, 
             error => { 
                 this.nav.alert("Cannot get list of Organizations", true);
@@ -89,9 +90,7 @@ export class OrganizationsPage {
                 dismissOnPageChange: true
             });
         this.nav.present(loading);
-        this.config.current.org = instance.org;
-        this.config.current.instance = instance.inst;
-        this.config.saveCurrent();
+        this.config.setCurrent({ org : instance.org, instance : instance.inst});
         this.events.publish("config:get", true);
     }
 }

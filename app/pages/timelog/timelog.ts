@@ -41,7 +41,7 @@ export class TimelogPage {
     }
 
     ngAfterViewInit() {
-      //console.log(this.starttime.min);
+      //console.log(this.config.current.recent);
       //this.starttime.displayFormat = this.displayFormat;
 //console.log(this.starttime.displayFormat);
 
@@ -63,9 +63,9 @@ ngOnInit()
     this.time = this.navParams.data || {};
 
     let name = (this.time.user_name + " " + this.time.user_email).trim().split(' ')[0];
-    if (this.time.time_id)
-    {
-        this.title = `Timelog #${this.time.time_id} by\u00a0${name} on\u00a0` + this.setDate(this.time.date, false, true);
+            if (this.time.time_id)
+            {
+                this.title = `Timelog #${this.time.time_id} by\u00a0${name} on\u00a0` + this.setDate(this.time.date, false, true);
                 //fix timezone
                 this.start_time = this.AddHours(this.time.start_time, this.time.time_offset);
                 this.stop_time = this.AddHours(this.time.stop_time, this.time.time_offset);
@@ -100,20 +100,28 @@ ngOnInit()
             this.timenote = this.time.note || "";
             this.he = this.config.getCurrent("user");
 
-            let account_id = (this.time.account || {}).id || this.time.account_id || this.he.account_id || -1;
-            let project_id = (this.time.project || {}).id || this.time.project_id || 0;
+            let recent : any = {};
+
+            if (!this.time.number && !this.time.time_id && !this.time.account)
+            {
+                recent = this.config.current.recent || {};
+            }
+
+            let account_id = (this.time.account || {}).id || this.time.account_id || (recent.account || {}).selected || this.he.account_id || -1;
+            let project_id = (this.time.project || {}).id || this.time.project_id || (recent.project || {}).selected || 0;
+
 
             this.selects = {
                 "account" : {
                     name: "Account", 
-                    value: (this.time.account || {}).name || this.he.account_name,
+                    value:  (this.time.account || {}).name || (recent.account || {}).value || this.he.account_name,
                     selected: account_id,
                     url: "accounts?is_with_statistics=false",
                     hidden: false
                 },
                 "project" : {
                     name: "Project", 
-                    value: this.time.project_name || "Default",
+                    value:  this.time.project_name || (recent.project || {}).value || "Default",
                     selected: project_id,
                     url: `projects?account=${account_id}&is_with_statistics=false`,
                     hidden: false
@@ -127,8 +135,8 @@ ngOnInit()
                 },
                 "tasktype" : {
                     name: "Task Type", 
-                    value: this.time.task_type || "Choose",
-                    selected: this.time.task_type_id || 0,
+                    value: this.time.task_type || (recent.tasktype || {}).value || "Choose",
+                    selected: this.time.task_type_id || this.config.getRecent("tasktype").selected || 0,
                     url: `task_types?account=${account_id}&project=${project_id}`,
                     hidden: false
                 }
@@ -210,6 +218,13 @@ ngOnInit()
 
             this.timeProvider.addTime(this.time.time_id, data, isEdit ? "PUT" : "POST").subscribe(
                 res => {
+                    //store recent
+                    if (!this.time.number && !this.time.time_id && !this.time.account)
+                    {
+                        this.config.setRecent({"account": this.selects.account,
+                                               "project": this.selects.project,
+                                               "tasktype": this.selects.tasktype});
+                    }
                     if (isEdit){
                         this.time.start_time = data.start_date;
                         this.time.stop_time = data.stop_date;

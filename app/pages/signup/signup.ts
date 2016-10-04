@@ -64,8 +64,6 @@ getUrl(name){
                         "org": data.organization,
                         "instance": data.instance
                     });
-                    //this.config.current.user.email = form.value.email;
-                    this.config.saveCurrent();
                     spicePixelTrackConversion();
                     getappTrackConversion(form.value.url);
                     this.nav.alert("Thanks for registration! You are redirected to new org now ...");

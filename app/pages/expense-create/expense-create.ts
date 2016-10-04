@@ -38,20 +38,27 @@ export class ExpenseCreatePage {
         
         this.he = this.config.getCurrent("user");
 
-        let account_id = (this.expense.account || {}).id || this.expense.account_id || this.he.account_id || -1;
-        let project_id = (this.expense.project || {}).id || this.expense.project_id || 0;
+        let recent : any = {};
+
+            if (!this.expense.number && !this.expense.expense_id && !this.expense.account)
+            {
+                recent = this.config.current.recent || {};
+            }
+
+        let account_id = (this.expense.account || {}).id || this.expense.account_id || (recent.account || {}).selected || this.he.account_id || -1;
+        let project_id = (this.expense.project || {}).id || this.expense.project_id || (recent.project || {}).selected || 0;
         
         this.selects = {
             "account": {
                 name: "Account",
-                value: this.expense.account_name || (this.expense.account || {}).name || this.he.account_name,
+                value: this.expense.account_name || (this.expense.account || {}).name || (recent.account || {}).value || this.he.account_name,
                 selected: account_id,
                 url: "accounts?is_with_statistics=false",
                 hidden: false
             },
             "project": {
                 name: "Project",
-                value: this.expense.project_name || "Default",
+                value: this.expense.project_name || (recent.project || {}).value || "Default",
                 selected: project_id,
                 url: `projects?account=${account_id}&is_with_statistics=false`,
                 hidden: false
@@ -105,6 +112,12 @@ export class ExpenseCreatePage {
 
             this.apiData.get("expenses" + (!isEdit ? "" : ("/" + this.expense.expense_id)), data, isEdit ? "PUT" : "POST").subscribe(
                 data => {
+                    if (!this.expense.number && !this.expense.expense_id && !this.expense.account)
+            {
+                this.config.setRecent({"account": this.selects.account,
+                                               "project": this.selects.project});
+            }
+
                     this.nav.alert('Expense was successfully added :)');
                     setTimeout(() => this.close(), 500);
                 },

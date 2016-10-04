@@ -41,7 +41,6 @@ export class LoginPage {
             this.dataProvider.checkLogin(form.value.email,form.value.password).subscribe(
                 data => {
                     this.config.setCurrent({ "key": data.api_token});
-                    this.config.saveCurrent();
                     this.nav.setRoot(OrganizationsPage, null, { animation: "wp-transition" });
                 }, 
                 error => {

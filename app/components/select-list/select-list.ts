@@ -41,19 +41,19 @@ export class SelectListComponent {
     }
 */
     ngOnInit() {
-        if ((this.list.name == "Project" && !this.config.current.is_project_tracking) ||
-            (this.list.name == "Location" && !this.config.current.is_location_tracking) ||
-            (this.list.name == "Priority" && !this.config.current.is_priorities_general) ||
-            (this.list.name == "Account" && !this.config.current.is_account_manager) ||
-            (this.list.name == "Level" && !this.config.current.is_ticket_levels) ||
-            ((this.list.name == "Resolution" || this.list.name == "Category") && !this.config.current.is_resolution_tracking)) 
+        let listname = this.list.name.toLowerCase();
+        if ((listname == "project" && !this.config.current.is_project_tracking) ||
+            (listname == "location" && !this.config.current.is_location_tracking) ||
+            (listname == "priority" && !this.config.current.is_priorities_general) ||
+            (listname == "account" && !this.config.current.is_account_manager) ||
+            (listname == "level" && !this.config.current.is_ticket_levels) ||
+            ((listname == "resolution" || listname == "category") && !this.config.current.is_resolution_tracking)) 
         {
             this.list.hidden = true;
         }
         if (this.list.hidden)
             return;
 
-        let listname = this.list.name.toLowerCase();
         if ( listname == "tech" || listname == "user")
             this.name = (this.config.current.names[listname] || {}).a;
         else

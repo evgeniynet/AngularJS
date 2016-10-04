@@ -24,6 +24,8 @@ request(method, data?, type?, headers?) {
     {
         return this.mock_get(method);
     }
+    //if (!this.config.getCurrent("is_online"))
+    //    return;
     let req = new Request({
         method: type || 'GET',
         url: ApiSite + method,

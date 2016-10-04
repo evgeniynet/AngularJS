@@ -99,14 +99,14 @@ if (key) {
 
         //set test config object
         if (dontClearCache)
-          config.current = config.setCurrent(MOCKS["config"]);
-        else if (!config.current.is_logged)
+          config.setCurrent(MOCKS["config"]);
+        else if (!config.getCurrent("is_logged"))
         {
           this.rootPage = pages.LoginPage;
           return;
         }
 
-        if (!config.current.is_chosen)
+        if (!config.getCurrent("is_chosen"))
         {
           this.rootPage = pages.OrganizationsPage;
           return;
@@ -133,7 +133,7 @@ if (key) {
             }
             else
               {
-                this.config.current.org = "";
+                this.config.setCurrent({org : ""});
               }
         //localStorage.clear();
         //localStorage.setItem("username", this.config.current.username || "");
@@ -185,7 +185,6 @@ data.names = {
 };
 */
 this.config.setCurrent(data);
-this.config.saveCurrent();
     // set our app's pages
     if (this.config.current.user.is_techoradmin)
       this.pages = [
@@ -428,28 +427,6 @@ openPage(page, param?) {
 
     this.config.current = this.config.getCurrent();
 
-    this.config.setCurrent = function(nconfig) {
-      let tconfig = nconfig || {};
-      let current = this.current || {};
-      tconfig.user = nconfig.user || current.user || {};
-      tconfig.is_multiple_org = nconfig.is_multiple_org || current.is_multiple_org || false; 
-      tconfig.stat = nconfig.stat || current.stat || {};
-      tconfig.recent = nconfig.recent || current.recent || {};
-      tconfig.cache = nconfig.cache || current.cache || {};
-      tconfig.key = nconfig.key || current.key || "";
-      tconfig.org = nconfig.org || current.org || "";
-      tconfig.instance = nconfig.instance || current.instance || "";
-      this.current = tconfig;
-      //this.saveCurrent();
-      return tconfig;
-    };
-
-    this.config.clearCurrent = function(key) {
-      localStorage.removeItem("current");
-      this.current = {key: key || "", user: {}, stat: {}, recent: {}};
-      //return config;
-    };
-
     this.config.saveCurrent = function(){
       let curr = this.getCurrent();
       localStorage.setItem("current",  JSON.stringify(curr));
@@ -457,6 +434,17 @@ openPage(page, param?) {
       localStorage.setItem('timeformat', curr.user.time_format || 0);
       localStorage.setItem('currency', curr.currency || "$");
     }
+
+    this.config.setCurrent = function(nconfig, nosave) {
+      this.current = Object.assign({}, this.current || {}, nconfig || {});
+      if (!nosave) this.saveCurrent();
+    };
+
+    this.config.clearCurrent = function(key) {
+      localStorage.removeItem("current");
+      this.setCurrent({key: key || "", user: {}, stat: {}, recent: {}, cache: {}});
+      //return config;
+    };
 
     this.config.getStat = function(property){
       let stat = this.getCurrent("stat")[property];
@@ -471,19 +459,20 @@ openPage(page, param?) {
 
     this.config.getRecent = function(property){
       let recent = this.getCurrent("recent")[property];
-      if (typeof recent == "undefined")
-        return -1;
       return recent || {};
     }
 
     this.config.setRecent = function(property, value){
-      this.current.recent[property]  = value;
+      if (!value)
+        this.current.recent = Object.assign({}, this.current.recent || {}, property || {});
+      else
+        this.current.recent[property] = value;
     }
 
     this.config.getCache = function(property){
       let cache = this.getCurrent("cache")[property];
       if (typeof cache == "undefined")
-        return -1;
+        return [];
       return cache || {};
     }
 

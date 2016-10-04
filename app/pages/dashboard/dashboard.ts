@@ -65,7 +65,7 @@ export class DashboardPage {
         if (this.config.current.is_account_manager) {
             this.accounts = this.config.getCache("dashaccounts");
 
-            let accountslen = this.config.getStat("accounts");
+            let accountslen = 500; //this.config.getStat("accounts");
 
             let pager = { limit: ~accountslen ? accountslen : 500 };
 
