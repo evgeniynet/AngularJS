@@ -114,7 +114,7 @@ ngOnInit()
             this.selects = {
                 "account" : {
                     name: "Account", 
-                    value:  (this.time.account || {}).name || (recent.account || {}).value || this.he.account_name,
+                    value:  (this.time.account || {}).name || this.time.account_name || (recent.account || {}).value || this.he.account_name,
                     selected: account_id,
                     url: "accounts?is_with_statistics=false",
                     hidden: false
@@ -156,8 +156,8 @@ ngOnInit()
             this.selects.project.value = "Default";
             this.selects.project.selected = 0;
             account_id = event.id;
-            this.selects.ticket.hidden = false;
-            this.selects.project.hidden = false;
+            this.selects.ticket.hidden = this.time.is_project_log || this.time.task_type_id || false;
+            this.selects.project.hidden = !this.config.current.is_project_tracking;
             case "project" :
             if (this.selects.project.selected === event.id)
             {
@@ -165,7 +165,7 @@ ngOnInit()
             }
             // dont change ticket on edit
             if (!this.time.task_type_id){
-                this.selects.ticket.hidden = false;
+                this.selects.ticket.hidden = this.time.is_project_log || this.time.task_type_id || false;
                 this.selects.ticket.url = `tickets?status=open&account=${account_id}&project=${event.id}`,
                 this.selects.ticket.value = "Default";
                 this.selects.ticket.selected = 0;
@@ -248,8 +248,8 @@ ngOnInit()
                             start_time:data.start_date,
                             stop_time:data.stop_date,
                             time_offset:time_offset,
-                            task_type:data.task_type_id,
-                            task_type_id:this.selects.tasktype.value,
+                            task_type:this.selects.tasktype.value,
+                            task_type_id:data.task_type_id,
                             ticket_number:data.ticket_key,
                             ticket_subject:this.selects.ticket.value,
                             user_email:this.he.email,

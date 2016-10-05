@@ -33,7 +33,7 @@ export class TimelogsPage {
     {
         this.params = this.navParams.data || {};
         this.pager = { page: 0 };
-        this.params.account = { id: this.params.account_id || "", name: this.params.account_name || this.config.getCurrent("user").account_name };
+        this.params.account = { id: this.params.account_id || "", name: this.params.account_name || "" };
 
         this.cachename = addp("time", "account", this.params.account.id);
         this.cachelen = (this.timeProvider._dataStore[this.cachename] || {}).length;

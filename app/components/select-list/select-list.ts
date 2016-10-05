@@ -21,6 +21,7 @@ export class SelectListComponent {
     @Output() public onChanged: EventEmitter<any> = new EventEmitter(false);
     selected: Object = {};
     init: boolean = true;
+    isdefault_enabled: boolean = false;
     url: string;
     name: string = "";
 
@@ -93,8 +94,8 @@ export class SelectListComponent {
                          this.list.items = data;
                          if (show) {
                              loading.dismiss();
-                             this.proceed_list();
                          }
+                         this.proceed_list(show);
                          this.url = this.list.url;
                      },
                      error => {
@@ -109,9 +110,8 @@ export class SelectListComponent {
                  this.error(this.name + ' list is empty!');
              }
      }
-     else if (show) {
-         this.proceed_list();
-     }
+     else
+         this.proceed_list(show);
  }
 
  error(message)
@@ -119,14 +119,15 @@ export class SelectListComponent {
      this.nav.alert(message, true);
  }
 
- proceed_list()
+ proceed_list(show)
  {
      if (!this.list.items || this.list.items.length == 0)
      {
-         this.list.value += " (no " + this.name + "s found)";
+         this.list.value = "Default (nothing to select)";
          //this.error(this.list.name + ' list is empty!');
          return;
      }
+     if (show) {
      if (!this.list.items[0].name){
          var results = [];
          this.list.items.forEach(item => {
@@ -142,10 +143,13 @@ export class SelectListComponent {
          this.list.items = results;
      }
 
+
+
      //if (this.list.items.length <= alertLimit)
      //    this.openRadio();
      //else
          this.openModal();
+     }
  }
 
  emit_changed(value){
@@ -194,6 +198,7 @@ export class SelectListComponent {
 
      openModal() {
          //TODO check counts: is more than 100 - do ajax
+         this.isdefault_enabled = !~["user", "account", "tech", "task type"].indexOf(this.list.name.toLowerCase());
          this.list.isbutton = this.isbutton;
          let modal = this.list.items.length === 25 ? (this.ajax ? AjaxSelectModal : InfinitySelectModal) : BasicSelectModal;
          let myModal = Modal.create(modal, this.list);
