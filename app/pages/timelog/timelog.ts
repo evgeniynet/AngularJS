@@ -102,7 +102,7 @@ ngOnInit()
 
             let recent : any = {};
 
-            if (!this.time.number && !this.time.time_id && !this.time.account)
+            if (!this.time.number && !this.time.time_id && !(this.time.account || {}).id)
             {
                 recent = this.config.current.recent || {};
             }
@@ -219,7 +219,7 @@ ngOnInit()
             this.timeProvider.addTime(this.time.time_id, data, isEdit ? "PUT" : "POST").subscribe(
                 res => {
                     //store recent
-                    if (!this.time.number && !this.time.time_id && !this.time.account)
+                    if (!this.time.number && !this.time.time_id && !(this.time.account || {}).id)
                     {
                         this.config.setRecent({"account": this.selects.account,
                                                "project": this.selects.project,
