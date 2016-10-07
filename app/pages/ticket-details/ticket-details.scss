@@ -86,28 +86,40 @@ textarea{
     text-overflow: ellipsis;
     margin-top: 0px;
     padding: 0px !important;
-    width: 45%;
+    width: 100%;
      margin-left: 15px;
-        float: left;
-        text-align: left;
+       float: left;
 }
     span{
-        width: 49%;
+        width: 45%;
         float: left;
-    }
-    
-   span p{
-     text-align: right;
-     color: $grey4;
+        margin-left: 15px;
+        
+        
+        p{
      margin: 0px;
+     font-weight: bold;}
     }
     
-    @media (min-width: 508px)  {
-   h4{
-    width: 64%;}
+    ul{
+        width: 45%;
+        float: right;
+        margin-bottom: 0px;
+        margin-top: 0px;
+        margin-right: 15px !important;
+p{
+     text-align: right;
+     margin: 0px;
+     font-weight: bold;}
+        }
     
-    span{
-        width: 33%;}}
+    
+//    @media (min-width: 508px)  {
+//   h4{
+//    width: 100%;}
+    
+//    span{
+//        width: 33%;}}
 }
 
 .ion-segment-button{
