@@ -7,18 +7,18 @@
 <ion-content>
   <ion-toolbar class="blue3">
    <h4>{{ticket.subject | Htmlsafe}}</h4>
-   <span no-lines>
+   <span no-lines class="span-left">
     <p *ngIf="config.current.is_class_tracking">{{ticket.class_name}}</p>
     <p *ngIf="config.current.is_account_manager">{{ticket.account_name}}</p>
     <p *ngIf="config.current.is_location_tracking">{{ticket.location_name}}</p>
     <p [innerText]="username"></p>
     <p [innerText]="techname"></p>
     </span>
-       <ul>
+       <span class="span-right">
        <p>{{ticket.days_old_in_minutes | Daysold}}</p>
        <p  *ngIf="config.current.is_expenses && ticket.misc_cost > 0">Expenses:  {{getCurrency(ticket.misc_cost)}}</p>
     <p *ngIf="config.current.is_time_tracking && ticket.total_hours > 0">{{ticket.total_hours}} Hours</p>
-    <p *ngIf="ticket.sla_complete_date != null">SLA: {{setDate(ticket.sla_complete_date, false, true)}}</p></ul>
+    <p *ngIf="ticket.sla_complete_date != null">SLA: {{setDate(ticket.sla_complete_date, false, true)}}</p></span>
   </ion-toolbar>
   <ion-segment [(ngModel)]="details_tab">
     <ion-segment-button value="Reply">
