@@ -62,6 +62,10 @@ export class InvoiceDetailsPage {
             this.nav.alert("No accounting contacts selected", true);
             return;
         }
+        //proof double click
+            if (this.invoice.in_progress && Date.now() - this.invoice.in_progress < 1500) {return;}
+            this.invoice.in_progress = Date.now();
+            
         var emails = "";
         this.invoice.recipients.forEach((v) => {
             if (v.is_accounting_contact) { emails += v.email + ","; }

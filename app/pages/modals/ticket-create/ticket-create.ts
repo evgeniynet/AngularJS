@@ -129,6 +129,9 @@ export class TicketCreatePage {
             }
             */
         if (form.valid){
+            //proof double click
+            if (this.ticket.in_progress && Date.now() - this.ticket.in_progress < 1500) {return;}
+            this.ticket.in_progress = Date.now();
             var subject = htmlEscape(this.ticket.subject.trim());
             var post = htmlEscape(this.ticket.initial_post.trim()).substr(0, 5000);
 

@@ -88,6 +88,9 @@ export class ExpenseCreatePage {
 
     onSubmit(form) {
         if (form.valid) {
+            //proof double click
+            if (this.expense.in_progress && Date.now() - this.expense.in_progress < 1500) {return;}
+            this.expense.in_progress = Date.now();
             let amount = isNaN(form.value.amount) ? 0 : Number(form.value.amount);
             if (amount <= 0) {
                 this.nav.alert("Not enough amount", true);

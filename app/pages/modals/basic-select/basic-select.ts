@@ -11,12 +11,14 @@ export class BasicSelectModal {
     searchQuery: string = '';
     data: any;
     is_empty: boolean = false;
+    isdefault_enabled: boolean = false;
 
     constructor(
         private params: NavParams,
         private viewCtrl: ViewController
     ) {
         this.name = this.params.data.name;
+        this.isdefault_enabled = !~["user", "account", "tech", "task type"].indexOf(this.name.toLowerCase());
         this.data = this.params.data.items;
         this.items = this.data;
     }

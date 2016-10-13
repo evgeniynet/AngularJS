@@ -26,6 +26,7 @@ export class AjaxSelectModal {
     count: number;
     is_empty: boolean;
     busy: boolean;
+    isdefault_enabled: boolean = false;
 
     constructor(private nav: Nav, private navParams: NavParams, private config: Config, private apiData: ApiData,
         private viewCtrl: ViewController/*, private jsonp: Jsonp*/) {
@@ -35,6 +36,7 @@ export class AjaxSelectModal {
     ngOnInit() {
         this.term = '';
         this.name = this.navParams.data.name || "List";
+        this.isdefault_enabled = !~["user", "account", "tech", "task type"].indexOf(this.name.toLowerCase());
         this.url = this.navParams.data.url || "";
         this.data = this.navParams.data.items || {};
         this.pager = { limit: 20 };

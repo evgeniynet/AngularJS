@@ -196,6 +196,9 @@ ngOnInit()
             return;
         }
         if (form.valid) {
+            //proof double click
+            if (this.time.in_progress && Date.now() - this.time.in_progress < 1500) {return;}
+            this.time.in_progress = Date.now();
             var note = htmlEscape(this.timenote.trim()).substr(0, 5000);
 
             var isEdit = !!this.time.time_id;

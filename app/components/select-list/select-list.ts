@@ -21,7 +21,6 @@ export class SelectListComponent {
     @Output() public onChanged: EventEmitter<any> = new EventEmitter(false);
     selected: Object = {};
     init: boolean = true;
-    isdefault_enabled: boolean = false;
     url: string;
     name: string = "";
 
@@ -198,7 +197,6 @@ export class SelectListComponent {
 
      openModal() {
          //TODO check counts: is more than 100 - do ajax
-         this.isdefault_enabled = !~["user", "account", "tech", "task type"].indexOf(this.list.name.toLowerCase());
          this.list.isbutton = this.isbutton;
          let modal = this.list.items.length === 25 ? (this.ajax ? AjaxSelectModal : InfinitySelectModal) : BasicSelectModal;
          let myModal = Modal.create(modal, this.list);

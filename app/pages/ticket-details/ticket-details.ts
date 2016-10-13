@@ -201,6 +201,10 @@ export class TicketDetailsPage {
     
     onSubmit(form) {
         if (form.valid) {
+            //proof double click
+            if (this.ticket.in_progress && Date.now() - this.ticket.in_progress < 1500) {return;}
+            this.ticket.in_progress = Date.now();
+            
             var post = htmlEscape(this.ticketnote.trim()).substr(0, 5000);
 
             this.ticketProvider.addTicketPost(this.ticket.id, post).subscribe(
@@ -267,6 +271,10 @@ export class TicketDetailsPage {
     }
 
     onUpdate() {
+        //proof double click
+        if (this.ticket.in_progress && Date.now() - this.ticket.in_progress < 1500) {return;}
+        this.ticket.in_progress = Date.now();
+
         let data = {
             "class_id": this.selects.class.selected,
             "level_id": this.selects.level.selected,
@@ -319,6 +327,10 @@ export class TicketDetailsPage {
             "action": "pickup",
             "note_text": ""
         };
+
+        //proof double click
+        if (this.ticket.in_progress && Date.now() - this.ticket.in_progress < 1500) {return;}
+        this.ticket.in_progress = Date.now();
 
         this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(
             data => {

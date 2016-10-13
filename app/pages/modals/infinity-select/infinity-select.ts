@@ -18,6 +18,7 @@ export class InfinitySelectModal {
     busy: boolean;
     pager: any;
     isbutton: boolean;
+    isdefault_enabled: boolean = false;
 
 
     constructor(private nav: Nav, private navParams: NavParams, private config: Config, private apiData: ApiData,
@@ -29,6 +30,7 @@ export class InfinitySelectModal {
     ngOnInit() {
         this.searchQuery = '';
         this.name = this.navParams.data.name || "List";
+        this.isdefault_enabled = !~["user", "account", "tech", "task type"].indexOf(this.name.toLowerCase());
         this.url = this.navParams.data.url || "";
         this.data = this.navParams.data.items || {};
         this.items = this.data;

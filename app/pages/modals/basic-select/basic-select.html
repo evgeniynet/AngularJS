@@ -9,12 +9,12 @@
 
 <ion-content>
     <ion-list class="basic-list">
+        <a *ngIf="isdefault_enabled" detail-none href=# ion-item (click)="dismiss({name: 'Default', id: 0})">
+            <h2>Default</h2>
+        </a>
         <a detail-none href=# ion-item *ngFor="let item of items" (click)="dismiss(item)">
             <h2>{{item.name}}</h2>
-            <!--ion-note item-right>
-                <h2>{{item.id}}</h2>
-            </ion-note-->
         </a>
     </ion-list>
-<div *ngIf="is_empty">No {{name}} found yet</div>
+<div *ngIf="is_empty && !isdefault_enabled">No {{name}} found yet</div>
 </ion-content>
