@@ -123,6 +123,7 @@ export class SelectListComponent {
      if (!this.list.items || this.list.items.length == 0)
      {
          this.list.value = "Default (nothing to select)";
+         //this.open = function { return false; };
          //this.error(this.list.name + ' list is empty!');
          return;
      }

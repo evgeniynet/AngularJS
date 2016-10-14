@@ -45,10 +45,9 @@ export class ClassListComponent {
              if (this.list.url) {
                  this.apiData.get(this.list.url).subscribe(
                      data => {
+                         
                          this.list.items = data;
-                         if (show) {
-                             this.proceed_list();
-                         }
+                         this.proceed_list(show);
                          this.url = this.list.url;
                      },
                      error => {
@@ -60,8 +59,8 @@ export class ClassListComponent {
              else
                  this.error(this.list.name + ' list is empty!');
          }
-         else if (show) {
-             this.proceed_list();
+         else {
+             this.proceed_list(show);
          }
      }
 
@@ -71,7 +70,7 @@ export class ClassListComponent {
          this.nav.alert(message, true);
      }
 
-     proceed_list()
+     proceed_list(show)
      {
          if (!this.config.getCurrent("is_tech"))
              this.list.items = this.list.items.filter(v => { return !v.is_restrict_to_techs });
@@ -80,16 +79,20 @@ export class ClassListComponent {
 
          if (!this.list.items || this.list.items.length == 0)
          {
-             this.error(this.list.name + ' list is empty!');
+             this.list.value = "Default (nothing to select)";
+             //this.error(this.list.name + ' list is empty!');
              return;
          }
+         if (show) {
+             if (this.list.items[0].name != "Default (no selection)")
+               this.list.items.splice(0, 0, {hierarchy_level:0,id:0,is_active:true,is_lastchild:true,name:"Default (no selection)"});  
+         //let is_plain = !this.list.items.filter(v => { return v.sub });
 
-         let is_plain = !this.list.items.filter(v => { return v.sub });
-
-         if (is_plain && this.list.items.length <= alertLimit)
-             this.openRadio();
-         else
+         //if (is_plain && this.list.items.length <= alertLimit)
+         //    this.openRadio();
+         //else
              this.openModal();
+     }
      }
 
      emit_changed(value){

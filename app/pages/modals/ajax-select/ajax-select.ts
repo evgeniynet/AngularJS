@@ -99,6 +99,11 @@ export class AjaxSelectModal {
 
     getItems(term, timer) {
         this.items = [];
+        console.log(this.name);
+        if (~["location", "account"].indexOf(this.name.toLowerCase()))
+        {
+            term = term+"*";
+        }
         this.apiData.getPaged(addp(this.url, "search", term), this.pager).subscribe(
             data => {
                 if (data.length && !data[0].name) {

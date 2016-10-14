@@ -106,7 +106,7 @@ export class AjaxSearchPage {
     getItems(term, timer) {
         this.items = [];
         this.url = "tickets?status=allopen&query=all";
-        this.apiData.getPaged(addp(this.url, "search", term), this.pager).subscribe(
+        this.apiData.getPaged(addp(this.url, "search", term+"*"), this.pager).subscribe(
             data => {
                 if (timer) {
                     clearTimeout(timer);

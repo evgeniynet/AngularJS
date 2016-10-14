@@ -10,7 +10,7 @@
 <img *ngIf="busy" src="img/loading2.gif">
     <ion-list class="ajax">
         <a *ngIf="isdefault_enabled" detail-none href=# ion-item (click)="dismiss({name: 'Default', id: 0})">
-            <h2>Default</h2>
+            <h2>Default (no selection)</h2>
         </a>
         <a detail-none href=# ion-item *ngFor="let item of items" (click)="dismiss(item)">
             <h2>{{item.name}}</h2>
