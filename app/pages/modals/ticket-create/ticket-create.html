@@ -9,7 +9,7 @@
 </ion-toolbar>
 
 <ion-content>
-    <div class="list max-width700 general-alignment margin-bottom10">
+    <div class="list max-width700 margin-top-5">
     <template [ngIf]="config.current.user.is_techoradmin"> 
             <select-list customwidth="true" class="left button-calc" ajax="true" [list]="selects.user" (onChanged)='saveSelect($event)' preload="true"></select-list>
             <div class="width10"><button (click)="addUser('user')" secondary fab class="buttonTicket button-ticket"><ion-icon class="button_circle2" name="md-add"></ion-icon></button>    </div>
@@ -28,13 +28,14 @@
     <br>
     <form #addForm="ngForm">
                 <div class="list max-width700">
-                    <div class="tooltips"><input class="width100 blue3 subject-create commentText" [(ngModel)]="ticket.subject" placeholder="Subject"  ngControl="subject" #subject="ngForm" required maxlength="100"/>
+                    <div class="tooltips"><input class="width100 blue3 subject-create commentText margin-bottom3" [(ngModel)]="ticket.subject" placeholder="Subject"  ngControl="subject" #subject="ngForm" required maxlength="100"/>
                         <span [hidden]="subject.valid || subject.untouched">Subject is required and less 100 chars</span></div>
                     <br>
-                    <textarea class="width100 textLogin commentText" type="text" [(ngModel)]="ticket.initial_post" ngControl="text" #note="ngForm"  placeholder="Details..."></textarea>
+                    <textarea class="width100 textLogin commentText margin-bottom1" type="text" [(ngModel)]="ticket.initial_post" ngControl="text" #note="ngForm"  placeholder="Details..."></textarea>
 
                 <br>
                     <button [disabled]="!addForm.valid" secondary block (click)="onSubmit(addForm)"  type="submit" class="disable-hover button button-default button-block">Add Ticket</button>
-                </div>
+                    <span class="span-block"></span>
+            </div>
     </form>
 </ion-content>
