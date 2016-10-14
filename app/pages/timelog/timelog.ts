@@ -128,7 +128,7 @@ ngOnInit()
                 },
                 "ticket" : {
                     name: "Ticket", 
-                    value: this.time.ticket_number ? `#${this.time.ticket_number}: ${this.time.ticket_subject}` : "Choose",
+                    value: this.time.ticket_number ? `#${this.time.ticket_number}: ${this.time.ticket_subject}` : "Choose (optional)",
                     selected: this.time.ticket_number || 0,
                     url: `tickets?status=open&account=${account_id}&project=${project_id}`,
                     hidden: this.time.is_project_log || this.time.task_type_id || false
@@ -167,11 +167,11 @@ ngOnInit()
             if (!this.time.task_type_id){
                 this.selects.ticket.hidden = this.time.is_project_log || this.time.task_type_id || false;
                 this.selects.ticket.url = `tickets?status=open&account=${account_id}&project=${event.id}`,
-                this.selects.ticket.value = "Default";
+                this.selects.ticket.value = "Choose (optional)";
                 this.selects.ticket.selected = 0;
             }
             this.selects.tasktype.url = `task_types?account=${account_id}&project=${event.id}`,
-            this.selects.tasktype.value = "Default";
+            this.selects.tasktype.value = "Choose";
             this.selects.tasktype.selected = 0;
             break;
         }
