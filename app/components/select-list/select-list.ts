@@ -3,7 +3,6 @@ import {ApiData} from '../../providers/api-data';
 import {getFullName} from '../../directives/helpers';
 import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 import {BasicSelectModal, InfinitySelectModal, AjaxSelectModal} from '../../pages/modals/modals';
-import 'rxjs/add/operator/share';
 
 const alertLimit = 5;
 

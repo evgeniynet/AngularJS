@@ -6,12 +6,15 @@ import {openURL, openURLsystem} from '../../directives/helpers';
 import {DataProvider} from '../../providers/data-provider';
 import {OrganizationsPage} from '../organizations/organizations';
 import {SignupPage} from '../signup/signup';
+import {UploadButtonComponent} from '../../components/components';
 
 @Page({
   templateUrl: 'build/pages/login/login.html',
+  directives: [UploadButtonComponent],
 })
 export class LoginPage {
     
+    icon: String = "add-circle";
     login: any;
     google_action: string = "";
     busy: boolean = false;
@@ -28,10 +31,16 @@ export class LoginPage {
     
     onPageLoaded()
     { 
+        this.icon1 = "ios-add";
         document.title = AppTitle + "Mobile App" ; 
         //logout
         this.login = {username: localStorage.getItem('username') || "" };
         this.config.clearCurrent();
+    }
+
+    uploadFile(event)
+    {
+        console.log(event);
     }
 
     onLogin(form) {

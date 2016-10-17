@@ -27,5 +27,10 @@
           <br>
   <button  (click)="onSignup()" block dark class="login-margin">Create New Account</button>
   </template>
+  <upload-button (filesChanged)="uploadFile($event)"    
+       [btnStyle]="icon"               
+       [allowMultiple]="false">       
+     </upload-button>
+            <!--       [logCallback]="console.log" -->
     </div>
 </ion-content>
