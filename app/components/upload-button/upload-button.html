@@ -1,4 +1,4 @@
-<button (click)="callback($event)" clear class="ion-uploadButton">
+<button type="button" (click)="callback($event)" clear class="ion-uploadButton">
                 <ion-icon name="{{btnStyle}}"></ion-icon>
  </button>
  <input type="file" (change)="filesAdded($event)" style="display: none" [multiple]="multi" #input />

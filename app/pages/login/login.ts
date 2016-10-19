@@ -19,6 +19,7 @@ export class LoginPage {
     google_action: string = "";
     busy: boolean = false;
     is_sd: boolean = isSD;
+    files: any = {};
     //@ViewChild('google_openid') google_openid: NgForm;
 
     constructor(private nav: Nav, private dataProvider: DataProvider, private config: Config) {
@@ -40,7 +41,8 @@ export class LoginPage {
 
     uploadFile(event)
     {
-        console.log(event);
+        console.log(event.length);
+        this.files = event;
     }
 
     onLogin(form) {
@@ -71,6 +73,59 @@ export class LoginPage {
         }
     }
 
+    onUpload(form) {
+        if (form.valid) { 
+            console.log(form);
+            if (!this.files.length) {
+        return;
+    }
+            let xhr:XMLHttpRequest = new XMLHttpRequest();
+            
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    console.log(xhr.response);
+                } else {
+                    console.log(xhr.response);
+                }
+            }
+        };
+
+        xhr.open('POST', "http://api.beta.sherpadesk.com/files/", true);
+xhr.setRequestHeader("Authorization", "Basic " + btoa("u0diuk-b95s6o:2mzer2k5k0srgncebsizvfmip0isp2ii"));
+            //xhr.withCredentials = true;
+        let formData: FormData = new FormData();
+        formData.append("ticket", "wonvhr");
+        for (let i = 0; i < this.files.length; i++) {
+            formData.append("uploads[]", this.files[i], this.files[i].name);
+        }
+
+        xhr.send(formData);
+            }
+    }
+/*
+    uploadFile(file:File):Promise<MyEntity> {
+    return new Promise((resolve, reject) => {
+
+        let xhr:XMLHttpRequest = new XMLHttpRequest();
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    resolve(<MyEntity>JSON.parse(xhr.response));
+                } else {
+                    reject(xhr.response);
+                }
+            }
+        };
+
+        xhr.open('POST', "http://u0diuk-b95s6o:2mzer2k5k0srgncebsizvfmip0isp2ii@api.beta.sherpadesk.com/files/", true);
+
+        let formData = new FormData();
+        formData.append("file", file, file.name);
+        xhr.send(formData);
+    });
+}
+*/
     ngAfterViewInit() {
         //console.log(this.starttime.min);
         //this.google_openid.action = this.starttime.displayFormat = this.displayFormat;

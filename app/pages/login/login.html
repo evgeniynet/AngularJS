@@ -32,5 +32,10 @@
        [allowMultiple]="false">       
      </upload-button>
             <!--       [logCallback]="console.log" -->
-    </div>
+                <form novalidate #uploadForm="ngForm">
+<label><b>Upload Image</b></label>
+<div>
+<button type="submit" (click)="onUpload(uploadForm)">Upload</button></div> <!--  -->
+</form>
+      </div>
 </ion-content>
