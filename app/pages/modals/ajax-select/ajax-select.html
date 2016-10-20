@@ -7,7 +7,7 @@
     <ion-searchbar debounce="400" [(ngModel)]="term" (input)="searchItems($event)" placeholder="{{name}} (min 3 chars)" hideCancelButton="true"></ion-searchbar>
 </ion-toolbar>
 <ion-content>
-<img *ngIf="busy" src="img/loading2.gif">
+<img *ngIf="busy" src="img/loading2.gif" class="imglogo img-padding">
     <ion-list class="ajax">
         <a *ngIf="isdefault_enabled" detail-none href=# ion-item (click)="dismiss({name: 'Default', id: 0})">
             <h2>Default (no selection)</h2>
