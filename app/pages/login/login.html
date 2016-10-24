@@ -27,14 +27,12 @@
           <br>
   <button  (click)="onSignup()" block dark class="login-margin">Create New Account</button>
   </template>
-  <upload-button (filesChanged)="uploadFile($event)"    
-       [btnStyle]="icon"               
-       [allowMultiple]="false">       
+  <upload-button #u (filesUploaded)="uploadedFile($event)"     
+       btnStyle="add-circle"               
+       [allowMultiple]="false"
+       [fileDest]="fileDest"
+       [logCallback]="" 
+       >       
      </upload-button>
-            <!--       [logCallback]="console.log" -->
-                <form novalidate #uploadForm="ngForm">
-<div>
-<button type="submit" block secondary (click)="onUpload(uploadForm)">Upload</button></div> <!--  -->
-</form>
-      </div>
+    <button type="button" block secondary (click)="u.onUpload()">Post</button></div> 
 </ion-content>

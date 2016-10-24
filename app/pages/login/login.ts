@@ -9,40 +9,41 @@ import {SignupPage} from '../signup/signup';
 import {UploadButtonComponent} from '../../components/components';
 
 @Page({
-  templateUrl: 'build/pages/login/login.html',
-  directives: [UploadButtonComponent],
+    templateUrl: 'build/pages/login/login.html',
+    directives: [UploadButtonComponent],
 })
 export class LoginPage {
-    
-    icon: String = "add-circle";
+
+    //@ViewChild(UploadButtonComponent) private uploadComponent: UploadButtonComponent;
+
     login: any;
     google_action: string = "";
     busy: boolean = false;
     is_sd: boolean = isSD;
-    files: any = {};
+    fileDest: any = {ticket: "wonvhr"};
     //@ViewChild('google_openid') google_openid: NgForm;
 
     constructor(private nav: Nav, private dataProvider: DataProvider, private config: Config) {
+        //this.uploadComponent.onUpload();
         if (localStorage.getItem("isPhonegap") !== "true")
-        this.google_action = ApiSite + 'auth/auth0';
+            this.google_action = ApiSite + 'auth/auth0';
         //clear also chrome ext if needed
         if (localStorage.getItem("isExtension") === "true")
             window.top.postMessage("logout", "*");
-  }
+    }
     
     onPageLoaded()
     { 
-        this.icon1 = "ios-add";
+        this.icon = "ios-add";
         document.title = AppTitle + "Mobile App" ; 
         //logout
         this.login = {username: localStorage.getItem('username') || "" };
         this.config.clearCurrent();
     }
 
-    uploadFile(event)
+    uploadedFile(event)
     {
-        console.log(event.length);
-        this.files = event;
+        console.log(event);
     }
 
     onLogin(form) {
@@ -64,68 +65,15 @@ export class LoginPage {
                     this.login.password = "";
                     this.busy = false;
                 }
-            ); 
+                ); 
         }
         else
-            {
-                this.nav.alert('Please enter email and password!', true);
+        {
+            this.nav.alert('Please enter email and password!', true);
             this.busy = false;
         }
     }
 
-    onUpload(form) {
-        if (form.valid) { 
-            console.log(form);
-            if (!this.files.length) {
-        return;
-    }
-            let xhr:XMLHttpRequest = new XMLHttpRequest();
-            
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState === 4) {
-                if (xhr.status === 200) {
-                    console.log(xhr.response);
-                } else {
-                    console.log(xhr.response);
-                }
-            }
-        };
-
-        xhr.open('POST', "http://api.beta.sherpadesk.com/files/", true);
-xhr.setRequestHeader("Authorization", "Basic " + btoa("u0diuk-b95s6o:2mzer2k5k0srgncebsizvfmip0isp2ii"));
-            //xhr.withCredentials = true;
-        let formData: FormData = new FormData();
-        formData.append("ticket", "wonvhr");
-        for (let i = 0; i < this.files.length; i++) {
-            formData.append("uploads[]", this.files[i], this.files[i].name);
-        }
-
-        xhr.send(formData);
-            }
-    }
-/*
-    uploadFile(file:File):Promise<MyEntity> {
-    return new Promise((resolve, reject) => {
-
-        let xhr:XMLHttpRequest = new XMLHttpRequest();
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState === 4) {
-                if (xhr.status === 200) {
-                    resolve(<MyEntity>JSON.parse(xhr.response));
-                } else {
-                    reject(xhr.response);
-                }
-            }
-        };
-
-        xhr.open('POST', "http://u0diuk-b95s6o:2mzer2k5k0srgncebsizvfmip0isp2ii@api.beta.sherpadesk.com/files/", true);
-
-        let formData = new FormData();
-        formData.append("file", file, file.name);
-        xhr.send(formData);
-    });
-}
-*/
     ngAfterViewInit() {
         //console.log(this.starttime.min);
         //this.google_openid.action = this.starttime.displayFormat = this.displayFormat;
@@ -147,26 +95,26 @@ xhr.setRequestHeader("Authorization", "Basic " + btoa("u0diuk-b95s6o:2mzer2k5k0s
             var onExit = function() {
                 location.href = 'index.html';
             };
-                    win.addEventListener( "loadstop", function() {
-                        var loop = setInterval(function() {
-                            win.executeScript(
-                                {
-                                    code: "localStorage.getItem('isGoogle')"
-                                },
-                                function( values ) {
-                                    var name = values[0];
-                                    if (name) {
-                                        clearInterval(loop);
-                                        win.close();
-                                        onExit();
-                                    }
-                                }
-                            );
-                        });
-                    });
-                    win.addEventListener('exit', onExit);
-                    return;
-                }
+            win.addEventListener( "loadstop", function() {
+                var loop = setInterval(function() {
+                    win.executeScript(
+                    {
+                        code: "localStorage.getItem('isGoogle')"
+                    },
+                    function( values ) {
+                        var name = values[0];
+                        if (name) {
+                            clearInterval(loop);
+                            win.close();
+                            onExit();
+                        }
+                    }
+                    );
+                });
+            });
+            win.addEventListener('exit', onExit);
+            return;
+        }
     }
     
     onSignup() {

@@ -1,7 +1,9 @@
 <button type="button" (click)="callback($event)" clear class="ion-uploadButton">
-                <ion-icon name="add-circle"></ion-icon>
- </button>
- <input type="file" (change)="filesAdded($event)" style="display: none" [multiple]="multi" #input />
- <div *ngFor="let file of files">
- <span>{{file.name}}</span><br>
- </div>
+	<ion-icon name="add-circle"></ion-icon>
+</button>
+<input type="file" (change)="filesAdded($event)" style="display: none" [multiple]="multi" #input />
+<div *ngFor="let file of files">
+	<span>{{file.name}}</span><br>
+</div>
+<a *ngIf="files?.length" block secondary (click)="reset()">Clear</a>
+<button type="button" *ngIf="!fileDest?.ticket" block secondary (click)="onUpload()">Upload</button>
