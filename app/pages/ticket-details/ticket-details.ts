@@ -207,7 +207,9 @@ export class TicketDetailsPage {
             
             var post = htmlEscape(this.ticketnote.trim()).substr(0, 5000);
 
-            this.ticketProvider.addTicketPost(this.ticket.id, post).subscribe(
+            let files = [];
+
+            this.ticketProvider.addTicketPost(this.ticket.id, post, files).subscribe(
                 data => {
                     this.nav.alert('New post added :)');
                     this.ticketnote = "";

@@ -127,11 +127,12 @@ export class TicketProvider {
             return this.apiData.get(url, data, "PUT");
         }
 
-        addTicketPost(id, note) {
+        addTicketPost(id, note, files?) {
             let url = `tickets/${id}`;
             let data = {
                 "action": "response",
                 "note_text": note,
+                "files" : files || []
             };
             return this.apiData.get(url, data, "POST");
         }
