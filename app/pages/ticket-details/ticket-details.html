@@ -45,10 +45,13 @@
        <div class="tooltips">
         <textarea class="width100 textLogin commentText" [(ngModel)]="ticketnote" type="text" placeholder="Add Response" ngControl="note" #note="ngForm" required maxlength="4000"></textarea>
         <span [hidden]="note.valid || note.untouched">Response is required and less 5000 chars</span></div>
-         <button (click)="itemTapped()" secondary left fab class="button-attach"><ion-icon class="button-font action-but" name="attach"></ion-icon></button>
-        <span class="span-img"><ion-icon name="md-document" role=img dark class="button-font ion-md-document" aria-label="md-document"></ion-icon>&nbsp;name&nbsp;</span>
-           <span class="span-img"><ion-icon name="ios-image" role=img dark class="button-font ion-md-image" aria-label="md-document"></ion-icon>&nbsp;name&nbsp;</span>
-        <button secondary class="button_reply right" [disabled]="!addForm.valid" (click)="onSubmit(addForm)"  type="submit">Reply</button>
+          <upload-button #u (filesUploaded)="uploadedFile($event)"   
+            (filesSelected)="selectedFile($event)"     
+            btnStyle="add-circle"               
+            [allowMultiple]="true"
+            [fileDest]="fileDest"
+            [logCallback]=""></upload-button>
+        <button secondary class="button_reply right" [disabled]="!addForm.valid" (click)="u.onUpload();onSubmit(addForm)"  type="submit">Reply</button>
         <button *ngIf="!config.current.user.is_techoradmin && ticket.status != 'Closed'" secondary class="button_reply right" (click)="onClose(addForm)" [disabled]="!addForm.valid">Reply & Close</button>
       </form>
        

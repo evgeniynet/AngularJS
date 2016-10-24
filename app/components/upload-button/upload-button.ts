@@ -1,5 +1,6 @@
 import {Component, ElementRef, Input, OnInit, ViewChild, Renderer, Output, EventEmitter} from "@angular/core";
-import {IONIC_DIRECTIVES} from 'ionic-angular';
+import {Config, IONIC_DIRECTIVES} from 'ionic-angular';
+import {ApiSite} from '../../providers/config';
 /**
  * Upload button component.
  *
@@ -85,14 +86,14 @@ import {IONIC_DIRECTIVES} from 'ionic-angular';
    * @param  {Renderer} renderer for invoking native methods
    * @param  {Log}      logger instance
    */
-   constructor(private renderer: Renderer) {
+   constructor(private renderer: Renderer, private config: Config) {
      if (this.allowMultiple === false) {
        this.multi = "";
      }
    }
 
    ngOnInit() {
-    //console.log("######################i nininiini");
+    console.log("######################i nininiini");
   }
 
   public upload (url: string, files: File[]): Promise<any> {
@@ -110,8 +111,13 @@ import {IONIC_DIRECTIVES} from 'ionic-angular';
                 }
               };
 
+        let token = this.config.getCurrent("key"),
+        org = this.config.getCurrent("org"), // localStorage.getItem('userOrgKey'),
+        inst = this.config.getCurrent("instance");// localStorage.getItem('userInstanceKey');
+
+      let t= !token ? btoa("u0diuk-b95s6o:2mzer2k5k0srgncebsizvfmip0isp2ii") : btoa(`${org}-${inst}:${token}`);
               xhr.open('POST', url+"files/", true);
-              xhr.setRequestHeader("Authorization", "Basic " + btoa("u0diuk-b95s6o:2mzer2k5k0srgncebsizvfmip0isp2ii"));
+              xhr.setRequestHeader("Authorization", "Basic " + t);
             //xhr.withCredentials = true;
             //console.log(this.fileDest);
             let formData: FormData = new FormData();
@@ -132,7 +138,7 @@ import {IONIC_DIRECTIVES} from 'ionic-angular';
       this.filesUploaded.next("ok" + " no files");
       return;
     }
-    this.upload("http://api.beta.sherpadesk.com/", this.files).then((data) => {
+    this.upload(ApiSite, this.files).then((data) => {
       this.filesUploaded.next("ok " + data);
       this.reset();
     }).catch((ex) => {

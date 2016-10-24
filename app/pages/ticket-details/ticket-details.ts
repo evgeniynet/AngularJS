@@ -6,6 +6,7 @@ import {getDateTime, htmlEscape, getCurrency, getFullName, fullapplink, parseXml
 import {PostsListComponent} from '../../components/posts-list/posts-list';
 import {SelectListComponent} from '../../components/select-list/select-list';
 import {ClassListComponent} from '../../components/class-list/class-list';
+import {UploadButtonComponent} from '../../components/components';
 import {CloseTicketModal} from '../../pages/modals/modals';
 import {TimelogPage} from '../../pages/timelog/timelog'; 
 import {ExpenseCreatePage} from '../../pages/expense-create/expense-create';
@@ -13,7 +14,7 @@ import {GravatarPipe, LinebreaksPipe, DaysoldPipe, HtmlsafePipe} from '../../pip
 
 @Page({
     templateUrl: 'build/pages/ticket-details/ticket-details.html',
-    directives: [PostsListComponent, SelectListComponent, ClassListComponent],
+    directives: [PostsListComponent, SelectListComponent, ClassListComponent,UploadButtonComponent],
     pipes: [GravatarPipe, LinebreaksPipe, DaysoldPipe, HtmlsafePipe],
 })
 export class TicketDetailsPage {
@@ -31,6 +32,8 @@ export class TicketDetailsPage {
     is_editnote: boolean = false;
     cachename: string = "";
     closed_index: number = 0;
+    fileDest: any = {ticket: ""};
+    files: any = [];
     posts: any = [
     {
         "id": 0,
@@ -131,12 +134,25 @@ export class TicketDetailsPage {
         };
 
         this.ticketnote = "";
+
+        this.fileDest = {ticket: data.key};
         
         let isFullInfo = (data.ticketlogs && data.ticketlogs.length > 0);
 
         this.getPosts(data.key, !isFullInfo);
 
         this.processDetails(data, !isFullInfo);
+    }
+
+    uploadedFile(event)
+    {
+        console.log("Uploaded:", event);
+    }
+
+    selectedFile(event)
+    {
+        console.log("Selected", event);
+        this.files = event;
     }
 
     getPosts(key, isShortInfo)
@@ -207,9 +223,7 @@ export class TicketDetailsPage {
             
             var post = htmlEscape(this.ticketnote.trim()).substr(0, 5000);
 
-            let files = [];
-
-            this.ticketProvider.addTicketPost(this.ticket.id, post, files).subscribe(
+            this.ticketProvider.addTicketPost(this.ticket.id, post, this.files).subscribe(
                 data => {
                     this.nav.alert('New post added :)');
                     this.ticketnote = "";

@@ -1,5 +1,4 @@
 import {Page, Config, Nav, Loading} from 'ionic-angular';
-import {forwardRef} from '@angular/core';
 import {ApiSite, Site, isSD, appVersion, AppTitle} from '../../providers/config';
 //import {NgForm} from '@angular/common';
 import {openURL, openURLsystem} from '../../directives/helpers';
