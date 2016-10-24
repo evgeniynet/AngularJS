@@ -2,8 +2,9 @@
 	<ion-icon name="add-circle"></ion-icon>
 </button>
 <input type="file" (change)="filesAdded($event)" style="display: none" [multiple]="multi" #input />
+<span *ngIf="error" style="color:red">Error: {{error}}</span>
 <div *ngFor="let file of files">
-	<span>{{file.name}}</span><br>
+	<span>{{file.name}}</span> - {{humanizeBytes(file.size)}} {{isImage(file.name) ? "img" : "doc"}}<br>
 </div>
 <a *ngIf="files?.length" block secondary (click)="reset()">Clear</a>
-<button type="button" *ngIf="!fileDest?.ticket" block secondary (click)="onUpload()">Upload</button>
+<button type="button" *ngIf="!fileDest?.ticket" [disabled]="!files.length" block secondary (click)="onUpload()">Upload</button>

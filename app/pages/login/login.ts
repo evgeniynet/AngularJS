@@ -34,7 +34,6 @@ export class LoginPage {
     
     onPageLoaded()
     { 
-        this.icon = "ios-add";
         document.title = AppTitle + "Mobile App" ; 
         //logout
         this.login = {username: localStorage.getItem('username') || "" };

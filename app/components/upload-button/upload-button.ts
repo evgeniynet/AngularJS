@@ -65,6 +65,7 @@ import {IONIC_DIRECTIVES} from 'ionic-angular';
    * String used for control multiple uploads
    */
    private multi: string = "multiple";
+   error: string = "";
    files: any = [];
 
   /**
@@ -107,7 +108,7 @@ import {IONIC_DIRECTIVES} from 'ionic-angular';
               xhr.open('POST', url+"files/", true);
               xhr.setRequestHeader("Authorization", "Basic " + btoa("u0diuk-b95s6o:2mzer2k5k0srgncebsizvfmip0isp2ii"));
             //xhr.withCredentials = true;
-            console.log(this.fileDest);
+            //console.log(this.fileDest);
             let formData: FormData = new FormData();
             for ( var key in this.fileDest ) {
               formData.append(key, this.fileDest[key]);
@@ -162,7 +163,20 @@ import {IONIC_DIRECTIVES} from 'ionic-angular';
    filesAdded(event: Event) {
      let files: FileList = this.nativeInputBtn.nativeElement.files;
      this.log("UploadButton: Added files", files);
-     this.files = files;
+     let checkfiles: any = [];
+     this.error = "";
+     for (let i = 0; i < files.length; i++) {
+       if (this.isFile(files[i]))
+              checkfiles.push(files[i]);
+       else 
+       {
+         if (files[i].size === 0)
+             this.error += `File ${files[i].name} has zero size`;
+           else
+             this.error += `File #${i} has empty name`;
+            }
+       }
+     this.files = checkfiles;
    }
 
   /**
@@ -171,9 +185,30 @@ import {IONIC_DIRECTIVES} from 'ionic-angular';
    * @param {any[]} ...args console.log like paramter <code>log("Error", obj, 1)</code>
    */
    private log(...args: any[]): void {
-     //console.log(args);
      if (this.logCallback) {
-       this.logCallback(args);
+       console.log(args);
+       //this.logCallback(args);
      }
    }
+
+ humanizeBytes(bytes: number) {
+  if (bytes === 0) {
+    return '0 Byte';
+  }
+  let k = 1024;
+  const sizes: string[] = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB'];
+  let i: number = Math.floor(Math.log(bytes) / Math.log(k));
+
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+}
+
+isImage(url) {
+            if(!url) return false;
+            return url.trim().match(/(jpeg|jpg|gif|png|ico)$/i) !== null;
+        }
+
+isFile(file: any): boolean {
+    return file !== null && (file instanceof Blob && (file.name.trim() && file.size));
+  }
+
  }
