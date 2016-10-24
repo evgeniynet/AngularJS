@@ -93,7 +93,7 @@ import {ApiSite} from '../../providers/config';
    }
 
    ngOnInit() {
-    console.log("######################i nininiini");
+    //console.log("######################i nininiini");
   }
 
   public upload (url: string, files: File[]): Promise<any> {
@@ -151,6 +151,7 @@ import {ApiSite} from '../../providers/config';
   {
     this.files = [];
     this.nativeInputBtn.nativeElement.value = '';
+    this.filesSelected.next([]);
   }
 
   /**
