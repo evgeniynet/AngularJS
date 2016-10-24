@@ -27,7 +27,8 @@
           <br>
   <button  (click)="onSignup()" block dark class="login-margin">Create New Account</button>
   </template>
-  <upload-button #u (filesUploaded)="uploadedFile($event)"     
+  <upload-button #u (filesUploaded)="uploadedFile($event)"   
+       (filesSelected)="selectedFile($event)"     
        btnStyle="add-circle"               
        [allowMultiple]="true"
        [fileDest]="fileDest"

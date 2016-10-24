@@ -40,6 +40,11 @@ import {IONIC_DIRECTIVES} from 'ionic-angular';
   /**
    * The callback executed when files are selected, set by parent
    */
+   @Output() public filesSelected: EventEmitter<any> = new EventEmitter(false);
+
+  /**
+   * The callback executed when files are uploaded, set by parent
+   */
    @Output() public filesUploaded: EventEmitter<any> = new EventEmitter(false);
 
  /*** The destination of file 
@@ -124,13 +129,14 @@ import {IONIC_DIRECTIVES} from 'ionic-angular';
   onUpload() {
     console.log("upload start");
     if (!this.files.length) {
+      this.filesUploaded.next("ok" + " no files");
       return;
     }
     this.upload("http://api.beta.sherpadesk.com/", this.files).then((data) => {
-      this.filesUploaded.next("ok" + data);
+      this.filesUploaded.next("ok " + data);
       this.reset();
     }).catch((ex) => {
-      this.filesUploaded.next("error");
+      this.filesUploaded.next("error " + ex);
       console.error('Error fetching users', ex);
     });
   }
@@ -164,10 +170,13 @@ import {IONIC_DIRECTIVES} from 'ionic-angular';
      let files: FileList = this.nativeInputBtn.nativeElement.files;
      this.log("UploadButton: Added files", files);
      let checkfiles: any = [];
+     let fileNames: any = [];
      this.error = "";
      for (let i = 0; i < files.length; i++) {
-       if (this.isFile(files[i]))
+       if (this.isFile(files[i])){
               checkfiles.push(files[i]);
+              fileNames.push(files[i].name);
+            }
        else 
        {
          if (files[i].size === 0)
@@ -177,6 +186,7 @@ import {IONIC_DIRECTIVES} from 'ionic-angular';
             }
        }
      this.files = checkfiles;
+     this.filesSelected.next(fileNames);
    }
 
   /**

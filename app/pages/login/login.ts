@@ -42,7 +42,12 @@ export class LoginPage {
 
     uploadedFile(event)
     {
-        console.log(event);
+        console.log("Uploaded:", event);
+    }
+
+    selectedFile(event)
+    {
+        console.log("Selected", event);
     }
 
     onLogin(form) {
