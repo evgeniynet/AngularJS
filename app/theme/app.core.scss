@@ -235,8 +235,9 @@ max-width: 700px;}
 }
 
 .span-img{
-    width: 50%;
+    width: 70%;
     float: left;
+    margin-top: 5px;
 }
 
 .names{
@@ -348,6 +349,10 @@ scroll-content {
 
 .marginleft{
     margin-left: 0px;
+}
+
+.margin-left10{
+    margin-left: 10%;
 }
 
 .container {
@@ -480,7 +485,7 @@ scroll-content {
 
 .table span.box1{
 //    background-color: $grey;
-    width: 35%;
+    width: 37%;
     float: left;
     padding-left: 15px;
     text-align: left;
@@ -496,20 +501,20 @@ scroll-content {
 
 .table span.box2{
     background-color: $grey;
-    width: 23%;
+    width: 21%;
     float: left;
 }
 
 .table span.box3{
     background-color: $grey;
-    width: 23%;
+    width: 21%;
     float: left;
-    margin-bottom: 10px;
+//    margin-bottom: 10px;
 }
 
 .table span.box4{
     background-color: $blue2;
-    width: 19%;
+    width: 21%;
     float: right;
 }
 
