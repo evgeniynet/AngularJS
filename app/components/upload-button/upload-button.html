@@ -1,7 +1,7 @@
-<button type="button" (click)="callback($event)" clear class="ion-uploadButton">
-                <ion-icon name="add-circle"></ion-icon>
+<button type="button" (click)="callback($event)" secondary left fab class="button-attach"><ion-icon class="button-font action-but" name="attach"></ion-icon>
  </button>
  <input type="file" (change)="filesAdded($event)" style="display: none" [multiple]="multi" #input />
  <div *ngFor="let file of files">
- <span>{{file.name}}</span><br>
+ <span class="span-img"><ion-icon name="md-document" role=img dark class="button-font ion-md-document" aria-label="md-document"></ion-icon>&nbsp;{{file.name}}&nbsp;</span>
+           <span class="span-img"><ion-icon name="ios-image" role=img dark class="button-font ion-md-image" aria-label="md-document"></ion-icon>&nbsp;{{file.name}}&nbsp;</span><br>
  </div>

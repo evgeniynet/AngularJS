@@ -10,6 +10,7 @@ import {CloseTicketModal} from '../../pages/modals/modals';
 import {TimelogPage} from '../../pages/timelog/timelog'; 
 import {ExpenseCreatePage} from '../../pages/expense-create/expense-create';
 import {GravatarPipe, LinebreaksPipe, DaysoldPipe, HtmlsafePipe} from '../../pipes/pipes';
+import {UploadButtonComponent} from '../../components/components';
 
 @Page({
     templateUrl: 'build/pages/ticket-details/ticket-details.html',
