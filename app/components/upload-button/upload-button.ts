@@ -1,5 +1,5 @@
 import {Component, ElementRef, Input, OnInit, ViewChild, Renderer, Output, EventEmitter} from "@angular/core";
-import {Nav, Config, IONIC_DIRECTIVES} from 'ionic-angular';
+import {Nav, Config, IONIC_DIRECTIVES, Loading} from 'ionic-angular';
 import {ApiSite} from '../../providers/config';
 /**
  * Upload button component.
@@ -112,13 +112,13 @@ import {ApiSite} from '../../providers/config';
                 }
               };
 
-        let token = this.config.getCurrent("key"),
+              let token = this.config.getCurrent("key"),
         org = this.config.getCurrent("org"), // localStorage.getItem('userOrgKey'),
         inst = this.config.getCurrent("instance");// localStorage.getItem('userInstanceKey');
 
-      let t= !token ? btoa("u0diuk-b95s6o:2mzer2k5k0srgncebsizvfmip0isp2ii") : btoa(`${org}-${inst}:${token}`);
-              xhr.open('POST', url+"files/", true);
-              xhr.setRequestHeader("Authorization", "Basic " + t);
+        let t= !token ? btoa("u0diuk-b95s6o:2mzer2k5k0srgncebsizvfmip0isp2ii") : btoa(`${org}-${inst}:${token}`);
+        xhr.open('POST', url+"files/", true);
+        xhr.setRequestHeader("Authorization", "Basic " + t);
             //xhr.withCredentials = true;
             //console.log(this.fileDest);
             let formData: FormData = new FormData();
@@ -143,22 +143,36 @@ import {ApiSite} from '../../providers/config';
     if (this.in_progress && Date.now() - this.in_progress < 1500) {return;}
     this.in_progress = Date.now();
 
-    this.upload(ApiSite, this.files).then((data) => {
-      this.filesUploaded.next("ok " + data);
-      this.reset();
-    }).catch((ex) => {
-      this.filesUploaded.next("error " + ex);
+    let loading = null;
+
+    if (this.files.length > 2 || this.files[0].size > 20000)
+    {
+      loading = Loading.create({
+        content: "Uploading file(s)...",
+                     //duration: 2000,
+                     dismissOnPageChange: true
+                   });
+      this.nav.present(loading);
+    }
+
+  this.upload(ApiSite, this.files).then((data) => {
+    this.filesUploaded.next("ok " + data);
+    this.reset();
+    if (loading) loading.dismiss();
+  }).catch((ex) => {
+    this.filesUploaded.next("error " + ex);
+    if (loading) loading.dismiss();
       console.error('Error uploading files');//, ex);
       this.nav.alert('Error uploading files! Cannot add Post! Please try again later ... or check your internet connection', true);
     });
-  }
+}
 
-  reset()
-  {
-    this.files = [];
-    this.nativeInputBtn.nativeElement.value = '';
-    this.filesSelected.next([]);
-  }
+reset()
+{
+  this.files = [];
+  this.nativeInputBtn.nativeElement.value = '';
+  this.filesSelected.next([]);
+}
 
   /**
    * Callback executed when the visible button is pressed
@@ -187,17 +201,17 @@ import {ApiSite} from '../../providers/config';
      this.error = "";
      for (let i = 0; i < files.length; i++) {
        if (this.isFile(files[i])){
-              checkfiles.push(files[i]);
-              fileNames.push(files[i].name);
-            }
+         checkfiles.push(files[i]);
+         fileNames.push(files[i].name);
+       }
        else 
        {
          if (files[i].size === 0)
-             this.error += `File ${files[i].name} has zero size`;
-           else
-             this.error += `File #${i} has empty name`;
-            }
+           this.error += `File ${files[i].name} has zero size`;
+         else
+           this.error += `File #${i} has empty name`;
        }
+     }
      this.files = checkfiles;
      this.filesSelected.next(fileNames);
    }
@@ -214,24 +228,24 @@ import {ApiSite} from '../../providers/config';
      }
    }
 
- humanizeBytes(bytes: number) {
-  if (bytes === 0) {
-    return '0 Byte';
-  }
-  let k = 1024;
-  const sizes: string[] = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB'];
-  let i: number = Math.floor(Math.log(bytes) / Math.log(k));
+   humanizeBytes(bytes: number) {
+     if (bytes === 0) {
+       return '0 Byte';
+     }
+     let k = 1024;
+     const sizes: string[] = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB'];
+     let i: number = Math.floor(Math.log(bytes) / Math.log(k));
 
-  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-}
+     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+   }
 
-isImage(url) {
-            if(!url) return false;
-            return url.trim().match(/(jpeg|jpg|gif|png|ico)$/i) !== null;
-        }
+   isImage(url) {
+     if(!url) return false;
+     return url.trim().match(/(jpeg|jpg|gif|png|ico)$/i) !== null;
+   }
 
-isFile(file: any): boolean {
-    return file !== null && (file instanceof Blob && (file.name.trim() && file.size));
-  }
+   isFile(file: any): boolean {
+     return file !== null && (file instanceof Blob && (file.name.trim() && file.size));
+   }
 
  }

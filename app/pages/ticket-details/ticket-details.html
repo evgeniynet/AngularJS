@@ -39,7 +39,7 @@
   </ion-segment>
   <div [ngSwitch]="details_tab">
    <div class="list general-alignment" *ngSwitchWhen="'Reply'">
-      <ion-item no-lines><ion-label class="left width30 color">Show all logs</ion-label><ion-toggle class="toggle" [(ngModel)]="is_showlogs"></ion-toggle></ion-item> <br>
+      <ion-item no-lines><ion-label class="left width30 color">Show logs</ion-label><ion-toggle class="toggle" [(ngModel)]="is_showlogs"></ion-toggle></ion-item> <br>
      <posts-list [posts]="posts | slice:0:1" [attachments]="attachments"></posts-list>
      <form *ngIf="active" #addForm="ngForm" class="response-ticket">
        <div class="tooltips">
