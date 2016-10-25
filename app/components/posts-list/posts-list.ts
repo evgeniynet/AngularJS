@@ -11,12 +11,30 @@ import {GravatarPipe, LinebreaksPipe, DaysoldPipe, FilesPipe} from '../../pipes/
     pipes: [GravatarPipe, LinebreaksPipe, DaysoldPipe, FilesPipe],
 })
 export class PostsListComponent {
-    @Input() posts: Array<any>;
-    @Input() attachments: Array<any>;
+    @Input() posts: Array<any> = [];
+    _posts : Array<any> = [];
+    @Input() attachments: Array<any> = [];
+    @Input() is_showlogs: boolean;
 
      
     constructor() {
-        this.posts = [];
-        this.attachments = [];
     }  
+
+    ngOnInit() {
+    this._posts = this.is_showlogs ? this.posts : this.posts.filter(item => ~["Initial Post", "Response"].indexOf(item.log_type));
+    }
+
+    ngOnChanges(event) { 
+        if ("posts" in event || "is_showlogs" in event) {
+             if (event.posts.isFirstChange() && event.posts.currentValue !== null)
+                 return;
+             this._posts = this.is_showlogs ? this.posts : this.posts.filter(item => ~["Initial Post", "Response"].indexOf(item.log_type));
+         }
+    }
+
+    /*get posts()
+    {
+        return this.posts.filter(item => item.id.indexOf(args[0]) !== -1);
+    }
+    */
 }

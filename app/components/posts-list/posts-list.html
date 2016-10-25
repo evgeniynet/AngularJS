@@ -1,5 +1,5 @@
 <div>
-    <ion-card-content class="card-content" *ngFor="let post of posts">
+    <ion-card-content class="card-content" *ngFor="let post of _posts">
         <div></div>
         <ion-avatar>
             <img *ngIf="post.user_email" [alt]="post.user_firstname" [src]="post.user_email | Gravatar"/>
