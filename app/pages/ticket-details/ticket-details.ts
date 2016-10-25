@@ -34,6 +34,7 @@ export class TicketDetailsPage {
     closed_index: number = 0;
     fileDest: any = {ticket: ""};
     files: any = [];
+    is_showlogs: boolean = false;
     posts: any = [
     {
         "id": 0,
@@ -133,6 +134,7 @@ export class TicketDetailsPage {
             hidden: false
         };
 
+        this.is_showlogs = false;
         this.ticketnote = "";
 
         this.fileDest = {ticket: data.key};
@@ -147,12 +149,23 @@ export class TicketDetailsPage {
     uploadedFile(event)
     {
         console.log("Uploaded:", event);
+        if (event.indexOf("ok") == 0)
+        {
+            if (!this.config.current.user.is_techoradmin && this.ticket.status != 'Closed')
+                this.onClose();
+            else
+                this.onSubmit(); 
+        }
     }
 
     selectedFile(event)
     {
-        console.log("Selected", event);
+        //console.log("Selected", event);
         this.files = event;
+        if (event.length && !this.ticketnote)
+            this.ticketnote = " ";
+        else
+            this.ticketnote = this.ticketnote.trim(); 
     }
 
     getPosts(key, isShortInfo)
@@ -186,7 +199,7 @@ export class TicketDetailsPage {
         if (!isShortInfo)
         {
             this.attachments = (data.attachments || []).slice().reverse();
-            this.posts = data.ticketlogs;
+            this.posts = data.ticketlogs; // this.is_showlogs ?  : data.ticketlogs.filter(item => ~["Initial Post", "Response"].indexOf(item.log_type));
 
             let xml = parseXml(this.ticket.customfields_xml);
             if (xml)
@@ -215,8 +228,7 @@ export class TicketDetailsPage {
         this.selects[name].value = event.name;
     }
     
-    onSubmit(form) {
-        if (form.valid) {
+    onSubmit() {
             //proof double click
             if (this.ticket.in_progress && Date.now() - this.ticket.in_progress < 1500) {return;}
             this.ticket.in_progress = Date.now();
@@ -235,7 +247,6 @@ export class TicketDetailsPage {
                     console.log(error || 'Server error');
                 }
                 );
-        }
     } 
 
     saveNote(form) {
@@ -258,8 +269,11 @@ export class TicketDetailsPage {
         this.is_editnote = false;
     }
 
-    onClose(form) {
-        if (form.valid) {
+    onClose() {
+            //proof double click
+            if (this.ticket.in_progress && Date.now() - this.ticket.in_progress < 1500) {return;}
+            this.ticket.in_progress = Date.now();
+
             var post = htmlEscape(this.ticketnote.trim()).substr(0, 5000);
 
             let data = {
@@ -283,7 +297,6 @@ export class TicketDetailsPage {
                     console.log(error || 'Server error');
                 }
                 );
-        }
     }
 
     onUpdate() {

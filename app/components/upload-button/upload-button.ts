@@ -1,5 +1,5 @@
 import {Component, ElementRef, Input, OnInit, ViewChild, Renderer, Output, EventEmitter} from "@angular/core";
-import {Config, IONIC_DIRECTIVES} from 'ionic-angular';
+import {Nav, Config, IONIC_DIRECTIVES} from 'ionic-angular';
 import {ApiSite} from '../../providers/config';
 /**
  * Upload button component.
@@ -71,8 +71,9 @@ import {ApiSite} from '../../providers/config';
    * String used for control multiple uploads
    */
    private multi: string = "multiple";
-   error: string = "";
-   files: any = [];
+   private error: string = "";
+   private files: any = [];
+   private in_progress: any;
 
   /**
    * (Optional) if needed a logger can be used
@@ -86,7 +87,7 @@ import {ApiSite} from '../../providers/config';
    * @param  {Renderer} renderer for invoking native methods
    * @param  {Log}      logger instance
    */
-   constructor(private renderer: Renderer, private config: Config) {
+   constructor(private nav: Nav, private renderer: Renderer, private config: Config) {
      if (this.allowMultiple === false) {
        this.multi = "";
      }
@@ -138,12 +139,17 @@ import {ApiSite} from '../../providers/config';
       this.filesUploaded.next("ok" + " no files");
       return;
     }
+    //proof double click
+    if (this.in_progress && Date.now() - this.in_progress < 1500) {return;}
+    this.in_progress = Date.now();
+
     this.upload(ApiSite, this.files).then((data) => {
       this.filesUploaded.next("ok " + data);
       this.reset();
     }).catch((ex) => {
       this.filesUploaded.next("error " + ex);
-      console.error('Error fetching users', ex);
+      console.error('Error uploading files');//, ex);
+      this.nav.alert('Error uploading files! Cannot add Post! Please try again later ... or check your internet connection', true);
     });
   }
 
