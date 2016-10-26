@@ -1,10 +1,11 @@
-<button type="button" (click)="callback($event)" clear class="ion-uploadButton">
-	<ion-icon name="add-circle"></ion-icon>
-</button>
+<div>
+<button type="button" (click)="callback($event)" secondary left fab class="button-attach"><ion-icon class="button-font action-but" name="attach"></ion-icon></button><br/>
 <input type="file" (change)="filesAdded($event)" style="display: none" [multiple]="multi" #input />
-<span *ngIf="error" style="color:red">Error: {{error}}</span>
 <div *ngFor="let file of files">
-	<span>{{file.name}}</span> - {{humanizeBytes(file.size)}} {{isImage(file.name) ? "img" : "doc"}}<br>
+	<span class="span-img"><ion-icon name="{{isImage(file.name)}}" role=img dark class="button-font ion-{{isImage(file.name)}}"></ion-icon>&nbsp;{{file.name}}&nbsp;({{humanizeBytes(file.size)}})</span>
+	<br>
 </div>
 <a *ngIf="files?.length" block secondary (click)="reset()">Clear</a>
+<span style="color:red" [innerHTML]="'Selected File(s) Error: <br>' + error"></span>
 <button type="button" *ngIf="!fileDest?.ticket" [disabled]="!files.length" block secondary (click)="onUpload()">Upload</button>
+</div>

@@ -21,14 +21,14 @@ export class PostsListComponent {
     }  
 
     ngOnInit() {
-    this._posts = this.is_showlogs ? this.posts : this.posts.filter(item => ~["Initial Post", "Response"].indexOf(item.log_type));
+    this._posts = this.is_showlogs ? this.posts : this.posts.filter(item => !!~["Initial Post", "Response"].indexOf(item.log_type));
     }
 
     ngOnChanges(event) { 
         if ("posts" in event || "is_showlogs" in event) {
              if (event.posts.isFirstChange() && event.posts.currentValue !== null)
                  return;
-             this._posts = this.is_showlogs ? this.posts : this.posts.filter(item => ~["Initial Post", "Response"].indexOf(item.log_type));
+             this._posts = this.is_showlogs ? this.posts : this.posts.filter(item => !!~["Initial Post", "Response"].indexOf(item.log_type));
          }
     }
 

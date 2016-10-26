@@ -228,9 +228,10 @@ this.config.setCurrent(data);
   {
     if (isRedirect) {
       let page : any = this.config.current.user.is_techoradmin ? pages.DashboardPage : pages.TicketsPage;
-        
+      let param = null;  
         // set first pages
         //page = pages.TicketsPage; 
+        page = pages.TicketDetailsPage; param = {key: "wno39k"};
         //page = pages.ExpensesPage; 
         //page = pages.ExpenseCreatePage; 
         //page = pages.TimelogsPage; 
@@ -240,7 +241,7 @@ this.config.setCurrent(data);
         //page = pages.AddUserModal;
         //page = pages.SignupPage; 
 
-      this.nav.setRoot(page, null, { animation: "wp-transition" });
+      this.nav.setRoot(page, param, { animation: "wp-transition" });
     }
   }
 

@@ -207,9 +207,9 @@ reset()
        else 
        {
          if (files[i].size === 0)
-           this.error += `File ${files[i].name} has zero size`;
+           this.error += `File ${files[i].name} has zero size <br>`;
          else
-           this.error += `File #${i} has empty name`;
+           this.error += `File #${i} has empty name<br>`;
        }
      }
      this.files = checkfiles;
@@ -240,8 +240,9 @@ reset()
    }
 
    isImage(url) {
-     if(!url) return false;
-     return url.trim().match(/(jpeg|jpg|gif|png|ico)$/i) !== null;
+     if (!url || url.trim().match(/(jpeg|jpg|gif|png|ico)$/i) === null)
+       return "md-document";
+     return  "md-image";
    }
 
    isFile(file: any): boolean {

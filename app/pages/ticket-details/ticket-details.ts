@@ -148,7 +148,7 @@ export class TicketDetailsPage {
 
     uploadedFile(event)
     {
-        console.log("Uploaded:", event);
+        //console.log("Uploaded:", event);
         if (event.indexOf("ok") == 0)
         {
             if (!this.config.current.user.is_techoradmin && this.ticket.status != 'Closed')
