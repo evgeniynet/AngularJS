@@ -61,7 +61,8 @@
 
     <div *ngSwitchWhen="'Info'" class="list max-width700 general-alignment">
 
-      <select-list ajax="true" [list]="selects.user" (onChanged)='saveSelect($event)' preload="true"></select-list>
+      <select-list ajax="true" [list]="selects.user" (onChanged)='saveSelect($event)' preload="true" class="left button-calc"></select-list>
+        <div class="width10"><button dark fab class="buttonTicket button-ticket button-size">Me</button></div>
             
       <select-list [list]="selects.account" preload="true" ajax="true" (onChanged)='saveSelect($event)'></select-list>
 
