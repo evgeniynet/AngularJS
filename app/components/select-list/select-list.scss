@@ -1,5 +1,15 @@
+.button-size{
+    font-weight: bold;
+    font-size: 1.6rem;
+    padding-top: 2px;
+    position: relative !important;
+}
+
+.button-calc{
+    width: calc(100% - 60px);
+}
+
 .button-select{
- width: 100%;
  padding: 0;
  min-width: .9em;
  margin-bottom: 6px !important;
