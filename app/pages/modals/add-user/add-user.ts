@@ -10,6 +10,7 @@ export class AddUserModal {
 
     ispassword: boolean;
     data: any;
+    firstname_m: string = "";
 
 	constructor(private nav: Nav, private navParams: NavParams, private dataProvider: DataProvider, private config: Config,
 		private viewCtrl: ViewController) {
@@ -19,6 +20,7 @@ export class AddUserModal {
     ngOnInit() {
 		this.ispassword = true;
         this.data = (this.navParams.data || {}).type || {};
+        this.firstname_m = (this.navParams.data || {}).name || "";
         //this.data.type = this.data;
 	}
 

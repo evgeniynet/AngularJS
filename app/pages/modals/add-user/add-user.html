@@ -11,9 +11,9 @@
 <ion-content>
   <div class="add-user">
   
-  <form #addForm="ngForm" novalidate>
+  <form #addForm="ngForm">
       <div class="tooltips">
-          <input type="email" [ngModel]="email_m" placeholder="Email" ngControl="email" #username="ngForm" required pattern="^[^@\s]+@[^@\s]+(\.[^@\s]+)+$"/>        
+          <input autofocus tabindex=1 type="email" [ngModel]="email_m" placeholder="Valid Email" ngControl="email" #username="ngForm" required pattern="^[^@\s]+@[^@\s]+(\.[^@\s]+)+$"/>        
           <span *ngIf="username.dirty && !username.valid">Valid Email is required</span></div>
           <div class="tooltips">
           <input type="text" [ngModel]="firstname_m" placeholder="Firstname" ngControl="firstname" #firstname="ngForm" required/>        

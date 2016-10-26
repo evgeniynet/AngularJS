@@ -6,7 +6,6 @@ import {htmlEscape, getFullName} from '../../../directives/helpers';
 import {ClassListComponent} from '../../../components/class-list/class-list';
 import {SelectListComponent} from '../../../components/select-list/select-list';
 import {TicketDetailsPage} from '../../pages';
-import {AddUserModal} from '../modals';
 
 @Page({
     templateUrl: 'build/pages/modals/ticket-create/ticket-create.html',
@@ -158,18 +157,6 @@ export class TicketCreatePage {
                     console.log(error || 'Server error');}
             );
         }
-    }
-
-    addUser(type)
-    {
-        let myModal = Modal.create(AddUserModal, {type});
-        myModal.onDismiss(data => {
-            if (data){
-            this.selects[type].selected = data.id;
-            this.selects[type].value = getFullName(data.firstname, data.lastname, data.email);
-        }
-        });
-        this.nav.present(myModal);
     }
 }
 
