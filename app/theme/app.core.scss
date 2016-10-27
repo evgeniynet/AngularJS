@@ -247,6 +247,8 @@ position: initial !important;
     float: left;
     margin-left: 17px;
     margin-bottom: 10px;
+    display: flex;
+    align-items: center;
 }
 
 .image{
@@ -328,8 +330,9 @@ scroll-content {
 }
 
 .span-block{
- display: block;
-    height: 100px
+ display: inline-block;
+    height: 100px;
+    width: 100%;
 }
 
 .subject-create {
@@ -672,7 +675,7 @@ font-size: 2.8em !important;
 }
 
 .button-attach{
-    width: 125px !important;
+    width: 45px !important;
     height: 45px !important;
     float: left;
     margin-right: 40px;

@@ -169,6 +169,7 @@ import {ApiSite} from '../../providers/config';
 
 reset()
 {
+  this.error = "";
   this.files = [];
   this.nativeInputBtn.nativeElement.value = '';
   this.filesSelected.next([]);
@@ -207,9 +208,9 @@ reset()
        else 
        {
          if (files[i].size === 0)
-           this.error += `File ${files[i].name} has zero size <br>`;
+           this.error += `File ${files[i].name} will be skipped. It has zero size <br>`;
          else
-           this.error += `File #${i} has empty name<br>`;
+           this.error += `File #${i} will be skipped. It has empty name<br>`;
        }
      }
      this.files = checkfiles;
