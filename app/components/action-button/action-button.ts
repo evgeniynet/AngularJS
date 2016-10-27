@@ -1,7 +1,10 @@
 import {Page, ActionSheet, IONIC_DIRECTIVES, Nav, NavParams, Modal, Config} from 'ionic-angular';
 import {Component, Input, Output, EventEmitter, OnInit, OnDestroy} from '@angular/core';
 import {TicketCreatePage} from '../../pages/modals/modals';
-import {TimelogPage, TicketDetailsPage, ExpenseCreatePage, UnInvoicesPage} from '../../pages/pages';
+import {TimelogPage} from '../../pages/timelog/timelog';
+import {TicketDetailsPage} from '../../pages/ticket-details/ticket-details';
+import {ExpenseCreatePage} from '../../pages/expense-create/expense-create';
+import {UnInvoicesPage} from '../../pages/uninvoices/uninvoices';
 
 @Component({
     selector: 'action-button',

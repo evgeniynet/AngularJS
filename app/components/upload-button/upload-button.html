@@ -1,10 +1,10 @@
 <div>
-<button type="button" (click)="callback($event)"  left fab class="button-attach attach"><ion-icon class="button-font action-but" name="md-attach"></ion-icon></button><br/>
+<button type="button" (click)="callback($event)"  left class="button-attach attach"><ion-icon class="button-font action-but" name="md-attach"></ion-icon> Attach file(s)</button><br/>
 <input type="file" (change)="filesAdded($event)" style="display: none" [multiple]="multi" #input />
     <div *ngIf="files?.length" class="right margin-top3">
-        <a block (click)="reset()">Clear</a>
+        <a block (click)="reset()">Clear 
     <button fab class="red buttonInvoice email-invoice button-fab position-initial">
-        <ion-icon class="invoiceCircle" name="close"></ion-icon></button>
+        <ion-icon class="invoiceCircle" name="close"></ion-icon></button></a>
     </div>
 <div *ngFor="let file of files">
     <span class="span-img"><ion-icon name="{{isImage(file.name)}}" role=img dark class="button-font image ion-{{isImage(file.name)}}"></ion-icon>&nbsp;<p class="left width80">{{file.name}}&nbsp;({{humanizeBytes(file.size)}})</p></span>
