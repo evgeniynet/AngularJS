@@ -231,7 +231,7 @@ this.config.setCurrent(data);
       let page : any = this.config.current.user.is_techoradmin ? pages.DashboardPage : pages.TicketsPage;
       let param = null;  
         // set first pages
-        page = pages.TicketsPage; 
+        //page = pages.TicketsPage; 
         //page = pages.TicketDetailsPage; param = {key: "wno39k"};
         //page = pages.ExpensesPage; 
         //page = pages.ExpenseCreatePage; 

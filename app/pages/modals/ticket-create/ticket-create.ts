@@ -3,8 +3,7 @@ import {forwardRef} from '@angular/core';
 import {FORM_DIRECTIVES, Validators} from '@angular/common';
 import {TicketProvider} from '../../../providers/providers';
 import {htmlEscape, getFullName} from '../../../directives/helpers';
-import {ClassListComponent} from '../../../components/class-list/class-list';
-import {SelectListComponent} from '../../../components/select-list/select-list';
+import {SelectListComponent, ClassListComponent} from '../../../components/components';
 import {TicketDetailsPage} from '../../pages';
 
 @Page({
