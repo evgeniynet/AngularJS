@@ -38,8 +38,8 @@
     </ion-segment-button>
   </ion-segment>
   <div [ngSwitch]="details_tab">
-   <div class="list general-alignment" *ngSwitchWhen="'Reply'">
-      <ion-item no-lines><ion-label class="left width30 color">Show logs</ion-label><ion-toggle class="toggle" [(ngModel)]="is_showlogs"></ion-toggle></ion-item> <br>
+   <div class="list" *ngSwitchWhen="'Reply'">
+      <ion-item no-lines class="margin-bottom10"><ion-label class="width30 font-size17 text-right">Show logs</ion-label><ion-toggle [(ngModel)]="is_showlogs"></ion-toggle></ion-item> 
      <posts-list [posts]="posts | slice:0:1" [attachments]="attachments"></posts-list>
      <form *ngIf="active" #addForm="ngForm">
        <upload-button #u (filesUploaded)="uploadedFile($event)"   
@@ -54,7 +54,6 @@
         <button secondary class="button_reply right indent-bottom margin-left10" [disabled]="!addForm.valid && !files?.length" (click)="u.onUpload()"  type="submit">Reply</button>
         <button *ngIf="!config.current.user.is_techoradmin && ticket.status != 'Closed'" secondary class="button_reply right indent-bottom margin-left10" (click)="u.onUpload()" [disabled]="!addForm.valid && !files?.length">Reply & Close</button>
       </form>
-       
       <posts-list [posts]="posts | slice:1" [attachments]="attachments" class="general-alignment" [is_showlogs]="is_showlogs"></posts-list>
 
     </div>

@@ -108,6 +108,10 @@ color: $black1;
     font-size: 17px;
 }
 
+.font-size17 {
+    font-size: 17px;
+}
+
 .alert-radio[aria-checked=true] {
     color: $blue6;
 }
@@ -234,10 +238,20 @@ max-width: 700px;}
     padding-top: 6px;
 }
 
+.position-initial{
+position: initial !important;
+}
+
 .span-img{
-    width: 70%;
+    width: 100%;
     float: left;
-    margin-top: 5px;
+    margin-left: 17px;
+    margin-bottom: 10px;
+}
+
+.image{
+   float: left;
+    width: 41px;
 }
 
 .names{
@@ -292,12 +306,21 @@ scroll-content {
     margin-top: 5%;
 }
 
+.margin-top3{
+    margin-top: 3px;
+}
+
+
 .margin-bottom3{
     margin-bottom: 3px;
 }
 
 .margin-bottom1{
     margin-bottom: 1px;
+}
+
+.margin-bottom10{
+    margin-bottom: 10px;
 }
 
 .subject-ticket{
@@ -656,6 +679,10 @@ font-size: 2.8em !important;
     margin-right: 40px;
 }
 
+.attach{
+background-color: $login;
+}
+
 .alert-title {
     font-size: 21px;
 }
@@ -751,6 +778,17 @@ ion-datetime{
 }
 
 //error
+
+.error-button{
+    color: $red2;
+    font-weight: bold;
+    font-size: 1.5rem;
+    float: left;
+    margin-left: 17px;
+    margin-bottom: 10px;
+    width: 90%;
+}
+
 .ng-invalid {
     border-left: 2px solid $red; /* red */
 }
