@@ -1,15 +1,12 @@
 import {Page, Config, Nav, NavParams, Modal} from 'ionic-angular';
 import {FORM_DIRECTIVES, Validators} from '@angular/common';
+import {forwardRef} from '@angular/core';
 import {AppSite} from '../../providers/config';
 import {TicketProvider} from '../../providers/ticket-provider';
 import {getDateTime, htmlEscape, getCurrency, getFullName, fullapplink, parseXml, FileUrlHelper} from '../../directives/helpers';
-import {PostsListComponent} from '../../components/posts-list/posts-list';
-import {SelectListComponent} from '../../components/select-list/select-list';
-import {ClassListComponent} from '../../components/class-list/class-list';
-import {UploadButtonComponent} from '../../components/components';
+import {PostsListComponent, SelectListComponent, ClassListComponent, UploadButtonComponent} from '../../components/components';
 import {CloseTicketModal} from '../../pages/modals/modals';
-import {TimelogPage} from '../../pages/timelog/timelog'; 
-import {ExpenseCreatePage} from '../../pages/expense-create/expense-create';
+import {TimelogPage, ExpenseCreatePage} from '../../pages/pages'; 
 import {GravatarPipe, LinebreaksPipe, DaysoldPipe, HtmlsafePipe} from '../../pipes/pipes';
 
 @Page({
