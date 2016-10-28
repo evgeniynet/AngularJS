@@ -5,4 +5,3 @@ export * from './posts-list/posts-list';
 export * from './select-list/select-list';
 export * from './class-list/class-list';
 export * from './action-button/action-button';
-export * from './upload-button/upload-button';

@@ -5,11 +5,9 @@ import {openURL, openURLsystem} from '../../directives/helpers';
 import {DataProvider} from '../../providers/data-provider';
 import {OrganizationsPage} from '../organizations/organizations';
 import {SignupPage} from '../signup/signup';
-import {UploadButtonComponent} from '../../components/components';
 
 @Page({
     templateUrl: 'build/pages/login/login.html',
-    directives: [UploadButtonComponent],
 })
 export class LoginPage {
 
@@ -37,16 +35,6 @@ export class LoginPage {
         //logout
         this.login = {username: localStorage.getItem('username') || "" };
         this.config.clearCurrent();
-    }
-
-    uploadedFile(event)
-    {
-        console.log("Uploaded:", event);
-    }
-
-    selectedFile(event)
-    {
-        console.log("Selected", event);
     }
 
     onLogin(form) {
