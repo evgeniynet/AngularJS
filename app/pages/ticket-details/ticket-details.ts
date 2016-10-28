@@ -87,6 +87,8 @@ import {ApiSite} from '../../providers/config';
    private error: string = "";
    private files: any = [];
    private in_progress: any;
+   private MAX_SIZE : number = 4194304; // 4 MB
+
 
   /**
    * (Optional) if needed a logger can be used
@@ -168,13 +170,16 @@ import {ApiSite} from '../../providers/config';
     }
 
   this.upload(ApiSite, this.files).then((data) => {
-    this.filesUploaded.next("ok " + data);
     this.reset();
     if (loading) loading.dismiss();
+    this.filesUploaded.next("ok " + data);
   }).catch((ex) => {
-    this.filesUploaded.next("error " + ex);
-    if (loading) loading.dismiss();
-      console.error('Error uploading files');//, ex);
+      if (loading) 
+        {
+          setTimeout(() => loading.dismiss(), 1000);
+        }
+      console.error('Error uploading files', ex);
+      this.filesUploaded.next("error " + ex);
       this.nav.alert('Error uploading files! Cannot add Post! Please try again later ... or try to upload one file or check your internet connection', true);
     });
 }
@@ -214,15 +219,21 @@ reset()
      this.error = "";
      for (let i = 0; i < files.length; i++) {
        if (this.isFile(files[i])){
+         if (files[i].size > this.MAX_SIZE)
+           this.error += `File ${files[i].name} will be skipped. It is more 4 MB<br>`;
+         else if (files[i].size === 0)
+           this.error += `File ${files[i].name} will be skipped. It has zero size <br>`;
+         else if (!files[i].name.trim())
+           this.error += `File #${i} will be skipped. It has empty name<br>`;
+         else
+         {
          checkfiles.push(files[i]);
          fileNames.push(files[i].name);
+         }
        }
        else 
        {
-         if (files[i].size === 0)
-           this.error += `File ${files[i].name} will be skipped. It has zero size <br>`;
-         else
-           this.error += `File #${i} will be skipped. It has empty name<br>`;
+          this.error += `File #${i} will be skipped. It is empty<br>`;
        }
      }
      this.files = checkfiles;
@@ -259,7 +270,7 @@ reset()
    }
 
    isFile(file: any): boolean {
-     return file !== null && (file instanceof Blob && (file.name.trim() && file.size));
+     return file !== null && file instanceof Blob;
    }
 
  }
