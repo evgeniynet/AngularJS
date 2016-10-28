@@ -14,7 +14,7 @@ const alertLimit = 5;
 export class SelectListComponent {
     @Input() list: any;
     @Input() isbutton: boolean;
-    @Input() customwidth: boolean;
+    @Input() is_me: boolean;
     @Input() preload: boolean;
     @Input() ajax: boolean;
     @Output() public onChanged: EventEmitter<any> = new EventEmitter(false);
@@ -66,6 +66,16 @@ export class SelectListComponent {
                  this.loadData(false);
              }
          }
+     }
+
+     me()
+     {
+        let he = this.config.getCurrent("user");
+        let value = {
+            id: he.user_id,
+            name: getFullName(he.firstname, he.lastname, he.email)
+        };
+        this.emit_changed(value);
      }
 
      open()

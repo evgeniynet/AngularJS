@@ -14,7 +14,7 @@ import {GravatarPipe, LinebreaksPipe, DaysoldPipe, HtmlsafePipe} from '../../pip
 
 @Page({
     templateUrl: 'build/pages/ticket-details/ticket-details.html',
-    directives: [PostsListComponent, SelectListComponent, ClassListComponent,UploadButtonComponent],
+    directives: [PostsListComponent, SelectListComponent, ClassListComponent, UploadButtonComponent],
     pipes: [GravatarPipe, LinebreaksPipe, DaysoldPipe, HtmlsafePipe],
 })
 export class TicketDetailsPage {

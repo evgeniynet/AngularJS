@@ -7,6 +7,7 @@ import {AppSite, MobileSite, dontClearCache, appVersion} from './providers/confi
 import {MOCKS} from './providers/mocks';
 import * as helpers from './directives/helpers';
 import * as pages from './pages/pages';
+import * as modals from './pages/modals/modals';
 
 
 export interface Settings {
@@ -231,13 +232,13 @@ this.config.setCurrent(data);
       let param = null;  
         // set first pages
         //page = pages.TicketsPage; 
-        page = pages.TicketDetailsPage; param = {key: "wno39k"};
+        //page = pages.TicketDetailsPage; param = {key: "wno39k"};
         //page = pages.ExpensesPage; 
         //page = pages.ExpenseCreatePage; 
         //page = pages.TimelogsPage; 
         //page = pages.TimelogPage; 
         //page = pages.AccountsPage; 
-        //page = pages.TicketCreatePage; 
+        //page = modals.TicketCreatePage; 
         //page = pages.AddUserModal;
         //page = pages.SignupPage; 
 

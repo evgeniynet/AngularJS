@@ -16,15 +16,13 @@
 <ion-content>
     <div class="list max-width700 margin-top-5">
     <template [ngIf]="config.current.user.is_techoradmin"> 
-            <select-list customwidth="true" class="left button-calc" ajax="true" [list]="selects.user" (onChanged)='saveSelect($event)' preload="true"></select-list>
-            <div class="width10"><button dark fab class="buttonTicket button-ticket button-size">Me</button></div>
+            <select-list is_me="true" ajax="true" [list]="selects.user" (onChanged)='saveSelect($event)' preload="true"></select-list>
         
         <select-list [list]="selects.account" preload="true" ajax="true" (onChanged)='saveSelect($event)'></select-list>
             
         <select-list  [list]="selects.location" preload="true" ajax="true" (onChanged)='saveSelect($event)'></select-list>
        
-        <select-list customwidth="true" class="left button-calc" [list]="selects.tech" ajax="true" preload="true" (onChanged)='saveSelect($event)'></select-list>
-        <div class="width10"><button dark fab class="buttonTicket button-ticket button-size">Me</button></div>
+        <select-list is_me="true" [list]="selects.tech" ajax="true" preload="true" (onChanged)='saveSelect($event)'></select-list>
             
         <select-list [list]="selects.project" preload="true" (onChanged)='saveSelect($event)'></select-list>
         <class-list preload="true" [list]="selects.class" (onChanged)='saveSelect($event)'></class-list>
@@ -33,7 +31,7 @@
     <br>
     <form #addForm="ngForm">
                 <div class="list max-width700">
-                    <div class="tooltips"><input class="width100 blue3 subject-create commentText margin-bottom3" [(ngModel)]="ticket.subject" placeholder="Subject"  ngControl="subject" #subject="ngForm" required ="100"/>
+                    <div class="tooltips"><input class="width100 blue3 subject-create commentText margin-bottom3" [(ngModel)]="ticket.subject" placeholder="Subject"  ngControl="subject" #subject="ngForm" required maxlength="100"/>
                         <span [hidden]="subject.valid || subject.untouched">Subject is required and less 100 chars</span></div>
                     <br>
                     <textarea class="width100 textLogin commentText margin-bottom1" type="text" [(ngModel)]="ticket.initial_post" ngControl="text" #note="ngForm"  placeholder="Details..."></textarea>

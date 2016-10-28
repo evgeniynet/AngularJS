@@ -60,8 +60,7 @@
 
     <div *ngSwitchWhen="'Info'" class="list max-width700 general-alignment">
 
-      <select-list ajax="true" [list]="selects.user" (onChanged)='saveSelect($event)' preload="true" class="left button-calc"></select-list>
-        <div class="width10"><button dark fab class="buttonTicket button-ticket button-size">Me</button></div>
+      <select-list is_me="true" ajax="true" [list]="selects.user" (onChanged)='saveSelect($event)' preload="true"></select-list>
             
       <select-list [list]="selects.account" preload="true" ajax="true" (onChanged)='saveSelect($event)'></select-list>
 
@@ -71,11 +70,12 @@
 
       <select-list preload="true" [list]="selects.priority" (onChanged)='saveSelect($event)'></select-list>
       
-      <select-list preload="true" [list]="selects.tech" (onChanged)='saveSelect($event)'></select-list>
+      <select-list is_me="true" preload="true" [list]="selects.tech" (onChanged)='saveSelect($event)'></select-list>
       
       <select-list preload="true" [list]="selects.location"  ajax="true" (onChanged)='saveSelect($event)'></select-list>
       
       <select-list preload="true" [list]="selects.project" (onChanged)='saveSelect($event)'></select-list>
+      
       <button *ngFor="let customfield of ticket.customfields" class="width100 button-icon-only {{ isbutton? 'blue2 general-alignment2' : 'blue4'}} class-margin disable-hover button button-default">
         <p class="textLogin text-left text-bold" [innerHTML]="customfield.name"></p>
         <ion-label class="{{isbutton ? 'center' : 'tkts-table'}} select-list">&nbsp;&nbsp;{{customfield.value || '&nbsp;'}}</ion-label>

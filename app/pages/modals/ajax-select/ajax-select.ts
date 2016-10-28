@@ -1,5 +1,6 @@
-import {Nav, NavParams, Page, Config, ViewController} from 'ionic-angular';
+import {Nav, NavParams, Page, Config, ViewController, Modal} from 'ionic-angular';
 import {ApiData} from '../../../providers/api-data';
+import {AddUserModal} from '../modals';
 import {getFullName, addp} from '../../../directives/helpers';
 import {Control} from '@angular/common';
 import {Observable} from 'rxjs/Observable';
@@ -27,6 +28,7 @@ export class AjaxSelectModal {
     is_empty: boolean;
     busy: boolean;
     isdefault_enabled: boolean = false;
+    isnew_enabled: boolean = false;
 
     constructor(private nav: Nav, private navParams: NavParams, private config: Config, private apiData: ApiData,
         private viewCtrl: ViewController/*, private jsonp: Jsonp*/) {
@@ -37,6 +39,7 @@ export class AjaxSelectModal {
         this.term = '';
         this.name = this.navParams.data.name || "List";
         this.isdefault_enabled = !~["user", "account", "tech", "task type"].indexOf(this.name.toLowerCase());
+        this.isnew_enabled = !!~["user", "tech"].indexOf(this.name.toLowerCase());
         this.url = this.navParams.data.url || "";
         this.data = this.navParams.data.items || {};
         this.pager = { limit: 20 };
@@ -53,9 +56,24 @@ export class AjaxSelectModal {
     }
 
     dismiss(item) {
-        //let data = { 'foo': 'bar' };
         item = item || {};
         this.viewCtrl.dismiss(item);
+    }
+
+    invite()
+    {
+        let myModal = Modal.create(AddUserModal, {type: this.name.toLowerCase(), name: this.term});
+        myModal.onDismiss(data => {
+            if (data){
+                //console.log(data);
+                data.name = getFullName(data.firstname, data.lastname, data.email);
+                this.dismiss(data);
+            //this.selects[type].selected = data.id;
+            //this.selects[type].value = getFullName(data.firstname, data.lastname, data.email);
+        }
+        });
+        this.nav.present(myModal);
+        //setTimeout(() => { this.nav.present(myModal); }, 500);
     }
 
 /*
@@ -99,7 +117,7 @@ export class AjaxSelectModal {
 
     getItems(term, timer) {
         this.items = [];
-        console.log(this.name);
+        //console.log(this.name);
         if (~["location", "account"].indexOf(this.name.toLowerCase()))
         {
             term = term+"*";

@@ -11,7 +11,7 @@ import {MorePipe} from '../../pipes/pipes';
 
 @Page({
     templateUrl: 'build/pages/dashboard/dashboard.html',
-    directives: [QueuesListComponent, AccountsListComponent, ActionButtonComponent, Focuser],
+    directives: [QueuesListComponent, AccountsListComponent, Focuser],
     pipes: [MorePipe],
 })
 export class DashboardPage {
