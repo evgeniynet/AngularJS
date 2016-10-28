@@ -20,9 +20,13 @@ export class AddUserModal {
     ngOnInit() {
 		this.ispassword = true;
         this.data = (this.navParams.data || {}).type || {};
-        this.firstname_m = (this.navParams.data || {}).name || "";
+        this.firstname_m = (this.navParams.data || {}).name || " ";
         //this.data.type = this.data;
 	}
+
+    ngAfterViewInit() {            
+        this.firstname_m = this.firstname_m.trim();
+    }
 
     dismissPage(data) {
         this.viewCtrl.dismiss(data);

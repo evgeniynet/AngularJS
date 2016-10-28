@@ -62,7 +62,7 @@ export class InfinitySelectModal {
 
     invite()
     {
-        let myModal = Modal.create(AddUserModal, {type: this.name.toLowerCase(), name: this.searchQuery || " "});
+        let myModal = Modal.create(AddUserModal, {type: this.name.toLowerCase(), name: this.searchQuery});
         myModal.onDismiss(data => {
             if (data){
                 //console.log(data);

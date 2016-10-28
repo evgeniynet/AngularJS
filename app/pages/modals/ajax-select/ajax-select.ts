@@ -62,7 +62,7 @@ export class AjaxSelectModal {
 
     invite()
     {
-        let myModal = Modal.create(AddUserModal, {type: this.name.toLowerCase(), name: this.term || " "});
+        let myModal = Modal.create(AddUserModal, {type: this.name.toLowerCase(), name: this.term});
         myModal.onDismiss(data => {
             if (data){
                 //console.log(data);
