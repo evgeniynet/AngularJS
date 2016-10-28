@@ -1,6 +1,7 @@
-import {Nav, NavParams, Page, Config, ViewController} from 'ionic-angular';
+import {Nav, NavParams, Page, Config, ViewController, Modal} from 'ionic-angular';
 import {ApiData} from '../../../providers/api-data';
 import {getFullName} from '../../../directives/helpers';
+import {AddUserModal} from '../modals';
 
 @Page({
     templateUrl: 'build/pages/modals/infinity-select/infinity-select.html',
@@ -19,6 +20,7 @@ export class InfinitySelectModal {
     pager: any;
     isbutton: boolean;
     isdefault_enabled: boolean = false;
+    isnew_enabled: boolean = false;
 
 
     constructor(private nav: Nav, private navParams: NavParams, private config: Config, private apiData: ApiData,
@@ -56,6 +58,22 @@ export class InfinitySelectModal {
         //let data = { 'foo': 'bar' };
         item = item || {};
         this.viewCtrl.dismiss(item);
+    }
+
+    invite()
+    {
+        let myModal = Modal.create(AddUserModal, {type: this.name.toLowerCase(), name: this.searchQuery || " "});
+        myModal.onDismiss(data => {
+            if (data){
+                //console.log(data);
+                data.name = getFullName(data.firstname, data.lastname, data.email);
+                this.dismiss(data);
+            //this.selects[type].selected = data.id;
+            //this.selects[type].value = getFullName(data.firstname, data.lastname, data.email);
+        }
+        });
+        this.nav.present(myModal);
+        //setTimeout(() => { this.nav.present(myModal); }, 500);
     }
     
     searchItems(searchbar) {
