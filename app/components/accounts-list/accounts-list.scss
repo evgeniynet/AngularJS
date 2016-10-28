@@ -17,30 +17,65 @@
 
 .dashboard_list > span:first-child{
     background-color: $grey;
-    width: 35%;
+    width: 37%;
     float: left;
     padding-left: 15px;
     text-align: left;
 }
 
-.dashboard_list > span:nth-child(2){
+.dashboard_list > span:nth-child(n+2){
     background-color: $grey;
-    width: 23%;
-    float: left;
-}
-
-.dashboard_list > span:nth-child(3){
-    background-color: $grey;
-    width: 24%;
+    width: 21%;
     float: left;
     margin-bottom: 10px;
 }
 
+/*.dashboard_list > span:nth-child(3){
+    background-color: $grey;
+    width: 21%;
+    float: left;
+    margin-bottom: 10px;
+}*/
+
 .dashboard_list > span:nth-child(4){
     background-color: $blue2;
-    width: 18%;
+    width: 21%;
     float: right;
 }
+
+
+
+.dashboard_list2{
+ text-align: center;
+}
+
+.dashboard_list2 > span:first-child{
+    background-color: $grey;
+    width: 58%;
+    float: left;
+    padding-left: 15px;
+    text-align: left;
+}
+
+.dashboard_list2 > span:nth-child(n+2){
+    background-color: $grey;
+    width: 21%;
+    float: left;
+        margin-bottom: 10px;
+}
+
+.dashboard_list2 > span:nth-child(4){
+    background-color: $blue2;
+    width: 21%;
+    float: right;
+}
+
+
+
+
+
+
+
 
 .account_list{
     text-align: center;
