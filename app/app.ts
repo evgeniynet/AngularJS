@@ -310,6 +310,10 @@ this.config.setCurrent(data);
           this.onLine(true);
         });
       }
+
+      window.addEventListener('online',  () => this.onLine(true));
+      window.addEventListener('offline', () => this.onLine(false));
+
     });
   }
 
@@ -330,14 +334,15 @@ this.config.setCurrent(data);
 onLine(isOnline?){
   if (this.is_offline != !isOnline)
   {
-    this.nav.alert(!isOnline ? "Sorry! You are offline now. Please check your internet connection!" : "Hey! You online now!", !isOnline);
+    this.nav.alert(!isOnline ? "Sorry! You are offline now. Please check your internet connection!" : "Hey! You online now! Try again your action", !isOnline);
     if (localStorage.getItem("isPhonegap") !== "true") {
       if (!isOnline) {
         clearInterval(this.offlineTimer);
         this.offlineTimer = setInterval(() => this.checkConnection(), 10 * 1000);
       }
-      else
+      else{
         clearInterval(this.offlineTimer);
+      }
     }
   }
   this.is_offline = !isOnline;

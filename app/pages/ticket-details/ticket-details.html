@@ -38,9 +38,9 @@
     </ion-segment-button>
   </ion-segment>
   <div [ngSwitch]="details_tab">
-   <div class="list" *ngSwitchWhen="'Reply'">
+   <div class="list" [hidden]="details_tab != 'Reply'">
       <ion-item no-lines class="margin-bottom10"><ion-label class="width30 font-size17 text-right">Show logs</ion-label><ion-toggle [(ngModel)]="is_showlogs"></ion-toggle></ion-item> 
-     <posts-list [posts]="posts | slice:0:1" [attachments]="attachments"></posts-list>
+     <posts-list [posts]="[posts[0]]" [attachments]="attachments"></posts-list>
      <form *ngIf="active" #addForm="ngForm">
        <div class="tooltips">
         <textarea class="width100 textLogin commentText" [(ngModel)]="ticketnote" type="text" placeholder="Add Response" ngControl="note" #note="ngForm" required maxlength="4000"></textarea>

@@ -146,7 +146,7 @@ import {ApiSite} from '../../providers/config';
   }
 
   onUpload() {
-    console.log("upload start");
+    //console.log("upload start");
     if (!this.files.length) {
       this.filesUploaded.next("ok" + " no files");
       return;
