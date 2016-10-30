@@ -159,7 +159,7 @@ import {ApiSite} from '../../providers/config';
 
     let loading = null;
 
-    if (this.files.length > 2 || this.files[0].size > 20000)
+    if (this.files.length >= 2 || this.files[0].size > 20000)
     {
       loading = Loading.create({
         content: "Uploading file(s)...",
@@ -170,7 +170,7 @@ import {ApiSite} from '../../providers/config';
     }
 
   this.upload(ApiSite, this.files).then((data) => {
-    this.reset();
+    this.reset(true);
     if (loading) loading.dismiss();
     this.filesUploaded.next("ok " + data);
   }).catch((ex) => {
@@ -184,12 +184,12 @@ import {ApiSite} from '../../providers/config';
     });
 }
 
-reset()
+reset(is_upload)
 {
   this.error = "";
   this.files = [];
   this.nativeInputBtn.nativeElement.value = '';
-  this.filesSelected.next([]);
+  if (!is_upload) this.filesSelected.next([]);
 }
 
   /**
@@ -424,7 +424,6 @@ export class TicketDetailsPage {
 
     selectedFile(event)
     {
-        //console.log("Selected", event);
         this.files = event;
         if (event.length && !this.ticketnote)
             this.ticketnote = " ";
@@ -505,6 +504,7 @@ export class TicketDetailsPage {
                     this.ticketnote = "";
                     this.active = false;
                     setTimeout(() => this.active = true, 0);
+                    this.files = [];
                     this.getPosts(this.ticket.key, true);
                 },
                 error => {

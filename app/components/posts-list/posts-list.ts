@@ -46,6 +46,9 @@ export class PostsListComponent {
                  return;
              this.filter();
           }
+
+        //if ("attachments" in event && !event.posts.isFirstChange() && this.posts.length == 1 && (event.attachments.currentValue || []).length > (event.attachments.previousValue || []).length)
+        //   this.filter(); 
     }
 
     /*get posts()

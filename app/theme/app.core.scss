@@ -251,11 +251,6 @@ position: initial !important;
     align-items: center;
 }
 
-.image{
-   float: left;
-    width: 41px;
-}
-
 .names{
     padding-right: 24px !important;
     padding-left: 58px !important;
@@ -1001,7 +996,12 @@ ion-searchbar {
 
 .files-tkts{
     white-space: initial !important;
-    display: block;
-    display: -webkit-box;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.ion-md-document {
+    padding-right: 8px;
 }
 

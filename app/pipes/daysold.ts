@@ -14,6 +14,8 @@ export class DaysoldPipe {
                     // check to see if the ticket is less than a day old
                     if (!value || value < 15)
                         result = "a minute ago"; 
+                    else if (value < 60)
+                        result = "within hour"; 
                     else if(daysOld > 24){
                         result = parseInt((daysOld / 24).toString()) + " days ago";
                     } else {
