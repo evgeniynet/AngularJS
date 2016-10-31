@@ -68,6 +68,10 @@
 text-decoration: none !important;
 }
 
+.decoration {
+text-decoration: underline !important;
+}
+
 /* need to remove from ionic
 .button.activated{
     background-color: $class-list;}
@@ -999,6 +1003,7 @@ ion-searchbar {
 }
 
 .files-tkts{
+    word-break: break-word;
     white-space: initial !important;
     display: flex;
     align-items: center;
