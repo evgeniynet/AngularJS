@@ -3,11 +3,15 @@
     font-size: 1.9rem;
     margin: 0px !important;
     
+    span:first-child
+    {
+        text-overflow: ellipsis;
+    }
+
     span{
     float: left;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
 }}
 
 

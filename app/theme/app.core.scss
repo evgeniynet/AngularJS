@@ -58,6 +58,10 @@
     border-top-left-radius: 0px !important;
     border-top-right-radius: 0px !important;
     height: 50px;
+
+    ion-label {
+    text-overflow: clip !important;
+    }
 }
 
 .decoration_none {
@@ -543,7 +547,7 @@ scroll-content {
     float: left;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
+    /*text-overflow: ellipsis;*/
 }
 
 .table span.box9{
