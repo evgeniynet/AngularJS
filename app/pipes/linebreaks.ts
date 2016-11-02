@@ -10,8 +10,7 @@ export class LinebreaksPipe {
         	value = value
 				.replace(/&lt;br&gt;/gi, "\n")
 				.replace(/<br\s*[\/]?>/gi, "\n")
-                .replace(/\n\n/gi, "\n")
-				.replace(/\n/g, "&nbsp;<p></p>");
+				.replace(/\n\n/g, "<br>");
         //value = value.replace(/&lt;br&gt;/gi, "\n").replace(/\r/g, '').replace(/\n\s*\n/g, '\n').replace(/\n/g, "<br>");
         return value;
     }

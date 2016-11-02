@@ -803,8 +803,8 @@ ion-datetime{
 }
 
 div.tooltips {
-    /*position: relative;
-    display: inline;*/
+    position: relative;
+    /*display: inline;*/
 }
 div.tooltips span {
     z-index: 9999;
@@ -822,7 +822,7 @@ div.tooltips span {
     text-align: center;
     /*visibility: hidden;*/
     border-radius: 6px;
-    left: 13vw;
+    left: 10vw;
 }
 div.tooltips span:before {
     content: '';

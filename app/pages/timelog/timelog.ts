@@ -24,6 +24,8 @@ export class TimelogPage {
     minuteValues: Array<number> = [0, 15, 30, 45, 0];
     start_time: string = "";
     stop_time: string = "";
+    UserDateOffset: number = -5;
+    start_stop_hours: number = 0;
     //@ViewChild('starttime') starttime:DateTime;
     //@ViewChild('stoptime') stoptime:DateTime;
 
@@ -60,6 +62,7 @@ AddHours(date, hours)
 
 ngOnInit()
 {
+    this.UserDateOffset = this.config.getCurrent("timezone_offset");
     this.time = this.navParams.data || {};
 
     let name = (this.time.user_name + " " + this.time.user_email).trim().split(' ')[0];
@@ -69,6 +72,8 @@ ngOnInit()
                 //fix timezone
                 this.start_time = this.AddHours(this.time.start_time, this.time.time_offset);
                 this.stop_time = this.AddHours(this.time.stop_time, this.time.time_offset);
+                if (this.start_time && this.stop_time)
+                    this.start_stop_hours = Number(Math.round((+(new Date(this.stop_time)) - +(new Date(this.start_time))) / 60000)/60);
             }
             else if (this.time.number)
                 this.title = `Add Time to #${this.time.number} ${this.time.subject}`;
@@ -190,6 +195,11 @@ ngOnInit()
             this.nav.alert("Not enough time", true);
             return;
         }
+        if (hours > this.start_stop_hours)
+        {
+            this.nav.alert("Hours value should be lesser or equal than Start/Stop range.", true);
+            return;
+        }
         if (!this.selects.tasktype.selected)
         {
             this.nav.alert("Please, select Task Type from the list.", true);
@@ -202,7 +212,7 @@ ngOnInit()
             var note = htmlEscape(this.timenote.trim()).substr(0, 5000);
 
             var isEdit = !!this.time.time_id;
-            var time_offset = isEdit ? (this.time.time_offset * -1) : (new Date().getTimezoneOffset() / 60);
+            var time_offset = -1 * (isEdit ? this.time.time_offset : this.UserDateOffset);
             //TODO if other user changes what id should I write?  
             let data = {
                 "tech_id": isEdit ? this.time.user_id : this.he.user_id,
@@ -236,7 +246,7 @@ ngOnInit()
                     }
                     else
                     {
-                        var tdate = data.date || this.AddHours(new Date(), -1 * new Date().getTimezoneOffset() / 60);
+                        var tdate = data.date || this.AddHours(new Date(), this.UserDateOffset);
                         var tt = {
                             time_id:0,
                             account_id:data.account_id,
@@ -275,25 +285,50 @@ ngOnInit()
     }
 
     setMinTime(date) {
-        return (date || this.time.date || this.AddHours(new Date(), -1 * new Date().getTimezoneOffset() / 60)).substring(0,4);
+        return (date || this.time.date || this.AddHours(new Date(), this.UserDateOffset)).substring(0,4);
     }
 
     setMaxTime(date) {
-        return (date || this.time.date || this.AddHours(new Date(), -1 * new Date().getTimezoneOffset() / 60)).substring(0,4);
+        return (date || this.time.date || this.AddHours(new Date(), this.UserDateOffset)).substring(0,4);
     }
 
     getStartDate(time) {
-        return (time || this.time.date || this.AddHours(new Date(), -1 * new Date().getTimezoneOffset() / 60)).substring(0,19);
+        return (time || this.time.date || this.AddHours(new Date(), this.UserDateOffset)).substring(0,19);
     }
 
     setStartDate(time){
         if (time)
+        {
             this.start_time = time.substring(0,19);
+            if (this.stop_time)
+            {
+               this.updateHours();
+            }
+        }
     }
 
     setStopDate(time){
         if (time)
+        {
             this.stop_time = time.substring(0,19);
+            if (this.start_time)
+            {
+                this.updateHours();
+            }
+        }
+    }
+
+    updateHours()
+    {
+        let timecount : number = Math.round((+(new Date(this.stop_time)) - +(new Date(this.start_time))) / 60000);
+                if (timecount < 0)
+                {
+                    this.start_time = this.AddHours(this.start_time, -24);
+                    this.start_stop_hours = Number(24 + timecount/60);
+                }
+                else
+                    this.start_stop_hours = Number(timecount/60);
+                this.timecount = this.start_stop_hours.toFixed(2);
     }
 
 
