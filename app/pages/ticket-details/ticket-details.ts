@@ -315,7 +315,7 @@ export class TicketDetailsPage {
     selects: any;
     ticketnote: string;
     attachments: any;
-    is_editnote: boolean = false;
+    is_editnote: boolean = true;
     cachename: string = "";
     closed_index: number = 0;
     fileDest: any = {ticket: ""};
@@ -342,7 +342,6 @@ export class TicketDetailsPage {
     }
 
     onPageLoaded() {
-        this.is_editnote = false;
         this.ticket.customfields = [];
         this.active = true;
         this.he = this.config.getCurrent("user");
@@ -478,6 +477,7 @@ export class TicketDetailsPage {
         }
         
         this.ticket = data;
+        this.is_editnote = !(this.ticket.workpad || "").length;
         this.ticket.customfields = [];
         this.username = getFullName(data.user_firstname, data.user_lastname, data.user_email);
         this.techname = getFullName(data.technician_firstname || data.tech_firstname, data.technician_lastname || data.tech_lastname, data.technician_email || data.tech_email);
@@ -552,8 +552,8 @@ export class TicketDetailsPage {
 
     saveNoteSuccess(note){
         this.nav.alert('Note saved :)');
-        this.ticket.workpad = note;
-        this.is_editnote = false;
+        this.ticket.workpad = (note || "").trim();
+        this.is_editnote = !this.ticket.workpad.length;
     }
 
     onClose() {

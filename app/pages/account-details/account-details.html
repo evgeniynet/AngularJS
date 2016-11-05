@@ -130,14 +130,15 @@
       </ion-item>
     </ion-list>
 
-    <ion-list class="list general-alignment max-width700" *ngSwitchWhen="'Notes'">
+    <ion-list class="list general-alignment max-width700" [hidden]="details_tab != 'Notes'">
 
-      <div [hidden]="is_editnote || !account?.note?.length" class="width100 textLogin note-account" [innerHTML]="account?.note" type="text"></div>
+      <div [hidden]="is_editnote" class="width100 textLogin note-account commentText" [innerHTML]="account?.note" type="text" (click)="is_editnote = true"></div>
 
-      <textarea [hidden]="!is_editnote" [ngModel]="account?.note" class="width100 textLogin commentText" #notetext type="text" placeholder="Notes:"></textarea>
+      <button [hidden]="is_editnote" secondary class="button_reply img-top right" (click)="is_editnote = true">Edit Notes</button>
 
-      <button [hidden]="is_editnote" secondary class="button_reply right width100" (click)="is_editnote = true">{{account?.note?.length ? 'Edit' : 'Add'}} Notes</button>
-      <button [hidden]="!is_editnote" secondary class="button_reply img-top right" (click)="saveNote(notetext)">Save Notes</button>
+      <textarea autofocus [hidden]="!is_editnote" [ngModel]="account?.note" class="glow width100 textLogin commentText" #notetext type="text" placeholder="Notes:"></textarea>
+
+      <button [hidden]="!is_editnote" secondary class="button_reply img-top right" (click)="saveNote(notetext)">{{account?.note?.length ? 'Save' : 'Add'}} Notes</button>
     </ion-list>
     <ion-list class="list margin-top21" no-lines *ngSwitchWhen="'Files'">
 

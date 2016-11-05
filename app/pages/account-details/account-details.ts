@@ -19,7 +19,7 @@ export class AccountDetailsPage {
     pages: Array<any>;
     details_tab: string;
     tabsTicket: string; 
-    is_editnote: boolean = false;
+    is_editnote: boolean = true;
     is_ready: boolean = false;
 
     constructor(private nav: Nav, private navParams: NavParams, private dataProvider: DataProvider, private config: Config, private view: ViewController) {
@@ -29,7 +29,6 @@ export class AccountDetailsPage {
     
     onPageLoaded()
     {
-        this.is_editnote = false;
         // If we navigated to this page, we will have an item available as a nav param
         this.account = this.navParams.data || {};
         this.details_tab = "Stat";
@@ -42,6 +41,7 @@ export class AccountDetailsPage {
             this.dataProvider.getAccountDetails(this.account.id).subscribe(
     data => {
         this.account = data;
+        this.is_editnote = !(this.account.note || "").length;
         this.is_ready = true;
     },
     error => {
@@ -65,8 +65,8 @@ export class AccountDetailsPage {
 
     saveNoteSuccess(note){
         this.nav.alert('Note saved :)');
-        this.account.note = note;
-        this.is_editnote = false;
+        this.account.note = (note || "").trim();
+        this.is_editnote = !this.account.note.length;
     }
 
     openPage(page, count)

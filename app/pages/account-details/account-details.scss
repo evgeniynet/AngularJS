@@ -13,6 +13,13 @@
     min-height: 100px;
 }
 
+.glow{
+  box-shadow: 0 0 5px $text-color;
+  padding: 3px 0px 3px 3px;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid $text-color;
+}
+
 
 .time-label{
     margin-right: 0px !important;
