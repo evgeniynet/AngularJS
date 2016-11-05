@@ -11,7 +11,7 @@
 <input type="file" (change)="filesAdded($event)" style="display: none" [multiple]="multi" #input />
 <div *ngFor="let file of files">
     <span class="span-img"><ion-icon name="{{isImage(file.name)}}" role=img dark class="button-font ion-{{isImage(file.name)}}"></ion-icon>&nbsp;<p class="left">{{file.upload_name}}&nbsp;({{humanizeBytes(file.size)}})</p></span><div *ngIf="files?.length" class="right margin-top3">
-    <button block (click)="reset()" fab class="red buttonInvoice email-invoice button-fab position-initial">
+    <button block (click)="reset(file)" fab class="red buttonInvoice email-invoice button-fab position-initial">
         <ion-icon class="invoiceCircle" name="close"></ion-icon></button>
     </div>
 	<br>

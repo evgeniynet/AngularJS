@@ -175,7 +175,7 @@ import {ApiSite} from '../../providers/config';
     }
 
   this.upload(ApiSite, this.files).then((data) => {
-    this.reset(true);
+    this.reset();
     if (loading) loading.dismiss();
     this.filesUploaded.next("ok " + data);
   }).catch((ex) => {
@@ -189,12 +189,21 @@ import {ApiSite} from '../../providers/config';
     });
 }
 
-reset(is_upload)
+reset(file)
 {
-  this.error = "";
+if (file)
+{
+  let fileNames : Array<any> = [];
+  this.files = this.files.filter(item => item !== file);
+  this.files.forEach(item => fileNames.push(item.upload_name));
+  this.filesSelected.next(fileNames);
+}
+  if (!file || !this.files.length) {
+    this.error = "";
   this.files = [];
   this.nativeInputBtn.nativeElement.value = '';
-  if (!is_upload) this.filesSelected.next([]);
+}
+
 }
 
   /**
