@@ -6,8 +6,7 @@
     <ion-content class="accounts">
  <p class="general-alignment"></p>
  <img *ngIf="busy" class="imglogo img-padding" src="img/loading2.gif">
-        <div class="list max-width700">
-        <accounts-list [simple]="true" [accounts]="accounts"></accounts-list>
+        <accounts-list margin-top [simple]="true" [accounts]="accounts"></accounts-list>
 
         <ion-infinite-scroll (infinite)="doInfinite($event)" threshold="30%">
     <ion-infinite-scroll-content
@@ -15,7 +14,6 @@
       loadingText="Loading more data...">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
-        </div>
 
 </ion-content>
         <action-button></action-button>

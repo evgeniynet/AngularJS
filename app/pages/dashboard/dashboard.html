@@ -27,19 +27,19 @@
          </div>
         <br>
          </ion-list>
-    <ion-list class="list" *ngIf="config.current.is_unassigned_queue">
-    <queues-list [queues]="queues"></queues-list>
-    </ion-list>
+
+    <queues-list margin-top class="container_list" *ngIf="config.current.is_unassigned_queue" [queues]="queues"></queues-list>
     
-    <ion-list class="list" *ngIf="config.current.is_account_manager">
+    <!--ion-list class="list" *ngIf="config.current.is_account_manager">
         <div *ngIf="accounts?.length" [class.hiddenviz]="simple" class="table">
-<!--  <span class="box1 box7 box5 box10">&nbsp;&nbsp;&nbsp;</span>-->
+<span class="box1 box7 box5 box10">&nbsp;&nbsp;&nbsp;</span>
             <span [ngClass]="{'box1 box7 box5 box10': !simple, 'box11 box7 box5 box10': simple}">&nbsp;&nbsp;&nbsp;</span>
   <span class="box2 box7 box10">Hours</span>
         <span class="box2 box7 box10">Expenses</span>
         <span class="box4 box7 box6 box10">{{config.current.names.ticket.ap}}</span>
     </div>
-    <accounts-list  *ngIf="config.current.is_account_manager" [simple]="simple" [accounts]="accounts"></accounts-list>
-    </ion-list>
+        </ion-list-->
+    <accounts-list margin-top class="container_list"  *ngIf="config.current.is_account_manager" [simple]="simple" [accounts]="accounts"></accounts-list>
+    <span class="span-block"></span>
 </ion-content>
 <action-button></action-button>

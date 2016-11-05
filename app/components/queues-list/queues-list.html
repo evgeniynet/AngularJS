@@ -1,4 +1,4 @@
-<ion-list class="queues-list" no-lines>
+<ion-list class="queues-list list" no-lines>
     <a detail-none href=# *ngFor="let queue of queues" class="queues" (click)="goToQueueTicketsPage(queue)">
         <span>{{queue.fullname}}</span>
         <span [innerHTML]="queue.tickets_count | More:[10000]"></span>

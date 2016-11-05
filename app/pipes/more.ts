@@ -9,9 +9,16 @@ export class MorePipe {
         value = value || 0;
         let max = args[0]; 
         let template = args[1] || "VV"; 
-        if (value >= max)
+        if (value >= max){
         value = (max-1) + "<sup>+</sup>";
-        value = template.replace("VV", value.toString());
+        }
+        else
+        {
+        value = value.toString();
+        if(value.indexOf("."))
+           value = Number(value).toFixed(2);
+        }
+        value = template.replace("VV", value);
         return value;
     }
 }

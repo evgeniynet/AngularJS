@@ -1,5 +1,5 @@
 //in case on using ionic "ion-card"
-import {IONIC_DIRECTIVES, Nav, NavParams} from 'ionic-angular';
+import {IONIC_DIRECTIVES, Nav, NavParams, Config} from 'ionic-angular';
 import {Component, Input, OnChanges} from '@angular/core';
 import {AccountDetailsPage} from '../../pages/account-details/account-details';
 import {MorePipe} from '../../pipes/pipes';
@@ -16,7 +16,7 @@ export class AccountsListComponent {
     @Input() simple: boolean;
     is_empty: boolean;
 
-     constructor(private nav: Nav) {
+     constructor(private nav: Nav, private config: Config) {
          this.is_empty = false;
 }
      itemTapped(event, account) {

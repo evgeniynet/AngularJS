@@ -8,13 +8,12 @@
   <ion-toolbar class="blue3">
    <h4 class="width90">{{ticket.subject | Htmlsafe}}</h4>
    <span no-lines class="span-left">
-    <p *ngIf="config.current.is_class_tracking"> Class:&nbsp;{{ticket.class_name}}</p>
-       <p [innerText]="username">User:&nbsp;</p>
-    <p *ngIf="config.current.is_account_manager"> Account:&nbsp;{{ticket.account_name}}</p>
-    <p *ngIf="config.current.is_location_tracking">location:&nbsp;{{ticket.location_name}}</p>
-<!--    <p [innerText]="username"></p>-->
-<!--    <p [innerText]="techname"></p>-->
-    </span>
+    <p *ngIf="config.current.is_class_tracking && ticket.class_name"> Class:&nbsp;{{ticket.class_name}}</p>
+       <p [innerText]="config.current.names.tech.a+': '+username"></p>
+       <p [innerText]="config.current.names.user.a+': '+techname"></p>
+    <p *ngIf="config.current.is_account_manager && ticket.account_name"> {{config.current.names.account.a}}:&nbsp;{{ticket.account_name}}</p>
+    <p *ngIf="config.current.is_location_tracking && ticket.location_name">{{config.current.names.location.a}}:&nbsp;{{ticket.location_name}}</p>
+        </span>
        <span class="span-right">
        <p>{{ticket.days_old_in_minutes | Daysold}}</p>
        <p  *ngIf="config.current.is_expenses && ticket.misc_cost > 0">Expenses:  {{getCurrency(ticket.misc_cost)}}</p>
@@ -96,10 +95,10 @@
      <div [hidden]="attachments?.length" class="table grey2 menu-text">No Files yet</div>
      <ion-item *ngFor="let file of attachments">
       <div class="left width59 tkts-table" [innerHTML]="getFileLink(file)"></div>
-      <div><h3 class="color right width38 text-left space-initial">{{file.name}}</h3><div class="right margin-top3">
+      <div><h3 class="color right width38 text-left space-initial">{{file.name}}</h3><!--div class="right margin-top3">
     <button fab class="red buttonInvoice email-invoice button-fab position-initial">
         <ion-icon class="invoiceCircle" name="close"></ion-icon></button>
-          </div></div>
+          </div--></div>
     </ion-item>
   </ion-list>
   <div *ngSwitchWhen="'Options'" class="list max-width700 general-alignment">
