@@ -70,6 +70,12 @@ import {ApiSite} from '../../providers/config';
       */
       @Input() private fileDest: String;
 
+
+      /*** The existing files
+        to pevent dup filenames
+      */
+      @Input() private filesExist: Array<any>;
+
   /**
    * The callback executed when button pressed, set by parent
    */
@@ -140,9 +146,8 @@ import {ApiSite} from '../../providers/config';
               formData.append(key, this.fileDest[key]);
             }
             for (let i = 0; i < files.length; i++) {
-              formData.append("uploads[]", files[i], files[i].name);
+              formData.append("uploads[]", files[i], files[i].upload_name);
             }
-
             xhr.send(formData);
           });
   }
@@ -212,23 +217,35 @@ reset(is_upload)
    * @param {Event} event change event containing selected files
    **/ 
    filesAdded(event: Event) {
-     let files: FileList = this.nativeInputBtn.nativeElement.files;
-     this.log("UploadButton: Added files", files);
+     this.log("UploadButton: Added files", this.nativeInputBtn.nativeElement.files);
      let checkfiles: any = [];
      let fileNames: any = [];
      this.error = "";
-     for (let i = 0; i < files.length; i++) {
-       if (this.isFile(files[i])){
-         if (files[i].size > this.MAX_SIZE)
-           this.error += `File ${files[i].name} will be skipped. It is more 4 MB<br>`;
-         else if (files[i].size === 0)
-           this.error += `File ${files[i].name} will be skipped. It has zero size <br>`;
-         else if (!files[i].name.trim())
+     for (let i = 0; i < this.nativeInputBtn.nativeElement.files.length; i++) {
+       let file = this.nativeInputBtn.nativeElement.files[i];
+       if (this.isFile(file)){
+         if (file.size > this.MAX_SIZE)
+           this.error += `File ${file.name} will be skipped. It is more 4 MB<br>`;
+         else if (file.size === 0)
+           this.error += `File ${file.name} will be skipped. It has zero size <br>`;
+         else if (!file.name.trim())
            this.error += `File #${i} will be skipped. It has empty name<br>`;
          else
          {
-         checkfiles.push(files[i]);
-         fileNames.push(files[i].name);
+           let new_name = file.name;
+           if (this.filesExist){
+              for (let j = 0; j <  this.filesExist.length; j++) {
+              let item = this.filesExist[j];
+              if (item.name.trim().toLowerCase() == file.name.trim().toLowerCase() && item.size != file.size)
+              {
+                new_name = new Date().getTime() + "_" + new_name;
+                break;
+              }
+            }
+           }
+         file.upload_name = new_name;
+         checkfiles.push(file);
+         fileNames.push(file.upload_name);
          }
        }
        else 
@@ -425,10 +442,11 @@ export class TicketDetailsPage {
     selectedFile(event)
     {
         this.files = event;
+        this.ticketnote = this.ticketnote.trim(); 
         if (event.length && !this.ticketnote)
-            this.ticketnote = " ";
-        else
-            this.ticketnote = this.ticketnote.trim(); 
+        {
+            this.ticketnote = "  ";
+        }
     }
 
     getPosts(key, isShortInfo)

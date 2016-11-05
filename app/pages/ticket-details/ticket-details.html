@@ -53,6 +53,7 @@
             btnStyle="add-circle"               
             [allowMultiple]="true"
             [fileDest]="fileDest"
+            [filesExist]="attachments"
             [logCallback]=""></upload-button>
       </form>
       <posts-list [posts]="posts | slice:1" [attachments]="attachments" class="general-alignment" [is_showlogs]="is_showlogs"></posts-list>
