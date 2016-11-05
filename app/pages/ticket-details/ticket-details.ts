@@ -193,10 +193,8 @@ reset(file)
 {
 if (file)
 {
-  let fileNames : Array<any> = [];
   this.files = this.files.filter(item => item !== file);
-  this.files.forEach(item => fileNames.push(item.upload_name));
-  this.filesSelected.next(fileNames);
+  this.filesSelected.next(this.files.map(item => item.upload_name));
 }
   if (!file || !this.files.length) {
     this.error = "";
@@ -228,7 +226,6 @@ if (file)
    filesAdded(event: Event) {
      this.log("UploadButton: Added files", this.nativeInputBtn.nativeElement.files);
      let checkfiles: any = [];
-     let fileNames: any = [];
      this.error = "";
      for (let i = 0; i < this.nativeInputBtn.nativeElement.files.length; i++) {
        let file = this.nativeInputBtn.nativeElement.files[i];
@@ -254,7 +251,6 @@ if (file)
            }
          file.upload_name = new_name;
          checkfiles.push(file);
-         fileNames.push(file.upload_name);
          }
        }
        else 
@@ -263,7 +259,7 @@ if (file)
        }
      }
      this.files = checkfiles;
-     this.filesSelected.next(fileNames);
+     this.filesSelected.next(this.files.map(item => item.upload_name));
    }
 
   /**
