@@ -12,12 +12,13 @@ export class MorePipe {
         if (value >= max){
         value = (max-1) + "<sup>+</sup>";
         }
-        else
-        {
-        value = value.toString();
-        if(value.indexOf("."))
-           value = Number(value).toFixed(2);
+        else {
+          let s_value = value.toString();
+        if(~template.indexOf("$") || ~s_value.indexOf("."))
+           value = value.toFixed(value > 99 && ~s_value.indexOf(".00") ? 0 : 2);
         }
+        if (~template.indexOf("$"))
+            template = template.replace("$", localStorage.getItem("currency"));
         value = template.replace("VV", value);
         return value;
     }

@@ -189,7 +189,7 @@ import {ApiSite} from '../../providers/config';
     });
 }
 
-reset(file)
+reset(file?)
 {
 if (file)
 {

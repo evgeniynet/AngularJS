@@ -6,9 +6,22 @@ float: right;
 
 
 .accountlist{
+div {
 line-height: 2.4;
 font-size: 1.9rem;
+span
+{
+height: 45px;
+background-color: $grey;
+}
+span:last-child{
+background-color: $blue2;
+}
+}
+}
 
+.flexed {
+font-size: 1.6rem;
 div {
 display: flex;
 text-align: center;
@@ -19,19 +32,13 @@ text-overflow: ellipsis;
 padding-left: 15px;
 text-align: left;
 flex: 1;
-height: 45px;
 }
 
 span{
 white-space: nowrap;
 overflow: hidden;
-background-color: $grey;
-width: 75px;
+width: 70px;
 margin-bottom: 10px;
-}
-
-span:last-child{
-background-color: $blue2;
 }
 }
 }

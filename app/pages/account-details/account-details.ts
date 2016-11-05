@@ -3,7 +3,7 @@ import {DataProvider} from '../../providers/data-provider';
 import {InvoicesPage} from '../invoices/invoices';
 import {TimelogsPage} from '../timelogs/timelogs';
 import {ExpensesPage} from '../expenses/expenses';
-import {getCurrency, FileUrlHelper} from '../../directives/helpers';
+import {FileUrlHelper} from '../../directives/helpers';
 import {TicketsListComponent} from '../../components/tickets-list/tickets-list';
 import {ActionButtonComponent} from '../../components/action-button/action-button';
 import {MorePipe} from '../../pipes/pipes';
@@ -74,10 +74,6 @@ export class AccountDetailsPage {
         setTimeout(() =>
         this.nav.push(this.pages[page], {"is_empty": !count, "account_id": this.account.id || "-1", "account_name": this.account.name}),
         this.is_ready ? 0 : 2000);
-    }
-    
-    getCurrency(value) {
-        return getCurrency(value);
     }
     
     getFileLink(file) {
