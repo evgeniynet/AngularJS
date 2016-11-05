@@ -17,6 +17,7 @@
 
 .dashboard_list{
  text-align: center;
+//    display: flex;
 }
 
 .dashboard_list > span:first-child{
@@ -25,6 +26,8 @@
     float: left;
     padding-left: 15px;
     text-align: left;
+    flex: 1;
+    height: 45px;
 }
 
 .dashboard_list > span:nth-child(n+2){
