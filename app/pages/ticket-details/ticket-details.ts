@@ -73,8 +73,8 @@ import {ApiSite} from '../../providers/config';
 
       /*** The existing files
         to pevent dup filenames
-      */
-      @Input() private filesExist: Array<any>;
+        */
+        @Input() private filesExist: Array<any>;
 
   /**
    * The callback executed when button pressed, set by parent
@@ -115,94 +115,94 @@ import {ApiSite} from '../../providers/config';
    }
 
    ngOnInit() {
-    //console.log("######################i nininiini");
-  }
+     //console.log("######################i nininiini");
+   }
 
-  public upload (url: string, files: File[]): Promise<any> {
-    return new Promise((resolve, reject) => {
+   public upload (url: string, files: File[]): Promise<any> {
+     return new Promise((resolve, reject) => {
 
-      let xhr:XMLHttpRequest = new XMLHttpRequest();
+       let xhr:XMLHttpRequest = new XMLHttpRequest();
 
-      xhr.onreadystatechange = () => {
-        if (xhr.readyState === 4) {
-          if (xhr.status === 200) {
-                    resolve(xhr.response); //JSON.parse(xhr.response)
-                  } else {
-                    reject(xhr.response);
-                  }
-                }
-              };
+       xhr.onreadystatechange = () => {
+         if (xhr.readyState === 4) {
+           if (xhr.status === 200) {
+             resolve(xhr.response); //JSON.parse(xhr.response)
+           } else {
+             reject(xhr.response);
+           }
+         }
+       };
 
-              let token = this.config.getCurrent("key"),
-        org = this.config.getCurrent("org"), // localStorage.getItem('userOrgKey'),
-        inst = this.config.getCurrent("instance");// localStorage.getItem('userInstanceKey');
+       let token = this.config.getCurrent("key"),
+       org = this.config.getCurrent("org"), // localStorage.getItem('userOrgKey'),
+       inst = this.config.getCurrent("instance");// localStorage.getItem('userInstanceKey');
 
-        xhr.open('POST', url+"files/", true);
-        xhr.setRequestHeader("Authorization", "Basic " + btoa(`${org}-${inst}:${token}`));
-            //xhr.withCredentials = true;
-            //console.log(this.fileDest);
-            let formData: FormData = new FormData();
-            for ( var key in this.fileDest ) {
-              formData.append(key, this.fileDest[key]);
-            }
-            for (let i = 0; i < files.length; i++) {
-              formData.append("uploads[]", files[i], files[i].upload_name);
-            }
-            xhr.send(formData);
-          });
-  }
+       xhr.open('POST', url+"files/", true);
+       xhr.setRequestHeader("Authorization", "Basic " + btoa(`${org}-${inst}:${token}`));
+       //xhr.withCredentials = true;
+       //console.log(this.fileDest);
+       let formData: FormData = new FormData();
+       for ( var key in this.fileDest ) {
+         formData.append(key, this.fileDest[key]);
+       }
+       for (let i = 0; i < files.length; i++) {
+         formData.append("uploads[]", files[i], files[i].upload_name);
+       }
+       xhr.send(formData);
+     });
+   }
 
-  onUpload() {
-    //console.log("upload start");
-    if (!this.files.length) {
-      this.filesUploaded.next("ok" + " no files");
-      return;
-    }
-    //proof double click
-    if (this.in_progress && Date.now() - this.in_progress < 1500) {return;}
-    this.in_progress = Date.now();
+   onUpload() {
+     //console.log("upload start");
+     if (!this.files.length) {
+       this.filesUploaded.next("ok" + " no files");
+       return;
+     }
+     //proof double click
+     if (this.in_progress && Date.now() - this.in_progress < 1500) {return;}
+     this.in_progress = Date.now();
 
-    let loading = null;
+     let loading = null;
 
-    if (this.files.length >= 2 || this.files[0].size > 20000)
-    {
-      loading = Loading.create({
-        content: "Uploading file(s)...",
-                     //duration: 2000,
-                     dismissOnPageChange: true
-                   });
-      this.nav.present(loading);
-    }
+     if (this.files.length >= 2 || this.files[0].size > 20000)
+     {
+       loading = Loading.create({
+         content: "Uploading file(s)...",
+         //duration: 2000,
+         dismissOnPageChange: true
+       });
+       this.nav.present(loading);
+     }
 
-  this.upload(ApiSite, this.files).then((data) => {
-    this.reset();
-    if (loading) loading.dismiss();
-    this.filesUploaded.next("ok " + data);
-  }).catch((ex) => {
-      if (loading) 
-        {
-          setTimeout(() => loading.dismiss(), 1000);
-        }
-      console.error('Error uploading files', ex);
-      this.filesUploaded.next("error " + ex);
-      this.nav.alert('Error uploading files! Cannot add Post! Please try again later ... or try to upload one file or check your internet connection', true);
-    });
-}
+     this.upload(ApiSite, this.files).then((data) => {
+       this.reset();
+       if (loading) loading.dismiss();
+       this.filesUploaded.next("ok " + data);
+     }).catch((ex) => {
+       if (loading) 
+       {
+         setTimeout(() => loading.dismiss(), 1000);
+       }
+       console.error('Error uploading files', ex);
+       this.filesUploaded.next("error " + ex);
+       this.nav.alert('Error uploading files! Cannot add Post! Please try again later ... or try to upload one file or check your internet connection', true);
+     });
+   }
 
-reset(file?)
-{
-if (file)
-{
-  this.files = this.files.filter(item => item !== file);
-  this.filesSelected.next(this.files.map(item => item.upload_name));
-}
-  if (!file || !this.files.length) {
-    this.error = "";
-  this.files = [];
-  this.nativeInputBtn.nativeElement.value = '';
-}
+   reset(file?)
+   {
+     if (file)
+     {
+       this.files = this.files.filter(item => item !== file);
+       this.filesSelected.next(this.files.map(item => item.upload_name));
+     }
+     if (!file || !this.files.length) {
+       this.error = "";
+       this.files = [];
+       this.nativeInputBtn.nativeElement.value = '';
+     }
 
-}
+   }
 
   /**
    * Callback executed when the visible button is pressed
@@ -212,11 +212,11 @@ if (file)
    public callback(event: Event): void {
      this.log("UploadButton: Callback executed triggerig click event", this.nativeInputBtn.nativeElement);
 
-    // trigger click event of hidden input
-    let clickEvent: MouseEvent = new MouseEvent("click", {bubbles: true});
-    this.renderer.invokeElementMethod(
-      this.nativeInputBtn.nativeElement, "dispatchEvent", [clickEvent]);
-  }
+     // trigger click event of hidden input
+     let clickEvent: MouseEvent = new MouseEvent("click", {bubbles: true});
+     this.renderer.invokeElementMethod(
+       this.nativeInputBtn.nativeElement, "dispatchEvent", [clickEvent]);
+   }
 
   /**
    * Callback which is executed after files from native popup are selected.
@@ -225,42 +225,47 @@ if (file)
    **/ 
    filesAdded(event: Event) {
      this.log("UploadButton: Added files", this.nativeInputBtn.nativeElement.files);
+     let len = this.nativeInputBtn.nativeElement.files.length;
      let checkfiles: any = [];
      this.error = "";
-     for (let i = 0; i < this.nativeInputBtn.nativeElement.files.length; i++) {
-       let file = this.nativeInputBtn.nativeElement.files[i];
-       if (this.isFile(file)){
-         if (file.size > this.MAX_SIZE)
-           this.error += `File ${file.name} will be skipped. It is more 4 MB<br>`;
-         else if (file.size === 0)
-           this.error += `File ${file.name} will be skipped. It has zero size <br>`;
-         else if (!file.name.trim())
-           this.error += `File #${i} will be skipped. It has empty name<br>`;
-         else
-         {
-           let new_name = file.name;
-           if (this.filesExist){
-              for (let j = 0; j <  this.filesExist.length; j++) {
-              let item = this.filesExist[j];
-              if (item.name.trim().toLowerCase() == file.name.trim().toLowerCase() && item.size != file.size)
-              {
-                new_name = new Date().getTime() + "_" + new_name;
-                break;
-              }
-            }
+     if (len){
+       let selNames={}, existNames={};
+       if (this.filesExist)
+         for (let j = 0; j < this.filesExist.length; j++) {
+           existNames[this.filesExist[j].name.trim().toLowerCase()] = this.filesExist[j].size;
+         }
+         for (let i = 0; i < len; i++) {
+           let file = this.nativeInputBtn.nativeElement.files[i];
+           if (this.isFile(file)){
+             if (file.size > this.MAX_SIZE)
+               this.error += `File ${file.name} will be skipped. It is more 4 MB<br>`;
+             else if (file.size === 0)
+               this.error += `File ${file.name} will be skipped. It has zero size <br>`;
+             else if (!file.name.trim())
+               this.error += `File #${i} will be skipped. It has empty name<br>`;
+             else
+             {
+               let new_name = file.name.trim().toLowerCase();
+               //detect aleady uploaded dup
+               if (file.size != (existNames[new_name.trim().toLowerCase()] || file.size))
+                 new_name = new Date().getTime() + "_" + new_name;
+               //detect selected dup
+               if (file.size != (selNames[new_name] || file.size))
+                 new_name = new Date().getTime() + "_" + new_name;
+               file.upload_name = new_name;
+               checkfiles.push(file);
+               selNames[new_name] = file.size;
+             }
            }
-         file.upload_name = new_name;
-         checkfiles.push(file);
+           else 
+           {
+             this.error += `File #${i} will be skipped. It is empty<br>`;
+           }
          }
        }
-       else 
-       {
-          this.error += `File #${i} will be skipped. It is empty<br>`;
-       }
+       this.files = checkfiles;
+       this.filesSelected.next(this.files.map(item => item.upload_name));
      }
-     this.files = checkfiles;
-     this.filesSelected.next(this.files.map(item => item.upload_name));
-   }
 
   /**
    * (Optional) If needed for debugging
@@ -298,464 +303,464 @@ if (file)
  }
 
 
-@Page({
-    templateUrl: 'build/pages/ticket-details/ticket-details.html',
-    directives: [PostsListComponent, SelectListComponent, ClassListComponent, UploadButtonComponent],
-    pipes: [GravatarPipe, LinebreaksPipe, DaysoldPipe, HtmlsafePipe],
-})
-export class TicketDetailsPage {
+ @Page({
+   templateUrl: 'build/pages/ticket-details/ticket-details.html',
+   directives: [PostsListComponent, SelectListComponent, ClassListComponent, UploadButtonComponent],
+   pipes: [GravatarPipe, LinebreaksPipe, DaysoldPipe, HtmlsafePipe],
+ })
+ export class TicketDetailsPage {
 
-    counts: any;
-    ticket: any = {};
-    details_tab: string;
-    active: boolean;
-    he: any;
-    techname: string;
-    username: string;
-    selects: any;
-    ticketnote: string;
-    attachments: any;
-    is_editnote: boolean = true;
-    cachename: string = "";
-    closed_index: number = 0;
-    fileDest: any = {ticket: ""};
-    files: any = [];
-    is_showlogs: boolean = false;
-    posts: any = [
-    {
-        "id": 0,
-        "ticket_key": "",
-        "user_id": 0,
-        "user_email": " ",
-        "user_firstname": " ",
-        "user_lastname": " ",
-        "record_date": "2016-01-01T00:00:00.0000000",
-        "log_type": " ",
-        "note": " ",
-        "ticket_time_id": 0,
-        "sent_to": " ",
-        "is_waiting": false,
-        "sla_used": 0
-    }];
+   counts: any;
+   ticket: any = {};
+   details_tab: string;
+   active: boolean;
+   he: any;
+   techname: string;
+   username: string;
+   selects: any;
+   ticketnote: string;
+   attachments: any;
+   is_editnote: boolean = true;
+   cachename: string = "";
+   closed_index: number = 0;
+   fileDest: any = {ticket: ""};
+   files: any = [];
+   is_showlogs: boolean = false;
+   posts: any = [
+   {
+     "id": 0,
+     "ticket_key": "",
+     "user_id": 0,
+     "user_email": " ",
+     "user_firstname": " ",
+     "user_lastname": " ",
+     "record_date": "2016-01-01T00:00:00.0000000",
+     "log_type": " ",
+     "note": " ",
+     "ticket_time_id": 0,
+     "sent_to": " ",
+     "is_waiting": false,
+     "sla_used": 0
+   }];
 
-    constructor(private nav: Nav, private navParams: NavParams, private ticketProvider: TicketProvider, private config: Config) {
-    }
+   constructor(private nav: Nav, private navParams: NavParams, private ticketProvider: TicketProvider, private config: Config) {
+   }
 
-    onPageLoaded() {
-        this.ticket.customfields = [];
-        this.active = true;
-        this.he = this.config.getCurrent("user");
-        this.details_tab = "Reply";
-        let data = this.navParams.data || {};
-        this.cachename = data.cachename;
-        this.posts[0].record_date = data.updated_time || this.posts[0].record_date;
-        let account_id = -1;
-        this.username = getFullName(data.user_firstname, data.user_lastname, data.user_email);
-        this.techname = getFullName(data.technician_firstname || data.tech_firstname, data.technician_lastname || data.tech_lastname, data.technician_email || data.tech_email);
-        this.selects = {
-            "user" : {
-                name: "User", 
-                value: this.username,
-                selected: data.user_id,
-                url: "users",
-                hidden: false
-            },
-            "location": {
-                name: "Location",
-                value: data.location_name || "( Not Set )",
-                selected: data.location_id || 0,
-                url: `locations?account=${account_id}`,
-                hidden: false
-            },
-            "tech": {
-                name: "Tech",
-                value: this.techname,
-                selected: data.tech_id,
-                url: "technicians",
-                hidden: false
-            },
-            "technician": {
-                name: "Technician",
-                value: "Transfer "+this.config.current.names.ticket.s,
-                selected: data.tech_id,
-                url: "technicians",
-                hidden: false
-            },
-            "project": {
-                name: "Project",
-                value: data.project_name || "( Not Set )",
-                selected: data.project_id || 0,
-                url: `projects?account=${account_id}&is_with_statistics=false`,
-                hidden: false
-            },
-            "level": {
-                name: "Level",
-                value: data.level_name ? (data.level + " - " + data.level_name) : "( Not Set )",
-                selected: data.level || 0,
-                url: "levels",
-                hidden: false
-            },
-            "priority": {
-                name: "Priority",
-                value: data.priority_name ? (data.priority + " - " + data.priority_name) : "( Not Set )",
-                selected: data.priority_id || 0,
-                url: "priorities",
-                hidden: false
-            },
-            "class": {
-                name: "Class",
-                value: data.class_name || "( Not Set )",
-                selected: data.class_id || 0,
-                url: "classes",
-                hidden: false
-            }
-        };
+   onPageLoaded() {
+     this.ticket.customfields = [];
+     this.active = true;
+     this.he = this.config.getCurrent("user");
+     this.details_tab = "Reply";
+     let data = this.navParams.data || {};
+     this.cachename = data.cachename;
+     this.posts[0].record_date = data.updated_time || this.posts[0].record_date;
+     let account_id = -1;
+     this.username = getFullName(data.user_firstname, data.user_lastname, data.user_email);
+     this.techname = getFullName(data.technician_firstname || data.tech_firstname, data.technician_lastname || data.tech_lastname, data.technician_email || data.tech_email);
+     this.selects = {
+       "user" : {
+         name: "User", 
+         value: this.username,
+         selected: data.user_id,
+         url: "users",
+         hidden: false
+       },
+       "location": {
+         name: "Location",
+         value: data.location_name || "( Not Set )",
+         selected: data.location_id || 0,
+         url: `locations?account=${account_id}`,
+         hidden: false
+       },
+       "tech": {
+         name: "Tech",
+         value: this.techname,
+         selected: data.tech_id,
+         url: "technicians",
+         hidden: false
+       },
+       "technician": {
+         name: "Technician",
+         value: "Transfer "+this.config.current.names.ticket.s,
+         selected: data.tech_id,
+         url: "technicians",
+         hidden: false
+       },
+       "project": {
+         name: "Project",
+         value: data.project_name || "( Not Set )",
+         selected: data.project_id || 0,
+         url: `projects?account=${account_id}&is_with_statistics=false`,
+         hidden: false
+       },
+       "level": {
+         name: "Level",
+         value: data.level_name ? (data.level + " - " + data.level_name) : "( Not Set )",
+         selected: data.level || 0,
+         url: "levels",
+         hidden: false
+       },
+       "priority": {
+         name: "Priority",
+         value: data.priority_name ? (data.priority + " - " + data.priority_name) : "( Not Set )",
+         selected: data.priority_id || 0,
+         url: "priorities",
+         hidden: false
+       },
+       "class": {
+         name: "Class",
+         value: data.class_name || "( Not Set )",
+         selected: data.class_id || 0,
+         url: "classes",
+         hidden: false
+       }
+     };
 
-        this.selects.account = {
-            name: "Account", 
-            value: (data.account || {}).name || this.he.account_name,
-            selected: account_id,
-            url: "accounts?is_with_statistics=false",
-            hidden: false
-        };
+     this.selects.account = {
+       name: "Account", 
+       value: (data.account || {}).name || this.he.account_name,
+       selected: account_id,
+       url: "accounts?is_with_statistics=false",
+       hidden: false
+     };
 
-        this.is_showlogs = false;
-        this.ticketnote = "";
+     this.is_showlogs = false;
+     this.ticketnote = "";
 
-        this.fileDest = {ticket: data.key};
-        
-        let isFullInfo = (data.ticketlogs && data.ticketlogs.length > 0);
+     this.fileDest = {ticket: data.key};
 
-        this.getPosts(data.key, !isFullInfo);
+     let isFullInfo = (data.ticketlogs && data.ticketlogs.length > 0);
 
-        this.processDetails(data, !isFullInfo);
-    }
+     this.getPosts(data.key, !isFullInfo);
 
-    uploadedFile(event)
-    {
-        //console.log("Uploaded:", event);
-        if (event.indexOf("ok") == 0)
-        {
-            if (!this.config.current.user.is_techoradmin && this.ticket.status != 'Closed')
-                this.onClose();
-            else
-                this.onSubmit(); 
-        }
-    }
+     this.processDetails(data, !isFullInfo);
+   }
 
-    selectedFile(event)
-    {
-        this.files = event;
-        this.ticketnote = this.ticketnote.trim(); 
-        if (event.length && !this.ticketnote)
-        {
-            this.ticketnote = "  ";
-        }
-    }
+   uploadedFile(event)
+   {
+     //console.log("Uploaded:", event);
+     if (event.indexOf("ok") == 0)
+     {
+       if (!this.config.current.user.is_techoradmin && this.ticket.status != 'Closed')
+         this.onClose();
+       else
+         this.onSubmit(); 
+     }
+   }
 
-    getPosts(key, isShortInfo)
-    {
-        if (isShortInfo) {
-            this.ticketProvider.getTicketDetails(key).subscribe(
-                data => {
-                    this.processDetails(data);
-                },
-                error => {
-                    console.log(error || 'Server error');
-                    this.redirectOnEmpty();
-                }
-                );
-        }
-    }
+   selectedFile(event)
+   {
+     this.files = event;
+     this.ticketnote = this.ticketnote.trim(); 
+     if (event.length && !this.ticketnote)
+     {
+       this.ticketnote = "  ";
+     }
+   }
 
-    processDetails(data, isShortInfo?)
-    {
-        if (!isShortInfo && (!data || !data.ticketlogs || data.ticketlogs == 0))
-        { 
-            this.redirectOnEmpty();
-            return;
-        }
-        
-        this.ticket = data;
-        this.is_editnote = !(this.ticket.workpad || "").length;
-        this.ticket.customfields = [];
-        this.username = getFullName(data.user_firstname, data.user_lastname, data.user_email);
-        this.techname = getFullName(data.technician_firstname || data.tech_firstname, data.technician_lastname || data.tech_lastname, data.technician_email || data.tech_email);
-        
-        if (!isShortInfo)
-        {
-            this.attachments = (data.attachments || []).slice().reverse();
-            this.posts = data.ticketlogs; // this.is_showlogs ?  : data.ticketlogs.filter(item => ~["Initial Post", "Response"].indexOf(item.log_type));
+   getPosts(key, isShortInfo)
+   {
+     if (isShortInfo) {
+       this.ticketProvider.getTicketDetails(key).subscribe(
+         data => {
+           this.processDetails(data);
+         },
+         error => {
+           console.log(error || 'Server error');
+           this.redirectOnEmpty();
+         }
+         );
+     }
+   }
 
-            let xml = parseXml(this.ticket.customfields_xml);
-            if (xml)
-            {
-                let t=[];
-                for (var n = xml.documentElement.firstChild; n; n = n.nextSibling)
-                { 
-                    t.push({ "id": n.attributes[0].nodeValue, "name": n.firstChild.innerHTML, "value": n.firstChild.nextSibling.innerHTML || ""}); 
-                }
-                this.ticket.customfields = t;
-            }
-        }
-    }
+   processDetails(data, isShortInfo?)
+   {
+     if (!isShortInfo && (!data || !data.ticketlogs || data.ticketlogs == 0))
+     { 
+       this.redirectOnEmpty();
+       return;
+     }
 
-    redirectOnEmpty(){
-        this.nav.alert('Incorrect ticket. Going back...', true);
+     this.ticket = data;
+     this.is_editnote = !(this.ticket.workpad || "").length;
+     this.ticket.customfields = [];
+     this.username = getFullName(data.user_firstname, data.user_lastname, data.user_email);
+     this.techname = getFullName(data.technician_firstname || data.tech_firstname, data.technician_lastname || data.tech_lastname, data.technician_email || data.tech_email);
 
-        setTimeout(() => {
-            this.nav.pop();
-        }, 1000);
-    }
+     if (!isShortInfo)
+     {
+       this.attachments = (data.attachments || []).slice().reverse();
+       this.posts = data.ticketlogs; // this.is_showlogs ?  : data.ticketlogs.filter(item => ~["Initial Post", "Response"].indexOf(item.log_type));
 
-    saveSelect(event){
-        let name = event.type;
-        this.selects[name].selected = event.id;
-        this.selects[name].value = event.name;
-    }
-    
-    onSubmit() {
-            //proof double click
-            if (this.ticket.in_progress && Date.now() - this.ticket.in_progress < 1500) {return;}
-            this.ticket.in_progress = Date.now();
-            
-            var post = htmlEscape(this.ticketnote.trim()).substr(0, 5000);
+       let xml = parseXml(this.ticket.customfields_xml);
+       if (xml)
+       {
+         let t=[];
+         for (var n = xml.documentElement.firstChild; n; n = n.nextSibling)
+         { 
+           t.push({ "id": n.attributes[0].nodeValue, "name": n.firstChild.innerHTML, "value": n.firstChild.nextSibling.innerHTML || ""}); 
+         }
+         this.ticket.customfields = t;
+       }
+     }
+   }
 
-            this.ticketProvider.addTicketPost(this.ticket.id, post, this.files).subscribe(
-                data => {
-                    this.nav.alert('New post added :)');
-                    this.ticketnote = "";
-                    this.active = false;
-                    setTimeout(() => this.active = true, 0);
-                    this.files = [];
-                    this.getPosts(this.ticket.key, true);
-                },
-                error => {
-                    console.log(error || 'Server error');
-                }
-                );
-    } 
+   redirectOnEmpty(){
+     this.nav.alert('Incorrect ticket. Going back...', true);
 
-    saveNote(form) {
-        var note = (form.value || "").trim(); //htmlEscape((this.workpad || "").trim()).substr(0, 5000);
-        if (note != (this.ticket.workpad || "").trim()) {
-            this.ticketProvider.addTicketNote(this.ticket.id, note).subscribe(
-                data => this.saveNoteSuccess(note),
-                error => {
-                    console.log(error || 'Server error');
-                }
-                );
-        }
-        else
-            this.saveNoteSuccess(note);
-    }
+     setTimeout(() => {
+       this.nav.pop();
+     }, 1000);
+   }
 
-    saveNoteSuccess(note){
-        this.nav.alert('Note saved :)');
-        this.ticket.workpad = (note || "").trim();
-        this.is_editnote = !this.ticket.workpad.length;
-    }
+   saveSelect(event){
+     let name = event.type;
+     this.selects[name].selected = event.id;
+     this.selects[name].value = event.name;
+   }
 
-    onClose() {
-            //proof double click
-            if (this.ticket.in_progress && Date.now() - this.ticket.in_progress < 1500) {return;}
-            this.ticket.in_progress = Date.now();
+   onSubmit() {
+     //proof double click
+     if (this.ticket.in_progress && Date.now() - this.ticket.in_progress < 1500) {return;}
+     this.ticket.in_progress = Date.now();
 
-            var post = htmlEscape(this.ticketnote.trim()).substr(0, 5000);
+     var post = htmlEscape(this.ticketnote.trim()).substr(0, 5000);
 
-            let data = {
-                "status": "closed",
-                "note_text": post,
-                "is_send_notifications": true,
-                "resolved": true,
-                "resolution_id": 0,
-                "confirmed": true,
-                "confirm_note": ""
+     this.ticketProvider.addTicketPost(this.ticket.id, post, this.files).subscribe(
+       data => {
+         this.nav.alert('New post added :)');
+         this.ticketnote = "";
+         this.active = false;
+         setTimeout(() => this.active = true, 0);
+         this.files = [];
+         this.getPosts(this.ticket.key, true);
+       },
+       error => {
+         console.log(error || 'Server error');
+       }
+       );
+   } 
 
-            };
+   saveNote(form) {
+     var note = (form.value || "").trim(); //htmlEscape((this.workpad || "").trim()).substr(0, 5000);
+     if (note != (this.ticket.workpad || "").trim()) {
+       this.ticketProvider.addTicketNote(this.ticket.id, note).subscribe(
+         data => this.saveNoteSuccess(note),
+         error => {
+           console.log(error || 'Server error');
+         }
+         );
+     }
+     else
+       this.saveNoteSuccess(note);
+   }
 
-            this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(
-                data => {
-                    this.update_tlist_logic(true);
-                    this.nav.alert('Ticket has been closed :)');
-                    this.ticket.status = "Closed";
-                },
-                error => {
-                    console.log(error || 'Server error');
-                }
-                );
-    }
+   saveNoteSuccess(note){
+     this.nav.alert('Note saved :)');
+     this.ticket.workpad = (note || "").trim();
+     this.is_editnote = !this.ticket.workpad.length;
+   }
 
-    onUpdate() {
-        //proof double click
-        if (this.ticket.in_progress && Date.now() - this.ticket.in_progress < 1500) {return;}
-        this.ticket.in_progress = Date.now();
+   onClose() {
+     //proof double click
+     if (this.ticket.in_progress && Date.now() - this.ticket.in_progress < 1500) {return;}
+     this.ticket.in_progress = Date.now();
 
-        let data = {
-            "class_id": this.selects.class.selected,
-            "level_id": this.selects.level.selected,
-            "priority_id": this.selects.priority.selected,
-            "project_id": this.selects.project.selected,
-            "location_id": this.selects.location.selected,
-            "account_id": this.selects.account.selected,
-            "tech_id": this.selects.tech.selected,
-            "user_id": this.selects.user.selected
-        };
+     var post = htmlEscape(this.ticketnote.trim()).substr(0, 5000);
 
-        this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(
-            data => {
-                this.nav.alert('Ticket was successfully updated :)');
-                this.getPosts(this.ticket.key, true);
-            },
-            error => {
-                console.log(error || 'Server error');
-            }
-            );
-    }
+     let data = {
+       "status": "closed",
+       "note_text": post,
+       "is_send_notifications": true,
+       "resolved": true,
+       "resolution_id": 0,
+       "confirmed": true,
+       "confirm_note": ""
 
-    transferTicket(event) {
-        if (!event)
-            return;
-        let techid = event.id;
-        this.selects.technician.selected = techid;
-        this.selects.technician.value = "Transfer Ticket";
+     };
 
-        let data = {
-            "tech_id": techid
-        };
+     this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(
+       data => {
+         this.update_tlist_logic(true);
+         this.nav.alert('Ticket has been closed :)');
+         this.ticket.status = "Closed";
+       },
+       error => {
+         console.log(error || 'Server error');
+       }
+       );
+   }
 
-        this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(
-            data => {
-                this.nav.alert('Ticket has been transferred :)');
-                this.techname = this.selects.tech.value = this.ticket.tech_firstname = event.name;
-                this.ticket.tech_lastname = this.ticket.tech_email = "";
-                this.selects.tech.selected = techid;
-            },
-            error => {
-                console.log(error || 'Server error');
-            }
-            );
-    }
+   onUpdate() {
+     //proof double click
+     if (this.ticket.in_progress && Date.now() - this.ticket.in_progress < 1500) {return;}
+     this.ticket.in_progress = Date.now();
 
-    pickUp() {
+     let data = {
+       "class_id": this.selects.class.selected,
+       "level_id": this.selects.level.selected,
+       "priority_id": this.selects.priority.selected,
+       "project_id": this.selects.project.selected,
+       "location_id": this.selects.location.selected,
+       "account_id": this.selects.account.selected,
+       "tech_id": this.selects.tech.selected,
+       "user_id": this.selects.user.selected
+     };
 
-        let data = {
-            "action": "pickup",
-            "note_text": ""
-        };
+     this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(
+       data => {
+         this.nav.alert('Ticket was successfully updated :)');
+         this.getPosts(this.ticket.key, true);
+       },
+       error => {
+         console.log(error || 'Server error');
+       }
+       );
+   }
 
-        //proof double click
-        if (this.ticket.in_progress && Date.now() - this.ticket.in_progress < 1500) {return;}
-        this.ticket.in_progress = Date.now();
+   transferTicket(event) {
+     if (!event)
+       return;
+     let techid = event.id;
+     this.selects.technician.selected = techid;
+     this.selects.technician.value = "Transfer Ticket";
 
-        this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(
-            data => {
-                this.nav.alert('Ticket pickup was Succesfull!');
-                this.techname = this.selects.tech.value = this.ticket.tech_firstname = getFullName(this.he.firstname, this.he.lastname, this.he.email);
-                this.ticket.tech_lastname = this.ticket.tech_email = "";
-                this.selects.tech.selected = this.he.user_id;
-            },
-            error => {
-                console.log(error || 'Server error');
-            }
-            );
-    }
+     let data = {
+       "tech_id": techid
+     };
 
-    reopenTicket() {
-        let data = {
-            "status": "open",
-            "note_text": ""
-        };
+     this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(
+       data => {
+         this.nav.alert('Ticket has been transferred :)');
+         this.techname = this.selects.tech.value = this.ticket.tech_firstname = event.name;
+         this.ticket.tech_lastname = this.ticket.tech_email = "";
+         this.selects.tech.selected = techid;
+       },
+       error => {
+         console.log(error || 'Server error');
+       }
+       );
+   }
 
-        this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(
-            data => {
-                this.update_tlist_logic(false);
-                this.nav.alert('Ticket has been Reopened!');
-                this.ticket.status = "Open";
-            },
-            error => {
-                console.log(error || 'Server error');
-            }
-            );
-    }
+   pickUp() {
 
-    update_tlist_logic(is_close)
-    {
-        if (this.cachename){
-            if(~this.cachename.indexOf("closed")){
-                is_close = !is_close;
-                this.closed_index = 0;
-            }
-            if (is_close) {
-                this.closed_index = this.ticketProvider._dataStore[this.cachename].findIndex(tkt => tkt.key === this.ticket.key);
-                this.ticketProvider._dataStore[this.cachename].splice(this.closed_index,1);
-                if(~this.cachename.indexOf("closed"))
-                {
-                   this.ticketProvider._dataStore[this.cachename.replace("closed", "open")].splice(0, 0, this.ticket);
-                }
-            }
-            else
-                {
-                  this.ticketProvider._dataStore[this.cachename].splice(this.closed_index, 0, this.ticket);
-                  if(~this.cachename.indexOf("closed")){
-                    this.ticketProvider._dataStore[this.cachename.replace("open","closed")].splice(this.ticketProvider._dataStore[this.cachename.replace("open","closed")].findIndex(tkt => tkt.key === this.ticket.key),1);
-                }
-            }
-        }
-    }
+     let data = {
+       "action": "pickup",
+       "note_text": ""
+     };
+
+     //proof double click
+     if (this.ticket.in_progress && Date.now() - this.ticket.in_progress < 1500) {return;}
+     this.ticket.in_progress = Date.now();
+
+     this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(
+       data => {
+         this.nav.alert('Ticket pickup was Succesfull!');
+         this.techname = this.selects.tech.value = this.ticket.tech_firstname = getFullName(this.he.firstname, this.he.lastname, this.he.email);
+         this.ticket.tech_lastname = this.ticket.tech_email = "";
+         this.selects.tech.selected = this.he.user_id;
+       },
+       error => {
+         console.log(error || 'Server error');
+       }
+       );
+   }
+
+   reopenTicket() {
+     let data = {
+       "status": "open",
+       "note_text": ""
+     };
+
+     this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(
+       data => {
+         this.update_tlist_logic(false);
+         this.nav.alert('Ticket has been Reopened!');
+         this.ticket.status = "Open";
+       },
+       error => {
+         console.log(error || 'Server error');
+       }
+       );
+   }
+
+   update_tlist_logic(is_close)
+   {
+     if (this.cachename){
+       if(~this.cachename.indexOf("closed")){
+         is_close = !is_close;
+         this.closed_index = 0;
+       }
+       if (is_close) {
+         this.closed_index = this.ticketProvider._dataStore[this.cachename].findIndex(tkt => tkt.key === this.ticket.key);
+         this.ticketProvider._dataStore[this.cachename].splice(this.closed_index,1);
+         if(~this.cachename.indexOf("closed"))
+         {
+           this.ticketProvider._dataStore[this.cachename.replace("closed", "open")].splice(0, 0, this.ticket);
+         }
+       }
+       else
+       {
+         this.ticketProvider._dataStore[this.cachename].splice(this.closed_index, 0, this.ticket);
+         if(~this.cachename.indexOf("closed")){
+           this.ticketProvider._dataStore[this.cachename.replace("open","closed")].splice(this.ticketProvider._dataStore[this.cachename.replace("open","closed")].findIndex(tkt => tkt.key === this.ticket.key),1);
+         }
+       }
+     }
+   }
 
 
-    closeTicket() {
-        if (this.ticket.status == 'Closed') {
-            this.reopenTicket();
-            return;
-        }
-        let myModal = Modal.create(CloseTicketModal, { "number": this.ticket.number, "key": this.ticket.key, "subject": this.ticket.subject });
-        myModal.onDismiss(data => {
-            if (data){
-                this.ticket.status = "Closed";
-                this.update_tlist_logic(true);
-            }
-        });
-        this.nav.present(myModal);
-    }  
+   closeTicket() {
+     if (this.ticket.status == 'Closed') {
+       this.reopenTicket();
+       return;
+     }
+     let myModal = Modal.create(CloseTicketModal, { "number": this.ticket.number, "key": this.ticket.key, "subject": this.ticket.subject });
+     myModal.onDismiss(data => {
+       if (data){
+         this.ticket.status = "Closed";
+         this.update_tlist_logic(true);
+       }
+     });
+     this.nav.present(myModal);
+   }  
 
-    addTime()
-    {
-        let myModal = Modal.create(TimelogPage, { "number": this.ticket.number, "ticket_number": this.ticket.key, "subject": this.ticket.subject, "account_id": this.ticket.account_id });
-        //myModal.onDismiss(data => {
-        //    console.log(data);
-        //});
-        this.nav.present(myModal);
-    }
+   addTime()
+   {
+     let myModal = Modal.create(TimelogPage, { "number": this.ticket.number, "ticket_number": this.ticket.key, "subject": this.ticket.subject, "account_id": this.ticket.account_id });
+     //myModal.onDismiss(data => {
+       //    console.log(data);
+       //});
+       this.nav.present(myModal);
+     }
 
-    addExpense()
-    {
-        let myModal = Modal.create(ExpenseCreatePage, { "number": this.ticket.number, "ticket_number": this.ticket.key, "subject": this.ticket.subject, "account_id": this.ticket.account_id });
-        //myModal.onDismiss(data => {
-        //    console.log(data);
-        //});
-        this.nav.present(myModal);
-    }
+     addExpense()
+     {
+       let myModal = Modal.create(ExpenseCreatePage, { "number": this.ticket.number, "ticket_number": this.ticket.key, "subject": this.ticket.subject, "account_id": this.ticket.account_id });
+       //myModal.onDismiss(data => {
+         //    console.log(data);
+         //});
+         this.nav.present(myModal);
+       }
 
-    getFullapplink(ticketkey) {
-        let curr = this.config.getCurrent();
-        fullapplink(AppSite, ticketkey, curr.instance, curr.org);
-    }
-    
-    getFullName (firstname,lastname,email,name) {
-        return getFullName (firstname,lastname,email,name);
-    }
+       getFullapplink(ticketkey) {
+         let curr = this.config.getCurrent();
+         fullapplink(AppSite, ticketkey, curr.instance, curr.org);
+       }
 
-    getCurrency(value) {
-        return getCurrency(value);
-    }
+       getFullName (firstname,lastname,email,name) {
+         return getFullName (firstname,lastname,email,name);
+       }
 
-    getFileLink(file) {
-        return FileUrlHelper.getFileLink(file.url, file.name);
-    }
+       getCurrency(value) {
+         return getCurrency(value);
+       }
 
-    setDate(date, showmonth?, istime?) {
-        return date ? getDateTime(date, showmonth, istime) : null;
-    }
-}
+       getFileLink(file) {
+         return FileUrlHelper.getFileLink(file.url, file.name);
+       }
+
+       setDate(date, showmonth?, istime?) {
+         return date ? getDateTime(date, showmonth, istime) : null;
+       }
+     }
