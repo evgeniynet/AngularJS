@@ -106,13 +106,13 @@
   </ion-list>
   <div *ngSwitchWhen="'Options'" class="list max-width700 general-alignment">
     <button *ngIf="config.current.is_time_tracking" (click)="addTime()" block type="submit" class="blue2 disable-hover button button-default button-block class-margin">Add Time</button>
-    <button *ngIf="config.current.is_expenses" (click)="addExpense()" block type="submit" class="blue2 disable-hover button button-default button-block general-alignment2 class-margin">Add Expense</button>
+    <button *ngIf="config.current.is_expenses" (click)="addExpense()" block type="submit" class="blue2 disable-hover button button-default button-block class-margin">Add Expense</button>
 
     <select-list  class="class-margin" preload="true" [isbutton]="true" [list]="selects.technician" (onChanged)='transferTicket($event)'></select-list>
 
     <button *ngIf="(ticket.technician_email || ticket.tech_email) != he.email" (click)='pickUp()' block type="submit" class="blue2 class-margin">Pick Up {{config.current.names.ticket.s}}</button>
 
-    <button (click)="closeTicket()" secondary block type="submit" class="class-margin right">{{ticket.status != 'Closed' ? 'Close' : 'ReOpen'}} {{config.current.names.ticket.s}}</button>
+    <button (click)="closeTicket()" secondary block type="submit" class="class-margin">{{ticket.status != 'Closed' ? 'Close' : 'ReOpen'}} {{config.current.names.ticket.s}}</button>
   </div>
 </div>
 </ion-content>
