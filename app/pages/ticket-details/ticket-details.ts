@@ -232,7 +232,7 @@ import {ApiSite} from '../../providers/config';
        let selNames={}, existNames={};
        if (this.filesExist)
          for (let j = 0; j < this.filesExist.length; j++) {
-           existNames[this.filesExist[j].name.trim().toLowerCase()] = this.filesExist[j].size;
+           existNames[this.filesExist[j].name.trim()] = this.filesExist[j].size;
          }
          for (let i = 0; i < len; i++) {
            let file = this.nativeInputBtn.nativeElement.files[i];
@@ -245,13 +245,14 @@ import {ApiSite} from '../../providers/config';
                this.error += `File #${i} will be skipped. It has empty name<br>`;
              else
              {
-               let new_name = file.name.trim().toLowerCase();
+               let new_name = file.name.trim();
                //detect aleady uploaded dup
-               if (file.size != (existNames[new_name.trim().toLowerCase()] || file.size))
-                 new_name = new Date().getTime() + "_" + new_name;
+               if (file.size != (existNames[new_name.trim()] || file.size))
+                 new_name = this.add_tag(new_name,file.size);
                //detect selected dup
                if (file.size != (selNames[new_name] || file.size))
-                 new_name = new Date().getTime() + "_" + new_name;
+                 new_name = this.add_tag(new_name,file.size);
+
                file.upload_name = new_name;
                checkfiles.push(file);
                selNames[new_name] = file.size;
@@ -265,6 +266,12 @@ import {ApiSite} from '../../providers/config';
        }
        this.files = checkfiles;
        this.filesSelected.next(this.files.map(item => item.upload_name));
+     }
+
+     add_tag(name, tag) {
+       var index = name.lastIndexOf("."),
+       len = name.length;
+       return name.substr(0,index)+"_"+tag+name.substr(index,len);
      }
 
   /**
