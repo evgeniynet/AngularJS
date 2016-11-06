@@ -9,17 +9,17 @@
 </ion-toolbar>
 
 <ion-content>
-  <div class="add-user">
-  
+  <ion-list class="list">
+   <p class="general-alignment"></p>
   <form #addForm="ngForm">
       <div class="tooltips">
-          <input autofocus tabindex=1 type="email" [ngModel]="email_m" placeholder="Valid Email" ngControl="email" #username="ngForm" required pattern="^[^@\s]+@[^@\s]+(\.[^@\s]+)+$"/>        
+          <input class="add-user-input" autofocus tabindex=1 type="email" [ngModel]="email_m" placeholder="Valid Email" ngControl="email" #username="ngForm" required pattern="^[^@\s]+@[^@\s]+(\.[^@\s]+)+$"/>        
           <span *ngIf="username.dirty && !username.valid">Valid Email is required</span></div>
           <div class="tooltips">
-          <input type="text" [ngModel]="firstname_m" placeholder="Firstname" ngControl="firstname" #firstname="ngForm" required/>        
+          <input class="add-user-input" type="text" [ngModel]="firstname_m" placeholder="Firstname" ngControl="firstname" #firstname="ngForm" required/>        
           <span *ngIf="firstname.dirty && !firstname.valid">Firstname cannot be empty</span></div>
           <div class="tooltips">
-          <input type="text" [ngModel]="lastname_m" placeholder="Lastname" ngControl="lastname" #lastname="ngForm" required/>        
+          <input class="add-user-input" type="text" [ngModel]="lastname_m" placeholder="Lastname" ngControl="lastname" #lastname="ngForm" required/>        
           <span *ngIf="lastname.dirty && !lastname.valid">Lastname cannot be empty</span></div>
           <!--ion-item no-lines class="left toggle-width">
       <ion-toggle class="toggle" [(ngModel)]="ispassword"></ion-toggle>
@@ -37,7 +37,9 @@
         </div-->
         <div class="img-top">
   <button [disabled]="!addForm.valid" secondary block (click)="onSubmit(addForm)"  type="submit" class="disable-hover button button-default button-block">Add New {{data != "tech" ? "User" : "Tech"}}</button>
+  <br/>
+  <button *ngIf="config.current.is_time_tracking" (click)="dismissPage()" block type="submit" class="blue2 disable-hover button button-default button-block class-margin">Cancel</button>
 </div>
     </form>    
-</div>
+</ion-list>
 </ion-content>
