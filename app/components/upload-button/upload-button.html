@@ -11,14 +11,9 @@
 <input type="file" (change)="filesAdded($event)" style="display: none" [multiple]="multi" #input />
 <div *ngFor="let file of files">
 
-<!--a class="comment_image_link files-tkts" target="_blank" href="https://sherpadeskbetafiles.blob.core.windows.net/c9331a59cb764b42bc63bad4a500e183p/tickets-tickets-files/194064/green.ico"><ion-icon name="md-document" role="img" dark="" class="button_circle ion-md-document" aria-label="md-document"></ion-icon>&nbsp;<span class="decoration width100">green.ico</span></a-->
-
-
-    <span class="span-img"><ion-icon name="{{isImage(file.name)}}" role=img dark class="button-font ion-{{isImage(file.name)}}"></ion-icon>&nbsp;<p class="left">{{file.upload_name}}&nbsp;({{humanizeBytes(file.size)}})</p></span><div *ngIf="files?.length" class="right margin-top3">
-    <button block (click)="reset(file)" fab class="red buttonInvoice email-invoice button-fab position-initial">
-        <ion-icon class="invoiceCircle" name="close"></ion-icon></button>
-    </div>
-	<br>
+<p class="comment_image_link files-tkts width100"><ion-icon name="{{isImage(file.name)}}" role="img" dark class="button_circle ion-{{isImage(file.name)}}"></ion-icon>&nbsp;<span class="decoration width100 flex1">{{file.upload_name}}&nbsp;({{humanizeBytes(file.size)}})</span>
+<button block (click)="reset(file)" fab class="red buttonInvoice email-invoice button-fab position-initial">
+<ion-icon class="invoiceCircle" name="close"></ion-icon></button></p>
 </div>
 <button type="button" *ngIf="!fileDest?.ticket" [disabled]="!files.length" block secondary (click)="onUpload()">Upload</button>
 <span *ngIf="files?.length" class="span-block"></span>

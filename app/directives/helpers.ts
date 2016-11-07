@@ -96,7 +96,7 @@ export const FileUrlHelper = {
 
         checkURL : function (url) {
             if(!url) return false;
-            return(url.trim().match(/(jpeg|jpg|gif|png)$/i) !== null);
+            return(url.trim().match(/(jpeg|jpg|gif|png|ico)$/i) !== null);
         },
 
         matchKey : function (search, array){
