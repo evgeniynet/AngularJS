@@ -29,7 +29,7 @@
     </div>
     <form margin-top class="container_list" #addForm="ngForm">
                 <div class="list max-width700">
-                    <div class="tooltips"><input autofocus tabindex=1 class="width100 blue3 subject-create commentText margin-bottom3" [(ngModel)]="ticket.subject" placeholder="Subject"  ngControl="subject" #subject="ngForm" required maxlength="100"/>
+                    <div class="tooltips"><input class="width100 blue3 subject-create commentText margin-bottom3" [(ngModel)]="ticket.subject" placeholder="Subject"  ngControl="subject" #subject="ngForm" required maxlength="100"/>
                         <span [hidden]="subject.valid || subject.untouched">Subject is required and less 100 chars</span></div>
                     <br>
                     <textarea class="width100 textLogin commentText margin-bottom1" type="text" [(ngModel)]="ticket.initial_post" ngControl="text" #note="ngForm"  placeholder="Details..."></textarea>
