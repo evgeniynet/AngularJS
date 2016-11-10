@@ -361,7 +361,21 @@ import {ApiSite} from '../../providers/config';
      let data = this.navParams.data || {};
      this.cachename = data.cachename;
      this.posts[0].record_date = data.updated_time || this.posts[0].record_date;
-     let account_id = -1;
+
+     this.is_showlogs = false;
+     this.ticketnote = "";
+
+     this.fileDest = {ticket: data.key};
+
+     let isFullInfo = (data.ticketlogs && data.ticketlogs.length > 0);
+
+     this.getPosts(data.key, !isFullInfo);
+
+     this.processDetails(data, !isFullInfo);
+   }
+
+   initSelects(data){
+     let account_id = data.account_id || -1;
      this.username = getFullName(data.user_firstname, data.user_lastname, data.user_email);
      this.techname = getFullName(data.technician_firstname || data.tech_firstname, data.technician_lastname || data.tech_lastname, data.technician_email || data.tech_email);
      this.selects = {
@@ -430,17 +444,6 @@ import {ApiSite} from '../../providers/config';
        url: "accounts?is_with_statistics=false",
        hidden: false
      };
-
-     this.is_showlogs = false;
-     this.ticketnote = "";
-
-     this.fileDest = {ticket: data.key};
-
-     let isFullInfo = (data.ticketlogs && data.ticketlogs.length > 0);
-
-     this.getPosts(data.key, !isFullInfo);
-
-     this.processDetails(data, !isFullInfo);
    }
 
    uploadedFile(event)
@@ -491,8 +494,8 @@ import {ApiSite} from '../../providers/config';
      this.ticket = data;
      this.is_editnote = !(this.ticket.workpad || "").length;
      this.ticket.customfields = [];
-     this.username = getFullName(data.user_firstname, data.user_lastname, data.user_email);
-     this.techname = getFullName(data.technician_firstname || data.tech_firstname, data.technician_lastname || data.tech_lastname, data.technician_email || data.tech_email);
+
+     this.initSelects(data);
 
      if (!isShortInfo)
      {

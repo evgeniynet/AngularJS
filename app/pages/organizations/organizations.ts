@@ -28,6 +28,12 @@ export class OrganizationsPage {
         
         this.dataProvider.getOrganizations(key).subscribe(
             data => {
+                var org = localStorage.getItem('loadOrgKey') || '';
+                if (org) localStorage.setItem('loadOrgKey', "");
+                var org_data = org ? data.filter(t=> t.key == org) : null;
+                if (org_data)
+                    data = org_data;
+                
                 if (data.length == 1)
                 {
                     if (data[0].instances.length == 1)

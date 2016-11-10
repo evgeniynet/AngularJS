@@ -76,12 +76,13 @@ class MyApp {
     setTimeout(function () { document.getElementsByTagName("ion-loading")[0].outerHTML='';},
       800);
 
+var ios_action = localStorage.getItem('ios_action') || "";
+
 var key = helpers.getParameterByName('t');
 var email = helpers.getParameterByName('e');
 var platform_string = helpers.getParameterByName('ionicPlatform');
 
 if (key) {
-  helpers.cleanQuerystring('ionicPlatform', platform_string);
       config.clearCurrent(key);
       localStorage.setItem("isGoogle", "true");
       localStorage.setItem('username', email.replace("#", ""));
@@ -92,11 +93,12 @@ if (key) {
     else {
       var error = helpers.getParameterByName('f');
       if (error) {
-        helpers.cleanQuerystring('ionicPlatform', platform_string);
         setTimeout(() => this.nav.alert(error, true), 3000);
       }
       localStorage.setItem("isGoogle", "");
     }
+
+      helpers.cleanQuerystring('ionicPlatform', platform_string);
 
         //set test config object
         if (dontClearCache)
@@ -228,8 +230,18 @@ this.config.setCurrent(data);
   force_redirect(isRedirect)
   {
     if (isRedirect) {
-      let page : any = this.config.current.user.is_techoradmin ? pages.DashboardPage : pages.TicketsPage;
-      let param = null;  
+
+      let param = null;
+
+      var ticket = localStorage.getItem('loadTicketNumber') || '';
+      if (ticket) 
+      {
+          localStorage.setItem('loadTicketNumber', '');
+          localStorage.setItem('loadOrgKey', "");
+          param = {key: ticket};
+      }
+
+      let page : any = this.config.current.user.is_techoradmin && !ticket ? pages.DashboardPage : pages.TicketsPage;  
         // set first pages
         //page = pages.TicketsPage; 
         //page = pages.TicketDetailsPage; param = {key: "wno39k"};

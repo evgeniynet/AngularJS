@@ -32,6 +32,10 @@ export class TicketsPage {
         else
             this.ticket_tab = "user";
         this.nav.tickets_tab = null;
+
+        if (param.key){
+            this.gotoTicket(param);
+        }
     }
 
     onPageWillEnter()
@@ -41,13 +45,16 @@ export class TicketsPage {
 
     addTicket(){
         let myModal = Modal.create(TicketCreatePage);
-            myModal.onDismiss(data1 => {
-                if (data1)
-                    setTimeout(() => {
-                        this.nav.push(TicketDetailsPage, data1);
-                    }, 500);
-            });
+            myModal.onDismiss(data1 => this.gotoTicket(data1));
             this.nav.present(myModal);
+    }
+
+    gotoTicket(data)
+    {
+                if (data)
+                    setTimeout(() => {
+                        this.nav.push(TicketDetailsPage, data);
+                    }, 500);
     }
 
     clearSearch(searchbar) {
