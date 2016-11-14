@@ -9,10 +9,10 @@ declare var require: any;
 })
 export class GravatarPipe {
     transform(value, args) {
+    	let hash = "";
         if (value) {
-            const hash = md5Hex(value);
-            value = `https://secure.gravatar.com/avatar/${hash}?s=80&d=mm`;
+            hash = md5Hex(value);
         }
-        return value;
+        return `https://secure.gravatar.com/avatar/${hash}?s=80&d=mm`;
     }
 }
