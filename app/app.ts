@@ -463,7 +463,7 @@ openPage(page, param?) {
 
     this.config.clearCurrent = function(key) {
       localStorage.removeItem("current");
-      this.setCurrent({key: key || "", user: {}, stat: {}, recent: {}, cache: {}});
+      this.setCurrent({key: key || "", org: "", instance: "", user: {}, stat: {}, recent: {}, cache: {}});
       //return config;
     };
 
