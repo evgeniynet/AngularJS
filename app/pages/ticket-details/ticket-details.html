@@ -9,99 +9,99 @@
    <h4 class="width90">{{ticket.subject | Htmlsafe}}</h4>
    <span no-lines class="span-left">
     <p *ngIf="config.current.is_class_tracking && ticket.class_name"> Class:&nbsp;{{ticket.class_name}}</p>
-       <p [innerText]="config.current.names.tech.a+': '+username"></p>
-       <p [innerText]="config.current.names.user.a+': '+techname"></p>
+    <p [innerText]="config.current.names.tech.a+': '+username"></p>
+    <p [innerText]="config.current.names.user.a+': '+techname"></p>
     <p *ngIf="config.current.is_account_manager && ticket.account_name"> {{config.current.names.account.a}}:&nbsp;{{ticket.account_name}}</p>
     <p *ngIf="config.current.is_location_tracking && ticket.location_name">{{config.current.names.location.a}}:&nbsp;{{ticket.location_name}}</p>
-        </span>
-       <span class="span-right">
-       <p>{{ticket.days_old_in_minutes | Daysold}}</p>
-       <p  *ngIf="config.current.is_expenses && ticket.misc_cost > 0">Expenses:  {{getCurrency(ticket.misc_cost)}}</p>
-    <p *ngIf="config.current.is_time_tracking && ticket.total_hours > 0">{{ticket.total_hours}} Hours</p>
-    <p *ngIf="ticket.sla_complete_date != null">SLA: {{setDate(ticket.sla_complete_date, false, true)}}</p></span>
-  </ion-toolbar>
-  <ion-segment [(ngModel)]="details_tab">
-    <ion-segment-button value="Reply">
-      Reply
-    </ion-segment-button>
-    <ion-segment-button value="Info">
-      Info
-    </ion-segment-button>
-    <ion-segment-button value="Notes">
-      Notes
-    </ion-segment-button>
-    <ion-segment-button value="Files">
-      Files
-    </ion-segment-button>
-    <ion-segment-button value="Options">
-      Options
-    </ion-segment-button>
-  </ion-segment>
-  <div [ngSwitch]="details_tab">
-   <div class="list" [hidden]="details_tab != 'Reply'">
-      <ion-item no-lines class="margin-bottom10"><ion-label class="width30 font-size17 text-right">Show logs</ion-label><ion-toggle [(ngModel)]="is_showlogs"></ion-toggle></ion-item> 
-     <posts-list [posts]="[posts[0]]" [attachments]="attachments"></posts-list>
-     <form *ngIf="active" #addForm="ngForm">
-       <div class="tooltips">
-        <textarea class="width100 textLogin commentText" [(ngModel)]="ticketnote" type="text" placeholder="Add Response" ngControl="note" #note="ngForm" required maxlength="4000"></textarea>
-        <span [hidden]="note.valid || note.untouched">Response is required (max 5000 chars)</span></div>
-        <button secondary class="button_reply right indent-bottom margin-left10" [disabled]="!addForm.valid && !files?.length" (click)="u.onUpload()"  type="submit">Reply</button>
-        <button *ngIf="!config.current.user.is_techoradmin && ticket.status != 'Closed'" secondary class="button_reply right indent-bottom margin-left10" (click)="u.onUpload()" [disabled]="!addForm.valid && !files?.length">Reply & Close</button>
-               <upload-button #u (filesUploaded)="uploadedFile($event)"   
-            (filesSelected)="selectedFile($event)"     
-            btnStyle="add-circle"               
-            [allowMultiple]="true"
-            [fileDest]="fileDest"
-            [filesExist]="attachments"
-            [logCallback]=""></upload-button>
-      </form>
-      <posts-list [posts]="posts | slice:1" [attachments]="attachments" class="general-alignment" [is_showlogs]="is_showlogs"></posts-list>
-      <span class="span-block"></span>
-    </div>
+  </span>
+  <span class="span-right">
+   <p>{{ticket.days_old_in_minutes | Daysold}}</p>
+   <p  *ngIf="config.current.is_expenses && ticket.misc_cost > 0">Expenses:  {{getCurrency(ticket.misc_cost)}}</p>
+   <p *ngIf="config.current.is_time_tracking && ticket.total_hours > 0">{{ticket.total_hours}} Hours</p>
+   <p *ngIf="ticket.sla_complete_date != null">SLA: {{setDate(ticket.sla_complete_date, false, true)}}</p></span>
+ </ion-toolbar>
+ <ion-segment [(ngModel)]="details_tab">
+  <ion-segment-button value="Reply">
+    Reply
+  </ion-segment-button>
+  <ion-segment-button value="Info">
+    Info
+  </ion-segment-button>
+  <ion-segment-button value="Notes">
+    Notes
+  </ion-segment-button>
+  <ion-segment-button value="Files">
+    Files
+  </ion-segment-button>
+  <ion-segment-button value="Options">
+    Options
+  </ion-segment-button>
+</ion-segment>
+<div [ngSwitch]="details_tab">
+ <div class="list" [hidden]="details_tab != 'Reply'">
+  <ion-item no-lines class="margin-bottom10"><ion-label class="width30 font-size17 text-right">Show logs</ion-label><ion-toggle [(ngModel)]="is_showlogs"></ion-toggle></ion-item> 
+  <posts-list [posts]="[posts[0]]" [attachments]="attachments"></posts-list>
+  <form *ngIf="active" #addForm="ngForm">
+   <div class="tooltips">
+    <textarea class="width100 textLogin commentText" [(ngModel)]="ticketnote" type="text" placeholder="Add Response" ngControl="note" #note="ngForm" required maxlength="4000"></textarea>
+    <span [hidden]="note.valid || note.untouched">Response is required (max 5000 chars)</span></div>
+    <button secondary class="button_reply right indent-bottom margin-left10" [disabled]="!addForm.valid && !files?.length" (click)="u.onUpload()"  type="submit">Reply</button>
+    <button *ngIf="!config.current.user.is_techoradmin && ticket.status != 'Closed'" secondary class="button_reply right indent-bottom margin-left10" (click)="u.onUpload()" [disabled]="!addForm.valid && !files?.length">Reply & Close</button>
+    <upload-button #u (filesUploaded)="uploadedFile($event)"   
+    (filesSelected)="selectedFile($event)"     
+    btnStyle="add-circle"               
+    [allowMultiple]="true"
+    [fileDest]="fileDest"
+    [filesExist]="attachments"
+    [logCallback]=""></upload-button>
+  </form>
+  <posts-list [posts]="posts | slice:1" [attachments]="attachments" class="general-alignment" [is_showlogs]="is_showlogs"></posts-list>
+  <span class="span-block"></span>
+</div>
 
-    <div *ngSwitchWhen="'Info'" class="list max-width700 general-alignment">
+<div *ngSwitchWhen="'Info'" class="list max-width700 general-alignment">
 
-      <select-list is_me="true" ajax="true" [list]="selects.user" (onChanged)='saveSelect($event)' preload="true"></select-list>
-            
-      <select-list [list]="selects.account" preload="true" ajax="true" (onChanged)='saveSelect($event)'></select-list>
+  <select-list is_me="true" ajax="true" [list]="selects.user" (onChanged)='saveSelect($event)' preload="true"></select-list>
 
-      <class-list preload="true" [list]="selects.class" (onChanged)='saveSelect($event)'></class-list>
+  <select-list [list]="selects.account" preload="true" ajax="true" (onChanged)='saveSelect($event)'></select-list>
 
-      <select-list preload="true" [list]="selects.level" (onChanged)='saveSelect($event)'></select-list>
+  <class-list preload="true" [list]="selects.class" (onChanged)='saveSelect($event)'></class-list>
 
-      <select-list preload="true" [list]="selects.priority" (onChanged)='saveSelect($event)'></select-list>
-      
-      <select-list is_me="true" preload="true" [list]="selects.tech" (onChanged)='saveSelect($event)'></select-list>
-      
-      <select-list preload="true" [list]="selects.location"  ajax="true" (onChanged)='saveSelect($event)'></select-list>
-      
-      <select-list preload="true" [list]="selects.project" (onChanged)='saveSelect($event)'></select-list>
-      
-      <button *ngFor="let customfield of ticket.customfields" class="width100 button-icon-only {{ isbutton? 'blue2 general-alignment2' : 'blue4'}} class-margin disable-hover button button-default">
-        <p class="textLogin text-left text-bold" [innerHTML]="customfield.name"></p>
-        <ion-label class="{{isbutton ? 'center' : 'tkts-table'}} select-list">&nbsp;&nbsp;{{customfield.value || '&nbsp;'}}</ion-label>
-      </button>
+  <select-list preload="true" [list]="selects.level" (onChanged)='saveSelect($event)'></select-list>
 
-      <button secondary block (click)="onUpdate()" type="submit" class="img-top disable-hover button button-default button-block">Update</button>
-    </div>
-    <ion-list class="list general-alignment max-width700" [hidden]="details_tab != 'Notes'">
-      <div [hidden]="is_editnote" class="width100 textLogin note-account commentText" [innerHTML]="ticket?.workpad" type="text" (click)="is_editnote = true"></div>
-      <button [hidden]="is_editnote" secondary class="button_reply img-top right" (click)="is_editnote = true">Edit Notes</button>
+  <select-list preload="true" [list]="selects.priority" (onChanged)='saveSelect($event)'></select-list>
 
-      <textarea autofocus [hidden]="!is_editnote" [ngModel]="ticket?.workpad" class="glow width100 textLogin commentText" #workpadtext type="text" placeholder="Notes:"></textarea>
-      <button [hidden]="!is_editnote" secondary class="button_reply img-top right " (click)="saveNote(workpadtext)">{{ticket?.workpad?.length ? 'Save' : 'Add'}} Notes</button>
-          <span class="span-block"></span>
-    <span class="span-block"></span>
-    <span class="span-block"></span>
-    </ion-list>
-    <ion-list class="list img-top" no-lines *ngSwitchWhen="'Files'">
-     <div [hidden]="attachments?.length" class="table grey2 menu-text">No Files yet</div>
-     <ion-item *ngFor="let file of attachments">
-      <div class="left width59 tkts-table color" [innerHTML]="getFileLink(file)"></div>
+  <select-list is_me="true" preload="true" [list]="selects.tech" (onChanged)='saveSelect($event)'></select-list>
+
+  <select-list preload="true" [list]="selects.location"  ajax="true" (onChanged)='saveSelect($event)'></select-list>
+
+  <select-list preload="true" [list]="selects.project" (onChanged)='saveSelect($event)'></select-list>
+
+  <button *ngFor="let customfield of ticket.customfields" class="width100 button-icon-only {{ isbutton? 'blue2 general-alignment2' : 'blue4'}} class-margin disable-hover button button-default">
+    <p class="textLogin text-left text-bold" [innerHTML]="customfield.name"></p>
+    <ion-label class="{{isbutton ? 'center' : 'tkts-table'}} select-list">&nbsp;&nbsp;{{customfield.value || '&nbsp;'}}</ion-label>
+  </button>
+
+  <button secondary block (click)="onUpdate()" type="submit" class="img-top disable-hover button button-default button-block">Update</button>
+</div>
+<ion-list class="list general-alignment max-width700" [hidden]="details_tab != 'Notes'">
+  <div [hidden]="is_editnote" class="width100 textLogin note-account commentText" [innerHTML]="ticket?.workpad" type="text" (click)="is_editnote = true"></div>
+  <button [hidden]="is_editnote" secondary class="button_reply img-top right" (click)="is_editnote = true">Edit Notes</button>
+
+  <textarea autofocus [hidden]="!is_editnote" [ngModel]="ticket?.workpad" class="glow width100 textLogin commentText" #workpadtext type="text" placeholder="Notes:"></textarea>
+  <button [hidden]="!is_editnote" secondary class="button_reply img-top right " (click)="saveNote(workpadtext)">{{ticket?.workpad?.length ? 'Save' : 'Add'}} Notes</button>
+  <span class="span-block"></span>
+  <span class="span-block"></span>
+  <span class="span-block"></span>
+</ion-list>
+<ion-list class="list img-top" no-lines *ngSwitchWhen="'Files'">
+ <div [hidden]="attachments?.length" class="table grey2 menu-text">No Files yet</div>
+ <ion-item *ngFor="let file of attachments">
+ <div class="left width59 tkts-table" [innerHTML]="getFileLink(file)"></div>
       <div><h3 class="color right width38 text-left space-initial">{{file.name}}</h3><!--div class="right margin-top3">
     <button fab class="red buttonInvoice email-invoice button-fab position-initial">
         <ion-icon class="invoiceCircle" name="close"></ion-icon></button>
-          </div--></div>
+      </div--></div>
     </ion-item>
   </ion-list>
   <div *ngSwitchWhen="'Options'" class="list max-width700 general-alignment">
