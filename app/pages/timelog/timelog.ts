@@ -195,7 +195,7 @@ ngOnInit()
             this.nav.alert("Not enough time", true);
             return;
         }
-        if (hours > this.start_stop_hours)
+        if (this.start_stop_hours && hours > this.start_stop_hours)
         {
             this.nav.alert("Hours value should be lesser or equal than Start/Stop range.", true);
             return;
