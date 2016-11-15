@@ -15,7 +15,7 @@
 <ion-segment-button  value="user">{{config.current.names.user.a}}</ion-segment-button>
 <ion-segment-button value="tech">{{config.current.names.tech.a}}</ion-segment-button>
 <ion-segment-button value="alt">Alt</ion-segment-button>
-<ion-segment-button *ngIf="!config.current.is_limit_assigned_tkts" value="all">All Open</ion-segment-button>
+<ion-segment-button *ngIf="!config.current.user.is_limit_assigned_tkts" value="all">All Open</ion-segment-button>
   </ion-segment>
 </div>    
     <tickets-list [hidden]="ticket_tab != 'user' && is_tech" [preload]="ticket_tab == 'user' ? 0 : 1500" [mode]="['user']" [count]="counts.user"></tickets-list>

@@ -173,10 +173,12 @@ data.is_ticket_levels = false;
 data.is_account_manager = false;
 //Queues
 data.is_unassigned_queue = false;
-//All Open tickets (true to hide)
-data.is_limit_assigned_tkts = true;
 //Note required on close ticket
 data.is_ticket_require_closure_note = false;
+//All Open tickets (true to hide)
+data.user.is_limit_assigned_tkts = true;
+//Is user Admin
+data.user.is_admin = false;
 */
 /*
 data.names = {
@@ -196,7 +198,7 @@ this.config.setCurrent(data);
     { title: 'Timelogs', component: pages.TimelogsPage, icon: "md-time", is_active: this.config.current.is_time_tracking },
     { title: data.names.account.p, component: pages.AccountsPage, icon: "people", is_active: this.config.current.is_account_manager },
     { title: 'Invoices', component: pages.InvoicesPage, icon: "card", is_active: this.config.current.is_time_tracking && this.config.current.is_invoice },
-    { title: 'Queues', component: pages.QueuesPage, icon: "list-box", is_active: this.config.current.is_unassigned_queue && (!this.config.current.is_limit_assigned_tkts || this.config.current.user.is_admin)},
+    { title: 'Queues', component: pages.QueuesPage, icon: "list-box", is_active: this.config.current.is_unassigned_queue && (!this.config.current.user.is_limit_assigned_tkts || this.config.current.user.is_admin)},
     { title: 'Switch Org', component: pages.OrganizationsPage, icon: "md-swap", is_active: this.config.current.is_multiple_org },
     { title: 'Signout', component: pages.LoginPage, icon: "md-log-in", is_active: true },
     { title: 'Full App', component: null, icon: "md-share-alt", is_active: true },
@@ -270,7 +272,7 @@ this.config.setCurrent(data);
         text: "Yes, do it now",
         role: 'cancel',
         handler: () => {
-          location.reload(true);
+          window.location.reload(true);
         }
       },
       {

@@ -33,32 +33,36 @@ export class DashboardPage {
         this.ticketProvider.getTicketsCounts();
         this.ticketProvider.tickets$["tickets/counts"].subscribe(
             data => {
+
+                if (this.config.current.user.is_limit_assigned_tkts && !this.config.current.user.is_admin)
+                    data.open_all = Math.max(data.open_as_user, data.open_as_tech);    
+
                 this.counts = data;
                 this.config.setStat("tickets",
-                    {
-                        "all": data.open_all,
-                        "tech": data.open_as_tech,
-                        "alt": data.open_as_alttech,
-                        "user": data.open_as_user
-                    });
+                {
+                    "all": data.open_all,
+                    "tech": data.open_as_tech,
+                    "alt": data.open_as_alttech,
+                    "user": data.open_as_user
+                });
             },
             error => {
                 console.log(error || 'Server error');
             }
-        );
+            );
 
         if (this.config.current.is_unassigned_queue) {
             this.queues = this.config.getCache("dashqueues");
 
             this.dataProvider.getQueueList(3).subscribe(
                 data => {
-                this.queues = data;
+                    this.queues = data;
                     this.config.setCache("dashqueues", data);
                 },
                 error => {
                     console.log(error || 'Server error');
                 }
-            );
+                );
 
         }
 
@@ -80,18 +84,18 @@ export class DashboardPage {
                     error => {
                         console.log(error || 'Server error');
                     }
-                );
+                    );
 
             if (!this.simple)
-            this.dataProvider.getAccountList(true, pager).subscribe(
-                data => {
-                    this.accounts = data;
-                    this.config.setCache("dashaccounts", data);
-                },
-                error => {
-                    console.log(error || 'Server error');
-                }
-            );  
+                this.dataProvider.getAccountList(true, pager).subscribe(
+                    data => {
+                        this.accounts = data;
+                        this.config.setCache("dashaccounts", data);
+                    },
+                    error => {
+                        console.log(error || 'Server error');
+                    }
+                    );  
         }
         
         if (!this.ticketProvider._dataStore.tech.length){
@@ -123,17 +127,17 @@ export class DashboardPage {
             let list = { search: searchbar.target.value };
             this.test = false;
             this.nav.push(AjaxSearchPage, list);
-        //}
-    }
-    
-    itemTappedTL(tab) {  
-        if (this.config.current.is_limit_assigned_tkts && tab.tab == 'all')
-        {
-            this.nav.alert("Please contact Administator to obtain permission to view All Tickets", true);
-            return;
+            //}
         }
-        this.nav.setRoot(TicketsPage, tab);}
-    
-    itemTappedAD() {this.nav.setRoot(AccountDetailsPage);}
 
-}
+        itemTappedTL(tab) {  
+            if (this.config.current.user.is_limit_assigned_tkts && tab.tab == 'all')
+            {
+                this.nav.alert("Please contact Administator to obtain permission to view All Tickets", true);
+                //return;
+            }
+            this.nav.setRoot(TicketsPage, tab);}
+
+            itemTappedAD() {this.nav.setRoot(AccountDetailsPage);}
+
+        }
