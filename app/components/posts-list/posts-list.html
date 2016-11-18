@@ -2,7 +2,7 @@
     <ion-card-content class="card-content" *ngFor="let post of _posts">
         <div></div>
         <ion-avatar>
-            <img *ngIf="post.user_email" [alt]="post.user_firstname" [src]="post.user_email | Gravatar"/>
+            <img [alt]="post.user_firstname" [src]="post.user_email | Gravatar"/>
         <p>{{post.user_firstname || post.user_email}}</p>
         </ion-avatar>
         <span class="postlist">

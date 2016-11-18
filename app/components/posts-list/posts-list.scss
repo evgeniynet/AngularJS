@@ -11,25 +11,25 @@ ion-avatar{
     text-align: -webkit-center;
 //    margin-top: 10px;
 //    margin-bottom: 7px;
-    height: 94px;
+    height: 84px;
     float: left; 
     padding-left: 15px;
-}
 
-ion-avatar img{
-    margin-bottom: 15px;
-    margin-top: 15px;      
+
+ img{
+    margin-bottom: 0px;
+    margin-top: 5px;      
 }
     
-ion-avatar img p{
+ p{
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: pre-wrap;
     height: 20px; 
-    margin-top: -10px;
+    margin: 0;
     line-height: 1.3;
     padding: 0px !important;
-}
+}}
     
 ion-item{
     margin: 0px; 
@@ -56,7 +56,6 @@ ion-item{
 
 .post-note{
 white-space:pre-line;
- padding-top: 10px;
  margin: 0px !important;
  width: 95%;
  float: left;

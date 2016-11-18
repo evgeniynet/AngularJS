@@ -8,7 +8,7 @@
     <ion-list class="list general-alignment2" no-lines>
         <a detail-none href=# ion-item *ngFor="let expense of expenses" (click)="itemTapped(expense)" class="margin-top0">
     <ion-avatar item-left>
-        <img *ngIf="expense.user_email" [alt]="expense.user_firstname" class="img" [src]="expense.user_email | Gravatar"/>
+        <img [alt]="expense.user_firstname" class="img" [src]="expense.user_email | Gravatar"/>
     </ion-avatar>
             <div class="expenses">
  <li class="text-left left">
