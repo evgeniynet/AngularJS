@@ -1,5 +1,7 @@
+    <div *ngIf="!list.hidden && !isbutton">
+    <ion-item no-lines class="labels">{{name}}:&nbsp;</ion-item>
+        </div>
     <button *ngIf="!list.hidden" (click)="open()" class="{{ isbutton? 'blue2 button-block' : 'blue4'}} {{ is_me ? 'left button-calc' : 'width100'}} disable-hover button button-default button-select">
-    <p [hidden]="isbutton">{{name}}:&nbsp;</p>
         <ion-label class="{{isbutton ? 'center' : 'tkts-table'}}">{{list.value}}</ion-label>
         <ion-icon [hidden]="isbutton" name="arrow-down"></ion-icon>
     </button>

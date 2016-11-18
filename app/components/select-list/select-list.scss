@@ -14,6 +14,9 @@
  min-width: .9em;
  margin-bottom: 6px !important;
  color: #fff;
+ /*margin-bottom: 0px;*/
+ margin-top: 0px;
+ line-height: 1.1;
     
     p{
     font-weight: bold;
@@ -23,12 +26,13 @@
     }
     
     ion-label{
-    padding-bottom: 5px;
-    padding-top: 5px;
+    padding-left: 15px;
     }
     
     ion-icon{
     padding-right: 15px !important;
     font-size: 1.8em;
+    line-height: .67;
+    pointer-events: none;
     }
 }

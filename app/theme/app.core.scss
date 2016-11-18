@@ -1026,9 +1026,14 @@ ion-searchbar {
 
 .labels{
     margin-top: 0px !important;
+    padding-left: 3px;
     color: #dadada;
     text-align: left !important;
-    font-size: 1.7rem;
+    font-size: 1.5rem;
     height: 20px !important;
     min-height: 20px !important;
+
+    ion-label {
+        marginleft: 0px;
+    }
 }
