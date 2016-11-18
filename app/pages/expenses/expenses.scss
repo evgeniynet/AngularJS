@@ -1,0 +1,14 @@
+.expenses{
+        display: flex;
+    
+    li:first-child{
+    flex: 3;
+        width: 70px;
+    }
+    li:last-child{
+    flex: 1;
+    }
+}
+
+.expense-hours{
+    font-weight: 600;}
