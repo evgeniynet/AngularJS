@@ -16,24 +16,17 @@
 <ion-content>
     <div class="list max-width700 margin-top-5">
     <template [ngIf]="config.current.user.is_techoradmin"> 
-        <div class="general-alignment2">
-    <ion-item no-lines class="labels">User:</ion-item>
-        </div>
-            <select-list ajax="true" [list]="selects.user" (onChanged)='saveSelect($event)' preload="true"></select-list>
-        <div class="general-alignment2">
-    <ion-item no-lines class="labels">Account:</ion-item></div>
+        
+        <select-list ajax="true" [list]="selects.user" (onChanged)='saveSelect($event)' preload="true"></select-list>
+       
         <select-list [list]="selects.account" preload="true" ajax="true" (onChanged)='saveSelect($event)'></select-list>
             
         <select-list  [list]="selects.location" preload="true" ajax="true" (onChanged)='saveSelect($event)'></select-list>
             
         <select-list [list]="selects.project" preload="true" (onChanged)='saveSelect($event)'></select-list>
-         <div class="general-alignment2">
-    <ion-item no-lines class="labels">Class:</ion-item>
-        </div>
+        
         <class-list preload="true" [list]="selects.class" (onChanged)='saveSelect($event)'></class-list>
-        <div class="general-alignment2">
-    <ion-item no-lines class="labels">Tech:</ion-item>
-        </div>
+        
         <select-list is_me="true" [list]="selects.tech" ajax="true" preload="true" (onChanged)='saveSelect($event)'></select-list>
        </template> 
     </div>
