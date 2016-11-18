@@ -10,14 +10,13 @@
     <ion-avatar item-left>
         <img *ngIf="expense.user_email" [alt]="expense.user_firstname" class="img" [src]="expense.user_email | Gravatar"/>
     </ion-avatar>
-            <div>
- <li class="text-left width70 left">
+            <div class="expenses">
+ <li class="text-left left">
     <h2 class="ellipsis color">{{expense.user_name}} @ {{setDate(expense.date, false, true)}}</h2>
      <h3 class="timelogs ellipsis color" [innerHTML]="expense.note | Linebreaks"></h3>
      <h3 class="timelogs ellipsis color" *ngIf="expense.ticket_id">{{"#"+expense.ticket_number+": "+expense.ticket_subject}}</h3><h3 class="timelogs ellipsis" *ngIf="expense.project_id">{{"Project: "+expense.project_name}}</h3></li>
-      <li class="right width30 margin font-time text-right">
-    
-    <span class="font-hours color">{{getCurrency(expense.amount)}}</span>  
+      <li class="right margin font-time text-right">
+    <span class="expense-hours color">{{getCurrency(expense.amount)}}</span>  
       </li></div>
   </a>
 

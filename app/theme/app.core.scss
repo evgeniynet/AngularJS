@@ -18,6 +18,8 @@
 @import "../pages/ticket-details/ticket-details";
 @import "../pages/modals/ticket-create/ticket-create";
 @import "../pages/ajax-search/ajax-search";
+@import "../pages/expenses/expenses";
+//@import "../pages/todos/todos";
 @import "../components/tree-view/tree-view";
 @import "../components/posts-list/posts-list";
 @import "../components/tickets-list/tickets-list";
@@ -70,6 +72,10 @@ text-decoration: none !important;
 
 .decoration {
 text-decoration: underline !important;
+}
+
+.decoration_line{
+text-decoration: line-through;
 }
 
 /* need to remove from ionic
@@ -511,6 +517,9 @@ scroll-content {
     display: block;
     margin: auto;
 }
+
+
+
 
 .table{
     text-align: center;
@@ -1015,7 +1024,11 @@ ion-searchbar {
     text-decoration: none;
 }
 
-.ion-md-document {
-    padding-right: 8px;
+.labels{
+    margin-top: 0px !important;
+    color: #dadada;
+    text-align: left !important;
+    font-size: 1.7rem;
+    height: 20px !important;
+    min-height: 20px !important;
 }
-

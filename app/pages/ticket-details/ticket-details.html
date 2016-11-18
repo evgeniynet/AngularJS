@@ -60,17 +60,26 @@
 </div>
 
 <div *ngSwitchWhen="'Info'" class="list max-width700 general-alignment">
-
+<div class="general-alignment2">
+    <ion-item no-lines class="labels">User:</ion-item>
+        </div>
   <select-list is_me="true" ajax="true" [list]="selects.user" (onChanged)='saveSelect($event)' preload="true"></select-list>
-
+<div class="general-alignment2">
+    <ion-item no-lines class="labels">Account:</ion-item>
+        </div>
   <select-list [list]="selects.account" preload="true" ajax="true" (onChanged)='saveSelect($event)'></select-list>
 
+    <div class="general-alignment2">
+    <ion-item no-lines class="labels">Class:</ion-item>
+        </div>
   <class-list preload="true" [list]="selects.class" (onChanged)='saveSelect($event)'></class-list>
 
   <select-list preload="true" [list]="selects.level" (onChanged)='saveSelect($event)'></select-list>
 
   <select-list preload="true" [list]="selects.priority" (onChanged)='saveSelect($event)'></select-list>
-
+<div class="general-alignment2">
+    <ion-item no-lines class="labels">Tech:</ion-item>
+        </div>
   <select-list is_me="true" preload="true" [list]="selects.tech" (onChanged)='saveSelect($event)'></select-list>
 
   <select-list preload="true" [list]="selects.location"  ajax="true" (onChanged)='saveSelect($event)'></select-list>
