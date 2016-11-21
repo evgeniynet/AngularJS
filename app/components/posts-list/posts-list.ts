@@ -1,14 +1,14 @@
 import {IONIC_DIRECTIVES} from 'ionic-angular';
 import {Component, Input} from '@angular/core';
 import {getDateTime, getFullName} from '../../directives/helpers';
-import {GravatarPipe, DaysoldPipe, FilesPipe} from '../../pipes/pipes';
+import {LinebreaksPipe, GravatarPipe, DaysoldPipe, FilesPipe} from '../../pipes/pipes';
 
 
 @Component({
     selector: 'posts-list',
     templateUrl: 'build/components/posts-list/posts-list.html',
     directives: [IONIC_DIRECTIVES],
-    pipes: [GravatarPipe, DaysoldPipe, FilesPipe],
+    pipes: [LinebreaksPipe, GravatarPipe, DaysoldPipe, FilesPipe],
 })
 export class PostsListComponent {
     @Input() posts: Array<any> = [];

@@ -8,7 +8,7 @@
         <span class="postlist">
     <p>{{post.record_date | Daysold}}</p> 
             <p>{{post.log_type}}</p></span>
-        <p class="post-note" [innerHTML]="post.note | Files : attachments"></p>
+        <p class="post-note" [innerHTML]="post.note | Linebreaks | Files : attachments"></p>
         <ion-item no-lines></ion-item>
     </ion-card-content>
 </div>
