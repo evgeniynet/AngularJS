@@ -1,6 +1,6 @@
 import {Page, Config, Nav, NavParams, ViewController} from 'ionic-angular';
 import {forwardRef, ViewChild} from '@angular/core';
-import {getDateTime, getPickerDateTimeFormat, htmlEscape} from '../../directives/helpers';
+import {getDateTime, getPickerDateTimeFormat, htmlEscape, linebreaks} from '../../directives/helpers';
 import {TimeProvider} from '../../providers/time-provider';
 import {ClassListComponent} from '../../components/class-list/class-list';
 import {SelectListComponent} from '../../components/select-list/select-list';
@@ -102,7 +102,7 @@ ngOnInit()
 
             this.timecount = (this.time.hours || this.mintime).toFixed(2);
 
-            this.timenote = this.time.note || "";
+            this.timenote = linebreaks(this.time.note || "", true);
             this.he = this.config.getCurrent("user");
 
             let recent : any = {};

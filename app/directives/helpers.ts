@@ -87,6 +87,19 @@ export function htmlEscape(str) {
     //.replace(/\n/g, "<br />")
     ;
 }
+
+export function linebreaks (value, args) {
+        value = (value || "").trim();
+        let is_edit = args; 
+        if (value.length)
+            value = value
+                .replace(/&lt;br&gt;/gi, "\n")
+                .replace(/<br\s*[\/]?>/gi, "\n")
+                .replace(/\r/g, '')
+                .replace(/\n\n/g, is_edit ? "\n" : "<br>");
+        //value = value.replace(/&lt;br&gt;/gi, "\n").replace(/\r/g, '').replace(/\n\s*\n/g, '\n').replace(/\n/g, "<br>");
+        return value;
+    }
     
 export const FileUrlHelper = {
     isPhonegap: function() { return localStorage.getItem("isPhonegap") === "true"},

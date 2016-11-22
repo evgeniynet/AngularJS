@@ -1,6 +1,6 @@
 import {Page, Config, Nav, NavParams, ViewController} from 'ionic-angular';
 import {forwardRef} from '@angular/core';
-import {getDateTime, htmlEscape} from '../../directives/helpers';
+import {getDateTime, htmlEscape, linebreaks} from '../../directives/helpers';
 import {ApiData} from '../../providers/api-data';
 import {ClassListComponent} from '../../components/class-list/class-list';
 import {SelectListComponent} from '../../components/select-list/select-list';
@@ -25,8 +25,11 @@ export class ExpenseCreatePage {
         this.expense = this.navParams.data || {};
 
         let name = (this.expense.user_name + " " + this.expense.user_email).trim().split(' ')[0];
-        if (this.expense.expense_id)
+        if (this.expense.expense_id){
             this.title = `Expense by ${name} on\u00a0` + this.setDate(this.expense.date, false, true);
+            this.expense.note = linebreaks(this.expense.note, true);
+            this.expense.note_internal = linebreaks(this.expense.note_internal, true);
+        }
         else if (this.expense.number)
             this.title = `Add Expense to\u00a0#${this.expense.number} ${this.expense.subject}`;
         else
