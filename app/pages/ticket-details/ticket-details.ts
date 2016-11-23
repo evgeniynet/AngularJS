@@ -367,11 +367,9 @@ import {ApiSite} from '../../providers/config';
 
      this.fileDest = {ticket: data.key};
 
-     let isFullInfo = (data.ticketlogs && data.ticketlogs.length > 0);
+     this.getPosts(data.key);
 
-     this.getPosts(data.key, !isFullInfo);
-
-     this.processDetails(data, !isFullInfo);
+     this.processDetails(data, true);
    }
 
    initSelects(data){
@@ -468,9 +466,8 @@ import {ApiSite} from '../../providers/config';
      }
    }
 
-   getPosts(key, isShortInfo)
+   getPosts(key)
    {
-     if (isShortInfo) {
        this.ticketProvider.getTicketDetails(key).subscribe(
          data => {
            this.processDetails(data);
@@ -480,7 +477,6 @@ import {ApiSite} from '../../providers/config';
            this.redirectOnEmpty();
          }
          );
-     }
    }
 
    processDetails(data, isShortInfo?)
@@ -497,10 +493,12 @@ import {ApiSite} from '../../providers/config';
 
      this.initSelects(data);
 
+     if (data.ticketlogs && data.ticketlogs.length > 0)
+       this.posts = data.ticketlogs; 
+
      if (!isShortInfo)
      {
        this.attachments = (data.attachments || []).slice().reverse();
-       this.posts = data.ticketlogs; // this.is_showlogs ?  : data.ticketlogs.filter(item => ~["Initial Post", "Response"].indexOf(item.log_type));
 
        let xml = parseXml(this.ticket.customfields_xml);
        if (xml)
@@ -543,7 +541,7 @@ import {ApiSite} from '../../providers/config';
          this.active = false;
          setTimeout(() => this.active = true, 0);
          this.files = [];
-         this.getPosts(this.ticket.key, true);
+         this.getPosts(this.ticket.key);
        },
        error => {
          console.log(error || 'Server error');
@@ -620,7 +618,7 @@ import {ApiSite} from '../../providers/config';
      this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(
        data => {
          this.nav.alert('Ticket was successfully updated :)');
-         this.getPosts(this.ticket.key, true);
+         this.getPosts(this.ticket.key);
        },
        error => {
          console.log(error || 'Server error');

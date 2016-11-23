@@ -102,6 +102,7 @@ export class TicketCreatePage {
     }
 
     dismissPage(data) {
+        this.nav.alert(this.config.current.names.ticket.s + ' was Succesfully Created :)');
         this.viewCtrl.dismiss(data);
     }
 
@@ -153,8 +154,13 @@ export class TicketCreatePage {
             //proof double click
             if (this.ticket.in_progress && Date.now() - this.ticket.in_progress < 1500) {return;}
             this.ticket.in_progress = Date.now();
-            var subject = htmlEscape(this.ticket.subject.trim());
-            var post = htmlEscape(this.ticket.initial_post.trim()).substr(0, 5000);
+            this.ticket.subject = htmlEscape(this.ticket.subject.trim());
+            this.ticket.initial_post = htmlEscape(this.ticket.initial_post.trim()).substr(0, 4500);
+
+            if (this.files.length)
+            {
+                this.ticket.initial_post += "\n\nFollowing file" + (this.files.length > 1 ? "s were" : " was") + " uploaded: " + this.files.join(", ") +".";
+            }
 
             this.ticket.class_id = this.selects.class.selected;
             this.ticket.account_id = this.selects.account.selected;
@@ -171,7 +177,6 @@ export class TicketCreatePage {
                                                "project": this.selects.project,
                                                "class": this.selects.class});
             }
-                    this.nav.alert(this.config.current.names.ticket.s + ' was Succesfully Created :)');
                     if (this.files.length)
                     {
                        this.ticket = data; 
