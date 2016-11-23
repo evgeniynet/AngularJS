@@ -1,22 +1,25 @@
 import {Page, Config, Nav, NavParams, ViewController, Modal} from 'ionic-angular';
-import {forwardRef} from '@angular/core';
+import {forwardRef, ViewChild} from '@angular/core';
 import {FORM_DIRECTIVES, Validators} from '@angular/common';
 import {TicketProvider} from '../../../providers/providers';
 import {htmlEscape, getFullName} from '../../../directives/helpers';
 import {ClassListComponent} from '../../../components/class-list/class-list';
 import {SelectListComponent} from '../../../components/select-list/select-list';
-import {TicketDetailsPage} from '../../pages';
+import {UploadButtonComponent, TicketDetailsPage} from '../../../pages/ticket-details/ticket-details';
 
 @Page({
     templateUrl: 'build/pages/modals/ticket-create/ticket-create.html',
-    directives: [forwardRef(() => ClassListComponent), forwardRef(() => SelectListComponent)],
+    directives: [forwardRef(() => ClassListComponent), forwardRef(() => SelectListComponent), UploadButtonComponent],
 })
 export class TicketCreatePage {
 
+    @ViewChild(UploadButtonComponent) private uploadComponent: UploadButtonComponent;
     data: any;
     ticket: any;
     he: any;
     selects: any;
+    fileDest: any = {ticket: "11"};
+    files: any = [];
 
     constructor(private nav: Nav, private navParams: NavParams, private ticketProvider: TicketProvider, private config: Config,
                  private viewCtrl: ViewController) {
@@ -120,6 +123,25 @@ export class TicketCreatePage {
         }
     }
 
+   uploadedFile(event)
+   {
+     //if (event.indexOf("ok") == 0)
+     //{
+        this.dismissPage(this.ticket);
+     //}
+   }
+
+   selectedFile(event)
+   {
+     this.files = event;
+     this.ticket.initial_post = this.ticket.initial_post.trim(); 
+     if (event.length && !this.ticket.initial_post)
+     {
+       this.ticket.initial_post = "  ";
+     }
+   }
+
+
     onSubmit(form) {
         /*if (!this.selects.tech.id)
             {
@@ -150,7 +172,14 @@ export class TicketCreatePage {
                                                "class": this.selects.class});
             }
                     this.nav.alert(this.config.current.names.ticket.s + ' was Succesfully Created :)');
-                    this.dismissPage(data);
+                    if (this.files.length)
+                    {
+                       this.ticket = data; 
+                       this.fileDest.ticket = data.key;
+                       this.uploadComponent.onUpload();
+                    }
+                    else 
+                        this.dismissPage(data);
                 }, 
                 error => { 
                     this.nav.alert(this.he.is_techoradmin ? ("Please select " + this.config.current.names.tech.s) : error, true);

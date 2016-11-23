@@ -185,7 +185,7 @@ import {ApiSite} from '../../providers/config';
        }
        console.error('Error uploading files', ex);
        this.filesUploaded.next("error " + ex);
-       this.nav.alert('Error uploading files! Cannot add Post! Please try again later ... or try to upload one file or check your internet connection', true);
+       this.nav.alert('Error uploading files! Cannot add files! Please try again later ... or try to upload one file or check your internet connection', true);
      });
    }
 

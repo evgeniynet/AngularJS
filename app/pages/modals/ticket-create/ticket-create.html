@@ -38,12 +38,9 @@
                     <textarea class="width100 textLogin commentText margin-bottom1" type="text" [(ngModel)]="ticket.initial_post" ngControl="text" #note="ngForm"  placeholder="Details..."></textarea>
 
                 <br>
-                    <upload-button #u (filesUploaded)="uploadedFile($event)"   
-            (filesSelected)="selectedFile($event)"     
-            btnStyle="add-circle"               
-            [allowMultiple]="true"
-            [fileDest]="fileDest"
-            [logCallback]=""></upload-button>
+                <upload-button #u (filesUploaded)="uploadedFile($event)"   
+    (filesSelected)="selectedFile($event)"                   
+    [fileDest]="fileDest"></upload-button>
                     
                     <button [disabled]="!addForm.valid" secondary block (click)="onSubmit(addForm)"  type="submit" class="disable-hover button button-default button-block">Add Ticket</button>
                     <span class="span-block"></span>

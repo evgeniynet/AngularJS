@@ -1,6 +1,5 @@
 import {Page, Config, Nav, Loading} from 'ionic-angular';
 import {ApiSite, Site, isSD, appVersion, AppTitle} from '../../providers/config';
-//import {NgForm} from '@angular/common';
 import {openURL, openURLsystem} from '../../directives/helpers';
 import {DataProvider} from '../../providers/data-provider';
 import {OrganizationsPage} from '../organizations/organizations';
@@ -11,8 +10,6 @@ import {SignupPage} from '../signup/signup';
 })
 export class LoginPage {
 
-    //@ViewChild(UploadButtonComponent) private uploadComponent: UploadButtonComponent;
-
     login: any;
     google_action: string = "";
     busy: boolean = false;
@@ -21,7 +18,6 @@ export class LoginPage {
     //@ViewChild('google_openid') google_openid: NgForm;
 
     constructor(private nav: Nav, private dataProvider: DataProvider, private config: Config) {
-        //this.uploadComponent.onUpload();
         if (localStorage.getItem("isPhonegap") !== "true")
             this.google_action = ApiSite + 'auth/auth0';
         //clear also chrome ext if needed
