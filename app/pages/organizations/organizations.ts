@@ -45,7 +45,7 @@ export class OrganizationsPage {
                     else
                     {
                         this.list = data;
-                        this.toggle(data[0]);
+                        this.toggle(data[0], 0);
                     }
                 }
                 else
@@ -65,19 +65,15 @@ export class OrganizationsPage {
       document.title = "Organizations : " + document.title ;  
     }
 
-    toggle(org){
+    toggle(org, index){
         if (org.instances.length == 1)
         {
             this.onSelectInst({org: org.key, inst: org.instances[0].key});
             return;
         }
-        var index = this.list.indexOf(org);
-        for (let i=0; i< this.list.length; i++) {
-            if (i == index)
-                this.list[i].expanded = this.list[i].expanded ? false : true;
-            else if (this.list[i].expanded)
-                this.list[i].expanded = false;
-        }
+        //this.list = this.list.map(o => {o.expanded = false; return o;});
+        this.list.forEach((o, i) => o.expanded = false);
+        this.list[index].expanded = this.list[index].expanded ? false : true;
     }
     
     support()

@@ -88,6 +88,7 @@ if (key) {
       localStorage.setItem('username', email.replace("#", ""));
       config.saveCurrent();
       this.rootPage = pages.OrganizationsPage;
+      helpers.cleanQuerystring('ionicPlatform', platform_string);
       return;
     }
     else {
@@ -97,9 +98,7 @@ if (key) {
       }
       localStorage.setItem("isGoogle", "");
     }
-
-      helpers.cleanQuerystring('ionicPlatform', platform_string);
-
+    helpers.cleanQuerystring('ionicPlatform', platform_string);
         //set test config object
         if (dontClearCache)
           config.setCurrent(MOCKS["config"]);
