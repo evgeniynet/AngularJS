@@ -342,7 +342,7 @@ import {ApiSite} from '../../providers/config';
      "user_firstname": " ",
      "user_lastname": " ",
      "record_date": "2016-01-01T00:00:00.0000000",
-     "log_type": " ",
+     "log_type": "Initial Post",
      "note": " ",
      "ticket_time_id": 0,
      "sent_to": " ",

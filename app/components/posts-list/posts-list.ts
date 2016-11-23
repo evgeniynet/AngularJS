@@ -15,6 +15,7 @@ export class PostsListComponent {
     _posts : Array<any> = [];
     @Input() attachments: Array<any> = [];
     @Input() is_showlogs: boolean;
+    @Input() is_first: boolean;
 
      
     constructor() {
@@ -22,10 +23,12 @@ export class PostsListComponent {
 
     filter()
     {
-        if (this.posts.length > 1 && !this.is_showlogs)
-            this._posts =  this.posts.filter(item => !!~["Initial Post", "Response", "Closed", "ReOpened"].indexOf(item.log_type));
+        let posts = [];
+        if (!this.is_showlogs)
+            posts =  this.posts.filter(item => !!~["Initial Post", "Response", "Closed", "ReOpened"].indexOf(item.log_type));
         else
-            this._posts = this.posts;
+            posts = this.posts;
+        this._posts = this.is_first ? [posts[0]] : posts.slice(1);
     }
 
     ngOnInit() {
@@ -35,10 +38,7 @@ export class PostsListComponent {
     ngOnChanges(event) {
         if ("is_showlogs" in event)
             {
-                if (this.posts.length > 1)
-                {
-                    this.filter();
-                }
+                this.filter();
                 return;
             } 
         if ("posts" in event) {        
