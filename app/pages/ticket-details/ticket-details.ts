@@ -11,7 +11,7 @@ import {TimelogPage} from '../../pages/timelog/timelog';
 import {ExpenseCreatePage} from '../../pages/expense-create/expense-create';
 import {GravatarPipe, LinebreaksPipe, DaysoldPipe, HtmlsafePipe} from '../../pipes/pipes';
 
-import {Component, ElementRef, Input, OnInit, ViewChild, Renderer, Output, EventEmitter} from "@angular/core";
+import {Component, ElementRef, Input, OnInit, ViewChild, Renderer, Output, EventEmitter, forwardRef} from "@angular/core";
 import {IONIC_DIRECTIVES, Loading} from 'ionic-angular';
 import {ApiSite} from '../../providers/config';
 /**
@@ -312,7 +312,7 @@ import {ApiSite} from '../../providers/config';
 
  @Page({
    templateUrl: 'build/pages/ticket-details/ticket-details.html',
-   directives: [PostsListComponent, SelectListComponent, ClassListComponent, UploadButtonComponent],
+   directives: [PostsListComponent, forwardRef(() => SelectListComponent), forwardRef(() => ClassListComponent), UploadButtonComponent],
    pipes: [GravatarPipe, LinebreaksPipe, DaysoldPipe, HtmlsafePipe],
  })
  export class TicketDetailsPage {
