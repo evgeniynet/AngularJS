@@ -110,7 +110,7 @@ textarea{
                flex: 1;
        }    }
 
-           
+
     u {font-weight: normal;
     text-decoration: none;}
 
@@ -132,6 +132,15 @@ textarea{
 }}
     
     
+    
+//    @media (min-width: 508px)  {
+//   h4{
+//    width: 100%;}
+    
+//    span{
+//        width: 33%;}}
+}
+
  @media (max-width: 374px)  {
    .span-left{
     white-space: nowrap;
@@ -144,14 +153,6 @@ textarea{
    }
  }
 
-    
-//    @media (min-width: 508px)  {
-//   h4{
-//    width: 100%;}
-    
-//    span{
-//        width: 33%;}}
-}
 
 .ion-segment-button{
     background-color: $segment !important;
