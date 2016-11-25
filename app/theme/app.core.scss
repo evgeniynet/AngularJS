@@ -232,6 +232,10 @@ max-width: 700px;}
     margin: 0px !important;
 }
 
+.margin-right10{
+margin-right: 10px;
+}
+
 .padding {
     padding: 0px !important;
 }
@@ -258,6 +262,10 @@ position: initial !important;
 
 .flex1{
 flex: 1;
+}
+
+.display_flex{
+display: flex;
 }
 
 .span-img{
@@ -497,6 +505,10 @@ scroll-content {
 
 .grey3 {
     background-color: $grey3 !important;
+}
+
+.grey3_color {
+    color: $grey3 !important;
 }
 
 .grey4 {
@@ -801,6 +813,8 @@ ion-datetime{
 .width10{
     width: 10%;
 }
+
+
 
 //error
 
