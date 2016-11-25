@@ -75,8 +75,8 @@ textarea{
 }
 
 
-.blue3{
-     background-color: $blue3;
+.display_flex{
+     display: flex;
     
   h4{
     padding-top: 20px;
@@ -90,20 +90,28 @@ textarea{
     width: 100%;
      margin-left: 15px;
        float: left;
-}}
+}
+}
+
+
+
     .span-left{
-        width: 50%;
+//        width: 50%;
         float: left;
-        margin-left: 15px;}
+        margin-left: 15px;
+        flex: 2;
+    }
         
         
        .span-left p{
      margin: 0px;
-     font-weight: bold;}
+     font-weight: bold;
+               flex: 1;
+       }
     
     
     .span-right{
-        width: 45%;
+//        width: 45%;
         float: right;
         margin-bottom: 0px;
         margin-top: 0px;
@@ -120,6 +128,18 @@ textarea{
 }
     
     
+ @media (max-width: 374px)  {
+   .span-left{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+   }
+     
+     .width150px{
+     width: 150px;
+   }
+ }
+
     
 //    @media (min-width: 508px)  {
 //   h4{

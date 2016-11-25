@@ -5,14 +5,14 @@
 </ion-navbar>
 
 <ion-content>
-  <ion-toolbar class="blue3">
+  <ion-toolbar class="blue3 display_flex">
    <h4 class="width90">{{ticket.subject | Htmlsafe}}</h4>
    <span no-lines class="span-left">
     <p *ngIf="config.current.is_class_tracking && ticket.class_name"> Class:&nbsp;{{ticket.class_name}}</p>
     <p [innerText]="config.current.names.tech.a+': '+username"></p>
     <p [innerText]="config.current.names.user.a+': '+techname"></p>
-    <p *ngIf="config.current.is_account_manager && ticket.account_name"> {{config.current.names.account.a}}:&nbsp;{{ticket.account_name}}</p>
-    <p *ngIf="config.current.is_location_tracking && ticket.location_name">{{config.current.names.location.a}}:&nbsp;{{ticket.location_name}}</p>
+    <p class="width150px" *ngIf="config.current.is_account_manager && ticket.account_name"> {{config.current.names.account.a}}:&nbsp;{{ticket.account_name}}</p>
+    <p class="width150px" *ngIf="config.current.is_location_tracking && ticket.location_name">{{config.current.names.location.a}}:&nbsp;{{ticket.location_name}}</p>
   </span>
   <span class="span-right">
    <p>{{ticket.days_old_in_minutes | Daysold}}</p>
