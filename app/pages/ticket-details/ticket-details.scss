@@ -96,7 +96,6 @@ textarea{
      margin-left: 15px;
        float: left;
 }
-}
 
 
 
@@ -105,18 +104,17 @@ textarea{
         float: left;
         margin-left: 15px;
         flex: 2;
-    }
-        
-        
-       .span-left p{
+     p{
      margin: 0px;
      font-weight: bold;
                flex: 1;
-       }
-    
+       }    }
+
+           
     u {font-weight: normal;
-    text-decoration: none;
-    
+    text-decoration: none;}
+
+
     .span-right{
 //        width: 45%;
         float: right;
@@ -126,13 +124,12 @@ textarea{
             position: absolute;
     bottom: 4px;
     right: 0px;
-    }
-        
-.span-right p{
+    
+     p{
      text-align: right;
      margin: 0px;
      font-weight: bold;
-}
+}}
     
     
  @media (max-width: 374px)  {
@@ -154,7 +151,7 @@ textarea{
     
 //    span{
 //        width: 33%;}}
-//}
+}
 
 .ion-segment-button{
     background-color: $segment !important;
