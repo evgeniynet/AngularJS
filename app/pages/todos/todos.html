@@ -5,19 +5,31 @@
 
 <ion-content>
     
-    <ion-list class="list general-alignment2" no-lines>
-        <img *ngIf="busy" class="imglogo img-padding" src="img/loading2.gif">
+        <div class="todos list">
+        <div class="blue4">
+            <span><ion-icon aria-label="arrow forward" class="button-arrow ion-ios-arrow-forward left todos-arrow" role="img"></ion-icon>Hardware</span>
+        <button fab class="right buttonInvoice email-invoice position-initial margin-right10">3</button></div>
+    <div>
+            <ion-icon name="arrow-down" role="img" class="ion-ios-arrow-down padding-left15 todos-arrow font18 margin-top3" aria-label="arrow down"></ion-icon><h5>Main list</h5><ion-icon name="md-create" role="img" class="ion-md-create padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon>
+    </div>
+        <div class="border-todos">
+           <ion-icon class="font18 ios-radio-button-on todos-padding margin-top3 grey2" name="radio-button-on"></ion-icon><h5>Mobile site</h5><ion-icon name="md-create" role="img" class="ion-md-create padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon>
+        </div>
+        <div>
+            <ion-icon secondary class="font18 ios-checkmark-circle todos-padding margin-top3" name="checkmark-circle"></ion-icon><h5 class="decoration_line grey3_color">Mobile site</h5><ion-icon name="md-create" role="img" class="ion-md-create padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon></div>
+        <div class="border-todos">
+            <h6></h6> 
+            <h6>Name</h6> 
+            <h6>Due 15/11/16</h6>
+            <h6>1hr 0m</h6></div>
         
-        
-        
-    </ion-list> 
-    <div *ngIf="is_empty" class="table grey2 menu-text">No ToDo's yet</div>
-        
- <ion-infinite-scroll (infinite)="doInfinite($event)" threshold="30%">
-    <ion-infinite-scroll-content
-      loadingSpinner="circles"
-      loadingText="Loading more data...">
-    </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+        <div class="border-todos">
+           <ion-icon class="font18 ios-radio-button-on todos-padding padding-left15 margin-top3 grey2" name="radio-button-on"></ion-icon><h5>Task</h5><ion-icon name="md-create" role="img" class="ion-md-create padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon>
+        </div>
+        <div class="border-todos">
+           <ion-icon aria-label="arrow forward" class="button-arrow ion-ios-arrow-forward left todos-arrow padding-left15" role="img"></ion-icon><h5>Task</h5><ion-icon name="md-create" role="img" class="ion-md-create padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon>
+        </div>
+    </div>
+    
 
 </ion-content>
