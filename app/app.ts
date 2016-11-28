@@ -79,7 +79,11 @@ class MyApp {
       800);
   }*/
   document.getElementsByTagName("ion-app1")[0].classList.add("loaded");
-  setTimeout(function () { document.getElementsByTagName("ion-app1")[0].outerHTML='';}, 2500);
+  setTimeout(function () { document.getElementsByTagName("ion-app1")[0].outerHTML='';}, 3500);
+
+//save dash cache
+setTimeout(function () { localStorage.setItem("dash_cache", window.dash || "");}, 12000);
+
 /*
   el = document.elementFromPoint(window.innerWidth/2, window.innerHeight/2);
 content = el.closest('ion-app');

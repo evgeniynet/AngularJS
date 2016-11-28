@@ -117,11 +117,15 @@ export class DashboardPage {
 
     onPageDidEnter()
     {
-        setTimeout(() => {
+        setTimeout(() => {this.saveCache()}, 2500);
+    }
+
+    saveCache(){
         let el = document.elementFromPoint(window.innerWidth/2, window.innerHeight/2);
-        let content = el.closest('ion-app');
+        let content = el.closest('ion-nav');
+        if (content){
         window.dash = content.innerHTML.replace(/\s\s+/g,' ');
-        }, 500);
+    }
     }
 
     ngOnDestroy(){
