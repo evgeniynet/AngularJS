@@ -81,7 +81,7 @@ textarea{
 
 
 .display_flex{
-     display: flex;
+//     display: flex;
     
   h4{
     padding-top: 20px;
@@ -100,15 +100,37 @@ textarea{
 
 
     .span-left{
-//        width: 50%;
+        width: 100%;
         float: left;
         margin-left: 15px;
-        flex: 2;
      p{
      margin: 0px;
      font-weight: bold;
-               flex: 1;
-       }    }
+     width: 90%;
+         white-space: nowrap;
+     }  
+    p:last-child{
+    width: calc(100% - 162px) !important;
+        overflow: hidden;
+        text-overflow: clip;
+    }
+        
+        p:nth-last-child(2){
+    width: calc(100% - 163px) !important;
+        overflow: hidden;
+        text-overflow: clip;
+    }
+         p:nth-last-child(3){
+    width: calc(100% - 125px) !important;
+        overflow: hidden;
+        text-overflow: clip;
+    }
+         p:nth-last-child(4){
+    width: calc(100% - 125px) !important;
+        overflow: hidden;
+        text-overflow: clip;
+    }
+    }
 
 
     u {font-weight: normal;
@@ -141,7 +163,7 @@ textarea{
 //        width: 33%;}}
 }
 
- @media (max-width: 374px)  {
+/* @media (max-width: 374px)  {
    .span-left{
     white-space: nowrap;
     overflow: hidden;
@@ -151,7 +173,7 @@ textarea{
      .width150px{
      width: 150px;
    }
- }
+ }*/
 
 
 .ion-segment-button{
