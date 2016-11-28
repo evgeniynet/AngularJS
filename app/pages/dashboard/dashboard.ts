@@ -25,6 +25,10 @@ export class DashboardPage {
     timer: any;
 
     constructor(private nav: Nav, private config: Config, private dataProvider: DataProvider, private ticketProvider: TicketProvider, private timeProvider: TimeProvider) {
+        let counts = config.getStat("tickets");
+        if (config.current.user.is_limit_assigned_tkts && !config.current.user.is_admin)
+                    counts.open_all = Math.max(counts.open_as_user, counts.open_as_tech); 
+        this.counts = counts; 
     }
     
     onPageLoaded()
@@ -109,6 +113,15 @@ export class DashboardPage {
             if (!(this.timeProvider._dataStore["time"] || {}).length)
                 this.timeProvider.getTimelogs("", { "limit": 25 });
         }, 2500);
+    }
+
+    onPageDidEnter()
+    {
+        setTimeout(() => {
+        let el = document.elementFromPoint(window.innerWidth/2, window.innerHeight/2);
+        let content = el.closest('ion-app');
+        window.dash = content.innerHTML.replace(/\s\s+/g,' ');
+        }, 1000);
     }
 
     ngOnDestroy(){

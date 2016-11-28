@@ -72,9 +72,19 @@ class MyApp {
       this.ExtendNavAlert(), 0);
 
     // disable loading screen
-    document.getElementById("pre-bootstrap1").classList.add("loaded");
+    /*var lEl = document.getElementById("pre-bootstrap1");
+    if (lEl) {
+      lEl.classList.add("loaded");
     setTimeout(function () { document.getElementsByTagName("ion-loading")[0].outerHTML='';},
       800);
+  }*/
+  document.getElementsByTagName("ion-app1")[0].classList.add("loaded");
+  setTimeout(function () { document.getElementsByTagName("ion-app1")[0].outerHTML='';}, 2500);
+/*
+  el = document.elementFromPoint(window.innerWidth/2, window.innerHeight/2);
+content = el.closest('ion-app');
+content.innerHTML.replace(/\s\s+/g,' ')
+*/
 
 var ios_action = localStorage.getItem('ios_action') || "";
 
