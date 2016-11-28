@@ -121,7 +121,7 @@ export class DashboardPage {
         let el = document.elementFromPoint(window.innerWidth/2, window.innerHeight/2);
         let content = el.closest('ion-app');
         window.dash = content.innerHTML.replace(/\s\s+/g,' ');
-        }, 1000);
+        }, 500);
     }
 
     ngOnDestroy(){
