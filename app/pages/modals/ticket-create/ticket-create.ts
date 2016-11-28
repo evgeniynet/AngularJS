@@ -102,7 +102,8 @@ export class TicketCreatePage {
     }
 
     dismissPage(data) {
-        this.nav.alert(this.config.current.names.ticket.s + ' was Succesfully Created :)');
+        if (data)
+            this.nav.alert(this.config.current.names.ticket.s + ' was Succesfully Created :)');
         this.viewCtrl.dismiss(data);
     }
 
