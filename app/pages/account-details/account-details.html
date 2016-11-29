@@ -147,7 +147,7 @@
       <div class="left width59 tkts-table" [innerHTML]="getFileLink(file)"></div>
          <div class="files-tkts">
       <span class="color right text-left space-initial flex1 font-size_span">{{file.name}}</span>
-         <button block fab class="red buttonInvoice email-invoice button-fab position-initial button-files margin-left5">
+         <button (click)="onDelete(file)" block fab class="red buttonInvoice email-invoice button-fab position-initial button-files margin-left5">
              <ion-icon class="invoiceCircle" name="close"></ion-icon></button></div>
     </ion-item>
 

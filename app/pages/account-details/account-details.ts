@@ -69,6 +69,22 @@ export class AccountDetailsPage {
         this.is_editnote = !this.account.note.length;
     }
 
+    onDelete(file){
+     let data = {
+       "file_id": file.id
+     };
+
+     this.dataProvider.deleteFile(data).subscribe(
+       data => {
+         this.account.files = this.account.files.filter(item => item !== file);
+         this.nav.alert(`File ${file.name} deleted!`);
+       },
+       error => {
+         console.log(error || 'Server error');
+       }
+       );
+   }
+
     openPage(page, count)
     {
         setTimeout(() =>
