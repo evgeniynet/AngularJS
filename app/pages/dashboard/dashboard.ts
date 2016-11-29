@@ -49,6 +49,7 @@ export class DashboardPage {
                     "alt": data.open_as_alttech,
                     "user": data.open_as_user
                 });
+                setTimeout(() => {this.saveCache()}, 500);
             },
             error => {
                 console.log(error || 'Server error');
@@ -117,7 +118,7 @@ export class DashboardPage {
 
     onPageDidEnter()
     {
-        setTimeout(() => {this.saveCache()}, 2500);
+        
     }
 
     saveCache(){

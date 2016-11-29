@@ -78,11 +78,13 @@ class MyApp {
     setTimeout(function () { document.getElementsByTagName("ion-loading")[0].outerHTML='';},
       800);
   }*/
+
+  (document.getElementsByTagName("ion-loading")[0] || {}).outerHTML='';
   document.getElementsByTagName("ion-app1")[0].classList.add("loaded");
   setTimeout(function () { document.getElementsByTagName("ion-app1")[0].outerHTML='';}, 3500);
 
 //save dash cache
-setTimeout(function () { localStorage.setItem("dash_cache", window.dash || "");}, 12000);
+setTimeout(function () { localStorage.setItem("dash_cache", window.dash || "");}, 15000);
 
 /*
   el = document.elementFromPoint(window.innerWidth/2, window.innerHeight/2);
@@ -260,7 +262,7 @@ this.config.setCurrent(data);
       let page : any = this.config.current.user.is_techoradmin && !ticket ? pages.DashboardPage : pages.TicketsPage;  
         // set first pages
         //page = pages.TicketsPage; 
-        //page = pages.TicketDetailsPage; param = {key: "wno39k"};
+        //page = pages.TicketDetailsPage; param = {key: "11098"};
         //page = pages.ExpensesPage; 
         //page = pages.TodosPage; 
         //page = pages.ExpenseCreatePage; 

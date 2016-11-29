@@ -33,6 +33,11 @@
 @import "../pages/modals/ajax-select/ajax-select";
 @import "../app";
 
+ion-nav.has-views
+{
+   background-color: $background-color
+}
+
 //item
 
 .item {
