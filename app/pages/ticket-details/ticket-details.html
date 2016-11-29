@@ -99,7 +99,11 @@
  <div [hidden]="attachments?.length" class="table grey2 menu-text">No Files yet</div>
  <ion-item *ngFor="let file of attachments">
  <div class="left width59 tkts-table" [innerHTML]="getFileLink(file)"></div>
-      <div><h3 class="color right width38 text-left space-initial">{{file.name}}</h3><!--div class="right margin-top3">
+      <div class="display_flex">
+          <span class="color right width38 text-left space-initial flex1 font-size_span">{{file.name}}</span>
+          <button block fab class="red buttonInvoice email-invoice button-fab position-initial button-files">
+<ion-icon class="invoiceCircle" name="close"></ion-icon></button>
+          <!--div class="right margin-top3">
     <button fab class="red buttonInvoice email-invoice button-fab position-initial">
         <ion-icon class="invoiceCircle" name="close"></ion-icon></button>
       </div--></div>
