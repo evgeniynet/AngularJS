@@ -57,6 +57,15 @@ export class DataProvider {
         });
         return this.apiData.request(url, data, "POST", headers);
     }
+
+    deleteFile(data) {
+        let url = "files";
+        var headers = new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        });
+        return this.apiData.request(url, data, "DELETE", headers);
+    }
     
     getConfig() {
         let url = "config";

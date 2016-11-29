@@ -1,6 +1,7 @@
 import {Page, Config, Nav, NavParams, Modal} from 'ionic-angular';
 import {FORM_DIRECTIVES, Validators} from '@angular/common';
 import {AppSite} from '../../providers/config';
+import {DataProvider} from '../../providers/data-provider';
 import {TicketProvider} from '../../providers/ticket-provider';
 import {getDateTime, htmlEscape, getCurrency, getFullName, fullapplink, parseXml, FileUrlHelper} from '../../directives/helpers';
 import {PostsListComponent} from '../../components/posts-list/posts-list';
@@ -350,7 +351,7 @@ import {ApiSite} from '../../providers/config';
      "sla_used": 0
    }];
 
-   constructor(private nav: Nav, private navParams: NavParams, private ticketProvider: TicketProvider, private config: Config) {
+   constructor(private nav: Nav, private navParams: NavParams, private ticketProvider: TicketProvider, private dataProvider: DataProvider, private config: Config) {
    }
 
    onPageLoaded() {
@@ -590,7 +591,7 @@ import {ApiSite} from '../../providers/config';
      this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(
        data => {
          this.update_tlist_logic(true);
-         this.nav.alert('Ticket has been closed :)');
+         this.nav.alert(this.config.current.names.ticket.s + ' has been closed :)');
          this.ticket.status = "Closed";
        },
        error => {
@@ -617,7 +618,7 @@ import {ApiSite} from '../../providers/config';
 
      this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(
        data => {
-         this.nav.alert('Ticket was successfully updated :)');
+         this.nav.alert(this.config.current.names.ticket.s + ' was successfully updated :)');
          this.getPosts(this.ticket.key);
        },
        error => {
@@ -639,7 +640,7 @@ import {ApiSite} from '../../providers/config';
 
      this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(
        data => {
-         this.nav.alert('Ticket has been transferred :)');
+         this.nav.alert(this.config.current.names.ticket.s + ' has been transferred :)');
          this.techname = this.selects.tech.value = this.ticket.tech_firstname = event.name;
          this.ticket.tech_lastname = this.ticket.tech_email = "";
          this.selects.tech.selected = techid;
@@ -663,10 +664,26 @@ import {ApiSite} from '../../providers/config';
 
      this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(
        data => {
-         this.nav.alert('Ticket pickup was Succesfull!');
+         this.nav.alert(this.config.current.names.ticket.s + ' pickup was Succesfull!');
          this.techname = this.selects.tech.value = this.ticket.tech_firstname = getFullName(this.he.firstname, this.he.lastname, this.he.email);
          this.ticket.tech_lastname = this.ticket.tech_email = "";
          this.selects.tech.selected = this.he.user_id;
+       },
+       error => {
+         console.log(error || 'Server error');
+       }
+       );
+   }
+
+   onDelete(file){
+     let data = {
+       "ticket": this.ticket.key,
+       "file_id": file.id
+     };
+
+     this.dataProvider.deleteFile(data).subscribe(
+       data => {
+         this.nav.alert(`File ${file.name} deleted!`);
        },
        error => {
          console.log(error || 'Server error');
@@ -683,7 +700,7 @@ import {ApiSite} from '../../providers/config';
      this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(
        data => {
          this.update_tlist_logic(false);
-         this.nav.alert('Ticket has been Reopened!');
+         this.nav.alert(this.config.current.names.ticket.s + ' has been Reopened!');
          this.ticket.status = "Open";
        },
        error => {
