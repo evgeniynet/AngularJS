@@ -5,7 +5,7 @@ import {TicketProvider} from '../../../providers/providers';
 import {htmlEscape, getFullName} from '../../../directives/helpers';
 import {ClassListComponent} from '../../../components/class-list/class-list';
 import {SelectListComponent} from '../../../components/select-list/select-list';
-import {UploadButtonComponent, TicketDetailsPage} from '../../../pages/ticket-details/ticket-details';
+import {UploadButtonComponent} from '../../../pages/ticket-details/ticket-details';
 
 @Page({
     templateUrl: 'build/pages/modals/ticket-create/ticket-create.html',
