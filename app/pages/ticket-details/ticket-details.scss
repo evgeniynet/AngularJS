@@ -81,8 +81,7 @@ textarea{
 
 
 .display_flex{
-//     display: flex;
-    
+   
   h4{
     padding-top: 20px;
     white-space: initial !important;
@@ -103,33 +102,14 @@ textarea{
         width: 100%;
         float: left;
         margin-left: 15px;
+     
      p{
      margin: 0px;
      font-weight: bold;
      width: 90%;
-         white-space: nowrap;
-     }  
-    p:last-child{
-    width: calc(100% - 162px) !important;
-        overflow: hidden;
-        text-overflow: clip;
-    }
-        
-        p:nth-last-child(2){
-    width: calc(100% - 163px) !important;
-        overflow: hidden;
-        text-overflow: clip;
-    }
-         p:nth-last-child(3){
-    width: calc(100% - 125px) !important;
-        overflow: hidden;
-        text-overflow: clip;
-    }
-         p:nth-last-child(4){
-    width: calc(100% - 125px) !important;
-        overflow: hidden;
-        text-overflow: clip;
-    }
+     white-space: nowrap;
+     overflow: hidden;
+     }      
     }
 
 
@@ -138,7 +118,6 @@ textarea{
 
 
     .span-right{
-//        width: 45%;
         float: right;
         margin-bottom: 0px;
         margin-top: 0px;
@@ -146,35 +125,17 @@ textarea{
             position: absolute;
     bottom: 4px;
     right: 0px;
+         text-align: right;
     
      p{
-     text-align: right;
+     display: inline;
      margin: 0px;
      font-weight: bold;
-}}
-    
-    
-    
-//    @media (min-width: 508px)  {
-//   h4{
-//    width: 100%;}
-    
-//    span{
-//        width: 33%;}}
-}
-
-/* @media (max-width: 374px)  {
-   .span-left{
+     padding-left: 8px;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
-   }
-     
-     .width150px{
-     width: 150px;
-   }
- }*/
-
+         background-color: #111;
+}}}
 
 .ion-segment-button{
     background-color: $segment !important;

@@ -15,10 +15,10 @@
     <p *ngIf="config.current.is_location_tracking && ticket.location_name"><u>{{config.current.names.location.a}}</u>:&nbsp;{{ticket.location_name}}</p>
   </span>
   <span class="span-right">
-   <p>{{ticket.days_old_in_minutes | Daysold}}</p>
-      <p *ngIf="config.current.is_time_tracking && ticket.total_hours > 0">{{ticket.total_hours}} Hours</p>
-   <p *ngIf="ticket.sla_complete_date != null"><u>SLA</u>: {{setDate(ticket.sla_complete_date, false, true)}}</p>
-      <p  *ngIf="config.current.is_expenses && ticket.misc_cost > 0"><u>Expenses</u>:  {{getCurrency(ticket.misc_cost)}}</p>
+   <p><u>{{ticket.days_old_in_minutes | Daysold}}</u></p><br/>
+      <template [ngIf]="config.current.is_time_tracking && ticket.total_hours > 0"><p><u>{{ticket.total_hours}}</u> Hours</p><br/></template>
+   <template [ngIf]="ticket.sla_complete_date != null"><p><u>SLA</u>: {{setDate(ticket.sla_complete_date, false, true)}}</p><br/></template>
+      <template [ngIf]="config.current.is_expenses && ticket.misc_cost > 0"><p><u>Expenses</u>:  {{getCurrency(ticket.misc_cost)}}</p><br/></template>
       </span>
  </ion-toolbar>
  <ion-segment [(ngModel)]="details_tab">
