@@ -59,12 +59,8 @@ export class DataProvider {
     }
 
     deleteFile(data) {
-        let url = "files";
-        var headers = new Headers({
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-        });
-        return this.apiData.request(url, data, "DELETE", headers);
+        let url = "files/" + data.file_id;
+        return this.apiData.get(url, {}, "DELETE");
     }
     
     getConfig() {

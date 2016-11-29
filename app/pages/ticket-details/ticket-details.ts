@@ -683,6 +683,8 @@ import {ApiSite} from '../../providers/config';
 
      this.dataProvider.deleteFile(data).subscribe(
        data => {
+         this.attachments = this.attachments.filter(item => item !== file);
+         this.getPosts(this.ticket.key);
          this.nav.alert(`File ${file.name} deleted!`);
        },
        error => {
