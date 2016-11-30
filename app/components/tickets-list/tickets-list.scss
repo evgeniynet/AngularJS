@@ -28,7 +28,11 @@ ion-avatar{
         
     ion-avatar li img{
       margin-top: 18px;
-}
+      width: 50px;
+      height: 50px;
+      background-image: url("../../img/def_ava.png"); 
+    }
+
 
  ion-avatar li img p{
     color: $text !important;

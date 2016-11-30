@@ -84,7 +84,7 @@ class MyApp {
   setTimeout(function () { document.getElementsByTagName("ion-app1")[0].outerHTML='';}, 3500);
 
 //save dash cache
-setTimeout(function () { localStorage.setItem("dash_cache", window.dash || "");}, 15000);
+setTimeout(function () { if (window.dash || "") localStorage.setItem("dash_cache", window.dash || "");}, 15000);
 
 /*
   el = document.elementFromPoint(window.innerWidth/2, window.innerHeight/2);
@@ -214,7 +214,7 @@ this.config.setCurrent(data);
     { title: data.names.account.p, component: pages.AccountsPage, icon: "people", is_active: this.config.current.is_account_manager },
     { title: 'Invoices', component: pages.InvoicesPage, icon: "card", is_active: this.config.current.is_time_tracking && this.config.current.is_invoice },
     { title: 'Queues', component: pages.QueuesPage, icon: "list-box", is_active: this.config.current.is_unassigned_queue && (!this.config.current.user.is_limit_assigned_tkts || this.config.current.user.is_admin)},
-    { title: 'ToDos', component: pages.TodosPage, icon: "md-list-box", is_active: true },
+    //{ title: 'ToDos', component: pages.TodosPage, icon: "md-list-box", is_active: true },
     { title: 'Switch Org', component: pages.OrganizationsPage, icon: "md-swap", is_active: this.config.current.is_multiple_org },
     { title: 'Signout', component: pages.LoginPage, icon: "md-log-in", is_active: true },
     { title: 'Full App', component: null, icon: "md-share-alt", is_active: true },
