@@ -80,8 +80,11 @@ class MyApp {
   }*/
 
   (document.getElementsByTagName("ion-loading")[0] || {}).outerHTML='';
-  document.getElementsByTagName("ion-app1")[0].classList.add("loaded");
+  let fake = document.getElementsByTagName("ion-app1");
+  if (fake && fake[0]) {
+        fake[0].classList.add("loaded");
   setTimeout(function () { document.getElementsByTagName("ion-app1")[0].outerHTML='';}, 1500);
+}
 
 //save dash cache
 setTimeout(function () { if (window.dash || "") localStorage.setItem("dash_cache", window.dash || "");}, 15000);
