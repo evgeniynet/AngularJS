@@ -60,7 +60,7 @@ export class DataProvider {
 
     deleteFile(data) {
         let url = "files/" + data.file_id;
-        return this.apiData.get(url, {}, "DELETE");
+        return this.apiData.get(url, data, "DELETE");
     }
     
     getConfig() {

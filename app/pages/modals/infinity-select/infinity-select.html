@@ -13,7 +13,7 @@
 <img *ngIf="busy" class="imglogo img-padding" src="img/loading2.gif">
     <ion-list class="list">
         <a *ngIf="isdefault_enabled" detail-none href=# ion-item class="basic-margin text-left" (click)="dismiss({name: 'Default (no selection)', id: 0})">
-            <h2>Default (no selection)</h2>
+            <h2 class="color">Default (no selection)</h2>
         </a>
         <a *ngIf="isnew_enabled" detail-none href=# ion-item (click)="invite()">
             <h2> <ion-icon name="add-circle"></ion-icon>&nbsp;&nbsp;&nbsp;Invite new {{name}} {{is_empty ? '"'+searchQuery+'"' : ""}}</h2>
