@@ -6,7 +6,7 @@
         <ion-avatar padding item-left>
             <li>
                 <span item-left>#{{ticket.number}}</span>
-                <img [alt]="ticket.user_firstname" [src]="ticket.user_email | Gravatar"/>
+                <img class="img_avatar" [alt]="ticket.user_firstname" [src]="ticket.user_email | Gravatar"/>
                 <p>{{ticket.user_firstname}}  {{ticket.user_lastname}}</p> </li>
         </ion-avatar>
         <div class="alignment">

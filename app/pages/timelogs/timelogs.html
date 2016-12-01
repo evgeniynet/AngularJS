@@ -11,7 +11,7 @@
         <a detail-none href=# ion-item (click)="itemTapped(time)">
     <ion-avatar padding item-left>
             <li>
-                <img [alt]="time.user_firstname" [src]="time.user_email | Gravatar"/>
+                <img class="img_avatar" [alt]="time.user_firstname" [src]="time.user_email | Gravatar"/>
                 <p>{{time.user_name}} {{time.user_lastname}}</p></li>
         </ion-avatar>
             <div>
