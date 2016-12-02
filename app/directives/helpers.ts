@@ -1,5 +1,19 @@
 import * as Config from '../providers/config';
 //import {Events} from 'ionic-angular';
+
+/*Object.prototype.e = function (p) {
+    return p ? p.split('.').reduce(function (o, k) {
+        var m = k.indexOf("["); if (~m) { var s=k.substring(0,k.indexOf("[")); return (o && o[s] && o[s][k.substring(m+1, k.indexOf("]"))]) || {};}
+        return (o && o[k]) || {};
+    }, this) : this;
+}
+
+Object.prototype.u = function (p) {
+    return p ? p.split('.').reduce(function (o, k) {
+        var m = k.indexOf("["); if (~m) { var s=k.substring(0,k.indexOf("[")); return o && o[s] && o[s][k.substring(m+1, k.indexOf("]"))];}
+        return o && o[k];
+    }, this) : this;
+}*/
  
 export function saveCache(url, data) {
     localStorage.setItem(url, JSON.stringify(data || {})); 

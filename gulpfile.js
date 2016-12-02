@@ -100,7 +100,7 @@ gulp.task('run:before', [shouldWatch ? 'watch' : 'build']);
         watch: false,
         minify: true,
         uglifyOptions: {
-          mangle: false
+          mangle: true
         },
         browserifyOptions: {
   debug: false, syntax: false // sourcemaps off
