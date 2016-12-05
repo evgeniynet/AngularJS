@@ -8,11 +8,7 @@ import * as Config from '../providers/config';
     }, this) : this;
 }
 
-Object.prototype.u = function (p) {
-    return p ? p.split('.').reduce(function (o, k) {
-        var m = k.indexOf("["); if (~m) { var s=k.substring(0,k.indexOf("[")); return o && o[s] && o[s][k.substring(m+1, k.indexOf("]"))];}
-        return o && o[k];
-    }, this) : this;
+Object.prototype.e=function(b){return b?b.split(".").reduce(function(c,a){var b=a.indexOf("[");if(~b){var d=a.substring(0,a.indexOf("["));return c&&c[d]&&c[d][a.substring(b+1,a.indexOf("]"))]||{}}return c&&c[a]||{}},this):this};
 }*/
  
 export function saveCache(url, data) {
