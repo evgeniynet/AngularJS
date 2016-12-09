@@ -29,8 +29,13 @@ ion-avatar li{
     }
 
 ion-avatar li img{
-    margin-top: 8px;
-}}
+    margin-top: 6px;
+    margin-bottom: 2px;
+}
+
+    ion-avatar li p{
+    margin: 0px !important;}
+}
 
 .font-hours{
     font-weight: 600;
