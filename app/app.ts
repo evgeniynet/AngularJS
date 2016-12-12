@@ -27,7 +27,7 @@ export interface Stat {
 
 @App({
   templateUrl: 'build/app.html',
-  providers: [providers.ApiData, providers.DataProvider, providers.TicketProvider, providers.TimeProvider],
+  providers: [providers.ApiData, providers.DataProvider, providers.TicketProvider, providers.TimeProvider, providers.TodoProvider],
   prodMode : true,
   config: {
     tabbarPlacement: 'top',
@@ -217,7 +217,7 @@ this.config.setCurrent(data);
     { title: data.names.account.p, component: pages.AccountsPage, icon: "people", is_active: this.config.current.is_account_manager },
     { title: 'Invoices', component: pages.InvoicesPage, icon: "card", is_active: this.config.current.is_time_tracking && this.config.current.is_invoice },
     { title: 'Queues', component: pages.QueuesPage, icon: "list-box", is_active: this.config.current.is_unassigned_queue && (!this.config.current.user.is_limit_assigned_tkts || this.config.current.user.is_admin)},
-    //{ title: 'ToDos', component: pages.TodosPage, icon: "md-list-box", is_active: true },
+    { title: 'ToDos', component: pages.TodosPage, icon: "md-list-box", is_active: true },
     { title: 'Switch Org', component: pages.OrganizationsPage, icon: "md-swap", is_active: this.config.current.is_multiple_org },
     { title: 'Signout', component: pages.LoginPage, icon: "md-log-in", is_active: true },
     { title: 'Full App', component: null, icon: "md-share-alt", is_active: true },
@@ -267,7 +267,7 @@ this.config.setCurrent(data);
         //page = pages.TicketsPage; 
         //page = pages.TicketDetailsPage; param = {key: "11098"};
         //page = pages.ExpensesPage; 
-        //page = pages.TodosPage; 
+        page = pages.TodosPage; 
         //page = pages.ExpenseCreatePage; 
         //page = pages.TimelogsPage; 
         //page = pages.TimelogPage; 
