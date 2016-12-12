@@ -21,6 +21,7 @@ export class TodosPage {
     cachename: string;
     todos: any;
     busy: boolean;
+    hidden: boolean;
     initial_load: boolean = true;
     
     constructor(private nav: Nav, private todoProvider: TodoProvider, private config: Config, private navParams: NavParams, private view: ViewController) {

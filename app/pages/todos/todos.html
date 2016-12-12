@@ -6,12 +6,10 @@
 
     <div class="todos list general-alignment">
         <img *ngIf="busy" class="imglogo img-padding" src="img/loading2.gif"/>
-        <div class="blue4">
-            <span><ion-icon aria-label="arrow forward" class="button-arrow ion-ios-arrow-forward left todos-arrow" role="img"></ion-icon>Hardware</span>
+        <div class="blue4" (click)="hidden = !hidden">
+            <span><ion-icon [ngClass]="{'ion-ios-arrow-down font18 margin-top3':!hidden, 'button-arrow ion-ios-arrow-forward left':hidden}" class="button-arrow left todos-arrow" role="img"></ion-icon>ToDo's</span>
             <button fab class="right buttonInvoice email-invoice position-initial margin-right10">3</button></div>
-            <div class="blue4">
-            <span><ion-icon aria-label="arrow forward" class="button-arrow ion-ios-arrow-forward left todos-arrow" role="img"></ion-icon>Hardware</span>
-            <button fab class="right buttonInvoice email-invoice position-initial margin-right10">3</button></div>
+                        <block [hidden]="hidden">
          <template ngFor let-todo [ngForOf]="todos | async" let-even="even" let-odd="odd">
          <div (click)="todo.hidden = !todo.hidden"> 
                 <ion-icon *ngIf="todo.sub?.length" role="img" [ngClass]="{'ion-ios-arrow-down font18 margin-top3':!todo.hidden, 'button-arrow ion-ios-arrow-forward left':todo.hidden}" class="todos-arrow padding-left15"></ion-icon><h5>{{todo.name}}</h5><ion-icon name="md-create" role="img" class="ion-md-create padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon>
@@ -35,6 +33,7 @@
             </template>
              <hr style="background-color: white; width: 100%;" />
             </template>
+            </block>
 
                 <!--div class="border-todos">
                  <ion-icon class="font18 ios-radio-button-on todos-padding padding-left15 margin-top3 grey2" name="radio-button-on"></ion-icon><h5>Task</h5><ion-icon name="md-create" role="img" class="ion-md-create padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon>
