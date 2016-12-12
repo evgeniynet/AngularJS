@@ -8,7 +8,7 @@
         <img *ngIf="busy" class="imglogo img-padding" src="img/loading2.gif"/>
         <div class="blue4" (click)="hidden = !hidden">
             <span><ion-icon [ngClass]="{'ion-ios-arrow-down font18 margin-top3':!hidden, 'button-arrow ion-ios-arrow-forward left':hidden}" class="button-arrow left todos-arrow" role="img"></ion-icon>ToDo's</span>
-            <button fab class="right buttonInvoice email-invoice position-initial margin-right10">3</button></div>
+            <button fab class="right buttonInvoice email-invoice position-initial margin-right10">{{undone}}</button></div>
                         <block [hidden]="hidden">
          <template ngFor let-todo [ngForOf]="todos | async" let-even="even" let-odd="odd">
          <div (click)="todo.hidden = !todo.hidden"> 

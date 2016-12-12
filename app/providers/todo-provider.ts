@@ -34,7 +34,7 @@ export class TodoProvider {
         }
         let cachelen = this._dataStore[url].length;
         if (pager.page == 0) {
-            pager.limit = cachelen || pager.limit;
+            //pager.limit = cachelen || pager.limit;
             if (cachelen) {
                 setTimeout(() => {
                     if (this._todosObserver[url])

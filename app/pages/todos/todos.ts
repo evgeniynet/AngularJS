@@ -13,11 +13,11 @@ import {getDateTime} from '../../directives/helpers';
 export class TodosPage {
 
 	LIMIT: number = 5000;
-    account: any;
     is_empty: boolean = false;
     params: any;
     pager: any;
     cachelen: number;
+    undone: number = 0;
     cachename: string;
     todos: any;
     busy: boolean;
@@ -61,6 +61,9 @@ onPageLoaded()
                     clearTimeout(timer);
                     this.busy = false;
                     this.is_empty = !data.length;
+                    let count = 0;
+                    for (let k in data) for (let l in data[k].sub) if (!data[k].sub[l].is_completed) count++;
+                    this.undone = count;
                 });
         }
     }
