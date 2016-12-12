@@ -39,11 +39,11 @@ onPageLoaded()
         if (this.params.is_empty)
             this.params.count = 0;
 
-        if (this.params.count !== 0) {
+        //if (this.params.count !== 0) {
             this.getTodos();
-        }
-        else
-            this.is_empty = true;
+        //}
+        //else
+        //    this.is_empty = true;
     }
 
     getTodos()
@@ -62,6 +62,17 @@ onPageLoaded()
                     this.is_empty = !data.length;
                 });
         }
+    }
+
+    setDate(date, showmonth?, istime?) {
+        return date ? getDateTime(date, showmonth, istime) : null;
+    }
+
+    getFixed(value){
+    	value = (value || "0").toString()
+        if (~value.indexOf("."))
+        	return Number(value).toFixed(2).toString();
+        return value;
     }
 
 

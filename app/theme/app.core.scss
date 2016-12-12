@@ -83,6 +83,9 @@ text-decoration: underline !important;
 text-decoration: line-through;
 }
 
+.secondary{
+    color: map-get($colors, secondary) !important;}
+
 /* need to remove from ionic
 .button.activated{
     background-color: $class-list;}
