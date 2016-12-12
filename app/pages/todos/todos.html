@@ -1,35 +1,38 @@
 
 <ion-navbar *navbar><button menuToggle><ion-icon name="menu"></ion-icon></button>
   <ion-title class="padding-right24">ToDo's</ion-title>
-</ion-navbar>
+</ion-navbar>       
+<ion-content>                                                                                                                                 
 
-<ion-content>
-    
-        <div class="todos list">
-        <div class="blue4">
+    <div class="todos list general-alignment">
+        <img *ngIf="busy" class="imglogo img-padding" src="img/loading2.gif"/>
+        <!--div class="blue4">
             <span><ion-icon aria-label="arrow forward" class="button-arrow ion-ios-arrow-forward left todos-arrow" role="img"></ion-icon>Hardware</span>
-        <button fab class="right buttonInvoice email-invoice position-initial margin-right10">3</button></div>
-    <div>
-            <ion-icon name="arrow-down" role="img" class="ion-ios-arrow-down padding-left15 todos-arrow font18 margin-top3" aria-label="arrow down"></ion-icon><h5>Main list</h5><ion-icon name="md-create" role="img" class="ion-md-create padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon>
-    </div>
-        <div class="border-todos">
-           <ion-icon class="font18 ios-radio-button-on todos-padding margin-top3 grey2" name="radio-button-on"></ion-icon><h5>Mobile site</h5><ion-icon name="md-create" role="img" class="ion-md-create padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon>
-        </div>
-        <div>
-            <ion-icon secondary class="font18 ios-checkmark-circle todos-padding margin-top3" name="checkmark-circle"></ion-icon><h5 class="decoration_line grey3_color">Mobile site</h5><ion-icon name="md-create" role="img" class="ion-md-create padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon></div>
-        <div class="border-todos">
-            <h6></h6> 
-            <h6>Name</h6> 
-            <h6>Due 15/11/16</h6>
-            <h6>1hr 0m</h6></div>
-        
-        <div class="border-todos">
-           <ion-icon class="font18 ios-radio-button-on todos-padding padding-left15 margin-top3 grey2" name="radio-button-on"></ion-icon><h5>Task</h5><ion-icon name="md-create" role="img" class="ion-md-create padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon>
-        </div>
-        <div class="border-todos">
-           <ion-icon aria-label="arrow forward" class="button-arrow ion-ios-arrow-forward left todos-arrow padding-left15" role="img"></ion-icon><h5>Task</h5><ion-icon name="md-create" role="img" class="ion-md-create padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon>
-        </div>
-    </div>
-    
+            <button fab class="right buttonInvoice email-invoice position-initial margin-right10">3</button></div-->
+         <template ngFor let-todo [ngForOf]="todos | async">
+         <div>
+                <ion-icon *ngIf="todo.sub.length" name="arrow-down" role="img" class="ion-ios-arrow-down padding-left15 todos-arrow font18 margin-top3" aria-label="arrow down"></ion-icon><h5>{{todo.name}}</h5><ion-icon name="md-create" role="img" class="ion-md-create padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon>
+         </div>
+         <template ngFor let-subtodo [ngForOf]="todo?.sub">
+         <!--div class="border-todos">
+             <ion-icon class="font18 ios-radio-button-on todos-padding margin-top3 grey2" name="radio-button-on"></ion-icon><h5>{{subtodo.name}}</h5><ion-icon name="md-create" role="img" class="ion-md-create padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon>
+         </div-->
+         <div>
+            <ion-icon secondary [ngClass]="{'ios-checkmark-circle' : subtodo.is_completed, 'ios-radio-button-on' : !subtodo.is_completed}" class="font18 todos-padding margin-top3"></ion-icon><h5 [ngClass]="{'decoration_line grey3_color' : subtodo.is_completed, '' : !subtodo.is_completed}">{{subtodo.name}} <i *ngIf="subtodo.text">{{" - " + subtodo.text}}</i></h5><ion-icon name="md-create" role="img" class="ion-md-create padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon></div>
+            <div class="border-todos">
+                <h6></h6> 
+                <h6 *ngIf="subtodo.assigned_name">{{subtodo.assigned_name}}</h6> 
+                <h6 *ngIf="subtodo.due_date">Due {{subtodo.due_date}}</h6>
+                <h6 *ngIf="subtodo.estimated_remain">{{subtodo.estimated_remain}}</h6>
+            </div>
+            </template>
+            </template>
 
-</ion-content>
+                <!--div class="border-todos">
+                 <ion-icon class="font18 ios-radio-button-on todos-padding padding-left15 margin-top3 grey2" name="radio-button-on"></ion-icon><h5>Task</h5><ion-icon name="md-create" role="img" class="ion-md-create padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon>
+             </div>
+             <div class="border-todos">
+                 <ion-icon aria-label="arrow forward" class="button-arrow ion-ios-arrow-forward left todos-arrow padding-left15" role="img"></ion-icon><h5>Task</h5><ion-icon name="md-create" role="img" class="ion-md-create padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon>
+             </div-->
+         </div>
+     </ion-content>

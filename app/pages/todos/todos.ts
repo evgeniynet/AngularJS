@@ -50,7 +50,7 @@ onPageLoaded()
     {
         this.todoProvider.getTodos(this.params.user.id, this.pager);
         this.todos = this.todoProvider.todos$[this.cachename];
-        if (!this.cachelen)
+        //if (!this.cachelen)
         {
             var timer = setTimeout(() => {
                 this.busy = true;

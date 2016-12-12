@@ -25,7 +25,6 @@ export class TodoProvider {
 
     getTodos(user_id, pager) {
         let url = addp("todos", "assigned_id", user_id);
-        url += "&all_item_types=true&is_completed=false&is_sub_view=true";
         pager.limit = pager.limit || 25;
         pager.page = pager.page || 0;
         this._dataStore[url] = this._dataStore[url] || [];
@@ -47,7 +46,7 @@ export class TodoProvider {
             }
 
         }
-        this.apiData.getPaged(url, pager).subscribe(data => {
+        this.apiData.getPaged(url + "&all_item_types=true&is_completed=false&is_sub_view=true", pager).subscribe(data => {
             if (pager.page > 0  && cachelen > 0)
                 this._dataStore[url].push(...data);
             else
