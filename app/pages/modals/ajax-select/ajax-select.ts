@@ -1,5 +1,6 @@
 import {Nav, NavParams, Page, Config, ViewController, Modal} from 'ionic-angular';
 import {ApiData} from '../../../providers/api-data';
+import {isSD} from '../../../providers/config';
 import {AddUserModal} from '../modals';
 import {getFullName, addp} from '../../../directives/helpers';
 import {Control} from '@angular/common';
@@ -118,7 +119,7 @@ export class AjaxSelectModal {
     getItems(term, timer) {
         this.items = [];
         //console.log(this.name);
-        if (~["location", "account"].indexOf(this.name.toLowerCase()))
+        if (isSD && ~["location", "account"].indexOf(this.name.toLowerCase()))
         {
             term = term+"*";
         }
