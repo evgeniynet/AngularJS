@@ -11,16 +11,13 @@
             <button fab class="right buttonInvoice email-invoice position-initial margin-right10">{{undone}}</button></div>
                         <block [hidden]="hidden">
          <template ngFor let-todo [ngForOf]="todos | async" let-even="even" let-odd="odd">
-         <div (click)="todo.hidden = !todo.hidden"> 
+         <div (click)="todo.hidden = !todo.sub?.length || !todo.hidden"> 
                 <ion-icon [style.visibility]="!todo.sub?.length ?'hidden':'inherit'" role="img" [ngClass]="{'ion-ios-arrow-down font18 margin-top3':!todo.hidden, 'button-arrow ion-ios-arrow-forward left':todo.hidden}" class="todos-arrow padding-left15"></ion-icon><h5>{{todo.name}}</h5><ion-icon name="md-create" role="img" class="ion-md-create padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon>
          </div>
 
          <template [ngIf]="!todo?.hidden">
          <template ngFor let-subtodo [ngForOf]="todo?.sub" let-last="last" let-even="seven" let-odd="sodd">
-         <!--div class="border-todos">
-             <ion-icon class="font18 ios-radio-button-on todos-padding margin-top3 grey2" name="radio-button-on"></ion-icon><h5>{{subtodo.name}}</h5><ion-icon name="md-create" role="img" class="ion-md-create padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon>
-         </div-->
-         <div (click)="subtodo.is_completed = !subtodo.is_completed">
+         <div (click)="subtodo.is_completed = !subtodo.is_completed;setDone(subtodo)">
             <ion-icon [ngClass]="{'ion-ios-checkmark-circle secondary' : subtodo.is_completed, 'ion-ios-radio-button-on grey2' : !subtodo.is_completed}" class="font18 todos-padding margin-top3"></ion-icon><h5 [ngClass]="{'decoration_line grey3_color' : subtodo.is_completed, '' : !subtodo.is_completed}">{{subtodo.name}} <i *ngIf="subtodo.text">{{" - " + subtodo.text}}</i></h5><ion-icon name="md-create" role="img" class="ion-md-create padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon></div>
             <div>
                 <h6></h6> 
@@ -34,12 +31,5 @@
              <hr style="background-color: white; width: 100%;" />
             </template>
             </block>
-
-                <!--div class="border-todos">
-                 <ion-icon class="font18 ios-radio-button-on todos-padding padding-left15 margin-top3 grey2" name="radio-button-on"></ion-icon><h5>Task</h5><ion-icon name="md-create" role="img" class="ion-md-create padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon>
-             </div>
-             <div class="border-todos">
-                 <ion-icon aria-label="arrow forward" class="button-arrow ion-ios-arrow-forward left todos-arrow padding-left15" role="img"></ion-icon><h5>Task</h5><ion-icon name="md-create" role="img" class="ion-md-create padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon>
-             </div-->
          </div>
      </ion-content>

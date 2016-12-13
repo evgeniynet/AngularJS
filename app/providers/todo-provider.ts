@@ -8,6 +8,7 @@ import {ApiData} from './api-data';
 import {addp} from '../directives/helpers';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/share';
+import "rxjs/add/operator/publishLast";
 import {MOCKS} from './mocks';
 
 @Injectable()
@@ -57,8 +58,27 @@ export class TodoProvider {
         return cachelen;
     }
 
-        addTodo(id, data, method) {
-            let url = "todos" + (!id ? "" : ("/" + id));
-            return this.apiData.get(url, data, method);
+        addTodo(id, data) {
+            let url = "todos/" + id;
+            data = {
+                task_id:null,
+                title:"1",
+                text:"2",
+                assigned_id:1325,
+                estimated_remain:null,
+                due_date:null,
+                notify:false,
+                list_id:"d71f45cd260b4ae48761fa20e92af85d",
+                ticket_key:null,
+                project_id:0
+            };
+            return this.apiData.get(url, data, "POST");
+        }
+
+        setCompletedTodo(id, is_done) {
+            let url = "todos/" + id;
+            var stream = this.apiData.get(url, {is_completed : is_done}, "PUT").publishLast();
+            stream.connect();
+            return( stream );
         }
     }

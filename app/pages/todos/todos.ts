@@ -68,6 +68,11 @@ onPageLoaded()
         }
     }
 
+    setDone(todo){
+    	this.undone = Math.max(todo.is_completed ? --this.undone : ++this.undone, 0);
+    	this.todoProvider.setCompletedTodo(todo.id, todo.is_completed);
+    }
+
     setDate(date, showmonth?, istime?) {
         return date ? getDateTime(date, showmonth, istime) : null;
     }
