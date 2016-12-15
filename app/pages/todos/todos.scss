@@ -1,6 +1,17 @@
+.pr8
+{
+margin-right: 18px;
+}
+
 .todos{
     line-height: 2.4;
     font-size: 1.9rem;
+
+    .button-inner {
+    color: black;
+    overflow: visible !important;
+    }
+
 div{
 display: flex;}
     
@@ -55,7 +66,6 @@ overflow: hidden;
 
 .todos-arrow{
     line-height: 40px !important;
-    margin-right: 10px;
 }
 
 .padding-left15{
