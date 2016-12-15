@@ -57,6 +57,9 @@ export class TimelogsPage {
             var timer = setTimeout(() => {
                 this.busy = true;
             }, 500);
+            setTimeout(() => {
+                this.busy = false;
+            }, 3000);
             this.timelogs.subscribe(
                 data => {
                     clearTimeout(timer);

@@ -326,6 +326,7 @@ import {ApiSite} from '../../providers/config';
    techname: string;
    username: string;
    selects: any;
+   select_button: any;
    ticketnote: string;
    attachments: any;
    is_editnote: boolean = true;
@@ -377,6 +378,15 @@ import {ApiSite} from '../../providers/config';
      let account_id = data.account_id || -1;
      this.username = getFullName(data.user_firstname, data.user_lastname, data.user_email);
      this.techname = getFullName(data.technician_firstname || data.tech_firstname, data.technician_lastname || data.tech_lastname, data.technician_email || data.tech_email);
+     this.select_button = {
+         "tech": {
+         name: "Tech",
+         value: "Transfer "+this.config.current.names.ticket.s,
+         selected: data.tech_id,
+         url: "technicians",
+         hidden: false
+       },
+     };
      this.selects = {
        "user" : {
          name: "User", 
@@ -395,13 +405,6 @@ import {ApiSite} from '../../providers/config';
        "tech": {
          name: "Tech",
          value: this.techname,
-         selected: data.tech_id,
-         url: "technicians",
-         hidden: false
-       },
-       "technician": {
-         name: "Technician",
-         value: "Transfer "+this.config.current.names.ticket.s,
          selected: data.tech_id,
          url: "technicians",
          hidden: false
@@ -631,8 +634,8 @@ import {ApiSite} from '../../providers/config';
      if (!event)
        return;
      let techid = event.id;
-     this.selects.technician.selected = techid;
-     this.selects.technician.value = "Transfer Ticket";
+     this.select_button.tech.selected = techid;
+     this.select_button.tech.value = "Transfer " + this.config.current.names.ticket.s;
 
      let data = {
        "tech_id": techid

@@ -104,7 +104,7 @@ var platform_string = helpers.getParameterByName('ionicPlatform');
 if (key) {
       config.clearCurrent(key);
       localStorage.setItem("isGoogle", "true");
-      localStorage.setItem('username', email.replace("#", ""));
+      localStorage.setItem('username', (email || "").replace("#", ""));
       config.saveCurrent();
       this.rootPage = pages.OrganizationsPage;
       helpers.cleanQuerystring('ionicPlatform', platform_string);

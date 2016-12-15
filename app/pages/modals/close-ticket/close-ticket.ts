@@ -53,6 +53,9 @@ export class CloseTicketModal {
             }
         };
 
+        if (!this.config.current.is_resolution_tracking)
+            return;
+
         this.apiData.get("resolution_categories").subscribe(
             data => {
                 this.categories = data;

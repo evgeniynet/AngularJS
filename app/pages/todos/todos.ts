@@ -56,6 +56,9 @@ onPageLoaded()
             var timer = setTimeout(() => {
                 this.busy = true;
             }, 500);
+            setTimeout(() => {
+                this.busy = false;
+            }, 3000);
             this.todos.subscribe(
                 data => {
                     clearTimeout(timer);
