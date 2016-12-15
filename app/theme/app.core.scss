@@ -19,7 +19,7 @@
 @import "../pages/modals/ticket-create/ticket-create";
 @import "../pages/ajax-search/ajax-search";
 @import "../pages/expenses/expenses";
-//@import "../pages/todos/todos";
+@import "../pages/todos/todos";
 @import "../components/tree-view/tree-view";
 @import "../components/posts-list/posts-list";
 @import "../components/tickets-list/tickets-list";
@@ -258,6 +258,10 @@ margin-right: 10px;
 
 .padding-left8{
     padding-left: 8px !important;
+}
+
+.padding-left15{
+    padding-left: 15px;
 }
 
 .padding-top6{

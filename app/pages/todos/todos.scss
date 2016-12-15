@@ -1,0 +1,76 @@
+.todos{
+    line-height: 2.4;
+    font-size: 1.9rem;
+div{
+display: flex;}
+    
+    h5{
+     flex: 1;
+     width: 70px;
+     white-space: initial !important;
+     overflow: hidden;
+//   line-height: 20px !important;
+     text-overflow: ellipsis;
+     color: #dadada;
+     margin: 0px !important;
+    }
+    
+h6:first-child{
+    width: 82px;
+    }
+    
+    h6{
+    white-space: nowrap;
+    overflow: hidden;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-align: right;    
+    margin: 0px;
+    margin-right: 10px;
+    
+}
+ 
+    
+span:first-child{
+white-space: nowrap;
+overflow: hidden;
+//    flex: 1;
+}
+span{
+white-space: nowrap;
+overflow: hidden;
+    flex: 1;
+} 
+    
+    hr{
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-right: 0px;
+    background-color: white;
+    }
+}
+   .colorblue6{
+    color: $blue6;
+}
+
+.todos-arrow{
+    line-height: 40px !important;
+    margin-right: 10px;
+}
+
+.padding-left15{
+padding-left: 15px !important;
+}
+
+.font18{
+font-size: 1.8em;
+}
+
+.todos-padding{
+    padding-right: 15px;
+    padding-left: 42px;
+}
+
+.border-todos{
+border-bottom: 1px solid #dadada;
+}
