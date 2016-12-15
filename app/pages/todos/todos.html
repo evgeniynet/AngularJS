@@ -19,7 +19,7 @@
          <template [ngIf]="!todo?.hidden">
          <template ngFor let-subtodo [ngForOf]="todo?.sub" let-last="last" let-even="seven" let-odd="sodd">
          <div (click)="subtodo.is_completed = !subtodo.is_completed;setDone(subtodo)">
-            <ion-icon [ngClass]="{'ion-ios-checkmark-circle secondary' : subtodo.is_completed, 'ion-ios-radio-button-on grey2' : !subtodo.is_completed}" class="font18 todos-padding margin-top3"></ion-icon><h5 [ngClass]="{'decoration_line grey3_color' : subtodo.is_completed, '' : !subtodo.is_completed}">{{subtodo.name}} <i *ngIf="subtodo.text">{{" - " + subtodo.text}}</i></h5><ion-icon name="md-create" role="img" class="ion-md-create padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon></div>
+            <ion-icon [ngClass]="{'ion-ios-checkmark-circle secondary' : subtodo.is_completed, 'ion-ios-radio-button-on grey2' : !subtodo.is_completed}" class="font18 todos-padding margin-top3"></ion-icon><h5 [ngClass]="{'decoration_line grey3_color' : subtodo.is_completed, '' : !subtodo.is_completed}">{{subtodo.title}} <i *ngIf="subtodo.text">{{" - " + subtodo.text}}</i></h5><ion-icon name="md-create" role="img" class="ion-md-create padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon></div>
             <div class="right">
              <h6></h6> 
                 <h6 *ngIf="subtodo.assigned_name">{{subtodo.assigned_name}}</h6> 
