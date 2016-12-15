@@ -23,12 +23,18 @@ export class DashboardPage {
     test: boolean;
     simple: boolean = false;
     timer: any;
+    downloadTimer: any;
 
     constructor(private nav: Nav, private config: Config, private dataProvider: DataProvider, private ticketProvider: TicketProvider, private timeProvider: TimeProvider) {
         let counts = config.getStat("tickets");
+        if (counts == -1){
+            this.downloadTimer = setInterval(()=>{ this.counts.open_as_tech = ++this.counts.open_as_tech;},300);
+        }
+        else {
         if (config.current.user.is_limit_assigned_tkts && !config.current.user.is_admin)
                     counts.open_all = Math.max(counts.open_as_user, counts.open_as_tech); 
         this.counts = counts; 
+    }
     }
     
     onPageLoaded()
@@ -40,7 +46,7 @@ export class DashboardPage {
 
                 if (this.config.current.user.is_limit_assigned_tkts && !this.config.current.user.is_admin)
                     data.open_all = Math.max(data.open_as_user, data.open_as_tech);    
-
+                clearInterval(this.downloadTimer);
                 this.counts = data;
                 this.config.setStat("tickets",
                 {
@@ -52,6 +58,7 @@ export class DashboardPage {
                 setTimeout(() => {this.saveCache()}, 1500);
             },
             error => {
+                clearInterval(this.downloadTimer);
                 console.log(error || 'Server error');
             }
             );
