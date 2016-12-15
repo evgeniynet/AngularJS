@@ -6,13 +6,13 @@
 
     <div class="todos list general-alignment">
         <img *ngIf="busy" class="imglogo img-padding" src="img/loading2.gif"/>
-        <div class="blue4" (click)="hidden = !hidden">
-            <span><ion-icon [ngClass]="{'ion-ios-arrow-down font18 margin-top3':!hidden, 'button-arrow ion-ios-arrow-forward left':hidden}" class="button-arrow left todos-arrow" role="img"></ion-icon>ToDo's</span>
-            <button fab class="right buttonInvoice email-invoice position-initial margin-right10">3</button></div>
+        <div class="blue4 alignment-bottom" (click)="hidden = !hidden">
+            <span><ion-icon [ngClass]="{'ion-ios-arrow-down font18 margin-top3':!hidden, 'button-arrow ion-ios-arrow-forward left':hidden}" class="left todos-arrow padding-left15 margin-right_10" role="img"></ion-icon>ToDo's</span>
+            <button fab class="right buttonInvoice email-invoice position-initial margin-right10 general-alignment2"><span class="colorblue6">3</span></button></div>
                         <block [hidden]="hidden">
          <template ngFor let-todo [ngForOf]="todos | async" let-even="even" let-odd="odd">
          <div (click)="todo.hidden = !todo.hidden"> 
-                <ion-icon *ngIf="todo.sub?.length" role="img" [ngClass]="{'ion-ios-arrow-down font18 margin-top3':!todo.hidden, 'button-arrow ion-ios-arrow-forward left':todo.hidden}" class="todos-arrow padding-left15"></ion-icon><h5>{{todo.name}}</h5><ion-icon name="md-create" role="img" class="ion-md-create padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon>
+                <ion-icon *ngIf="todo.sub?.length" role="img" [ngClass]="{'ion-ios-arrow-down font18':!todo.hidden, 'button-arrow ion-ios-arrow-forward left':todo.hidden}" class="todos-arrow padding-left15"></ion-icon><h5>{{todo.name}}</h5><ion-icon name="md-create" role="img" class="ion-md-create padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon>
          </div>
 
          <template [ngIf]="!todo?.hidden">
@@ -21,17 +21,18 @@
              <ion-icon class="font18 ios-radio-button-on todos-padding margin-top3 grey2" name="radio-button-on"></ion-icon><h5>{{subtodo.name}}</h5><ion-icon name="md-create" role="img" class="ion-md-create padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon>
          </div-->
          <div (click)="subtodo.is_completed = !subtodo.is_completed">
-            <ion-icon [ngClass]="{'ion-ios-checkmark-circle secondary' : subtodo.is_completed, 'ion-ios-radio-button-on grey2' : !subtodo.is_completed}" class="font18 todos-padding margin-top3"></ion-icon><h5 [ngClass]="{'decoration_line grey3_color' : subtodo.is_completed, '' : !subtodo.is_completed}">{{subtodo.name}} <i *ngIf="subtodo.text">{{" - " + subtodo.text}}</i></h5><ion-icon name="md-create" role="img" class="ion-md-create padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon></div>
-            <div>
-                <h6></h6> 
+            <ion-icon [ngClass]="{'ion-ios-checkmark-circle secondary' : subtodo.is_completed, 'ion-ios-radio-button-on grey2' : !subtodo.is_completed}" class="font18 todos-padding class_name"></ion-icon>
+             <h5 [ngClass]="{'decoration_line grey3_color' : subtodo.is_completed, '' : !subtodo.is_completed}">{{subtodo.name}} <i *ngIf="subtodo.text">{{" - " + subtodo.text}}</i></h5><ion-icon name="md-create" role="img" class="ion-md-create padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon></div>
+            <div class="right">
+<!--                <h6></h6> -->
                 <h6 *ngIf="subtodo.assigned_name">{{subtodo.assigned_name}}</h6> 
                 <h6 *ngIf="subtodo.due_date">Due&nbsp;{{setDate(subtodo.due_date)}}</h6>
                 <h6 *ngIf="subtodo.estimated_remain">{{getFixed(subtodo.estimated_remain)}}&nbsp;hrs</h6>
             </div>
-             <hr *ngIf="!last" style="background-color: white; width: 80%;" />
+             <hr *ngIf="!last" class="width90"/>
             </template>
             </template>
-             <hr style="background-color: white; width: 100%;" />
+             <hr class="width100"/>
             </template>
             </block>
 
