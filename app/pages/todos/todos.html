@@ -6,13 +6,13 @@
 
     <div class="todos list general-alignment">
         <img *ngIf="busy" class="imglogo img-padding" src="img/loading2.gif"/>
-        <div class="blue4" (click)="hidden = !hidden">
-            <span><ion-icon [ngClass]="{'ion-ios-arrow-down font18 margin-top3':!hidden, 'button-arrow ion-ios-arrow-forward left':hidden}" class="button-arrow left todos-arrow" role="img"></ion-icon>ToDo's</span>
-            <button fab class="right buttonInvoice email-invoice position-initial margin-right10">{{undone}}</button></div>
+        <div class="blue4 alignment-bottom" (click)="hidden = !hidden">
+            <span><ion-icon [ngClass]="{'ion-ios-arrow-down font18 margin-top3':!hidden, 'button-arrow ion-ios-arrow-forward left':hidden}" class="left todos-arrow padding-left15 margin-right_10" role="img"></ion-icon>ToDo's</span>
+            <button fab class="right buttonInvoice email-invoice position-initial margin-right10 general-alignment2">{{undone}}</button></div>
                         <block [hidden]="hidden">
          <template ngFor let-todo [ngForOf]="todos | async" let-even="even" let-odd="odd">
          <div (click)="todo.hidden = !todo.sub?.length || !todo.hidden"> 
-                <ion-icon [style.visibility]="!todo.sub?.length ?'hidden':'inherit'" role="img" [ngClass]="{'ion-ios-arrow-down font18 margin-top3':!todo.hidden, 'button-arrow ion-ios-arrow-forward left':todo.hidden}" class="todos-arrow padding-left15"></ion-icon><h5>{{todo.name}}</h5><ion-icon name="md-create" role="img" class="ion-md-create padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon>
+                <ion-icon [style.visibility]="!todo.sub?.length ?'hidden':'inherit'" role="img" [ngClass]="{'ion-ios-arrow-down font18':!todo.hidden, 'button-arrow ion-ios-arrow-forward left':todo.hidden}" class="todos-arrow padding-left15"></ion-icon><h5>{{todo.name}}</h5><ion-icon name="md-create" role="img" class="ion-md-create padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon>
          </div>
 
          <template [ngIf]="!todo?.hidden">
