@@ -25,9 +25,15 @@ display: flex;}
      color: #dadada;
      margin: 0px !important;
     }
+   
     
+ .todos-flex{
+    display: flex;
+     width: 90%;
+     
 h6:nth-child(2){
     width: 90px;
+     flex: 1;
     }
     
     h6{
@@ -39,7 +45,7 @@ h6:nth-child(2){
     margin: 0px;
     margin-right: 10px;
     
-}
+}}
  
     
 span:first-child{
@@ -83,4 +89,8 @@ font-size: 1.8em;
 
 .border-todos{
 border-bottom: 1px solid #dadada;
+}
+
+.width_calc100-40{
+width: calc(100% - 40px) !important;
 }
