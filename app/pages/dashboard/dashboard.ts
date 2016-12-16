@@ -118,7 +118,7 @@ export class DashboardPage {
             if (!this.ticketProvider._dataStore.user.length) {
                 this.ticketProvider.getTicketsList("user", "", { "limit": 6 });
             }
-            if (!(this.timeProvider._dataStore["time"] || {}).length)
+            if (this.config.current.is_time_tracking && !(this.timeProvider._dataStore["time"] || {}).length)
                 this.timeProvider.getTimelogs("", { "limit": 25 });
         }, 2500);
     }
