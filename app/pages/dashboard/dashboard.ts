@@ -28,7 +28,7 @@ export class DashboardPage {
     constructor(private nav: Nav, private config: Config, private dataProvider: DataProvider, private ticketProvider: TicketProvider, private timeProvider: TimeProvider) {
         let counts = config.getStat("tickets");
         if (counts == -1){
-            this.downloadTimer = setInterval(()=>{ this.counts.open_as_tech = ++this.counts.open_as_tech;},300);
+            this.downloadTimer = setInterval(()=>{ this.counts.open_as_tech = ++this.counts.open_as_tech;},800);
         }
         else {
         if (config.current.user.is_limit_assigned_tkts && !config.current.user.is_admin)
