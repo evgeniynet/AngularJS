@@ -4,6 +4,7 @@ import {TicketCreatePage} from '../../pages/modals/modals';
 import {TimelogPage} from '../../pages/timelog/timelog';
 import {TicketDetailsPage} from '../../pages/ticket-details/ticket-details';
 import {ExpenseCreatePage} from '../../pages/expense-create/expense-create';
+import {TodoCreatePage} from '../../pages/todo-create/todo-create';
 import {UnInvoicesPage} from '../../pages/uninvoices/uninvoices';
 
 @Component({
@@ -74,11 +75,22 @@ export class ActionButtonComponent {
                         return false;
                     }
                 });
+            if (this.config.current.is_todos)
+                but.push(
+                {
+                    icon: 'ios-list-box-outline',
+                    text: 'Add Todo',
+                    role: '',
+                    handler: () => {
+                        this.actionSheet.dismiss().then(() => this.nav.push(TodoCreatePage));
+                        return false;
+                    }
+                });
         }
 
         if (this.config.current.is_expenses)
             but.push({
-                icon: 'ios-list-box-outline',
+                icon: 'md-list-box',
                 text: 'Add Expense',
                 role: '',
                 handler: () => {

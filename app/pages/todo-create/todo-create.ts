@@ -9,7 +9,7 @@ import {SelectListComponent} from '../../components/select-list/select-list';
     templateUrl: 'build/pages/expense-create/expense-create.html',
     directives: [forwardRef(() => ClassListComponent), forwardRef(() => SelectListComponent)],
 })
-export class ExpenseCreatePage {
+export class TodoCreatePage {
 
     expense: any;
     isbillable: boolean;
