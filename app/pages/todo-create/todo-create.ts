@@ -6,7 +6,7 @@ import {ClassListComponent} from '../../components/class-list/class-list';
 import {SelectListComponent} from '../../components/select-list/select-list';
 
 @Page({
-    templateUrl: 'build/pages/expense-create/expense-create.html',
+    templateUrl: 'build/pages/todo-create/todo-create.html',
     directives: [forwardRef(() => ClassListComponent), forwardRef(() => SelectListComponent)],
 })
 export class TodoCreatePage {
@@ -31,9 +31,9 @@ export class TodoCreatePage {
             this.expense.note_internal = linebreaks(this.expense.note_internal, true);
         }
         else if (this.expense.number)
-            this.title = `Add Expense to\u00a0#${this.expense.number} ${this.expense.subject}`;
+            this.title = `Add ToDo's to\u00a0#${this.expense.number} ${this.expense.subject}`;
         else
-            this.title = "Create Expense";
+            this.title = "Create ToDo's";
 
         this.expense.amount = this.getFixed(this.expense.amount);
 
