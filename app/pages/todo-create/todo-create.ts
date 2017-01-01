@@ -9,7 +9,7 @@ export class TodoCreatePage {
 
     todo: any;
     he: any;
-    
+
     constructor(private nav: Nav, private navParams: NavParams, private todoProvider: TodoProvider, private config: Config, private view: ViewController) {
     this.he = config.current.user;
     }
@@ -17,7 +17,7 @@ export class TodoCreatePage {
     ngOnInit()
     {
         this.todo = this.navParams.data || {};
-    }
+        }
 
     onSubmit(form) {
         if (form.valid) {
