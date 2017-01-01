@@ -1,13 +1,10 @@
-import {Page, Config, Nav, NavParams, ViewController} from 'ionic-angular';
+import {Page, Config, Nav, NavParams, Modal} from 'ionic-angular';
 import {TodoProvider} from '../../providers/todo-provider';
-import {addp} from '../../directives/helpers';
-//import {TimelogPage} from '../timelog/timelog';
-import {ActionButtonComponent} from '../../components/action-button/action-button';
-import {getDateTime} from '../../directives/helpers';
+import {TodoCreatePage} from '../todo-create/todo-create';
+import {addp, getDateTime} from '../../directives/helpers';
 
 @Page({
     templateUrl: 'build/pages/todos/todos.html',
-    directives: [ActionButtonComponent],
     //directives: [TicketsListComponent, Focuser],
 })
 export class TodosPage {
@@ -19,12 +16,12 @@ export class TodosPage {
     cachelen: number;
     undone: number = 0;
     cachename: string;
-    todos: any;
+    todoLists: any;
     busy: boolean;
     hidden: boolean;
     initial_load: boolean = true;
     
-    constructor(private nav: Nav, private todoProvider: TodoProvider, private config: Config, private navParams: NavParams, private view: ViewController) {
+    constructor(private nav: Nav, private todoProvider: TodoProvider, private config: Config, private navParams: NavParams) {
         this.pager = { page: 0, limit: this.LIMIT };
     }
 
@@ -50,7 +47,7 @@ onPageLoaded()
     getTodos()
     {
         this.todoProvider.getTodos(this.params.user.id, this.pager);
-        this.todos = this.todoProvider.todos$[this.cachename];
+        this.todoLists = this.todoProvider.todoLists$[this.cachename];
         //if (!this.cachelen)
         {
             var timer = setTimeout(() => {
@@ -59,7 +56,7 @@ onPageLoaded()
             setTimeout(() => {
                 this.busy = false;
             }, 3000);
-            this.todos.subscribe(
+            this.todoLists.subscribe(
                 data => {
                     clearTimeout(timer);
                     this.busy = false;
@@ -69,6 +66,15 @@ onPageLoaded()
                     this.undone = count;
                 });
         }
+    }
+
+    AddTodo(list_id?)
+    {
+        //time = time || {};
+        //time.account = time.account || this.params.account;
+        //time.cachename = this.cachename;
+        let myModal = Modal.create(TodoCreatePage, {"list_id" : list_id || "" });
+        this.nav.present(myModal);
     }
 
     setDone(todo){
@@ -86,6 +92,4 @@ onPageLoaded()
         	return Number(value).toFixed(2).toString();
         return value;
     }
-
-
 }

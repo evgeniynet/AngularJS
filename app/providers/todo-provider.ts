@@ -57,21 +57,9 @@ export class TodoProvider {
         }, error => console.log('Could not load todologs.'));
         return cachelen;
     }
-
-        addTodo(id, data) {
-            let url = "todos/" + id;
-            data = {
-                task_id:null,
-                title:"1",
-                text:"2",
-                assigned_id:1325,
-                estimated_remain:null,
-                due_date:null,
-                notify:false,
-                list_id:"d71f45cd260b4ae48761fa20e92af85d",
-                ticket_key:null,
-                project_id:0
-            };
+ 
+        addTodo(data) {
+            let url = "todos";
             return this.apiData.get(url, data, "POST");
         }
 
