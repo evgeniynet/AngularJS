@@ -5,7 +5,6 @@ import {Headers, Http} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {Observer} from 'rxjs/Observer';
 import {ApiData} from './api-data';
-import {addp} from '../directives/helpers';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/share';
 import {MOCKS} from './mocks';
@@ -13,6 +12,7 @@ import {MOCKS} from './mocks';
 @Injectable()
 export class TicketProvider {
 
+    URL: string = "tickets";
     tickets$: Object; //Array<Observable<Object[]>>;
     private _ticketsObserver: Object; //Array<Observer<Object[]>>;
     _dataStore: any;
@@ -33,26 +33,26 @@ export class TicketProvider {
         let url = "";
         switch (tab.toString()) {
             case "tech":
-            url = "tickets?status=open&role=tech";
+            url = `${this.URL}?status=open&role=tech`;
             break;
             case "all":
-            url = "tickets?status=allopen&query=all";
+            url = `${this.URL}?status=allopen&query=all`;
             break;
             case "alt":
-            url = "tickets?status=open&role=alt_tech";
+            url = `${this.URL}?status=open&role=alt_tech`;
             break;
             case "open":
-            url = "tickets?status=open&account=" + id;
+            url = `${this.URL}?status=open&account=${id}`;
             break;
             case "closed":
-            url = "tickets?status=closed&account=" + id;
+            url = `${this.URL}?status=closed&account=${id}`;
             break;
             case 'queue':
-            url = "queues/" + id;
+            url = `queues/${id}`;
             break;
             default:
                 //case "user":
-                url = "tickets?status=open,onhold&role=user";
+                url = `${this.URL}?status=open,onhold&role=user`;
                 break;
             }
             pager.limit = pager.limit || 25;
@@ -93,12 +93,12 @@ export class TicketProvider {
 
 
         getTicketDetails(key) {
-            let url = `tickets/${key}`;
+            let url = `${this.URL}/${key}`;
             return this.apiData.get(url);
         }
 
         getTicketsCounts() {
-            let url = "tickets/counts";
+            let url = `${this.URL}/counts`;
             if (!this._dataStore[url]) {
                 this._dataStore[url] = [];
                 this.tickets$[url] = new Observable(observer => { this._ticketsObserver[url] = observer; }).share();
@@ -117,18 +117,17 @@ export class TicketProvider {
         }
 
         addTicket(data) {
-            let url = "tickets";
             data.status =  "open";
-            return this.apiData.get(url, data, "POST");
+            return this.apiData.get(this.URL, data, "POST");
         }
 
         closeOpenTicket(id, data) {
-            let url = `tickets/${id}`;
+            let url = `${this.URL}/${id}`;
             return this.apiData.get(url, data, "PUT");
         }
 
         addTicketPost(id, note, files?) {
-            let url = `tickets/${id}`;
+            let url = `${this.URL}/${id}`;
             let data = {
                 "action": "response",
                 "note_text": note,
@@ -138,7 +137,7 @@ export class TicketProvider {
         }
 
         addTicketNote(id, note) {
-            let url = `tickets/${id}`;
+            let url = `${this.URL}/${id}`;
             let data = {
                 "action": "note",
                 "workpad": note,

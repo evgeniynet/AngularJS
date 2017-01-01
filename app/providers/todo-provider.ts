@@ -14,6 +14,7 @@ import {MOCKS} from './mocks';
 @Injectable()
 export class TodoProvider {
 
+    URL: string = "todos";
     todos$: Object; //Array<Observable<Object[]>>;
     private _todosObserver: Object; //Array<Observer<Object[]>>;
     _dataStore: any;
@@ -25,7 +26,7 @@ export class TodoProvider {
      }
 
     getTodos(user_id, pager) {
-        let url = addp("todos", "assigned_id", user_id);
+        let url = addp(this.URL, "assigned_id", user_id);
         pager.limit = pager.limit || 25;
         pager.page = pager.page || 0;
         this._dataStore[url] = this._dataStore[url] || [];
@@ -59,12 +60,11 @@ export class TodoProvider {
     }
  
         addTodo(data) {
-            let url = "todos";
-            return this.apiData.get(url, data, "POST");
+            return this.apiData.get(this.URL, data, "POST");
         }
 
         setCompletedTodo(id, is_done) {
-            let url = "todos/" + id;
+            let url = `${this.URL}/${id}`;
             var stream = this.apiData.get(url, {is_completed : is_done}, "PUT").publishLast();
             stream.connect();
             return( stream );

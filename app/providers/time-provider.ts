@@ -13,6 +13,7 @@ import {MOCKS} from './mocks';
 @Injectable()
 export class TimeProvider {
 
+    URL: string = "time";
     times$: Object; //Array<Observable<Object[]>>;
     private _timesObserver: Object; //Array<Observer<Object[]>>;
     _dataStore: any;
@@ -24,7 +25,7 @@ export class TimeProvider {
      }
 
     getTimelogs(account_id, pager) {
-        let url = addp("time", "account", account_id);
+        let url = addp(this.URL, "account", account_id);
         pager.limit = pager.limit || 25;
         pager.page = pager.page || 0;
         this._dataStore[url] = this._dataStore[url] || [];
@@ -58,7 +59,7 @@ export class TimeProvider {
     }
 
         addTime(id, data, method) {
-            let url = "time" + (!id ? "" : ("/" + id));
+            let url = this.URL + (!id ? "" : ("/" + id));
             return this.apiData.get(url, data, method);
         }
     }
