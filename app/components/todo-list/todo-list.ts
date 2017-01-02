@@ -10,7 +10,7 @@ import {addp, getDateTime} from '../../directives/helpers';
     directives: [IONIC_DIRECTIVES],
 })
 
-export class AccountsListComponent {
+export class TodoListComponent {
     @Input() simple: boolean;
     LIMIT: number = 5000;
     is_empty: boolean = false;
@@ -31,6 +31,7 @@ export class AccountsListComponent {
 
     ngOnInit()
     {
+        this.hidden = this.simple;
         this.params = this.navParams.data || {};
         //this.pager = { page: 0 };
         this.params.user = { id: this.params.user_id || this.config.current.user.user_id, name: this.params.user_name || "" };
@@ -51,7 +52,7 @@ export class AccountsListComponent {
     getTodos()
     {
         this.todoProvider.getTodos(this.params.user.id, this.pager);
-        this.todoLists = this.todoProvider.todoLists$[this.cachename];
+        this.todoLists = this.todoProvider.todos$[this.cachename];
         //if (!this.cachelen)
         {
             var timer = setTimeout(() => {
@@ -63,6 +64,7 @@ export class AccountsListComponent {
             this.todoLists.subscribe(
                 data => {
                     clearTimeout(timer);
+                    //this.todoLists = this.todoProvider.todos$[this.cachename];
                     this.busy = false;
                     this.is_empty = !data.length;
                     let count = 0;

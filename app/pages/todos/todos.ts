@@ -5,7 +5,6 @@ import {addp, getDateTime} from '../../directives/helpers';
 
 @Page({
     templateUrl: 'build/pages/todos/todos.html',
-    //directives: [TicketsListComponent, Focuser],
 })
 export class TodosPage {
 
@@ -22,6 +21,7 @@ export class TodosPage {
     initial_load: boolean = true;
     
     constructor(private nav: Nav, private todoProvider: TodoProvider, private config: Config, private navParams: NavParams) {
+        this.is_empty = false;
         this.pager = { page: 0, limit: this.LIMIT };
     }
 

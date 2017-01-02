@@ -3,7 +3,7 @@ import {DataProvider} from '../../providers/data-provider';
 import {TicketProvider} from '../../providers/ticket-provider';
 import {TimeProvider} from '../../providers/time-provider';
 import {Focuser} from '../../directives/directives';
-import {QueuesListComponent, AccountsListComponent, ActionButtonComponent} from '../../components/components';
+import {QueuesListComponent, AccountsListComponent, ActionButtonComponent, TodoListComponent} from '../../components/components';
 import {TicketsPage} from '../tickets/tickets';
 import {AccountDetailsPage} from '../account-details/account-details';
 import {AjaxSearchPage} from '../ajax-search/ajax-search';
@@ -11,7 +11,7 @@ import {MorePipe} from '../../pipes/pipes';
 
 @Page({
     templateUrl: 'build/pages/dashboard/dashboard.html',
-    directives: [QueuesListComponent, AccountsListComponent, ActionButtonComponent, Focuser],
+    directives: [QueuesListComponent, AccountsListComponent, ActionButtonComponent, TodoListComponent, Focuser],
     pipes: [MorePipe],
 })
 export class DashboardPage {

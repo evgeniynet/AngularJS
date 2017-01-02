@@ -28,12 +28,12 @@
         <br>        
          </ion-list>
 <br>
+
+    
+    <todo-list margin-top *ngIf="config.current.is_todos" [simple]="true"></todo-list>
     
     <queues-list margin-top class="container_list" *ngIf="config.current.is_unassigned_queue" [queues]="queues"></queues-list>
-    
-    
         
-    
     
     <!--ion-list class="list" *ngIf="config.current.is_account_manager">
         <div *ngIf="accounts?.length" [class.hiddenviz]="simple" class="table">

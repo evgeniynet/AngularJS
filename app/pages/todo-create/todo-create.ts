@@ -70,6 +70,7 @@ export class TodoCreatePage {
             this.todoProvider.addTodo(data).subscribe(
                 data => {
                     this.nav.alert('Todo was successfully added :)');
+                    this.todoProvider.getTodos(this.he.user_id, { page: 0, limit: 5000 });
                     setTimeout(() => this.close(), 500);
                 },
                 error => {
