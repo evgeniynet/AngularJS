@@ -6,8 +6,8 @@
             <button fab class="right buttonInvoice email-invoice position-initial margin-right10 general-alignment2">{{undone}}</button></div>
                         <block [hidden]="hidden">
          <template ngFor let-todoList [ngForOf]="todoLists | async" let-even="even" let-odd="odd">
-         <div (click)="todoList.hidden = !todoList.sub?.length || !todoList.hidden"> 
-                <ion-icon [style.visibility]="!todoList.sub?.length ?'hidden':'inherit'" role="img" [ngClass]="{'ion-ios-arrow-down font18  margin-right10':!todoList.hidden, 'pr8 button-arrow ion-ios-arrow-forward left':todoList.hidden}" class="todos-arrow padding-left15"></ion-icon><h5>{{todoList.name}}</h5><ion-icon (click)="AddTodo(todoList.list_id)" name="md-add" role="img" class="ion-md-add padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon>
+         <div class="grad" (click)="todoList.hidden = !todoList.sub?.length || !todoList.hidden"> 
+                <ion-icon [style.visibility]="!todoList.sub?.length ?'hidden':'inherit'" role="img" [ngClass]="{'ion-ios-arrow-down font18  margin-right10':!todoList.hidden, 'pr8 button-arrow ion-ios-arrow-forward left':todoList.hidden}" class="todos-arrow padding-left15"></ion-icon><h5>{{todoList.name}}</h5><ion-icon (click)="AddTodo(todoList.list_id)" name="md-add" role="img" style="padding-right: 10px;" class="ion-md-add padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon>
          </div>
 
          <template [ngIf]="!todoList?.hidden">
