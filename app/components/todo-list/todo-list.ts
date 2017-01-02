@@ -1,4 +1,4 @@
-import {IONIC_DIRECTIVES, Nav, NavParams, Config} from 'ionic-angular';
+import {IONIC_DIRECTIVES, Nav, NavParams, Config, Modal} from 'ionic-angular';
 import {Component, Input, OnChanges} from '@angular/core';
 import {TodoProvider} from '../../providers/todo-provider';
 import {TodoCreatePage} from '../../pages/todo-create/todo-create';
