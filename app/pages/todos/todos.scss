@@ -25,6 +25,8 @@ display: flex;}
      text-overflow: ellipsis;
      color: #dadada;
      margin: 0px !important;
+        line-height: 25px;
+    margin-top: 10px !important;
     }
    
     
@@ -48,7 +50,6 @@ h6:nth-child(2){
     
 }}
  
-    
 span:first-child{
 white-space: nowrap;
 overflow: hidden;
