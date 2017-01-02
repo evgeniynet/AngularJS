@@ -25,7 +25,7 @@ export class TodosPage {
         this.pager = { page: 0, limit: this.LIMIT };
     }
 
-onPageLoaded()
+onPageWillEnter()
     {
         this.params = this.navParams.data || {};
         //this.pager = { page: 0 };
@@ -47,7 +47,7 @@ onPageLoaded()
     getTodos()
     {
         this.todoProvider.getTodos(this.params.user.id, this.pager);
-        this.todoLists = this.todoProvider.todoLists$[this.cachename];
+        this.todoLists = this.todoProvider.todos$[this.cachename];
         //if (!this.cachelen)
         {
             var timer = setTimeout(() => {
@@ -59,6 +59,7 @@ onPageLoaded()
             this.todoLists.subscribe(
                 data => {
                     clearTimeout(timer);
+                    this.todoLists = this.todoProvider.todos$[this.cachename];
                     this.busy = false;
                     this.is_empty = !data.length;
                     let count = 0;

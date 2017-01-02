@@ -4,7 +4,7 @@
 <span *ngIf="title?.length < 15" primary>Cancel</span>
             <ion-icon *ngIf="title?.length > 15" primary class="invoiceCircle" name="ios-arrow-back"></ion-icon>      
     </button>
-<ion-title class="ellipsis padding-right24">{{title}}</ion-title>
+<ion-title class="ellipsis padding-right24">Add ToDo</ion-title>
 </ion-toolbar>
 
 <ion-content class="expense-create">
@@ -12,11 +12,10 @@
 <form #addForm="ngForm">
     <ion-list class="list max-width700 general-alignment" no-lines >
    
-<div class="tooltips"> 
-    <div class="tooltips"><input class="width100 blue3 subject-create commentText margin-bottom3" placeholder="Title" ngControl="title"  required maxlength="100"/></div>
+
+    <div class="tooltips"><input [(ngModel)]="todo.title" class="width100 blue3 subject-create commentText margin-bottom3" placeholder="Title" ngControl="title"  required maxlength="100"/></div>
     <br>
-<textarea required [(ngModel)]="expense.note" ngControl="note" #note="ngForm" class="width100 textLogin commentText margin" type="text" placeholder="Note"  maxlength="4000"></textarea>
-<span [hidden]="note.valid || note.untouched">Note is required and less 4000 chars</span></div>
+<textarea [(ngModel)]="todo.note" ngControl="note" #note="ngForm" class="width100 textLogin commentText margin" type="text" placeholder="Note"  maxlength="4000"></textarea>
     <br>
 
        <div class="general-alignment2">
@@ -26,10 +25,10 @@
     <ion-datetime></ion-datetime>  
             </ion-item></div> 
         <br>
-<textarea [(ngModel)]="expense.note_internal" class="width100 textLogin commentText subject-create" type="text" placeholder="Est. Time hh:mm"></textarea>
+<textarea [(ngModel)]="todo.estimated_remain" class="width100 textLogin commentText subject-create" type="text" placeholder="Est. Time hh:mm"></textarea>
     <br>
                 <div>
-  <button (click)="onSubmit(addForm)" secondary block="" type="submit" [disabled]="!addForm.valid" class="disable-hover button button-default button-block">{{expense.expense_id ? 'Update' : 'Add'}} ToDo's</button>
+  <button (click)="onSubmit(addForm)" secondary block="" type="submit" [disabled]="!addForm.valid" class="disable-hover button button-default button-block">Add ToDo</button>
     </div>
     </ion-list>
 </form>

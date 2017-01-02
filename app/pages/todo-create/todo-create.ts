@@ -22,18 +22,18 @@ export class TodoCreatePage {
     onSubmit(form) {
         if (form.valid) {
             //proof double click
-            if (this.todo.in_progress && Date.now() - this.todo.in_progress < 1500) {return;}
+            if (this.todo.in_progress && Date.now() - this.todo.in_progress < 2500) {return;}
             this.todo.in_progress = Date.now();
             let data = {
                 task_id:null,
-                title:"1",
-                text:"2",
-                assigned_id:this.he.user_id,
-                estimated_remain:2,
-                due_date:null,
-                notify:false,
+                title: this.todo.title,
+                text: this.todo.note,
+                assigned_id: this.he.user_id,
+                estimated_remain: 0,
+                due_date: null,
+                notify: false,
                 list_id: this.todo.list_id,
-                ticket_key:null,
+                ticket_key: null,
                 project_id:0
             };
 
