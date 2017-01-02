@@ -22,7 +22,7 @@
         <ion-item no-lines class="start-end">Due Date</ion-item>
         <ion-item no-lines class="blue3 top0 bottom5">
   <ion-label class="start-end2">Due Date</ion-label>
-    <ion-datetime></ion-datetime>  
+    <ion-datetime [ngClass]="{'nocolor': !todo.due_date, 'text-color': todo.due_date}" #due_date [displayFormat]="displayFormat" [min]="setMinTime(todo.due_date)" (ngModelChange)="setStartDate($event)" [ngModel]="getStartDate(todo.due_date)"></ion-datetime> 
             </ion-item></div> 
         <br>
 <textarea [(ngModel)]="todo.estimated_remain" class="width100 textLogin commentText subject-create" type="text" placeholder="Est. Time hh:mm"></textarea>
