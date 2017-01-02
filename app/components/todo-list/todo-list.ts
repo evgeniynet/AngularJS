@@ -14,6 +14,7 @@ export class TodoListComponent {
     @Input() simple: boolean;
     LIMIT: number = 5000;
     is_empty: boolean = false;
+    is_empty_list: boolean = true;
     params: any;
     pager: any;
     cachelen: number;
@@ -32,6 +33,7 @@ export class TodoListComponent {
     ngOnInit()
     {
         this.hidden = this.simple;
+        this.is_empty_list = this.simple;
         this.params = this.navParams.data || {};
         //this.pager = { page: 0 };
         this.params.user = { id: this.params.user_id || this.config.current.user.user_id, name: this.params.user_name || "" };
@@ -67,9 +69,10 @@ export class TodoListComponent {
                     //this.todoLists = this.todoProvider.todos$[this.cachename];
                     this.busy = false;
                     this.is_empty = !data.length;
-                    let count = 0;
-                    for (let k in data) for (let l in data[k].sub) if (!data[k].sub[l].is_completed) count++;
+                    let count = 0, total = 0;
+                    for (let k in data) for (let l in data[k].sub) {total++; if (!data[k].sub[l].is_completed) count++};
                     this.undone = count;
+                    this.is_empty_list = this.simple && !total;
                 });
         }
     }
