@@ -79,7 +79,7 @@ export class ActionButtonComponent {
                 but.push(
                 {
                     icon: 'ios-list-box-outline',
-                    text: 'Add Todo',
+                    text: 'Add ToDo',
                     role: '',
                     handler: () => {
                         this.actionSheet.dismiss().then(() => this.nav.push(TodoCreatePage));

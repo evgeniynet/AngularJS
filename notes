@@ -1,0 +1,427 @@
+https://api.sherpadesk.com/todos
+Request Method:POST
+
+task_id:
+title:test
+text:1
+assigned_id:270
+estimated_remain:2
+due_date:2016-12-07T00:00:00.0000000
+notify:false
+list_id:
+ticket_key:
+project_id:0
+
+
+in def list
+
+task_id:
+title:dfgsf
+text:dsg
+assigned_id:270
+estimated_remain:1
+due_date:2016-12-07T00:00:00.0000000
+notify:false
+list_id:b0f543d8a6124cdeba543f9f55390dc6
+ticket_key:
+project_id:0
+
+https://drive.google.com/open?id=0B_ICBPdIBub0YktzRzdMcHdqME0
+
+making of
+https://drive.google.com/open?id=0B_ICBPdIBub0N3BHblM1UnM1TkU
+
+
+
+https://api.sherpadesk.com/todos?limit=5000&all_item_types=true&assigned_id=270&is_completed=false
+
+http://api.beta.sherpadesk.com/todos?limit=5000&all_item_types=true&assigned_id=1325&is_completed=false&is_sub_view=true
+
+user_id
+
+
+import { Component, OnInit, ElementRef } from "@angular/core";
+
+@Component({
+  templateUrl:"home.html"
+})
+export class HomePage implements OnInit {
+  public ionScroll;
+  public showButton = false;
+  public contentData = [];
+
+  constructor(public myElement: ElementRef) {}
+
+  ngOnInit() {
+    // Ionic scroll element
+    this.ionScroll = this.myElement.nativeElement.children[1].firstChild;
+    // On scroll function
+    this.ionScroll.addEventListener("scroll", () => {
+      if (this.ionScroll.scrollTop > window.innerHeight) {
+        this.showButton = true;
+      } else {
+        this.showButton = false;
+      }
+    });
+    // Content data
+    for (let i = 0; i < 301; i++) {
+      this.contentData.push(i);
+    }
+  }
+  // Scroll to top function
+  // Adapted from http://stackoverflow.com/a/24559613/5357459
+  scrollToTop(scrollDuration) {
+    let scrollStep = -this.ionScroll.scrollTop / (scrollDuration / 15);
+    let scrollInterval = setInterval( () => {
+        if ( this.ionScroll.scrollTop != 0 ) {
+            this.ionScroll.scrollTop = this.ionScroll.scrollTop + scrollStep;
+        } else {
+          clearInterval(scrollInterval);
+        }
+    }, 15);
+  }
+
+}
+
+http://www.one-tab.com/page/W3t5p6pjRFmNShXRLBzkaA
+http://www.one-tab.com/page/-0TcKEBKRDOH7zphSSrQYg
+
+https://www.facebook.com/zahidnuy.kordon/
+
+http://www.clicktoapp.com/en/
+
+https://auto.ria.com/search/#category_id=1&s_yers[0]=2010&po_yers[0]=0&currency=1&marka_id[0]=62&model_id[0]=0&countpage=10&page=1&order_by=2&power_name=1&engineVolumeFrom=&engineVolumeTo=&gearbox[1]=2&gearbox[3]=4&gearbox[4]=5&gearbox[2]=3&auto_options[497]=1&auto_options[498]=1&custom=1&damage=1&under_credit=2&auto_repairs=2&confiscated_car=2&scrollToAuto=18011447
+
+https://auto.ria.com/search/?category_id=1&marka_id=24&model_id=0#category_id=1&s_yers[0]=2010&po_yers[0]=0&currency=1&marka_id[0]=24&model_id[0]=0&countpage=10&page=0&order_by=2&power_name=1&engineVolumeFrom=&engineVolumeTo=&gearbox[1]=2&gearbox[3]=4&gearbox[4]=5&gearbox[2]=3&auto_options[497]=1&auto_options[498]=1&custom=1&damage=1&under_credit=2&auto_repairs=2&confiscated_car=2&scrollToAuto=18079712
+
+https://auto.ria.com/auto_renault_megane_18065245.html
+
+https://auto.ria.com/auto_ford_focus_17842784.html
+
+https://auto.ria.com/auto_renault_grand-scenic_17959318.html
+
+https://auto.ria.com/auto_renault_megane_18051728.html
+
+http://embed.plnkr.co/rffi08fz8Qa9HNUGf9cs/
+
+http://blog.ionic.io/built-with-ionic- 2-the-design-conference-brisbane- app/
+
+r.semcgv.7qmsud
+3gvn8ahhvf0tzr6wxm4mini572nu0yis
+
+http://zwoja4-ms2asm:re36rym3mjqxm8ej2cscfajmxpsew33m@api.sherpadesk.com/config
+
+http://u0diuk-b95s6o:2mzer2k5k0srgncebsizvfmip0isp2ii@api.beta.sherpadesk.com/config
+
+test@test.com tech
+http://u0diuk-b95s6o:kchsfjnnd1jnggear3hzxh0uyyfxffzk@api.beta.sherpadesk.com/tickets
+
+https://support.sherpadesk.com/timetracking/Time.aspx
+
+созд. организаций
+
+http://embed.plnkr.co/D9uFaJJE7BaMShHJ4MHc/
+
+http://x:2mzer2k5k0srgncebsizvfmip0isp2ii@api.beta.sherpadesk.com/organization_delete?id=f5e31686b52042bd940ab81427b46a9a
+
+http://api.beta.sherpadesk.com/tickets?status=open&role=user&limit=3&sort_by=updated
+
+
+
+http://www.one-tab.com/page/31uV43_cRsSSMIwC4ZEKqw
+
+put
+https://sherpadeskapibeta.azurewebsites.net/todos/0b3d804f15cb4687afc3305aa0156f94?is_completed=true
+
+post item
+https://sherpadeskapibeta.azurewebsites.net/todos
+task_id:
+title:1
+text:2
+assigned_id:1325
+estimated_remain:
+due_date:
+notify:false
+list_id:d71f45cd260b4ae48761fa20e92af85d
+ticket_key:
+project_id:0
+
+
+
+http://u0diuk-b95s6o:2mzer2k5k0srgncebsizvfmip0isp2ii@api.beta.sherpadesk.com/config
+
+
+http://zwoja4-ms2asm:re36rym3mjqxm8ej2cscfajmxpsew33m@api.sherpadesk.com/config
+
+
+https://zwoja4-ms2asm:re36rym3mjqxm8ej2cscfajmxpsew33m@api.sherpadesk.com/time?type=recent&tech=1&account=0&project=0&limit=100
+
+http://rn062f-6f5bg5:8f5e9eee0595425eb0c493fb3df79116@api.bigwebapps.com/config
+
+http://api.sherpadesk.com/accounts?limit=300&query=account_statistics.ticket_counts.open>0
+
+
+http://izfeoh-6jc55q:2gskoicvn1bg487igytrxaekc0ictirq@api.bigwebapps.com/tickets?start_date=2015-01-29&end_date=2015-02-02&status=closed
+http://izfeoh-6jc55q:2gskoicvn1bg487igytrxaekc0ictirq@api.bigwebapps.com/tickets?limit=1000&start_date=2015-01-29&end_date=2015-02-02&status=closed
+
+http://izfeoh-6jc55q:2gskoicvn1bg487igytrxaekc0ictirq@api.bigwebapps.com/tickets?status=open
+
+
+http://localhost:81/todos?date_property=updated_at&start_date=2016-08-23T11:48:19.4630000
+
+https://evgeniynet@github.com/bigWebApps/HelpDesk.git
+https://evgeniynet@github.com/bigWebApps/SherpaDeskAPI
+https://evgeniynet@github.com/sherpadesk/mobile-v3.git
+https://evgeniynet@github.com/evgeniynet/AngularJS.git
+
+Building shrinkwrapped packages
+
+To shrinkwrap an existing package:
+
+Run npm install in the package root to install the current versions of all dependencies.
+Validate that the package works as expected with these versions.
+Run npm shrinkwrap, add npm-shrinkwrap.json to git, and publish your package.
+To add or update a dependency in a shrinkwrapped package:
+
+Run npm install in the package root to install the current versions of all dependencies.
+Add or update dependencies. npm install --save each new or updated package individually to update the package.json and the shrinkwrap. Note that they must be explicitly named in order to be installed: running npm install with no arguments will merely reproduce the existing shrinkwrap.
+Validate that the package works as expected with the new dependencies.
+Commit the new npm-shrinkwrap.json, and publish your package.
+
+Since npm shrinkwrap is intended to lock down your dependencies for production use, devDependencies will not be included unless you explicitly set the --dev
+
+
+А если создать почтовый ящик назвать его «абракадаброй», к примеру просто набор текста вида «sfWERvrEWrceR», далее нигде его не публиковать и создать добавочный псевдоним (в Outlook есть функция такая), и задать нормальный вид mylogin@outlook.com для получения писем, а вход осуществляется только по «абракадабре», и как могут взломать то, что не лежит на поверхности?) Думаю это тоже в своём роде полезно.
+
+
+<iframe hidden name="hubspot-iframe" id="hubspot-iframe"></iframe>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NNN9Z7X"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<script>
+
+    var interval = setInterval(function(){
+        var $form = $('.hs-form');
+if ($form && $form[0]){
+    if(~$form[0].id.indexOf("5c0b2305-776b-4492-b91d-80d92fa33688") || ~$form[0].id.indexOf("cd8dc236-f403-4c92-b31d-f6962fe07983"))
+    {
+    clearInterval(interval);
+    onFormReady($($form[0]));
+    }
+}
+}, 200);
+
+setTimeout(function(){clearInterval(interval);}, 3000);
+
+function onFormReady($form){
+    
+    $('body').on('hsvalidatedsubmit', $form, function (e) {
+       	e.preventDefault();
+  var form = $(e.target); 
+
+  if(~form[0].id.indexOf("5c0b2305-776b-4492-b91d-80d92fa33688") || ~form[0].id.indexOf("cd8dc236-f403-4c92-b31d-f6962fe07983"))
+    {
+  onFormSubmit(form);
+    }
+});
+        
+    $($form).prop('target', 'hubspot-iframe');
+        init_vars($form);
+        
+            $company.val("").change();
+              $email.val("").change();
+               $custom_url.val("").change();
+                $name.val("").change();
+                $password.val("").change();
+                $confirm_password.val("").change();
+                
+                //setTimeout(function(){$("li","ul.hs-error-msgs").remove()}, 500);
+                
+        $password.prop("type", "password");
+        $confirm_password.prop("type", "password");
+        
+        function safechar(text)
+        {
+            return (text || "").toLowerCase().replace(/[^a-zA-Z0-9-]/g, '').trim();
+        }
+
+        $company.change(function() {
+            var company = $(this).val();
+            if(company && !$custom_url.val()){
+                var url = safechar(company);
+                $custom_url.val(url).change();
+                ($url[0] || {}).innerText = url; 
+            }
+        });
+
+        $password.change(function() {
+            var password = $(this).val();
+            if(password){
+              if (password.trim().length < 5){ 
+                seterror($(this), "Password must be not less than 5 chars.");
+                return;
+            }
+            else
+                seterror($password, "", true);
+            if ($confirm_password.val() != password){ 
+                seterror($confirm_password, "Passwords must match.");
+                return;
+            }
+            else
+                seterror($confirm_password, "", true);
+        }
+            seterror($(this), "", true);
+        });
+
+        $confirm_password.change(function() {
+            var password = $password.val();
+            var confirm_password = $confirm_password.val();
+
+            if(password && confirm_password == password){ 
+                seterror($(this), "", true);
+            }
+            else if (confirm_password && password !=confirm_password)
+                seterror($(this), "Passwords must match.");
+        });
+
+        $custom_url.change(function() {
+            var url = safechar($(this).val());
+            if ($(this).val() != url)
+            {
+                $custom_url.val(url).change();
+            }
+            ($url[0] || {}).innerText = url || "yourcompanyname"; 
+            if (url)
+            {
+                if (url.length < 3 || url.length > 20)
+                { 
+                seterror($(this), "This Url is incorrect. Please enter between 3 and 20 characters.");
+                return;
+                }
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', "http://api.sherpadesk.com/validate_organization?format=json&url="+url, true);
+                xhr.onload = function(e) { 
+                    if (e.target.status == 200)
+                    {
+                        var data = JSON.parse(e.target.response);
+                        if (data.isUrlExists)
+                        {
+                            seterror($custom_url, "This Url is already in use");
+                        }
+                        else
+                            seterror($custom_url, "", true);
+                    }
+                    else
+                    {
+                        //alert(e.target.response);
+                        console.log(e);
+                    }
+                }
+                xhr.send();
+            }
+            else
+                seterror($custom_url, "", true);
+            //console.log($(this).val());
+        });
+    }
+
+function onFormSubmit($form){
+        //console.log('$form', $form); 
+        init_vars($form);
+        seterror($submit, "Redirecting to SherpaDesk app. Please wait...");
+
+
+            var formData = new FormData();
+
+                formData.append("name", $company.val());
+                formData.append("email", $email.val());
+                formData.append("url", $custom_url.val());
+                formData.append("firstname", $name.val());
+                formData.append("lastname", ".");
+                formData.append("password", $password.val());
+                formData.append("password_confirm", $confirm_password.val());
+                formData.append("how", "Hubspot");
+                formData.append("note", "by start your climb page");
+
+                // Append extra data before send.
+                formData.append('is_force_registration', 'true'); 
+                formData.append('is_force_redirect', 'true');
+
+            var xhr = new XMLHttpRequest();
+                xhr.open('POST', "http://api.sherpadesk.com/organizations?format=json", true);
+                xhr.onload = function(e) { 
+                    if (e.target.status == 200 || e.target.status == 201)
+                    {
+                        var data = JSON.parse(e.target.response);
+                        window.location = data.url;
+                    }
+                    else
+                    {
+                        seterror($submit, "Error occured: " + (e.target.response || e.target.status) +". Please contact SherpaDesk administrator (support@sherpadesk.com)");
+                        $custom_url.change();
+                        $password.change();
+                        $confirm_password.change();
+                        //console.log(e);
+                    } 
+                }
+                xhr.onerror = function () {
+                    console.log("** An error occurred during the transaction");
+                    seterror($submit, "Error occured. Please try again later or contact SherpaDesk administrator (support@sherpadesk.com)");
+                };
+                xhr.send(formData);
+                setTimeout(function(){seterror($submit, "", true)}, 6000);
+    }
+          
+  	</script>
+
+-----
+
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-NNN9Z7X');</script>
+<!-- End Google Tag Manager -->
+
+
+<script>
+
+    var $company, $custom_url, $name, $url, $email, $password, $confirm_password, $submit;
+
+        function seterror(element, text, isclear)
+        {
+            element[0].validationMessage = isclear ? "": "Incorrect";
+            (element.next("ul") || {}).remove();
+            if (!isclear){
+            element[0].classList.add("error");
+            element[0].classList.add("invalid");
+            if (text)
+            element.after('<ul class="hs-error-msgs inputs-list hs-error-msgs1" style="display:block;"><li><label>'+text+'</label></li></ul>');
+            }   
+            else
+            {
+            element[0].classList.remove("error");
+            element[0].classList.remove("invalid");
+            }
+            $submit.attr("disabled", isclear && !$("ul.hs-error-msgs1").length ? false : true);
+        }
+
+        function init_vars($form)
+        {
+            $form = $($form);
+        $company = $form.find( "input[name='company']" );
+        $name = $form.find( "input[name='name']" );
+        $custom_url = $form.find( "input[name='custom_url']" );
+        $url = $form.find("strong:contains('yourcompanyname')");
+        $email = $form.find( "input[name='email']" );
+        $password = $form.find( "input[name='password']" );
+        $confirm_password = $form.find( "input[name='confirm_password']" );
+        $submit = $form.find( "input[type='submit']" );
+        }
+        
+        </script>
