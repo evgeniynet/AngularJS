@@ -12,7 +12,7 @@ export class InfinitySelectModal {
     items: Array<any>;
     url: string;
     name: string;
-    searchQuery: string;
+    term: string;
     data: any;
     count: number;
     is_empty: boolean;
@@ -30,7 +30,7 @@ export class InfinitySelectModal {
     }
 
     ngOnInit() {
-        this.searchQuery = '';
+        this.term = '';
         this.name = this.navParams.data.name || "List";
         this.isdefault_enabled = !~["user", "account", "tech", "task type"].indexOf(this.name.toLowerCase());
         this.url = this.navParams.data.url || "";
@@ -62,7 +62,7 @@ export class InfinitySelectModal {
 
     invite()
     {
-        let myModal = Modal.create(AddUserModal, {type: this.name.toLowerCase(), name: this.searchQuery});
+        let myModal = Modal.create(AddUserModal, {type: this.name.toLowerCase(), name: this.term});
         myModal.onDismiss(data => {
             if (data){
                 //console.log(data);
@@ -117,7 +117,7 @@ export class InfinitySelectModal {
                 }
                 else
                     this.data.push(...data);
-                this.searchItems({ value: this.searchQuery });
+                this.searchItems({ value: this.term });
                 if (infiniteScroll) {
                     infiniteScroll.enable(data.length == 25);
                     infiniteScroll.complete();
