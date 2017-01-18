@@ -12,7 +12,7 @@ export class AjaxSelectModal {
     items: any;
     url: string;
     term: string;
-    search: string;
+    //search: string;
     name: string;
     data: any;
     pager: any;
@@ -88,7 +88,7 @@ export class AjaxSelectModal {
         this.items = this.data;
 
         // set q to the value of the searchbar
-        var q = searchbar.value;
+        var q = searchbar.value.trim();
 
         // if the value is an empty string don't filter the items
         if (q.trim() == '' || this.busy) {
