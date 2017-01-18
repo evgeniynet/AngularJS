@@ -3,14 +3,6 @@ import {ApiData} from '../../../providers/api-data';
 import {isSD} from '../../../providers/config';
 import {AddUserModal} from '../modals';
 import {getFullName, addp} from '../../../directives/helpers';
-import {Control} from '@angular/common';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/observable/of';
-import {URLSearchParams, Jsonp} from '@angular/http';
 
 @Page({
     templateUrl: 'build/pages/modals/ajax-select/ajax-select.html',
@@ -18,7 +10,6 @@ import {URLSearchParams, Jsonp} from '@angular/http';
 export class AjaxSelectModal {
 
     items: any;
-    //term = new Control();
     url: string;
     term: string;
     search: string;
@@ -32,7 +23,7 @@ export class AjaxSelectModal {
     isnew_enabled: boolean = false;
 
     constructor(private nav: Nav, private navParams: NavParams, private config: Config, private apiData: ApiData,
-        private viewCtrl: ViewController/*, private jsonp: Jsonp*/) {
+        private viewCtrl: ViewController) {
         nav.swipeBackEnabled = false;
     }
 
