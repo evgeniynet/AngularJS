@@ -77,17 +77,17 @@ class MyApp {
       lEl.classList.add("loaded");
     setTimeout(function () { document.getElementsByTagName("ion-loading")[0].outerHTML='';},
       800);
-  }*/
+    }*/
 
-  (document.getElementsByTagName("ion-loading")[0] || {}).outerHTML='';
-  let fake = document.getElementsByTagName("ion-app1");
-  if (fake && fake[0]) {
-        fake[0].classList.add("loaded");
-  setTimeout(function () { document.getElementsByTagName("ion-app1")[0].outerHTML='';}, 1500);
-}
+    (document.getElementsByTagName("ion-loading")[0] || {}).outerHTML='';
+    let fake = document.getElementsByTagName("ion-app1");
+    if (fake && fake[0]) {
+      fake[0].classList.add("loaded");
+      setTimeout(function () { document.getElementsByTagName("ion-app1")[0].outerHTML='';}, 1500);
+    }
 
-//save dash cache
-setTimeout(function () { if (window.dash || "") localStorage.setItem("dash_cache", window.dash || "");}, 15000);
+    //save dash cache
+    setTimeout(function () { if (window.dash || "") localStorage.setItem("dash_cache", window.dash || "");}, 15000);
 
 /*
   el = document.elementFromPoint(window.innerWidth/2, window.innerHeight/2);
@@ -102,69 +102,83 @@ var email = helpers.getParameterByName('e');
 var platform_string = helpers.getParameterByName('ionicPlatform');
 
 if (key) {
-      config.clearCurrent(key);
-      localStorage.setItem("isGoogle", "true");
-      localStorage.setItem('username', (email || "").replace("#", ""));
-      config.saveCurrent();
-      this.rootPage = pages.OrganizationsPage;
-      helpers.cleanQuerystring('ionicPlatform', platform_string);
-      return;
-    }
-    else {
-      var error = helpers.getParameterByName('f');
-      if (error) {
-        setTimeout(() => this.nav.alert(error, true), 3000);
+  config.clearCurrent(key);
+  localStorage.setItem("isGoogle", "true");
+  localStorage.setItem('username', (email || "").replace("#", ""));
+  config.saveCurrent();
+  this.rootPage = pages.OrganizationsPage;
+  helpers.cleanQuerystring('ionicPlatform', platform_string);
+  return;
+}
+else {
+  var error = helpers.getParameterByName('f');
+  if (error) {
+    setTimeout(() => this.nav.alert(error, true), 3000);
+  }
+  localStorage.setItem("isGoogle", "");
+}
+helpers.cleanQuerystring('ionicPlatform', platform_string);
+//set test config object
+if (dontClearCache)
+  config.setCurrent(MOCKS["config"]);
+else if (!config.getCurrent("is_logged"))
+{
+  this.rootPage = pages.LoginPage;
+  return;
+}
+
+if (!config.getCurrent("is_chosen"))
+{
+  this.rootPage = pages.OrganizationsPage;
+  return;
+}
+
+//config.saveCurrent();
+
+setTimeout(() => this.redirect(true), dontClearCache ? 1000 : 0);
+}
+
+redirect(isRedirect?) {
+  this.dataProvider.getConfig().subscribe(
+    data => {
+      this.onLine(true);
+      clearInterval(this.interval);
+      this.interval = setInterval(() => this.redirect(), 5 * 60 * 1000);
+      this.redirect_logic(isRedirect, data);
+    },
+    error => {
+      clearInterval(this.interval);
+      this.nav.alert(error || 'Server error', true);
+      if (this.is_offline && this.config.getCurrent("user").firstname) {
+        this.redirect_logic(isRedirect, this.config.getCurrent());
       }
-      localStorage.setItem("isGoogle", "");
-    }
-    helpers.cleanQuerystring('ionicPlatform', platform_string);
-        //set test config object
-        if (dontClearCache)
-          config.setCurrent(MOCKS["config"]);
-        else if (!config.getCurrent("is_logged"))
-        {
-          this.rootPage = pages.LoginPage;
-          return;
-        }
-
-        if (!config.getCurrent("is_chosen"))
-        {
-          this.rootPage = pages.OrganizationsPage;
-          return;
-        }
-
-        //config.saveCurrent();
-
-        setTimeout(() => this.redirect(true), dontClearCache ? 1000 : 0);
-      }
-
-      redirect(isRedirect?) {
-        this.dataProvider.getConfig().subscribe(
-          data => {
-            this.onLine(true);
-            clearInterval(this.interval);
-            this.interval = setInterval(() => this.redirect(), 5 * 60 * 1000);
-            this.redirect_logic(isRedirect, data);
-          },
-          error => {
-            clearInterval(this.interval);
-            this.nav.alert(error || 'Server error', true);
-            if (this.is_offline && this.config.getCurrent("user").firstname) {
-              this.redirect_logic(isRedirect, this.config.getCurrent());
-            }
-            else
-              {
-                this.config.setCurrent({org : ""});
-              }
-        //localStorage.clear();
-        //localStorage.setItem("username", this.config.current.username || "");
-        //this.nav.setRoot(LoginPage, null, { animation: "wp-transition" });
-      }
-      ); 
-      }
-
-      redirect_logic(isRedirect?, data?)
+      else
       {
+        this.config.setCurrent({org : ""});
+      }
+      //localStorage.clear();
+      //localStorage.setItem("username", this.config.current.username || "");
+      //this.nav.setRoot(LoginPage, null, { animation: "wp-transition" });
+    }
+    ); 
+}
+
+ok (value) {         //console.log('pref', value); 
+}
+fail (error) {alert(error);}
+
+initOrgPreferences(value) {
+  if (window.cordova){
+    var prefs = window.plugins.appPreferences;
+    if (prefs){
+      var suitePrefs = prefs.iosSuite("group.io.sherpadesk.mobile");
+      suitePrefs.store (this.ok, this.fail, 'org', value);
+    }
+  }
+}
+
+redirect_logic(isRedirect?, data?)
+{
     /*
 //Debug config values
 //Time
@@ -210,153 +224,194 @@ data.names = {
 };
 */
 this.config.setCurrent(data);
-    // set our app's pages
-    if (this.config.current.user.is_techoradmin)
-      this.pages = [
-    { title: 'Dashboard', component: pages.DashboardPage, icon: "speedometer", is_active: true },
-    { title: data.names.ticket.p, component: pages.TicketsPage, icon: "create", is_active: true },
-    { title: 'Timelogs', component: pages.TimelogsPage, icon: "md-time", is_active: this.config.current.is_time_tracking },
-    { title: data.names.account.p, component: pages.AccountsPage, icon: "people", is_active: this.config.current.is_account_manager },
-    { title: 'Invoices', component: pages.InvoicesPage, icon: "card", is_active: this.config.current.is_time_tracking && this.config.current.is_invoice },
-    { title: 'Queues', component: pages.QueuesPage, icon: "md-list-box", is_active: this.config.current.is_unassigned_queue && (!this.config.current.user.is_limit_assigned_tkts || this.config.current.user.is_admin)},
-    { title: 'ToDos', component: pages.TodosPage, icon: "list-box", is_active: this.config.current.is_todos },
-    { title: 'Switch Org', component: pages.OrganizationsPage, icon: "md-swap", is_active: this.config.current.is_multiple_org },
-    { title: 'Signout', component: pages.LoginPage, icon: "md-log-in", is_active: true },
-    { title: 'Full App', component: null, icon: "md-share-alt", is_active: true },
-    ];
-    else
-      this.pages = [
-    { title: data.names.ticket.p, component: pages.TicketsPage, icon: "create", is_active: true },
-    { title: 'Switch Org', component: pages.OrganizationsPage, icon: "md-swap", is_active: this.config.current.is_multiple_org },
-    { title: 'Signout', component: pages.LoginPage, icon: "md-log-in", is_active: true },
-    { title: 'Full App', component: null, icon: "md-share-alt", is_active: true },
-    ];
+// set our app's pages
+if (this.config.current.user.is_techoradmin)
+  this.pages = [
+{ title: 'Dashboard', component: pages.DashboardPage, icon: "speedometer", is_active: true },
+{ title: data.names.ticket.p, component: pages.TicketsPage, icon: "create", is_active: true },
+{ title: 'Timelogs', component: pages.TimelogsPage, icon: "md-time", is_active: this.config.current.is_time_tracking },
+{ title: data.names.account.p, component: pages.AccountsPage, icon: "people", is_active: this.config.current.is_account_manager },
+{ title: 'Invoices', component: pages.InvoicesPage, icon: "card", is_active: this.config.current.is_time_tracking && this.config.current.is_invoice },
+{ title: 'Queues', component: pages.QueuesPage, icon: "md-list-box", is_active: this.config.current.is_unassigned_queue && (!this.config.current.user.is_limit_assigned_tkts || this.config.current.user.is_admin)},
+{ title: 'ToDos', component: pages.TodosPage, icon: "list-box", is_active: this.config.current.is_todos },
+{ title: 'Switch Org', component: pages.OrganizationsPage, icon: "md-swap", is_active: this.config.current.is_multiple_org },
+{ title: 'Signout', component: pages.LoginPage, icon: "md-log-in", is_active: true },
+{ title: 'Full App', component: null, icon: "md-share-alt", is_active: true },
+];
+else
+  this.pages = [
+{ title: data.names.ticket.p, component: pages.TicketsPage, icon: "create", is_active: true },
+{ title: 'Switch Org', component: pages.OrganizationsPage, icon: "md-swap", is_active: this.config.current.is_multiple_org },
+{ title: 'Signout', component: pages.LoginPage, icon: "md-log-in", is_active: true },
+{ title: 'Full App', component: null, icon: "md-share-alt", is_active: true },
+];
 
-    //if (localStorage.getItem("isPhonegap") === "true" && this.config.current.key)
-    //  initOrgPreferences(this.config.current.org + "-" + this.config.current.instance + ":" + this.config.current.key);
-    //getInfo4Extension();
-    //var isExtension = localStorage.getItem("isExtension") === "true";
-    if (isRedirect && localStorage.getItem("isExtension") === "true")
+if (localStorage.getItem("isPhonegap") === "true")
+  this.initOrgPreferences(this.config.current.org + "-" + this.config.current.instance + ":" + this.config.current.key);
+
+//if (localStorage.getItem("isPhonegap") === "true" && this.config.current.key)
+//  initOrgPreferences(this.config.current.org + "-" + this.config.current.instance + ":" + this.config.current.key);
+//getInfo4Extension();
+//var isExtension = localStorage.getItem("isExtension") === "true";
+if (isRedirect && localStorage.getItem("isExtension") === "true")
+{
+  var loginStr = "login?t=" + this.config.current.key +
+  "&o=" + this.config.current.org +
+  "&i=" + this.config.current.instance; 
+  window.top.postMessage(loginStr,"*");
+}
+var appVer = localStorage.getItem("version");
+if (appVer !== data.mobile_ver && Number(data.mobile_ver) > Number(appVer))
+  this.presentConfirm(data.mobile_ver, isRedirect);
+else
+  this.force_redirect(isRedirect);
+}
+
+force_redirect(isRedirect)
+{
+  if (isRedirect) {
+
+    let param = null;
+
+    var ticket = localStorage.getItem('loadTicketNumber') || '';
+    if (ticket) 
     {
-      var loginStr = "login?t=" + this.config.current.key +
-      "&o=" + this.config.current.org +
-      "&i=" + this.config.current.instance; 
-      window.top.postMessage(loginStr,"*");
+      localStorage.setItem('loadTicketNumber', '');
+      localStorage.setItem('loadOrgKey', "");
+      param = {key: ticket};
     }
-    var appVer = localStorage.getItem("version");
-    if (appVer !== data.mobile_ver && Number(data.mobile_ver) > Number(appVer))
-      this.presentConfirm(data.mobile_ver, isRedirect);
-    else
-      this.force_redirect(isRedirect);
+
+    let page : any = this.config.current.user.is_techoradmin && !ticket ? pages.DashboardPage : pages.TicketsPage;  
+    // set first pages
+    //page = pages.TicketsPage; 
+    //page = pages.TicketDetailsPage; param = {key: "11098"};
+    //page = pages.ExpensesPage; 
+    //page = pages.TodosPage; 
+    //page = pages.TodoCreatePage; 
+    //page = pages.ExpenseCreatePage; 
+    //page = pages.TimelogsPage; 
+    //page = pages.TimelogPage; 
+    //page = pages.AccountsPage; 
+    //page = modals.TicketCreatePage; 
+    //page = pages.AddUserModal;
+    //page = pages.SignupPage; 
+
+    this.nav.setRoot(page, param, { animation: "wp-transition" });
   }
+}
 
-  force_redirect(isRedirect)
-  {
-    if (isRedirect) {
-
-      let param = null;
-
-      var ticket = localStorage.getItem('loadTicketNumber') || '';
-      if (ticket) 
-      {
-          localStorage.setItem('loadTicketNumber', '');
-          localStorage.setItem('loadOrgKey', "");
-          param = {key: ticket};
+presentConfirm(version, isRedirect) {
+  localStorage.setItem("version", version);
+  this.config.saveCurrent();
+  let alert = Alert.create({
+    title: "There is a new update available!",
+    message: 'Page will reload in 2 seconds',
+    cssClass: "hello",
+    buttons: [
+    {
+      text: "Yes, do it now",
+      role: 'cancel',
+      handler: () => {
+        window.location.reload(true);
       }
-
-      let page : any = this.config.current.user.is_techoradmin && !ticket ? pages.DashboardPage : pages.TicketsPage;  
-        // set first pages
-        //page = pages.TicketsPage; 
-        //page = pages.TicketDetailsPage; param = {key: "11098"};
-        //page = pages.ExpensesPage; 
-        //page = pages.TodosPage; 
-        //page = pages.TodoCreatePage; 
-        //page = pages.ExpenseCreatePage; 
-        //page = pages.TimelogsPage; 
-        //page = pages.TimelogPage; 
-        //page = pages.AccountsPage; 
-        //page = modals.TicketCreatePage; 
-        //page = pages.AddUserModal;
-        //page = pages.SignupPage; 
-
-      this.nav.setRoot(page, param, { animation: "wp-transition" });
+    },
+    {
+      text: "No, I'll do it later",
+      handler: () => {
+        alert.dismiss().then(() => {
+          this.force_redirect(isRedirect);
+        });
+        return false;
+      }
     }
-  }
-
-  presentConfirm(version, isRedirect) {
-    localStorage.setItem("version", version);
-    this.config.saveCurrent();
-    let alert = Alert.create({
-      title: "There is a new update available!",
-      message: 'Page will reload in 2 seconds',
-      cssClass: "hello",
-      buttons: [
-      {
-        text: "Yes, do it now",
-        role: 'cancel',
-        handler: () => {
-          window.location.reload(true);
-        }
-      },
-      {
-        text: "No, I'll do it later",
-        handler: () => {
-          alert.dismiss().then(() => {
-            this.force_redirect(isRedirect);
-          });
-          return false;
-        }
-      }
-      ]
-    });
-    if (localStorage.getItem("isPhonegap") === "true")
-      this.nav.alert("There is a new update available! Please kill app and start again to update");
-    else  
+    ]
+  });
+  if (localStorage.getItem("isPhonegap") === "true")
+    this.nav.alert("There is a new update available! Please kill app and start again to update");
+  else  
     this.nav.present(alert);
-  }
+}
 
-  isStorage() {
-    var mod = 'modernizr';
-    try {
-      localStorage.setItem(mod, mod);
-      localStorage.removeItem(mod);
-      return true;
-    } catch(e) {
-      let toast = Toast.create({
-        message: "Please enable Cookies to work with site!",
-        enableBackdropDismiss: false,
-        showCloseButton: true,
-        cssClass: "toast-error"
-      });
-      this.nav.present(toast);
-      return false;
-    }
-  }
-
-  initializeApp() {
-    this.platform.ready().then(() => {
-      if (localStorage.getItem("isPhonegap") === "true") {
-        console.log('cordova ready');
-        StatusBar.styleDefault();
-
-        this.disconnectSubscription = Network.onDisconnect().subscribe(() => {
-          this.onLine(false);
-        });
-
-        this.connectSubscription = Network.onConnect().subscribe(() => {
-          this.onLine(true);
-        });
-      }
-
-      window.addEventListener('online',  () => this.onLine(true));
-      window.addEventListener('offline', () => this.onLine(false));
-
+isStorage() {
+  var mod = 'modernizr';
+  try {
+    localStorage.setItem(mod, mod);
+    localStorage.removeItem(mod);
+    return true;
+  } catch(e) {
+    let toast = Toast.create({
+      message: "Please enable Cookies to work with site!",
+      enableBackdropDismiss: false,
+      showCloseButton: true,
+      cssClass: "toast-error"
     });
+    this.nav.present(toast);
+    return false;
+  }
+}
+
+initializeApp() {
+  this.platform.ready().then(() => {
+    if (localStorage.getItem("isPhonegap") === "true") {
+      console.log('cordova ready');
+      StatusBar.styleDefault();
+
+      this.disconnectSubscription = Network.onDisconnect().subscribe(() => {
+        this.onLine(false);
+      });
+
+      this.connectSubscription = Network.onConnect().subscribe(() => {
+        this.onLine(true);
+      });
+    }
+
+    window.addEventListener('online',  () => this.onLine(true));
+    window.addEventListener('offline', () => this.onLine(false));
+    document.addEventListener('handle', (e) => this.handle(e), false);
+  });
+}
+
+handle(e) {
+  let goto = e.detail; 
+  console.log('goto', goto);
+
+  let key = Object.keys(goto)[0];
+
+  let page : any;  
+  let param = {}
+  // set first pages
+  //page = pages.TicketsPage; 
+  //page = pages.TicketDetailsPage; param = {key: "11098"};
+  //page = pages.ExpensesPage; 
+  //page = pages.TodosPage; 
+  //page = pages.TodoCreatePage; 
+  //page = pages.ExpenseCreatePage; 
+  //page = pages.TimelogsPage; 
+  //page = pages.TimelogPage; 
+  //page = pages.AccountsPage; 
+  //page = modals.TicketCreatePage; 
+  //page = pages.AddUserModal;
+  //page = pages.SignupPage; 
+
+  switch (key) {
+    case "ticket":
+    //localStorage.setItem('loadTicketNumber', goto[key]);
+    page = pages.TicketDetailsPage;
+    param = {key: goto[key]}; 
+    break;
+
+    default:
+    // code...
+    break;
   }
 
-  checkConnection() {
-    if (navigator.onLine) {
-      if (localStorage.getItem("isPhonegap") !== "true"){
+if (page)
+  this.nav.setRoot(page, param, { animation: "wp-transition" })
+}
+
+checkConnection() {
+  if (navigator.onLine) {
+    if (localStorage.getItem("isPhonegap") !== "true"){
       //img.style.display = 'none';
       this.img.onload = () => this.onLine(true);
       this.img.onerror = () => this.onLine(false);
@@ -388,159 +443,159 @@ onLine(isOnline?){
 openPage(page, param?) {
   this.menu.close();
 
-        //if null open new tab
-        if (!page.component)
-        {
-          let curr = this.config.getCurrent();
-          helpers.fullapplink(AppSite, "", curr.instance, curr.org);
-          return;
-        }
-    // close the menu when clicking a link from the menu
-    if (this.interval && (page.component == pages.LoginPage || page.component == pages.OrganizationsPage))
-      clearInterval(this.interval);
-
-    if (page.index) {
-      this.nav.setRoot(page.component || page, {tabIndex: page.index});
-    } else {
-      this.nav.setRoot(page.component || page);
-    }
+  //if null open new tab
+  if (!page.component)
+  {
+    let curr = this.config.getCurrent();
+    helpers.fullapplink(AppSite, "", curr.instance, curr.org);
+    return;
   }
-
-  ngOnInit() {
-    this.subscribeToEvents();
-  }
-
-  ngOnDestroy() {
-    this.unsubscribeToEvents();
-    clearInterval(this.offlineTimer);
+  // close the menu when clicking a link from the menu
+  if (this.interval && (page.component == pages.LoginPage || page.component == pages.OrganizationsPage))
     clearInterval(this.interval);
 
-    if (localStorage.getItem("isPhonegap") === "true"){
-      this.disconnectSubscription.unsubscribe();
-      this.connectSubscription.unsubscribe();
-    }
+  if (page.index) {
+    this.nav.setRoot(page.component || page, {tabIndex: page.index});
+  } else {
+    this.nav.setRoot(page.component || page);
+  }
+}
+
+ngOnInit() {
+  this.subscribeToEvents();
+}
+
+ngOnDestroy() {
+  this.unsubscribeToEvents();
+  clearInterval(this.offlineTimer);
+  clearInterval(this.interval);
+
+  if (localStorage.getItem("isPhonegap") === "true"){
+    this.disconnectSubscription.unsubscribe();
+    this.connectSubscription.unsubscribe();
+  }
+}
+
+subscribeToEvents() {
+  this.events.subscribe('login:failed', () => {
+    this.config.clearCurrent();
+    this.openPage({ component: pages.LoginPage });
+  });
+  this.events.subscribe('connection:error', (data) => {
+    this.checkConnection();
+  });
+  this.events.subscribe('config:get', (data) => {
+    this.redirect(data);
+  });
+}
+
+unsubscribeToEvents() {
+  this.events.unsubscribe('login:failed', null);
+  this.events.unsubscribe('connection:error', null);
+  this.events.unsubscribe('config:get', null);
+}
+
+ExtendConfig() {
+
+  localStorage.setItem('isExtension', window.self !== window.top ? "true" : "");
+  localStorage.setItem("version", appVersion);
+  //this.config.current.isPhonegap = localStorage.getItem("isPhonegap") === "true";
+
+  this.config.getCurrent = function(property) {
+    let tconfig = this.current || JSON.parse(localStorage.getItem("current") || "null") || {};
+    tconfig.is_logged = !!tconfig.key;
+    tconfig.is_chosen = !!tconfig.instance && !!tconfig.org && !!tconfig.key;
+    tconfig.is_online = !this.is_offline;
+
+    var appVer = localStorage.getItem("version");
+    tconfig.is_updated = !(appVer !== tconfig.mobile_ver && Number(tconfig.mobile_ver) > Number(appVer));
+
+    if (!tconfig.stat)
+      tconfig.stat = {};
+    if (!tconfig.user)
+      tconfig.user = {};
+    if (!tconfig.recent)
+      tconfig.recent = {};
+    if (!tconfig.cache)
+      tconfig.cache = {};
+
+    if (property)
+      return tconfig[property] || "";
+    return tconfig; 
+  };
+
+  this.config.current = this.config.getCurrent();
+
+  this.config.saveCurrent = function(){
+    let curr = this.getCurrent();
+    localStorage.setItem("current",  JSON.stringify(curr));
+    localStorage.setItem("dateformat", curr.user.date_format || 0);
+    localStorage.setItem('timeformat', curr.user.time_format || 0);
+    localStorage.setItem('currency', curr.currency || "$");
   }
 
-  subscribeToEvents() {
-    this.events.subscribe('login:failed', () => {
-      this.config.clearCurrent();
-      this.openPage({ component: pages.LoginPage });
-          });
-    this.events.subscribe('connection:error', (data) => {
-      this.checkConnection();
+  this.config.setCurrent = function(nconfig, nosave) {
+    this.current = Object.assign({}, this.current || {}, nconfig || {});
+    if (!nosave) this.saveCurrent();
+  };
+
+  this.config.clearCurrent = function(key) {
+    localStorage.removeItem("dash_cache");
+    localStorage.removeItem("current");
+    this.setCurrent({key: key || "", org: "", instance: "", user: {}, stat: {}, recent: {}, cache: {}});
+    //return config;
+  };
+
+  this.config.getStat = function(property){
+    let stat = this.getCurrent("stat")[property];
+    if (typeof stat == "undefined")
+      return -1;
+    return stat || {};
+  }
+
+  this.config.setStat = function(property, value){
+    this.current.stat[property]  = value;
+  }
+
+  this.config.getRecent = function(property){
+    let recent = this.getCurrent("recent")[property];
+    return recent || {};
+  }
+
+  this.config.setRecent = function(property, value){
+    if (!value)
+      this.current.recent = Object.assign({}, this.current.recent || {}, property || {});
+    else
+      this.current.recent[property] = value;
+  }
+
+  this.config.getCache = function(property){
+    let cache = this.getCurrent("cache")[property];
+    if (typeof cache == "undefined")
+      return [];
+    return cache || {};
+  }
+
+  this.config.setCache = function(property, value){
+    this.current.cache[property]  = value;
+  }
+
+}
+
+ExtendNavAlert () {
+  this.nav.alert = function(message, isNeg) {
+    let toast = Toast.create({
+      message: message,
+      duration: isNeg ? 7000 : 3000,
+      cssClass: isNeg ? "toast-error" : "toast-ok",
+      showCloseButton: true,
+      closeButtonText: "X"
     });
-    this.events.subscribe('config:get', (data) => {
-      this.redirect(data);
-    });
-  }
-
-  unsubscribeToEvents() {
-    this.events.unsubscribe('login:failed', null);
-    this.events.unsubscribe('connection:error', null);
-    this.events.unsubscribe('config:get', null);
-  }
-
-  ExtendConfig() {
-
-    localStorage.setItem('isExtension', window.self !== window.top ? "true" : "");
-    localStorage.setItem("version", appVersion);
-    //this.config.current.isPhonegap = localStorage.getItem("isPhonegap") === "true";
-    
-    this.config.getCurrent = function(property) {
-      let tconfig = this.current || JSON.parse(localStorage.getItem("current") || "null") || {};
-      tconfig.is_logged = !!tconfig.key;
-      tconfig.is_chosen = !!tconfig.instance && !!tconfig.org && !!tconfig.key;
-      tconfig.is_online = !this.is_offline;
-      
-      var appVer = localStorage.getItem("version");
-      tconfig.is_updated = !(appVer !== tconfig.mobile_ver && Number(tconfig.mobile_ver) > Number(appVer));
-
-      if (!tconfig.stat)
-        tconfig.stat = {};
-      if (!tconfig.user)
-        tconfig.user = {};
-      if (!tconfig.recent)
-        tconfig.recent = {};
-      if (!tconfig.cache)
-        tconfig.cache = {};
-
-      if (property)
-        return tconfig[property] || "";
-      return tconfig; 
+    //toast.onDismiss(() => {
+      //console.log('Dismissed toast');
+      //});
+      this.present(toast);
     };
-
-    this.config.current = this.config.getCurrent();
-
-    this.config.saveCurrent = function(){
-      let curr = this.getCurrent();
-      localStorage.setItem("current",  JSON.stringify(curr));
-      localStorage.setItem("dateformat", curr.user.date_format || 0);
-      localStorage.setItem('timeformat', curr.user.time_format || 0);
-      localStorage.setItem('currency', curr.currency || "$");
-    }
-
-    this.config.setCurrent = function(nconfig, nosave) {
-      this.current = Object.assign({}, this.current || {}, nconfig || {});
-      if (!nosave) this.saveCurrent();
-    };
-
-    this.config.clearCurrent = function(key) {
-      localStorage.removeItem("dash_cache");
-      localStorage.removeItem("current");
-      this.setCurrent({key: key || "", org: "", instance: "", user: {}, stat: {}, recent: {}, cache: {}});
-      //return config;
-    };
-
-    this.config.getStat = function(property){
-      let stat = this.getCurrent("stat")[property];
-      if (typeof stat == "undefined")
-        return -1;
-      return stat || {};
-    }
-
-    this.config.setStat = function(property, value){
-      this.current.stat[property]  = value;
-    }
-
-    this.config.getRecent = function(property){
-      let recent = this.getCurrent("recent")[property];
-      return recent || {};
-    }
-
-    this.config.setRecent = function(property, value){
-      if (!value)
-        this.current.recent = Object.assign({}, this.current.recent || {}, property || {});
-      else
-        this.current.recent[property] = value;
-    }
-
-    this.config.getCache = function(property){
-      let cache = this.getCurrent("cache")[property];
-      if (typeof cache == "undefined")
-        return [];
-      return cache || {};
-    }
-
-    this.config.setCache = function(property, value){
-      this.current.cache[property]  = value;
-    }
-
   }
-
-  ExtendNavAlert () {
-      this.nav.alert = function(message, isNeg) {
-        let toast = Toast.create({
-          message: message,
-          duration: isNeg ? 7000 : 3000,
-          cssClass: isNeg ? "toast-error" : "toast-ok",
-          showCloseButton: true,
-          closeButtonText: "X"
-        });
-        //toast.onDismiss(() => {
-          //console.log('Dismissed toast');
-        //});
-        this.present(toast);
-      };
-    }
 
 }

@@ -27,7 +27,7 @@ export class DashboardPage {
 
     constructor(private nav: Nav, private config: Config, private dataProvider: DataProvider, private ticketProvider: TicketProvider, private timeProvider: TimeProvider) {
         let counts = config.getStat("tickets");
-        if (counts == -1 && config.is_online){
+        if (counts == -1 && config.current.is_online){
             this.downloadTimer = setInterval(()=>{ this.counts.open_as_tech = ++this.counts.open_as_tech;},800);
         }
         else {
