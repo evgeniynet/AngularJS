@@ -3,14 +3,6 @@ import {ApiData, TicketProvider} from '../../providers/providers';
 import {getFullName, addp} from '../../directives/helpers';
 import {TicketDetailsPage} from '../ticket-details/ticket-details';
 import {Focuser} from '../../directives/directives';
-import {Control} from '@angular/common';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/observable/of';
-import {URLSearchParams, Jsonp} from '@angular/http';
 
 @Page({
     templateUrl: 'build/pages/ajax-search/ajax-search.html',

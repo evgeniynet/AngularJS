@@ -9,7 +9,13 @@
     </ion-buttons>
 </ion-navbar>
 <ion-content class="dashboard">
-<ion-searchbar *ngIf="test" [focuser] (cancel)="test = !test" [ngModel]="searchQuery" placeholder="{{config.current.names.ticket.s}} (min 4 chars)" (search)="getTicket($event)"></ion-searchbar>
+<ion-searchbar *ngIf="test" [focuser] debounce="700" (cancel)="test = !test" (input)="searchItems($event)" [(ngModel)]="term" placeholder="{{config.current.names.ticket.s}} number (min 2 chars) or Enter to search" (search)="getTicket($event)"></ion-searchbar>
+<img *ngIf="busy" class="imglogo" src="img/loading2.gif">
+ <ion-list class="ajax" [hidden]="!search_results">
+        <a detail-none href=# ion-item *ngFor="let item of search_results" (click)="dismiss(item)">
+            <h2>{{item.status}} | #{{item.number}} - {{item.subject}} ({{item.user_firstname}} {{item.user_lastname}})</h2>
+        </a>
+    </ion-list>
     <ion-list class="list height" no-lines margin-top>
         <div class="width50 left blue3 decoration_none">
             <a detail-none href=# (click)="itemTappedTL({tab:'tech', count: counts.open_as_tech})" ion-item class="mainStat itemTech">{{counts.open_as_tech}}</a>
@@ -20,7 +26,7 @@
             <a detail-none href=# ion-item (click)="itemTappedTL({tab:'alt', count: counts.open_as_alttech})" class="itemTech" [innerHTML]="counts.open_as_alttech | More:[100,'<div class=item-inner><div class=input-wrapper><ion-label>VV</ion-label></div></div><ion-button-effect></ion-button-effect>']"></a>
             <a detail-none href=# ion-item (click)="itemTappedTL({tab:'all', count: counts.open_all})" class="itemTech" [innerHTML]="counts.open_all | More:[100,'<div class=item-inner><div class=input-wrapper><ion-label>VV</ion-label></div></div><ion-button-effect></ion-button-effect>']"></a>
          </div>
- <div class="width33 right blue3 dashborder">
+    <div class="width33 right blue3 dashborder">
     <a detail-none href=# ion-item (click)="itemTappedTL({tab:'user', count: counts.open_as_user})" class="itemTech dashboardRight dashboard font-size1 tkts-table">As {{config.current.names.user.a}}</a>
     <a detail-none href=# ion-item (click)="itemTappedTL({tab:'alt', count: counts.open_as_alttech})" class="itemTech dashboardRight dashboard font-size1 tkts-table">Alt {{config.current.names.tech.a}}</a>
     <a detail-none href=# ion-item (click)="itemTappedTL({tab:'all', count: counts.open_all})" class="itemTech dashboardRight dashboard font-size1 tkts-table">All Open</a>

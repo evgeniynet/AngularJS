@@ -1,13 +1,12 @@
 import {Page, Config, Nav} from 'ionic-angular';
-import {DataProvider} from '../../providers/data-provider';
-import {TicketProvider} from '../../providers/ticket-provider';
-import {TimeProvider} from '../../providers/time-provider';
+import {ApiData, DataProvider, TicketProvider, TimeProvider} from '../../providers/providers';
 import {Focuser} from '../../directives/directives';
 import {QueuesListComponent, AccountsListComponent, ActionButtonComponent, TodoListComponent} from '../../components/components';
 import {TicketsPage} from '../tickets/tickets';
 import {AccountDetailsPage} from '../account-details/account-details';
 import {AjaxSearchPage} from '../ajax-search/ajax-search';
 import {MorePipe} from '../../pipes/pipes';
+import {addp} from '../../directives/helpers';
 
 @Page({
     templateUrl: 'build/pages/dashboard/dashboard.html',
@@ -19,13 +18,15 @@ export class DashboardPage {
     counts: Object = { open_as_tech: 0 };
     accounts: Array<any> = [];
     queues: Array<any> = [];
-    searchQuery: string = '';
+    term: string = '';
     test: boolean;
     simple: boolean = false;
     timer: any;
     downloadTimer: any;
+    search_results: any;
+    busy: boolean;
 
-    constructor(private nav: Nav, private config: Config, private dataProvider: DataProvider, private ticketProvider: TicketProvider, private timeProvider: TimeProvider) {
+    constructor(private nav: Nav, private config: Config, private apiData: ApiData, private dataProvider: DataProvider, private ticketProvider: TicketProvider, private timeProvider: TimeProvider) {
         let counts = config.getStat("tickets");
         if (counts == -1 && config.current.is_online){
             this.downloadTimer = setInterval(()=>{ this.counts.open_as_tech = ++this.counts.open_as_tech;},800);
@@ -125,6 +126,7 @@ export class DashboardPage {
 
     onPageDidEnter()
     {
+        this.term = "";
         
     }
 
@@ -140,8 +142,53 @@ export class DashboardPage {
         clearTimeout(this.timer);  
     }
 
+    searchItems(searchbar) {
+        // Reset items back to all of the items
+        this.search_results = [];
+
+        // set q to the value of the searchbar
+        var q = searchbar.value;
+
+        // if the value is an empty string don't filter the search_results
+        if (q.trim() == '' || this.busy) {
+            return;
+        }
+
+        if (q.length > 1)
+        {
+            var timer = setTimeout(() => { this.busy = true; }, 500);
+            this.getItems(q, timer);
+        }
+    }
+
+    getItems(term, timer) {
+        this.search_results = [];
+        let url = "tickets?query=all"; //status=allopen&
+        let pager = { limit: 3 };
+        if (term[term.length - 1] != " ") term += "*";
+        else term = term.trim();
+        this.apiData.getPaged(addp(url, "search", term), pager).subscribe(
+            data => {
+                if (timer) {
+                    clearTimeout(timer);
+                    this.busy = false;
+                }
+                this.search_results = data;
+            },
+            error => {
+                if (timer) {
+                    clearTimeout(timer);
+                    this.busy = false;
+                }
+                console.log(error || 'Server error');
+            }
+            );
+    }
+
     clearSearch(searchbar)
     {
+        this.search_results = [];
+        this.busy = false;
         searchbar.value = "";
     }
 
