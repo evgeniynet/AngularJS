@@ -4,6 +4,7 @@ import {Focuser} from '../../directives/directives';
 import {QueuesListComponent, AccountsListComponent, ActionButtonComponent, TodoListComponent} from '../../components/components';
 import {TicketsPage} from '../tickets/tickets';
 import {AccountDetailsPage} from '../account-details/account-details';
+import {TicketDetailsPage} from '../ticket-details/ticket-details';
 import {AjaxSearchPage} from '../ajax-search/ajax-search';
 import {MorePipe} from '../../pipes/pipes';
 import {addp} from '../../directives/helpers';
@@ -165,7 +166,7 @@ export class DashboardPage {
         this.search_results = [];
         let url = "tickets?query=all"; //status=allopen&
         let pager = { limit: 3 };
-        let is_ticket = term[term.length - 1] == " ";
+        let is_ticket = term[term.length - 1] == " " || term[term.length - 1] == ",";
         if (!is_ticket) term += "*";
         else url = "tickets/" + term.trim() + ",";
         this.apiData.getPaged(addp(url, "search", term), pager).subscribe(
@@ -186,11 +187,18 @@ export class DashboardPage {
             );
     }
 
-    clearSearch(searchbar)
+    gotoTicket(ticket, searchBar)
+    {
+        this.test = false;
+        this.clearSearch();
+        this.nav.push(TicketDetailsPage, ticket);
+    }
+
+    clearSearch(searchbar?)
     {
         this.search_results = [];
         this.busy = false;
-        searchbar.value = "";
+        if (searchbar) searchbar.value = "";
     }
 
     getTicket(searchbar) {
