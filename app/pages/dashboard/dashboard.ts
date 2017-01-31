@@ -165,8 +165,9 @@ export class DashboardPage {
         this.search_results = [];
         let url = "tickets?query=all"; //status=allopen&
         let pager = { limit: 3 };
-        if (term[term.length - 1] != " ") term += "*";
-        else term = term.trim();
+        let is_ticket = term[term.length - 1] == " ";
+        if (!is_ticket) term += "*";
+        else url = "tickets/" + term.trim() + ",";
         this.apiData.getPaged(addp(url, "search", term), pager).subscribe(
             data => {
                 if (timer) {
