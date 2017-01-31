@@ -1,4 +1,4 @@
-import {Page, Config, Nav, Loading} from 'ionic-angular';
+import {Page, Config, Nav, Loading, Events} from 'ionic-angular';
 import {ApiSite, Site, isSD, appVersion, AppTitle} from '../../providers/config';
 import {openURL, openURLsystem} from '../../directives/helpers';
 import {DataProvider} from '../../providers/data-provider';
@@ -17,12 +17,13 @@ export class LoginPage {
     fileDest: any = {ticket: "wonvhr"};
     //@ViewChild('google_openid') google_openid: NgForm;
 
-    constructor(private nav: Nav, private dataProvider: DataProvider, private config: Config) {
+    constructor(private nav: Nav, private dataProvider: DataProvider, private config: Config, private events: Events) {
         if (localStorage.getItem("isPhonegap") !== "true")
             this.google_action = ApiSite + 'auth/auth0';
         //clear also chrome ext if needed
         if (localStorage.getItem("isExtension") === "true")
             window.top.postMessage("logout", "*");
+        events.publish("app:logout");
     }
     
     onPageLoaded()
@@ -30,7 +31,6 @@ export class LoginPage {
         document.title = AppTitle + "Mobile App" ; 
         //logout
         this.login = {username: localStorage.getItem('username') || "" };
-        this.config.clearCurrent();
     }
 
     onLogin(form) {

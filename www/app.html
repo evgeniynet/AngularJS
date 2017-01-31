@@ -69,13 +69,6 @@
         element = document.createElement("script");
         element.src = "build/js/cordova.js";
         document.body.appendChild(element);
-
-// Слушаем событие
-document.addEventListener('handle', function (e) {
-  console.log('e', e);
-  // e.target соотетствует объекту document
-}, false);
-
 }
 
 element = document.createElement("script");
@@ -179,18 +172,18 @@ NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
       return message;
     }
 
-    var myEvent = document.createEvent('CustomEvent');
-
     function handleOpenURL(url) {
       //localStorage.setItem('ios_action', url.substring(13));
     // First create the event
-             // console.log("initial url: " + url);
+            
     if (url) {
       var val = url.substring(13);
       val = val.split(":");
       url = {};
       url[val[0]] = val[1];
 
+      //console.log("initial url: " + url);
+      var myEvent = document.createEvent('CustomEvent');
       myEvent.initCustomEvent('handle', false, false, url);
       document.dispatchEvent(myEvent);
     }

@@ -221,8 +221,9 @@ export class DashboardPage {
                 this.nav.alert("Please contact Administator to obtain permission to view All Tickets", true);
                 //return;
             }
-            this.nav.setRoot(TicketsPage, tab);}
-
-            itemTappedAD() {this.nav.setRoot(AccountDetailsPage);}
-
+            this.nav.setRoot(TicketsPage, tab);
         }
+
+        itemTappedAD() {this.nav.setRoot(AccountDetailsPage);}
+
+    }

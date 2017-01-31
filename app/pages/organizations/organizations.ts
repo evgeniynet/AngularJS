@@ -18,7 +18,7 @@ export class OrganizationsPage {
     constructor(private nav: Nav, private dataProvider: DataProvider, private config: Config, private events: Events, private ticketProvider: TicketProvider, private timeProvider: TimeProvider) {
         //partly logout
         var key = this.config.getCurrent("key");
-        this.config.clearCurrent(key);
+        events.publish("app:logout", key);
         this.ticketProvider._dataStore = {all: [],alt: [],tech: [],user: []};
         this.dataProvider._dataStore = this.timeProvider._dataStore = {};
         //this.config.saveCurrent();

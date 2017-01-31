@@ -168,8 +168,10 @@ ok (value) {         //console.log('pref', value);
 fail (error) {alert(error);}
 
 initOrgPreferences(value) {
+  //console.log('value', value);
+
   if (window.cordova){
-    var prefs = window.plugins.appPreferences;
+    var prefs = (window.plugins || {}).appPreferences;
     if (prefs){
       var suitePrefs = prefs.iosSuite("group.io.sherpadesk.mobile");
       suitePrefs.store (this.ok, this.fail, 'org', value);
@@ -373,31 +375,37 @@ initializeApp() {
 
 handle(e) {
   let goto = e.detail; 
-  console.log('goto', goto);
+  //console.log('goto', goto);
 
   let key = Object.keys(goto)[0];
 
   let page : any;  
   let param = {}
-  // set first pages
-  //page = pages.TicketsPage; 
-  //page = pages.TicketDetailsPage; param = {key: "11098"};
-  //page = pages.ExpensesPage; 
-  //page = pages.TodosPage; 
-  //page = pages.TodoCreatePage; 
-  //page = pages.ExpenseCreatePage; 
-  //page = pages.TimelogsPage; 
-  //page = pages.TimelogPage; 
-  //page = pages.AccountsPage; 
-  //page = modals.TicketCreatePage; 
-  //page = pages.AddUserModal;
-  //page = pages.SignupPage; 
+  let is_modal = false;
 
   switch (key) {
     case "ticket":
-    //localStorage.setItem('loadTicketNumber', goto[key]);
-    page = pages.TicketDetailsPage;
-    param = {key: goto[key]}; 
+    if (!this.config.getCurrent("is_logged"))
+      localStorage.setItem('loadTicketNumber', goto[key]);
+    else {
+      page = pages.TicketsPage;
+      param = {key: goto[key]}; 
+    }
+    break;
+    case "add_time":
+    is_modal = true;
+    page = pages.TimelogPage;
+    break;
+
+    case "add_tkt":
+    is_modal = true;
+    page = modals.TicketCreatePage;
+    break;
+
+    case "list":
+    is_modal = true;
+    page = pages.TicketsPage;
+    param = {tab: goto[key]};
     break;
 
     default:
@@ -405,8 +413,14 @@ handle(e) {
     break;
   }
 
-if (page)
-  this.nav.setRoot(page, param, { animation: "wp-transition" })
+  if (page){
+    if (is_modal)
+      this.nav.push(page, param, { animation: "wp-transition" });
+    else
+    {
+      this.nav.setRoot(page, param, { animation: "wp-transition" });
+    }
+  }
 }
 
 checkConnection() {
@@ -476,10 +490,20 @@ ngOnDestroy() {
   }
 }
 
+logout(key?)
+{
+  this.config.clearCurrent(key);
+  if (localStorage.getItem("isPhonegap") === "true")
+    this.initOrgPreferences("");
+}
+
 subscribeToEvents() {
   this.events.subscribe('login:failed', () => {
-    this.config.clearCurrent();
+    this.logout();
     this.openPage({ component: pages.LoginPage });
+  });
+  this.events.subscribe('app:logout', (data) => {
+    this.logout(data && data[0]);
   });
   this.events.subscribe('connection:error', (data) => {
     this.checkConnection();
@@ -493,6 +517,7 @@ unsubscribeToEvents() {
   this.events.unsubscribe('login:failed', null);
   this.events.unsubscribe('connection:error', null);
   this.events.unsubscribe('config:get', null);
+  this.events.unsubscribe('app:logout', null);
 }
 
 ExtendConfig() {
