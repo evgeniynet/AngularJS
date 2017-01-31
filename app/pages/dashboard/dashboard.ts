@@ -33,9 +33,9 @@ export class DashboardPage {
             this.downloadTimer = setInterval(()=>{ this.counts.open_as_tech = ++this.counts.open_as_tech;},800);
         }
         else {
-        if (config.current.user.is_limit_assigned_tkts && !config.current.user.is_admin)
-                    counts.open_all = Math.max(counts.open_as_user, counts.open_as_tech); 
-        this.counts = this.counts || counts; 
+            if (config.current.user.is_limit_assigned_tkts && !config.current.user.is_admin)
+                counts.open_all = Math.max(counts.open_as_user, counts.open_as_tech); 
+            this.counts = this.counts || counts; 
         }
     }
     
@@ -128,15 +128,14 @@ export class DashboardPage {
     onPageDidEnter()
     {
         this.term = "";
-        
     }
 
     saveCache(){
         let el = document.elementFromPoint(window.innerWidth/2, window.innerHeight/2);
         let content = el.closest('ion-nav');
         if (content){
-        window.dash = content.innerHTML.replace(/\s\s+/g,' ');
-    }
+            window.dash = content.innerHTML.replace(/\s\s+/g,' ');
+        }
     }
 
     ngOnDestroy(){
@@ -201,11 +200,16 @@ export class DashboardPage {
         if (searchbar) searchbar.value = "";
     }
 
-    getTicket(searchbar) {
+    getSearch(searchbar) {
+        this.test = false;
+        this.clearSearch();
         // Reset items back to all of the items
         // set q to the value of the searchbar
         //if (searchbar.target.value.trim().length > 2) {
-            let list = { search: searchbar.target.value };
+            let term = searchbar.target.value;
+            if (term.length < 4)
+                term += "    ";
+            let list = { search: term };
             this.test = false;
             this.nav.push(AjaxSearchPage, list);
             //}
