@@ -142,7 +142,7 @@ ngOnInit()
                     name: "Task Type", 
                     value: this.time.task_type || (recent.tasktype || {}).value || "Choose",
                     selected: this.time.task_type_id || this.config.getRecent("tasktype").selected || 0,
-                    url: `task_types?account=${account_id}&project=${project_id}`,
+                    url: this.time.ticket_number ? `task_types?ticket=${this.time.ticket_number}` : `task_types?account=${account_id}`,
                     hidden: false
                 }
             };
@@ -175,7 +175,13 @@ ngOnInit()
                 this.selects.ticket.value = "Choose (optional)";
                 this.selects.ticket.selected = 0;
             }
-            this.selects.tasktype.url = `task_types?account=${account_id}&project=${event.id}`,
+            break;
+            case "ticket" :
+            if (this.selects.ticket.selected === event.id)
+            {
+                break;
+            }
+            this.selects.tasktype.url = event.id ? `task_types?ticket=${event.id}` : `task_types?account=${account_id}`;
             this.selects.tasktype.value = "Choose";
             this.selects.tasktype.selected = 0;
             break;
