@@ -68,9 +68,28 @@ export class DataProvider {
         return this.apiData.get(url);
     }
 
+ updateBadge() {
+    if (window.cordova && ((cordova.plugins || {}).notification || {}).badge){
+        if (localStorage.badge > 0){
+            cordova.plugins.notification.badge.set(localStorage.badge);
+        }
+        else
+            cordova.plugins.notification.badge.clear();
+    }
+}
+
+//update badge every 1 min 
 getQueueList(limit?) {
     let url = addp("queues","sort_by", "tickets_count");
     return this.apiData.get(url).map((arr: Array<any>) => {
+
+        let nt = arr.filter((val) => val.fullname.toLowerCase().indexOf("new ticket") == 0); 
+        let badge = 0;
+        if (nt && nt.length > 0) badge = nt[0].tickets_count;
+        localStorage.badge = badge;
+
+        this.updateBadge();
+
         if (arr && limit)
         {
             arr = arr.filter((val) => val.tickets_count > 0).slice(0, limit); 
