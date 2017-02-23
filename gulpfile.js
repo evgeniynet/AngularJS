@@ -38,6 +38,7 @@ gulp.task('run:before', [shouldWatch ? 'watch' : 'build']);
  * build however you see fit.
  */
  var buildBrowserify = require('ionic-gulp-browserify-typescript');
+  var buildBrowserify2 = require('ionic-gulp-browserify-typescript2');
  var buildSass = require('ionic-gulp-sass-build');
  var copyHTML = require('ionic-gulp-html-copy');
  var copyFonts = require('ionic-gulp-fonts-copy');
@@ -110,6 +111,25 @@ tsifyOptions: { noImplicitAny: false, allowSyntheticDefaultImports: true,  remov
     );
 });
 
+
+ gulp.task('vendor', function(done){
+  runSequence(
+    ['scripts'],
+    function(){
+      buildBrowserify2({
+        watch: false,
+        minify: true,
+        uglifyOptions: {
+          mangle: true
+        },
+        browserifyOptions: {
+  debug: false, syntax: false // sourcemaps off
+}, 
+tsifyOptions: { noImplicitAny: false, allowSyntheticDefaultImports: true,  removeComments: true, skipDefaultLibCheck: true, target: "ES5"} }).on('end', done);
+    }
+    );
+});
+
  gulp.task('prod', function(done){
   runSequence(
     ['sass', 'html', 'fonts'], 
@@ -161,6 +181,7 @@ gulp.task('scripts', function () {
             //'node_modules/intl/dist/Intl.min.js', // Fix internationalization on safari browsers (used in angular2 currency pipes)
             //'node_modules/intl/locale-data/jsonp/ru.js', // Russian locale
             //'node_modules/intl/locale-data/jsonp/en.js', // English locale
+            'resources/lib/vendor.bundle.js',
             'resources/lib/shims_for_IE.js'
             ]
           });

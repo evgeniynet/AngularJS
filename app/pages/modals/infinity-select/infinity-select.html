@@ -15,7 +15,7 @@
             <h2 class="color">Default (no selection)</h2>
         </a>
         <a *ngIf="isnew_enabled" detail-none href=# ion-item (click)="invite()">
-            <h2> <ion-icon name="add-circle"></ion-icon>&nbsp;&nbsp;&nbsp;Invite new {{name}} {{is_empty ? '"'+term+'"' : ""}}</h2>
+            <h2 class="color"> <ion-icon name="add-circle"></ion-icon>&nbsp;&nbsp;&nbsp;Invite new {{name}} {{is_empty ? '"'+term+'"' : ""}}</h2>
         </a>
         <a detail-none href=# ion-item class="basic-margin text-left" *ngFor="let item of items" (click)="dismiss(item)">
             <h2 class="color">{{item.name}}</h2>

@@ -1,13 +1,11 @@
 import {Injectable} from '@angular/core';
 import {Config, Events} from 'ionic-angular';
 import {Http, Headers, RequestOptions, Request} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {ApiSite, dontClearCache} from './config';
 import {addp} from '../directives/helpers';
 import {MOCKS} from './mocks';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
+import 'rxjs';
 
 
 @Injectable()

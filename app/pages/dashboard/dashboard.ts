@@ -57,7 +57,7 @@ export class DashboardPage {
                     "alt": data.open_as_alttech,
                     "user": data.open_as_user
                 });
-                setTimeout(() => {this.saveCache()}, 1500);
+                setTimeout(() => {this.saveCache()}, 1000);
             },
             error => {
                 clearInterval(this.downloadTimer);

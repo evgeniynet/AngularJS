@@ -7,14 +7,14 @@
                         <block [hidden]="hidden">
          <template ngFor let-todoList [ngForOf]="todoLists | async" let-even="even" let-odd="odd">
          <div [ngClass]="{'grad': todoList.sub?.length}" (click)="todoList.hidden = !todoList.sub?.length || !todoList.hidden"> 
-                <ion-icon [style.visibility]="!todoList.sub?.length ?'hidden':'inherit'" role="img" [ngClass]="{'ion-ios-arrow-down font18  margin-right10':!todoList.hidden, 'pr8 button-arrow ion-ios-arrow-forward left':todoList.hidden}" class="todos-arrow padding-left15"></ion-icon><h5>{{todoList.name}}</h5><ion-icon (click)="AddTodo(todoList.list_id)" name="md-add" role="img" style="padding-right: 10px;" class="ion-md-add padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon>
+                <ion-icon [style.visibility]="!todoList.sub?.length ?'hidden':'inherit'" role="img" [ngClass]="{'ion-ios-arrow-down font18  margin-right10':!todoList.hidden, 'pr8 button-arrow ion-ios-arrow-forward left':todoList.hidden}" class="todos-arrow padding-left15"></ion-icon><h5 class="color">{{todoList.name}}</h5><ion-icon (click)="AddTodo(todoList.list_id)" name="md-add" role="img" style="padding-right: 10px;" [ngClass]="{'':!todoList.sub?.length, 'color':!todoList.sub?.length}" class="ion-md-add padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon>
          </div>
 
          <template [ngIf]="!todoList?.hidden">
          <template ngFor let-todo [ngForOf]="todoList?.sub" let-last="last" let-even="seven" let-odd="sodd">
          <div (click)="todo.is_completed = !todo.is_completed;setDone(todo)">
-            <ion-icon [ngClass]="{'ion-ios-checkmark-circle secondary' : todo.is_completed, 'ion-ios-radio-button-on grey2' : !todo.is_completed}" class="font18 todos-padding margin-top3"></ion-icon><h5 [ngClass]="{'decoration_line grey3_color' : todo.is_completed, '' : !todo.is_completed}">{{todo.title}} <i *ngIf="todo.text">{{" - " + todo.text}}</i></h5><!--ion-icon name="md-create" role="img" class="ion-s padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon--></div>
-            <div class="todos-flex right">
+            <ion-icon [ngClass]="{'ion-ios-checkmark-circle secondary' : todo.is_completed, 'ion-ios-radio-button-on grey2' : !todo.is_completed}" class="font18 todos-padding margin-top3"></ion-icon><h5 [ngClass]="{'color decoration_line grey3_color' : todo.is_completed, 'color' : !todo.is_completed}">{{todo.title}} <i *ngIf="todo.text">{{" - " + todo.text}}</i></h5><!--ion-icon name="md-create" role="img" class="ion-s padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon--></div>
+            <div class="todos-flex right color">
              <h6></h6> 
                 <h6 *ngIf="todo.assigned_name">{{todo.assigned_name}}</h6> 
                 <h6 *ngIf="todo.due_date">Due&nbsp;{{setDate(todo.due_date)}}</h6>

@@ -1,6 +1,6 @@
 import {NgZone, ViewChild} from '@angular/core';
 import {App, IonicApp, Config, Platform, Nav, NavParams, Events, MenuController, Toast, Alert} from 'ionic-angular';
-import {StatusBar, Network, Connection} from 'ionic-native';
+//import {StatusBar, Network} from 'ionic-native';
 import {OnInit, OnDestroy} from '@angular/core';
 import * as providers from './providers/providers';
 import {AppSite, MobileSite, dontClearCache, appVersion} from './providers/config';
@@ -87,7 +87,7 @@ class MyApp {
     }
 
     //save dash cache
-    setTimeout(function () { if (window.dash || "") localStorage.setItem("dash_cache", window.dash || "");}, 15000);
+    setTimeout(function () { if (window.dash || "") localStorage.setItem("dash_cache", window.dash || "");}, 7000);
 
 /*
   el = document.elementFromPoint(window.innerWidth/2, window.innerHeight/2);
@@ -356,15 +356,15 @@ initializeApp() {
   this.platform.ready().then(() => {
     if (localStorage.getItem("isPhonegap") === "true") {
       console.log('cordova ready');
-      StatusBar.styleDefault();
-
+      //StatusBar.styleDefault();
+/*
       this.disconnectSubscription = Network.onDisconnect().subscribe(() => {
         this.onLine(false);
       });
 
       this.connectSubscription = Network.onConnect().subscribe(() => {
         this.onLine(true);
-      });
+      });*/
     }
 
     window.addEventListener('online',  () => this.onLine(true));
