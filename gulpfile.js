@@ -158,6 +158,7 @@ tsifyOptions: { noImplicitAny: false, allowSyntheticDefaultImports: true,  remov
     }
     );
 });
+
  gulp.task('sass', function(){
   return buildSass({
     sassOptions: {
@@ -169,6 +170,16 @@ includePaths: [
 }
 });
 });
+
+ gulp.task('mysass', function(){
+  return buildSass({
+    sassOptions: {
+      outputStyle: "compressed",
+includePaths: []
+}
+});
+});
+
  gulp.task('html', copyHTML);
  gulp.task('fonts', copyFonts);
 //gulp.task('scripts', copyScripts);

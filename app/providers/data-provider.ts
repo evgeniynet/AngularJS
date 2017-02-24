@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Headers} from '@angular/http';
-import {Observable} from 'rxjs';
-import {Observer} from 'rxjs';
+import {Observable, Observer} from 'rxjs';
 import {ApiData} from './api-data';
 import {addp} from '../directives/helpers';
 import 'rxjs';

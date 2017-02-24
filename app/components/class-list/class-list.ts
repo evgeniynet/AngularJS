@@ -2,7 +2,7 @@ import {IONIC_DIRECTIVES, Nav, Modal, Alert, Config} from 'ionic-angular';
 import {ApiData} from '../../providers/api-data';
 import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 import {TreeModal} from '../../pages/modals/modals';
-import 'rxjs/add/operator/share';
+import 'rxjs';
 
 const alertLimit = 10;
 

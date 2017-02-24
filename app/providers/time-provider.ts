@@ -2,12 +2,10 @@ import {Injectable} from '@angular/core';
 import {Config, Events} from 'ionic-angular';
 import {dontClearCache} from './config';
 import {Headers, Http} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
-import {Observer} from 'rxjs/Observer';
+import {Observable, Observer} from 'rxjs';
 import {ApiData} from './api-data';
 import {addp} from '../directives/helpers';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/share';
+import 'rxjs';
 import {MOCKS} from './mocks';
 
 @Injectable()
