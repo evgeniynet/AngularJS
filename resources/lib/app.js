@@ -1,3 +1,9 @@
+// ==ClosureCompiler==
+// @compilation_level SIMPLE_OPTIMIZATIONS
+// @output_file_name default.js
+// ==/ClosureCompiler==
+
+// ADD YOUR CODE HERE
 var vtimer;
 
 function check()
@@ -54,10 +60,12 @@ if (localStorage.getItem("isPhonegap") === "true"){
   element.src = "build/js/cordova.js";
   document.body.appendChild(element);
 }
-
+  
+if (localStorage.getItem("isPhonegap") === "true" || 'function' !== typeof Map){
 element = document.createElement("script");
 element.src = "build/js/es6-shim.min.js";
 document.body.appendChild(element);
+}
 
 element = document.createElement("script");
 element.src = "build/js/shims_for_IE.js";
