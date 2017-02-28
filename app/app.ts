@@ -314,9 +314,11 @@ presentConfirm(version, isRedirect) {
       text: "Yes, do it now",
       role: 'cancel',
       handler: () => {
+        window.t1 = null;
         var element1 = document.createElement("script");
         element1.src = MobileSite + "build/js/app.js?_d="+Date.now();
         document.body.appendChild(element1);
+        setTimeout(() => location.reload(true), 2000);
       }
     },
     {
