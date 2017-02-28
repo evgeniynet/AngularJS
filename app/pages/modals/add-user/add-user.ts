@@ -24,7 +24,8 @@ export class AddUserModal {
         //this.data.type = this.data;
 	}
 
-    ngAfterViewInit() {            
+    ngAfterViewInit() {   
+        setTimeout(function(){var s = document.getElementsByTagName("ion-page")[0];s.style.display='none';s.offsetHeight;s.style.display=''}, 200);         
         this.firstname_m = this.firstname_m.trim();
     }
 

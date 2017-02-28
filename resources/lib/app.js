@@ -4,7 +4,20 @@
 // ==/ClosureCompiler==
 
 // ADD YOUR CODE HERE
+
+var isSD = true;
+var Site = isSD ? 'sherpadesk.com/' : 'bigwebapps.com/';
+var MobileSite = 'https://m.' + Site;
+var ApiSite = 'https://api.' + Site;
+
 var vtimer;
+
+var scripts = document.getElementsByTagName('script');
+var param = scripts[ scripts.length - 1 ];
+param = param.src.split('?')[1];
+param = param ? "?"+param : "";
+scripts = null;
+
 
 function check()
 {
@@ -46,7 +59,7 @@ if (!localStorage.current || (localStorage.current.indexOf("\"instance\"") - loc
 else
 {
   loading2 = '<img id=preload class=Absolute-Center src=img/loading2.gif alt="Loading...">';
-  var a=new XMLHttpRequest();a.open("GET","http://api.sherpadesk.com/ping",!0);
+  var a=new XMLHttpRequest();a.open("GET",ApiSite+"ping",!0);
   var c = JSON.parse(localStorage.getItem("current") || "null") || {};
   a.setRequestHeader("Authorization","Basic "+ btoa(c.org+"-"+c.inst+":"+c.key));a.send();
 }
@@ -85,7 +98,7 @@ element.rel = "stylesheet";
 document.body.appendChild(element);
 
 element = document.createElement( "link" );
-element.href = "http://m.sherpadesk.com/build/css/my.css";
+element.href = MobileSite + "build/css/my.css"+param;
 element.rel = "stylesheet";
 document.body.appendChild(element);
 
@@ -108,14 +121,13 @@ if (temp && temp[0] && dash_cache)
       loading2 = null;
     }, 500);
 }
-
 }
 
 function reloadScript()
 {
   if (!window.t1){
     var element1 = document.createElement("script");
-    element1.src = "http://m.sherpadesk.com/build/js/app.bundle.js";
+    element1.src = MobileSite + "build/js/app.bundle.js" + param;
     document.body.appendChild(element1);
     element1 = null;
   }

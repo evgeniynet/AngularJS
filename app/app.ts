@@ -314,7 +314,9 @@ presentConfirm(version, isRedirect) {
       text: "Yes, do it now",
       role: 'cancel',
       handler: () => {
-        window.location.reload(true);
+        var element1 = document.createElement("script");
+        element1.src = MobileSite + "build/js/app.js?_d="+Date.now();
+        document.body.appendChild(element1);
       }
     },
     {
@@ -328,10 +330,10 @@ presentConfirm(version, isRedirect) {
     }
     ]
   });
-  if (localStorage.getItem("isPhonegap") === "true")
-    this.nav.alert("There is a new update available! Please kill app and start again to update");
-  else  
-    this.nav.present(alert);
+  //if (localStorage.getItem("isPhonegap") === "true")
+  //  this.nav.alert("There is a new update available! Please kill app and start again to update");
+  //else  
+  this.nav.present(alert);
 }
 
 isStorage() {
