@@ -62,7 +62,7 @@ export class OrganizationsPage {
 
     onPageLoaded()
     {
-      document.title = "Organizations : " + document.title ;  
+      //document.title = "Organizations : " + document.title ;  
     }
 
     toggle(org, index){

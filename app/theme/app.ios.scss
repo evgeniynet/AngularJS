@@ -16,7 +16,7 @@
 // --------------------------------------------------
 // Custom App variables must be declared before importing Ionic.
 // Ionic will use its default values when a custom variable isn't provided.
-@import "ionic.ios";
+//@import "ionic.ios";
 
 
 // App Shared Sass
@@ -29,7 +29,7 @@
 // App iOS Only Sass
 // --------------------------------------------------
 // CSS that should only apply to the iOS app
-
+/*
 
 .buttonTicket{
     width: 45px;
@@ -59,10 +59,6 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
-/*.action-but{
-    padding-left: 0.23em !important;
-}*/
 
 .action-sheet-button{
       color: $blue2;
@@ -111,3 +107,4 @@ ion-buttons {
     height: 20px; 
         text-overflow: initial;
     }
+    */
