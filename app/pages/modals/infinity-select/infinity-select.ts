@@ -42,7 +42,7 @@ export class InfinitySelectModal {
         this.count = this.items.length;
         this.isbutton = this.navParams.data.isbutton;
         this.is_empty = false;
-        this.pager = { page: 0, limit: 25 };
+        this.pager = { page: ((this.count % 25 == 0) ? Math.max(this.count/25 - 1, 0) : 0), limit: 25 };
 
         if (this.items.length === 0) {
             var timer = setTimeout(() => {
