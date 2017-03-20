@@ -159,7 +159,7 @@ tsifyOptions: { noImplicitAny: false, allowSyntheticDefaultImports: true,  remov
     );
 });
 
- gulp.task('sass', function(){
+ gulp.task('vendorsass', function(){
   return buildSass({
     sassOptions: {
       outputStyle: "compressed",
@@ -171,7 +171,7 @@ includePaths: [
 });
 });
 
- gulp.task('mysass', function(){
+ gulp.task('sass', function(){
   return buildSass({
     sassOptions: {
       outputStyle: "compressed",
@@ -193,7 +193,8 @@ gulp.task('scripts', function () {
             //'node_modules/intl/locale-data/jsonp/ru.js', // Russian locale
             //'node_modules/intl/locale-data/jsonp/en.js', // English locale
             'resources/lib/vendor.bundle.js',
-            'resources/lib/shims_for_IE.js'
+            'resources/lib/shims_for_IE.js',
+            'resources/lib/vendor.ios.css',
             ]
           });
 });

@@ -12,7 +12,7 @@
 // Windows only Sass variables can go here
 
 // Used to show the status bar for component demos
-$cordova-ios-statusbar-padding:           31px;
+//$cordova-ios-statusbar-padding:           31px;
 
 // Ionic Windows Sass
 // --------------------------------------------------
@@ -32,6 +32,7 @@ $cordova-ios-statusbar-padding:           31px;
 // --------------------------------------------------
 // CSS that should only apply to the Windows app
 
+/*
 
 body {
     font-family: -apple-system, "Helvetica Neue", "Roboto", sans-serif;
@@ -226,3 +227,5 @@ ion-buttons {
        url("../fonts/ionicons.woff2") format("woff2"), url("../fonts/ionicons.woff") format("woff"), url("../fonts/ionicons.ttf") format("truetype");
   font-weight: normal;
   font-style: normal; }
+
+  */
