@@ -76,7 +76,7 @@ ngOnInit()
                     this.start_stop_hours = Number(Math.round((+(new Date(this.stop_time)) - +(new Date(this.start_time))) / 60000)/60);
             }
             else if (this.time.number)
-                this.title = `Add Time to #${this.time.number} ${this.time.subject}`;
+                this.title = `#${this.time.number} ${this.time.subject}`;
             else
                 this.title = "Add Time";
 
