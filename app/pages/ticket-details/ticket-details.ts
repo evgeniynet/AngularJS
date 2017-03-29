@@ -153,10 +153,10 @@ import {ApiSite} from '../../providers/config';
      });
    }
 
-   onUpload() {
+   onUpload(is_Close?) {
      //console.log("upload start");
      if (!this.files.length) {
-       this.filesUploaded.next("ok" + " no files");
+       this.filesUploaded.next("ok" + " no files " + (is_Close ? " on close" : ""));
        return;
      }
      //proof double click
@@ -178,7 +178,7 @@ import {ApiSite} from '../../providers/config';
      this.upload(ApiSite, this.files).then((data) => {
        this.reset();
        if (loading) loading.dismiss();
-       this.filesUploaded.next("ok " + data);
+       this.filesUploaded.next("ok " + data + (is_Close ? " on close" : ""));
      }).catch((ex) => {
        if (loading) 
        {
@@ -379,7 +379,7 @@ import {ApiSite} from '../../providers/config';
      this.username = getFullName(data.user_firstname, data.user_lastname, data.user_email);
      this.techname = getFullName(data.technician_firstname || data.tech_firstname, data.technician_lastname || data.tech_lastname, data.technician_email || data.tech_email);
      this.select_button = {
-         "tech": {
+       "tech": {
          name: "Tech",
          value: "Transfer "+this.config.current.names.ticket.s,
          selected: data.tech_id,
@@ -453,10 +453,7 @@ import {ApiSite} from '../../providers/config';
      //console.log("Uploaded:", event);
      if (event.indexOf("ok") == 0)
      {
-       if (!this.config.current.user.is_techoradmin && this.ticket.status != 'Closed')
-         this.onClose();
-       else
-         this.onSubmit(); 
+       this.onSubmit(!this.config.current.user.is_techoradmin && this.ticket.status != 'Closed' && ~event.indexOf("close")); 
      }
    }
 
@@ -472,15 +469,15 @@ import {ApiSite} from '../../providers/config';
 
    getPosts(key)
    {
-       this.ticketProvider.getTicketDetails(key).subscribe(
-         data => {
-           this.processDetails(data);
-         },
-         error => {
-           console.log(error || 'Server error');
-           this.redirectOnEmpty();
-         }
-         );
+     this.ticketProvider.getTicketDetails(key).subscribe(
+       data => {
+         this.processDetails(data);
+       },
+       error => {
+         console.log(error || 'Server error');
+         this.redirectOnEmpty();
+       }
+       );
    }
 
    processDetails(data, isShortInfo?)
@@ -531,26 +528,36 @@ import {ApiSite} from '../../providers/config';
      this.selects[name].value = event.name;
    }
 
-   onSubmit() {
+   onSubmit(isClose?) {
      //proof double click
      if (this.ticket.in_progress && Date.now() - this.ticket.in_progress < 1500) {return;}
      this.ticket.in_progress = Date.now();
 
      var post = htmlEscape(this.ticketnote.trim()).substr(0, 5000);
 
-     this.ticketProvider.addTicketPost(this.ticket.id, post, this.files).subscribe(
-       data => {
-         this.nav.alert('New post added :)');
-         this.ticketnote = "";
-         this.active = false;
-         setTimeout(() => this.active = true, 0);
-         this.files = [];
-         this.getPosts(this.ticket.key);
-       },
-       error => {
-         console.log(error || 'Server error');
-       }
-       );
+     if (isClose && this.files.length || !isClose)
+     {
+       this.ticketProvider.addTicketPost(this.ticket.id, post, this.files).subscribe(
+         data => {
+           if (!isClose)
+           { 
+             this.nav.alert('New post added :)');
+             this.ticketnote = "";
+             this.active = false;
+             setTimeout(() => this.active = true, 0);
+             this.getPosts(this.ticket.key);
+           }
+           this.files = [];
+         },
+         error => {
+           console.log(error || 'Server error');
+         }
+         );
+     }
+     if (isClose)
+     {
+       this.onClose(true);
+     }
    } 
 
    saveNote(form) {
@@ -573,9 +580,9 @@ import {ApiSite} from '../../providers/config';
      this.is_editnote = !this.ticket.workpad.length;
    }
 
-   onClose() {
+   onClose(isForce?) {
      //proof double click
-     if (this.ticket.in_progress && Date.now() - this.ticket.in_progress < 1500) {return;}
+     if (!isForce && this.ticket.in_progress && Date.now() - this.ticket.in_progress < 1500) {return;}
      this.ticket.in_progress = Date.now();
 
      var post = htmlEscape(this.ticketnote.trim()).substr(0, 5000);
@@ -596,6 +603,13 @@ import {ApiSite} from '../../providers/config';
          this.update_tlist_logic(true);
          this.nav.alert(this.config.current.names.ticket.s + ' has been closed :)');
          this.ticket.status = "Closed";
+         if (post.length){
+           this.ticketnote = "";
+           this.active = false;
+           setTimeout(() => this.active = true, 0);
+           this.files = [];
+           this.getPosts(this.ticket.key);
+         }
        },
        error => {
          console.log(error || 'Server error');

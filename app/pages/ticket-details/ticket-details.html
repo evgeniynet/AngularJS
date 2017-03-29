@@ -21,7 +21,7 @@
       <template [ngIf]="config.current.is_expenses && ticket.misc_cost > 0"><p><u>Expenses</u>:  {{getCurrency(ticket.misc_cost)}}</p><br/></template>
       </span>
  </ion-toolbar>
- <ion-segment [(ngModel)]="details_tab">
+ <ion-segment [(ngModel)]="details_tab" *ngIf="config.current.user.is_techoradmin">
   <ion-segment-button value="Reply">
     Reply
   </ion-segment-button>
@@ -47,7 +47,7 @@
     <textarea class="width100 textLogin commentText" [(ngModel)]="ticketnote" type="text" placeholder="Add Response" ngControl="note" #note="ngForm" required maxlength="4000"></textarea>
     <span [hidden]="note.valid || note.untouched">Response is required (max 5000 chars)</span></div>
     <button secondary class="button_reply right indent-bottom margin-left10" [disabled]="!addForm.valid && !files?.length" (click)="u.onUpload()"  type="submit">Reply</button>
-    <button *ngIf="!config.current.user.is_techoradmin && ticket.status != 'Closed'" secondary class="button_reply right indent-bottom margin-left10" (click)="u.onUpload()" [disabled]="!addForm.valid && !files?.length">Reply & Close</button>
+    <button *ngIf="!config.current.user.is_techoradmin && ticket.status != 'Closed'" secondary class="button_reply right indent-bottom margin-left10" (click)="u.onUpload(true)" [disabled]="!addForm.valid && !files?.length">Reply & Close</button>
     <upload-button #u (filesUploaded)="uploadedFile($event)"   
     (filesSelected)="selectedFile($event)"     
     btnStyle="add-circle"               
