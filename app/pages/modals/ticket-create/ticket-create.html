@@ -18,17 +18,28 @@
     <template [ngIf]="config.current.user.is_techoradmin"> 
         
         <select-list ajax="true" [list]="selects.user" (onChanged)='saveSelect($event)' preload="true"></select-list>
-       
+    
+    </template> 
+
         <select-list [list]="selects.account" preload="true" ajax="true" (onChanged)='saveSelect($event)'></select-list>
             
         <select-list  [list]="selects.location" preload="true" ajax="true" (onChanged)='saveSelect($event)'></select-list>
-            
+        
+    <template [ngIf]="config.current.user.is_techoradmin"> 
+
         <select-list [list]="selects.project" preload="true" (onChanged)='saveSelect($event)'></select-list>
         
+    </template> 
+
+        <select-list [list]="selects.priority" preload="true" (onChanged)='saveSelect($event)'></select-list>
+
         <class-list preload="true" [list]="selects.class" (onChanged)='saveSelect($event)'></class-list>
         
+    <template [ngIf]="config.current.user.is_techoradmin"> 
+    
         <select-list is_me="true" [list]="selects.tech" ajax="true" preload="true" (onChanged)='saveSelect($event)'></select-list>
-       </template> 
+
+    </template> 
     </div>
     <form margin-top class="container_list" #addForm="ngForm">
                 <div class="list max-width700">

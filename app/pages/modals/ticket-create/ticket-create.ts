@@ -70,6 +70,13 @@ export class TicketCreatePage {
                 selected: (recent.class || {}).selected || 0,
                 url: "classes",
                 hidden: false
+            },
+            "priority" : {
+                name: "Priority", 
+                value: (recent.priority || {}).value || "Default",
+                selected: (recent.priority || {}).selected || 0,
+                url: "priorities",
+                hidden: false
             }
         };
 
@@ -97,7 +104,8 @@ export class TicketCreatePage {
             "account_id" : account_id,
             "location_id": null,
             "user_id" : this.he.user_id,
-            "tech_id" : 0
+            "tech_id" : 0,
+            "priority_id" : 0,
         };
     }
 
@@ -168,6 +176,7 @@ export class TicketCreatePage {
             this.ticket.location_id = this.selects.location.selected;
             this.ticket.user_id = this.he.is_techoradmin ? this.selects.user.selected : this.he.user_id;
             this.ticket.tech_id = this.selects.tech.selected;
+            this.ticket.priority_id = this.selects.priority.selected;
 
             this.ticketProvider.addTicket(this.ticket).subscribe(
                 data => {
@@ -176,7 +185,8 @@ export class TicketCreatePage {
                 this.config.setRecent({"account": this.selects.account,
                                        "location": this.selects.location,
                                                "project": this.selects.project,
-                                               "class": this.selects.class});
+                                               "class": this.selects.class,
+                                               "priority": this.selects.priority});
             }
                     if (this.files.length)
                     {

@@ -124,6 +124,10 @@ getExpenses(account_id, pager) {
     return this.apiData.getPaged(url, pager);
 }
 
+getPriorities() {
+    return this.apiData.get("priorities");
+}
+
 getAccountList(is_dashboard, pager, is_no_stat?, is_open?) {
     let url = "accounts";
     if (is_no_stat) 

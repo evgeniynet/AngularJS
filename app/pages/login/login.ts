@@ -73,22 +73,26 @@ export class LoginPage {
     }
 
     onGoogleSignin() {
-        if (localStorage.getItem("isPhonegap") !== "true") {
+        //if (localStorage.getItem("isPhonegap") !== "true") {
             window.location.href = ApiSite + 'auth/auth0';
-        }
-        else
+        //}
+        /*else
         {
+            console.log("isPhonegap", localStorage.getItem("isPhonegap"));
             var win = openURL(ApiSite + 'auth/auth0');
             var onExit = function() {
+                console.log("onExit", 1);
                 location.href = 'index.html';
             };
             win.addEventListener( "loadstop", function() {
+                console.log("loadstop", 1);
                 var loop = setInterval(function() {
                     win.executeScript(
                     {
                         code: "localStorage.getItem('isGoogle')"
                     },
                     function( values ) {
+                        console.log("values", values);
                         var name = values[0];
                         if (name) {
                             clearInterval(loop);
@@ -101,7 +105,7 @@ export class LoginPage {
             });
             win.addEventListener('exit', onExit);
             return;
-        }
+        }*/
     }
     
     onSignup() {
