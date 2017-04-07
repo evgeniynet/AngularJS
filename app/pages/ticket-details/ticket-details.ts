@@ -400,7 +400,7 @@ import {ApiSite} from '../../providers/config';
          name: "Location",
          value: data.location_name || "( Not Set )",
          selected: data.location_id || 0,
-         url: `locations?account=${account_id}`,
+         url: `locations?account=${account_id}&limit=500`,
          hidden: false
        },
        "tech": {
@@ -535,7 +535,7 @@ import {ApiSite} from '../../providers/config';
                 this.selects.project.value = "Default";
                 this.selects.project.selected = 0;
 
-                this.selects.location.url = `locations?account=${event.id}`;
+                this.selects.location.url = `locations?account=${event.id}&limit=500`;
                 this.selects.location.value = "Default";
                 this.selects.location.selected = 0;
                 break;
