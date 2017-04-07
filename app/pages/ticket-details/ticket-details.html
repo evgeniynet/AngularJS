@@ -74,7 +74,7 @@
 
   <select-list is_me="true" preload="true" [list]="selects.tech" (onChanged)='saveSelect($event)'></select-list>
 
-  <select-list preload="true" [list]="selects.location"  ajax="true" (onChanged)='saveSelect($event)'></select-list>
+  <location-list preload="true" [list]="selects.location" (onChanged)='saveSelect($event)'></location-list>
 
   <select-list preload="true" [list]="selects.project" (onChanged)='saveSelect($event)'></select-list>
 

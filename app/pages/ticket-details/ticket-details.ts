@@ -7,6 +7,7 @@ import {getDateTime, htmlEscape, getCurrency, getFullName, fullapplink, parseXml
 import {PostsListComponent} from '../../components/posts-list/posts-list';
 import {SelectListComponent} from '../../components/select-list/select-list';
 import {ClassListComponent} from '../../components/class-list/class-list';
+import {LocationListComponent} from '../../components/location-list/location-list';
 import {CloseTicketModal} from '../../pages/modals/modals';
 import {TimelogPage} from '../../pages/timelog/timelog'; 
 import {ExpenseCreatePage} from '../../pages/expense-create/expense-create';
@@ -313,7 +314,7 @@ import {ApiSite} from '../../providers/config';
 
  @Page({
    templateUrl: 'build/pages/ticket-details/ticket-details.html',
-   directives: [PostsListComponent, forwardRef(() => SelectListComponent), forwardRef(() => ClassListComponent), UploadButtonComponent],
+   directives: [PostsListComponent, forwardRef(() => SelectListComponent), forwardRef(() => ClassListComponent), forwardRef(() => LocationListComponent), UploadButtonComponent],
    pipes: [GravatarPipe, LinebreaksPipe, DaysoldPipe, HtmlsafePipe],
  })
  export class TicketDetailsPage {
@@ -441,7 +442,7 @@ import {ApiSite} from '../../providers/config';
 
      this.selects.account = {
        name: "Account", 
-       value: (data.account || {}).name || this.he.account_name,
+       value: (data.account || {}).name || data.account_name || this.he.account_name,
        selected: account_id,
        url: "accounts?is_with_statistics=false",
        hidden: false
@@ -489,6 +490,7 @@ import {ApiSite} from '../../providers/config';
      }
 
      this.ticket = data;
+
      this.is_editnote = !(this.ticket.workpad || "").length;
      this.ticket.customfields = [];
 
@@ -507,7 +509,7 @@ import {ApiSite} from '../../providers/config';
          let t=[];
          for (var n = xml.documentElement.firstChild; n; n = n.nextSibling)
          { 
-           t.push({ "id": n.attributes[0].nodeValue, "name": n.firstChild.innerHTML, "value": n.firstChild.nextSibling.innerHTML || ""}); 
+           t.push({ "id": n.attributes[0].nodeValue, "name": n.firstChild.innerHTML.replace("&amp;amp;","&amp;"), "value": (n.firstChild.nextSibling.innerHTML || "").replace("&amp;amp;","&amp;")}); 
          }
          this.ticket.customfields = t;
        }
@@ -526,6 +528,18 @@ import {ApiSite} from '../../providers/config';
      let name = event.type;
      this.selects[name].selected = event.id;
      this.selects[name].value = event.name;
+
+      switch (name) {
+            case "account" :
+                this.selects.project.url = `projects?account=${event.id}&is_with_statistics=false`;
+                this.selects.project.value = "Default";
+                this.selects.project.selected = 0;
+
+                this.selects.location.url = `locations?account=${event.id}`;
+                this.selects.location.value = "Default";
+                this.selects.location.selected = 0;
+                break;
+        }
    }
 
    onSubmit(isClose?) {
