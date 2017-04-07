@@ -22,8 +22,8 @@
     </template> 
 
         <select-list [list]="selects.account" preload="true" ajax="true" (onChanged)='saveSelect($event)'></select-list>
-            
-        <select-list  [list]="selects.location" preload="true" ajax="true" (onChanged)='saveSelect($event)'></select-list>
+         
+        <location-list preload="true" [list]="selects.location" (onChanged)='saveSelect($event)'></location-list>
         
     <template [ngIf]="config.current.user.is_techoradmin"> 
 

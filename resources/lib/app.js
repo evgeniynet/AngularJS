@@ -28,7 +28,7 @@ function check()
 
 function downloadJSAtOnload() {
 
-  setTimeout(check, 15000);
+  setTimeout(check, "true"==localStorage.isPhonegap ? 40E3 : 15E3);
 
   var temp = document.getElementsByTagName("ion-app1");
   

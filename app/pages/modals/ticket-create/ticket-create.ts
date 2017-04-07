@@ -4,12 +4,13 @@ import {FORM_DIRECTIVES, Validators} from '@angular/common';
 import {TicketProvider} from '../../../providers/providers';
 import {htmlEscape, getFullName} from '../../../directives/helpers';
 import {ClassListComponent} from '../../../components/class-list/class-list';
+import {LocationListComponent} from '../../../components/location-list/location-list';
 import {SelectListComponent} from '../../../components/select-list/select-list';
 import {UploadButtonComponent} from '../../../pages/ticket-details/ticket-details';
 
 @Page({
     templateUrl: 'build/pages/modals/ticket-create/ticket-create.html',
-    directives: [forwardRef(() => ClassListComponent), forwardRef(() => SelectListComponent), UploadButtonComponent],
+    directives: [forwardRef(() => ClassListComponent), forwardRef(() => LocationListComponent), forwardRef(() => SelectListComponent), UploadButtonComponent],
 })
 export class TicketCreatePage {
 
