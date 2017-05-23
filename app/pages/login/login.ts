@@ -72,10 +72,12 @@ export class LoginPage {
         openURLsystem(`https://support.${Site}portal/`);
     }
 
-    onGoogleSignin() {
-        //if (localStorage.getItem("isPhonegap") !== "true") {
-            window.location.href = ApiSite + 'auth/auth0' + (localStorage.getItem("isPhonegap") === "true" ? "?ios_action=" : "");
-        //}
+    onGoogleSignin() {        
+        if (localStorage.getItem("isPhonegap") !== "true") {
+            window.location.href = ApiSite + 'auth/auth0';
+        }
+        else
+            window.open(ApiSite + 'auth/auth0', "_system");
         /*else
         {
             console.log("isPhonegap", localStorage.getItem("isPhonegap"));
