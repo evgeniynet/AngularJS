@@ -78,7 +78,7 @@ export function addp (url: string, param: string, value?: any) {
         //if (localStorage.getItem("isPhonegap") === "true")
         //    openURLsystem(url);
         //else //if (localStorage.getItem("isExtension") === "true")
-            window.open(url, "_system");
+            openURLsystem(url);
 }
 
 //HTML encode
@@ -194,9 +194,18 @@ export function openURL(urlString) {
     return window.open(urlString, '_blank', 'location=no,EnableViewPortScale=yes');
 }
 
-//open link    in system
+//open link in system
 export function openURLsystem(urlString) {
-    return window.open(urlString, '_system');
+    // Handle click events for all external URLs
+    if (localStorage.getItem("isPhonegap") === "true") {
+    if (device.platform.toUpperCase() === 'ANDROID') {
+        return navigator.app.loadUrl(urlString, { openExternal: true });
+    }
+    else if (device.platform.toUpperCase() === 'IOS') {
+       return window.open(urlString, '_system');
+    }
+    }
+    return window.open(urlString, '_blank');
 }
 
 //HTML decode

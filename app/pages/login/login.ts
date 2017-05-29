@@ -77,7 +77,7 @@ export class LoginPage {
             window.location.href = ApiSite + 'auth/auth0';
         }
         else
-            window.open(ApiSite + 'auth/auth0', "_system");
+            openURLsystem(ApiSite + 'auth/auth0');
         /*else
         {
             console.log("isPhonegap", localStorage.getItem("isPhonegap"));
