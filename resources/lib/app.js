@@ -70,7 +70,7 @@ var element;
 
 if (localStorage.getItem("isPhonegap") === "true"){
   element = document.createElement("script");
-  element.src = "build/js/cordova.js";
+  element.src = localStorage.getItem("isIos") !== "true" ? "build/js/android/cordova.js" : "build/js/cordova.js";
   document.body.appendChild(element);
 }
   

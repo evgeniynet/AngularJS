@@ -197,7 +197,7 @@ export function openURL(urlString) {
 //open link in system
 export function openURLsystem(urlString) {
     // Handle click events for all external URLs
-    if (localStorage.getItem("isPhonegap") === "true") {
+    if (localStorage.getItem("isPhonegap") === "true" && device) {
     if (device.platform.toUpperCase() === 'ANDROID') {
         return navigator.app.loadUrl(urlString, { openExternal: true });
     }

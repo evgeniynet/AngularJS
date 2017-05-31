@@ -73,12 +73,11 @@ export class LoginPage {
     }
 
     onGoogleSignin() {        
-        if (localStorage.getItem("isPhonegap") !== "true") {
-            window.location.href = ApiSite + 'auth/auth0';
-        }
-        else
-            openURLsystem(ApiSite + 'auth/auth0');
+        window.location.href = ApiSite + 'auth/auth0' + (localStorage.getItem("isPhonegap") === "true" ? ("?ios_action="+localStorage.isIos) : "");
+        
         /*else
+            openURLsystem(ApiSite + 'auth/auth0?ios_action=');
+        else
         {
             console.log("isPhonegap", localStorage.getItem("isPhonegap"));
             var win = openURL(ApiSite + 'auth/auth0');
