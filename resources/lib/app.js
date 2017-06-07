@@ -32,7 +32,7 @@ function downloadJSAtOnload() {
 
   var temp = document.getElementsByTagName("ion-app1");
   
-  if (localStorage.isPhonegap == "true"){
+  if (localStorage.isPhonegap == "true" && localStorage.isIos == "true"){
 
   // Create the Style Element
   var styleElem = document.createElement('style');
@@ -68,9 +68,9 @@ var dash_cache = localStorage.dash_cache || '<ion-loading role="dialog" class="l
 
 var element;
 
-if (localStorage.getItem("isPhonegap") === "true"){
+if (localStorage.getItem("isPhonegap") === "true" && "file:" !== window.location.protocol && "localhost" !== window.location.hostname){
   element = document.createElement("script");
-  element.src = localStorage.getItem("isIos") !== "true" ? "build/js/android/cordova.js" : "build/js/cordova.js";
+  element.src =  MobileSite + ((localStorage.getItem("isAndroid") == "true" || navigator.userAgent.match(/(Android)/)) ? "build/js/android/cordova.js" : "build/js/cordova.js");
   document.body.appendChild(element);
 }
   
@@ -93,7 +93,7 @@ element.src = "build/js/zone.min.js";
 document.body.appendChild(element);
 
 element = document.createElement( "link" );
-element.href = "build/css/app.ios.css";
+element.href = (localStorage.getItem("isAndroid") == "true" || navigator.userAgent.match(/(Android)/)) ? "build/css/app.md.css" : "build/css/app.ios.css";
 element.rel = "stylesheet";
 document.body.appendChild(element);
 
@@ -109,7 +109,8 @@ document.body.appendChild(element);
 element = null;
 
 setTimeout(function(){
-  vtimer = setInterval(reloadScript, 1000);
+  reloadScript();
+  //vtimer = setInterval(reloadScript, 3000);
 }, localStorage.isPhonegap !== "true" ? 500 : 200);
 
 if (temp && temp[0] && dash_cache)
@@ -221,7 +222,7 @@ NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
     }
   }
 
-  var _gaq = _gaq || [];
+    var _gaq = _gaq || [];
 
   function googleTag() {
     _gaq.push(['_setAccount', 'UA-998328-15']);
