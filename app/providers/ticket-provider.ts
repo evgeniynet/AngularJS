@@ -53,6 +53,7 @@ export class TicketProvider {
                 url = `${this.URL}?status=open,onhold&role=user`;
                 break;
             }
+            //console.log("pager", pager);
             pager.limit = pager.limit || 25;
             pager.page = pager.page || 0;
             tab += id || "";
@@ -63,7 +64,7 @@ export class TicketProvider {
             }
             let cachelen = this._dataStore[tab].length;
             if (pager.page == 0){
-                pager.limit = cachelen || pager.limit;
+                //pager.limit = cachelen || pager.limit;
                     if (cachelen){
                         setTimeout(() => {
                             if (this._ticketsObserver[tab])

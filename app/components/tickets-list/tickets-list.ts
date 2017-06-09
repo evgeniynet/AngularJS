@@ -33,6 +33,7 @@ export class TicketsListComponent {
 
     
     ngOnChanges(event) {
+        return;
         if ("count" in event) {
              //TODO: add loading event
              if (event.count.isFirstChange())
@@ -85,6 +86,7 @@ export class TicketsListComponent {
                      data => {
                          clearTimeout(timer);
                          this.busy = false;
+                         //console.log(!data.length);
                          this.is_empty = !data.length;
                      });
              }
@@ -164,13 +166,14 @@ export class TicketsListComponent {
                  return;
              this.count -= data;
              this.ticketProvider._dataStore[this.cachename].splice(this.ticketProvider._dataStore[this.cachename].indexOf(ticket),1);
+             this.ticketProvider.getTicketsList(this.mode[0], this.mode[1], this.pager);
              //myArray.findIndex(el => el.color === 'blue');
              //myArray.map((el) => el.color).indexOf('blue');
              if (this.count < 1)
                  this.is_empty = true;
              else {
-                 this.pager.limit = this.count;
-                 this.onLoad();
+                 //this.pager.limit = this.count;
+                 //this.onLoad();
                  this.is_empty = false;
              }
          });
