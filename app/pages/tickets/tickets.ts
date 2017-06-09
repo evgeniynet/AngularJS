@@ -1,5 +1,5 @@
 import {Page, Config, Nav, NavParams, Modal} from 'ionic-angular';
-import {ApiData} from '../../providers/providers';
+import {ApiData, TicketProvider} from '../../providers/providers';
 import {TicketCreatePage} from '../modals/modals'; 
 import {TicketDetailsPage} from '../ticket-details/ticket-details';
 import {AjaxSearchPage} from '../ajax-search/ajax-search';
@@ -21,7 +21,7 @@ export class TicketsPage {
     search_results: any;
     busy: boolean;
     
-    constructor(private nav: Nav, private navParams: NavParams, private config: Config, private apiData: ApiData) {
+    constructor(private nav: Nav, private navParams: NavParams, private config: Config, private apiData: ApiData, private ticketProvider: TicketProvider) {
         this.counts = {};
     }
     
@@ -49,7 +49,9 @@ export class TicketsPage {
 
     addTicket(){
         let myModal = Modal.create(TicketCreatePage);
-        myModal.onDismiss(data1 => this.gotoTicket(data1));
+        myModal.onDismiss(data1 => {
+            this.gotoTicket(data1);
+        });
         this.nav.present(myModal);
     }
 
@@ -58,9 +60,15 @@ export class TicketsPage {
         this.test = false;
         this.clearSearch();
         if (data)
+        {
+            this.ticketProvider.getTicketsList(this.ticket_tab, "", { "limit": 25 });
             setTimeout(() => {
                 this.nav.push(TicketDetailsPage, data);
+            //if (!this.counts[this.ticket_tab])
+            //    this.counts = {};
+            //this.counts[this.ticket_tab] = (this.ticketProvider._dataStore[this.ticket_tab] || {}).length++;
             }, 500);
+        }
     }
 
     searchItems(searchbar) {
