@@ -14,6 +14,7 @@ const alertLimit = 5;
 export class SelectListComponent {
     @Input() list: any;
     @Input() isbutton: boolean;
+    @Input() is_enabled: boolean = true;
     @Input() is_me: boolean;
     @Input() preload: boolean;
     @Input() ajax: boolean;
@@ -57,6 +58,7 @@ export class SelectListComponent {
             this.name = (this.config.current.names[listname] || {}).a;
         else
             this.name = (this.config.current.names[listname] || {}).s || this.list.name;
+
 
         if (this.list.url)
         {
