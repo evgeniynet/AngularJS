@@ -1,11 +1,11 @@
-import {Page, Config, Nav, NavParams, Modal} from 'ionic-angular';
+import {Page, Config, Nav, NavParams, Modal, Alert} from 'ionic-angular';
 import {FORM_DIRECTIVES, Validators} from '@angular/common';
 import {AppSite} from '../../providers/config';
 import {DataProvider} from '../../providers/data-provider';
 import {TicketProvider} from '../../providers/ticket-provider';
 import {getDateTime, htmlEscape, getCurrency, getFullName, fullapplink, parseXml, FileUrlHelper} from '../../directives/helpers';
 import {PostsListComponent} from '../../components/posts-list/posts-list';
-import {SelectListComponent} from '../../components/select-list/select-list';
+import {SelectListComponent}  from '../../components/select-list/select-list';
 import {ClassListComponent} from '../../components/class-list/class-list';
 import {LocationListComponent} from '../../components/location-list/location-list';
 import {CloseTicketModal} from '../../pages/modals/modals';
@@ -587,6 +587,24 @@ import {ApiSite} from '../../providers/config';
      else
        this.saveNoteSuccess(note);
    }
+
+    openAlert(name, value) {
+
+    if (!value || value.length < 22) 
+    return;        
+
+     let alert = Alert.create({
+         title: name,
+         subTitle: value,
+         buttons: [
+         {
+             text: 'Ok',
+             role: 'cancel',
+         }]
+         });
+
+     this.nav.present(alert);
+     }
 
    saveNoteSuccess(note){
      this.nav.alert('Note saved :)');
