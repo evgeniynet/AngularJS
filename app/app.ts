@@ -444,14 +444,17 @@ checkConnection() {
 onLine(isOnline?){
   if (this.is_offline != !isOnline)
   {
-    this.nav.alert(!isOnline ? "Sorry! You are offline now. Please check your internet connection!" : "Hey! You online now! Try again your action", !isOnline);
+    if (this.offlineTimer && this.offlineTimer.runCount >= 1)
+      this.nav.alert(!isOnline ? "Sorry! You are offline now. Please check your internet connection!" : "Hey! You online now! Try again your action", !isOnline);
     if (localStorage.getItem("isPhonegap") !== "true") {
       if (!isOnline) {
         clearInterval(this.offlineTimer);
+        this.offlineTimer = null;
         this.offlineTimer = setInterval(() => this.checkConnection(), 10 * 1000);
       }
       else{
         clearInterval(this.offlineTimer);
+        this.offlineTimer = null;
       }
     }
   }
