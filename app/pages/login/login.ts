@@ -73,7 +73,7 @@ export class LoginPage {
     }
 
     onGoogleSignin() {        
-        window.location.href = ApiSite + 'auth/auth0' + (localStorage.getItem("isPhonegap") === "true" ? ("?ios_action="+localStorage.isIos) : "");
+        window.location.href = ApiSite + 'auth/auth0' + (localStorage.getItem("isPhonegap") === "true" ? ("?ios_action="+(localStorage.isIos || localStorage.isIosStatus || "")) : "");
         
         /*else
             openURLsystem(ApiSite + 'auth/auth0?ios_action=');
