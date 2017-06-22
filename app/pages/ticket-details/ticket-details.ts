@@ -576,7 +576,7 @@ import {ApiSite} from '../../providers/config';
    } 
 
    saveNote(form) {
-     var note = htmlEscape((this.note || "").trim()).substr(0, 5000);
+     var note = htmlEscape((form.value || "").trim()).substr(0, 5000);
      if (note != (this.ticket.note || "").trim()) {
        this.ticketProvider.addTicketNote(this.ticket.id, note).subscribe(
          data => this.saveNoteSuccess(note),
