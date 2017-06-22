@@ -97,6 +97,8 @@
   <textarea [ngModel]="ticket?.note" class="glow width100 textLogin commentText" style="resize: vertical;max-height: 300px;" #notetext type="text" placeholder="Notes:"></textarea>
   <button secondary class="button_reply img-top right " (click)="saveNote(notetext)">{{ticket?.note?.length ? 'Save' : 'Add'}} Notes</button>
   <span class="span-block2"></span>
+  <div [hidden]="is_editworkpad" class="width100 textLogin note-account commentText" [innerHTML]="ticket?.workpad" type="text" (click)="is_editworkpad = true"></div>
+  <button [hidden]="is_editworkpad" secondary class="button_reply img-top right" (click)="is_editworkpad = true">Edit Workpad</button>
   <textarea [hidden]="!is_editworkpad" [ngModel]="ticket?.workpad" class="glow width100 textLogin commentText" #workpadtext type="text" placeholder="Workpad:"></textarea>
   <button [hidden]="!is_editworkpad" secondary class="button_reply img-top right " (click)="saveWorkpad(workpadtext)">{{ticket?.workpad?.length ? 'Save' : 'Add'}} Workpad</button>
   <span class="span-block"></span>
