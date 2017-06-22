@@ -93,11 +93,12 @@
   <span class="span-block"></span>
 </div>
 <ion-list class="list general-alignment max-width700" [hidden]="details_tab != 'Notes'">
-  <div [hidden]="is_editnote" class="width100 textLogin note-account commentText" [innerHTML]="ticket?.workpad" type="text" (click)="is_editnote = true"></div>
-  <button [hidden]="is_editnote" secondary class="button_reply img-top right" (click)="is_editnote = true">Edit Notes</button>
 
-  <textarea autofocus [hidden]="!is_editnote" [ngModel]="ticket?.workpad" class="glow width100 textLogin commentText" #workpadtext type="text" placeholder="Notes:"></textarea>
-  <button [hidden]="!is_editnote" secondary class="button_reply img-top right " (click)="saveNote(workpadtext)">{{ticket?.workpad?.length ? 'Save' : 'Add'}} Notes</button>
+  <textarea [ngModel]="ticket?.note" class="glow width100 textLogin commentText" style="resize: vertical;max-height: 300px;" #notetext type="text" placeholder="Notes:"></textarea>
+  <button secondary class="button_reply img-top right " (click)="saveNote(notetext)">{{ticket?.note?.length ? 'Save' : 'Add'}} Notes</button>
+  <span class="span-block2"></span>
+  <textarea [hidden]="!is_editworkpad" [ngModel]="ticket?.workpad" class="glow width100 textLogin commentText" #workpadtext type="text" placeholder="Workpad:"></textarea>
+  <button [hidden]="!is_editworkpad" secondary class="button_reply img-top right " (click)="saveWorkpad(workpadtext)">{{ticket?.workpad?.length ? 'Save' : 'Add'}} Workpad</button>
   <span class="span-block"></span>
 </ion-list>
 <ion-list class="list img-top" no-lines *ngSwitchWhen="'Files'">

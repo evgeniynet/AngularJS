@@ -330,7 +330,7 @@ import {ApiSite} from '../../providers/config';
    select_button: any;
    ticketnote: string;
    attachments: any;
-   is_editnote: boolean = true;
+   is_editworkpad: boolean = true;
    cachename: string = "";
    closed_index: number = 0;
    fileDest: any = {ticket: ""};
@@ -347,6 +347,7 @@ import {ApiSite} from '../../providers/config';
      "record_date": "2016-01-01T00:00:00.0000000",
      "log_type": "Initial Post",
      "note": " ",
+     "workpad": " ",
      "ticket_time_id": 0,
      "sent_to": " ",
      "is_waiting": false,
@@ -491,7 +492,7 @@ import {ApiSite} from '../../providers/config';
 
      this.ticket = data;
 
-     this.is_editnote = !(this.ticket.workpad || "").length;
+     this.is_editworkpad = !(this.ticket.workpad || "").length;
      this.ticket.customfields = [];
 
      this.initSelects(data);
@@ -575,8 +576,8 @@ import {ApiSite} from '../../providers/config';
    } 
 
    saveNote(form) {
-     var note = (form.value || "").trim(); //htmlEscape((this.workpad || "").trim()).substr(0, 5000);
-     if (note != (this.ticket.workpad || "").trim()) {
+     var note = htmlEscape((this.note || "").trim()).substr(0, 5000);
+     if (note != (this.ticket.note || "").trim()) {
        this.ticketProvider.addTicketNote(this.ticket.id, note).subscribe(
          data => this.saveNoteSuccess(note),
          error => {
@@ -586,6 +587,20 @@ import {ApiSite} from '../../providers/config';
      }
      else
        this.saveNoteSuccess(note);
+   }
+
+   saveWorkpad(form) {
+     var workpad = (form.value || "").trim(); 
+     if (workpad != (this.ticket.workpad || "").trim()) {
+       this.ticketProvider.addTicketWorkpad(this.ticket.id, workpad).subscribe(
+         data => this.saveWorkpadSuccess(workpad),
+         error => {
+           console.log(error || 'Server error');
+         }
+         );
+     }
+     else
+       this.saveWorkpadSuccess(workpad);
    }
 
     openAlert(name, value) {
@@ -606,10 +621,15 @@ import {ApiSite} from '../../providers/config';
      this.nav.present(alert);
      }
 
+   saveWorkpadSuccess(workpad){
+     this.nav.alert('Workpad saved :)');
+     this.ticket.workpad = (workpad || "").trim();
+     this.is_editworkpad = !this.ticket.workpad.length;
+   }
+
    saveNoteSuccess(note){
      this.nav.alert('Note saved :)');
-     this.ticket.workpad = (note || "").trim();
-     this.is_editnote = !this.ticket.workpad.length;
+     this.ticket.note = (note || "").trim();
    }
 
    onClose(isForce?) {

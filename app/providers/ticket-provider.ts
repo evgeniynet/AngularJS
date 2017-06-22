@@ -135,11 +135,20 @@ export class TicketProvider {
             return this.apiData.get(url, data, "POST");
         }
 
+        addTicketWorkpad(id, workpad) {
+            let url = `${this.URL}/${id}`;
+            let data = {
+                "action": "workpad",
+                "workpad": workpad,
+            };
+            return this.apiData.get(url, data, "POST");
+        }
+
         addTicketNote(id, note) {
             let url = `${this.URL}/${id}`;
             let data = {
                 "action": "note",
-                "workpad": note,
+                "note": note,
             };
             return this.apiData.get(url, data, "POST");
         }
