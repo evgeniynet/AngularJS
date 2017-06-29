@@ -227,6 +227,19 @@ p {
     font-size: 16px;
     padding: 10px;
     resize: none;
+    height: 110px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.commentText2{
+    background: $blue3;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    border: none;
+    font-size: 16px;
+    padding: 10px;
+    resize: none;
     min-height: 110px;
     display: block;
     margin-bottom: 10px;
