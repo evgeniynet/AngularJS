@@ -94,7 +94,7 @@
 </div>
 <ion-list class="list general-alignment max-width700" [hidden]="details_tab != 'Notes'">
 
-  <textarea [ngModel]="ticket?.note | Htmlsafe" class="glow width100 textLogin commentText" style="resize: vertical;max-height: 300px;min-height: 110px" #notetext type="text" placeholder="Notes:"></textarea>
+  <textarea [ngModel]="ticket?.note | Htmlsafe" class="glow width100 textLogin commentText" style="resize: vertical;max-height: 300px;min-height: 110px;" #notetext type="text" placeholder="Notes:"></textarea>
   <button secondary class="button_reply img-top right " (click)="saveNote(notetext)">{{ticket?.note?.length ? 'Save' : 'Add'}} Notes</button>
   <span class="span-block2"></span>
   <div [hidden]="is_editworkpad" class="width100 textLogin note-account commentText2" [innerHTML]="ticket?.workpad" type="text" (click)="is_editworkpad = true"></div>
