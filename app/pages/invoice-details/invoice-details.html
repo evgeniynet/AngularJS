@@ -27,9 +27,11 @@
     <ion-item no-lines>
     <h2 item-right class="font-invoice color">{{getCurrency(invoice.total_cost)}}</h2>
         </ion-item>
-    <br>
+    <div class="sticky">
+      <button (click)="send()" [disabled]="!invoice.recipients" secondary class="disable-hover button button-default button-block img-top display">{{!invoice.id ? "Create &" : ""}} Send</button>
+      <div class="stickyborder"></div>
+    </div>
     <ion-item padding>
-        <br>
     <h2 class="color">Recipients</h2>
         </ion-item>
     <ion-list class="list">
@@ -49,8 +51,4 @@
   </ion-item>
         </div>
 </ion-list>
-    
-        <div>
-      <button (click)="send()" [disabled]="!invoice.recipients" secondary class="disable-hover button button-default button-block img-top display">{{!invoice.id ? "Create &" : ""}} Send</button>
-    </div>
 </ion-content>

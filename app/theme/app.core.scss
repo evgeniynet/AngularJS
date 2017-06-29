@@ -1094,3 +1094,23 @@ ion-searchbar {
         marginleft: 0px;
     }
 }
+
+.sticky {
+  position: sticky;
+  top: -34px;
+  z-index: 5;
+}
+@media(max-width:767px) {
+    .sticky {
+  position: sticky;
+  top: -18px;
+  z-index: 5;
+}
+    }
+
+.stickyborder {
+    width: 100%;
+    height: 10px;
+    background-color: $background-color;
+    margin-top: -5px;
+}
