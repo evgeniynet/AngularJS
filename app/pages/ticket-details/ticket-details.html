@@ -114,6 +114,7 @@
           </div>
     </ion-item>
     <span class="span-block"></span>
+     <button (click)="addFilesButton()" secondary item-right fab fab-right fab-bottom style="z-index: 2"><ion-icon class="button_circle action-but" name="md-add"></ion-icon></button>
   </ion-list>
   <div *ngSwitchWhen="'Options'" class="list max-width700 general-alignment">
     <button *ngIf="config.current.is_time_tracking" (click)="addTime()" block type="submit" class="blue2 disable-hover button button-default button-block class-margin">Add Time</button>

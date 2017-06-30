@@ -839,6 +839,10 @@ import {ApiSite} from '../../providers/config';
          this.nav.present(myModal);
        }
 
+       addFilesButton() {
+    console.log("Function connect");
+            }
+
        getFullapplink(ticketkey) {
          let curr = this.config.getCurrent();
          fullapplink(AppSite, ticketkey, curr.instance, curr.org);
@@ -860,3 +864,5 @@ import {ApiSite} from '../../providers/config';
          return date ? getDateTime(date, showmonth, istime) : null;
        }
      }
+
+  

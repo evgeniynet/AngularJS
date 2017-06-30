@@ -95,4 +95,9 @@ export class AccountDetailsPage {
     getFileLink(file) {
         return FileUrlHelper.getFileLink(file.url,file.name);
     }
+
+    addFilesButton() {
+    console.log("Function connect");
+       
+    }
 }
