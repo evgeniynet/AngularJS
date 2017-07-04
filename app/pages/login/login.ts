@@ -72,9 +72,51 @@ export class LoginPage {
         openURLsystem(`https://support.${Site}portal/`);
     }
 
-    onGoogleSignin() {        
-        window.location.href = ApiSite + 'auth/auth0' + (localStorage.getItem("isPhonegap") === "true" ? ("?ios_action="+(localStorage.isIos || localStorage.isIosStatus || "")) : "");
-        
+    onGoogleSignin() {
+
+        if ("true" !== localStorage.getItem("isPhonegap"))      
+            window.location.href = ApiSite + 'auth/auth0'
+        else
+        {
+            var url = ApiSite + "auth/auth0?ios_action="+(localStorage.isIos || localStorage.isIosStatus || "");
+
+            window.win = null;
+            window.nameInterval = null;
+            
+            window.onExit = function() {
+                clearInterval(window.nameInterval);
+                window.win.close();
+                window.t1 = null;
+                var element1 = document.createElement("script");
+                element1.src = "build/js/vendor.bundle.js";
+                document.body.appendChild(element1);
+                setTimeout(window.reloadScript, 2000);
+            };
+
+            window.win = window.open(url, "_blank", "location=no" );
+            
+            window.win.addEventListener( "loadstop", function() {
+                ({ code: "localStorage.setItem('current', '')" });
+                window.nameInterval = setInterval(function() {
+                    window.win.executeScript({ code: "localStorage.getItem('current')" }, function(values) {
+                        var name = values[0];
+                        if (name)
+                        {
+                            localStorage.current = name;
+                            var c = JSON.parse(name || "null") || {};
+                            if (!!c.org && !!c.instance && !!c.key)
+                                window.onExit();
+                        }
+                    });
+                }, 1000)
+            });
+            
+            window.win.addEventListener('exit', function() {
+                window.onExit(); 
+            });
+        }
+    }
+
         /*else
             openURLsystem(ApiSite + 'auth/auth0?ios_action=');
         else
@@ -107,7 +149,6 @@ export class LoginPage {
             win.addEventListener('exit', onExit);
             return;
         }*/
-    }
     
     onSignup() {
         this.nav.push(SignupPage, null, { animation: "wp-transition" });
