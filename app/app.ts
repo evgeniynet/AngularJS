@@ -318,7 +318,11 @@ presentConfirm(version, isRedirect) {
         var element1 = document.createElement("script");
         element1.src = MobileSite + "build/js/app.js?_d="+Date.now();
         document.body.appendChild(element1);
-        setTimeout(() => location.reload(true), 2000);
+        element1 = document.createElement("script");
+        element1.src = "build/js/vendor.bundle.js?_d="+Date.now();
+        document.body.appendChild(element1);
+        setTimeout(window.reloadScript, "true"==localStorage.isPhonegap ? 2000 : 1000);
+        //setTimeout(() => location.reload(true), 2000);
       }
     },
     {
