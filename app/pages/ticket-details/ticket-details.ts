@@ -12,6 +12,7 @@ import {CloseTicketModal} from '../../pages/modals/modals';
 import {TimelogPage} from '../../pages/timelog/timelog'; 
 import {ExpenseCreatePage} from '../../pages/expense-create/expense-create';
 import {GravatarPipe, LinebreaksPipe, DaysoldPipe, HtmlsafePipe} from '../../pipes/pipes';
+import {AddFilesModal} from '../../pages/modals/add-files/add-files';
 
 import {Component, ElementRef, Input, OnInit, ViewChild, Renderer, Output, EventEmitter, forwardRef} from "@angular/core";
 import {IONIC_DIRECTIVES, Loading} from 'ionic-angular';
@@ -841,6 +842,11 @@ import {ApiSite} from '../../providers/config';
 
        addFilesButton() {
     console.log("Function connect");
+    let myModal = Modal.create(AddFilesModal);
+        myModal.onDismiss(data1 => {
+            this.gotoUser(data1);
+        });
+        this.nav.present(myModal);
             }
 
        getFullapplink(ticketkey) {
