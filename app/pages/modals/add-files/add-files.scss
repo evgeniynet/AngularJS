@@ -19,3 +19,156 @@
     display: block;
     margin-bottom: 10px;
     }
+.alert-wrapper {background-image: none !important;}
+
+.blue3{
+     background-color: $blue3;
+}
+
+.ticket-details{
+    white-space: initial !important;
+//    height: 84px;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 24px;
+    text-overflow: ellipsis;
+}
+
+.subject-padding{
+    padding-top: 20px;
+}
+
+.response-ticket{
+    margin-bottom: 86px;
+    
+textarea{
+    width: 100%;
+    text-align: left;
+    padding-left: 15px;
+    background: $blue3;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    border: none;
+    font-size: 16px;
+    padding: 10px;
+    resize: none;
+    height: 110px;
+    display: block;
+    margin-bottom: 10px;
+  }}
+
+.avatar-ticket{
+    padding-right: 39px;
+}
+
+.ticket-button{
+    margin: 0.3rem 1.6rem;
+    height: 1.8em;
+    font-size: 1.3rem;
+}
+
+.text-avatar{
+//    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-top: 26px;
+    white-space: pre-wrap;
+    height: 20px;
+}
+
+.position-subject{
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    height: 22%;
+}
+
+.toggle{
+    padding-bottom: 20px !important;
+    display: inline-block;
+    padding-left: 0px !important;
+}
+
+.toggle-width{
+   width: 65px;
+}
+
+.text-toggle{
+       margin-top: 25px;
+}
+
+.margin-top0{
+     margin-top: 0px !important;
+}
+
+
+.display_flex{
+   
+  h4{
+    padding-top: 20px;
+    white-space: initial !important;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 24px;
+    text-overflow: ellipsis;
+    margin-top: 0px;
+    padding: 0px !important;
+    width: 100%;
+     margin-left: 15px;
+       float: left;
+}
+
+
+
+    .span-left{
+        width: 100%;
+        float: left;
+        margin-left: 15px;
+     
+     p{
+     margin: 0px;
+     font-weight: bold;
+     width: 90%;
+     white-space: nowrap;
+     overflow: hidden;
+     }      
+    }
+
+
+    u {font-weight: normal;
+    text-decoration: none;}
+
+
+    .span-right{
+        float: right;
+        margin-bottom: 0px;
+        margin-top: 0px;
+        margin-right: 15px !important;
+            position: absolute;
+    bottom: 4px;
+    right: 0px;
+         text-align: right;
+    
+     p{
+     display: inline;
+     margin: 0px;
+     font-weight: bold;
+     padding-left: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    background-color: $blue3;
+}}}
+
+.ion-segment-button{
+    background-color: $segment !important;
+}
+
+.font-size_span{
+font-size: 1.4rem;
+}
+
+.button-files{
+font-size: 1.2rem !important;
+    height: 30px !important;
+}
+

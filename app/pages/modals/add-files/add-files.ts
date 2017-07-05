@@ -3,6 +3,14 @@ import {FORM_DIRECTIVES, Validators} from '@angular/common';
 import {DataProvider} from '../../../providers/data-provider';
 //import {htmlEscape, getFullName} from '../../../directives/helpers';
 
+
+
+
+
+
+
+
+
 @Page({
   templateUrl: 'build/pages/modals/add-files/add-files.html',
 })

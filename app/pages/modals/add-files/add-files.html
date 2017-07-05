@@ -12,15 +12,17 @@
   <ion-list class="list">
    <p class="general-alignment"></p>
   <form #addForm="ngForm">
-      <div class="tooltips">
-          <input class="add-user-input" autofocus tabindex=1 type="email" [ngModel]="email_m" placeholder="Valid Email" ngControl="email" #username="ngForm" required pattern="^[^@\s]+@[^@\s]+(\.[^@\s]+)+$"/>        
-          <span *ngIf="username.dirty && !username.valid">Valid Email is required</span></div>
+     
           <div class="tooltips">
-          <input class="add-user-input" type="text" [ngModel]="firstname_m" placeholder="Firstname" ngControl="firstname" #firstname="ngForm" required/>        
-          <span *ngIf="firstname.dirty && !firstname.valid">Firstname cannot be empty</span></div>
-          <div class="tooltips">
-          <input class="add-user-input" type="text" [ngModel]="lastname_m" placeholder="Lastname" ngControl="lastname" #lastname="ngForm" required/>        
-          <span *ngIf="lastname.dirty && !lastname.valid">Lastname cannot be empty</span></div>
+           <upload-button #u (filesUploaded)="uploadedFile($event)"   
+    (filesSelected)="selectedFile($event)"     
+    btnStyle="add-circle"               
+    [allowMultiple]="true"
+    [fileDest]="fileDest"
+    [filesExist]="attachments"
+    [logCallback]=""></upload-button>
+        </div>
+          
           <!--ion-item no-lines class="left toggle-width">
       <ion-toggle class="toggle" [(ngModel)]="ispassword"></ion-toggle>
     </ion-item>
