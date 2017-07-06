@@ -27,13 +27,16 @@
     <ion-item no-lines>
     <h2 item-right class="font-invoice color">{{getCurrency(invoice.total_cost)}}</h2>
         </ion-item>
-    <div class="sticky">
-      <button (click)="send()" [disabled]="!invoice.recipients" secondary class="disable-hover button button-default button-block img-top display">{{!invoice.id ? "Create &" : ""}} Send</button>
+  <div class="sticky">
+   <div class="stickyborder" style = 'height: 26px !important;'></div>
+      <button (click)="send()" [disabled]="!invoice.recipients" secondary class="disable-hover button button-default button-block  display" style='    margin-top: 0rem !important; margin-bottom: 0rem !important'>{{!invoice.id ? "Create &" : ""}} Send</button>
       <div class="stickyborder"></div>
-    </div>
-    <ion-item padding>
+   
+    <ion-item padding style='margin-top: 0px !important'>
     <h2 class="color">Recipients</h2>
         </ion-item>
+       <button (click)="addRecipientsButton()" secondary fab fab-center fab-bottom style="z-index: 2; bottom: 5px !important;  margin-left: 55px !important; width: 36px !important; height: 36px !important; font-size: 10px !important;"><ion-icon class="button_circle action-but" name="md-add"></ion-icon></button>         
+  </div>  
     <ion-list class="list">
     <div *ngIf="!invoice.recipients" class="table grey2 menu-text">No recipients yet</div>
         <div *ngFor="let recipient of invoice.recipients">
@@ -52,3 +55,4 @@
         </div>
 </ion-list>
 </ion-content>
+
