@@ -57,7 +57,7 @@ export class InvoiceDetailsPage {
                 return;
             var regExp = /.*\(([^)]+)\)/;
             var matches = regExp.exec(data1.name);
-            if (matches.length > 2)
+            if (matches && matches.length > 2)
             {
                 data1.fullname=matches[1];
                 data1.email=matches[2];
