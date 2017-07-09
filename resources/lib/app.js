@@ -8,16 +8,10 @@
 var isSD = true;
 var Site = isSD ? 'sherpadesk.com/' : 'bigwebapps.com/';
 var MobileSite = 'https://m.' + Site;
+MobileSite="";
 var ApiSite = 'https://api.' + Site;
 
 var vtimer;
-
-var scripts = document.getElementsByTagName('script');
-var param = scripts[ scripts.length - 1 ];
-param = param.src.split('?')[1];
-param = param ? "?"+param : "";
-scripts = null;
-
 
 function check()
 {
@@ -32,7 +26,7 @@ function downloadJSAtOnload() {
 
   var temp = document.getElementsByTagName("ion-app1");
   
-  if (localStorage.isPhonegap == "true" && localStorage.isIos == "true"){
+  if ("true" == localStorage.isPhonegap && ("true" == localStorage.isIos || "true" == localStorage.isIosStatus)) {
 
   // Create the Style Element
   var styleElem = document.createElement('style');
@@ -98,7 +92,7 @@ element.rel = "stylesheet";
 document.body.appendChild(element);
 
 element = document.createElement( "link" );
-element.href = MobileSite + "build/css/my.css"+param;
+element.href = MobileSite + "build/css/my.css?v="+(localStorage.version || "");
 element.rel = "stylesheet";
 document.body.appendChild(element);
 
@@ -110,7 +104,7 @@ element = null;
 
 setTimeout(function(){
   reloadScript();
-  //vtimer = setInterval(reloadScript, 3000);
+  vtimer = setInterval(reloadScript, 3000);
 }, localStorage.isPhonegap !== "true" ? 500 : 200);
 
 if (temp && temp[0] && dash_cache)
@@ -128,7 +122,7 @@ function reloadScript()
 {
   if (!window.t1){
     var element1 = document.createElement("script");
-    element1.src = MobileSite + "build/js/app.bundle.js" + param;
+    element1.src = MobileSite + "build/js/app.bundle.js?v="+(localStorage.version || "");
     document.body.appendChild(element1);
     element1 = null;
   }
