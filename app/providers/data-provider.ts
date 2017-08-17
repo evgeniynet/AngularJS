@@ -128,6 +128,20 @@ getPriorities() {
     return this.apiData.get("priorities");
 }
 
+getLocationList(is_dashboard, pager, is_no_stat?, is_open?) {
+    let url = "locations";
+    if (is_no_stat) 
+        url = addp(url, "is_with_statistics", "false");
+    if (is_open) 
+        url = addp(url, "is_open_tickets", "true");
+    return this.apiData.getPaged(url, pager).map((arr: Array<any>) => {
+        if (is_dashboard && arr) {
+            arr = arr.filter(val => val.account_statistics.ticket_counts.open > 0);
+        }
+        return arr;
+    });
+} 
+
 getAccountList(is_dashboard, pager, is_no_stat?, is_open?) {
     let url = "accounts";
     if (is_no_stat) 

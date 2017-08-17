@@ -1,5 +1,6 @@
 export * from './account-details/account-details';
 export * from './accounts/accounts';
+export * from './locations/locations';
 export * from './ajax-search/ajax-search';
 export * from './dashboard/dashboard';
 export * from './expense-create/expense-create';
