@@ -40,7 +40,7 @@
 </ion-segment>
 <div [ngSwitch]="details_tab">
  <div class="list" [hidden]="details_tab != 'Reply'">
-  <ion-item no-lines class="margin-bottom10"><ion-label class="width30 font-size17 text-right">Show logs</ion-label><ion-toggle [(ngModel)]="is_showlogs"></ion-toggle></ion-item> 
+  <ion-item no-lines class="margin-bottom10"><ion-label class="width30 font-size17 text-right">Logs</ion-label><ion-toggle [(ngModel)]="is_showlogs"></ion-toggle></ion-item> 
   <posts-list [posts]="posts" [is_first]="true" [attachments]="attachments" [is_showlogs]="is_showlogs"></posts-list>
   <form *ngIf="active" #addForm="ngForm">
    <div class="tooltips">

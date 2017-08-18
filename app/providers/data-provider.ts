@@ -162,6 +162,12 @@ getAccountDetails(id,is_no_stat?) {
         url = addp(url, "is_with_statistics", "false");
     return this.apiData.get(url);
 }
+getLocationDetails(id,is_no_stat?) {
+    let url = `locations/${id}`;
+    if (is_no_stat) 
+        url = addp(url, "is_with_statistics", "false");
+    return this.apiData.get(url);
+}
 
     addAccountNote(id, note) {
         let url = `accounts/${id}`;

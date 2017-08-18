@@ -1,0 +1,32 @@
+<ion-navbar *navbar><button menuToggle><ion-icon name="menu"></ion-icon></button>
+  <ion-title class="padding-right24">{{location.name}}</ion-title>
+</ion-navbar>
+
+<ion-content class="account-details">
+  
+
+
+
+  <div [ngSwitch]="details_tab">
+    <div [hidden]="details_tab != 'Stat'">
+      
+      <ion-item class="margin" id="tickets">
+        <div class="list">
+          <ion-segment [(ngModel)]="tabsTicket" class="height32">
+            <ion-segment-button class="button-open" value="Open">Open {{config.current.names.ticket.ap}}</ion-segment-button>
+            <ion-segment-button class="button-open" value="Close">Closed {{config.current.names.ticket.ap}}</ion-segment-button>
+          </ion-segment>
+        </div></ion-item>
+        <br>
+        <tickets-list [hidden]="tabsTicket != 'Open'" [mode]="['open', location.id]" ></tickets-list>
+        <tickets-list [hidden]="tabsTicket != 'Close'" preload="1500" [mode]="['closed', location.id]" ></tickets-list>
+      </div>
+
+      
+
+  
+
+    
+</div>
+
+</ion-content>

@@ -1,7 +1,7 @@
 //in case on using ionic "ion-card"
 import {IONIC_DIRECTIVES, Nav, NavParams, Config} from 'ionic-angular';
 import {Component, Input, OnChanges} from '@angular/core';
-import {AccountDetailsPage} from '../../pages/account-details/account-details';
+import {LocationDetailsPage} from '../../pages/location-details/location-details';
 import {MorePipe} from '../../pipes/pipes';
 
 @Component({
@@ -19,9 +19,9 @@ export class LocationsListComponent {
      constructor(private nav: Nav, private config: Config) {
          this.is_empty = false;
 }
-     itemTapped(event, account) {
-         account.account_statistics.ticket_counts.closed = null;
-         this.nav.push(AccountDetailsPage, account);
+     itemTapped(event, location) {
+        // location.location_statistics.ticket_counts.closed = null;
+         this.nav.push(LocationDetailsPage, location);
                    }
      
      ngOnChanges(event) {
