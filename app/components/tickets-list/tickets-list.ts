@@ -51,7 +51,7 @@ export class TicketsListComponent {
 
      ngOnInit() {
          this.he = this.config.getCurrent("user");
-         this.cachename = this.mode[0] + (this.mode[1] || "");
+         this.cachename = this.mode[0] + (this.mode[1] || "") + (this.mode[2] || "");
          this.cachelen = (this.ticketProvider._dataStore[this.cachename] || {}).length;
          if (this.mode[0] == "all")
          {
@@ -76,7 +76,7 @@ export class TicketsListComponent {
          this.count = !stat ? this.count : stat;
          //console.log(this.cachename + " - count:" + this.count);
          if (this.count !== 0) {
-             this.ticketProvider.getTicketsList(this.mode[0], this.mode[1], this.pager);
+             this.ticketProvider.getTicketsList(this.mode[0], this.mode[1], this.mode[2], this.pager);
              this.tickets = this.ticketProvider.tickets$[this.cachename];
              if (!this.ticketProvider._dataStore[this.cachename].length) {
                  var timer = setTimeout(() => {
@@ -166,7 +166,7 @@ export class TicketsListComponent {
                  return;
              this.count -= data;
              this.ticketProvider._dataStore[this.cachename].splice(this.ticketProvider._dataStore[this.cachename].indexOf(ticket),1);
-             this.ticketProvider.getTicketsList(this.mode[0], this.mode[1], this.pager);
+             this.ticketProvider.getTicketsList(this.mode[0], this.mode[1], this.mode[2], this.pager);
              //myArray.findIndex(el => el.color === 'blue');
              //myArray.map((el) => el.color).indexOf('blue');
              if (this.count < 1)
@@ -207,7 +207,7 @@ export class TicketsListComponent {
          }
          this.pager.page += 1; 
          let cachedlen = (this.ticketProvider._dataStore[this.cachename] || {}).length;
-         this.ticketProvider.getTicketsList(this.mode[0], this.mode[1], this.pager);
+         this.ticketProvider.getTicketsList(this.mode[0], this.mode[1], this.mode[2], this.pager);
          this.tickets.subscribe(
              data => { 
                  infiniteScroll.complete();

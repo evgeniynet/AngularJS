@@ -113,12 +113,12 @@ export class DashboardPage {
         }
         
         if (!this.ticketProvider._dataStore.tech.length){
-            this.ticketProvider.getTicketsList("tech", "", { "limit": 6 }); 
+            this.ticketProvider.getTicketsList("tech", "", "",{ "limit": 6 }); 
         }
 
         this.timer = setTimeout(() => {
             if (!this.ticketProvider._dataStore.user.length) {
-                this.ticketProvider.getTicketsList("user", "", { "limit": 6 });
+                this.ticketProvider.getTicketsList("user", "", "",{ "limit": 6 });
             }
             if (this.config.current.is_time_tracking && !(this.timeProvider._dataStore["time"] || {}).length)
                 this.timeProvider.getTimelogs("", { "limit": 25 });

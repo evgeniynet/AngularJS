@@ -26,8 +26,10 @@ export class TicketProvider {
         };
      }
 
-    getTicketsList(tab, id, pager) {
+    getTicketsList(tab, id, location, pager) {
         //"user","tech","alt","all"
+        id = id || "";
+        location = location || "";
         let url = "";
         switch (tab.toString()) {
             case "tech":
@@ -40,10 +42,10 @@ export class TicketProvider {
             url = `${this.URL}?status=open&role=alt_tech`;
             break;
             case "open":
-            url = `${this.URL}?status=open&account=${id}`;
+            url = `${this.URL}?status=open&account=${id}&location=${location}`;
             break;
             case "closed":
-            url = `${this.URL}?status=closed&account=${id}`;
+            url = `${this.URL}?status=closed&account=${id}&location=${location}`;
             break;
             case 'queue':
             url = `queues/${id}`;
@@ -57,6 +59,7 @@ export class TicketProvider {
             pager.limit = pager.limit || 25;
             pager.page = pager.page || 0;
             tab += id || "";
+            tab += location || "";
             this._dataStore[tab] = this._dataStore[tab] || [];
             if (dontClearCache){
                 this.tickets$[tab] = new Observable(observer => this._ticketsObserver[tab] = observer).share();

@@ -38,8 +38,8 @@
           </ion-segment>
         </div></ion-item>
         <br>
-        <tickets-list [hidden]="tabsTicket != 'Open'" [mode]="['open', account.id]" [count]="account.account_statistics.ticket_counts.open"></tickets-list>
-        <tickets-list [hidden]="tabsTicket != 'Close'" preload="1500" [mode]="['closed', account.id]" [count]="account.account_statistics.ticket_counts.closed"></tickets-list>
+        <tickets-list [hidden]="tabsTicket != 'Open'" [mode]="['open', account.id]"></tickets-list>
+        <tickets-list [hidden]="tabsTicket != 'Close'" preload="1500" [mode]="['closed', account.id]"></tickets-list>
       </div>
 
       <ion-list class="list margin-top21" no-lines *ngSwitchWhen="'Info'">

@@ -61,7 +61,7 @@ export class TicketsPage {
         this.clearSearch();
         if (data)
         {
-            this.ticketProvider.getTicketsList(this.ticket_tab, "", { "limit": 25 });
+            this.ticketProvider.getTicketsList(this.ticket_tab, "", "",{ "limit": 25 });
             setTimeout(() => {
                 this.nav.push(TicketDetailsPage, data);
             //if (!this.counts[this.ticket_tab])

@@ -42,6 +42,7 @@ export class TicketCreatePage {
 
 
         let account_id = (this.data.account || {}).id || (recent.account || {}).selected || this.he.account_id || -1;
+        let location_id = (this.data.location || {}).id || (recent.location || {}).selected || 0;
 
         this.selects = {
             "user" : {
@@ -53,8 +54,8 @@ export class TicketCreatePage {
             },
             "location" : {
                 name: "Location", 
-                value: (recent.location || {}).value || "Default",
-                selected: (recent.location || {}).selected || 0,
+                value: (this.data.location || {}).name || (recent.location || {}).value || "Default",
+                selected: location_id,
                 url: `locations?account=${account_id}&limit=500`,
                 hidden: false
             },
@@ -103,7 +104,7 @@ export class TicketCreatePage {
             "initial_post" : "",
             "class_id" : null,
             "account_id" : account_id,
-            "location_id": null,
+            "location_id": location_id,
             "user_id" : this.he.user_id,
             "tech_id" : 0,
             "priority_id" : 0,

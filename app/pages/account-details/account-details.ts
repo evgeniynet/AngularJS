@@ -1,4 +1,5 @@
 import {Page, Config, Nav, NavParams, ViewController} from 'ionic-angular';
+import {TicketProvider} from '../../providers/providers';
 import {DataProvider} from '../../providers/data-provider';
 import {InvoicesPage} from '../invoices/invoices';
 import {TimelogsPage} from '../timelogs/timelogs';
@@ -22,7 +23,7 @@ export class AccountDetailsPage {
     is_editnote: boolean = true;
     is_ready: boolean = false;
 
-    constructor(private nav: Nav, private navParams: NavParams, private dataProvider: DataProvider, private config: Config, private view: ViewController) {
+    constructor(private nav: Nav, private navParams: NavParams, private dataProvider: DataProvider, private ticketProvider: TicketProvider, private config: Config, private view: ViewController) {
         this.details_tab = "Stat";
         this.pages = [InvoicesPage, ExpensesPage, TimelogsPage];
   }
@@ -37,6 +38,7 @@ export class AccountDetailsPage {
 
     onPageWillEnter()
 {
+  this.ticketProvider.getTicketsList("open", this.account.id, "",{ "limit": 25 });
      this.view.setBackButtonText('');
             this.dataProvider.getAccountDetails(this.account.id).subscribe(
     data => {

@@ -33,7 +33,7 @@ export class LocationsPage {
 
 
     getItems(infiniteScroll, timer) {
-        this.dataProvider.getLocationList(false, this.pager, true, true).subscribe(
+        this.dataProvider.getLocationList(this.pager, true).subscribe(
             data => {
                 //console.log(data);
                 if (timer) {

@@ -2,14 +2,7 @@
   <ion-title class="padding-right24">{{location.name}}</ion-title>
 </ion-navbar>
 
-<ion-content class="account-details">
-  
-
-
-
-  <div [ngSwitch]="details_tab">
-    <div [hidden]="details_tab != 'Stat'">
-      
+<ion-content class="account-details">  
       <ion-item class="margin" id="tickets">
         <div class="list">
           <ion-segment [(ngModel)]="tabsTicket" class="height32">
@@ -18,15 +11,7 @@
           </ion-segment>
         </div></ion-item>
         <br>
-        <tickets-list [hidden]="tabsTicket != 'Open'" [mode]="['open', location.id]" ></tickets-list>
-        <tickets-list [hidden]="tabsTicket != 'Close'" preload="1500" [mode]="['closed', location.id]" ></tickets-list>
-      </div>
-
-      
-
-  
-
-    
-</div>
-
+        <tickets-list [hidden]="tabsTicket != 'Open'" [mode]="['open', '-1', location.id]" ></tickets-list>
+        <tickets-list [hidden]="tabsTicket != 'Close'" preload="1500" [mode]="['closed', '-1', location.id]" ></tickets-list>
 </ion-content>
+<button (click)="addTicket()" secondary item-right fab fab-right fab-bottom style="z-index: 2"><ion-icon class="button_circle action-but" name="md-add"></ion-icon></button>

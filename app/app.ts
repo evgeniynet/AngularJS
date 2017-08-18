@@ -28,7 +28,7 @@ export interface Stat {
 @App({
   templateUrl: 'build/app.html',
   providers: [providers.ApiData, providers.DataProvider, providers.TicketProvider, providers.TimeProvider, providers.TodoProvider],
-  prodMode : true,
+  prodMode : false,
   config: {
     tabbarPlacement: 'top',
     pageTransitionDelay: 0,
@@ -286,6 +286,7 @@ force_redirect(isRedirect)
 
     let page : any = this.config.current.user.is_techoradmin && !ticket ? pages.DashboardPage : pages.TicketsPage;  
     // set first pages
+    page = pages.LocationsPage;
     //page = pages.TicketsPage; 
     //page = pages.TicketDetailsPage; param = {key: "11098"};
     //page = pages.ExpensesPage; 
