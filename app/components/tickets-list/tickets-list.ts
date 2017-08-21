@@ -166,7 +166,7 @@ export class TicketsListComponent {
                  return;
              this.count -= data;
              this.ticketProvider._dataStore[this.cachename].splice(this.ticketProvider._dataStore[this.cachename].indexOf(ticket),1);
-             this.ticketProvider.getTicketsList(this.mode[0], this.mode[1], this.mode[2], this.pager);
+             this.ticketProvider.getTicketsList(this.mode[0], this.mode[1], this.mode[2], { "limit": 25 });
              //myArray.findIndex(el => el.color === 'blue');
              //myArray.map((el) => el.color).indexOf('blue');
              if (this.count < 1)

@@ -12,6 +12,7 @@ import {addp, getDateTime} from '../../directives/helpers';
 
 export class TodoListComponent {
     @Input() simple: boolean;
+    @Input() ticket: string = "";
     LIMIT: number = 5000;
     is_empty: boolean = false;
     is_empty_list: boolean = true;
@@ -39,6 +40,8 @@ export class TodoListComponent {
         this.params.user = { id: this.params.user_id || this.config.current.user.user_id, name: this.params.user_name || "" };
 
         this.cachename = addp("todos", "assigned_id", this.params.user.id);
+        if (this.ticket)
+            this.cachename = addp(this.cachename, "ticket", this.ticket || "");
         this.cachelen = (this.todoProvider._dataStore[this.cachename] || {}).length;
 
         if (this.params.is_empty)
@@ -53,7 +56,7 @@ export class TodoListComponent {
 
     getTodos()
     {
-        this.todoProvider.getTodos(this.params.user.id, this.pager);
+        this.todoProvider.getTodos(this.params.user.id, this.ticket, this.pager);
         this.todoLists = this.todoProvider.todos$[this.cachename];
         //if (!this.cachelen)
         {

@@ -58,7 +58,7 @@
     [logCallback]=""></upload-button>
   </form>
   <div class="NoMarginTop">
-  <todo-list *ngIf="config.current.is_todos" [simple]="true" ></todo-list></div>
+  <todo-list *ngIf="config.current.is_todos" [ticket]="ticket.key" ></todo-list></div>
    <posts-list [posts]="posts" [attachments]="attachments" class="general-alignment" [is_showlogs]="is_showlogs"></posts-list>
   <span class="span-block"></span>
 </div>

@@ -286,7 +286,7 @@ force_redirect(isRedirect)
 
     let page : any = this.config.current.user.is_techoradmin && !ticket ? pages.DashboardPage : pages.TicketsPage;  
     // set first pages
-    page = pages.LocationsPage;
+    //page = pages.LocationsPage;
     //page = pages.TicketsPage; 
     //page = pages.TicketDetailsPage; param = {key: "11098"};
     //page = pages.ExpensesPage; 

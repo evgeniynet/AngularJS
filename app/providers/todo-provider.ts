@@ -22,8 +22,9 @@ export class TodoProvider {
         this._dataStore = {};
      }
 
-    getTodos(user_id, pager) {
+    getTodos(user_id, ticket, pager) {
         let url = addp(this.URL, "assigned_id", user_id);
+        if (ticket) url = addp(url, "ticket", ticket || "");
         pager.limit = pager.limit || 25;
         pager.page = pager.page || 0;
         this._dataStore[url] = this._dataStore[url] || [];
