@@ -13,7 +13,7 @@ import {TimelogPage} from '../../pages/timelog/timelog';
 import {ExpenseCreatePage} from '../../pages/expense-create/expense-create';
 import {GravatarPipe, LinebreaksPipe, DaysoldPipe, HtmlsafePipe} from '../../pipes/pipes';
 import {AddFilesModal} from '../../pages/modals/add-files/add-files';
-
+import {TodoListComponent} from '../../components/todo-list/todo-list';
 import {Component, ElementRef, Input, OnInit, ViewChild, Renderer, Output, EventEmitter, forwardRef} from "@angular/core";
 import {IONIC_DIRECTIVES, Loading} from 'ionic-angular';
 import {ApiSite} from '../../providers/config';
@@ -42,8 +42,8 @@ import {ApiSite} from '../../providers/config';
  *  </code>
  */
  @Component({
-   directives: [IONIC_DIRECTIVES],
    selector: "upload-button",
+   directives: [IONIC_DIRECTIVES],
    templateUrl: 'build/components/upload-button/upload-button.html',
  })
  export class UploadButtonComponent {
@@ -315,7 +315,7 @@ import {ApiSite} from '../../providers/config';
 
  @Page({
    templateUrl: 'build/pages/ticket-details/ticket-details.html',
-   directives: [PostsListComponent, forwardRef(() => SelectListComponent), forwardRef(() => ClassListComponent), forwardRef(() => LocationListComponent), UploadButtonComponent],
+   directives: [TodoListComponent, PostsListComponent, forwardRef(() => SelectListComponent), forwardRef(() => ClassListComponent), forwardRef(() => LocationListComponent), UploadButtonComponent],
    pipes: [GravatarPipe, LinebreaksPipe, DaysoldPipe, HtmlsafePipe],
  })
  export class TicketDetailsPage {

@@ -40,8 +40,9 @@
 </ion-segment>
 <div [ngSwitch]="details_tab">
  <div class="list" [hidden]="details_tab != 'Reply'">
-  <ion-item no-lines class="margin-bottom10"><ion-label class="width30 font-size17 text-right">Logs</ion-label><ion-toggle [(ngModel)]="is_showlogs"></ion-toggle></ion-item> 
-  <posts-list [posts]="posts" [is_first]="true" [attachments]="attachments" [is_showlogs]="is_showlogs"></posts-list>
+
+  <ion-item no-lines class="margin-bottom10"><ion-label class="width30 font-size17 text-right">Logs</ion-label><ion-toggle [(ngModel)]="is_showlogs"></ion-toggle></ion-item>
+   <posts-list [posts]="posts" [is_first]="true" [attachments]="attachments" [is_showlogs]="is_showlogs"></posts-list>
   <form *ngIf="active" #addForm="ngForm">
    <div class="tooltips">
     <textarea class="width100 textLogin commentText" [(ngModel)]="ticketnote" type="text" placeholder="Add Response" ngControl="note" #note="ngForm" required maxlength="4000"></textarea>
@@ -56,7 +57,9 @@
     [filesExist]="attachments"
     [logCallback]=""></upload-button>
   </form>
-  <posts-list [posts]="posts" [attachments]="attachments" class="general-alignment" [is_showlogs]="is_showlogs"></posts-list>
+  <div class="NoMarginTop">
+  <todo-list *ngIf="config.current.is_todos" [simple]="true" ></todo-list></div>
+   <posts-list [posts]="posts" [attachments]="attachments" class="general-alignment" [is_showlogs]="is_showlogs"></posts-list>
   <span class="span-block"></span>
 </div>
 
@@ -124,7 +127,7 @@
 
     <button *ngIf="(ticket.technician_email || ticket.tech_email) != he.email" (click)='pickUp()' block type="submit" class="blue2 class-margin">Pick Up {{config.current.names.ticket.s}}</button>
 
-    <button (click)="closeTicket()" secondary block type="submit" class="class-margin">{{ticket.status != 'Closed' ? 'Close' : 'ReOpen'}} {{config.current.names.ticket.s}}</button>
+    <button (click)="closeTicket()" secondary block type="submit" class="class-margin">{{ticket.status != 'Closed' ? 'Close' : 'ReOpen'}} {{config.current.names.ticket.s}}</button> 
     <span class="span-block"></span>
   </div>
 </div>
