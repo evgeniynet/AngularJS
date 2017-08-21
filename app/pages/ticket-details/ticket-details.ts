@@ -848,6 +848,14 @@ import {ApiSite} from '../../providers/config';
         });
         this.nav.present(myModal);
             }
+     
+      Escalate(){
+        alert("Escalate ready");
+      }
+
+      DeEscalate(){
+        alert("De-Escalate ready");
+      }
 
        getFullapplink(ticketkey) {
          let curr = this.config.getCurrent();
