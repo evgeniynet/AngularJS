@@ -57,8 +57,8 @@
     [filesExist]="attachments"
     [logCallback]=""></upload-button>
   </form>
-  <div style="margin-top:-38px !important">
-  <todo-list *ngIf="config.current.is_todos" [simple]="true" class="NoMarginTop"></todo-list></div>
+  <div class="NoMarginTop">
+  <todo-list *ngIf="config.current.is_todos" [simple]="true" ></todo-list></div>
    <posts-list [posts]="posts" [attachments]="attachments" class="general-alignment" [is_showlogs]="is_showlogs"></posts-list>
   <span class="span-block"></span>
 </div>
