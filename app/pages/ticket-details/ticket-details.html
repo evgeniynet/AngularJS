@@ -127,6 +127,10 @@
 
     <button *ngIf="(ticket.technician_email || ticket.tech_email) != he.email" (click)='pickUp()' block type="submit" class="blue2 class-margin">Pick Up {{config.current.names.ticket.s}}</button>
 
+    <button *ngIf="(ticket.technician_email || ticket.tech_email) != he.email" (click)='Escalate()' block type="submit" class="blue2 class-margin">Escalate</button>
+
+    <button *ngIf="(ticket.technician_email || ticket.tech_email) != he.email" (click)='DeEscalate()' block type="submit" class="blue2 class-margin">De-Escalate</button>
+
     <button (click)="closeTicket()" secondary block type="submit" class="class-margin">{{ticket.status != 'Closed' ? 'Close' : 'ReOpen'}} {{config.current.names.ticket.s}}</button> 
     <span class="span-block"></span>
   </div>
