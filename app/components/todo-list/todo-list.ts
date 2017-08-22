@@ -3,6 +3,7 @@ import {Component, Input, OnChanges} from '@angular/core';
 import {TodoProvider} from '../../providers/todo-provider';
 import {TodoCreatePage} from '../../pages/todo-create/todo-create';
 import {addp, getDateTime} from '../../directives/helpers';
+import {TicketDetailsPage} from '../../pages/ticket-details/ticket-details';
 
 @Component({
     selector: 'todo-list',
@@ -104,4 +105,8 @@ export class TodoListComponent {
             return Number(value).toFixed(2).toString();
         return value;
     }
+    itemTapped(id) {
+            var ticket = {"key":id};
+            this.nav.push(TicketDetailsPage, ticket);
+         }
 }

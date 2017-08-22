@@ -7,7 +7,11 @@
                         <block [hidden]="hidden">
          <template ngFor let-todoList [ngForOf]="todoLists | async" let-even="even" let-odd="odd">
          <div [ngClass]="{'grad': todoList.sub?.length}" (click)="todoList.hidden = !todoList.sub?.length || !todoList.hidden"> 
-                <ion-icon [style.visibility]="!todoList.sub?.length ?'hidden':'inherit'" role="img" [ngClass]="{'ion-ios-arrow-down font18  margin-right10':!todoList.hidden, 'pr8 button-arrow ion-ios-arrow-forward left':todoList.hidden}" class="todos-arrow padding-left15"></ion-icon><h5 class="color">{{todoList.name}}</h5><ion-icon (click)="AddTodo(todoList.list_id)" name="md-add" role="img" style="padding-right: 10px;" [ngClass]="{'':!todoList.sub?.length, 'color':!todoList.sub?.length}" class="ion-md-add padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon>
+                <ion-icon [style.visibility]="!todoList.sub?.length ?'hidden':'inherit'" role="img" [ngClass]="{'ion-ios-arrow-down font18  margin-right10':!todoList.hidden, 'pr8 button-arrow ion-ios-arrow-forward left':todoList.hidden}" class="todos-arrow padding-left15"></ion-icon>
+            <h5 class="color">{{todoList.name}}&nbsp;
+                <span *ngIf="todoList.list_ticket_id && ticket" (click)="itemTapped(todoList.list_ticket_id)" class="ticketNumber"><span style="color:black">(</span>Tkt #{{todoList.list_ticket_number}}<span style="color:black">)</span></span>
+                <!--<span *ngIf="!todoList.list_ticket_number && !ticket" class="ticketNumber"><span style="color:black">(</span>NoTkt#<span style="color:black">)</span></span>-->
+            </h5><ion-icon (click)="AddTodo(todoList.list_id)" name="md-add" role="img" style="padding-right: 10px;" [ngClass]="{'':!todoList.sub?.length, 'color':!todoList.sub?.length}" class="ion-md-add padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon>
          </div>
 
          <template [ngIf]="!todoList?.hidden">
