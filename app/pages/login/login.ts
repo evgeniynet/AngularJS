@@ -72,42 +72,44 @@ export class LoginPage {
         openURLsystem(`https://support.${Site}portal/`);
     }
 
-    onGoogleSignin() {        
-        window.location.href = ApiSite + 'auth/auth0' + (localStorage.getItem("isPhonegap") === "true" ? ("?ios_action="+(localStorage.isIos || localStorage.isIosStatus || "")) : "");
-        
-        /*else
-            openURLsystem(ApiSite + 'auth/auth0?ios_action=');
-        else
+    onGoogleSignin() {
+        if ("true" !== localStorage.getItem("isPhonegap")) 
+            window.location.href = a.ApiSite + "auth/auth0";
+        if ("true" === localStorage.getItem("isExtension"))
         {
-            console.log("isPhonegap", localStorage.getItem("isPhonegap"));
-            var win = openURL(ApiSite + 'auth/auth0');
-            var onExit = function() {
-                console.log("onExit", 1);
-                location.href = 'index.html';
+            alert("Please finish login with Google in new window(Google requirement)\n and start Extension again.")
+            window.open(ApiSite + "auth/auth0", "_blank", "");
+        }
+        else {
+            var t = ApiSite + "auth/auth0?ios_action=" + (localStorage.isIos || localStorage.isIosStatus || "");
+            window.win = null;
+            window.nameInterval = null;
+            window.onExit = function() {
+                clearInterval(window.nameInterval), window.win.close(), window.t1 = null;
+                var t = document.createElement("script");
+                t.src = "build/js/vendor.bundle.js", document.body.appendChild(t), setTimeout(window.reloadScript, 2e3)
             };
-            win.addEventListener( "loadstop", function() {
-                console.log("loadstop", 1);
-                var loop = setInterval(function() {
-                    win.executeScript(
-                    {
-                        code: "localStorage.getItem('isGoogle')"
-                    },
-                    function( values ) {
-                        console.log("values", values);
-                        var name = values[0];
-                        if (name) {
-                            clearInterval(loop);
-                            win.close();
-                            onExit();
+
+            window.win = window.open(t, "_blank", "location=no");
+            window.win.addEventListener("loadstop", function() {
+                window.nameInterval = setInterval(function() {
+                    window.win.executeScript({
+                        code: "localStorage.getItem('current')"
+                    }, function(t) {
+                        var e = t[0];
+                        if (e) {
+                            localStorage.current = e;
+                            var i = JSON.parse(e || "null") || {};
+                            i.org && i.instance && i.key && window.onExit();
                         }
-                    }
-                    );
-                });
+                    })
+                }, 1000)
             });
-            win.addEventListener('exit', onExit);
-            return;
-        }*/
-    }
+            window.win.addEventListener("exit", function() {
+                window.onExit()
+            });
+        }
+    }  
     
     onSignup() {
         this.nav.push(SignupPage, null, { animation: "wp-transition" });
