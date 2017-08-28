@@ -9,19 +9,12 @@
 </ion-navbar>
 <!--<ion-navbar *navbar><button menuToggle><ion-icon name="menu"></ion-icon></button>
   <ion-title>{{config.current.names.location.p}}</ion-title>-->
- <ion-searchbar *ngIf="test" [focuser] debounce="700" (cancel)="test = !test" (input)="searchItems($event)" [(ngModel)]="term" placeholder="Enter to search" (search)="getSearch($event)"></ion-searchbar>
-<img *ngIf="busy" class="imglogo" src="img/loading2.gif"/>
- <ion-list class="ajax" [hidden]="!search_results">
-        <a detail-none href=# ion-item *ngFor="let item of search_results" (click)="gotoTicket(item)">
-            <h2>{{item.status}} | #{{item.number}} - {{item.subject}} ({{item.user_firstname}} {{item.user_lastname}})</h2>
-        </a>
-    </ion-list>
-
-
+ <ion-searchbar *ngIf="test" [focuser] debounce="700" (cancel)="test = !test" (input)="searchItems($event)" [(ngModel)]="term" placeholder="Enter to search (min 3 chars) {{config.current.names.location.p}}"></ion-searchbar>
     <ion-content class="accounts">
  <p class="general-alignment"></p>
  <img *ngIf="busy" class="imglogo img-padding" src="img/loading2.gif">
-        <locations-list margin-top [simple]="true" [locations]="locations"></locations-list>
+        
+        <locations-list margin-top [simple]="true" [locations]="items"></locations-list>
 
         <ion-infinite-scroll (infinite)="doInfinite($event)" threshold="30%">
     <ion-infinite-scroll-content

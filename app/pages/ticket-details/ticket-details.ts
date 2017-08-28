@@ -844,7 +844,7 @@ import {ApiSite} from '../../providers/config';
     console.log("Function connect");
     let myModal = Modal.create(AddFilesModal);
         myModal.onDismiss(data1 => {
-            this.gotoUser(data1);
+            //this.gotoUser(data1);
         });
         this.nav.present(myModal);
             }

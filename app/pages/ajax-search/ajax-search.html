@@ -7,7 +7,7 @@
 <img *ngIf="busy" class="imglogo img-padding" src="img/loading2.gif">
     <ion-list class="ajax">
         <a detail-none href=# ion-item *ngFor="let item of items" (click)="dismiss(item)">
-            <h2>#{{item.number}} - {{item.subject}} ({{item.user_firstname}} {{item.user_lastname}})</h2>
+            <h2>#{{item.number}} ({{item.status}}) - {{item.subject}} ({{item.user_firstname}} {{item.user_lastname}})</h2>
             <!--ion-note item-right>
                 <h2>{{item.id}}</h2>
             </ion-note-->

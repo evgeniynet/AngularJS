@@ -117,7 +117,7 @@
           </div>
     </ion-item>
     <span class="span-block"></span>
-     <button (click)="addFilesButton()" secondary item-right fab fab-right fab-bottom style="z-index: 2"><ion-icon class="button_circle action-but" name="md-add"></ion-icon></button>
+     <!--button (click)="addFilesButton()" secondary item-right fab fab-right fab-bottom style="z-index: 2"><ion-icon class="button_circle action-but" name="md-add"></ion-icon></button-->
   </ion-list>
   <div *ngSwitchWhen="'Options'" class="list max-width700 general-alignment">
     <button *ngIf="config.current.is_time_tracking" (click)="addTime()" block type="submit" class="blue2 disable-hover button button-default button-block class-margin">Add Time</button>
@@ -127,9 +127,9 @@
 
     <button *ngIf="(ticket.technician_email || ticket.tech_email) != he.email" (click)='pickUp()' block type="submit" class="blue2 class-margin">Pick Up {{config.current.names.ticket.s}}</button>
 
-    <button *ngIf="(ticket.technician_email || ticket.tech_email) != he.email" (click)='Escalate()' block type="submit" class="blue2 class-margin">Escalate</button>
+    <button *ngIf="false" (click)='Escalate()' block type="submit" class="blue2 class-margin">Escalate</button>
 
-    <button *ngIf="(ticket.technician_email || ticket.tech_email) != he.email" (click)='DeEscalate()' block type="submit" class="blue2 class-margin">De-Escalate</button>
+    <button *ngIf="false" (click)='DeEscalate()' block type="submit" class="blue2 class-margin">De-Escalate</button>
 
     <button (click)="closeTicket()" secondary block type="submit" class="class-margin">{{ticket.status != 'Closed' ? 'Close' : 'ReOpen'}} {{config.current.names.ticket.s}}</button> 
     <span class="span-block"></span>

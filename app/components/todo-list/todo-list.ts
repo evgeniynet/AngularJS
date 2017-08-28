@@ -49,8 +49,7 @@ export class TodoListComponent {
         if (this.params.user.id)
             this.cachename = addp(this.cachename, "assigned_id", this.params.user.id);
         if (this.ticket)
-            this.cachename = addp(this.cachename, "ticket", this.ticket || "");
-        console.log("this.cachename", this.cachename);
+            this.cachename = addp(this.cachename, "ticket", this.ticket || "");   
         this.cachelen = (this.todoProvider._dataStore[this.cachename] || {}).length;
 
         if (this.params.is_empty)
@@ -79,6 +78,13 @@ export class TodoListComponent {
                 data => {
                     clearTimeout(timer);
                     //this.todoLists = this.todoProvider.todos$[this.cachename];
+                    var test = [];
+                    if (data.length && data.filter(t => t.type == 1).length == 0)
+                    {
+                       test[0] = data[0];
+                       test[0].sub = data;
+                       data = test;
+                    }
                     this.busy = false;
                     this.is_empty = !data.length;
                     let count = 0, total = 0;

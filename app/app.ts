@@ -28,7 +28,7 @@ export interface Stat {
 @App({
   templateUrl: 'build/app.html',
   providers: [providers.ApiData, providers.DataProvider, providers.TicketProvider, providers.TimeProvider, providers.TodoProvider],
-  prodMode : false,
+  prodMode : true,
   config: {
     tabbarPlacement: 'top',
     pageTransitionDelay: 0,
@@ -233,7 +233,7 @@ if (this.config.current.user.is_techoradmin)
 { title: data.names.ticket.p, component: pages.TicketsPage, icon: "create", is_active: true },
 { title: 'Timelogs', component: pages.TimelogsPage, icon: "md-time", is_active: this.config.current.is_time_tracking },
 { title: data.names.account.p, component: pages.AccountsPage, icon: "people", is_active: this.config.current.is_account_manager },
-{ title: data.names.location.p, component: pages.LocationsPage, icon: "navigate", is_active: this.config.current.is_account_manager },
+{ title: data.names.location.p, component: pages.LocationsPage, icon: "navigate", is_active: this.config.current.is_location_tracking },
 { title: 'Invoices', component: pages.InvoicesPage, icon: "card", is_active: this.config.current.is_time_tracking && this.config.current.is_invoice },
 { title: 'Queues', component: pages.QueuesPage, icon: "md-list-box", is_active: this.config.current.is_unassigned_queue && (!this.config.current.user.is_limit_assigned_tkts || this.config.current.user.is_admin)},
 { title: 'ToDos', component: pages.TodosPage, icon: "list-box", is_active: this.config.current.is_todos },
@@ -531,7 +531,7 @@ unsubscribeToEvents() {
 
 ExtendConfig() {
 
-  localStorage.setItem('isExtension', window.self !== window.top ? "true" : "");
+  localStorage.setItem('isExtension', window.self !== window.top ? "true" : (localStorage.getItem("isExtension") || ""));
   localStorage.setItem("version", appVersion);
   //this.config.current.isPhonegap = localStorage.getItem("isPhonegap") === "true";
 

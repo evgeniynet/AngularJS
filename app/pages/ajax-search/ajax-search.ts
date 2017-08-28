@@ -12,6 +12,7 @@ export class AjaxSearchPage {
 
     url: string;
     term: string;
+    location: any = {};
     search: string;
     name: string;
     data: any = [];
@@ -26,21 +27,25 @@ export class AjaxSearchPage {
 
     ngOnInit() {
         this.term = this.navParams.data.search || "";
+        this.location = this.navParams.data.location;
         /*
         this.name = this.navParams.data.name || "List";
         this.url = this.navParams.data.url || "";
         this.data = this.navParams.data.items || {};
         */
         this.pager = { limit: 20 };
+        let q = this.term.toLowerCase();
+        if (!this.location)
+        {
         if (this.ticketProvider._dataStore.all.length)
             this.data = this.ticketProvider._dataStore.all;
         else if (this.ticketProvider._dataStore.tech.length)
             this.data = this.ticketProvider._dataStore.tech;
         else if (this.ticketProvider._dataStore.user.length)
             this.data = this.ticketProvider._dataStore.user;
-        let q = this.term.toLowerCase();
         if (this.data.length && q.length < 4){
             this.items = this.data.filter((v) => this.searchCriteria(v, q));
+        }
         }
         this.count = this.items.length;
         if (q.length > 3) {
@@ -97,7 +102,7 @@ export class AjaxSearchPage {
 
     getItems(term, timer) {
         this.items = [];
-        this.url = "tickets?query=all"; //status=allopen&
+        this.url = "tickets?query=all&&location="+(this.location || {}).id || ""; //status=allopen&
         this.apiData.getPaged(addp(this.url, "search", term+"*"), this.pager).subscribe(
             data => {
                 if (timer) {
