@@ -74,33 +74,36 @@ export class LoginPage {
 
     onGoogleSignin() {
         if ("true" !== localStorage.getItem("isPhonegap")) 
-            window.location.href = a.ApiSite + "auth/auth0";
+            window.location.href = ApiSite + "auth/auth0";
         if ("true" === localStorage.getItem("isExtension"))
         {
-            alert("Please finish login with Google in new window(Google requirement)\n and start Extension again.")
-            window.open(ApiSite + "auth/auth0", "_blank", "");
+            this.nav.alert("Please finish login with Google in new window (Google requirement)\n and start Extension again.");
+            setTimeout(() => window.open(ApiSite + "auth/auth0", "_blank", ""), 3000);
         }
         else {
-            var t = ApiSite + "auth/auth0?ios_action=" + (localStorage.isIos || localStorage.isIosStatus || "");
+            var url = ApiSite + "auth/auth0?ios_action=" + (localStorage.isIos || localStorage.isIosStatus || "");
             window.win = null;
             window.nameInterval = null;
             window.onExit = function() {
                 clearInterval(window.nameInterval), window.win.close(), window.t1 = null;
-                var t = document.createElement("script");
-                t.src = "build/js/vendor.bundle.js", document.body.appendChild(t), setTimeout(window.reloadScript, 2e3)
+                var el = document.createElement("script");
+                el.src = "build/js/vendor.bundle.js";
+                document.body.appendChild(el);
+                setTimeout(window.reloadScript, 2000);
             };
 
-            window.win = window.open(t, "_blank", "location=no");
+            window.win = window.open(url, "_blank", "location=no");
             window.win.addEventListener("loadstop", function() {
                 window.nameInterval = setInterval(function() {
                     window.win.executeScript({
                         code: "localStorage.getItem('current')"
-                    }, function(t) {
-                        var e = t[0];
+                    }, function(data) {
+                        var e = data[0];
                         if (e) {
                             localStorage.current = e;
                             var i = JSON.parse(e || "null") || {};
-                            i.org && i.instance && i.key && window.onExit();
+                            if (i.org && i.instance && i.key)
+                             window.onExit();
                         }
                     })
                 }, 1000)
