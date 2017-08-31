@@ -849,12 +849,23 @@ import {ApiSite} from '../../providers/config';
         this.nav.present(myModal);
             }
      
-      Escalate(){
-        alert("Escalate ready");
-      }
+      Escalate(is_escalate?){
 
-      DeEscalate(){
-        alert("De-Escalate ready");
+      is_escalate = is_escalate || false;
+        //proof double click
+     if (this.ticket.in_progress && Date.now() - this.ticket.in_progress < 1500) {return;}
+     this.ticket.in_progress = Date.now();
+
+     this.ticketProvider.escalateTicket(this.ticket.key, is_escalate).subscribe(
+       data => {
+         this.processDetails(data);
+         this.nav.alert(this.config.current.names.ticket.s + " was " + (is_escalate ? "escalated" : "de-escalated") +" succesfully!");
+       },
+       error => {
+         this.nav.alert(error || "Error! Try again later ...", true);
+         console.log(error || 'Server error');
+       }
+       );
       }
 
        getFullapplink(ticketkey) {

@@ -128,6 +128,14 @@ export class TicketProvider {
             return this.apiData.get(url, data, "PUT");
         }
 
+        escalateTicket(id, is_esc) {
+        let url = `${this.URL}/${id}`;
+        let data = {
+                "action": is_esc ? "escalate" : "deescalate"
+            };
+            return this.apiData.get(url, data, "PUT");
+        }
+
         addTicketPost(id, note, files?) {
             let url = `${this.URL}/${id}`;
             let data = {

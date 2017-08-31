@@ -28,7 +28,7 @@ export interface Stat {
 @App({
   templateUrl: 'build/app.html',
   providers: [providers.ApiData, providers.DataProvider, providers.TicketProvider, providers.TimeProvider, providers.TodoProvider],
-  prodMode : true,
+  prodMode : false,
   config: {
     tabbarPlacement: 'top',
     pageTransitionDelay: 0,
@@ -205,6 +205,10 @@ data.is_project_tracking = false;
 data.is_todos = false;
 //Levels
 data.is_ticket_levels = false;
+//Tech choose Level on Ticket Creation
+data.is_tech_choose_levels = false;
+//Restrict tech to escalate only
+data.is_restrict_tech_escalate = false;
 //Accounts
 data.is_account_manager = false;
 //Queues

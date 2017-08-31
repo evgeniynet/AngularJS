@@ -34,6 +34,8 @@
         <select-list [list]="selects.priority" preload="true" (onChanged)='saveSelect($event)'></select-list>
 
         <class-list preload="true" [list]="selects.class" (onChanged)='saveSelect($event)'></class-list>
+
+        <select-list [list]="selects.level" preload="true" (onChanged)='saveSelect($event)'></select-list>
         
     <template [ngIf]="config.current.user.is_techoradmin"> 
     
