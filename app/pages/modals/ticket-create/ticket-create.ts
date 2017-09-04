@@ -43,8 +43,6 @@ export class TicketCreatePage {
 
         let account_id = (this.data.account || {}).id || (recent.account || {}).selected || this.he.account_id || -1;
         let location_id = (this.data.location || {}).id || (recent.location || {}).selected || 0;
-        console.log("levels", this.config.current.is_tech_choose_levels);
-
 
         this.selects = {
             "user" : {
