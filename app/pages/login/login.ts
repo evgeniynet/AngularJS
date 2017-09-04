@@ -73,14 +73,18 @@ export class LoginPage {
     }
 
     onGoogleSignin() {
-        if ("true" !== localStorage.getItem("isPhonegap")) 
-            window.location.href = ApiSite + "auth/auth0";
         if ("true" === localStorage.getItem("isExtension"))
         {
             this.nav.alert("Please finish login with Google in new window (Google requirement)\n and start Extension again.");
-            setTimeout(() => window.open(ApiSite + "auth/auth0", "_blank", ""), 3000);
+            setTimeout(() => 
+                {
+                    var ww= window.open(ApiSite + "auth/auth0", "_blank", "");
+                    window.auth_google = !!ww;
+                    this.nav.alert("Pop-up was blocked, please click again to login.");
+            }
+            , window.auth_google ? 0 : 3000);
         }
-        else {
+        else if ("true" === localStorage.getItem("isPhonegap")) {
             var url = ApiSite + "auth/auth0?ios_action=" + (localStorage.isIos || localStorage.isIosStatus || "");
             window.win = null;
             window.nameInterval = null;
@@ -112,6 +116,8 @@ export class LoginPage {
                 window.onExit()
             });
         }
+        else
+            window.location.href = ApiSite + "auth/auth0";
     }  
     
     onSignup() {

@@ -535,7 +535,7 @@ unsubscribeToEvents() {
 
 ExtendConfig() {
 
-  localStorage.setItem('isExtension', window.self !== window.top ? "true" : (localStorage.getItem("isExtension") || ""));
+  localStorage.setItem('isExtension', window.self !== window.top ? "true" : "");
   localStorage.setItem("version", appVersion);
   //this.config.current.isPhonegap = localStorage.getItem("isPhonegap") === "true";
 

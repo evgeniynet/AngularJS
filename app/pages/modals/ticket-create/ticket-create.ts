@@ -43,6 +43,8 @@ export class TicketCreatePage {
 
         let account_id = (this.data.account || {}).id || (recent.account || {}).selected || this.he.account_id || -1;
         let location_id = (this.data.location || {}).id || (recent.location || {}).selected || 0;
+        console.log("levels", this.config.current.is_tech_choose_levels);
+
 
         this.selects = {
             "user" : {
@@ -79,7 +81,14 @@ export class TicketCreatePage {
                 selected: (recent.priority || {}).selected || 0,
                 url: "priorities",
                 hidden: false
-            }
+            },
+            "level": {
+                 name: "Level",
+                 value: "Default",
+                 selected: 0,
+                 url: "levels",
+                 hidden: !this.config.current.is_tech_choose_levels && !this.config.current.user.is_admin
+           }
         };
 
         this.selects.tech = {
@@ -179,6 +188,7 @@ export class TicketCreatePage {
             this.ticket.user_id = this.he.is_techoradmin ? this.selects.user.selected : this.he.user_id;
             this.ticket.tech_id = this.selects.tech.selected;
             this.ticket.priority_id = this.selects.priority.selected;
+            this.ticket.level = this.selects.level.selected;
 
             this.ticketProvider.addTicket(this.ticket).subscribe(
                 data => {
