@@ -78,9 +78,10 @@ export class LoginPage {
             this.nav.alert("Please finish login with Google in new window (Google requirement)\n and start Extension again.");
             setTimeout(() => 
                 {
-                    var ww= window.open(ApiSite + "auth/auth0", "_blank", "");
-                    window.auth_google = !!ww;
-                    this.nav.alert("Pop-up was blocked, please click again to login.");
+                    window.ww= window.open(ApiSite + "auth/auth0", "_blank", "");
+                    window.auth_google = !!window.ww;
+                    if (!window.auth_google)
+                        this.nav.alert("Pop-up was blocked, please click again to login.");
             }
             , window.auth_google ? 0 : 3000);
         }
