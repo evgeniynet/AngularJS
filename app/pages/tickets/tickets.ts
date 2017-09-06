@@ -32,7 +32,7 @@ export class TicketsPage {
         if (param.count)
             this.counts[param.tab] = param.count;
         if (this.is_tech)
-            this.ticket_tab = this.config.current.user.is_limit_assigned_tkts || !param.tab ? "tech" : param.tab;
+            this.ticket_tab = !param.tab ? "tech" : param.tab;
         else
             this.ticket_tab = "user";
         this.nav.tickets_tab = null;

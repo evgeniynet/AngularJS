@@ -216,11 +216,6 @@ export class DashboardPage {
         }
 
         itemTappedTL(tab) {  
-            if (this.config.current.user.is_limit_assigned_tkts && tab.tab == 'all')
-            {
-                this.nav.alert("Please contact Administator to obtain permission to view All Tickets", true);
-                //return;
-            }
             this.nav.setRoot(TicketsPage, tab);
         }
 
