@@ -102,7 +102,7 @@ export class AjaxSearchPage {
 
     getItems(term, timer) {
         this.items = [];
-        this.url = "tickets?query=all&&location="+(this.location || {}).id || ""; //status=allopen&
+        this.url = "tickets?query=all&location="+((this.location || {}).id || ""); //status=allopen&
         this.apiData.getPaged(addp(this.url, "search", term+"*"), this.pager).subscribe(
             data => {
                 if (timer) {
