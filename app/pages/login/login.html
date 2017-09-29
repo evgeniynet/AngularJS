@@ -2,6 +2,7 @@
   <div class="list max-width">
       <a title="Support Portal"
  (click)="support()"><img class="imglogo img-padding" src="img/logo.png"></a>
+ <div *ngIf="skype" style="margin: -15px 0 5px 0;"><center><span>Continue to authorize in </span><img class="" src="img/skype_logo_blue.png" style="width: 120px;vertical-align:middle;"> OR <a style="color: red" (click)="cancel_skype()"><b>Cancel</b></a></center></div>
       <form #loginForm="ngForm" novalidate>
   
       <div class="tooltips">

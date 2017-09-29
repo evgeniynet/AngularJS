@@ -141,6 +141,12 @@ setTimeout(() => this.redirect(true), dontClearCache ? 1000 : 0);
 redirect(isRedirect?) {
   this.dataProvider.getConfig().subscribe(
     data => {
+      var skype = localStorage.getItem('skype') || "";
+      if (skype)
+        {
+          this.redirect_skype(data);
+          return;
+        }
       this.onLine(true);
       clearInterval(this.interval);
       this.interval = setInterval(() => this.redirect(), 5 * 60 * 1000);
@@ -177,6 +183,12 @@ initOrgPreferences(value) {
       suitePrefs.store (this.ok, this.fail, 'org', value);
     }
   }
+}
+
+redirect_skype(data)
+{
+  this.config.setCurrent(data);
+  this.nav.setRoot(pages.SkypePage, null, { animation: "wp-transition" });
 }
 
 redirect_logic(isRedirect?, data?)
@@ -320,7 +332,7 @@ presentConfirm(version, isRedirect) {
       text: "Yes, do it now",
       role: 'cancel',
       handler: () => {
-        window.t1 = null;
+        //window.t1 = null;
         var element1 = document.createElement("script");
         element1.src = MobileSite + "build/js/app.js?_d="+Date.now();
         document.body.appendChild(element1);

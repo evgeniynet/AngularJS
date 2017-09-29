@@ -10,6 +10,7 @@ import {SignupPage} from '../signup/signup';
 })
 export class LoginPage {
 
+    skype: any;
     login: any;
     google_action: string = "";
     busy: boolean = false;
@@ -18,12 +19,13 @@ export class LoginPage {
     //@ViewChild('google_openid') google_openid: NgForm;
 
     constructor(private nav: Nav, private dataProvider: DataProvider, private config: Config, private events: Events) {
+        this.skype = localStorage.getItem('skype') || "";
         if (localStorage.getItem("isPhonegap") !== "true")
             this.google_action = ApiSite + 'auth/auth0';
         //clear also chrome ext if needed
         if (localStorage.getItem("isExtension") === "true")
             window.top.postMessage("logout", "*");
-        events.publish("app:logout");
+        events.publish("app:logout");   
     }
     
     onPageLoaded()
@@ -65,6 +67,11 @@ export class LoginPage {
         //console.log(this.starttime.min);
         //this.google_openid.action = this.starttime.displayFormat = this.displayFormat;
         //console.log(this.starttime.displayFormat);
+    }
+
+    cancel_skype(){
+        localStorage.setItem('skype', "");
+        this.skype = "";
     }
 
     support()

@@ -182,4 +182,9 @@ addUser(email, firstname, lastname, role) {
 return this.apiData.get(url, data, "POST");
 }
 
+loginSkype(data) {
+    let url = "skype/login";
+return this.apiData.get(url, data, "POST");
+}
+
 }

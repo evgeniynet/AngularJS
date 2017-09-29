@@ -19,3 +19,4 @@ export * from './timelogs/timelogs';
 export * from './uninvoices/uninvoices';
 export * from './todos/todos';
 export * from './todo-create/todo-create';
+export * from './skype/skype';
