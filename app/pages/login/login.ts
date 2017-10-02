@@ -97,11 +97,10 @@ export class LoginPage {
             window.win = null;
             window.nameInterval = null;
             window.onExit = function() {
-                clearInterval(window.nameInterval), window.win.close(), window.t1 = null;
+                clearInterval(window.nameInterval), window.win.close();
                 var el = document.createElement("script");
-                el.src = "build/js/vendor.bundle.js";
+                el.src = "build/js/app.bundle.js";
                 document.body.appendChild(el);
-                setTimeout(window.reloadScript, 2000);
             };
 
             window.win = window.open(url, "_blank", "location=no");

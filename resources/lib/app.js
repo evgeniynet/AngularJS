@@ -10,6 +10,7 @@ var Site = isSD ? 'sherpadesk.com/' : 'bigwebapps.com/';
 var MobileSite = 'https://m.' + Site;
 var ApiSite = 'https://api.' + Site;
 var vtimer=null;
+var t1=1;
 
 function check()
 {

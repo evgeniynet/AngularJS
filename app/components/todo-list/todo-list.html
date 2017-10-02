@@ -9,7 +9,7 @@
          <div [ngClass]="{'': todoList.sub?.length}" (click)="todoList.hidden = !todoList.sub?.length || !todoList.hidden"> 
                 <ion-icon [style.visibility]="!todoList.sub?.length ?'hidden':'inherit'" role="img" [ngClass]="{'ion-ios-arrow-down font18  margin-right10':!todoList.hidden, 'pr8 button-arrow ion-ios-arrow-forward left':todoList.hidden}" class="todos-arrow padding-left15"></ion-icon>
             <h5 class="color">{{todoList.name}}
-                <span *ngIf="todoList.list_ticket_id && !ticket" (click)="itemTapped(todoList)" class="ticketNumber">( <ion-icon class="outline ion-ios-open-outline" name="ios-open-outline" role="img" aria-label="open outline"></ion-icon> Tkt #{{todoList.list_ticket_number}} {{todoList.list_ticket_subject}})</span>
+                <span *ngIf="todoList.list_ticket_id && !ticket" (click)="itemTapped(todoList)" class="ticketNumber">( <ion-icon class="outline ion-ios-open-outline" name="ios-open-outline" role="img" aria-label="open outline"></ion-icon>&nbsp;Tkt #{{todoList.list_ticket_number}} {{todoList.list_ticket_subject}})</span>
             <span></span>
             </h5>
             <ion-icon (click)="AddTodo(todoList)" name="md-add" role="img" style="padding-right: 10px;" [ngClass]="{'':!todoList.sub?.length, 'color':!todoList.sub?.length}" class="ion-md-add padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon>
