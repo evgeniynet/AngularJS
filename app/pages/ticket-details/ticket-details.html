@@ -102,7 +102,7 @@
   <span class="span-block2"></span>
   <div [hidden]="is_editworkpad" class="width100 textLogin note-account commentText2" [innerHTML]="ticket?.workpad" type="text" (click)="is_editworkpad = true"></div>
   <button [hidden]="is_editworkpad" secondary class="button_reply img-top right" (click)="is_editworkpad = true">Edit Workpad</button>
-  <textarea [hidden]="!is_editworkpad" [ngModel]="ticket?.workpad" class="glow width100 textLogin commentText" #workpadtext type="text" placeholder="Workpad:"></textarea>
+  <textarea [hidden]="!is_editworkpad" [ngModel]="(ticket?.workpad || '').split('<p>').join('\n')" class="glow width100 textLogin commentText" #workpadtext type="text" placeholder="Workpad:"></textarea>
   <button [hidden]="!is_editworkpad" secondary class="button_reply img-top right " (click)="saveWorkpad(workpadtext)">{{ticket?.workpad?.length ? 'Save' : 'Add'}} Workpad</button>
   <span class="span-block"></span>
 </ion-list>

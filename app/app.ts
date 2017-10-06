@@ -28,7 +28,7 @@ export interface Stat {
 @App({
   templateUrl: 'build/app.html',
   providers: [providers.ApiData, providers.DataProvider, providers.TicketProvider, providers.TimeProvider, providers.TodoProvider],
-  prodMode : false,
+  prodMode : true,
   config: {
     tabbarPlacement: 'top',
     pageTransitionDelay: 0,

@@ -591,7 +591,7 @@ import {ApiSite} from '../../providers/config';
    }
 
    saveWorkpad(form) {
-     var workpad = (form.value || "").trim(); 
+     var workpad = (form.value || "").trim().replace(/\n/g, "<p>"); 
      if (workpad != (this.ticket.workpad || "").trim()) {
        this.ticketProvider.addTicketWorkpad(this.ticket.id, workpad).subscribe(
          data => this.saveWorkpadSuccess(workpad),

@@ -18,8 +18,8 @@
       <br/>
       <br/>
       <br/>
-      <button *ngIf="is_skype_done" class="login-margin" block secondary block onclick="window.close()">Done. Close this window</button>
+      <button *ngIf="is_skype_done" class="login-margin" block secondary block onclick="location.reload()">Done. Back to App</button>
       <br/>
-      <button class="login-margin grey3" block (click)="cancel_skype()">Cancel and Back to Login Page</button>
+      <button *ngIf="!is_skype_done" class="login-margin grey3" block (click)="cancel_skype()">Cancel and Back to Login Page</button>
     </div>
   </ion-content>

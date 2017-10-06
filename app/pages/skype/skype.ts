@@ -23,7 +23,7 @@ export class SkypePage {
             var data = JSON.parse(skype);
             if (data && typeof data === "object") {
                 this.dataProvider.loginSkype(data).subscribe(
-                    data => {
+                    d => {
                         localStorage.setItem('skype', "");
                         this.is_skype_done = true;
                         this.nav.alert("Done! You can continue to chat in Skype ...");
@@ -31,12 +31,14 @@ export class SkypePage {
                     error => {
                         localStorage.setItem('skype', "");
                         this.nav.alert(error, true);
+                        console.log("error", error);
                     }
                     );
             }
         }
-        catch (e) { }
-        this.nav.alert('Cannot continue! Incorrect skype data', true);
+        catch (e) { 
+            this.nav.alert('Cannot continue! Incorrect skype data', true);
+        }
     }
 
     
