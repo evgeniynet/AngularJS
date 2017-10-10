@@ -105,3 +105,13 @@ width: calc(100% - 40px) !important;
     font-weight: 400 !important;
     cursor:pointer;
 }
+@media screen and (max-width: 567px){
+    .TktSubject{
+        display:none;
+    }    
+}
+.todos-flex h6{
+    font-size: 1.4rem !important;
+    font-weight: 200!important;
+}
+
