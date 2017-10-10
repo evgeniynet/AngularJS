@@ -9,15 +9,8 @@ var isSD = true;
 var Site = isSD ? 'sherpadesk.com/' : 'bigwebapps.com/';
 var MobileSite = 'https://m.' + Site;
 var ApiSite = 'https://api.' + Site;
-
-var vtimer;
-
-var scripts = document.getElementsByTagName('script');
-var param = scripts[ scripts.length - 1 ];
-param = param.src.split('?')[1];
-param = param ? "?"+param : "";
-scripts = null;
-
+var vtimer=null;
+var t1=1;
 
 function check()
 {
@@ -28,11 +21,20 @@ function check()
 
 function downloadJSAtOnload() {
 
+  var element;
+
+  if (!("function"==typeof require&&require))
+  {
+    element = document.createElement("script");
+    element.src = "build/js/vendor.bundle.js";
+    document.body.appendChild(element);
+  }
+
   setTimeout(check, "true"==localStorage.isPhonegap ? 40E3 : 15E3);
 
   var temp = document.getElementsByTagName("ion-app1");
   
-  if (localStorage.isPhonegap == "true" && localStorage.isIos == "true"){
+  if ("true" == localStorage.isPhonegap && ("true" == localStorage.isIos || "true" == localStorage.isIosStatus)) {
 
   // Create the Style Element
   var styleElem = document.createElement('style');
@@ -66,18 +68,16 @@ else
 
 var dash_cache = localStorage.dash_cache || '<ion-loading role="dialog" class="loading-cmp"><div class="backdrop" disable-activated="" role="presentation"></div><div class="loading-wrapper loading-wrapper1" style="opacity: 1;  transform: scale(1);"><div class="loading-spinner"><img src="img/loading2.gif"></div><div class="loading-content">Loading Your Profile...</div></div></ion-loading><ion-nav id="nav" swipe-back-enabled="false" class="menu-content menu-content-reveal has-views" style="touch-action: pan-y; -webkit-user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); transform: translateX(0px);"><div></div><ion-page _ngcontent-tcs-14="" class="login-page show-page" style="z-index: 99;"><ion-content class="login" padding=""><scroll-content><div class="list max-width"><a title="Support Portal" href="https://support.sherpadesk.com/portal/"><img class="imglogo img-padding" src="img/logo.png"></a><form novalidate=""><div class="tooltips"><input disabled class="width100 blue3 subject-create commentText ng-untouched ng-pristine ng-valid" ngcontrol="email" pattern="^[^@\s]+@[^@\s]+(\.[^@\s]+)+$" placeholder="email" required="" type="email"> <!--template bindings={}--></div><br><div class="tooltips"><input disabled class="width100 blue3 subject-create commentText ng-untouched ng-dirty ng-valid" ngcontrol="password" placeholder="password" required="" type="password"> <!--template bindings={}--></div><br><button block="" class="login-margin disable-hover button button-default button-block button-secondary" secondary="" type="submit"><span class="button-inner">Login</span><ion-button-effect></ion-button-effect></button><br></scroll-content></ion-content></ion-page><div nav-portal=""></div></ion-nav>';
 
-var element;
-
 if (localStorage.getItem("isPhonegap") === "true" && "file:" !== window.location.protocol && "localhost" !== window.location.hostname){
   element = document.createElement("script");
   element.src =  MobileSite + ((localStorage.getItem("isAndroid") == "true" || navigator.userAgent.match(/(Android)/)) ? "build/js/android/cordova.js" : "build/js/cordova.js");
   document.body.appendChild(element);
 }
-  
+
 if (localStorage.getItem("isPhonegap") === "true" || 'function' !== typeof Map){
-element = document.createElement("script");
-element.src = "build/js/es6-shim.min.js";
-document.body.appendChild(element);
+  element = document.createElement("script");
+  element.src = "build/js/es6-shim.min.js";
+  document.body.appendChild(element);
 }
 
 element = document.createElement("script");
@@ -98,40 +98,28 @@ element.rel = "stylesheet";
 document.body.appendChild(element);
 
 element = document.createElement( "link" );
-element.href = MobileSite + "build/css/my.css"+param;
+element.href = MobileSite + "build/css/my.css?v=" + (localStorage.version || "");
 element.rel = "stylesheet";
 document.body.appendChild(element);
 
-element = document.createElement("script");
-element.src = "build/js/vendor.bundle.js";
+setTimeout(function()
+{
+var element = document.createElement("script");
+element.src = MobileSite + "build/js/app.bundle.js?v=" + (localStorage.version || "");
 document.body.appendChild(element);
+}, 200);
 
 element = null;
-
-setTimeout(function(){
-  reloadScript();
-  //vtimer = setInterval(reloadScript, 3000);
-}, localStorage.isPhonegap !== "true" ? 500 : 200);
 
 if (temp && temp[0] && dash_cache)
 {
   setTimeout(function(){
-      temp[0].innerHTML = loading2 + dash_cache;
-      temp = null;
-      dash_cache = null;
-      loading2 = null;
-    }, 500);
+    temp[0].innerHTML = loading2 + dash_cache;
+    temp = null;
+    dash_cache = null;
+    loading2 = null;
+  }, 500);
 }
-}
-
-function reloadScript()
-{
-  if (!window.t1){
-    var element1 = document.createElement("script");
-    element1.src = MobileSite + "build/js/app.bundle.js" + param;
-    document.body.appendChild(element1);
-    element1 = null;
-  }
 }
 
 if (window.addEventListener)
@@ -195,6 +183,7 @@ NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
       if (window.dash || "")
         localStorage.setItem("dash_cache", window.dash || ""); 
       return;  
+      /*
       var message = "Are you sure you want to leave? All app cache and unsaved changes will be lost...";
       if (typeof evt == "undefined") {
         evt = window.event;
@@ -203,6 +192,7 @@ NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
         evt.returnValue = message;
       }
       return message;
+      */
     }
 
     function handleOpenURL(url) {
@@ -222,7 +212,7 @@ NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
     }
   }
 
-    var _gaq = _gaq || [];
+  var _gaq = _gaq || [];
 
   function googleTag() {
     _gaq.push(['_setAccount', 'UA-998328-15']);
@@ -234,18 +224,18 @@ NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
     })();
   }
 
-googleTag();
+  setTimeout(googleTag, 3E4);
 
-function googleConversion()
-{
-  var img = new Image();
-  var div = document.getElementsByTagName('body')[0];
+  function googleConversion()
+  {
+    var img = new Image();
+    var div = document.getElementsByTagName('body')[0];
 
-  img.onload = function() {
-    div.appendChild(img);
-  };
+    img.onload = function() {
+      div.appendChild(img);
+    };
 
-  img.src = 'http://www.googleadservices.com/pagead/conversion/1040470683/?value=1.00&currency_code=USD&label=KRf-CIfZrQQQm6WR8AM&guid=ON&script=0';
-}
+    img.src = 'http://www.googleadservices.com/pagead/conversion/1040470683/?value=1.00&currency_code=USD&label=KRf-CIfZrQQQm6WR8AM&guid=ON&script=0';
+  }
 
-googleConversion();
+  setTimeout(googleConversion, 3E4);

@@ -10,6 +10,7 @@ import {SignupPage} from '../signup/signup';
 })
 export class LoginPage {
 
+    skype: any;
     login: any;
     google_action: string = "";
     busy: boolean = false;
@@ -18,12 +19,13 @@ export class LoginPage {
     //@ViewChild('google_openid') google_openid: NgForm;
 
     constructor(private nav: Nav, private dataProvider: DataProvider, private config: Config, private events: Events) {
+        this.skype = localStorage.getItem('skype') || "";
         if (localStorage.getItem("isPhonegap") !== "true")
             this.google_action = ApiSite + 'auth/auth0';
         //clear also chrome ext if needed
         if (localStorage.getItem("isExtension") === "true")
             window.top.postMessage("logout", "*");
-        events.publish("app:logout");
+        events.publish("app:logout");   
     }
     
     onPageLoaded()
@@ -67,6 +69,11 @@ export class LoginPage {
         //console.log(this.starttime.displayFormat);
     }
 
+    cancel_skype(){
+        localStorage.setItem('skype', "");
+        this.skype = "";
+    }
+
     support()
     {
         openURLsystem(`https://support.${Site}portal/`);
@@ -90,11 +97,10 @@ export class LoginPage {
             window.win = null;
             window.nameInterval = null;
             window.onExit = function() {
-                clearInterval(window.nameInterval), window.win.close(), window.t1 = null;
+                clearInterval(window.nameInterval), window.win.close();
                 var el = document.createElement("script");
-                el.src = "build/js/vendor.bundle.js";
+                el.src = "build/js/app.bundle.js";
                 document.body.appendChild(el);
-                setTimeout(window.reloadScript, 2000);
             };
 
             window.win = window.open(url, "_blank", "location=no");

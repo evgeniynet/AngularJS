@@ -45,10 +45,18 @@ function addp (url, param, value) {
 function done(isDesktop) {
     if (localStorage.isPhonegap !== "true")
         localStorage.isPhonegap = !!RegExp('[?&]ios_action=').exec(window.location.href);
+    var skype = getParameterByName('skype');
+    if (skype){
+      localStorage.setItem('skype', skype);  
+    }
     var ios_action = getParameterByName('ios_action') || localStorage.getItem('ios_action');
     if (ios_action && ios_action != "undefined"){
         //cleanQuerystring();
         ios_action = ios_action.replace('#', '?');
+        if (ios_action == "true")
+        {
+           localStorage.setItem('isIosStatus', "true");
+        }    
         localStorage.setItem('ios_action', ios_action);
         console.log("initial ios action: " + ios_action);
     }
@@ -64,6 +72,10 @@ function done(isDesktop) {
     var url = "app.html"+ location.search;
     if(isDesktop)
         url = addp(url, "ionicPlatform", "ios");
+
+    if ("file:" !== window.location.protocol && "https:" !== window.location.protocol && "localhost" !== window.location.hostname)
+        url = "https://m.sherpadesk.com/" + url;
+
     window.location.href = url;
     
     /*if (ios_action && ios_action !== "undefined"){

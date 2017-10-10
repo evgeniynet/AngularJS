@@ -3,12 +3,10 @@ import {spicePixelTrackConversion, getappTrackConversion} from '../../directives
 import {DataProvider} from '../../providers/data-provider';
 import {LoginPage} from '../login/login';
 import {OrganizationsPage} from '../organizations/organizations';
-import {TicketsPage} from '../tickets/tickets';
-import {DashboardPage} from '../dashboard/dashboard';
 import {PrivacyModal} from '../modals/modals';
 
 @Page({
-  templateUrl: 'build/pages/signup/signup.html',
+    templateUrl: 'build/pages/signup/signup.html',
 })
 export class SignupPage {
 
@@ -16,36 +14,36 @@ export class SignupPage {
     is_force_registration: boolean = false;
 
     constructor(private nav: Nav, private dataProvider: DataProvider, private config: Config, private events: Events) {
-  }
+    }
 
-      onPageLoaded()
+    onPageLoaded()
     { 
         //logout
         this.is_force_registration = false;
     }
 
-getUrl(name){
-    this.login.name = name.value || "";
-    this.login.url = name.value ? name.value.toLowerCase().replace(/[^a-zA-Z0-9-]/g, '') : "";
-}
+    getUrl(name){
+        this.login.name = name.value || "";
+        this.login.url = name.value ? name.value.toLowerCase().replace(/[^a-zA-Z0-9-]/g, '') : "";
+    }
 
     onSignup(form) {
         if (form.valid) { 
         	let data = {
-                       "name": form.value.name, 
-                       "email": form.value.email, 
-                       "url": form.value.url, 
-                       "is_force_registration": this.is_force_registration,
-                       "is_force_redirect": false,
-                       "firstname": form.value.firstname,
-                       "lastname": form.value.lastname,
-                       "password": form.value.password,
-                       "password_confirm": form.value.password_confirm,
-                       "how": form.value.how,
-                       "note": localStorage.getItem("isPhonegap") === "true" ? "registered by iPhone app" : "registered from m.sherpadesk.com"
-                      };
+                "name": form.value.name, 
+                "email": form.value.email, 
+                "url": form.value.url, 
+                "is_force_registration": this.is_force_registration,
+                "is_force_redirect": false,
+                "firstname": form.value.firstname,
+                "lastname": form.value.lastname,
+                "password": form.value.password,
+                "password_confirm": form.value.password_confirm,
+                "how": form.value.how,
+                "note": localStorage.getItem("isPhonegap") === "true" ? "registered by iPhone app" : "registered from m.sherpadesk.com"
+            };
 
-        	this.dataProvider.registerOrganization(data).subscribe(
+            this.dataProvider.registerOrganization(data).subscribe(
                 data => {
                     if (!data.api_token)
                     {
@@ -77,7 +75,7 @@ getUrl(name){
                     else
                         this.nav.alert(error, true);
                 }
-            ); 
+                ); 
         }
         else
             this.nav.alert('Please fill the form!', true);
@@ -90,45 +88,37 @@ getUrl(name){
             message: 'Would you like to',
             cssClass: "hello",
             buttons: [
-                {
-                    text: 'Login',
-                    role: 'cancel',
-                    handler: () => {
-                              localStorage.setItem('username', this.login.email || "");
-                        alert.dismiss().then(() => {
-                            this.nav.setRoot(LoginPage, null, { animation: "wp-transition" });
-                        });
-                        return false;
-                    }
-                },
-                {
-                    text: 'Create New Org',
-                    handler: () => {
-                        // user has clicked the alert button
-                        // begin the alert's dimiss transition
-                        let navTransition = alert.dismiss();
-                        this.is_force_registration = true;
-                        navTransition.then(() => {
-                            var form = {valid: true, value: this.login}
-                            this.onSignup(form);
-                        });
-                        return false;
-                    }
+            {
+                text: 'Login',
+                role: 'cancel',
+                handler: () => {
+                    localStorage.setItem('username', this.login.email || "");
+                    alert.dismiss().then(() => {
+                        this.nav.setRoot(LoginPage, null, { animation: "wp-transition" });
+                    });
+                    return false;
                 }
+            },
+            {
+                text: 'Create New Org',
+                handler: () => {
+                    // user has clicked the alert button
+                    // begin the alert's dimiss transition
+                    let navTransition = alert.dismiss();
+                    this.is_force_registration = true;
+                    navTransition.then(() => {
+                        var form = {valid: true, value: this.login}
+                        this.onSignup(form);
+                    });
+                    return false;
+                }
+            }
             ]
         });
         this.nav.present(alert);
     }
 
-    onGoogleSignip() {
-        this.nav.setRoot(SignupPage), null, { animation: "wp-transition" };
-    }
-
     gotoPrivacy(){
         this.nav.present(Modal.create(PrivacyModal));
-    }
-    
-    onCancel() {
-        this.nav.setRoot(LoginPage, null, { animation: "wp-transition" });
     }
 }
