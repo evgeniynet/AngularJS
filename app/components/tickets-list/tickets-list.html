@@ -1,5 +1,5 @@
 <ion-content style="height: 90vh;">
-<ion-list class="list indent-bottom general-alignment2" no-lines>
+<ion-list class="Tktlist indent-bottom general-alignment2" no-lines>
 <img *ngIf="busy" class="imglogo img-padding" src="img/loading2.gif">
     <ion-item-sliding class="border" *ngFor="let ticket of tickets | async" #slidingItem> 
         <a detail-none href=# ion-item (click)="itemTapped($event, ticket, slidingItem)" class='item margin' [class.only-click]="!ticket.clicked" [class.activated]="ticket.clicked">
