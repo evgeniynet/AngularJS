@@ -8,6 +8,7 @@
 var isSD = true;
 var Site = isSD ? 'sherpadesk.com/' : 'bigwebapps.com/';
 var MobileSite = 'https://m.' + Site;
+MobileSite = '';
 var ApiSite = 'https://api.' + Site;
 var vtimer=null;
 var t1=1;
