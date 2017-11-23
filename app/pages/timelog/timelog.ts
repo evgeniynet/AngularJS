@@ -83,7 +83,7 @@ ngOnInit()
             this.mintime = this.config.getCurrent("time_minimum_time") || 0.25;
             this.mintime = this.mintime > 0 ? this.mintime : 0.25;
 
-            this.isbillable = typeof this.time.billable === 'undefined' ? true : this.time.billable;
+            this.isbillable = this.time.no_invoice;
 
             this.inc = this.config.getCurrent("time_hour_increment") > 0 ? this.config.getCurrent("time_hour_increment") : 0.25;
 
@@ -229,7 +229,7 @@ ngOnInit()
                 "note_text": note,
                 "task_type_id": this.selects.tasktype.selected,
                 "hours": hours,
-                "is_billable": this.isbillable,
+                "no_invoice": this.isbillable,
                 "date": this.AddHours(this.start_time, time_offset) || "", 
                 "start_date": this.AddHours(this.start_time, time_offset)  || "",
                 "stop_date": this.AddHours(this.stop_time, time_offset)  || ""
@@ -248,7 +248,7 @@ ngOnInit()
                         this.time.start_time = data.start_date;
                         this.time.stop_time = data.stop_date;
                         this.time.hours = data.hours;
-                        this.time.is_billable = data.is_billable;
+                        this.time.no_invoice = data.no_invoice;
                     }
                     else
                     {
@@ -257,7 +257,7 @@ ngOnInit()
                             time_id:0,
                             account_id:data.account_id,
                             account_name:this.selects.account.value,
-                            billable:data.is_billable,
+                            billable:data.no_invoice,
                             date:tdate,
                             hours:data.hours,
                             is_project_log:data.is_project_log,
