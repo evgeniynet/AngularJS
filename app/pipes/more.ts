@@ -8,8 +8,12 @@ export class MorePipe {
         args = args || [100, "VV"]; 
         value = value || 0;
         let max = args[0]; 
+        console.log("max", value);
         let template = args[1] || "VV"; 
-        if (value >= max){
+        if (max == 999 && value > max){
+        value = "99<sup>+</sup>";
+        }
+        else if (value >= max){
         value = (max-1) + "<sup>+</sup>";
         }
         else {
