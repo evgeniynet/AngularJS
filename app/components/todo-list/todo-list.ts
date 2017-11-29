@@ -107,6 +107,8 @@ export class TodoListComponent {
 
     setDone(todo){
         this.undone = Math.max(todo.is_completed ? --this.undone : ++this.undone, 0);
+        var cachename = "todos?assigned_id=" + this.config.current.user.user_id;
+        ((this.todoProvider._dataStore[cachename].filter(t => t.list_id == todo.list_id) || [{}])[0].sub.filter(d => d.id == todo.id)[0] || {}).is_completed = todo.is_completed;
         this.todoProvider.setCompletedTodo(todo.id, todo.is_completed);
     }
 
