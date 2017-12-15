@@ -17,16 +17,24 @@
                   [disabled]="!loginForm.valid || busy" (click)="onLogin(loginForm)" type="submit" block secondary>Login</button>
                 </form><br>
           <template [ngIf]="is_sd">
-          <div>
+   <!--       <div>
           <ul class="googleStripes">
         <li></li><li></li><li></li><li></li>
       </ul>
                     </div>
-      <!--form ngNoForm method="POST" [action]="google_action" #googleForm-->
-              <button class="login-margin text-google itemTech grey3 itemTech2" (click)="onGoogleSignin()" block light><span>Sign in with&nbsp;<big>Google</big></span></button>
+      form ngNoForm method="POST" [action]="google_action" #googleForm-->
+
+              <button class="login-margin text-google itemTech itemTech2 SingUp" style="height: 45px !important" (click)="onGoogleSignin()" block light>
+                <span class="SingUpimg"><img src="https://google-developers.appspot.com/identity/sign-in/g-normal.png" alt="GoogleSignup"></span>
+                <span class="SingUptext">Sign in with&nbsp;<big>Google</big></span>
+              </button>
               <!--/form-->
           <br>
-  <button  (click)="onSignup()" block dark class="login-margin">Create New Account</button>
+       <button class="login-margin text-google itemTech itemTech2 SingUp" style="height: 45px !important; border-color: #2e752d !important" (click)="onSignup()" block light>
+                <span class="SingUpimg"><img src="https://cdn2.hubspot.net/hubfs/2629098/Design/jangbu-signup.png" alt="GoogleSignup"></span>
+                <span class="SingUptext" style="background-color: #42bd41 !important"><big>Create New Account</big></span>
+              </button>
+  <!--<button  (click)="onSignup()" block dark class="login-margin">Create New Account</button>-->
   </template>
  </div> 
 </ion-content>

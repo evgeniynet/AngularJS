@@ -2,6 +2,27 @@
    background-color: $login;
 }
 
+.SingUp{
+    background-color: #fff !important;
+    border: 2px solid #4285f4;
+    padding: 0;
+}
+.SingUpimg{
+    float: left !important; 
+    width: 11% !important;
+    height: 45px !important;   
+}
+.SingUpimg img{
+height: 45px;
+}
+.SingUptext{
+    float: right !important;
+    width: 89% !important;
+    background-color: #4285f4;
+    height: 43px !important;
+    padding-top: 2px;
+}
+
 .googleStripes {
     list-style-type: none;
     width: 100%;
@@ -34,6 +55,7 @@
     background-color: $yellow;
     border-radius: 0 3px 0 0;
 }
+
 
 .login-margin{
      margin: 0px;
