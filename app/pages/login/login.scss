@@ -9,7 +9,7 @@
 }
 .SingUpimg{
     float: left !important; 
-    width: 11% !important;
+    width: 46px !important;
     height: 45px !important;   
 }
 .SingUpimg img{
@@ -17,7 +17,7 @@ height: 45px;
 }
 .SingUptext{
     float: right !important;
-    width: 89% !important;
+    width: calc(100% - 46px) !important;
     background-color: #4285f4;
     height: 43px !important;
     padding-top: 2px;
