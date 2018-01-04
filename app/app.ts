@@ -182,6 +182,26 @@ initOrgPreferences(value) {
       var suitePrefs = prefs.iosSuite("group.io.sherpadesk.mobile");
       suitePrefs.store (this.ok, this.fail, 'org', value);
     }
+    if (window.sswc){
+    var didReceiveMessage = function(message){
+        var obj = JSON.parse(message);
+        console.log(obj.message);
+    }
+    var msgSendSuccess = function() {
+        console.log("Message send success");
+    }
+    var failure = function() {
+        console.log("Error");
+    }
+    var success = function() {
+        window.sswc.messageReceiver(didReceiveMessage, failure);
+        window.sswc.sendMessage(value, msgSendSuccess, failure);
+    }
+    window.sswc.init(success, failure);
+    console.log("window.sswc", window.sswc);
+  }
+  else
+    console.log("no watch");
   }
 }
 
