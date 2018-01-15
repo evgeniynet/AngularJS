@@ -3,13 +3,13 @@
 <ion-buttons start>
     <button menuToggle><ion-icon name="menu"></ion-icon></button>
       </ion-buttons>
-  <ion-title>Dashboard</ion-title>
+    <ion-searchbar debounce="400" [(ngModel)]="term" (input)="searchItems($event)" placeholder="{{name}} (min 3 chars)" hideCancelButton="true"></ion-searchbar>
    <ion-buttons end>
-    <button danger class="right transparent" (click)="test = !test"><ion-icon name="ios-search"></ion-icon></button>
+    <!--<button danger class="right transparent" (click)="test = !test"><ion-icon name="ios-search"></ion-icon></button>-->
     </ion-buttons>
 </ion-navbar>
 <ion-content class="dashboard">
-<ion-searchbar *ngIf="test" [focuser] debounce="700" (cancel)="test = !test" (input)="searchItems($event)" [(ngModel)]="term" placeholder="{{config.current.names.ticket.s}} number (2 chars) or Enter to search" (search)="getSearch($event)"></ion-searchbar>
+<!--<ion-searchbar *ngIf="test" [focuser] debounce="700" (cancel)="test = !test" (input)="searchItems($event)" [(ngModel)]="term" placeholder="{{config.current.names.ticket.s}} number (2 chars) or Enter to search" (search)="getSearch($event)"></ion-searchbar>-->
 <img *ngIf="busy" class="imglogo" src="img/loading2.gif"/>
  <ion-list class="ajax" [hidden]="!search_results">
         <a detail-none href=# ion-item *ngFor="let item of search_results" (click)="gotoTicket(item)">
