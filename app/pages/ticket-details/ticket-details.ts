@@ -359,6 +359,7 @@ import {ApiSite} from '../../providers/config';
    }
 
    onPageLoaded() {
+     
      this.ticket.customfields = [];
      this.active = true;
      this.he = this.config.getCurrent("user");
