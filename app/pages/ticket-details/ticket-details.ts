@@ -324,6 +324,7 @@ import {ApiSite} from '../../providers/config';
    ticket: any = {};
    details_tab: string;
    active: boolean;
+   waiting_response: boolean;
    he: any;
    techname: string;
    username: string;

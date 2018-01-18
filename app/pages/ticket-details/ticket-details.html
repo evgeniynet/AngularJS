@@ -58,8 +58,8 @@
     [logCallback]=""></upload-button>
   </form>
   <!-- It radio will be needing to add logic-->
-  <div style="padding-bottom: 13px; margin-top: -10px !important; display:inline-flex;">
-  <ion-icon [ngClass]="{'ion-ios-checkmark-circle secondary' : false, 'ion-ios-radio-button-on grey2' : true }" class="fontResp todos-padding margin-top3"></ion-icon>
+  <div (click)="waiting_response = !waiting_response;" style="padding-bottom: 13px; margin-top: -10px !important; display:inline-flex;">
+  <ion-icon [ngClass]="{'ion-ios-checkmark-circle secondary' : waiting_response, 'ion-ios-radio-button-on grey2' : !waiting_response }" class="fontResp todos-padding margin-top3"></ion-icon>
   <h5 style="margin-top: 11px;">Waiting on Response</h5>
   </div>
 
