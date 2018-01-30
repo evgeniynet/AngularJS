@@ -555,7 +555,7 @@ import {ApiSite} from '../../providers/config';
 
      if (isClose && this.files.length || !isClose)
      {
-       this.ticketProvider.addTicketPost(this.ticket.id, post, this.files).subscribe(
+       this.ticketProvider.addTicketPost(this.ticket.id, post, this.files, this.waiting_response).subscribe(
          data => {
            if (!isClose)
            { 
@@ -665,6 +665,27 @@ import {ApiSite} from '../../providers/config';
            this.files = [];
            this.getPosts(this.ticket.key);
          }
+       },
+       error => {
+         console.log(error || 'Server error');
+       }
+       );
+   }
+
+    onHold() {
+     //proof double click
+     if (this.ticket.in_progress && Date.now() - this.ticket.in_progress < 1500) {return;}
+     this.ticket.in_progress = Date.now();
+
+     let data = {
+       "status": "onhold"
+     };
+
+     this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(
+       data => {
+         this.update_tlist_logic(true);
+         this.nav.alert(this.config.current.names.ticket.s + ' placed On Hold :)');
+         this.ticket.status = "On Hold";
        },
        error => {
          console.log(error || 'Server error');

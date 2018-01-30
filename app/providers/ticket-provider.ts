@@ -136,12 +136,13 @@ export class TicketProvider {
             return this.apiData.get(url, data, "PUT");
         }
 
-        addTicketPost(id, note, files?) {
+        addTicketPost(id, note, files?, waiting_response?) {
             let url = `${this.URL}/${id}`;
             let data = {
                 "action": "response",
                 "note_text": note,
-                "files" : files || []
+                "files" : files || [],
+                "is_waiting_on_response" : waiting_response
             };
             return this.apiData.get(url, data, "POST");
         }

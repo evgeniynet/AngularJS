@@ -127,7 +127,7 @@
   </ion-list>
   <div *ngSwitchWhen="'Options'" class="list max-width700 general-alignment">
     <button *ngIf="config.current.is_time_tracking" (click)="addTime()" block type="submit" class="blue2 disable-hover button button-default button-block class-margin">Add Time</button>
-    <button *ngIf="config.current.is_time_tracking" (click)="addTime()" block type="submit" class="blue2 disable-hover button button-default button-block class-margin">Place On Hold</button>
+    <button *ngIf="config.current.is_time_tracking" (click)="onHold()" block type="submit" class="blue2 disable-hover button button-default button-block class-margin">Place On Hold</button>
     <button *ngIf="config.current.is_expenses" (click)="addExpense()" block type="submit" class="blue2 disable-hover button button-default button-block class-margin">Add Expense</button>
 
     <select-list  class="class-margin" preload="true" [isbutton]="true" [list]="select_button.tech" (onChanged)='transferTicket($event)'></select-list>
