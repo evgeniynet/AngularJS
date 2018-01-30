@@ -324,7 +324,7 @@ import {ApiSite} from '../../providers/config';
    ticket: any = {};
    details_tab: string;
    active: boolean;
-   waiting_response: boolean;
+   waiting_response: boolean = false;
    he: any;
    techname: string;
    username: string;
@@ -673,24 +673,56 @@ import {ApiSite} from '../../providers/config';
    }
 
     onHold() {
-     //proof double click
-     if (this.ticket.in_progress && Date.now() - this.ticket.in_progress < 1500) {return;}
-     this.ticket.in_progress = Date.now();
 
-     let data = {
-       "status": "onhold"
-     };
+      if (this.ticket.status == "OnHold")
+      {
+        this.reopenTicket();
+        return;
+      }
 
-     this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(
-       data => {
-         this.update_tlist_logic(true);
-         this.nav.alert(this.config.current.names.ticket.s + ' placed On Hold :)');
-         this.ticket.status = "On Hold";
-       },
-       error => {
-         console.log(error || 'Server error');
-       }
-       );
+      let prompt = Alert.create({
+             title: 'Place On Hold #' + this.ticket.number,
+             inputs: [
+             {
+                 name: 'note',
+                 placeholder: 'Note'
+             },
+             ],
+             buttons: [
+             {
+                 text: 'Cancel',
+                 handler: data => {
+                     console.log('Cancel clicked');
+                 }
+             },
+             {
+                 text: 'Place On Hold',
+                 handler: data => {
+
+                     var post = htmlEscape(data.note.trim()).substr(0, 4000);
+
+                     let data1 = {
+                       "status": "onhold",
+                       "note_text": post
+                     };
+
+                     this.ticketProvider.closeOpenTicket(this.ticket.key, data1).subscribe(
+                       data => {
+                         this.update_tlist_logic(true);
+                         this.nav.alert(this.config.current.names.ticket.s + ' placed On Hold :)');
+                         this.ticket.status = "OnHold";
+                       },
+                       error => {
+                         this.nav.alert(error, true);
+                         console.log(error || 'Server error');
+                       }
+                       );
+                 }
+             }
+             ]
+         });
+
+         this.nav.present(prompt);
    }
 
    onUpdate() {
