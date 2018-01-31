@@ -251,6 +251,8 @@ data.is_ticket_require_closure_note = false;
 data.user.is_limit_assigned_tkts = true;
 //Is user Admin
 data.user.is_admin = false;
+//onhold_status
+data.is_onhold_status = true;
 */
 /*
 data.names = {

@@ -33,16 +33,16 @@ export class TicketProvider {
         let url = "";
         switch (tab.toString()) {
             case "tech":
-            url = `${this.URL}?status=open&role=tech`;
+            url = `${this.URL}?status=open,onhold&role=tech`;
             break;
             case "all":
-            url = `${this.URL}?status=allopen&query=all`;
+            url = `${this.URL}?status=allopen,onhold&query=all`;
             break;
             case "alt":
-            url = `${this.URL}?status=open&role=alt_tech`;
+            url = `${this.URL}?status=open,onhold&role=alt_tech`;
             break;
             case "open":
-            url = `${this.URL}?status=open&account=${id}&location=${location}`;
+            url = `${this.URL}?status=open,onhold&account=${id}&location=${location}`;
             break;
             case "closed":
             url = `${this.URL}?status=closed&account=${id}&location=${location}`;

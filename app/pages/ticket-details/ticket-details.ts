@@ -366,6 +366,7 @@ import {ApiSite} from '../../providers/config';
      this.he = this.config.getCurrent("user");
      this.details_tab = "Reply";
      let data = this.navParams.data || {};
+     console.log("data", data);
      this.cachename = data.cachename;
      this.posts[0].record_date = data.updated_time || this.posts[0].record_date;
 
@@ -568,6 +569,7 @@ import {ApiSite} from '../../providers/config';
            this.files = [];
          },
          error => {
+           this.nav.alert(error, true);
            console.log(error || 'Server error');
          }
          );
@@ -584,6 +586,7 @@ import {ApiSite} from '../../providers/config';
        this.ticketProvider.addTicketNote(this.ticket.id, note).subscribe(
          data => this.saveNoteSuccess(note),
          error => {
+           this.nav.alert(error, true);
            console.log(error || 'Server error');
          }
          );
@@ -598,6 +601,7 @@ import {ApiSite} from '../../providers/config';
        this.ticketProvider.addTicketWorkpad(this.ticket.id, workpad).subscribe(
          data => this.saveWorkpadSuccess(workpad),
          error => {
+           this.nav.alert(error, true);
            console.log(error || 'Server error');
          }
          );
@@ -667,6 +671,7 @@ import {ApiSite} from '../../providers/config';
          }
        },
        error => {
+         this.nav.alert(error, true);
          console.log(error || 'Server error');
        }
        );
@@ -708,9 +713,9 @@ import {ApiSite} from '../../providers/config';
 
                      this.ticketProvider.closeOpenTicket(this.ticket.key, data1).subscribe(
                        data => {
-                         this.update_tlist_logic(true);
-                         this.nav.alert(this.config.current.names.ticket.s + ' placed On Hold :)');
                          this.ticket.status = "OnHold";
+                         this.update_tlist_logic(false);
+                         this.nav.alert(this.config.current.names.ticket.s + ' placed On Hold :)');
                        },
                        error => {
                          this.nav.alert(error, true);
@@ -771,6 +776,7 @@ import {ApiSite} from '../../providers/config';
          this.selects.tech.selected = techid;
        },
        error => {
+         this.nav.alert(error, true);
          console.log(error || 'Server error');
        }
        );
@@ -795,6 +801,7 @@ import {ApiSite} from '../../providers/config';
          this.selects.tech.selected = this.he.user_id;
        },
        error => {
+         this.nav.alert(error, true);
          console.log(error || 'Server error');
        }
        );
@@ -813,6 +820,7 @@ import {ApiSite} from '../../providers/config';
          this.nav.alert(`File ${file.name} deleted!`);
        },
        error => {
+         this.nav.alert(error, true);
          console.log(error || 'Server error');
        }
        );
@@ -831,6 +839,7 @@ import {ApiSite} from '../../providers/config';
          this.ticket.status = "Open";
        },
        error => {
+         this.nav.alert(error, true);
          console.log(error || 'Server error');
        }
        );
@@ -853,7 +862,9 @@ import {ApiSite} from '../../providers/config';
        }
        else
        {
+         this.ticketProvider.getTicketsList(this.cachename, "", "",{ "limit": 25 });
          this.ticketProvider._dataStore[this.cachename].splice(this.closed_index, 0, this.ticket);
+         let index = this.ticketProvider._dataStore[this.cachename].findIndex(tkt => tkt.key === this.ticket.key);
          if(~this.cachename.indexOf("closed")){
            this.ticketProvider._dataStore[this.cachename.replace("open","closed")].splice(this.ticketProvider._dataStore[this.cachename.replace("open","closed")].findIndex(tkt => tkt.key === this.ticket.key),1);
          }

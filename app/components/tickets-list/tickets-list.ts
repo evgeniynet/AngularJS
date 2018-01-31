@@ -143,6 +143,7 @@ export class TicketsListComponent {
                              this.nav.alert('Note added :)');
                          },
                          error => {
+                             this.nav.alert(error, true);
                              console.log(error || 'Server error');
                          }
                          );
@@ -192,6 +193,7 @@ export class TicketsListComponent {
                  ticket.status = "Open";
              },
              error => {
+                 this.nav.alert(error, true);
                  console.log(error || 'Server error');
              }
              );
