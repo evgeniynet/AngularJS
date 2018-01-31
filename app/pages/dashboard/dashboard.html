@@ -1,12 +1,7 @@
 
 <ion-navbar *navbar>
-<ion-buttons start>
     <button menuToggle><ion-icon name="menu"></ion-icon></button>
-      </ion-buttons>
-    <ion-searchbar debounce="700" [(ngModel)]="term" (input)="searchItems($event)" (search)="getSearch($event)" placeholder="Number or phrase (min 2 char)" hideCancelButton="true"></ion-searchbar>
-   <ion-buttons end>
-    <button danger class="right transparent" (click)="getSearch($event)"><ion-icon name="ios-search"></ion-icon></button>
-    </ion-buttons>
+    <ion-searchbar class="searchbar-focused searchbar-left-aligned" debounce="700" [(ngModel)]="term" (input)="searchItems($event)" (search)="getSearch($event)" placeholder="Number or phrase (min 2 char)" hideCancelButton="true"></ion-searchbar>
 </ion-navbar>
 <ion-content class="dashboard">
 <img *ngIf="busy" class="imglogo" src="img/loading2.gif"/>

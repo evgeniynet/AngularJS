@@ -366,7 +366,6 @@ import {ApiSite} from '../../providers/config';
      this.he = this.config.getCurrent("user");
      this.details_tab = "Reply";
      let data = this.navParams.data || {};
-     console.log("data", data);
      this.cachename = data.cachename;
      this.posts[0].record_date = data.updated_time || this.posts[0].record_date;
 

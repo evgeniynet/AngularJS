@@ -36,7 +36,7 @@ export class TicketProvider {
             url = `${this.URL}?status=open,onhold&role=tech`;
             break;
             case "all":
-            url = `${this.URL}?status=allopen,onhold&query=all`;
+            url = `${this.URL}?status=allopen&query=all`;
             break;
             case "alt":
             url = `${this.URL}?status=open,onhold&role=alt_tech`;
