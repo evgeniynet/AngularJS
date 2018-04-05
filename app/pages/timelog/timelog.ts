@@ -95,7 +95,8 @@ ngOnInit()
             { 
                 this.minuteValues = [];
                 let min = 0;
-                do { this.minuteValues.push(min); min += 60*this.inc;}
+                //do { this.minuteValues.push(min); min += 60*this.inc;}
+                do { this.minuteValues.push(min); min += 5;}
                 while (min < 60);
                 this.minuteValues.push(0);
             }
