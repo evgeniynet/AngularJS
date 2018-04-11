@@ -41,7 +41,9 @@
 <div [ngSwitch]="details_tab">
  <div class="list" [hidden]="details_tab != 'Reply'">
 
-  <ion-item no-lines class="margin-bottom10"><ion-label class="width30 font-size17 text-right">Logs</ion-label><ion-toggle [(ngModel)]="is_showlogs"></ion-toggle></ion-item>
+  <ion-item no-lines class="margin-bottom10">
+    <ion-label class="text-left" style="font-size: 12px; white-space: normal;"><span style="font-weight: 900;">Tiket Email Address:</span><br>r.zwoja4.ms2asm.oeiv56@app.sherpadesk.com</ion-label>
+    <ion-label class="font-size17 text-right" style="max-width: 43px;">Logs</ion-label><ion-toggle [(ngModel)]="is_showlogs"></ion-toggle></ion-item>
    <posts-list [posts]="posts" [is_first]="true" [attachments]="attachments" [is_showlogs]="is_showlogs"></posts-list>
   <form *ngIf="active" #addForm="ngForm">
    <div class="tooltips">
