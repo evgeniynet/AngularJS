@@ -145,6 +145,13 @@ ngOnInit()
                     selected: this.time.task_type_id || this.config.getRecent("tasktype").selected || 0,
                     url: this.time.ticket_number ? `task_types?ticket=${this.time.ticket_number}` : `task_types?account=${account_id}`,
                     hidden: false
+                },
+                "prepaid" : {
+                    name: "PrePaid Pack", 
+                    value: this.time.pre_paid || (recent.prepaid || {}).value || "Choose",
+                    selected: this.time.task_type_id || this.config.getRecent("prepaid").selected || 0,
+                    url: this.time.ticket_number ? `task_types?ticket=${this.time.ticket_number}` : `task_types?account=${account_id}`,
+                    hidden: false
                 }
             };
         }
