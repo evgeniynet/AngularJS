@@ -55,7 +55,7 @@ AddHours(date, hours)
         if (date.length == 19)
             date = date.slice(0,-3);
         let temp = new Date(date);
-        return new Date(temp.setTime(temp.getTime() + (hours*60*60*1000))).toJSON();
+        return new Date(temp.setTime(temp.getTime() + (hours*60*60*1000) + -1*temp.getTimezoneOffset()*60*1000)).toJSON();
     }
     return date;
 }

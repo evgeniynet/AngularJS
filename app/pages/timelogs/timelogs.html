@@ -21,7 +21,7 @@
         <p>{{setDate(time.date)}}</p>
       </li>
  <span class="timelog-span">
-     <h3 [innerHTML]="((time.ticket_number ? ('#'+time.ticket_number+': '+time.ticket_subject + (time.note ? ' - ' : '')) : '') + time.note) | Linebreaks"></h3></span>
+     <h3 [innerHTML]="'<b>' + ((time.ticket_number ? ('#'+time.ticket_number+': '+time.ticket_subject + (time.note ? ' - ' : '')) : (time.account_name + ': ')) + '</b>' + time.note) | Linebreaks"></h3></span>
      </div>
   </a>
         </ion-item-sliding>
