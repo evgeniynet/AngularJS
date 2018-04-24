@@ -69,7 +69,7 @@ export function addp (url: string, param: string, value?: any) {
         return url + ch + param + '=' + value;
  }
 
-    export function fullapplink (site, ticketkey, inst,org){
+export function fullapplink (site, ticketkey, inst,org){
         let url = Config.AppSite;
         if (ticketkey)
             url = addp(url, "tkt", ticketkey);
@@ -78,6 +78,11 @@ export function addp (url: string, param: string, value?: any) {
         //if (localStorage.getItem("isPhonegap") === "true")
         //    openURLsystem(url);
         //else //if (localStorage.getItem("isExtension") === "true")
+            openURLsystem(url);
+}
+
+export function mailtolink (ticketkey, inst,org){
+        let url = `mailto:r.${org}.${inst}.${ticketkey}@app.sherpadesk.com`;
             openURLsystem(url);
 }
 

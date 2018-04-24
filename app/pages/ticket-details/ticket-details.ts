@@ -3,7 +3,7 @@ import {FORM_DIRECTIVES, Validators} from '@angular/common';
 import {AppSite} from '../../providers/config';
 import {DataProvider} from '../../providers/data-provider';
 import {TicketProvider} from '../../providers/ticket-provider';
-import {getDateTime, htmlEscape, getCurrency, getFullName, fullapplink, parseXml, FileUrlHelper} from '../../directives/helpers';
+import {getDateTime, htmlEscape, getCurrency, getFullName, fullapplink, mailtolink, parseXml, FileUrlHelper} from '../../directives/helpers';
 import {PostsListComponent} from '../../components/posts-list/posts-list';
 import {SelectListComponent}  from '../../components/select-list/select-list';
 import {ClassListComponent} from '../../components/class-list/class-list';
@@ -497,6 +497,7 @@ import {ApiSite} from '../../providers/config';
 
      this.is_editworkpad = !(this.ticket.workpad || "").length;
      this.ticket.customfields = [];
+     this.ticket.mailto = `r.${this.config.current.org}.${this.config.current.instance}.${data.key}@app.sherpadesk.com`;
 
      this.initSelects(data);
 
@@ -936,6 +937,11 @@ import {ApiSite} from '../../providers/config';
        getFullapplink(ticketkey) {
          let curr = this.config.getCurrent();
          fullapplink(AppSite, ticketkey, curr.instance, curr.org);
+       }
+
+       getMailTolink(ticketkey) {
+         let curr = this.config.getCurrent();
+         mailtolink(ticketkey, curr.instance, curr.org);
        }
 
        getFullName (firstname,lastname,email,name) {
