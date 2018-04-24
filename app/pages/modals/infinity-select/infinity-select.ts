@@ -88,7 +88,11 @@ export class InfinitySelectModal {
 
             // if the value is an empty string don't filter the items
             if (q.trim() == '' || this.busy) {
-                if (q.trim() == '') this.is_empty = !this.items.length;
+                if (q.trim() == '') 
+                    {
+                        this.is_empty = !this.items.length;
+                        this.count = 25;
+                    }
                 return;
             }
 
@@ -98,6 +102,7 @@ export class InfinitySelectModal {
             {
                 this.items = this.items.filter((v) => v.name.toLowerCase().indexOf(q.toLowerCase()) > -1);
                 this.is_empty = !this.items.length;
+                this.count = 25;
             }
             else {
                 var timer = setTimeout(() => { this.busy = true; }, 500);
@@ -108,9 +113,12 @@ export class InfinitySelectModal {
         getItems(term, infiniteScroll, timer?) {
             let pager = { page: this.pager.page, limit: this.pager.limit };
             let sterm = term;
-            if (term.length > 2)
+            if (!infiniteScroll)
+            {
+                this.pager.page = 0;
                 pager.page = 0;
-
+                this.items = [];
+            }
             if (isSD && ~["location", "account"].indexOf(this.name.toLowerCase()))
             {
                 sterm = term+"*";
@@ -145,14 +153,17 @@ export class InfinitySelectModal {
                         }
                         else 
                             this.data.push(...data);
-                        if (infiniteScroll) {
-                            infiniteScroll.enable(data.length == 25);
-                        }
+                        //if (infiniteScroll) {
+                        //    infiniteScroll.enable(data.length == 25);
+                        //}
                         this.count = data.length;
                         this.searchItems({ value: term });
                     }
                     else if (data.length)
-                        this.items = data;
+                    {
+                        this.count = data.length;
+                        this.items.push(...data);
+                    }
                     else
                         this.items = this.data;
                     if (infiniteScroll) {
@@ -173,12 +184,11 @@ export class InfinitySelectModal {
             if (this.date && Date.now() - this.date < 1000) {infiniteScroll.complete(); return;}
             if (this.is_empty || this.count < 25) {
                 infiniteScroll.complete();
-                if ((this.is_empty && !this.term) || this.count < 25)
-                infiniteScroll.enable(false);
+                //infiniteScroll.enable(false);
                 return;
             }
             this.pager.page += 1;
-            this.term = "";
-            this.getItems("", infiniteScroll);
+            //this.term = "";
+            this.getItems(this.term, infiniteScroll);
         }
     }
