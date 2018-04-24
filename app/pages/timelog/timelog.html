@@ -43,8 +43,9 @@
      <select-list *ngIf="!time.number" [list]="selects.ticket" preload="true" (onChanged)='saveSelect($event)'></select-list>
 
      <select-list [list]="selects.tasktype" preload="true" (onChanged)='saveSelect($event)'></select-list>
-     <!--New PrePaid-->
+     <!--New PrePaid
      <select-list [list]="selects.prepaid" preload="true" (onChanged)='saveSelect($event)'></select-list>
+     -->
         </div>    
                 <form #addForm="ngForm">
                     <ion-item no-lines class="left toggle-width">
