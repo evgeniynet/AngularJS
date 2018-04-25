@@ -104,6 +104,10 @@
   </div>
     <div>&nbsp;&nbsp;</div>
   <button secondary block (click)="onUpdate()" type="submit" class="disable-hover button button-default button-block">Update</button>
+  <ion-label class="text-left" style="font-size: 16px; white-space: normal;">
+    <a href=# (click)="getMailTolink(ticket.key)" class="text-decor">
+    <span style="font-weight: 900; line-height: 30px;">Tiket Email Address:</span><br>{{ticket.mailto}}&nbsp;</a>
+    </ion-label>
   <span class="span-block"></span>
 </div>
 <ion-list class="list general-alignment max-width700" [hidden]="details_tab != 'Notes'">
