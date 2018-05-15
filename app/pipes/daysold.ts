@@ -12,9 +12,11 @@ export class DaysoldPipe {
         var result : string = "";
 
                     // check to see if the ticket is less than a day old
-                    if (!value || value < 15)
+                    if (!value || value < 2)
                         result = "a minute ago"; 
                     else if (value < 60)
+                        result = "a " + value + " minutes ago"; 
+                    else if (value < 120)
                         result = "within hour"; 
                     else if(daysOld > 24){
                         result = parseInt((daysOld / 24).toString()) + " days ago";
