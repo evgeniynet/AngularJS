@@ -25,7 +25,7 @@ export class TimelogPage {
     start_time: string = "";
     stop_time: string = "";
     UserDateOffset: number = -5;
-    start_stop_hours: number = 0;
+    //start_stop_hours: number = 0;
     //@ViewChild('starttime') starttime:DateTime;
     //@ViewChild('stoptime') stoptime:DateTime;
 
@@ -68,12 +68,13 @@ ngOnInit()
     let name = (this.time.user_name + " " + this.time.user_email).trim().split(' ')[0];
             if (this.time.time_id)
             {
-                this.title = `Timelog #${this.time.time_id} by\u00a0${name} on\u00a0` + this.setDate(this.time.date, false, true);
+                this.UserDateOffset = this.time.time_offset;
+                this.title = `Timelog #${this.time.time_id} by\u00a0${name} on\u00a0` + this.setDate(this.AddHours(this.time.date, this.UserDateOffset), false, true);
                 //fix timezone
-                this.start_time = this.AddHours(this.time.start_time, this.time.time_offset);
-                this.stop_time = this.AddHours(this.time.stop_time, this.time.time_offset);
-                if (this.start_time && this.stop_time)
-                    this.start_stop_hours = Number(Math.round((+(new Date(this.stop_time)) - +(new Date(this.start_time))) / 60000)/60);
+                this.start_time = this.AddHours(this.time.start_time, this.UserDateOffset);
+                this.stop_time = this.AddHours(this.time.stop_time, this.UserDateOffset);
+                //if (this.start_time && this.stop_time)
+                //    this.start_stop_hours = Number(Math.round((+(new Date(this.stop_time)) - +(new Date(this.start_time))) / 60000)/60);
             }
             else if (this.time.number)
                 this.title = `#${this.time.number} ${this.time.subject}`;
@@ -209,9 +210,10 @@ ngOnInit()
             this.nav.alert("Not enough time", true);
             return;
         }
-        if (this.start_stop_hours && hours > this.start_stop_hours)
+        
+        if (this.start_time && this.stop_time && hours > this.getInterval())
         {
-            this.nav.alert("Hours value should be lesser or equal than Start/Stop range.", true);
+            this.nav.alert("Hours value should be less or equal to Start/Stop range.", true);
             return;
         }
         if (!this.selects.tasktype.selected)
@@ -226,7 +228,18 @@ ngOnInit()
             var note = htmlEscape(this.timenote.trim()).substr(0, 5000);
 
             var isEdit = !!this.time.time_id;
-            var time_offset = -1 * (isEdit ? this.time.time_offset : this.UserDateOffset);
+            var time_offset = -1 * this.UserDateOffset;
+            var start_time = this.start_time;
+            if (this.endsWith(this.start_time, "Z"))
+                start_time = start_time.substring(0,19);
+            var stop_time = this.stop_time;
+            if (this.endsWith(this.stop_time, "Z"))
+                stop_time = stop_time.substring(0,19);
+            var date = this.time.date;
+            if (start_time)
+            {
+                date = this.AddHours(start_time, time_offset);
+            }
             //TODO if other user changes what id should I write?  
             let data = {
                 "tech_id": isEdit ? this.time.user_id : this.he.user_id,
@@ -238,9 +251,9 @@ ngOnInit()
                 "task_type_id": this.selects.tasktype.selected,
                 "hours": hours,
                 "no_invoice": this.isbillable,
-                "date": this.AddHours(this.start_time, time_offset) || "", 
-                "start_date": this.AddHours(this.start_time, time_offset)  || "",
-                "stop_date": this.AddHours(this.stop_time, time_offset)  || ""
+                "date": date || "", 
+                "start_date": this.AddHours(start_time, time_offset)  || "",
+                "stop_date": this.AddHours(stop_time, time_offset)  || ""
             };
 
             this.timeProvider.addTime(this.time.time_id, data, isEdit ? "PUT" : "POST").subscribe(
@@ -334,15 +347,26 @@ ngOnInit()
 
     updateHours()
     {
-        let timecount : number = Math.round((+(new Date(this.stop_time)) - +(new Date(this.start_time))) / 60000);
-                if (timecount < 0)
-                {
-                    this.start_time = this.AddHours(this.start_time, -24);
-                    this.start_stop_hours = Number(24 + timecount/60);
-                }
-                else
-                    this.start_stop_hours = Number(timecount/60);
-                this.timecount = this.start_stop_hours.toFixed(2);
+        let timecount : number = this.getInterval();
+        this.timecount = timecount.toFixed(2);
+    }
+
+    endsWith(str, search)
+    {
+        str = str || "";
+        var this_len = str.length;
+        return str.substring(this_len - search.length, this_len) === search;
+    }
+
+    getInterval()
+    {
+        var start_time = this.start_time;
+        if (!this.endsWith(this.start_time, "Z"))
+            start_time += "Z"; 
+        var stop_time = this.stop_time;
+        if (!this.endsWith(this.stop_time, "Z"))
+            stop_time += "Z"; 
+        return Number(Math.round((+(new Date(stop_time)) - +(new Date(start_time))) / 60000)/60);
     }
 
 
