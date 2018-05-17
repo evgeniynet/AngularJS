@@ -42,11 +42,8 @@
  <div class="list" [hidden]="details_tab != 'Reply'">
 
   <ion-item no-lines class="margin-bottom10">
-    <ion-label class="text-left" style="font-size: 12px; white-space: normal;">
-    <a href=# (click)="getMailTolink(ticket.key)" class="text-decor">
-    <span style="font-weight: 900;">Tiket Email Address:</span><br>{{ticket.mailto}}&nbsp;</a>
-    </ion-label>
-    <ion-label class="font-size17 text-right" style="max-width: 43px;">Logs</ion-label><ion-toggle [(ngModel)]="is_showlogs"></ion-toggle></ion-item>
+    
+    <ion-label class="font-size17 text-right">Logs</ion-label><ion-toggle [(ngModel)]="is_showlogs" style="margin-left: -16px !important;"></ion-toggle></ion-item>
    <posts-list [posts]="posts" [is_first]="true" [attachments]="attachments" [is_showlogs]="is_showlogs"></posts-list>
   <form *ngIf="active" #addForm="ngForm">
    <div class="tooltips">
@@ -67,6 +64,11 @@
   <ion-icon [ngClass]="{'ion-ios-checkmark-circle secondary' : waiting_response, 'ion-ios-radio-button-on grey2' : !waiting_response }" class="fontResp todos-padding margin-top3"></ion-icon>
   <h5 style="margin-top: 11px;">Waiting on Response</h5>
   </div>
+  <ion-label class="text-left" style="font-size: 12px; white-space: normal; margin-top: 0px !important;
+    padding-bottom: 20px !important;">
+    <a href=# (click)="getMailTolink(ticket.key)" class="text-decor">
+    <span style="font-weight: 900;">Ticket Email Address:</span><br>{{ticket.mailto}}&nbsp;</a>
+    </ion-label>
 
   <div class="NoMarginTop">
   <todo-list *ngIf="config.current.is_todos" [ticket]="ticket.key" user="all"></todo-list></div>
@@ -104,9 +106,9 @@
   </div>
     <div>&nbsp;&nbsp;</div>
   <button secondary block (click)="onUpdate()" type="submit" class="disable-hover button button-default button-block">Update</button>
-  <ion-label class="text-left" style="font-size: 16px; white-space: normal;">
+  <ion-label class="text-left" style="font-size: 12px; white-space: normal;">
     <a href=# (click)="getMailTolink(ticket.key)" class="text-decor">
-    <span style="font-weight: 900; line-height: 30px;">Tiket Email Address:</span><br>{{ticket.mailto}}&nbsp;</a>
+    <span style="font-weight: 900; line-height: 20px;">Ticket Email Address:</span><br>{{ticket.mailto}}&nbsp;</a>
     </ion-label>
   <span class="span-block"></span>
 </div>
