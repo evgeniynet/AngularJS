@@ -51,6 +51,10 @@ export class PostsListComponent {
         //   this.filter(); 
     }
 
+    setDate(date, showmonth?, istime?) {
+         return date ? getDateTime(date, showmonth, istime) : null;
+       }
+
     /*get posts()
     {
         return this.posts.filter(item => item.id.indexOf(args[0]) !== -1);
