@@ -44,12 +44,16 @@ ion-item{
 }
 
 .postlist > p:first-child{
-    margin-bottom: 3px;
+    margin-bottom: 0px;
 //    width: 35%;
     }
-
+.postlist > p:nth-child(2) {
+    margin: 0px !important;
+    font-size:13px;
+//    width: 35%;
+    }
 .postlist > p:last-child{
-    margin-top: 0px !important;
+    margin-top: 1px !important;
 //    width: 62%;
      color: $grey4;
     }
