@@ -143,13 +143,21 @@ export class SelectListComponent {
          var results = [];
          this.list.items.forEach(item => {
              let name;
+             let id = item.id;
                  //if users or techs
                  if (item.email)
                      name = getFullName(item.firstname, item.lastname, item.email, this.isbutton ? "" : " ");
                  //if tickets
                  else if (item.number)
                      name = `#${item.number}: ${item.subject}`;
-                 results.push({id: item.id, name: name});
+                 else if (item.prepaid_pack_id) {
+                     name = item.prepaid_pack_name;
+                     id = item.prepaid_pack_id;
+                 }
+
+                 results.push({id: id, name: name});
+                 
+
              });
          this.list.items = results;
      }

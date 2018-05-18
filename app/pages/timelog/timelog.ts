@@ -140,18 +140,18 @@ ngOnInit()
                     url: `tickets?status=open&account=${account_id}&project=${project_id}`,
                     hidden: this.time.is_project_log || this.time.task_type_id || false
                 },
-                "tasktype" : {
+                "tasktype" : { 
                     name: "Task Type", 
                     value: this.time.task_type || (recent.tasktype || {}).value || "Choose",
                     selected: this.time.task_type_id || this.config.getRecent("tasktype").selected || 0,
                     url: this.time.ticket_number ? `task_types?ticket=${this.time.ticket_number}` : `task_types?account=${account_id}`,
                     hidden: false
                 },
-                "prepaid" : {
+                "prepaidpack" : {
                     name: "PrePaid Pack", 
-                    value: this.time.pre_paid || (recent.prepaid || {}).value || "Choose",
-                    selected: this.time.task_type_id || this.config.getRecent("prepaid").selected || 0,
-                    url: this.time.ticket_number ? `task_types?ticket=${this.time.ticket_number}` : `task_types?account=${account_id}`,
+                    value: this.time.prepaid_pack_name || (recent.prepaidpack || {}).value || "Choose",
+                    selected: this.time.prepaid_pack_id || this.config.getRecent("prepaidpack").selected || 0,
+                    url: `prepaid_packs?account=${account_id}&project=${project_id}`,
                     hidden: false
                 }
             };
@@ -169,9 +169,13 @@ ngOnInit()
             this.selects.project.url = `projects?account=${event.id}&is_with_statistics=false`;
             this.selects.project.value = "Default";
             this.selects.project.selected = 0;
+            this.selects.prepaidpack.url = `prepaid_packs?account=${event.id}&project=0`;
+            this.selects.prepaidpack.value = "Default";
+            this.selects.prepaidpack.selected = 0;
             account_id = event.id;
             this.selects.ticket.hidden = this.time.is_project_log || this.time.task_type_id || false;
             this.selects.project.hidden = !this.config.current.is_project_tracking;
+            break;
             case "project" :
             if (this.selects.project.selected === event.id)
             {
@@ -184,6 +188,9 @@ ngOnInit()
                 this.selects.ticket.value = "Choose (optional)";
                 this.selects.ticket.selected = 0;
             }
+                this.selects.prepaidpack.url = `prepaid_packs?account=${account_id}&project=${event.id}`,
+                this.selects.prepaidpack.value = "Choose (optional)";
+                this.selects.prepaidpack.selected = 0;
             break;
             case "ticket" :
             if (this.selects.ticket.selected === event.id)
@@ -249,6 +256,7 @@ ngOnInit()
                 "account_id": this.selects.account.selected,
                 "note_text": note,
                 "task_type_id": this.selects.tasktype.selected,
+                "prepaid_pack_id" : this.selects.prepaidpack.selected,
                 "hours": hours,
                 "no_invoice": this.isbillable,
                 "date": date || "", 
@@ -263,7 +271,8 @@ ngOnInit()
                     {
                         this.config.setRecent({"account": this.selects.account,
                                                "project": this.selects.project,
-                                               "tasktype": this.selects.tasktype});
+                                               "tasktype": this.selects.tasktype,
+                                                "prepaidpack": this.selects.prepaidpack});
                     }
                     if (isEdit){
                         this.time.start_time = data.start_date;
@@ -290,6 +299,8 @@ ngOnInit()
                             time_offset:time_offset,
                             task_type:this.selects.tasktype.value,
                             task_type_id:data.task_type_id,
+                            prepaid_pack:this.selects.prepaidpack.value,
+                            prepaid_pack_id:data.prepaid_pack_id,
                             ticket_number:data.ticket_key,
                             ticket_subject:this.selects.ticket.value,
                             user_email:this.he.email,
