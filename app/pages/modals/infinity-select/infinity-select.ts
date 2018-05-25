@@ -23,6 +23,7 @@ export class InfinitySelectModal {
     isdefault_enabled: boolean = false;
     isnew_enabled: boolean = false;
     date: any;
+    
 
 
     constructor(private nav: Nav, private navParams: NavParams, private config: Config, private apiData: ApiData,
@@ -32,6 +33,7 @@ export class InfinitySelectModal {
     }
 
     ngOnInit() {
+        
         this.term = '';
         this.name = this.navParams.data.name || "List";
         this.isdefault_enabled = !~["user", "account", "tech", "task type"].indexOf(this.name.toLowerCase());
@@ -67,7 +69,7 @@ export class InfinitySelectModal {
         {
             let myModal = Modal.create(AddUserModal, {type: this.name.toLowerCase(), name: this.term});
             myModal.onDismiss(data => {
-                if (data){
+             {{item.name}}   if (data){
                     //console.log(data);
                     data.name = getFullName(data.firstname, data.lastname, data.email);
                     this.dismiss(data);
