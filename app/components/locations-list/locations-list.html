@@ -3,10 +3,12 @@
 <div detail-none>
         <span>&nbsp;&nbsp;&nbsp;</span>
         <span>{{config.current.names.ticket.ap}}</span>
+
         </div></div>
 <div class="locationlist flexed" >
         <div detail-none href=# *ngFor="let location of locations" (click)="itemTapped($event, location)">
         <span>{{location.name}}</span>
+        <span>10</span>
         </div>
  </div>
 </ion-list>
