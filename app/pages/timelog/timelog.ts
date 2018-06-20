@@ -117,28 +117,30 @@ ngOnInit()
             let account_id = (this.time.account || {}).id || this.time.account_id || (recent.account || {}).selected || this.he.account_id || -1;
             let project_id = (this.time.project || {}).id || this.time.project_id || (recent.project || {}).selected || 0;
 
-
             this.selects = {
                 "account" : {
                     name: "Account", 
                     value:  (this.time.account || {}).name || this.time.account_name || (recent.account || {}).value || this.he.account_name,
                     selected: account_id,
                     url: "accounts?is_with_statistics=false",
-                    hidden: false
+                    hidden: false,
+                    is_disabled: this.time.ticket_number
                 },
                 "project" : {
                     name: "Project", 
                     value:  this.time.project_name || (recent.project || {}).value || "Default",
                     selected: project_id,
                     url: `projects?account=${account_id}&is_with_statistics=false`,
-                    hidden: false
+                    hidden: false,
+                    is_disabled: this.time.ticket_number
                 },
                 "ticket" : {
                     name: "Ticket", 
                     value: this.time.ticket_number ? `#${this.time.ticket_number}: ${this.time.ticket_subject}` : "Choose (optional)",
                     selected: this.time.ticket_number || 0,
                     url: `tickets?status=open&account=${account_id}&project=${project_id}`,
-                    hidden: this.time.is_project_log || this.time.task_type_id || false
+                    hidden: this.time.is_project_log || false,
+                    is_disabled: this.time.task_type_id
                 },
                 "tasktype" : { 
                     name: "Task Type", 

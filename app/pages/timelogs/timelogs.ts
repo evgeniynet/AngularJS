@@ -73,7 +73,11 @@ export class TimelogsPage {
         if (this.params.account_name)
             this.view.setBackButtonText('');
         if (!this.initial_load)
-            this.getTimeLogs();
+        {
+            setTimeout(() => {
+               this.getTimeLogs();
+            }, 2000);
+        }
         this.initial_load = false;
     }
 

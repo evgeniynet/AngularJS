@@ -51,6 +51,9 @@ export class SelectListComponent {
         {
             this.list.hidden = true;
         }
+
+        this.is_enabled = !this.list.is_disabled;
+
         if (this.list.hidden)
             return;
 
