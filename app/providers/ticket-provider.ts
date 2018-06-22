@@ -99,6 +99,11 @@ export class TicketProvider {
             return this.apiData.get(url);
         }
 
+        getUserProfile(user_id) {
+            let url = `profile/${user_id}`;
+            return this.apiData.get(url);
+        }        
+
         getTicketsCounts() {
             let url = `${this.URL}/counts`;
             if (!this._dataStore[url]) {

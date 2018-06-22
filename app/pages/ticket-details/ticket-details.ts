@@ -322,6 +322,7 @@ import {ApiSite} from '../../providers/config';
 
    counts: any;
    ticket: any = {};
+   userphone: string;
    details_tab: string;
    active: boolean;
    waiting_response: boolean = false;
@@ -485,6 +486,18 @@ import {ApiSite} from '../../providers/config';
        );
    }
 
+   getProfile(user_id)
+   {
+     this.ticketProvider.getUserProfile(user_id).subscribe(
+       data => {
+         this.userphone = data.mobile_phone || data.phone;
+       },
+       error => {
+         console.log(error || 'Server error');
+       }
+       );
+   }
+
    processDetails(data, isShortInfo?)
    {
      if (!isShortInfo && (!data || !data.ticketlogs || data.ticketlogs == 0))
@@ -492,7 +505,7 @@ import {ApiSite} from '../../providers/config';
        this.redirectOnEmpty();
        return;
      }
-
+     
      this.ticket = data;
 
      this.is_editworkpad = !(this.ticket.workpad || "").length;
@@ -518,6 +531,9 @@ import {ApiSite} from '../../providers/config';
          }
          this.ticket.customfields = t;
        }
+     }
+     else {
+      this.getProfile(data.user_id);
      }
    }
 
