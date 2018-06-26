@@ -149,6 +149,15 @@ getAccountList(is_dashboard, pager, is_no_stat?, is_open?) {
     });
 }   
 
+getTechniciansList(pager, is_no_stat?, is_open?) {
+    let url = "technicians";
+    if (is_no_stat) 
+        url = addp(url, "is_with_statistics", "false");
+    if (is_open) 
+        url = addp(url, "is_open_tickets", "true");
+    return this.apiData.getPaged(url, pager);
+}   
+
 getAccountDetails(id,is_no_stat?) {
     let url = `accounts/${id}`;
     if (is_no_stat) 

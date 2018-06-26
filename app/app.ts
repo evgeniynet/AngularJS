@@ -272,6 +272,7 @@ if (this.config.current.user.is_techoradmin)
 { title: 'Timelogs', component: pages.TimelogsPage, icon: "md-time", is_active: this.config.current.is_time_tracking },
 { title: data.names.account.p, component: pages.AccountsPage, icon: "people", is_active: this.config.current.is_account_manager },
 { title: data.names.location.p, component: pages.LocationsPage, icon: "navigate", is_active: this.config.current.is_location_tracking },
+{ title: data.names.tech.p, component: pages.TechniciansPage, icon: "people-outline", is_active: true },
 { title: 'Invoices', component: pages.InvoicesPage, icon: "card", is_active: this.config.current.is_time_tracking && this.config.current.is_invoice },
 { title: 'Queues', component: pages.QueuesPage, icon: "md-list-box", is_active: this.config.current.is_unassigned_queue && (!this.config.current.user.is_limit_assigned_tkts || this.config.current.user.is_admin)},
 { title: 'ToDos', component: pages.TodosPage, icon: "list-box", is_active: this.config.current.is_todos },

@@ -1,0 +1,19 @@
+
+<ion-navbar *navbar><button menuToggle><ion-icon name="menu"></ion-icon></button>
+  <ion-title>{{config.current.names.tech.p}}</ion-title>
+</ion-navbar>
+
+    <ion-content class="accounts">
+ <p class="general-alignment"></p>
+ <img *ngIf="busy" class="imglogo img-padding" src="img/loading2.gif">
+        <techs-list margin-top [simple]="true" [technicians]="technicians"></techs-list>
+
+        <ion-infinite-scroll (infinite)="doInfinite($event)" threshold="30%">
+    <ion-infinite-scroll-content
+      loadingSpinner="circles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>
+        <action-button></action-button>

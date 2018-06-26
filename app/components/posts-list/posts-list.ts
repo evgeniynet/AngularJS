@@ -1,4 +1,4 @@
-import {IONIC_DIRECTIVES} from 'ionic-angular';
+import {IONIC_DIRECTIVES, Config} from 'ionic-angular';
 import {Component, Input} from '@angular/core';
 import {getDateTime, getFullName} from '../../directives/helpers';
 import {LinebreaksPipe, GravatarPipe, DaysoldPipe, FilesPipe} from '../../pipes/pipes';
@@ -18,7 +18,7 @@ export class PostsListComponent {
     @Input() is_first: boolean;
 
      
-    constructor() {
+    constructor(private config: Config) { 
     }  
 
     filter()
@@ -50,6 +50,18 @@ export class PostsListComponent {
         //if ("attachments" in event && !event.posts.isFirstChange() && this.posts.length == 1 && (event.attachments.currentValue || []).length > (event.attachments.previousValue || []).length)
         //   this.filter(); 
     }
+
+    getTime (date){
+        let hours= this.config.getCurrent("timezone_offset");
+    if (date){
+        if (date.length == 19)
+            date = date.slice(0,-3);
+        let temp = new Date(date);
+        return new Date(temp.setTime(temp.getTime() + (hours*60*60*1000))).toJSON();
+    }
+    return date;
+}
+
 
     setDate(date, showmonth?, istime?) {
          return date ? getDateTime(date, showmonth, istime) : null;

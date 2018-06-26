@@ -17,7 +17,7 @@
          <template [ngIf]="!todoList?.hidden">
          <template ngFor let-todo [ngForOf]="todoList?.sub" let-last="last" let-even="seven" let-odd="sodd">
          <div (click)="todo.is_completed = !todo.is_completed;setDone(todo)">
-            <ion-icon [ngClass]="{'ion-ios-checkmark-circle secondary' : todo.is_completed, 'ion-ios-radio-button-on grey2' : !todo.is_completed}" class="font18 todos-padding margin-top3"></ion-icon><h5 [ngClass]="{'color decoration_line grey3_color' : todo.is_completed, 'color' : !todo.is_completed}"><span style="font-size: 1.6rem">{{todo.title}}<i *ngIf="todo.text">{{" - " + todo.text}}</i></span></h5><!--ion-icon name="md-create" role="img" class="ion-s padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon--></div>
+            <ion-icon [ngClass]="{'ion-ios-checkmark-circle secondary' : todo.is_completed, 'ion-ios-radio-button-on grey2' : !todo.is_completed}" class="font18 todos-padding margin-top3"></ion-icon><h5 [ngClass]="{'color decoration_line grey3_color' : todo.is_completed, 'color' : !todo.is_completed}" class="textCopy"><span style="font-size: 1.6rem">{{todo.title}}<i *ngIf="todo.text">{{" - " + todo.text}}</i></span></h5><!--ion-icon name="md-create" role="img" class="ion-s padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon--></div>
             <div class="todos-flex right color">
              <h6></h6> 
                 <h6 *ngIf="todo.assigned_name && !simple">{{todo.assigned_name}}</h6> 
