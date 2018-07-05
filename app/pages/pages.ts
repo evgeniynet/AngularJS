@@ -11,6 +11,7 @@ export * from './invoices/invoices';
 export * from './login/login';
 export * from './organizations/organizations';
 export * from './queue-tickets/queue-tickets';
+export * from './tech-tickets/tech-tickets';
 export * from './queues/queues';
 export * from './signup/signup';
 export * from './ticket-details/ticket-details';

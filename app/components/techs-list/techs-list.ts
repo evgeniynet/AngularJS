@@ -1,7 +1,7 @@
 //in case on using ionic "ion-card"
 import {IONIC_DIRECTIVES, Nav, NavParams, Config} from 'ionic-angular';
 import {Component, Input, OnChanges} from '@angular/core';
-import {AccountDetailsPage} from '../../pages/account-details/account-details';
+import {TechTicketsPage} from '../../pages/tech-tickets/tech-tickets';
 import {MorePipe} from '../../pipes/pipes';
 
 @Component({
@@ -24,6 +24,10 @@ export class TechniciansListComponent {
      //    this.nav.push(AccountDetailsPage, account);
                    }
      
+    goToTechTicketsPage(technician) {
+         this.nav.push(TechTicketsPage, technician);
+     }
+
      ngOnChanges(event) {
          if (!this.simple)
              return;

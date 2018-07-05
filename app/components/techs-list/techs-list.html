@@ -5,7 +5,7 @@
         <span>{{config.current.names.ticket.ap}}</span>
         </div></div>
 <div class="accountlist flexed">
-        <div detail-none href=# *ngFor="let technician of technicians" (click)="itemTapped($event, technician)">
+        <div detail-none href=# *ngFor="let technician of technicians" (click)="goToTechTicketsPage(technician)">
         <span>{{technician.firstname}} {{technician.lastname}}</span>
         <span  [innerHTML]="technician.opencount | More:[1000]"></span>
         </div>
