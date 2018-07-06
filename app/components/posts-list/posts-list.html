@@ -6,7 +6,7 @@
         <p>{{post.user_firstname || post.user_email}}</p>
         </ion-avatar>
         <span class="postlist">
-    <p>{{getTime(post.record_date) | Daysold}}</p> 
+    <p>{{post.record_date | Daysold}}</p> 
     <p>{{setDate(getTime(post.record_date), false, true)}}</p>
             <p>{{post.log_type}}</p></span>
         <p class="post-note textCopy" [innerHTML]="post.note | Linebreaks | Files : attachments"></p>

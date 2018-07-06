@@ -7,7 +7,7 @@ export class DaysoldPipe {
     transform(value) {
         value = value || 0;
         if (isNaN(value))
-            value = Math.round((Date.now() - +new Date(value)) / 60000);
+            value = Math.round((new Date().getTime() - +new Date(value + "Z")) / 60000);
         var daysOld: number = value / 60;
         var result : string = "";
 
@@ -24,5 +24,5 @@ export class DaysoldPipe {
                         result = parseInt(daysOld.toString()) + " hours ago";
                     }
                     return result;
-    }
+    } 
 }

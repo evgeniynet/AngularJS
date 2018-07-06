@@ -15,7 +15,7 @@ export class PostsListComponent {
     _posts : Array<any> = [];
     @Input() attachments: Array<any> = [];
     @Input() is_showlogs: boolean;
-    @Input() is_first: boolean;
+    @Input() is_first: boolean; 
 
      
     constructor(private config: Config) { 
