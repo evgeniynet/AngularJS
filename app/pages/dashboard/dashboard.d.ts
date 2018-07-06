@@ -1,0 +1,32 @@
+import { Config, Nav } from 'ionic-angular';
+import { ApiData, DataProvider, TicketProvider, TimeProvider } from '../../providers/providers';
+export declare class DashboardPage {
+    private nav;
+    private config;
+    private apiData;
+    private dataProvider;
+    private ticketProvider;
+    private timeProvider;
+    counts: Object;
+    accounts: Array<any>;
+    queues: Array<any>;
+    term: string;
+    test: boolean;
+    simple: boolean;
+    timer: any;
+    downloadTimer: any;
+    search_results: any;
+    busy: boolean;
+    constructor(nav: Nav, config: Config, apiData: ApiData, dataProvider: DataProvider, ticketProvider: TicketProvider, timeProvider: TimeProvider);
+    onPageLoaded(): void;
+    onPageDidEnter(): void;
+    saveCache(): void;
+    ngOnDestroy(): void;
+    searchItems(searchbar: any): void;
+    getItems(term: any, timer: any): void;
+    gotoTicket(ticket: any, searchBar: any): void;
+    clearSearch(searchbar?: any): void;
+    getSearch(searchbar: any): void;
+    itemTappedTL(tab: any): void;
+    itemTappedAD(): void;
+}

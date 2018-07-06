@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.isPhonegap = false;
+exports.dontClearCache = false;
+exports.isSD = true;
+exports.Site = exports.isSD ? 'sherpadesk.com/' : 'bigwebapps.com/';
+exports.MobileSite = 'https://m.' + exports.Site;
+exports.AppSite = 'https://app.' + exports.Site;
+exports.ApiSite = 'https://api.' + exports.Site;
+exports.year = "2018";
+exports.appVersion = "58";
+exports.AppTitle = exports.isSD ? 'SherpaDesk ' : 'HelpDesk ';
