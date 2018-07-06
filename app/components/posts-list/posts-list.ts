@@ -60,7 +60,6 @@ export class PostsListComponent {
         return new Date(temp.setTime(temp.getTime() + (hours*60*60*1000))).toJSON();
     }
     return date;
-
 }
 
 
