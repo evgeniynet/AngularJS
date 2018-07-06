@@ -52,6 +52,7 @@ export class PostsListComponent {
     }
 
     getTime (date){
+        return new Date(date + "Z");
         let hours= this.config.getCurrent("timezone_offset");
     if (date){
         if (date.length == 19)
