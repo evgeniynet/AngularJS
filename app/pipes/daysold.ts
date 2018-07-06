@@ -17,7 +17,7 @@ export class DaysoldPipe {
                     else if (value < 60)
                         result = "a " + value + " minutes ago"; 
                     else if (value < 120)
-                        result = "within hour"; 
+                        result = "one hour ago"; 
                     else if(daysOld > 24){
                         result = parseInt((daysOld / 24).toString()) + " days ago";
                     } else {
