@@ -31,7 +31,9 @@
 
     
     <todo-list margin-top *ngIf="config.current.is_todos" [simple]="true"></todo-list>
-    
+
+    <custom-field type="text"></custom-field>
+
     <queues-list margin-top class="container_list" *ngIf="config.current.is_unassigned_queue" [queues]="queues"></queues-list>
         
     

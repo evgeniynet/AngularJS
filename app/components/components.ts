@@ -9,3 +9,4 @@ export * from './action-button/action-button';
 export * from './locations-list/locations-list';
 export * from './location-list/location-list';
 export * from './techs-list/techs-list';
+export * from './custom-field/custom-field';

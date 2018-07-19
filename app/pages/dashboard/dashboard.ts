@@ -8,10 +8,11 @@ import {TicketDetailsPage} from '../ticket-details/ticket-details';
 import {AjaxSearchPage} from '../ajax-search/ajax-search';
 import {MorePipe} from '../../pipes/pipes';
 import {addp} from '../../directives/helpers';
+import {CustomFieldComponent} from '../../components/custom-field/custom-field';
 
 @Page({
     templateUrl: 'build/pages/dashboard/dashboard.html',
-    directives: [QueuesListComponent, AccountsListComponent, ActionButtonComponent, TodoListComponent, Focuser],
+    directives: [QueuesListComponent, AccountsListComponent, ActionButtonComponent, TodoListComponent, CustomFieldComponent, Focuser],
     pipes: [MorePipe],
 })
 export class DashboardPage {
