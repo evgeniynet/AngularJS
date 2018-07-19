@@ -47,6 +47,9 @@ export class TicketProvider {
             case "closed":
             url = `${this.URL}?status=closed&account=${id}&location=${location}`;
             break;
+            case "closed-tech":
+            url = `${this.URL}?status=closed&tech=${id}&role=tech`;
+            break;
             case 'queue':
             url = `queues/${id}`;
             break;

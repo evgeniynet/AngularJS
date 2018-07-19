@@ -20,6 +20,8 @@ export class TicketsPage {
     test: boolean;
     search_results: any;
     busy: boolean;
+    user_id: string = '';
+
     
     constructor(private nav: Nav, private navParams: NavParams, private config: Config, private apiData: ApiData, private ticketProvider: TicketProvider) {
         this.counts = {};
@@ -27,6 +29,7 @@ export class TicketsPage {
     
     onPageLoaded()
     {      
+        this.user_id = this.config.getCurrent("user").user_id;
         this.is_tech = this.config.getCurrent("user").is_techoradmin;
         let param = this.navParams.data || {};
         if (param.count)

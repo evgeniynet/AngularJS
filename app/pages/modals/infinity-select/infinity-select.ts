@@ -69,7 +69,7 @@ export class InfinitySelectModal {
         {
             let myModal = Modal.create(AddUserModal, {type: this.name.toLowerCase(), name: this.term});
             myModal.onDismiss(data => {
-             {{item.name}}   if (data){
+             if (data){
                     //console.log(data);
                     data.name = getFullName(data.firstname, data.lastname, data.email);
                     this.dismiss(data);
