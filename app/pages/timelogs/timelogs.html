@@ -19,13 +19,13 @@
     <ion-icon name="time">&nbsp;</ion-icon>
         <h2>{{getFixed(time.hours)}}</h2>
         <p>{{setDate(time.date)}}</p>
-        <h2 style="margin-bottom: 0px" class="outline_white">1.00</h2>
-        <p style="margin-top: 0px">non-work</p>
+        <h2 *ngIf="time.non_working_hours > 0" style="margin-bottom: 0px" class="outline_white">{{time.non_working_hours}}</h2>
+        <p *ngIf="time.non_working_hours > 0" style="margin-top: 0px">non-work</p>
       </li>
   <span class="timelog-span">
      <h3 [innerHTML]="'<b>' + ((time.ticket_number ? ('#'+time.ticket_number+': '+time.ticket_subject + (time.note ? ' - ' : '')) : (time.account_name + ': ')) + '</b>' + time.note) | Linebreaks"></h3>
-     <h3 class="marginNO"><b>Contract:</b> for me</h3>
-     <h3 class="marginNO"><b>Pre-Paid Pack:</b> cash</h3>
+     <h3 *ngIf="time.payment_id > 0" class="marginNO"><b>Contract:</b> {{time.payment_id}}</h3>
+     <h3 *ngIf="time.prepaid_pack_name > 0" class="marginNO"><b>Pre-Paid Pack:</b> {{time.prepaid_pack_name}}</h3>
   </span>
      </div>
   </a>
