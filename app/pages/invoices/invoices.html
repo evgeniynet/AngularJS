@@ -11,7 +11,8 @@
     <ion-list class="invoices" padding>
         <a detail-none href=# ion-item (click)="itemTapped(invoice)" *ngFor="let invoice of invoices">
 <p>{{setDate(invoice.end_date || invoice.date, true)}}</p> 
-    <h2>{{invoice.account_name || invoice.customer}}</h2>
+    <h3 class="account_name">{{invoice.account_name || invoice.customer}}</h3>
+        <h3>Contract</h3>
         <h4 item-right>{{getCurrency(invoice.total_cost)}}</h4>
         </a>
         </ion-list>
