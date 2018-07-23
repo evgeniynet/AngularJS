@@ -53,16 +53,23 @@ ion-icon{
 
     h2{
     color: $text !important;
-}}
+}
+    h2.outline_white{
+    color: #34495d !important;
+    font-weight: 500;
+    font-size: 1.7rem;
+    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+}
+    }
 
 .timelog-span{
-   width:70%;
+   width:77%;
    float: left;
     text-align: left !important;
 
 
 h3{
-    height: 64px !important;
+    //height: 64px !important;
     white-space: initial !important;
     display: -webkit-box;
     width: 100%;
@@ -70,7 +77,14 @@ h3{
     overflow: hidden;
     line-height: 20px !important;
     text-overflow: ellipsis;
-}}
+}
+h3.marginNO{
+    margin-bottom: 0px !important;
+}
+}
+.marginNO{
+    margin: 0px !important;
+}
 
 .timelogs {
     width: 100%;
