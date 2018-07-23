@@ -32,7 +32,14 @@
     
     <todo-list margin-top *ngIf="config.current.is_todos" [simple]="true"></todo-list>
 
-    <custom-field type="text"></custom-field>
+    <custom-field type="num" id="4351" name="How are you" value="23" choices=""></custom-field>
+
+    <custom-field type="text" id="4352" name="Name" value="tetxtxtx" choices=""></custom-field>
+
+    <custom-field type="select" id="4353" name="choices" value="" choices="1,2,3,4"></custom-field>
+
+    <custom-field type="date" id="4354" name="date" value="2018-07-23T19:10:00.0000000" choices=""></custom-field>
+
 
     <queues-list margin-top class="container_list" *ngIf="config.current.is_unassigned_queue" [queues]="queues"></queues-list>
         
@@ -50,3 +57,4 @@
     <span class="span-block"></span>
 </ion-content>
 <action-button></action-button>
+

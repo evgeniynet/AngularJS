@@ -1,31 +1,31 @@
     <!-- select  -->
     <center><div *ngIf="type == 'select'" class="list">
-    	<ion-item no-lines class="labels color">hi select</ion-item>
+    	<ion-item no-lines class="labels color">{{name}}</ion-item>
         </div>
-    <button *ngIf="type == 'select'" class="{{ isbutton? 'blue2 button-block' : 'blue4'}} {{ is_me ? 'left button-calc' : 'width100'}} disable-hover button list button-default button-select" style="width: 90%">
-        <ion-label class="{{isbutton ? 'center' : 'tkts-table'}}">choose</ion-label>
-        <ion-icon [hidden]="isbutton" name="arrow-down"></ion-icon>
+    <button *ngIf="type == 'select'" class="blue4 disable-hover button list button-default button-select" style="width: 90%" (click)="openRadio()">
+        <ion-label class="tkts-table">{{value}}</ion-label>
+        <ion-icon name="arrow-down"></ion-icon>
     </button></center>
 
          <!-- date  -->
     <div *ngIf="type == 'date'" class="list general-alignment2">
-        <ion-item no-lines class="labels color">hi date</ion-item>
+        <ion-item no-lines class="labels color">{{name}}</ion-item>
         <ion-item no-lines class="blue3 top0 bottom5">
-  <ion-label class="start-end2">Date Field</ion-label>
-    <ion-datetime [ngClass]="{'nocolor': !stop_time, 'text-color': stop_time}" #stoptime></ion-datetime>  
+    <ion-label class="start-end2">{{value}}</ion-label>
+    <ion-datetime [(ngModel)]="value" [displayFormat]="displayFormat" ></ion-datetime>  
             </ion-item>
         </div>
 
           <!-- text  -->
     <div *ngIf="type == 'text'" class="list">
-    <ion-label class="{{isbutton ? 'center' : 'tkts-table'}}">hi text</ion-label>
-    <input class="width100 blue3 subject-create commentText margin-bottom3" placeholder="text" style="margin-top: -10px;" required maxlength="200"/>
+    <ion-label class="{{isbutton ? 'center' : 'tkts-table'}}">{{name}}</ion-label>
+    <input class="width100 blue3 subject-create commentText margin-bottom3" placeholder="text" style="margin-top: -10px;" required maxlength="200" [(ngModel)]="value"/>
             </div>
 
           <!-- null  -->
-    <div *ngIf="type == 'null'" class="list">
-    <ion-label class="{{isbutton ? 'center' : 'tkts-table'}}">hi number</ion-label>
-    <input class="width100 blue3 subject-create commentText margin-bottom3" placeholder="text" style="margin-top: -10px;" type="number" required/>
+    <div *ngIf="type == 'num'" class="list">
+    <ion-label class="{{isbutton ? 'center' : 'tkts-table'}}">{{name}}</ion-label>
+    <input class="width100 blue3 subject-create commentText margin-bottom3" placeholder="number" style="margin-top: -10px;" type="number" [(ngModel)]="value" required/>
         </div>
 
     

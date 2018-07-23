@@ -1,6 +1,6 @@
 import {IONIC_DIRECTIVES, Nav, Modal, Alert, Config, Loading} from 'ionic-angular';
 import {ApiData} from '../../providers/api-data';
-import {getFullName} from '../../directives/helpers';
+import {getFullName, getPickerDateTimeFormat} from '../../directives/helpers';
 import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 import {BasicSelectModal, InfinitySelectModal, AjaxSelectModal} from '../../pages/modals/modals';
 
@@ -12,7 +12,11 @@ const alertLimit = 5;
     directives: [IONIC_DIRECTIVES]
 })
 export class CustomFieldComponent {
-    @Input() type: string = "text";
+    @Input() type: string;
+    @Input() id: number;
+    @Input() name: string ;
+    @Input() choices: string;
+    @Input() value: string ;
     @Input() list: any;
     @Input() isbutton: boolean;
     @Input() is_enabled: boolean = true;
@@ -23,11 +27,13 @@ export class CustomFieldComponent {
     selected: Object = {};
     init: boolean = true;
     url: string;
-    name: string = "";
-
+    //name: string = "";
+    custom_choices: Array<any>;
+    custom_date: any;
+    displayFormat: string;
     constructor(private nav: Nav, private apiData: ApiData, private config: Config) {
         this.list = {};
-    }  
+     }  
 
 /*
     ngOnChanges(event) {
@@ -42,6 +48,15 @@ export class CustomFieldComponent {
     }
 */
     ngOnInit() {
+        this.displayFormat = getPickerDateTimeFormat(false, true);
+        if (this.type == "select") 
+            this.custom_choices = this.choices.split(",");
+        console.log(this.custom_choices);
+        
+        if (this.type == "date")   {  
+            this.custom_date = new Date(this.value);
+            console.log(this.custom_date);
+        }
         /*
         let listname = this.list.name.toLowerCase();
         if ((listname == "project" && !this.config.current.is_project_tracking) ||
@@ -200,17 +215,19 @@ export class CustomFieldComponent {
              handler: data => {
                  if(data){
                      this.selected = data;
-                     this.emit_changed(data);
+                     console.log(data);
+                     data = this.value;
                  }
              }
          }
          ]
      });
 
-     this.list.items.forEach(item => {
+     this.custom_choices.forEach(item => {
+          console.log(item);
          alert.addInput({
              type: 'radio',
-             label: item.name,
+             label: item,
              value: item,
                  //checked: this.list.selected === item.id
              });
@@ -219,20 +236,4 @@ export class CustomFieldComponent {
      this.nav.present(alert);
          //.then(() => { this.testRadioOpen = true;});
      }
-
-     openModal() {
-         //TODO check counts: is more than 100 - do ajax
-         this.list.isbutton = this.isbutton;
-         let len = this.list.items.length || 0;
-         let modal = len >= 25 && len%25 == 0  ? InfinitySelectModal : BasicSelectModal;
-         let myModal = Modal.create(modal, this.list);
-         myModal.onDismiss(data => {
-             if (data.name) {
-                 this.selected = data;
-                 this.emit_changed(data);
-             }
-         });
-         this.nav.present(myModal);
-     }
-
  }
