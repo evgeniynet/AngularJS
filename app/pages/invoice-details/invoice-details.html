@@ -5,7 +5,7 @@
 
 <ion-content padding class="invoice-details">
  <ion-item>
-    <h3 class="left color width35">Contract</h3>
+    <h3 *ngIf="invoice.contract_id > 0" class="left color width35">Contract: {{contract_name}}</h3>
     <p item-right class="text_list color">{{setDate(invoice.start_date, true)}} - {{setDate(invoice.end_date, true)}}</p>
         </ion-item>
   <ion-item no-lines class="width65 left"><h2 class="color" item-left>Time</h2></ion-item>
