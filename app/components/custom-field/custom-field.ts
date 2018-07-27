@@ -144,6 +144,21 @@ export class CustomFieldComponent {
          this.proceed_list(show);
 */ }
 
+setMinTime(date) {
+        return date.substring(0,4);
+    }
+
+    getStartDate(time) {
+        return time.substring(0,19);
+    }
+
+    setStartDate(time){
+        if (time)
+        {
+            this.value = time.substring(0,19);
+        }
+    }
+
  error(message)
  {
      this.nav.alert(message, true);
