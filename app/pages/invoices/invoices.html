@@ -10,9 +10,9 @@
     <div>
     <ion-list class="invoices" padding>
         <a detail-none href=# ion-item (click)="itemTapped(invoice)" *ngFor="let invoice of invoices">
-<p>{{setDate(invoice.end_date || invoice.date, true)}}</p> 
+<p style="width: 37%">{{setDate(invoice.end_date || invoice.date, true)}}</p> 
     <h3 class="account_name">{{invoice.account_name || invoice.customer}}</h3>
-        <h3 *ngIf="invoice.contract_id > 0">Contract: {{invoice.contract_neme}}</h3>
+        <h3 *ngIf="invoice.contract_name">Contract: {{invoice.contract_name}}</h3>
         <h4 item-right>{{getCurrency(invoice.total_cost)}}</h4>
         </a>
         </ion-list>
