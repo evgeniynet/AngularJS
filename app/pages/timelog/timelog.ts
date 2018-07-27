@@ -14,6 +14,7 @@ export class TimelogPage {
     inc : number;
     isbillable: boolean;
     timecount: any;
+    timecount_nonwork: any;
     mintime: number;
     time: any = {};
     timenote: string;
@@ -40,6 +41,16 @@ export class TimelogPage {
     increment()
     {
         this.timecount = (Number(this.timecount) + this.inc).toFixed(2);
+    }
+
+    decrement_nonwork()
+    {
+        this.timecount_nonwork = Math.max(Number(this.timecount_nonwork) - this.inc, 0).toFixed(2);
+    }
+
+    increment_nonwork()
+    {
+        this.timecount_nonwork = (Number(this.timecount_nonwork) + this.inc).toFixed(2);
     }
 
     ngAfterViewInit() {
@@ -103,6 +114,7 @@ ngOnInit()
             }
 
             this.timecount = (this.time.hours || this.mintime).toFixed(2);
+            this.timecount_nonwork = (this.time.non_working_hours || this.mintime).toFixed(2);
 
             this.timenote = linebreaks(this.time.note || "", true);
             this.he = this.config.getCurrent("user");
@@ -115,6 +127,7 @@ ngOnInit()
             }
 
             let account_id = (this.time.account || {}).id || this.time.account_id || (recent.account || {}).selected || this.he.account_id || -1;
+            let contract_id = (this.time.contract || {}).id || this.time.contract_id || (recent.contract || {}).selected || 0;
             let project_id = (this.time.project || {}).id || this.time.project_id || (recent.project || {}).selected || 0;
 
             this.selects = {
@@ -149,11 +162,18 @@ ngOnInit()
                     url: this.time.ticket_number ? `task_types?ticket=${this.time.ticket_number}` : `task_types?account=${account_id}`,
                     hidden: false
                 },
+                 "contract" : { 
+                    name: "Contract", 
+                    value: this.time.contract_name || (recent.contract || {}).value || "Choose",
+                    selected: this.time.contract_id || this.config.getRecent("contract").selected || 0,
+                    url: `contracts?account_id=${account_id}`,
+                    hidden: false
+                },
                 "prepaidpack" : {
                     name: "PrePaid Pack", 
                     value: this.time.prepaid_pack_name || (recent.prepaidpack || {}).value || "Choose",
                     selected: this.time.prepaid_pack_id || this.config.getRecent("prepaidpack").selected || 0,
-                    url: `prepaid_packs?account=${account_id}&project=${project_id}`,
+                    url: `prepaid_packs?contract_id=${contract_id}`,
                     hidden: false
                 }
             };
@@ -162,6 +182,10 @@ ngOnInit()
         saveSelect(event){
             let name = event.type;
             let account_id = this.selects.account.selected;
+            let ticket_id = this.selects.ticket.selected;
+            let project_id = this.selects.project.selected;
+            let contract_id = this.selects.contract.selected;
+            let prepaidpack_id = this.selects.prepaidpack.selected;    
         //change url on related lists
         switch (name) {
             case "account":
@@ -171,8 +195,11 @@ ngOnInit()
             this.selects.project.url = `projects?account=${event.id}&is_with_statistics=false`;
             this.selects.project.value = "Default";
             this.selects.project.selected = 0;
-            this.selects.prepaidpack.url = `prepaid_packs?account=${event.id}&project=0`;
-            this.selects.prepaidpack.value = "Default";
+            this.selects.contract.url = `contracts?account_id=${event.id}`;
+            this.selects.contract.value = "Default";
+            this.selects.contract.selected = 0;
+            this.selects.prepaidpack.url = `prepaid_packs?contract_id=0`;
+            this.selects.prepaidpack.value = "Choose (optional)";
             this.selects.prepaidpack.selected = 0;
             account_id = event.id;
             this.selects.ticket.hidden = this.time.is_project_log || this.time.task_type_id || false;
@@ -189,11 +216,21 @@ ngOnInit()
                 this.selects.ticket.url = `tickets?status=open&account=${account_id}&project=${event.id}`,
                 this.selects.ticket.value = "Choose (optional)";
                 this.selects.ticket.selected = 0;
+                project_id = event.id;
             }
-                this.selects.prepaidpack.url = `prepaid_packs?account=${account_id}&project=${event.id}`,
-                this.selects.prepaidpack.value = "Choose (optional)";
-                this.selects.prepaidpack.selected = 0;
             break;
+            case "contract" :
+            if (this.selects.contract.selected === event.id)
+            {
+                break;
+            }
+            // dont change ticket on edit
+            this.selects.prepaidpack.url = `prepaid_packs?contract_id=${event.id}`;
+            this.selects.prepaidpack.value = "Choose (optional)";
+            this.selects.prepaidpack.selected = 0;
+            project_id = event.id;
+            break;
+
             case "ticket" :
             if (this.selects.ticket.selected === event.id)
             {
@@ -202,8 +239,12 @@ ngOnInit()
             this.selects.tasktype.url = event.id ? `task_types?ticket=${event.id}` : `task_types?account=${account_id}`;
             this.selects.tasktype.value = "Choose";
             this.selects.tasktype.selected = 0;
+            ticket_id = event.id;
             break;
         }
+        this.selects.tasktype.url = `task_types?ticket=${ticket_id}&account=${account_id}&project=${project_id}&contract=${contract_id}`;
+        this.selects.tasktype.value = "Choose";
+        this.selects.tasktype.selected = 0;
         this.selects[name].selected = event.id;
         this.selects[name].value = event.name;
     }
@@ -213,6 +254,7 @@ ngOnInit()
         //{ "account" : account, "project": project } 
         //edat = JSON.stringify(new Date(dat2));
         let hours = Number(this.timecount);
+        let non_work_hours = Number(this.timecount_nonwork);
 
         if (hours < this.mintime)
         {
@@ -263,7 +305,9 @@ ngOnInit()
                 "no_invoice": this.isbillable,
                 "date": date || "", 
                 "start_date": this.AddHours(start_time, time_offset)  || "",
-                "stop_date": this.AddHours(stop_time, time_offset)  || ""
+                "stop_date": this.AddHours(stop_time, time_offset)  || "",
+                "non_working_hours": non_work_hours,
+                "contract_id": this.selects.contract.selected
             };
 
             this.timeProvider.addTime(this.time.time_id, data, isEdit ? "PUT" : "POST").subscribe(
@@ -274,12 +318,14 @@ ngOnInit()
                         this.config.setRecent({"account": this.selects.account,
                                                "project": this.selects.project,
                                                "tasktype": this.selects.tasktype,
+                                               "contract": this.selects.contract,
                                                 "prepaidpack": this.selects.prepaidpack});
                     }
                     if (isEdit){
                         this.time.start_time = data.start_date;
                         this.time.stop_time = data.stop_date;
                         this.time.hours = data.hours;
+                        this.time.non_working_hours = data.non_working_hours;
                         this.time.no_invoice = data.no_invoice;
                     }
                     else
@@ -292,6 +338,7 @@ ngOnInit()
                             billable:data.no_invoice,
                             date:tdate,
                             hours:data.hours,
+                            non_working_hours:data.non_working_hours,
                             is_project_log:data.is_project_log,
                             note:data.note_text,
                             project_id:data.project_id,
@@ -301,6 +348,8 @@ ngOnInit()
                             time_offset:time_offset,
                             task_type:this.selects.tasktype.value,
                             task_type_id:data.task_type_id,
+                            contract_name:this.selects.contract.value,
+                            contract_id:data.contract_id,
                             prepaid_pack:this.selects.prepaidpack.value,
                             prepaid_pack_id:data.prepaid_pack_id,
                             ticket_number:data.ticket_key,
@@ -362,6 +411,8 @@ ngOnInit()
     {
         let timecount : number = this.getInterval();
         this.timecount = timecount.toFixed(2);
+        let timecount_nonwork : number = this.getInterval();
+        this.timecount_nonwork = timecount_nonwork.toFixed(2);
     }
 
     endsWith(str, search)

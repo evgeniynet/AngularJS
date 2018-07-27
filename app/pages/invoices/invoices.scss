@@ -6,17 +6,21 @@
     color: $text !important;}
     
  a p{
-    width: 47%;
+    width: 45%;
     float: left;
     text-align: left;
     color: $text !important;
-    padding-top: 4px;}
+    padding-top: 11px;}
     
     a h2{
     width: 53%;
     float: right;
     text-align: left;
     color: $text !important;}
+
+    a h3.account_name{
+    font-size:1.6rem;
+    }
 
     a h4{
     width: 30%;
