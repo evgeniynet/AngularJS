@@ -4,6 +4,7 @@ import {getDateTime, getPickerDateTimeFormat, htmlEscape, linebreaks} from '../.
 import {TimeProvider} from '../../providers/time-provider';
 import {ClassListComponent} from '../../components/class-list/class-list';
 import {SelectListComponent} from '../../components/select-list/select-list';
+import {InvoiceDetailsPage} from '../invoice-details/invoice-details';
 
 @Page({
     templateUrl: 'build/pages/timelog/timelog.html',
@@ -91,6 +92,10 @@ ngOnInit()
                 this.title = `#${this.time.number} ${this.time.subject}`;
             else
                 this.title = "Add Time";
+            if (this.time.invoice_id > 0)
+            {
+                this.title = `Invoiced #${this.time.invoice_id} on\u00a0` + this.setDate(this.AddHours(this.time.date, this.UserDateOffset), false, true);
+            }
 
             this.mintime = this.config.getCurrent("time_minimum_time") || 0.25;
             this.mintime = this.mintime > 0 ? this.mintime : 0.25;
@@ -250,6 +255,11 @@ ngOnInit()
     }
 
     onSubmit(form) {
+        if (this.time.invoice_id)
+        {
+            this.viewInvoice();
+            return;
+        }
         //{ "ticket" : localStorage.getItem('ticketNumber') } 
         //{ "account" : account, "project": project } 
         //edat = JSON.stringify(new Date(dat2));
@@ -440,5 +450,16 @@ ngOnInit()
     
     close() {
         this.view.dismiss();
+    }
+
+    viewInvoice() {
+        let invoice = {
+            account_name : this.time.account_name,
+            id: this.time.invoice_id,
+            account_id: this.time.account_id,
+            project_id: this.time.project_id
+        };
+
+        this.nav.push(InvoiceDetailsPage, invoice);
     }
 }

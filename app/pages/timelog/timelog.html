@@ -79,7 +79,7 @@
           
         <div class="img-top">
             <button secondary block type="submit" class="disable-hover button button-default button-block"
-            [disabled]="!addForm.valid" (click)="onSubmit(addForm)">{{time.time_id ? 'Update' : 'Add'}} Time</button>
+            [disabled]="!addForm.valid" (click)="onSubmit(addForm)">{{time.invoice_id > 0 ? ('View Invoice #'+time.invoice_id) : (time.time_id ? 'Update Time' : 'Add Time')}}</button>
             <span class="span-block"></span>
     </div>
     </form>

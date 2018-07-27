@@ -23,6 +23,7 @@
         <p *ngIf="time.non_working_hours > 0" style="margin-top: 0px">non-work</p>
       </li>
   <span class="timelog-span">
+     <h3 *ngIf="time.invoice_id > 0" class="marginNO"><b>INVOICED:</b> #{{time.invoice_id}}</h3>
      <h3 [innerHTML]="'<b>' + ((time.ticket_number ? ('#'+time.ticket_number+': '+time.ticket_subject + (time.note ? ' - ' : '')) : (time.account_name + ': ')) + '</b>' + time.note) | Linebreaks"></h3>
      <h3 *ngIf="time.contract_name" class="marginNO"><b>Contract:</b> {{time.contract_name}}</h3>
      <h3 *ngIf="time.prepaid_pack_id > 0" class="marginNO"><b>Pre-Paid Pack:</b> {{time.prepaid_pack_name}}</h3>
