@@ -73,7 +73,7 @@ AddHours(date, hours)
 }
 
 ngOnInit()
-{
+{    
     this.UserDateOffset = this.config.getCurrent("timezone_offset");
     this.time = this.navParams.data || {};
 
@@ -118,9 +118,11 @@ ngOnInit()
                 this.minuteValues.push(0);
             }
 
+
             this.timecount = (this.time.hours || this.mintime).toFixed(2);
             this.timecount_nonwork = (this.time.non_working_hours || this.mintime).toFixed(2);
-
+            if (this.timecount_nonwork<0) 
+                this.timecount_nonwork = 0;
             this.timenote = linebreaks(this.time.note || "", true);
             this.he = this.config.getCurrent("user");
 
@@ -233,7 +235,7 @@ ngOnInit()
             this.selects.prepaidpack.url = `prepaid_packs?contract_id=${event.id}`;
             this.selects.prepaidpack.value = "Choose (optional)";
             this.selects.prepaidpack.selected = 0;
-            project_id = event.id;
+            contract_id = event.id;
             break;
 
             case "ticket" :
@@ -247,7 +249,7 @@ ngOnInit()
             ticket_id = event.id;
             break;
         }
-        this.selects.tasktype.url = `task_types?ticket=${ticket_id}&account=${account_id}&project=${project_id}&contract=${contract_id}`;
+        this.selects.tasktype.url = `task_types?account=${account_id}&project=0  &contract=${contract_id}`;
         this.selects.tasktype.value = "Choose";
         this.selects.tasktype.selected = 0;
         this.selects[name].selected = event.id;
