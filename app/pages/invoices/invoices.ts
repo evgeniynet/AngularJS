@@ -19,6 +19,7 @@ export class InvoicesPage {
     params: any;
     pager: any;
     invoices: Array<any>;
+    initial_load: boolean = true;
 
     constructor(private nav: Nav, private dataProvider: DataProvider, private config: Config, private navParams: NavParams, private view: ViewController) {
         this.is_empty = false;
@@ -46,6 +47,16 @@ export class InvoicesPage {
     onPageWillEnter() {
         if (this.params.account_name)
             this.view.setBackButtonText('');
+        if (!this.initial_load)
+        {
+            var timer = setTimeout(() => {
+                let test=0;
+            }, 500);
+            setTimeout(() => {
+               this.getItems(null, timer);;
+            }, 1000);
+        }
+        this.initial_load = false;
     }
 
 

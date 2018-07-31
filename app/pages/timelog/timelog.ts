@@ -120,7 +120,7 @@ ngOnInit()
 
 
             this.timecount = (this.time.hours || this.mintime).toFixed(2);
-            this.timecount_nonwork = (this.time.non_working_hours || this.mintime).toFixed(2);
+            this.timecount_nonwork = (this.time.non_working_hours || 0).toFixed(2);
             if (this.timecount_nonwork<0) 
                 this.timecount_nonwork = 0;
             this.timenote = linebreaks(this.time.note || "", true);
@@ -202,9 +202,11 @@ ngOnInit()
             this.selects.project.url = `projects?account=${event.id}&is_with_statistics=false`;
             this.selects.project.value = "Default";
             this.selects.project.selected = 0;
+            project_id = 0;
             this.selects.contract.url = `contracts?account_id=${event.id}`;
             this.selects.contract.value = "Default";
             this.selects.contract.selected = 0;
+            contract_id = 0;
             this.selects.prepaidpack.url = `prepaid_packs?contract_id=0`;
             this.selects.prepaidpack.value = "Choose (optional)";
             this.selects.prepaidpack.selected = 0;
@@ -223,8 +225,8 @@ ngOnInit()
                 this.selects.ticket.url = `tickets?status=open&account=${account_id}&project=${event.id}`,
                 this.selects.ticket.value = "Choose (optional)";
                 this.selects.ticket.selected = 0;
-                project_id = event.id;
             }
+            project_id = event.id;
             break;
             case "contract" :
             if (this.selects.contract.selected === event.id)
@@ -243,13 +245,10 @@ ngOnInit()
             {
                 break;
             }
-            this.selects.tasktype.url = event.id ? `task_types?ticket=${event.id}` : `task_types?account=${account_id}`;
-            this.selects.tasktype.value = "Choose";
-            this.selects.tasktype.selected = 0;
             ticket_id = event.id;
             break;
         }
-        this.selects.tasktype.url = `task_types?account=${account_id}&project=0  &contract=${contract_id}`;
+        this.selects.tasktype.url = `task_types?ticket=${ticket_id}&account=${account_id}&project=${project_id}&contract=${contract_id}`;
         this.selects.tasktype.value = "Choose";
         this.selects.tasktype.selected = 0;
         this.selects[name].selected = event.id;

@@ -103,13 +103,13 @@ getInvoices(account_id, status, pager) {
     return this.apiData.getPaged(url, pager);
 }
 
-getInvoice(id, account_id, project_id) {
+getInvoice(id, account_id, contract_id) {
     let url = "invoices";
     let data = {};
     if (!id){
         url = addp(url, "status", "unbilled");
         url = addp(url, "account", account_id);
-        url = addp(url, "project", project_id);
+        url = addp(url, "contract_id", contract_id);
     }
     else 
     {

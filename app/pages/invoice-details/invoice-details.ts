@@ -25,7 +25,7 @@ export class InvoiceDetailsPage {
             this.title = `Create Invoice on\u00a0${this.invoice.account_name}`;
 
         //this.invoice.account = { id: this.params.account_id || 0, name: this.params.account_name || this.config.getCurrent("user").account_name };
-        this.dataProvider.getInvoice(this.invoice.id, this.invoice.account_id, this.invoice.project_id).subscribe(
+        this.dataProvider.getInvoice(this.invoice.id, this.invoice.account_id, this.invoice.contract_id).subscribe(
             data => {
                 if (data.length == 1)
                     data = data[0];
@@ -76,7 +76,7 @@ export class InvoiceDetailsPage {
         if (!this.invoice.id) {
             data.status = "unbilled";
             data.account = this.invoice.account_id;
-            data.project = this.invoice.project_id;
+            data.contract_id = this.invoice.contract_id;
             data.start_date = (new Date(this.invoice.start_date || Date.now().toString())).toJSON();
             data.end_date = (new Date(this.invoice.end_date || Date.now().toString())).toJSON();
         }
@@ -94,6 +94,7 @@ export class InvoiceDetailsPage {
                         this.nav.pop();
                 },
                 error => {
+                    this.nav.alert(error, true);
                     console.log(error || 'Server error');
                 }
             );
