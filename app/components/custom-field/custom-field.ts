@@ -50,7 +50,7 @@ export class CustomFieldComponent {
     ngOnInit() {
         this.displayFormat = getPickerDateTimeFormat(false, true);
         if (this.type == "select") 
-            this.custom_choices = this.choices.split(",");
+            this.custom_choices = this.choices.split("\n");
         console.log(this.custom_choices);
         
         if (this.type == "date")   {  
@@ -231,7 +231,7 @@ setMinTime(date) {
                  if(data){
                      this.selected = data;
                      console.log(data);
-                     data = this.value;
+                     this.value = data;
                  }
              }
          }

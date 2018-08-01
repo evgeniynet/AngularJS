@@ -17,6 +17,7 @@ import {TodoListComponent} from '../../components/todo-list/todo-list';
 import {Component, ElementRef, Input, OnInit, ViewChild, Renderer, Output, EventEmitter, forwardRef} from "@angular/core";
 import {IONIC_DIRECTIVES, Loading} from 'ionic-angular';
 import {ApiSite} from '../../providers/config';
+import {CustomFieldComponent} from '../../components/custom-field/custom-field';
 /**
  * Upload button component.
  *
@@ -315,7 +316,7 @@ import {ApiSite} from '../../providers/config';
 
  @Page({
    templateUrl: 'build/pages/ticket-details/ticket-details.html',
-   directives: [TodoListComponent, PostsListComponent, forwardRef(() => SelectListComponent), forwardRef(() => ClassListComponent), forwardRef(() => LocationListComponent), UploadButtonComponent],
+   directives: [TodoListComponent, CustomFieldComponent, PostsListComponent, forwardRef(() => SelectListComponent), forwardRef(() => ClassListComponent), forwardRef(() => LocationListComponent), UploadButtonComponent],
    pipes: [GravatarPipe, LinebreaksPipe, DaysoldPipe, HtmlsafePipe],
  })
  export class TicketDetailsPage {
@@ -323,6 +324,8 @@ import {ApiSite} from '../../providers/config';
    counts: any;
    ticket: any = {};
    userphone: string;
+   customfields: any = [];
+   pager: any;
    details_tab: string;
    active: boolean;
    waiting_response: boolean = false;
@@ -498,6 +501,19 @@ import {ApiSite} from '../../providers/config';
        );
    }
 
+   getCustomfield(class_id)
+   {
+     this.ticketProvider.getCustomfields(class_id, this.pager).subscribe(
+       data => {
+         this.customfields = data;
+         console.log(this.customfields);
+       },
+       error => {
+         console.log(error || 'Server error');
+       }
+       );
+   }
+
    processDetails(data, isShortInfo?)
    {
      if (!isShortInfo && (!data || !data.ticketlogs || data.ticketlogs == 0))
@@ -534,6 +550,7 @@ import {ApiSite} from '../../providers/config';
      }
      else {
       this.getProfile(data.user_id);
+      this.getCustomfield(data.class_id);
      }
    }
 

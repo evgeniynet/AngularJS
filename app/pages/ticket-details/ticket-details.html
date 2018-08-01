@@ -104,6 +104,14 @@
     <ion-label class="{{isbutton ? 'center' : 'tkts-table'}} select-list">&nbsp;&nbsp;{{customfield.value || '&nbsp;'}}</ion-label>
   </button>
   </div>
+
+<!-- New Custom fields-->
+<hr class="color-bg" *ngIf="customfields.length">
+  <div *ngFor="let customfield of customfields">
+    <custom-field [type]="customfield.type" [id]="customfield.id" [name]="customfield.name" [value]="customfield.value" [choices]="customfield.choices"></custom-field>
+  </div>
+<!-- End Custom-fields-->
+
     <div>&nbsp;&nbsp;</div>
   <button secondary block (click)="onUpdate()" type="submit" class="disable-hover button button-default button-block">Update</button>
   <ion-label class="text-left" style="font-size: 12px; white-space: normal;">

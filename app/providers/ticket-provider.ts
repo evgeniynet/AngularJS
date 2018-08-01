@@ -5,6 +5,7 @@ import {Headers, Http} from '@angular/http';
 import {Observable, Observer} from 'rxjs';
 import {ApiData} from './api-data';
 import {MOCKS} from './mocks';
+import {addp} from '../directives/helpers';
 import 'rxjs';
 
 @Injectable()
@@ -162,6 +163,11 @@ export class TicketProvider {
                 "workpad": workpad,
             };
             return this.apiData.get(url, data, "POST");
+        }
+
+        getCustomfields(class_id, pager) {
+            let url = addp("customfields", "class_id", class_id);
+            return this.apiData.getPaged(url, pager);
         }
 
         addTicketNote(id, note) {
