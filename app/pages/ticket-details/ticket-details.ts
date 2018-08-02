@@ -577,6 +577,9 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
                 this.selects.location.value = "Default";
                 this.selects.location.selected = 0;
                 break;
+            case "class" :
+                this.getCustomfield(event.id);
+                break;
         }
    }
 
