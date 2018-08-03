@@ -507,9 +507,9 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
        data => {
          console.log(data);
          console.log(this.ticket.customfields);
-         for (var n = 0; n=data.length; n++)
+         for (var n = 0; n<data.length; n++)
          { 
-           data[n].value = this.ticket.customfields.filter(tc => tc.id.toString() == data[n].id.toString()).value;
+           data[n].value = this.ticket.customfields.filter(tc => tc.id.toString() == data[n].id.toString())[0].value;
          }
          this.customfields = data;
          console.log(this.customfields);
