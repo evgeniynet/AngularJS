@@ -94,17 +94,6 @@
 
   <select-list preload="true" [list]="selects.project" (onChanged)='saveSelect($event)'></select-list>
 
-  <hr class="color-bg" *ngIf="ticket.customfields.length">
-  <div *ngFor="let customfield of ticket.customfields">
-  
-  <div>
-    <ion-item no-lines class="labels color">{{customfield.name  | Htmlsafe}}:&nbsp;</ion-item>
-        </div>
-      <button (click)="openAlert(customfield.name, customfield.value)" class="blue4 width100 disable-hover button button-default button-select">
-    <ion-label class="{{isbutton ? 'center' : 'tkts-table'}} select-list">&nbsp;&nbsp;{{customfield.value || '&nbsp;'}}</ion-label>
-  </button>
-  </div>
-
 <!-- New Custom fields-->
 <hr class="color-bg" *ngIf="customfields.length">
   <div *ngFor="let customfield of customfields">

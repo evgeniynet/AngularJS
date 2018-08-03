@@ -575,6 +575,8 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
 
       switch (name) {
             case "account" :
+              if (this.ticket.account_id == event.id) 
+              break;
                 this.selects.project.url = `projects?account=${event.id}&is_with_statistics=false`;
                 this.selects.project.value = "Default";
                 this.selects.project.selected = 0;
@@ -584,8 +586,11 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
                 this.selects.location.selected = 0;
                 break;
             case "class" :
-                this.getCustomfield(event.id);
-                break;
+              if (this.ticket.class_id == event.id) 
+              break;
+            
+              this.getCustomfield(event.id);
+              break;
         }
    }
 
@@ -776,6 +781,13 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
      //proof double click
      if (this.ticket.in_progress && Date.now() - this.ticket.in_progress < 1500) {return;}
      this.ticket.in_progress = Date.now();
+     var customfield_xml = "";
+     console.log(this.customfields);
+     for (var n = 0;  n < this.customfields.length; n++)
+         { 
+           customfield_xml = customfield_xml + `<field id="${this.customfields[n].id}"><caption>${this.customfields[n].name}</caption><value>${this.customfields[n].value}</value></field>`;
+         }
+      customfield_xml = "<root>" + customfield_xml + "</root>";  
 
      let data = {
        "class_id": this.selects.class.selected,
@@ -785,8 +797,11 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
        "location_id": this.selects.location.selected,
        "account_id": this.selects.account.selected,
        "tech_id": this.selects.tech.selected,
-       "user_id": this.selects.user.selected
+       "user_id": this.selects.user.selected,
+       "customfield_xml": customfield_xml
      };
+     console.log(data);
+     return;
 
      this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(
        data => {
