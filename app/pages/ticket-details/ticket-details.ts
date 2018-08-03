@@ -505,6 +505,12 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
    {
      this.ticketProvider.getCustomfields(class_id, this.pager).subscribe(
        data => {
+         console.log(data);
+         console.log(this.ticket.customfields);
+         for (var n = 0; n=data.length; n++)
+         { 
+           data[n].value = this.ticket.customfields.filter(tc => tc.id.toString() == data[n].id.toString()).value;
+         }
          this.customfields = data;
          console.log(this.customfields);
        },
@@ -546,11 +552,11 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
            t.push({ "id": n.attributes[0].nodeValue, "name": n.firstChild.innerHTML.replace("&amp;amp;","&amp;"), "value": (n.firstChild.nextSibling.innerHTML || "").replace("&amp;amp;","&amp;")}); 
          }
          this.ticket.customfields = t;
+         this.getCustomfield(data.class_id);
        }
      }
      else {
       this.getProfile(data.user_id);
-      this.getCustomfield(data.class_id);
      }
    }
 
