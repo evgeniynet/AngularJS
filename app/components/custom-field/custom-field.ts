@@ -37,8 +37,9 @@ export class CustomFieldComponent {
 
     ngOnInit() {
         this.displayFormat = getPickerDateTimeFormat(false, true);
-        if (this.type == "select") 
+        if (this.type == "select" || "checkbox") 
             this.custom_choices = this.choices.split("\n");
+
         
         if (this.type == "date")   {  
             this.custom_date = new Date(this.value);
@@ -51,13 +52,21 @@ setMinTime(date) {
     }
 
     getStartDate(time) {
+        this.value = time;
         return time.substring(0,19);
     }
 
     setStartDate(time){
         if (time)
         {
-            this.value = time.substring(0,19);
+            //let JsonTime = new Date(this.value).toJSON();
+            console.log(this.value);
+            let obj = {
+                       id: this.id,
+                       name: this.name,
+                       value: this.value
+                     };
+                     this.onChanged.emit(obj);
         }
     }
 
@@ -68,9 +77,13 @@ setMinTime(date) {
 
  changeText(text1)
  {
-     console.log("name", this.name);
-     console.log("text1", text1.value);
      this.value = text1.value;
+                     let obj = {
+                       id: this.id,
+                       name: this.name,
+                       value: this.value
+                     };
+                     this.onChanged.emit(obj);
  }
 
  emit_changed(value){
@@ -124,4 +137,51 @@ setMinTime(date) {
      this.nav.present(alert);
          //.then(() => { this.testRadioOpen = true;});
      }
+
+ openCheckbox() {       
+     let title=this.name;
+
+     let alert = Alert.create({
+         title: 'Choose '+title,
+         buttons: [
+         {
+             text: 'Cancel',
+             role: 'cancel',
+             handler: () => {
+                 console.log('Cancel clicked');
+             }
+         },
+         {
+             text: 'OK',
+             handler: data => {
+                 if(data){
+                     
+                     console.log(data);
+                     this.value = data.join(", ");
+                     let obj = {
+                       id: this.id,
+                       name: this.name,
+                       value: this.value
+                     };
+                    // this.onChanged.emit(obj);  
+                 }
+             }
+         }
+         ]
+     });
+     let checkValue = this.value.split(", ");
+     console.log(checkValue);
+     console.log(this.custom_choices);
+     this.custom_choices.forEach(item => {
+         alert.addInput({
+             type: 'checkbox',
+             label: item,
+             value: item,
+             checked: checkValue.filter(tc => tc == item).length>0
+             });
+     });
+
+     this.nav.present(alert);
+         //.then(() => { this.testRadioOpen = true;});
+     }     
  }
