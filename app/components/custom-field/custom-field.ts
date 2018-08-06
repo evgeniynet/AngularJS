@@ -35,114 +35,16 @@ export class CustomFieldComponent {
         this.list = {};
      }  
 
-/*
-    ngOnChanges(event) {
-        console.log(event);
-        if ("list" in event) {
-            console.log(this.url);
-            if (!event.list.isFirstChange() && event.list.currentValue.url !== this.url) {
-                console.log(this.list.items)
-                //this.list.hidden = true;
-            }
-        }
-    }
-*/
     ngOnInit() {
         this.displayFormat = getPickerDateTimeFormat(false, true);
         if (this.type == "select") 
             this.custom_choices = this.choices.split("\n");
-        console.log(this.custom_choices);
         
         if (this.type == "date")   {  
             this.custom_date = new Date(this.value);
             console.log(this.custom_date);
         }
-        /*
-        let listname = this.list.name.toLowerCase();
-        if ((listname == "project" && !this.config.current.is_project_tracking) ||
-            (listname == "location" && !this.config.current.is_location_tracking) ||
-            (listname == "priority" && !this.config.current.is_priorities_general) ||
-            (listname == "account" && !this.config.current.is_account_manager) ||
-            (listname == "level" && (!this.config.current.is_ticket_levels || (this.config.current.is_restrict_tech_escalate && !this.config.current.user.is_admin))) ||
-            ((listname == "resolution" || listname == "category") && !this.config.current.is_resolution_tracking)) 
-        {
-            this.list.hidden = true;
-        }
-
-        this.is_enabled = !this.list.is_disabled;
-
-        if (this.list.hidden)
-            return;
-
-        if ( listname == "tech" || listname == "user")
-            this.name = (this.config.current.names[listname] || {}).a;
-        else
-            this.name = (this.config.current.names[listname] || {}).s || this.list.name;
-
-
-        if (this.list.url)
-        {
-            this.url = this.list.url;
-             if (this.preload)
-             {
-                 this.loadData(false);
-             }
-         }
      }
-
-     me()
-     {
-        let he = this.config.getCurrent("user");
-        let value = {
-            id: he.user_id,
-            name: getFullName(he.firstname, he.lastname, he.email)
-        };
-        this.emit_changed(value);
-     }
-
-     open()
-     {
-         this.loadData(true);
-     }
-
-     loadData (show)
-     {
-         if (this.url != this.list.url || !this.list.items || this.list.items.length == 0){
-             if (this.list.url) {
-                 let loading = null;
-                 if (show){
-                     loading = Loading.create({
-                     content: "Please wait...",
-                     //duration: 2000,
-                     dismissOnPageChange: true
-                 });
-                 this.nav.present(loading);
-             }
-
-                 this.apiData.get(this.list.url).subscribe(
-                     data => {
-                         this.list.items = data;
-                         if (show) {
-                             loading.dismiss();
-                         }
-                         this.proceed_list(show);
-                         this.url = this.list.url;
-                     },
-                     error => {
-                         if (show) loading.dismiss();
-                         this.error("Cannot get " + this.name + " list! Error: " + error);
-                         console.log(error || 'Server error');
-                     }
-                 );
-             }
-             else {
-                 this.list.hidden = true;
-                 this.error(this.name + ' list is empty!');
-             }
-     }
-     else
-         this.proceed_list(show);
-*/ }
 
 setMinTime(date) {
         return date.substring(0,4);
@@ -164,46 +66,11 @@ setMinTime(date) {
      this.nav.alert(message, true);
  }
 
- proceed_list(show)
+ changeText(text1)
  {
-     if (!this.list.items || this.list.items.length == 0)
-     {
-         this.list.value = "Default (nothing to select)";
-         //this.open = function { return false; };
-         //this.error(this.list.name + ' list is empty!');
-         return;
-     }
-     if (show) {
-     if (!this.list.items[0].name){
-         var results = [];
-         this.list.items.forEach(item => {
-             let name;
-             let id = item.id;
-                 //if users or techs
-                 if (item.email)
-                     name = getFullName(item.firstname, item.lastname, item.email, this.isbutton ? "" : " ");
-                 //if tickets
-                 else if (item.number)
-                     name = `#${item.number}: ${item.subject}`;
-                 else if (item.prepaid_pack_id) {
-                     name = item.prepaid_pack_name;
-                     id = item.prepaid_pack_id;
-                 }
-
-                 results.push({id: id, name: name});
-                 
-
-             });
-         this.list.items = results;
-     }
-
-
-
-     //if (this.list.items.length <= alertLimit)
-     //    this.openRadio();
-     //else
-         this.openModal();
-     }
+     console.log("name", this.name);
+     console.log("text1", text1.value);
+     this.value = text1.value;
  }
 
  emit_changed(value){
@@ -212,7 +79,7 @@ setMinTime(date) {
      this.onChanged.emit(value);
  }
 
- openRadio() {         
+ openRadio() {       
      let title=this.name;
 
      let alert = Alert.create({
@@ -230,8 +97,14 @@ setMinTime(date) {
              handler: data => {
                  if(data){
                      this.selected = data;
-                     console.log(data);
+                     //console.log(data);
                      this.value = data;
+                     let obj = {
+                       id: this.id,
+                       name: this.name,
+                       value: data
+                     };
+                     this.onChanged.emit(obj);  
                  }
              }
          }

@@ -17,8 +17,10 @@
 
           <!-- text  -->
     <div *ngIf="type == 'text'">
+    <form #loginForm="ngForm" novalidate>
     <ion-item no-lines class="labels color" style="font-size: 1.5rem;">{{name}}</ion-item>
-    <input class="width100 blue3 subject-create commentText margin-bottom3" placeholder="please add text" required maxlength="200" [(ngModel)]="value"/>
+    <input  class="width100 blue3 subject-create commentText margin-bottom3" placeholder="please add text" required maxlength="200" (ngModelChange)="changeText(name1)" #name1="ngForm" [ngModel]="value"/>
+    </form>
             </div>
 
           <!-- null  -->

@@ -505,14 +505,13 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
    {
      this.ticketProvider.getCustomfields(class_id, this.pager).subscribe(
        data => {
-         console.log(data);
-         console.log(this.ticket.customfields);
-         for (var n = 0; n<data.length; n++)
+           console.log("data", data);
+           console.log("this.ticket.customfields", this.ticket.customfields);
+         for (var n = 0; n<this.ticket.customfields.length; n++)
          { 
-           data[n].value = this.ticket.customfields.filter(tc => tc.id.toString() == data[n].id.toString())[0].value;
+           data.filter(tc => tc.id.toString() == this.ticket.customfields[n].id.toString())[0].value = this.ticket.customfields[n].value;
          }
          this.customfields = data;
-         console.log(this.customfields);
        },
        error => {
          console.log(error || 'Server error');
@@ -592,6 +591,38 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
               this.getCustomfield(event.id);
               break;
         }
+   }
+
+   saveCustomfield(event){
+     console.log("event", event);
+     this.customfields.filter(tc => tc.id == event.id)[0].value = event.value;
+     //console.log("this.customfields", this.customfields);
+     this.getXML();
+/*
+     let name = event.type;
+     this.selects[name].selected = event.id;
+     this.selects[name].value = event.name;
+
+      switch (name) {
+            case "account" :
+              if (this.ticket.account_id == event.id) 
+              break;
+                this.selects.project.url = `projects?account=${event.id}&is_with_statistics=false`;
+                this.selects.project.value = "Default";
+                this.selects.project.selected = 0;
+
+                this.selects.location.url = `locations?account=${event.id}&limit=500`;
+                this.selects.location.value = "Default";
+                this.selects.location.selected = 0;
+                break;
+            case "class" :
+              if (this.ticket.class_id == event.id) 
+              break;
+            
+              this.getCustomfield(event.id);
+              break;
+        }
+        */
    }
 
    onSubmit(isClose?) {
@@ -777,17 +808,23 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
          this.nav.present(prompt);
    }
 
+   getXML()
+   {
+      var customfield_xml = "";
+          for (var n = 0;  n < this.customfields.length; n++)
+         { 
+           customfield_xml = customfield_xml + `<field id="${this.customfields[n].id}"><caption>${this.customfields[n].name}</caption><value>${this.customfields[n].value}</value></field>`;
+         }
+              console.log("<root>" + customfield_xml + "</root>"); 
+      return "<root>" + customfield_xml + "</root>";  
+
+   }
+
    onUpdate() {
      //proof double click
      if (this.ticket.in_progress && Date.now() - this.ticket.in_progress < 1500) {return;}
      this.ticket.in_progress = Date.now();
-     var customfield_xml = "";
-     console.log(this.customfields);
-     for (var n = 0;  n < this.customfields.length; n++)
-         { 
-           customfield_xml = customfield_xml + `<field id="${this.customfields[n].id}"><caption>${this.customfields[n].name}</caption><value>${this.customfields[n].value}</value></field>`;
-         }
-      customfield_xml = "<root>" + customfield_xml + "</root>";  
+     var customfield_xml = this.getXML();
 
      let data = {
        "class_id": this.selects.class.selected,
