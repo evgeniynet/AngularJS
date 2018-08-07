@@ -47,24 +47,36 @@ export class CustomFieldComponent {
         }
      }
 
+AddHours(date, hours)
+{
+    if (date){
+        if (date.length == 19)
+            date = date.slice(0,-3);
+        let temp = new Date(date);
+        return new Date(temp.setTime(temp.getTime() + (hours*60*60*1000) + -1*temp.getTimezoneOffset()*60*1000)).toJSON();
+    }
+    return date;
+}
+
 setMinTime(date) {
         return date.substring(0,4);
     }
 
     getStartDate(time) {
-        this.value = time;
-        return time.substring(0,19);
+        if (time == "0001-01-01T00:00:00.0000000")
+            return "";
+        return time = this.AddHours(time, this.config.getCurrent("timezone_offset"));
     }
 
     setStartDate(time){
         if (time)
         {
-            //let JsonTime = new Date(this.value).toJSON();
-            console.log(this.value);
+            let JsonTime = this.AddHours(time, -1 * this.config.getCurrent("timezone_offset"))
+            console.log(JsonTime);
             let obj = {
                        id: this.id,
                        name: this.name,
-                       value: this.value
+                       value: JsonTime
                      };
                      this.onChanged.emit(obj);
         }
