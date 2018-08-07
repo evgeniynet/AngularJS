@@ -594,35 +594,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
    }
 
    saveCustomfield(event){
-     console.log("event", event);
      this.customfields.filter(tc => tc.id == event.id)[0].value = event.value;
-     //console.log("this.customfields", this.customfields);
-     this.getXML();
-/*
-     let name = event.type;
-     this.selects[name].selected = event.id;
-     this.selects[name].value = event.name;
-
-      switch (name) {
-            case "account" :
-              if (this.ticket.account_id == event.id) 
-              break;
-                this.selects.project.url = `projects?account=${event.id}&is_with_statistics=false`;
-                this.selects.project.value = "Default";
-                this.selects.project.selected = 0;
-
-                this.selects.location.url = `locations?account=${event.id}&limit=500`;
-                this.selects.location.value = "Default";
-                this.selects.location.selected = 0;
-                break;
-            case "class" :
-              if (this.ticket.class_id == event.id) 
-              break;
-            
-              this.getCustomfield(event.id);
-              break;
-        }
-        */
    }
 
    onSubmit(isClose?) {
@@ -837,8 +809,6 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
        "user_id": this.selects.user.selected,
        "customfield_xml": customfield_xml
      };
-     console.log(data);
-     return;
 
      this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(
        data => {

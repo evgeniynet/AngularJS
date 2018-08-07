@@ -17,12 +17,6 @@ export class CustomFieldComponent {
     @Input() name: string ;
     @Input() choices: string;
     @Input() value: string ;
-    @Input() list: any;
-    @Input() isbutton: boolean;
-    @Input() is_enabled: boolean = true;
-    @Input() is_me: boolean;
-    @Input() preload: boolean;
-    @Input() ajax: boolean;
     @Output() public onChanged: EventEmitter<any> = new EventEmitter(false);
     selected: Object = {};
     init: boolean = true;
@@ -32,7 +26,6 @@ export class CustomFieldComponent {
     custom_date: any;
     displayFormat: string;
     constructor(private nav: Nav, private apiData: ApiData, private config: Config) {
-        this.list = {};
      }  
 
     ngOnInit() {
@@ -47,19 +40,32 @@ export class CustomFieldComponent {
         }
      }
 
+AddHours(date, hours)
+{
+    if (date){
+        if (date.length == 19)
+            date = date.slice(0,-3);
+        let temp = new Date(date);
+        return new Date(temp.setTime(temp.getTime() + hours*60*60*1000)).toJSON();
+    }
+    return date;
+}
+
 setMinTime(date) {
         return date.substring(0,4);
     }
 
-    getStartDate(time) { 
-        return time.substring(0,19);
+    getStartDate(time) {
+        if (time == "0001-01-01T00:00:00.0000000")
+            return "";
+        return time = this.AddHours(time, this.config.getCurrent("timezone_offset"));
     }
 
     setStartDate(time){
-        this.value = time;
         if (time)
         {
-            let JsonTime = new Date(this.value).toJSON();
+            let JsonTime = this.AddHours(time, -1 * this.config.getCurrent("timezone_offset"))
+            console.log(JsonTime);
             let obj = {
                        id: this.id,
                        name: this.name,
@@ -76,19 +82,18 @@ setMinTime(date) {
 
  changeText(text1)
  {
-     this.value = text1.value;
+     this.value = text1.value.trim();
+     if(this.value == "")// && this.required)
+     {
+         this.nav.alert(`Please add value to custom field: ${this.name}`, true);
+         return;
+     }
                      let obj = {
                        id: this.id,
                        name: this.name,
                        value: this.value
                      };
                      this.onChanged.emit(obj);
- }
-
- emit_changed(value){
-     this.list.value = value.name;
-     value.type = this.list.name.split(' ').join('').toLowerCase();
-     this.onChanged.emit(value);
  }
 
  openRadio() {       
@@ -169,6 +174,8 @@ setMinTime(date) {
          ]
      });
      let checkValue = this.value.split(", ");
+     console.log(checkValue);
+     console.log(this.custom_choices);
      this.custom_choices.forEach(item => {
          alert.addInput({
              type: 'checkbox',
