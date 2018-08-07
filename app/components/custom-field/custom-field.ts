@@ -38,7 +38,7 @@ export class CustomFieldComponent {
     ngOnInit() {
         this.displayFormat = getPickerDateTimeFormat(false, true);
         if (this.type == "select" || "checkbox") 
-            this.custom_choices = this.choices.split("\n");
+            this.custom_choices = this.choices.split(/\r?\n/);
 
         
         if (this.type == "date")   {  
@@ -51,20 +51,19 @@ setMinTime(date) {
         return date.substring(0,4);
     }
 
-    getStartDate(time) {
-        this.value = time;
+    getStartDate(time) { 
         return time.substring(0,19);
     }
 
     setStartDate(time){
+        this.value = time;
         if (time)
         {
-            //let JsonTime = new Date(this.value).toJSON();
-            console.log(this.value);
+            let JsonTime = new Date(this.value).toJSON();
             let obj = {
                        id: this.id,
                        name: this.name,
-                       value: this.value
+                       value: JsonTime
                      };
                      this.onChanged.emit(obj);
         }
@@ -170,8 +169,6 @@ setMinTime(date) {
          ]
      });
      let checkValue = this.value.split(", ");
-     console.log(checkValue);
-     console.log(this.custom_choices);
      this.custom_choices.forEach(item => {
          alert.addInput({
              type: 'checkbox',
