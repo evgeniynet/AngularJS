@@ -595,6 +595,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
 
    saveCustomfield(event){
      this.customfields.filter(tc => tc.id == event.id)[0].value = event.value;
+     this.getXML();
    }
 
    onSubmit(isClose?) {
@@ -800,8 +801,8 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
      //proof double click
      if (this.ticket.in_progress && Date.now() - this.ticket.in_progress < 1500) {return;}
      this.ticket.in_progress = Date.now();
-     var customfield_xml = this.getXML();
-     if (customfield_xml == "") {
+     var customfields_xml = this.getXML();
+     if (customfields_xml == "") {
        return;
      }
      let data = {
@@ -813,7 +814,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
        "account_id": this.selects.account.selected,
        "tech_id": this.selects.tech.selected,
        "user_id": this.selects.user.selected,
-       "customfield_xml": customfield_xml
+       "customfields_xml": customfields_xml
      };
 
      this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(

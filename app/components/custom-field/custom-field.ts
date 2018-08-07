@@ -67,12 +67,11 @@ setMinTime(date) {
     }
 
     setStartDate(time){
+        console.log("time", time);
         if (time == "0001-01-01T00:00:00.0000000" && this.required){
             this.nav.alert(`Please add Date to custom field: ${this.name}`, true);
          return;
         }
-        else
-        {
             let JsonTime = this.AddHours(time, -1 * this.config.getCurrent("timezone_offset"))
             console.log(JsonTime);
             let obj = {
@@ -81,7 +80,6 @@ setMinTime(date) {
                        value: JsonTime
                      };
                      this.onChanged.emit(obj);
-        }
     }
 
  error(message)
@@ -142,8 +140,10 @@ setMinTime(date) {
      this.custom_choices.forEach(item => {
           console.log(item);
           // Must continue
-          //let label = item;
-          //if (label == "Choose below" && this.required) {
+          let label = item;
+          if (label == "") {
+              label = "Choose below";
+          }
           //    item = "";
           //    this.nav.alert(`Please add value to custom field: ${this.name}`, true);
           //    return;
@@ -185,7 +185,7 @@ setMinTime(date) {
                        name: this.name,
                        value: this.value
                      };
-                    // this.onChanged.emit(obj);  
+                    this.onChanged.emit(obj);  
                  }
              }
          }
