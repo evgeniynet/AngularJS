@@ -17,6 +17,7 @@ export class CustomFieldComponent {
     @Input() name: string ;
     @Input() choices: string;
     @Input() value: string ;
+    @Input() required: boolean ;
     @Output() public onChanged: EventEmitter<any> = new EventEmitter(false);
     selected: Object = {};
     init: boolean = true;
@@ -30,9 +31,13 @@ export class CustomFieldComponent {
 
     ngOnInit() {
         this.displayFormat = getPickerDateTimeFormat(false, true);
-        if (this.type == "select" || "checkbox") 
+        if (this.type == "select" ) {
             this.custom_choices = this.choices.split(/\r?\n/);
+            this.custom_choices.splice(0, 0, "Choose below");
+        }
 
+        if (this.type == "checkbox") 
+            this.custom_choices = this.choices.split(/\r?\n/);
         
         if (this.type == "date")   {  
             this.custom_date = new Date(this.value);
@@ -62,7 +67,11 @@ setMinTime(date) {
     }
 
     setStartDate(time){
-        if (time)
+        if (time == "0001-01-01T00:00:00.0000000" && this.required){
+            this.nav.alert(`Please add Date to custom field: ${this.name}`, true);
+         return;
+        }
+        else
         {
             let JsonTime = this.AddHours(time, -1 * this.config.getCurrent("timezone_offset"))
             console.log(JsonTime);
@@ -82,8 +91,10 @@ setMinTime(date) {
 
  changeText(text1)
  {
+     console.log(this.required);
+     console.log(this.value);
      this.value = text1.value.trim();
-     if(this.value == "")// && this.required)
+     if(this.value == "" && this.required)
      {
          this.nav.alert(`Please add value to custom field: ${this.name}`, true);
          return;
@@ -130,9 +141,16 @@ setMinTime(date) {
 
      this.custom_choices.forEach(item => {
           console.log(item);
+          // Must continue
+          //let label = item;
+          //if (label == "Choose below" && this.required) {
+          //    item = "";
+          //    this.nav.alert(`Please add value to custom field: ${this.name}`, true);
+          //    return;
+         // }
          alert.addInput({
              type: 'radio',
-             label: item,
+             label: label,
              value: item,
                  //checked: this.list.selected === item.id
              });

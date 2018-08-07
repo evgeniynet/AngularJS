@@ -785,6 +785,10 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
       var customfield_xml = "";
           for (var n = 0;  n < this.customfields.length; n++)
          { 
+           if (this.customfields[n].required && this.customfields[n].value == "" || this.customfields[n].value == "0001-01-01T00:00:00.0000000"){
+             this.nav.alert(`Please add value to custom field: ${this.customfields[n].name}`, true);
+             return customfield_xml = "";
+           }
            customfield_xml = customfield_xml + `<field id="${this.customfields[n].id}"><caption>${this.customfields[n].name}</caption><value>${this.customfields[n].value}</value></field>`;
          }
               console.log("<root>" + customfield_xml + "</root>"); 
@@ -797,7 +801,9 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
      if (this.ticket.in_progress && Date.now() - this.ticket.in_progress < 1500) {return;}
      this.ticket.in_progress = Date.now();
      var customfield_xml = this.getXML();
-
+     if (customfield_xml == "") {
+       return;
+     }
      let data = {
        "class_id": this.selects.class.selected,
        "level_id": this.selects.level.selected,
