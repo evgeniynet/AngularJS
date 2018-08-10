@@ -39,9 +39,10 @@ export class CustomFieldComponent {
         if (this.type == "checkbox") 
             this.custom_choices = this.choices.split(/\r?\n/);
         
-        if (this.type == "date")   {  
+        if (this.type == "date") 
+          {  
             this.custom_date = new Date(this.value);
-            console.log(this.custom_date);
+            console.log("custom date", this.custom_date);
         }
      }
 
@@ -56,30 +57,20 @@ AddHours(date, hours)
     return date;
 }
 
-setMinTime(date) {
-        return date.substring(0,4);
-    }
-
     getStartDate(time) {
-        if (time == "0001-01-01T00:00:00.0000000")
-            return "";
-        return time = this.AddHours(time, this.config.getCurrent("timezone_offset"));
+        return  time = this.AddHours(time, this.config.getCurrent("timezone_offset"));
     }
 
     setStartDate(time){
-        console.log("time", time);
-        if (time == "0001-01-01T00:00:00.0000000" && this.required){
-            this.nav.alert(`Please add Date to custom field: ${this.name}`, true);
-         return;
-        }
-            let JsonTime = this.AddHours(time, -1 * this.config.getCurrent("timezone_offset"))
-            console.log(JsonTime);
+
+            let JsonTime = this.AddHours(time, -1 * this.config.getCurrent("timezone_offset"));
+            console.log("Json",JsonTime);
             let obj = {
                        id: this.id,
                        name: this.name,
                        value: JsonTime
                      };
-                     this.onChanged.emit(obj);
+                     this.onChanged.emit(obj);            
     }
 
  error(message)
@@ -89,14 +80,8 @@ setMinTime(date) {
 
  changeText(text1)
  {
-     console.log(this.required);
-     console.log(this.value);
      this.value = text1.value.trim();
-     if(this.value == "" && this.required)
-     {
-         this.nav.alert(`Please add value to custom field: ${this.name}`, true);
-         return;
-     }
+     
                      let obj = {
                        id: this.id,
                        name: this.name,
@@ -139,18 +124,9 @@ setMinTime(date) {
 
      this.custom_choices.forEach(item => {
           console.log(item);
-          // Must continue
-          let label = item;
-          if (label == "") {
-              label = "Choose below";
-          }
-          //    item = "";
-          //    this.nav.alert(`Please add value to custom field: ${this.name}`, true);
-          //    return;
-         // }
-         alert.addInput({
+           alert.addInput({
              type: 'radio',
-             label: label,
+             label: item,
              value: item,
                  //checked: this.list.selected === item.id
              });

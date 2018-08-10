@@ -595,7 +595,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
 
    saveCustomfield(event){
      this.customfields.filter(tc => tc.id == event.id)[0].value = event.value;
-     this.getXML();
+     //this.getXML();
    }
 
    onSubmit(isClose?) {

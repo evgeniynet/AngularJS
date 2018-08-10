@@ -19,7 +19,7 @@
         <ion-item no-lines class="labels color">{{name}}</ion-item>
         <ion-item no-lines class="blue3 top0 bottom5">
     <ion-label class="start-end2"></ion-label>
-    <ion-datetime class="text-color" (ngModelChange)="setStartDate($event)" [ngModel]="getStartDate(value)" [displayFormat]="displayFormat" ></ion-datetime>  
+    <ion-datetime [ngClass]="{'nocolor': value == '0001-01-01T00:00:00.0000000', 'text-color': value !='0001-01-01T00:00:00.0000000'}" class="text-color" (ngModelChange)="setStartDate($event)" [ngModel]="getStartDate(value)" [displayFormat]="displayFormat" ></ion-datetime>  
             </ion-item>
         </div>
 
