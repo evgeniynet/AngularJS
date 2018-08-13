@@ -505,8 +505,9 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
    {
      this.ticketProvider.getCustomfields(class_id, this.pager).subscribe(
        data => {
-           console.log("data", data);
-           console.log("this.ticket.customfields", this.ticket.customfields);
+         if (data.length == 0)
+           return;
+         
          for (var n = 0; n<this.ticket.customfields.length; n++)
          { 
            data.filter(tc => tc.id.toString() == this.ticket.customfields[n].id.toString())[0].value = this.ticket.customfields[n].value;
@@ -595,7 +596,6 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
 
    saveCustomfield(event){
      this.customfields.filter(tc => tc.id == event.id)[0].value = event.value;
-     //this.getXML();
    }
 
    onSubmit(isClose?) {
@@ -792,7 +792,6 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
            }
            customfield_xml = customfield_xml + `<field id="${this.customfields[n].id}"><caption>${this.customfields[n].name}</caption><value>${this.customfields[n].value}</value></field>`;
          }
-              console.log("<root>" + customfield_xml + "</root>"); 
       return "<root>" + customfield_xml + "</root>";  
 
    }
