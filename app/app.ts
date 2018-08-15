@@ -327,7 +327,7 @@ force_redirect(isRedirect)
     // set first pages
     //page = pages.LocationsPage;
     //page = pages.TicketsPage; 
-    page = pages.TicketDetailsPage; param = {key: "a0zpnw"};
+    //page = pages.TicketDetailsPage; param = {key: "a0zpnw"};
     //page = pages.ExpensesPage; 
     //page = pages.TodosPage; 
     //page = pages.TodoCreatePage; 

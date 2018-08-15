@@ -33,7 +33,6 @@ export class CustomFieldComponent {
         this.displayFormat = getPickerDateTimeFormat(false, true);
         if (this.type == "select" ) {
             this.custom_choices = this.choices.split(/\r?\n/);
-            this.custom_choices.splice(0, 0, "Choose below");
         }
 
         if (this.type == "checkbox") 
@@ -42,7 +41,6 @@ export class CustomFieldComponent {
         if (this.type == "date") 
           {  
             this.custom_date = new Date(this.value);
-            console.log("custom date", this.custom_date);
         }
      }
 
@@ -64,7 +62,6 @@ AddHours(date, hours)
     setStartDate(time){
 
             let JsonTime = this.AddHours(time, -1 * this.config.getCurrent("timezone_offset"));
-            console.log("Json",JsonTime);
             let obj = {
                        id: this.id,
                        name: this.name,
@@ -123,7 +120,6 @@ AddHours(date, hours)
      });
 
      this.custom_choices.forEach(item => {
-          console.log(item);
            alert.addInput({
              type: 'radio',
              label: item,
@@ -153,8 +149,6 @@ AddHours(date, hours)
              text: 'OK',
              handler: data => {
                  if(data){
-                     
-                     console.log(data);
                      this.value = data.join(", ");
                      let obj = {
                        id: this.id,
@@ -168,8 +162,6 @@ AddHours(date, hours)
          ]
      });
      let checkValue = this.value.split(", ");
-     console.log(checkValue);
-     console.log(this.custom_choices);
      this.custom_choices.forEach(item => {
          alert.addInput({
              type: 'checkbox',
