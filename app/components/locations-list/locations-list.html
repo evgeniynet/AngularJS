@@ -8,7 +8,7 @@
 <div class="locationlist flexed" >
         <div detail-none href=# *ngFor="let location of locations" (click)="itemTapped($event, location)">
         <span>{{location.name}}</span>
-        <span>10</span>
+        <span>{{location.tickets_count}}</span>
         </div>
  </div>
 </ion-list>
