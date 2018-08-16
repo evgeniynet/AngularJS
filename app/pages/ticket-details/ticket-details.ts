@@ -505,14 +505,18 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
    {
      this.ticketProvider.getCustomfields(class_id, this.pager).subscribe(
        data => {
-         if (data.length == 0)
+         if (data.length == 0){
+           this.customfields = data;
            return;
-         
+         }
+         if (this.ticket.customfields.length != data.length) {
+           this.customfields = data;
+           return;
+         }
          for (var n = 0; n<this.ticket.customfields.length; n++)
          { 
            data.filter(tc => tc.id.toString() == this.ticket.customfields[n].id.toString())[0].value = this.ticket.customfields[n].value;
          }
-         this.customfields = data;
        },
        error => {
          console.log(error || 'Server error');
