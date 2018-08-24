@@ -45,7 +45,6 @@ export class ClassListComponent {
              if (this.list.url) {
                  this.apiData.get(this.list.url).subscribe(
                      data => {
-                         
                          this.list.items = data;
                          this.proceed_list(show);
                          this.url = this.list.url;
@@ -72,8 +71,8 @@ export class ClassListComponent {
 
      proceed_list(show)
      {
-         if (!this.config.getCurrent("is_tech"))
-             this.list.items = this.list.items.filter(v => { return !v.is_restrict_to_techs });
+         //if (!this.config.getCurrent("is_tech"))
+         //    this.list.items = this.list.items.filter(v => { return !v.is_restrict_to_techs });
 
          this.list.items = this.list.items.filter(v => { return v.is_active });
 
@@ -153,6 +152,7 @@ export class ClassListComponent {
      }
 
      openModal() {
+         console.log("list.name", this.list);
          let myModal = Modal.create(TreeModal, this.list);
          myModal.onDismiss(data => {
              if (data.name) {
