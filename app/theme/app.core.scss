@@ -53,11 +53,14 @@ ion-nav.has-views
 }
 
 //item
-
+ion-item-sliding{
+    background-color: transparent !important;
+}
 .item {
     text-align: center;
     margin-top: 10px;
     padding-left: 0px;
+    background-color: rgba(255, 255, 255, 0.3) !important;
 }
 
 .item-inner {
@@ -222,7 +225,7 @@ p {
 }
 
 .commentText{
-    background: $blue3;
+    background: $blue1;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     border: none;
@@ -473,9 +476,13 @@ scroll-content {
     }
 
 .segment-button.segment-activated {
-    color: $text-color;
+    color: $text2;
     background-color: $segment;
     font-weight: bold;
+}
+
+.toolbar ion-searchbar::placeholder{
+    color: #000 !important;
 }
 
 .position-button{
@@ -719,6 +726,9 @@ ion-list > .item:first-child, ion-list > ion-item-sliding:first-child .item {
     padding-top: 2px;
     text-align: center;
 }
+ion-content{
+    background: linear-gradient(to bottom, #55b1e6, #ffffff);
+}
 
 
 .menu-text{
@@ -735,7 +745,7 @@ border-left: 1px solid rgba(255, 255, 255, 0.4);
 }
 
 .alert-wrapper {
-    background-color: $text-color;
+    background-color: $text2;
 }
 
 .close-ticket{
