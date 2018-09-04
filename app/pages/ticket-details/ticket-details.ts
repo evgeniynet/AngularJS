@@ -342,6 +342,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
    fileDest: any = {ticket: ""};
    files: any = [];
    is_showlogs: boolean = false;
+   showSubjChange: boolean;
    posts: any = [
    {
      "id": 0,

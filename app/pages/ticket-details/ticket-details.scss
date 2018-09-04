@@ -88,7 +88,6 @@ textarea{
      margin-top: 0px !important;
 }
 
-
 .display_flex{
    
   h4{
@@ -98,7 +97,8 @@ textarea{
     overflow: hidden;
     line-height: 24px;
     text-overflow: ellipsis;
-    margin-top: 0px;
+    margin-top: 10px;
+    margin-bottom:0px;
     padding: 0px !important;
     width: 100%;
      margin-left: 15px;
@@ -173,4 +173,8 @@ font-size: 1.2rem !important;
 }
 ion-searchbar .searchbar-input {
     padding-right: 0;
+}
+.saveSubject {
+    height: 2em;
+    margin-right:10%;
 }

@@ -6,7 +6,18 @@
 
 <ion-content>
   <ion-toolbar class="blue3 display_flex">
+  <div (click)="showSubjChange = !showSubjChange">
    <h4 class="width90">{{ticket.subject | Htmlsafe}}</h4>
+   <ion-icon name="create" style="font-size:2.0em" ></ion-icon>
+   <h5 *ngIf="ticket.next_step == '' " class="width90 span-left grey3_color" style="margin-top: 0px; margin-bottom: 5px; padding: 0px !important;">Next step: <span class="text-color">change subject</span>  {{ticket.next_step_date}} day ago</h5>
+  </div>
+<div *ngIf="showSubjChange" class="span-left">
+   <ion-item no-lines class="labels" style="font-size: 1.5rem; background-color: transparent;">Subject:</ion-item>
+    <input  class="width90 blue3 subject-create commentText margin-bottom3"  style="background-color: rgba(255,255,255,0.1) !important;" placeholder="change Subject" required maxlength="200" (ngModelChange)="changeText(name1)" [ngModel]="ticket.subject"/>
+    <ion-item no-lines class="labels" style="font-size: 1.5rem; background-color: transparent;">Next step:</ion-item>
+    <input  class="width90 blue3 subject-create commentText margin-bottom10" style="background-color: rgba(255,255,255,0.1) !important;" placeholder="add Next step" required maxlength="200" (ngModelChange)="changeText(name1)" #name1="ngForm" [ngModel]="ticket.next_step"/>
+    <button secondary class="button_reply right indent-bottom width30 saveSubject" (click)="u.onUpload()"  type="submit">Save</button>
+</div>
    <span no-lines class="span-left">
     <p *ngIf="config.current.is_class_tracking && ticket.class_name"><u>Class</u>:&nbsp;{{ticket.class_name}}</p>
     <p><u>{{config.current.names.tech.a}}</u>: {{techname}}</p>
