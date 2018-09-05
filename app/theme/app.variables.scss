@@ -48,18 +48,11 @@ $black1: #000;
 $login: #fff !important;
 $green: map-get($colors, secondary);
 $transparent: rgba(255, 255, 255, 0);
-<<<<<<< HEAD
 $background-color: #ffffff;
 $background: #fff;
 $toolbar-background: #fff;
-$text-color: #000;
-=======
-$background-color: #ffffff !important;
-$background: #fff !important;
-$toolbar-background: #fff !important;
-$text-color: #000 !important;
->>>>>>> parent of 9c39eae... fixed important
-$text: #000;
+$text-color: #fff;
+$text: #ffff;
 $text2: #fff;
 $text3: #fff;
 $toolbar-border-color: $blue1;
