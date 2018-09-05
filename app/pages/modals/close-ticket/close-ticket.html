@@ -19,7 +19,7 @@
     <form #addForm="ngForm" class="response-ticket">
       
       <template [ngIf]="config.current.is_confirmation_tracking">
-        <ion-item no-lines class="left toggle-width">
+        <ion-item no-lines class="left toggle-width" style="z-index: 9;">
       <ion-toggle class="toggle" [(ngModel)]="isconfirm" disabled='false'></ion-toggle>
     </ion-item>
 
