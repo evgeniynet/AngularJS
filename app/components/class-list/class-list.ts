@@ -72,8 +72,8 @@ export class ClassListComponent {
 
      proceed_list(show)
      {
-         if (!this.config.getCurrent("is_tech"))
-             this.list.items = this.list.items.filter(v => { return !v.is_restrict_to_techs });
+         //if (!this.config.getCurrent("is_tech"))
+          //   this.list.items = this.list.items.filter(v => { return !v.is_restrict_to_techs });
 
          this.list.items = this.list.items.filter(v => { return v.is_active });
 
