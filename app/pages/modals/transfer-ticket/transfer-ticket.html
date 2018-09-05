@@ -1,0 +1,36 @@
+<ion-toolbar>
+<ion-buttons start class="searchbar">
+<button (click)="dismiss()">
+    <span primary>Cancel</span>
+</button>
+</ion-buttons>
+<ion-title class="ellipsis padding-right24 padding-left87">Transfer {{config.current.names.ticket.s}} #{{ticket.number}} {{ticket.subject}}</ion-title>
+</ion-toolbar>
+
+
+<ion-content class="has-header">
+
+<div class="list max-width700 general-alignment">
+
+
+    <select-list  preload="true" [list]="selects.tech" (onChanged)='saveSelect($event)'></select-list>
+
+    <form #addForm="ngForm" class="response-ticket">
+      
+      <template  [ngIf]="config.current.is_confirmation_tracking">
+        <ion-item no-lines class="left toggle-width" style="margin-bottom: -20px; z-index: 9;">
+      <ion-toggle class="toggle" [(ngModel)]="isconfirm" disabled='false'></ion-toggle>
+    </ion-item>
+    <p style="width: 80%" class="left text-toggle color">Remove {{ticket.tech_firstname}} {{ticket.tech_lastname}} after transfer.</p>  
+</template> 
+
+    <div class="tooltips">
+        <textarea class="width100 textLogin commentText" [(ngModel)]="ticketnote" type="text" placeholder="Add Transfer Note" ngControl="note" #note="ngForm" maxlength="4000"></textarea>
+        <span [hidden]="note.valid || note.untouched">Note should be less 5000 chars</span></div>
+        <button secondary 
+        class="button_reply img-top right" [disabled]="!addForm.valid" (click)="onSubmit(addForm)"  type="submit">Transfer {{config.current.names.ticket.s}}</button>
+    </form>
+
+</div>
+
+</ion-content>
