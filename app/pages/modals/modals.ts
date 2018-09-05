@@ -6,4 +6,5 @@ export * from './tree-modal/tree-modal';
 export * from './ticket-create/ticket-create';
 export * from './add-user/add-user';
 export * from './add-files/add-files';
+export * from './transfer-ticket/transfer-ticket';
 export * from './privacy/privacy';

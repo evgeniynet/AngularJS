@@ -18,10 +18,10 @@
     <form #addForm="ngForm" class="response-ticket">
       
       <template  [ngIf]="config.current.is_confirmation_tracking">
-        <ion-item no-lines class="left toggle-width" style="margin-bottom: -20px; z-index: 9;">
+        <ion-item no-lines class="left toggle-width" style="z-index: 9;">
       <ion-toggle class="toggle" [(ngModel)]="isconfirm" disabled='false'></ion-toggle>
     </ion-item>
-    <p style="width: 80%" class="left text-toggle color">Remove {{ticket.tech_firstname}} {{ticket.tech_lastname}} after transfer.</p>  
+    <p style="width: 80%" class="left text-toggle color">Remove {{ticket.tech_firstname}} {{ticket.tech_lastname}} after transfer</p>  
 </template> 
 
     <div class="tooltips">
