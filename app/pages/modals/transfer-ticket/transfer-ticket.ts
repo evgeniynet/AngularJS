@@ -1,7 +1,6 @@
 import {Nav, NavParams, Page, ViewController, Config} from 'ionic-angular';
 import {forwardRef} from '@angular/core';
 import {TicketProvider} from '../../../providers/ticket-provider';
-import {ApiData} from '../../../providers/api-data';
 import {htmlEscape} from '../../../directives/helpers';
 import {SelectListComponent} from '../../../components/select-list/select-list';
 
@@ -16,9 +15,8 @@ export class TransferTicketModal {
     ticketnote: string;
     ticket: any;
     selects: any;
-    technicians: any;
 
-    constructor(private nav: Nav, private navParams: NavParams, private apiData: ApiData, private ticketProvider: TicketProvider, private config: Config,
+    constructor(private nav: Nav, private navParams: NavParams, private ticketProvider: TicketProvider, private config: Config,
         private viewCtrl: ViewController) {
         nav.swipeBackEnabled = false;
         this.config = config;
@@ -27,13 +25,9 @@ export class TransferTicketModal {
 
     ngOnInit() {
 
-        this.isconfirm = true;
+        this.isconfirm = false;
 
         this.ticket = this.navParams.data || 0;
-
-        this.technicians = [];
-
-        
 
         this.selects = {
             "tech": {
@@ -44,15 +38,6 @@ export class TransferTicketModal {
                 url: "technicians"
                             },
         };
-        this.apiData.get("technicians").subscribe(
-            data => {
-                this.technicians = data;
-            },
-            error => {
-                console.log(error || 'Server error');
-            }
-        );
-
            }
 
     dismiss(data) {
@@ -73,12 +58,6 @@ export class TransferTicketModal {
     onSubmit(form) {
         if (form.valid) {
             var post = htmlEscape((this.ticketnote || "").trim()).substr(0, 5000);
-
-            if (this.config.current.is_ticket_require_closure_note && !post.length)
-            {
-                this.nav.alert("Note is required!",true);
-                return;
-            }
 
             let newtech = {
                 "note": post,

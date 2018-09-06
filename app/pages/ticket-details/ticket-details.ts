@@ -652,21 +652,6 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
        this.saveNoteSuccess(note);
    }
 
-   saveNoteTransfer(form) {
-     var note = form;
-     if (note != (this.ticket.note || "").trim()) {
-       this.ticketProvider.addTicketNote(this.ticket.id, note).subscribe(
-         data => this.saveNoteSuccess(note),
-         error => {
-           this.nav.alert(error, true);
-           console.log(error || 'Server error');
-         }
-         );
-     }
-     else
-       this.saveNoteSuccess(note);
-   }
-
    saveWorkpad(form) {
      var workpad = (form.value || "").trim().replace(/\n/g, "<p>"); 
      if (workpad != (this.ticket.workpad || "").trim()) {
@@ -987,8 +972,6 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
          this.techname = this.selects.tech.value = this.ticket.tech_firstname = data.name;
          this.ticket.tech_lastname = this.ticket.tech_email = "";
          this.selects.tech.selected = data.id;
-         if(data.note != "")
-         this.saveNoteTransfer(data.note);
        }
      });
      this.nav.present(myModal);
