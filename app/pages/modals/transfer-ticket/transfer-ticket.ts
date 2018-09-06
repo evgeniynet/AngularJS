@@ -11,7 +11,7 @@ import {SelectListComponent} from '../../../components/select-list/select-list';
 })
 export class TransferTicketModal {
 
-    isconfirm: boolean;
+    keep_attached: boolean;
     ticketnote: string;
     ticket: any;
     selects: any;
@@ -25,7 +25,7 @@ export class TransferTicketModal {
 
     ngOnInit() {
 
-        this.isconfirm = false;
+        this.keep_attached = false;
 
         this.ticket = this.navParams.data || 0;
 
@@ -43,13 +43,10 @@ export class TransferTicketModal {
     dismiss(data) {
         //let data = { 'foo': 'bar' };
         //item = item || {};
-        console.log(data);
-        console.log(this.viewCtrl.dismiss(data));
         this.viewCtrl.dismiss(data);
     }
 
     saveSelect(event) {
-        console.log(event);
         let name = event.type;
         this.selects.selected = event.id;
         this.selects.value = event.name;
@@ -58,13 +55,12 @@ export class TransferTicketModal {
     onSubmit(form) {
         if (form.valid) {
             var post = htmlEscape((this.ticketnote || "").trim()).substr(0, 5000);
-
             let newtech = {
-                "note": post,
+                "note_text": post,
                 "name": this.selects.value,
-                "id": this.selects.selected,
+                "tech_id": this.selects.selected,
+                "keep_attached": this.keep_attached
             };
-            console.log(newtech);
             this.ticketProvider.closeOpenTicket(this.ticket.key, newtech).subscribe(
        data => {
          this.nav.alert(this.config.current.names.ticket.s + ' has been transferred :)');

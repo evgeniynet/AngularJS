@@ -9,7 +9,7 @@
   <div (click)="showSubjChange = !showSubjChange">
    <h4 class="width90">{{ticket.subject | Htmlsafe}}</h4>
    <ion-icon name="md-create" style="font-size:1.8em; margin-top:9px" ></ion-icon>
-   <h5 *ngIf="ticket.next_step == '' " class="width90 span-left grey3_color" style="margin-top: 0px; margin-bottom: 5px; padding: 0px !important;">Next step: <span class="text-color">change subject</span>  {{ticket.next_step_date}} day ago</h5>
+   <h5 *ngIf="ticket.next_step != '' " class="width90 span-left grey3_color" style="margin-top: 0px; margin-bottom: 5px; padding: 0px !important;">Next step: <span class="text-color">{{ticket.next_step}}</span>  {{ticket.next_step_date}} day ago</h5>
   </div>
 <div *ngIf="showSubjChange" class="span-left">
    <ion-item no-lines class="labels" style="font-size: 1.5rem; background-color: transparent;">Subject:</ion-item>
@@ -149,9 +149,7 @@
     <button *ngIf="config.current.is_onhold_status" (click)="onHold()" block type="submit" class="blue2 disable-hover button button-default button-block class-margin">{{  ticket.status == "OnHold" ? ("ReOpen " + config.current.names.ticket.s) : "Place On Hold" }}</button>
     <button *ngIf="config.current.is_expenses" (click)="addExpense()" block type="submit" class="blue2 disable-hover button button-default button-block class-margin">Add Expense</button>
 
-    <select-list  class="class-margin" preload="true" [isbutton]="true" [list]="select_button.tech" (onChanged)='transferTicket($event)'></select-list>
-
-    <button (click)='TransferTkt()' block type="submit" class="blue2 class-margin">NEW Transfer Ticket</button>
+    <button (click)='transferTicket()' block type="submit" class="blue2 class-margin">Transfer {{config.current.names.ticket.s}}</button>
 
     <button *ngIf="(ticket.technician_email || ticket.tech_email) != he.email" (click)='pickUp()' block type="submit" class="blue2 class-margin">Pick Up {{config.current.names.ticket.s}}</button>
 

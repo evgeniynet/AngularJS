@@ -833,30 +833,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
        );
    }
 
-   transferTicket(event) {
-     if (!event)
-       return;
-     let techid = event.id;
-     this.select_button.tech.selected = techid;
-     this.select_button.tech.value = "Transfer " + this.config.current.names.ticket.s;
-
-     let data = {
-       "tech_id": techid
-     };
-
-     this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(
-       data => {
-         this.nav.alert(this.config.current.names.ticket.s + ' has been transferred :)');
-         this.techname = this.selects.tech.value = this.ticket.tech_firstname = event.name;
-         this.ticket.tech_lastname = this.ticket.tech_email = "";
-         this.selects.tech.selected = techid;
-       },
-       error => {
-         this.nav.alert(error, true);
-         console.log(error || 'Server error');
-       }
-       );
-   }
+   
 
    pickUp() {
 
@@ -964,11 +941,10 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
      this.nav.present(myModal);
    }  
 
-   TransferTkt() {
+   transferTicket() {
      let myModal = Modal.create(TransferTicketModal, { "number": this.ticket.number, "key": this.ticket.key, "subject": this.ticket.subject,  "tech_firstname": this.ticket.tech_firstname, "tech_lastname": this.ticket.tech_lastname});
      myModal.onDismiss(data => {
        if (data){
-         console.log("data", data);
          this.techname = this.selects.tech.value = this.ticket.tech_firstname = data.name;
          this.ticket.tech_lastname = this.ticket.tech_email = "";
          this.selects.tech.selected = data.id;

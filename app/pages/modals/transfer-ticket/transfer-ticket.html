@@ -19,9 +19,9 @@
       
       <template  [ngIf]="config.current.is_confirmation_tracking">
         <ion-item no-lines class="left toggle-width" style="z-index: 9;">
-      <ion-toggle class="toggle" [(ngModel)]="isconfirm" disabled='false'></ion-toggle>
+      <ion-toggle class="toggle" [(ngModel)]="keep_attached" disabled='false'></ion-toggle>
     </ion-item>
-    <p style="width: 80%" class="left text-toggle color">Remove {{ticket.tech_firstname}} {{ticket.tech_lastname}} after transfer</p>  
+    <p style="width: 80%" class="left text-toggle color">Keep {{ticket.tech_firstname}} {{ticket.tech_lastname}} attached to this {{config.current.names.ticket.s}}</p>  
 </template> 
 
     <div class="tooltips">
