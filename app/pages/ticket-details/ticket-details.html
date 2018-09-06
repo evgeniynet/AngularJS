@@ -13,9 +13,9 @@
   </div>
 <div *ngIf="showSubjChange" class="span-left">
    <ion-item no-lines class="labels" style="font-size: 1.5rem; background-color: transparent;">Subject:</ion-item>
-    <input  class="width90 blue3 subject-create commentText margin-bottom3"  style="background-color: rgba(255,255,255,0.1) !important;" placeholder="change Subject" required maxlength="200" (ngModelChange)="changeText(name1)" [ngModel]="ticket.subject"/>
+    <input  class="width90 blue3 subject-create commentText margin-bottom3"  style="background-color: rgba(255,255,255,0.1) !important;" placeholder="change Subject" required maxlength="200" (ngModelChange)="changeSubject(name1)" #name1="ngForm"  [ngModel]="ticket.subject"/>
     <ion-item no-lines class="labels" style="font-size: 1.5rem; background-color: transparent;">Next step:</ion-item>
-    <input  class="width90 blue3 subject-create commentText margin-bottom10" style="background-color: rgba(255,255,255,0.1) !important;" placeholder="add Next step" required maxlength="200" (ngModelChange)="changeText(name1)" #name1="ngForm" [ngModel]="ticket.next_step"/>
+    <input  class="width90 blue3 subject-create commentText margin-bottom10" style="background-color: rgba(255,255,255,0.1) !important;" placeholder="add Next step" required maxlength="200" (ngModelChange)="changeNextStep(name2)" #name2="ngForm" [ngModel]="ticket.next_step"/>
     <button secondary class="button_reply right indent-bottom width30 saveSubject" (click)="u.onUpload()"  type="submit">Save</button>
 </div>
    <span no-lines class="span-left">
