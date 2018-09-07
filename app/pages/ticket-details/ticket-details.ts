@@ -325,7 +325,9 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
    ticket: any = {};
    userphone: string;
    customfields: any = [];
-   subject:any = {};
+   subject: any;
+   next_step: any;
+   next_step_date: any;
    pager: any;
    details_tab: string;
    active: boolean;
@@ -954,29 +956,24 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
    }  
 
    changeSubject(name1){
-     this.subject.subject = name1.viewModel;
+     this.subject = name1.viewModel;
    }
 
    changeNextStep(name2){
-     console.log(name2.viewModel);
-     this.subject.next_step = name2.viewModel;
+     this.next_step = name2.viewModel;
    }
 
    saveSubject() {
-     if (!this.subject.subject || this.subject.subject == "")
-     this.subject.subject = this.ticket.subject; 
-     if (!this.subject.next_step || this.subject.next_step == "")
-     this.subject.next_step = this.ticket.next_step; 
+     if (!this.subject || this.subject == "")
+     this.subject = this.ticket.subject; 
+     if (!this.next_step || this.next_step == "")
+     this.next_step = this.ticket.next_step; 
 
-     this.subject.next_step_date = new Date().toJSON();
-     //let temp2 = new Date(temp.setTime(temp.getTime() + this.config.getCurrent("timezone_offset")*60*60*1000)).toJSON();
-     //console.log(temp2);  
-     //console.log(temp);  
+     this.next_step_date = new Date().toJSON();
 
             let save = {
-                "subject": this.subject.subject,
-                "next_step": this.subject.next_step,
-                "next_step_date": this.subject.next_step_date               
+                "subject": this.subject,
+                "next_step": this.next_step           
             };
             console.log("save", save);
             this.ticketProvider.closeOpenTicket(this.ticket.key, save).subscribe(
@@ -984,7 +981,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
          this.nav.alert(this.config.current.names.ticket.s + ' has been saved :)');
          this.ticket.subject = save.subject;
          this.ticket.next_step = save.next_step;
-         this.ticket.next_step_date = this.subject.next_step_date;
+         this.ticket.next_step_date = this.next_step_date;
          this.showSubjChange = !this.showSubjChange;
        },
        error => {
