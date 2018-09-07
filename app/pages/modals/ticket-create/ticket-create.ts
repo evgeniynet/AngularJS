@@ -7,10 +7,11 @@ import {ClassListComponent} from '../../../components/class-list/class-list';
 import {LocationListComponent} from '../../../components/location-list/location-list';
 import {SelectListComponent} from '../../../components/select-list/select-list';
 import {UploadButtonComponent} from '../../../pages/ticket-details/ticket-details';
+import {CustomFieldComponent} from '../../../components/custom-field/custom-field';
 
 @Page({
     templateUrl: 'build/pages/modals/ticket-create/ticket-create.html',
-    directives: [forwardRef(() => ClassListComponent), forwardRef(() => LocationListComponent), forwardRef(() => SelectListComponent), UploadButtonComponent],
+    directives: [forwardRef(() => ClassListComponent), forwardRef(() => LocationListComponent), forwardRef(() => CustomFieldComponent), forwardRef(() => SelectListComponent), UploadButtonComponent],
 })
 export class TicketCreatePage {
 
@@ -21,6 +22,8 @@ export class TicketCreatePage {
     selects: any;
     fileDest: any = {ticket: "11"};
     files: any = [];
+    customfields: any = [];
+    pager: any;
 
     constructor(private nav: Nav, private navParams: NavParams, private ticketProvider: TicketProvider, private config: Config,
                  private viewCtrl: ViewController) {
@@ -116,6 +119,7 @@ export class TicketCreatePage {
             "tech_id" : 0,
             "priority_id" : 0,
         };
+        //this.getCustomfield(data.class_id);
     }
 
     dismissPage(data) {
@@ -139,8 +143,33 @@ export class TicketCreatePage {
                 this.selects.location.value = "Default";
                 this.selects.location.selected = 0;
                 break;
+            case "class" :
+                if (this.ticket.class_id == event.id)
+                    break;
+            
+              this.getCustomfield(event.id);
+              break;
         }
     }
+
+    saveCustomfield(event){
+     this.customfields.filter(tc => tc.id == event.id)[0].value = event.value;
+   }
+
+   getXML()
+   {
+      var customfield_xml = "";
+          for (var n = 0;  n < this.customfields.length; n++)
+         { 
+           if (this.customfields[n].required && this.customfields[n].value == "" || this.customfields[n].value == "0001-01-01T00:00:00.0000000"){
+             this.nav.alert(`Please add value to custom field: ${this.customfields[n].name}`, true);
+             return customfield_xml = "";
+           }
+           customfield_xml = customfield_xml + `<field id="${this.customfields[n].id}"><caption>${this.customfields[n].name}</caption><value>${this.customfields[n].value}</value></field>`;
+         }
+      return "<root>" + customfield_xml + "</root>";  
+
+   }
 
    uploadedFile(event)
    {
@@ -160,6 +189,29 @@ export class TicketCreatePage {
      }
    }
 
+   getCustomfield(class_id)
+   {
+     this.ticketProvider.getCustomfields(class_id, this.pager).subscribe(
+       data => {
+   //      if (data.length == 0){
+           this.customfields = data;
+    //       return;
+//}
+         //if (this.ticket.customfields.length != data.length) {
+         //  this.customfields = data;
+         //  return;
+         //}
+      //   for (var n = 0; n<this.ticket.customfields.length; n++)
+      //   { 
+     //      data.filter(tc => tc.id.toString() == this.ticket.customfields[n].id.toString())[0].value = this.ticket.customfields[n].value;
+     //    }
+      //   this.customfields = data;
+       },
+       error => {
+         console.log(error || 'Server error');
+       }
+       );
+   }
 
     onSubmit(form) {
         /*if (!this.selects.tech.id)
@@ -179,6 +231,10 @@ export class TicketCreatePage {
             {
                 this.ticket.initial_post += "\n\nFollowing file" + (this.files.length > 1 ? "s were" : " was") + " uploaded: " + this.files.join(", ") +".";
             }
+            var customfields_xml = this.getXML();
+             if (customfields_xml == "") 
+               return;
+            
 
             this.ticket.class_id = this.selects.class.selected;
             this.ticket.account_id = this.selects.account.selected;
@@ -196,6 +252,7 @@ export class TicketCreatePage {
                                        "location": this.selects.location,
                                                "project": this.selects.project,
                                                "class": this.selects.class,
+                                               "customfields_xml": customfields_xml,
                                                "priority": this.selects.priority});
             }
                     if (this.files.length)

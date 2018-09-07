@@ -42,6 +42,14 @@
           <select-list [list]="selects.level" preload="true" (onChanged)='saveSelect($event)'></select-list>
 
     </template> 
+
+ <!-- New Custom fields-->
+<hr class="color-bg" *ngIf="customfields.length">
+  <div *ngFor="let customfield of customfields">
+    <custom-field [type]="customfield.type" [id]="customfield.id" [name]="customfield.name" [value]="customfield.value" [choices]="customfield.choices" [required]="customfield.required" (onChanged)='saveCustomfield($event)'></custom-field>
+  </div>
+<!-- End Custom-fields-->
+
     </div>
     <form margin-top class="container_list" #addForm="ngForm">
                 <div class="list max-width700">
