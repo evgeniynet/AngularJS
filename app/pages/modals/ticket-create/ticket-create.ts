@@ -119,7 +119,7 @@ export class TicketCreatePage {
             "tech_id" : 0,
             "priority_id" : 0,
         };
-        //this.getCustomfield(data.class_id);
+        this.getCustomfield(recent.class.selected);
     }
 
     dismissPage(data) {
@@ -193,19 +193,7 @@ export class TicketCreatePage {
    {
      this.ticketProvider.getCustomfields(class_id, this.pager).subscribe(
        data => {
-   //      if (data.length == 0){
            this.customfields = data;
-    //       return;
-//}
-         //if (this.ticket.customfields.length != data.length) {
-         //  this.customfields = data;
-         //  return;
-         //}
-      //   for (var n = 0; n<this.ticket.customfields.length; n++)
-      //   { 
-     //      data.filter(tc => tc.id.toString() == this.ticket.customfields[n].id.toString())[0].value = this.ticket.customfields[n].value;
-     //    }
-      //   this.customfields = data;
        },
        error => {
          console.log(error || 'Server error');
@@ -243,6 +231,7 @@ export class TicketCreatePage {
             this.ticket.tech_id = this.selects.tech.selected;
             this.ticket.priority_id = this.selects.priority.selected;
             this.ticket.level = this.selects.level.selected;
+            this.ticket.customfields_xml = customfields_xml;
 
             this.ticketProvider.addTicket(this.ticket).subscribe(
                 data => {
@@ -252,7 +241,6 @@ export class TicketCreatePage {
                                        "location": this.selects.location,
                                                "project": this.selects.project,
                                                "class": this.selects.class,
-                                               "customfields_xml": customfields_xml,
                                                "priority": this.selects.priority});
             }
                     if (this.files.length)

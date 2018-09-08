@@ -152,7 +152,6 @@ export class ClassListComponent {
      }
 
      openModal() {
-         console.log("list.name", this.list);
          let myModal = Modal.create(TreeModal, this.list);
          myModal.onDismiss(data => {
              if (data.name) {

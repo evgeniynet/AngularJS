@@ -513,10 +513,10 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
            this.customfields = data;
            return;
          }
-         //if (this.ticket.customfields.length != data.length) {
-         //  this.customfields = data;
-         //  return;
-         //}
+         if (this.ticket.customfields.length != data.length) {
+           this.customfields = data;
+         return;
+         }
          for (var n = 0; n<this.ticket.customfields.length; n++)
          { 
            data.filter(tc => tc.id.toString() == this.ticket.customfields[n].id.toString())[0].value = this.ticket.customfields[n].value;
