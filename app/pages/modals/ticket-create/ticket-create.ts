@@ -129,7 +129,7 @@ export class TicketCreatePage {
             "contract_id": contract_id,
             "priority_id" : 0,
         };
-        this.getCustomfield(recent.class.selected);
+            this.getCustomfield(contract_id);
     }
 
     dismissPage(data) {
@@ -166,7 +166,6 @@ export class TicketCreatePage {
               this.getCustomfield(event.id);
               break;
         }
-        console.log("contact",this.selects.contract);
     }
 
     saveCustomfield(event){
