@@ -507,6 +507,8 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
 
    getCustomfield(class_id)
    {
+     if (class_id == 0)
+           return this.customfields = [];
      this.ticketProvider.getCustomfields(class_id, this.pager).subscribe(
        data => {
          if (data.length == 0){
