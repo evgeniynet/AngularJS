@@ -388,9 +388,11 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
    }
 
    initSelects(data){
+     console.log("data", data);
      let account_id = data.account_id || -1;
      this.username = getFullName(data.user_firstname, data.user_lastname, data.user_email);
      this.techname = getFullName(data.technician_firstname || data.tech_firstname, data.technician_lastname || data.tech_lastname, data.technician_email || data.tech_email);
+     let contract_id = (data.DefaultRatePlanContractId || {}).id || data.DefaultRatePlanContractId || 0;
      this.select_button = {
        "tech": {
          name: "Tech",
@@ -429,6 +431,13 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
          url: `projects?account=${account_id}&is_with_statistics=false`,
          hidden: false
        },
+       "contract" : { 
+         name: "Contract", 
+         value: (contract_id || {}).value || "Choose",
+         selected: contract_id || this.config.getRecent("contract").selected || 0,
+         url: `contracts?account_id=${account_id}`,
+         hidden: false    
+                },
        "level": {
          name: "Level",
          value: data.level_name ? (data.level + " - " + data.level_name) : "( Not Set )",
@@ -582,6 +591,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
      let name = event.type;
      this.selects[name].selected = event.id;
      this.selects[name].value = event.name;
+     let contract_id = this.selects.contract.selected;
 
       switch (name) {
             case "account" :
@@ -591,6 +601,11 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
                 this.selects.project.value = "Default";
                 this.selects.project.selected = 0;
 
+                this.selects.contract.url = `contracts?account_id=${event.id}`;
+                this.selects.contract.value = "Default";
+                this.selects.contract.selected = 0;
+                contract_id = 0;
+                
                 this.selects.location.url = `locations?account=${event.id}&limit=500`;
                 this.selects.location.value = "Default";
                 this.selects.location.selected = 0;
@@ -814,6 +829,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
      if (customfields_xml == "") {
        return;
      }
+     console.log("selects", this.selects);
      let data = {
        "class_id": this.selects.class.selected,
        "level_id": this.selects.level.selected,
@@ -823,9 +839,10 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
        "account_id": this.selects.account.selected,
        "tech_id": this.selects.tech.selected,
        "user_id": this.selects.user.selected,
-       "customfields_xml": customfields_xml
+       "customfields_xml": customfields_xml,
+       "DefaultRatePlanContractId": this.selects.contract.selected
      };
-
+     console.log("data", data);
      this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(
        data => {
          this.nav.alert(this.config.current.names.ticket.s + ' was successfully updated :)');
