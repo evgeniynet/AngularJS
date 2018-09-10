@@ -43,6 +43,10 @@
 
     </template> 
 
+<!-- New Contract -->
+    <select-list [list]="selects.contract" preload="true" (onChanged)='saveSelect($event)'></select-list>
+<!--End Contract-->
+
  <!-- New Custom fields-->
 <hr class="color-bg" *ngIf="customfields.length">
   <div *ngFor="let customfield of customfields">
