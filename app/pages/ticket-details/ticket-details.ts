@@ -391,10 +391,9 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
      let account_id = data.account_id || -1;
      this.username = getFullName(data.user_firstname, data.user_lastname, data.user_email);
      this.techname = getFullName(data.technician_firstname || data.tech_firstname, data.technician_lastname || data.tech_lastname, data.technician_email || data.tech_email);
-     let contract_id = (data.default_contract_id || {}).id || data.default_contract_id || 0;
+     let contract_id = data.default_contract_id || 0;
      let contract_name = data.default_contract_name;
-     console.log("data",data); 
-     console.log("contract_id", contract_id);
+    
      this.select_button = {
        "tech": {
          name: "Tech",
@@ -845,7 +844,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
        "default_contract_id": this.selects.contract.selected,
        "default_contract_name": this.selects.contract.value
      };
-     console.log("data", data);
+
      this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(
        data => {
          this.nav.alert(this.config.current.names.ticket.s + ' was successfully updated :)');
