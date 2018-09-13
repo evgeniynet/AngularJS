@@ -35,7 +35,6 @@ export class TicketCreatePage {
         this.he = this.config.getCurrent("user");
 
         this.data = this.navParams.data || {};
-        console.log("data", this.data);
 
         let recent : any = {};
 
@@ -43,7 +42,6 @@ export class TicketCreatePage {
             {
                 recent = this.config.current.recent || {};
             }
-         console.log("recent", recent);
 
         let account_id = (this.data.account || {}).id || (recent.account || {}).selected || this.he.account_id || -1;
         let location_id = (this.data.location || {}).id || (recent.location || {}).selected || 0;
@@ -207,7 +205,6 @@ export class TicketCreatePage {
 
    getCustomfield(class_id)
    {
-       console.log("class_id", class_id);
        if (class_id == 0)
            return this.customfields = [];
      this.ticketProvider.getCustomfields(class_id, this.pager).subscribe(
