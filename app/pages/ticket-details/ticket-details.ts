@@ -11,7 +11,7 @@ import {LocationListComponent} from '../../components/location-list/location-lis
 import {CloseTicketModal, TransferTicketModal} from '../../pages/modals/modals';
 import {TimelogPage} from '../../pages/timelog/timelog'; 
 import {ExpenseCreatePage} from '../../pages/expense-create/expense-create';
-import {GravatarPipe, LinebreaksPipe, DaysoldPipe, HtmlsafePipe} from '../../pipes/pipes';
+import {GravatarPipe, LinebreaksPipe, DaysoldPipe, DaysagoPipe, HtmlsafePipe} from '../../pipes/pipes';
 import {AddFilesModal} from '../../pages/modals/add-files/add-files';
 import {TodoListComponent} from '../../components/todo-list/todo-list';
 import {Component, ElementRef, Input, OnInit, ViewChild, Renderer, Output, EventEmitter, forwardRef} from "@angular/core";
@@ -317,7 +317,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
  @Page({
    templateUrl: 'build/pages/ticket-details/ticket-details.html',
    directives: [TodoListComponent, CustomFieldComponent, PostsListComponent, forwardRef(() => SelectListComponent), forwardRef(() => ClassListComponent), forwardRef(() => LocationListComponent), UploadButtonComponent],
-   pipes: [GravatarPipe, LinebreaksPipe, DaysoldPipe, HtmlsafePipe],
+   pipes: [GravatarPipe, LinebreaksPipe, DaysoldPipe, DaysagoPipe, HtmlsafePipe],
  })
  export class TicketDetailsPage {
 
