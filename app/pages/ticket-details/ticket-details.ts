@@ -388,7 +388,6 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
    }
 
    initSelects(data){
-     console.log("data", data);
      let account_id = data.account_id || -1;
      this.username = getFullName(data.user_firstname, data.user_lastname, data.user_email);
      this.techname = getFullName(data.technician_firstname || data.tech_firstname, data.technician_lastname || data.tech_lastname, data.technician_email || data.tech_email);
@@ -840,7 +839,8 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
        "tech_id": this.selects.tech.selected,
        "user_id": this.selects.user.selected,
        "customfields_xml": customfields_xml,
-       "DefaultRatePlanContractId": this.selects.contract.selected
+       "DefaultRatePlanContractId": this.selects.contract.selected,
+       "DefaultRatePlanContractName": this.selects.contract.value
      };
      console.log("data", data);
      this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(
@@ -982,24 +982,18 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
      this.next_step = name2.viewModel;
    }
 
-   saveSubject() {
+   ChangeSubject() {
      if (!this.subject || this.subject == "")
      this.subject = this.ticket.subject; 
      if (!this.next_step || this.next_step == "")
      this.next_step = this.ticket.next_step; 
-
-     this.next_step_date = new Date().toJSON();
-
-            let save = {
-                "subject": this.subject,
-                "next_step": this.next_step           
-            };
-            console.log("save", save);
-            this.ticketProvider.closeOpenTicket(this.ticket.key, save).subscribe(
+     this.next_step_date = new Date().toJSON();        
+            
+            this.ticketProvider.addTicketSubject(this.ticket.key, this.subject, this.next_step).subscribe(
        data => {
-         this.nav.alert(this.config.current.names.ticket.s + ' has been saved :)');
-         this.ticket.subject = save.subject;
-         this.ticket.next_step = save.next_step;
+         this.nav.alert('Subject on the' + this.config.current.names.ticket.s + ' has been changed :)');
+         this.ticket.subject = this.subject;
+         this.ticket.next_step = this.next_step;
          this.ticket.next_step_date = this.next_step_date;
          this.showSubjChange = !this.showSubjChange;
        },

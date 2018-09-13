@@ -164,6 +164,15 @@ export class TicketProvider {
             };
             return this.apiData.get(url, data, "POST");
         }
+        addTicketSubject(id, subject, next_step) {
+            let url = `${this.URL}/${id}`;
+            let data = {
+                "action": "subject",
+                "subject": subject,
+                "next_step": next_step,
+            };
+            return this.apiData.get(url, data, "POST");
+        }
 
         getCustomfields(class_id, pager) {
             let url = addp("customfields", "class_id", class_id);
