@@ -251,8 +251,8 @@ export class TicketCreatePage {
             this.ticket.priority_id = this.selects.priority.selected;
             this.ticket.level = this.selects.level.selected;
             this.ticket.customfields_xml = customfields_xml;
-            this.ticket.DefaultRatePlanContractId = this.selects.contract.selected;
-            this.ticket.DefaultRatePlanContractName = this.selects.contract.value;
+            this.ticket.default_contract_id = this.selects.contract.selected;
+            this.ticket.default_contract_name = this.selects.contract.value;
 
             this.ticketProvider.addTicket(this.ticket).subscribe(
                 data => {

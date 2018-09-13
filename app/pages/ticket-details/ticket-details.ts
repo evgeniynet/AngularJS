@@ -391,7 +391,10 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
      let account_id = data.account_id || -1;
      this.username = getFullName(data.user_firstname, data.user_lastname, data.user_email);
      this.techname = getFullName(data.technician_firstname || data.tech_firstname, data.technician_lastname || data.tech_lastname, data.technician_email || data.tech_email);
-     let contract_id = (data.DefaultRatePlanContractId || {}).id || data.DefaultRatePlanContractId || 0;
+     let contract_id = (data.default_contract_id || {}).id || data.default_contract_id || 0;
+     let contract_name = data.default_contract_name;
+     console.log("data",data); 
+     console.log("contract_id", contract_id);
      this.select_button = {
        "tech": {
          name: "Tech",
@@ -432,7 +435,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
        },
        "contract" : { 
          name: "Contract", 
-         value: (contract_id || {}).value || "Choose",
+         value: contract_name || "Choose",
          selected: contract_id || this.config.getRecent("contract").selected || 0,
          url: `contracts?account_id=${account_id}`,
          hidden: false    
@@ -839,8 +842,8 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
        "tech_id": this.selects.tech.selected,
        "user_id": this.selects.user.selected,
        "customfields_xml": customfields_xml,
-       "DefaultRatePlanContractId": this.selects.contract.selected,
-       "DefaultRatePlanContractName": this.selects.contract.value
+       "default_contract_id": this.selects.contract.selected,
+       "default_contract_name": this.selects.contract.value
      };
      console.log("data", data);
      this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(
@@ -991,7 +994,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
             
             this.ticketProvider.addTicketSubject(this.ticket.key, this.subject, this.next_step).subscribe(
        data => {
-         this.nav.alert('Subject on the' + this.config.current.names.ticket.s + ' has been changed :)');
+         this.nav.alert('Subject on the ' + this.config.current.names.ticket.s + ' has been changed :)');
          this.ticket.subject = this.subject;
          this.ticket.next_step = this.next_step;
          this.ticket.next_step_date = this.next_step_date;
