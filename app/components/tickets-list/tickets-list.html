@@ -12,6 +12,7 @@
         <div class="alignment">
         <li>
        <h2><ion-icon *ngIf="(ticket.is_new_tech_post && ticket.technician_email != he.email) || (ticket.is_new_user_post && ticket.user_email != he.email)" dark name="mail">&nbsp;</ion-icon><span *ngIf="ticket.status == 'On Hold'" style="color:#CA7C16 !important">(On&nbsp;Hold)&nbsp;</span>{{ticket.subject | Htmlsafe}}</h2>
+       <h4 *ngIf="ticket.next_step != ''" class="width90 span-left " style="margin-top: -5px; margin-bottom: 5px; padding: 0px !important;">( {{ticket.next_step}} - <span class="grey3_color"><!--{{ticket.next_step_date}}--> 1 days ago</span> )</h4>
             <h3 [innerHTML]="ticket.initial_post | Linebreaks"></h3>
             <p>{{ticket.class_name}}&nbsp;</p></li></div>
     </a>
