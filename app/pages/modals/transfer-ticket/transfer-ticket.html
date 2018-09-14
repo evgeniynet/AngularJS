@@ -18,7 +18,7 @@
     <form #addForm="ngForm" class="response-ticket">
       
       <template  [ngIf]="config.current.is_confirmation_tracking">
-        <ion-item no-lines class="left toggle-width" style="z-index: 9;">
+        <ion-item no-lines class="left toggle-width">
       <ion-toggle class="toggle" [(ngModel)]="keep_attached" disabled='false'></ion-toggle>
     </ion-item>
     <p style="width: 80%" class="left text-toggle color">Keep {{ticket.tech_firstname}} {{ticket.tech_lastname}} attached to this {{config.current.names.ticket.s}}</p>  
