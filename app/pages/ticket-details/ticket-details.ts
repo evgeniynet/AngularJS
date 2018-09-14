@@ -998,6 +998,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
          this.ticket.next_step = this.next_step;
          this.ticket.next_step_date = this.next_step_date;
          this.showSubjChange = !this.showSubjChange;
+         this.ticketProvider.getTicketsList(this.cachename, "", "",{ "limit": 25 });
        },
        error => {
          this.nav.alert(error, true);
