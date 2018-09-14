@@ -7,10 +7,11 @@ import {ClassListComponent} from '../../../components/class-list/class-list';
 import {LocationListComponent} from '../../../components/location-list/location-list';
 import {SelectListComponent} from '../../../components/select-list/select-list';
 import {UploadButtonComponent} from '../../../pages/ticket-details/ticket-details';
+import {CustomFieldComponent} from '../../../components/custom-field/custom-field';
 
 @Page({
     templateUrl: 'build/pages/modals/ticket-create/ticket-create.html',
-    directives: [forwardRef(() => ClassListComponent), forwardRef(() => LocationListComponent), forwardRef(() => SelectListComponent), UploadButtonComponent],
+    directives: [forwardRef(() => ClassListComponent), forwardRef(() => LocationListComponent), forwardRef(() => CustomFieldComponent), forwardRef(() => SelectListComponent), UploadButtonComponent],
 })
 export class TicketCreatePage {
 
@@ -21,6 +22,8 @@ export class TicketCreatePage {
     selects: any;
     fileDest: any = {ticket: "11"};
     files: any = [];
+    customfields: any = [];
+    pager: any;
 
     constructor(private nav: Nav, private navParams: NavParams, private ticketProvider: TicketProvider, private config: Config,
                  private viewCtrl: ViewController) {
@@ -36,13 +39,13 @@ export class TicketCreatePage {
         let recent : any = {};
 
         if (!this.data.account)
-            {
+        {
                 recent = this.config.current.recent || {};
-            }
-
+        }
 
         let account_id = (this.data.account || {}).id || (recent.account || {}).selected || this.he.account_id || -1;
         let location_id = (this.data.location || {}).id || (recent.location || {}).selected || 0;
+        let contract_id = recent.default_contract_id || 0;
 
         this.selects = {
             "user" : {
@@ -66,6 +69,13 @@ export class TicketCreatePage {
                 url: `projects?account=${account_id}&is_with_statistics=false`,
                 hidden: false
             },
+            "contract" : { 
+                    name: "Contract", 
+                    value: recent.default_contract_name || "Choose",
+                    selected: recent.default_contract_id || this.config.getRecent("contract").selected || 0,
+                    url: `contracts?account_id=${account_id}`,
+                    hidden: false    
+                },
             "class" : {
                 name: "Class", 
                 value: (recent.class || {}).value || "Default",
@@ -88,6 +98,9 @@ export class TicketCreatePage {
                  hidden: !this.config.current.is_tech_choose_levels && !this.config.current.user.is_admin
            }
         };
+
+        if(this.selects.class.selected > 0)
+            this.getCustomfield(recent.class.selected);
 
         this.selects.tech = {
             name: "Tech", 
@@ -114,8 +127,10 @@ export class TicketCreatePage {
             "location_id": location_id,
             "user_id" : this.he.user_id,
             "tech_id" : 0,
+            "default_contract_id": contract_id,
             "priority_id" : 0,
         };
+            this.getCustomfield(contract_id);
     }
 
     dismissPage(data) {
@@ -126,6 +141,7 @@ export class TicketCreatePage {
 
     saveSelect(event){
         let name = event.type;
+        let contract_id = this.selects.contract.selected;
         this.selects[name].selected = event.id;
         this.selects[name].value = event.name;
         //change url on related lists
@@ -135,12 +151,42 @@ export class TicketCreatePage {
                 this.selects.project.value = "Default";
                 this.selects.project.selected = 0;
 
+                this.selects.contract.url = `contracts?account_id=${event.id}`;
+                this.selects.contract.value = "Default";
+                this.selects.contract.selected = 0;
+                contract_id = 0;
+
                 this.selects.location.url = `locations?account=${event.id}&limit=500`;
                 this.selects.location.value = "Default";
                 this.selects.location.selected = 0;
                 break;
+            case "class" :
+                if (this.ticket.class_id == event.id)
+                    break;
+            
+              this.getCustomfield(event.id);
+              break;
         }
     }
+
+    saveCustomfield(event){
+     this.customfields.filter(tc => tc.id == event.id)[0].value = event.value;
+   }
+
+   getXML()
+   {
+      var customfield_xml = "";
+          for (var n = 0;  n < this.customfields.length; n++)
+         { 
+           if (this.customfields[n].required && this.customfields[n].value == "" || this.customfields[n].value == "0001-01-01T00:00:00.0000000"){
+             this.nav.alert(`Please add value to custom field: ${this.customfields[n].name}`, true);
+             return customfield_xml = "";
+           }
+           customfield_xml = customfield_xml + `<field id="${this.customfields[n].id}"><caption>${this.customfields[n].name}</caption><value>${this.customfields[n].value}</value></field>`;
+         }
+      return "<root>" + customfield_xml + "</root>";  
+
+   }
 
    uploadedFile(event)
    {
@@ -160,6 +206,19 @@ export class TicketCreatePage {
      }
    }
 
+   getCustomfield(class_id)
+   {
+       if (class_id == 0)
+           return this.customfields = [];
+     this.ticketProvider.getCustomfields(class_id, this.pager).subscribe(
+       data => {
+           this.customfields = data;
+       },
+       error => {
+         console.log(error || 'Server error');
+       }
+       );
+   }
 
     onSubmit(form) {
         /*if (!this.selects.tech.id)
@@ -179,6 +238,10 @@ export class TicketCreatePage {
             {
                 this.ticket.initial_post += "\n\nFollowing file" + (this.files.length > 1 ? "s were" : " was") + " uploaded: " + this.files.join(", ") +".";
             }
+            var customfields_xml = this.getXML();
+             if (customfields_xml == "") 
+               return;
+            
 
             this.ticket.class_id = this.selects.class.selected;
             this.ticket.account_id = this.selects.account.selected;
@@ -187,6 +250,9 @@ export class TicketCreatePage {
             this.ticket.tech_id = this.selects.tech.selected;
             this.ticket.priority_id = this.selects.priority.selected;
             this.ticket.level = this.selects.level.selected;
+            this.ticket.customfields_xml = customfields_xml;
+            this.ticket.default_contract_id = this.selects.contract.selected;
+            this.ticket.default_contract_name = this.selects.contract.value;
 
             this.ticketProvider.addTicket(this.ticket).subscribe(
                 data => {
@@ -196,6 +262,8 @@ export class TicketCreatePage {
                                        "location": this.selects.location,
                                                "project": this.selects.project,
                                                "class": this.selects.class,
+                                               "default_contract_id": this.selects.contract.selected,
+                                               "default_contract_name": this.selects.contract.value,
                                                "priority": this.selects.priority});
             }
                     if (this.files.length)

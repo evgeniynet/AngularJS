@@ -45,7 +45,6 @@ export class ClassListComponent {
              if (this.list.url) {
                  this.apiData.get(this.list.url).subscribe(
                      data => {
-                         
                          this.list.items = data;
                          this.proceed_list(show);
                          this.url = this.list.url;

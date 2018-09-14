@@ -6,7 +6,20 @@
 
 <ion-content>
   <ion-toolbar class="blue3 display_flex">
+  <div (click)="showSubjChange = !showSubjChange">
    <h4 class="width90">{{ticket.subject | Htmlsafe}}</h4>
+   <ion-icon name="md-create" style="font-size:1.8em; margin-top:9px" ></ion-icon>
+   <h5 *ngIf="ticket.next_step != ''" class="width90 span-left grey3_color" style="margin-top: -5px; margin-bottom: 5px; padding: 0px !important;">Next step: <span class="text-color">{{ticket.next_step}} - </span>  {{ticket.next_step_date | Daysago}}</h5>
+  </div>
+<div *ngIf="showSubjChange" class="span-left">
+   <ion-item no-lines class="labels" style="font-size: 1.5rem; background-color: transparent;">Subject:</ion-item>
+    <input  class="width90 blue3 subject-create commentText margin-bottom3"  style="background-color: rgba(255,255,255,0.1) !important;" placeholder="change Subject" required maxlength="200" (ngModelChange)="changeSubject(name1)" #name1="ngForm"  [ngModel]="ticket.subject"/>
+    <ion-item no-lines class="labels" style="font-size: 1.5rem; background-color: transparent;">Next step:</ion-item>
+    <input  class="width90 blue3 subject-create commentText margin-bottom10" style="background-color: rgba(255,255,255,0.1) !important;" placeholder="add Next step" required maxlength="200" (ngModelChange)="changeNextStep(name2)" #name2="ngForm" [ngModel]="ticket.next_step"/>
+    <button secondary class="left indent-bottom width30 cancelSubject" (click)="cancelSubject()"  type="submit">Cancel</button>
+    <button secondary class="button_reply right indent-bottom width30 ChangeSubject" (click)="ChangeSubject()"  type="submit">Save</button>
+
+</div>
    <span no-lines class="span-left">
     <p *ngIf="config.current.is_class_tracking && ticket.class_name"><u>Class</u>:&nbsp;{{ticket.class_name}}</p>
     <p><u>{{config.current.names.tech.a}}</u>: {{techname}}</p>
@@ -94,6 +107,10 @@
 
   <select-list preload="true" [list]="selects.project" (onChanged)='saveSelect($event)'></select-list>
 
+  <!-- New Contract -->
+    <select-list [list]="selects.contract" preload="true" (onChanged)='saveSelect($event)'></select-list>
+<!--End Contract-->
+
 <!-- New Custom fields-->
 <hr class="color-bg" *ngIf="customfields.length">
   <div *ngFor="let customfield of customfields">
@@ -138,7 +155,7 @@
     <button *ngIf="config.current.is_onhold_status" (click)="onHold()" block type="submit" class="blue2 disable-hover button button-default button-block class-margin">{{  ticket.status == "OnHold" ? ("ReOpen " + config.current.names.ticket.s) : "Place On Hold" }}</button>
     <button *ngIf="config.current.is_expenses" (click)="addExpense()" block type="submit" class="blue2 disable-hover button button-default button-block class-margin">Add Expense</button>
 
-    <select-list  class="class-margin" preload="true" [isbutton]="true" [list]="select_button.tech" (onChanged)='transferTicket($event)'></select-list>
+    <button (click)='transferTicket()' block type="submit" class="blue2 class-margin">Transfer {{config.current.names.ticket.s}}</button>
 
     <button *ngIf="(ticket.technician_email || ticket.tech_email) != he.email" (click)='pickUp()' block type="submit" class="blue2 class-margin">Pick Up {{config.current.names.ticket.s}}</button>
 

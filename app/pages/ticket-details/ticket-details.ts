@@ -8,10 +8,10 @@ import {PostsListComponent} from '../../components/posts-list/posts-list';
 import {SelectListComponent}  from '../../components/select-list/select-list';
 import {ClassListComponent} from '../../components/class-list/class-list';
 import {LocationListComponent} from '../../components/location-list/location-list';
-import {CloseTicketModal} from '../../pages/modals/modals';
+import {CloseTicketModal, TransferTicketModal} from '../../pages/modals/modals';
 import {TimelogPage} from '../../pages/timelog/timelog'; 
 import {ExpenseCreatePage} from '../../pages/expense-create/expense-create';
-import {GravatarPipe, LinebreaksPipe, DaysoldPipe, HtmlsafePipe} from '../../pipes/pipes';
+import {GravatarPipe, LinebreaksPipe, DaysoldPipe, DaysagoPipe, HtmlsafePipe} from '../../pipes/pipes';
 import {AddFilesModal} from '../../pages/modals/add-files/add-files';
 import {TodoListComponent} from '../../components/todo-list/todo-list';
 import {Component, ElementRef, Input, OnInit, ViewChild, Renderer, Output, EventEmitter, forwardRef} from "@angular/core";
@@ -317,7 +317,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
  @Page({
    templateUrl: 'build/pages/ticket-details/ticket-details.html',
    directives: [TodoListComponent, CustomFieldComponent, PostsListComponent, forwardRef(() => SelectListComponent), forwardRef(() => ClassListComponent), forwardRef(() => LocationListComponent), UploadButtonComponent],
-   pipes: [GravatarPipe, LinebreaksPipe, DaysoldPipe, HtmlsafePipe],
+   pipes: [GravatarPipe, LinebreaksPipe, DaysoldPipe, DaysagoPipe, HtmlsafePipe],
  })
  export class TicketDetailsPage {
 
@@ -325,6 +325,9 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
    ticket: any = {};
    userphone: string;
    customfields: any = [];
+   subject: any;
+   next_step: any;
+   next_step_date: any;
    pager: any;
    details_tab: string;
    active: boolean;
@@ -342,6 +345,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
    fileDest: any = {ticket: ""};
    files: any = [];
    is_showlogs: boolean = false;
+   showSubjChange: boolean;
    posts: any = [
    {
      "id": 0,
@@ -387,6 +391,9 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
      let account_id = data.account_id || -1;
      this.username = getFullName(data.user_firstname, data.user_lastname, data.user_email);
      this.techname = getFullName(data.technician_firstname || data.tech_firstname, data.technician_lastname || data.tech_lastname, data.technician_email || data.tech_email);
+     let contract_id = data.default_contract_id || 0;
+     let contract_name = data.default_contract_name;
+    
      this.select_button = {
        "tech": {
          name: "Tech",
@@ -425,6 +432,13 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
          url: `projects?account=${account_id}&is_with_statistics=false`,
          hidden: false
        },
+       "contract" : { 
+         name: "Contract", 
+         value: contract_name || "Choose",
+         selected: contract_id || this.config.getRecent("contract").selected || 0,
+         url: `contracts?account_id=${account_id}`,
+         hidden: false    
+                },
        "level": {
          name: "Level",
          value: data.level_name ? (data.level + " - " + data.level_name) : "( Not Set )",
@@ -503,15 +517,21 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
 
    getCustomfield(class_id)
    {
+     if (class_id == 0)
+           return this.customfields = [];
      this.ticketProvider.getCustomfields(class_id, this.pager).subscribe(
        data => {
          if (data.length == 0){
            this.customfields = data;
            return;
          }
+         if (this.ticket.customfields.length != data.length) {
+           this.customfields = data;
+         return;
+         }
          for (var n = 0; n<this.ticket.customfields.length; n++)
          { 
-           (data.filter(tc => tc.id.toString() == this.ticket.customfields[n].id.toString())[0] || {}).value = this.ticket.customfields[n].value;
+           data.filter(tc => tc.id.toString() == this.ticket.customfields[n].id.toString())[0].value = this.ticket.customfields[n].value;
          }
          this.customfields = data;
        },
@@ -530,7 +550,6 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
      }
      
      this.ticket = data;
-
      this.is_editworkpad = !(this.ticket.workpad || "").length;
      this.ticket.customfields = [];
      this.ticket.mailto = `r.${this.config.current.org}.${this.config.current.instance}.${data.key}@app.sherpadesk.com`;
@@ -573,6 +592,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
      let name = event.type;
      this.selects[name].selected = event.id;
      this.selects[name].value = event.name;
+     let contract_id = this.selects.contract.selected;
 
       switch (name) {
             case "account" :
@@ -582,6 +602,11 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
                 this.selects.project.value = "Default";
                 this.selects.project.selected = 0;
 
+                this.selects.contract.url = `contracts?account_id=${event.id}`;
+                this.selects.contract.value = "Default";
+                this.selects.contract.selected = 0;
+                contract_id = 0;
+                
                 this.selects.location.url = `locations?account=${event.id}&limit=500`;
                 this.selects.location.value = "Default";
                 this.selects.location.selected = 0;
@@ -805,6 +830,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
      if (customfields_xml == "") {
        return;
      }
+     console.log("selects", this.selects);
      let data = {
        "class_id": this.selects.class.selected,
        "level_id": this.selects.level.selected,
@@ -814,7 +840,9 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
        "account_id": this.selects.account.selected,
        "tech_id": this.selects.tech.selected,
        "user_id": this.selects.user.selected,
-       "customfields_xml": customfields_xml
+       "customfields_xml": customfields_xml,
+       "default_contract_id": this.selects.contract.selected,
+       "default_contract_name": this.selects.contract.value
      };
 
      this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(
@@ -828,30 +856,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
        );
    }
 
-   transferTicket(event) {
-     if (!event)
-       return;
-     let techid = event.id;
-     this.select_button.tech.selected = techid;
-     this.select_button.tech.value = "Transfer " + this.config.current.names.ticket.s;
-
-     let data = {
-       "tech_id": techid
-     };
-
-     this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(
-       data => {
-         this.nav.alert(this.config.current.names.ticket.s + ' has been transferred :)');
-         this.techname = this.selects.tech.value = this.ticket.tech_firstname = event.name;
-         this.ticket.tech_lastname = this.ticket.tech_email = "";
-         this.selects.tech.selected = techid;
-       },
-       error => {
-         this.nav.alert(error, true);
-         console.log(error || 'Server error');
-       }
-       );
-   }
+   
 
    pickUp() {
 
@@ -958,6 +963,56 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
      });
      this.nav.present(myModal);
    }  
+
+   transferTicket() {
+     let myModal = Modal.create(TransferTicketModal, { "number": this.ticket.number, "key": this.ticket.key, "subject": this.ticket.subject,  "tech_firstname": this.ticket.tech_firstname, "tech_lastname": this.ticket.tech_lastname});
+     myModal.onDismiss(data => {
+       if (data){
+         this.techname = this.selects.tech.value = this.ticket.tech_firstname = data.name;
+         this.ticket.tech_lastname = this.ticket.tech_email = "";
+         this.selects.tech.selected = data.id;
+       }
+     });
+     this.nav.present(myModal);
+   }  
+
+   changeSubject(name1){
+     this.subject = name1.viewModel;
+   }
+
+   changeNextStep(name2){
+     this.next_step = name2.viewModel;
+   }
+
+   ChangeSubject() {
+     if (!this.subject || this.subject == "")
+     this.subject = this.ticket.subject; 
+     if (!this.next_step || this.next_step == "") 
+     this.next_step = this.ticket.next_step; 
+     this.next_step_date = new Date().toJSON();    
+            
+            this.ticketProvider.addTicketSubject(this.ticket.key, this.subject, this.next_step).subscribe(
+       data => {
+         this.nav.alert('Subject on the ' + this.config.current.names.ticket.s + ' has been changed :)');
+         this.ticket.subject = this.subject;
+         if (this.ticket.next_step != this.next_step)
+           this.ticket.next_step_date = this.next_step_date;
+         this.ticket.next_step = this.next_step;  
+         this.showSubjChange = !this.showSubjChange;
+         this.ticketProvider.getTicketsList(this.cachename, "", "",{ "limit": 25 });
+       },
+       error => {
+         this.nav.alert(error, true);
+         console.log(error || 'Server error');
+       }
+       );
+      }
+    
+   cancelSubject(){
+     this.changeSubject(this.ticket.subject);
+     this.changeNextStep(this.ticket.next_step);
+     this.showSubjChange = !this.showSubjChange;
+   }
 
    addTime()
    {

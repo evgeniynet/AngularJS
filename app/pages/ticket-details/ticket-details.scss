@@ -74,6 +74,7 @@ textarea{
     padding-bottom: 20px !important;
     display: inline-block;
     padding-left: 0px !important;
+    z-index:9;
 }
 
 .toggle-width{
@@ -88,7 +89,6 @@ textarea{
      margin-top: 0px !important;
 }
 
-
 .display_flex{
    
   h4{
@@ -98,11 +98,15 @@ textarea{
     overflow: hidden;
     line-height: 24px;
     text-overflow: ellipsis;
-    margin-top: 0px;
+    margin-top: 5px;
+    margin-bottom:0px;
     padding: 0px !important;
     width: 100%;
      margin-left: 15px;
        float: left;
+}
+    h5{
+    font-size: 1.5rem !important;
 }
 
 
@@ -173,4 +177,15 @@ font-size: 1.2rem !important;
 }
 ion-searchbar .searchbar-input {
     padding-right: 0;
+}
+.ChangeSubject {
+    height: 2em;
+    margin-right:10%;
+}
+.cancelSubject {
+    background-color: transparent !important;
+    border: 2px solid #fff !important;
+    margin-bottom: 5px !important;
+    height: 2em;
+    margin-right:10%;
 }
