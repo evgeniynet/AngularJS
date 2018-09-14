@@ -9,7 +9,7 @@
   <div (click)="showSubjChange = !showSubjChange">
    <h4 class="width90">{{ticket.subject | Htmlsafe}}</h4>
    <ion-icon name="md-create" style="font-size:1.8em; margin-top:9px" ></ion-icon>
-   <h5 *ngIf="ticket.next_step != ''" class="width90 span-left grey3_color" style="margin-top: -5px; margin-bottom: 5px; padding: 0px !important;">Next step: <span class="text-color">{{ticket.next_step}}</span>  {{ticket.next_step_date | Daysago}}</h5>
+   <h5 *ngIf="ticket.next_step != ''" class="width90 span-left grey3_color" style="margin-top: -5px; margin-bottom: 5px; padding: 0px !important;">Next step: <span class="text-color">{{ticket.next_step}} - </span>  {{ticket.next_step_date | Daysago}}</h5>
   </div>
 <div *ngIf="showSubjChange" class="span-left">
    <ion-item no-lines class="labels" style="font-size: 1.5rem; background-color: transparent;">Subject:</ion-item>

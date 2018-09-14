@@ -42,10 +42,12 @@ export class TicketCreatePage {
             {
                 recent = this.config.current.recent || {};
             }
+            if(recent.class.selected != 0 || recent.class.selected)
+            this.getCustomfield(recent.class.selected);
 
         let account_id = (this.data.account || {}).id || (recent.account || {}).selected || this.he.account_id || -1;
         let location_id = (this.data.location || {}).id || (recent.location || {}).selected || 0;
-        let contract_id = (this.data.contract || {}).id || this.data.contract_id || (recent.contract || {}).selected || 0;
+        let contract_id = recent.default_contract_id || 0;
 
         this.selects = {
             "user" : {
@@ -71,8 +73,8 @@ export class TicketCreatePage {
             },
             "contract" : { 
                     name: "Contract", 
-                    value: (recent.contract || {}).value || "Choose",
-                    selected: this.data.contract_id || this.config.getRecent("contract").selected || 0,
+                    value: recent.default_contract_name || "Choose",
+                    selected: recent.default_contract_id || this.config.getRecent("contract").selected || 0,
                     url: `contracts?account_id=${account_id}`,
                     hidden: false    
                 },
@@ -124,7 +126,7 @@ export class TicketCreatePage {
             "location_id": location_id,
             "user_id" : this.he.user_id,
             "tech_id" : 0,
-            "contract_id": contract_id,
+            "default_contract_id": contract_id,
             "priority_id" : 0,
         };
             this.getCustomfield(contract_id);
@@ -259,7 +261,8 @@ export class TicketCreatePage {
                                        "location": this.selects.location,
                                                "project": this.selects.project,
                                                "class": this.selects.class,
-                                               "contract_id": this.selects.contract.selected,
+                                               "default_contract_id": this.selects.contract.selected,
+                                               "default_contract_name": this.selects.contract.value,
                                                "priority": this.selects.priority});
             }
                     if (this.files.length)

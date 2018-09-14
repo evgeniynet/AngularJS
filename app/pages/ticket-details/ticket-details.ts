@@ -987,16 +987,17 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
    ChangeSubject() {
      if (!this.subject || this.subject == "")
      this.subject = this.ticket.subject; 
-     if (!this.next_step || this.next_step == "")
+     if (!this.next_step || this.next_step == "") 
      this.next_step = this.ticket.next_step; 
-     this.next_step_date = new Date().toJSON();        
+     this.next_step_date = new Date().toJSON();    
             
             this.ticketProvider.addTicketSubject(this.ticket.key, this.subject, this.next_step).subscribe(
        data => {
          this.nav.alert('Subject on the ' + this.config.current.names.ticket.s + ' has been changed :)');
          this.ticket.subject = this.subject;
-         this.ticket.next_step = this.next_step;
-         this.ticket.next_step_date = this.next_step_date;
+         if (this.ticket.next_step != this.next_step)
+           this.ticket.next_step_date = this.next_step_date;
+         this.ticket.next_step = this.next_step;  
          this.showSubjChange = !this.showSubjChange;
          this.ticketProvider.getTicketsList(this.cachename, "", "",{ "limit": 25 });
        },
