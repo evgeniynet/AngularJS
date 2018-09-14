@@ -39,11 +39,9 @@ export class TicketCreatePage {
         let recent : any = {};
 
         if (!this.data.account)
-            {
+        {
                 recent = this.config.current.recent || {};
-            }
-            if(recent.class.selected != 0 || recent.class.selected)
-            this.getCustomfield(recent.class.selected);
+        }
 
         let account_id = (this.data.account || {}).id || (recent.account || {}).selected || this.he.account_id || -1;
         let location_id = (this.data.location || {}).id || (recent.location || {}).selected || 0;
@@ -100,6 +98,9 @@ export class TicketCreatePage {
                  hidden: !this.config.current.is_tech_choose_levels && !this.config.current.user.is_admin
            }
         };
+
+        if(this.selects.class.selected > 0)
+            this.getCustomfield(recent.class.selected);
 
         this.selects.tech = {
             name: "Tech", 
