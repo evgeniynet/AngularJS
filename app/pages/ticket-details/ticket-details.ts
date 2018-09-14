@@ -875,6 +875,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
          this.techname = this.selects.tech.value = this.ticket.tech_firstname = getFullName(this.he.firstname, this.he.lastname, this.he.email);
          this.ticket.tech_lastname = this.ticket.tech_email = "";
          this.selects.tech.selected = this.he.user_id;
+         this.getPosts(this.ticket.key);
        },
        error => {
          this.nav.alert(error, true);
@@ -971,6 +972,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
          this.techname = this.selects.tech.value = this.ticket.tech_firstname = data.name;
          this.ticket.tech_lastname = this.ticket.tech_email = "";
          this.selects.tech.selected = data.id;
+         this.getPosts(this.ticket.key);
        }
      });
      this.nav.present(myModal);
