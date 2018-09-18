@@ -8,7 +8,7 @@ import {PostsListComponent} from '../../components/posts-list/posts-list';
 import {SelectListComponent}  from '../../components/select-list/select-list';
 import {ClassListComponent} from '../../components/class-list/class-list';
 import {LocationListComponent} from '../../components/location-list/location-list';
-import {CloseTicketModal, TransferTicketModal} from '../../pages/modals/modals';
+import {CloseTicketModal, TransferTicketModal, ChangeUserModal} from '../../pages/modals/modals';
 import {TimelogPage} from '../../pages/timelog/timelog'; 
 import {ExpenseCreatePage} from '../../pages/expense-create/expense-create';
 import {GravatarPipe, LinebreaksPipe, DaysoldPipe, DaysagoPipe, HtmlsafePipe} from '../../pipes/pipes';
@@ -972,6 +972,19 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
          this.techname = this.selects.tech.value = this.ticket.tech_firstname = data.name;
          this.ticket.tech_lastname = this.ticket.tech_email = "";
          this.selects.tech.selected = data.id;
+         this.getPosts(this.ticket.key);
+       }
+     });
+     this.nav.present(myModal);
+   }  
+
+   changeUser() {
+     let myModal = Modal.create(ChangeUserModal, { "number": this.ticket.number, "key": this.ticket.key, "subject": this.ticket.subject,  "user_firstname": this.ticket.user_firstname, "user_lastname": this.ticket.user_lastname});
+     myModal.onDismiss(data => {
+       if (data){
+         this.username = this.selects.user.value = this.ticket.user_firstname = data.name;
+         this.ticket.user_lastname = this.ticket.user_email = "";
+         this.selects.user.selected = data.id;
          this.getPosts(this.ticket.key);
        }
      });

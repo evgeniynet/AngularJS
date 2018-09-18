@@ -9,7 +9,7 @@ import {AddUserModal} from '../modals';
 })
 
 export class InfinitySelectModal {
-
+   
     items: any;
     url: string;
     name: string;
@@ -17,6 +17,7 @@ export class InfinitySelectModal {
     data: any;
     count: number;
     is_empty: boolean;
+    is_alt: boolean;
     busy: boolean;
     pager: any;
     isbutton: boolean;
@@ -40,7 +41,12 @@ export class InfinitySelectModal {
         this.isnew_enabled = !!~["user", "tech"].indexOf(this.name.toLowerCase());
         this.url = this.navParams.data.url || "";
         this.data = this.navParams.data.items || {};
+        this.is_alt = this.navParams.data.is_alt;
         this.items = this.data;
+        this.items.forEach(item => {
+        item.is_completed = false;
+          });
+        console.log("this.items", this.items);
         this.count = this.items.length;
         this.isbutton = this.navParams.data.isbutton;
         this.is_empty = false;
@@ -171,6 +177,7 @@ export class InfinitySelectModal {
                     if (infiniteScroll) {
                         infiniteScroll.complete();
                     }
+                    console.log(this.items);
                 },
                 error => {
                     if (timer) {

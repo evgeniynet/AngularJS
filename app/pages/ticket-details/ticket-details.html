@@ -91,7 +91,7 @@
 
 <div *ngSwitchWhen="'Info'" class="list max-width700 general-alignment">
   
-  <select-list is_me="true" ajax="true" [list]="selects.user" (onChanged)='saveSelect($event)' preload="true"></select-list>
+  <select-list is_alt="true" is_me="true" ajax="true" [list]="selects.user" (onChanged)='saveSelect($event)' preload="true"></select-list>
  
   <select-list [list]="selects.account" preload="true" ajax="true" (onChanged)='saveSelect($event)'></select-list>
 
@@ -154,6 +154,8 @@
     <button *ngIf="config.current.is_time_tracking" (click)="addTime()" block type="submit" class="blue2 disable-hover button button-default button-block class-margin">Add Time</button>
     <button *ngIf="config.current.is_onhold_status" (click)="onHold()" block type="submit" class="blue2 disable-hover button button-default button-block class-margin">{{  ticket.status == "OnHold" ? ("ReOpen " + config.current.names.ticket.s) : "Place On Hold" }}</button>
     <button *ngIf="config.current.is_expenses" (click)="addExpense()" block type="submit" class="blue2 disable-hover button button-default button-block class-margin">Add Expense</button>
+
+    <button (click)='changeUser()' block type="submit" class="blue2 class-margin">Change {{config.current.names.user.s}}</button>
 
     <button (click)='transferTicket()' block type="submit" class="blue2 class-margin">Transfer {{config.current.names.ticket.s}}</button>
 
