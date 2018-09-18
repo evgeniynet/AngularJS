@@ -16,6 +16,7 @@ export class SelectListComponent {
     @Input() isbutton: boolean;
     @Input() is_enabled: boolean = true;
     @Input() is_me: boolean;
+    @Input() is_alt: boolean;
     @Input() preload: boolean;
     @Input() ajax: boolean;
     @Output() public onChanged: EventEmitter<any> = new EventEmitter(false);
@@ -163,6 +164,7 @@ export class SelectListComponent {
 
              });
          this.list.items = results;
+         this.list.is_alt = this.is_alt;
      }
 
 

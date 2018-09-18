@@ -7,4 +7,5 @@ export * from './ticket-create/ticket-create';
 export * from './add-user/add-user';
 export * from './add-files/add-files';
 export * from './transfer-ticket/transfer-ticket';
+export * from './change-user/change-user';
 export * from './privacy/privacy';
