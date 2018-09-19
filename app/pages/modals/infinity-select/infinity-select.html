@@ -24,15 +24,15 @@
             <h2 class="color" style="margin-top:8px"> &nbsp;&nbsp;&nbsp;Invite new {{name}} {{is_empty ? '"'+term+'"' : ""}}</h2>
         </a>
         <!-- if alt user or alt tech-->
-        <a *ngIf="is_alt" detail-none href=# ion-item class="basic-margin text-left" *ngFor="let item of items" > 
-           <!-- <ion-icon [ngClass]="{'ion-ios-checkmark-circle secondary' : item.is_completed, 'ion-ios-radio-button-on grey2' : !item.is_completed}" class="font18 todos-padding margin-top3" style="float:left;"></ion-icon>-->
+        <a *ngIf="is_alt" detail-none href=# ion-item class="basic-margin text-left" *ngFor="let item of items" (click)="item.is_completed = !item.is_completed"> 
+            <ion-icon [ngClass]="{'ion-ios-checkmark-circle secondary' : item.is_completed, 'ion-ios-radio-button-on grey2' : !item.is_completed}" class="font18 todos-padding margin-top3" style="float:left;"></ion-icon>
             <h2 class="color">{{item.name}}</h2>
            <h5 style="color: #cccaca;">visahelpp@gmail.com</h5>
         </a>
         <!-- end alt user or alt tech-->
 
         <!-- if NOT alt user or alt tech-->
-        <a detail-none href=# ion-item class="basic-margin text-left" *ngIf="is_alt" *ngFor="let item of items" (click)="dismiss(item)"> 
+        <a detail-none href=# ion-item class="basic-margin text-left" *ngIf="!is_alt" *ngFor="let item of items" (click)="dismiss(item)"> 
             <h2 class="color">{{item.name}}</h2>
         </a>
         <!-- end NOT alt user or alt tech-->
