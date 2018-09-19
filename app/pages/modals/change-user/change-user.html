@@ -17,16 +17,9 @@
 
     <form #addForm="ngForm" class="response-ticket">
       
-      <template [ngIf]="config.current.is_confirmation_tracking">
-        <ion-item no-lines class="left toggle-width">
-      <ion-toggle class="toggle" [(ngModel)]="keep_attached" disabled='false'></ion-toggle>
-    </ion-item>
-    <p style="width: 80%" class="left text-toggle color">Keep {{ticket.user_firstname}} {{ticket.user_lastname}} attached to this {{config.current.names.ticket.s}}</p>  
-</template> 
+      
 
-    <div class="tooltips">
-        <textarea class="width100 textLogin commentText" [(ngModel)]="ticketnote" type="text" placeholder="Add Change End User Note" ngControl="note" #note="ngForm" maxlength="4000"></textarea>
-        <span [hidden]="note.valid || note.untouched">Note should be less 5000 chars</span></div>
+
         <button secondary 
         class="button_reply img-top right" [disabled]="!addForm.valid" (click)="onSubmit(addForm)"  type="submit">Change {{config.current.names.user.s}} {{config.current.names.ticket.s}}</button>
     </form>

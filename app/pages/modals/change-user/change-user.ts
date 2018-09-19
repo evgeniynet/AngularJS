@@ -11,8 +11,6 @@ import {SelectListComponent} from '../../../components/select-list/select-list';
 })
 export class ChangeUserModal {
 
-    keep_attached: boolean;
-    ticketnote: string;
     ticket: any;
     selects: any;
 
@@ -25,7 +23,6 @@ export class ChangeUserModal {
 
     ngOnInit() {
 
-        this.keep_attached = false;
         console.log("name", this.config.current);
         this.ticket = this.navParams.data || 0;
 
@@ -54,12 +51,9 @@ export class ChangeUserModal {
     
     onSubmit(form) {
         if (form.valid) {
-            var post = htmlEscape((this.ticketnote || "").trim()).substr(0, 5000);
             let newuser = {
-                "note_text": post,
                 "name": this.selects.value,
                 "user_id": this.selects.selected,
-                "keep_attached": this.keep_attached
             };
             this.ticketProvider.closeOpenTicket(this.ticket.key, newuser).subscribe(
        data => {
