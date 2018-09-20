@@ -177,10 +177,17 @@ export class SelectListComponent {
  }
 
  emit_changed(value){
-     this.list.value = value.name;
+     console.log("value", value);
+     if (!value)
+         return;
+    for (var n = 0;  n < value.length; n++) 
+    this.list.value = this.list.value + value[n].name + ", ";
+      console.log("this.list.value", this.list.value);          
      value.type = this.list.name.split(' ').join('').toLowerCase();
+     console.log("value", value);
+     this.selected = this.list.value;
      this.onChanged.emit(value);
- }
+     }
 
  openRadio() {         
      let title=this.name;
@@ -225,12 +232,16 @@ export class SelectListComponent {
          this.list.isbutton = this.isbutton;
          let len = this.list.items.length || 0;
          let modal = len >= 25 && len%25 == 0  ? InfinitySelectModal : BasicSelectModal;
+         if(this.is_alt)
+             modal = InfinitySelectModal; 
          let myModal = Modal.create(modal, this.list);
+         let value = "";
          myModal.onDismiss(data => {
-             if (data.name) {
+                 console.log("this.list.value", this.list.value);
                  this.selected = data;
+                 console.log("this.selected", this.selected);
                  this.emit_changed(data);
-             }
+             
          });
          this.nav.present(myModal);
      }

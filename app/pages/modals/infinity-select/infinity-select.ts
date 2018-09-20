@@ -24,6 +24,7 @@ export class InfinitySelectModal {
     isdefault_enabled: boolean = false;
     isnew_enabled: boolean = false;
     date: any;
+    selected_items: any;
     
 
 
@@ -41,10 +42,11 @@ export class InfinitySelectModal {
         this.isnew_enabled = !!~["user", "tech"].indexOf(this.name.toLowerCase());
         this.url = this.navParams.data.url || "";
         this.data = this.navParams.data.items || {};
+        console.log("parametr",this.navParams.data);
         this.is_alt = this.navParams.data.is_alt;
         this.items = this.data;
         this.items.forEach(item => {
-        item.is_completed = false;
+        item.is_selected = false;
           });
         console.log("this.items", this.items);
         this.count = this.items.length;
@@ -67,8 +69,17 @@ export class InfinitySelectModal {
 
         dismiss(item) {
             //let data = { 'foo': 'bar' };
-            item = item || {};
+            
+            console.log("item",item);
+
+            if (!item || !item.length ) {
             this.viewCtrl.dismiss(item);
+            return;
+           }
+       
+            this.selected_items = item.filter((v) => v.is_selected);
+             console.log("this.selected_items",this.selected_items);
+            this.viewCtrl.dismiss(this.selected_items);
         }
 
         invite()
