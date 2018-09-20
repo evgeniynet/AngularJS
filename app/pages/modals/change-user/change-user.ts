@@ -23,7 +23,6 @@ export class ChangeUserModal {
 
     ngOnInit() {
 
-        console.log("name", this.config.current);
         this.ticket = this.navParams.data || 0;
 
         this.selects = {
