@@ -159,7 +159,7 @@ export class SelectListComponent {
                      id = item.prepaid_pack_id;
                  }
 
-                 results.push({id: id, name: name});
+                 results.push({id: id, name: name, email: item.email});
                  
 
              });
@@ -180,11 +180,24 @@ export class SelectListComponent {
      console.log("value", value);
      if (!value)
          return;
-    for (var n = 0;  n < value.length; n++) 
-    this.list.value = this.list.value + value[n].name + ", ";
-      console.log("this.list.value", this.list.value);          
+
+     if (this.is_alt)
+     {
+     let names = "";
+     let ids = "";
+     for (var n = 0;  n < value.length; n++) 
+       names += value[n].name + ", ";
+   //ids
+     this.list.value = names;
+     value = {
+         id: ids,
+         name: names,
+     };
+     }
+     else
+     this.list.value = value.name;
+
      value.type = this.list.name.split(' ').join('').toLowerCase();
-     console.log("value", value);
      this.selected = this.list.value;
      this.onChanged.emit(value);
      }
@@ -231,9 +244,7 @@ export class SelectListComponent {
          //TODO check counts: is more than 100 - do ajax
          this.list.isbutton = this.isbutton;
          let len = this.list.items.length || 0;
-         let modal = len >= 25 && len%25 == 0  ? InfinitySelectModal : BasicSelectModal;
-         if(this.is_alt)
-             modal = InfinitySelectModal; 
+         let modal = len >= 25 && len%25 == 0 || this.is_alt ? InfinitySelectModal : BasicSelectModal;
          let myModal = Modal.create(modal, this.list);
          let value = "";
          myModal.onDismiss(data => {
