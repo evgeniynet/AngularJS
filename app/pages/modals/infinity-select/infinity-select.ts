@@ -25,6 +25,8 @@ export class InfinitySelectModal {
     isnew_enabled: boolean = false;
     date: any;
     selected_items: any;
+    test_selected: any = [];
+
     
 
 
@@ -35,7 +37,8 @@ export class InfinitySelectModal {
     }
 
     ngOnInit() {
-        
+
+        this.test_selected = this.navParams.data.selected_items;
         this.term = '';
         this.name = this.navParams.data.name || "List";
         this.isdefault_enabled = !~["user", "account", "tech", "task type"].indexOf(this.name.toLowerCase());
@@ -44,6 +47,7 @@ export class InfinitySelectModal {
         this.data = this.navParams.data.items || {};
         console.log("parametr",this.navParams.data);
         this.is_alt = this.navParams.data.is_alt;
+        this.test_selected = this.navParams.data.selected_items;
         this.items = this.data;
         this.items.forEach(item => {
         item.is_selected = false;

@@ -17,6 +17,7 @@ export class SelectListComponent {
     @Input() is_enabled: boolean = true;
     @Input() is_me: boolean;
     @Input() is_alt: boolean;
+    @Input() test: boolean;
     @Input() preload: boolean;
     @Input() ajax: boolean;
     @Output() public onChanged: EventEmitter<any> = new EventEmitter(false);
@@ -59,7 +60,7 @@ export class SelectListComponent {
             return;
 
         if ( listname == "tech" || listname == "user")
-            this.name = (this.config.current.names[listname] || {}).a;
+            this.name = "Alt " + (this.config.current.names[listname] || {}).a;
         else
             this.name = (this.config.current.names[listname] || {}).s || this.list.name;
 
@@ -178,16 +179,18 @@ export class SelectListComponent {
 
  emit_changed(value){
      console.log("value", value);
-     if (!value)
-         return;
+     
+     if (!value || !value.length ) 
+        return;
 
      if (this.is_alt)
      {
      let names = "";
      let ids = "";
-     for (var n = 0;  n < value.length; n++) 
-       names += value[n].name + ", ";
-   //ids
+     for (var n = 0;  n < value.length; n++) {
+       names += value[n].name.replace("  (" +value[n].email+ ")", ",");
+       ids += value[n].id + ", ";
+     }
      this.list.value = names;
      value = {
          id: ids,
@@ -249,7 +252,10 @@ export class SelectListComponent {
          let value = "";
          myModal.onDismiss(data => {
                  console.log("this.list.value", this.list.value);
-                 this.selected = data;
+                 this.selected = this.list.selected_items = data;
+                 this.list.selected_items.forEach(select => {
+                    select.is_selected = true;
+                      });
                  console.log("this.selected", this.selected);
                  this.emit_changed(data);
              
