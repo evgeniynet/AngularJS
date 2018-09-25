@@ -589,6 +589,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
    }
 
    saveSelect(event){
+     console.log("event", event);
      let name = event.type;
      this.selects[name].selected = event.id;
      this.selects[name].value = event.name;
@@ -614,8 +615,17 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
             case "class" :
               if (this.ticket.class_id == event.id) 
               break;
-            
               this.getCustomfield(event.id);
+              break;
+            case "tech" :
+             // if (this.ticket.class_id == event.id) 
+             // break;
+              this.saveAltTech(event.id);
+              break;
+             case "user" :
+             // if (this.ticket.class_id == event.id) 
+             // break;
+              this.saveAltUser(event.id);
               break;
         }
    }
@@ -990,6 +1000,34 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
      });
      this.nav.present(myModal);
    }  
+
+   saveAltTech(event){
+     console.log("event-alt-tech", event);
+     this.ticketProvider.addAltTech(this.ticket.key, event).subscribe(
+       data => {
+         //this.nav.alert('Subject on the ' + this.config.current.names.ticket.s + ' has been changed :)');
+         console.log("data-finish-tech", data);
+       },
+       error => {
+         this.nav.alert(error, true);
+         console.log(error || 'Server error');
+       }
+       );
+   }
+
+   saveAltUser(event){
+     console.log("event-alt-user", event);
+     this.ticketProvider.addAltTech(this.ticket.key, event).subscribe(
+       data => {
+         //this.nav.alert('Subject on the ' + this.config.current.names.ticket.s + ' has been changed :)');
+         console.log("data-finish-user", data);
+       },
+       error => {
+         this.nav.alert(error, true);
+         console.log(error || 'Server error');
+       }
+       );
+   }
 
    changeSubject(name1){
      this.subject = name1.viewModel;

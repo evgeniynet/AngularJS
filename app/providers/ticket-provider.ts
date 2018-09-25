@@ -174,6 +174,24 @@ export class TicketProvider {
             return this.apiData.get(url, data, "POST");
         }
 
+        addAltTech(id, tech_id) {
+            let url = `${this.URL}/${id}`;
+            let data = {
+                "action": "add_tech",
+                "tech_id": tech_id,
+            };
+            return this.apiData.get(url, data, "POST");
+        }
+
+        addAltUser(id, user_id) {
+            let url = `${this.URL}/${id}`;
+            let data = {
+                "action": "add_user",
+                "user_id": user_id,
+            };
+            return this.apiData.get(url, data, "POST");
+        }
+
         getCustomfields(class_id, pager) {
             let url = addp("customfields", "class_id", class_id);
             return this.apiData.getPaged(url, pager);

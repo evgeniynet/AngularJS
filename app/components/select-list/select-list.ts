@@ -17,7 +17,6 @@ export class SelectListComponent {
     @Input() is_enabled: boolean = true;
     @Input() is_me: boolean;
     @Input() is_alt: boolean;
-    @Input() test: boolean;
     @Input() preload: boolean;
     @Input() ajax: boolean;
     @Output() public onChanged: EventEmitter<any> = new EventEmitter(false);
@@ -189,8 +188,11 @@ export class SelectListComponent {
      let ids = "";
      for (var n = 0;  n < value.length; n++) {
        names += value[n].name.replace("  (" +value[n].email+ ")", ",");
-       ids += value[n].id + ", ";
+       ids += value[n].id + " ";
      }
+     ids = ids.slice(0,-1);
+     names = names.slice(0,-1);
+     console.log("ids", ids);
      this.list.value = names;
      value = {
          id: ids,
