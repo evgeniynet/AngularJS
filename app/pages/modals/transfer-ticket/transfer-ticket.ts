@@ -59,9 +59,10 @@ export class TransferTicketModal {
                 "note_text": post,
                 "name": this.selects.value,
                 "tech_id": this.selects.selected,
-                "keep_attached": this.keep_attached
+                "keep_attached": this.keep_attached,
+                "action":  "transfer",
             };
-            this.ticketProvider.closeOpenTicket(this.ticket.key, newtech).subscribe(
+            this.ticketProvider.transferUserTech(this.ticket.key, newtech).subscribe(
        data => {
          this.nav.alert(this.config.current.names.ticket.s + ' has been transferred :)');
          this.dismiss(newtech);
@@ -74,5 +75,34 @@ export class TransferTicketModal {
 
         }
     }
+
+   saveAltTech(event){
+     console.log("event-alt-tech", event);
+     this.ticketProvider.addAltTech(this.ticket.key, event).subscribe(
+       data => {
+         //this.nav.alert('Subject on the ' + this.config.current.names.ticket.s + ' has been changed :)');
+         console.log("data-finish-tech", data);
+       },
+       error => {
+         this.nav.alert(error, true);
+         console.log(error || 'Server error');
+       }
+       );
+   }
+
+   saveAltUser(event){
+     console.log("event-alt-user", event);
+     this.ticketProvider.addAltTech(this.ticket.key, event).subscribe(
+       data => {
+         //this.nav.alert('Subject on the ' + this.config.current.names.ticket.s + ' has been changed :)');
+         console.log("data-finish-user", data);
+       },
+       error => {
+         this.nav.alert(error, true);
+         console.log(error || 'Server error');
+       }
+       );
+   }
+
 
 }

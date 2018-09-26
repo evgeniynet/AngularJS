@@ -58,8 +58,10 @@ export class SelectListComponent {
         if (this.list.hidden)
             return;
 
-        if ( listname == "tech" || listname == "user")
-            this.name = "Alt " + (this.config.current.names[listname] || {}).a;
+        if (listname == "alt techs")
+            this.name = "Alt " + this.config.current.names.tech.p;
+        else if (listname == "alt users")
+            this.name = "Alt " + this.config.current.names.user.p;
         else
             this.name = (this.config.current.names[listname] || {}).s || this.list.name;
 
@@ -179,7 +181,7 @@ export class SelectListComponent {
  emit_changed(value){
      console.log("value", value);
      
-     if (!value || !value.length ) 
+     if (!value ) 
         return;
 
      if (this.is_alt)
@@ -188,7 +190,7 @@ export class SelectListComponent {
      let ids = "";
      for (var n = 0;  n < value.length; n++) {
        names += value[n].name.replace("  (" +value[n].email+ ")", ",");
-       ids += value[n].id + " ";
+       ids += value[n].id + ", ";
      }
      ids = ids.slice(0,-1);
      names = names.slice(0,-1);

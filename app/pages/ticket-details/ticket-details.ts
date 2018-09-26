@@ -393,6 +393,9 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
      this.techname = getFullName(data.technician_firstname || data.tech_firstname, data.technician_lastname || data.tech_lastname, data.technician_email || data.tech_email);
      let contract_id = data.default_contract_id || 0;
      let contract_name = data.default_contract_name;
+
+     //data.users (user_is, user_fullname2)
+     //data.technicians
     
      this.select_button = {
        "tech": {
@@ -404,8 +407,8 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
        },
      };
      this.selects = {
-       "user" : {
-         name: "User", 
+       "altusers" : {
+         name: "Alt Users", 
          value: this.username,
          selected: data.user_id,
          url: "users",
@@ -418,8 +421,8 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
          url: `locations?account=${account_id}&limit=500`,
          hidden: false
        },
-       "tech": {
-         name: "Tech",
+       "alttechs": {
+         name: "Alt Techs",
          value: this.techname,
          selected: data.tech_id,
          url: "technicians",
@@ -575,7 +578,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
          this.getCustomfield(data.class_id);
        }
      }
-     else {
+     if (data.user_id){
       this.getProfile(data.user_id);
      }
    }
@@ -620,12 +623,12 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
             case "tech" :
              // if (this.ticket.class_id == event.id) 
              // break;
-              this.saveAltTech(event.id);
+              //this.saveAltTech(event.id);
               break;
              case "user" :
              // if (this.ticket.class_id == event.id) 
              // break;
-              this.saveAltUser(event.id);
+              //this.saveAltUser(event.id);
               break;
         }
    }
@@ -848,8 +851,8 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
        "project_id": this.selects.project.selected,
        "location_id": this.selects.location.selected,
        "account_id": this.selects.account.selected,
-       "tech_id": this.selects.tech.selected,
-       "user_id": this.selects.user.selected,
+       "tech_id": this.selects.alttechs.selected,
+       "user_id": this.selects.altusers.selected,
        "customfields_xml": customfields_xml,
        "default_contract_id": this.selects.contract.selected,
        "default_contract_name": this.selects.contract.value
@@ -882,9 +885,9 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
      this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(
        data => {
          this.nav.alert(this.config.current.names.ticket.s + ' pickup was Succesfull!');
-         this.techname = this.selects.tech.value = this.ticket.tech_firstname = getFullName(this.he.firstname, this.he.lastname, this.he.email);
+         this.techname = this.ticket.tech_firstname = getFullName(this.he.firstname, this.he.lastname, this.he.email);
          this.ticket.tech_lastname = this.ticket.tech_email = "";
-         this.selects.tech.selected = this.he.user_id;
+         //this.selects.tech.selected = this.he.user_id;
          this.getPosts(this.ticket.key);
        },
        error => {
@@ -979,9 +982,9 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
      let myModal = Modal.create(TransferTicketModal, { "number": this.ticket.number, "key": this.ticket.key, "subject": this.ticket.subject,  "tech_firstname": this.ticket.tech_firstname, "tech_lastname": this.ticket.tech_lastname});
      myModal.onDismiss(data => {
        if (data){
-         this.techname = this.selects.tech.value = this.ticket.tech_firstname = data.name;
+         this.techname = this.ticket.tech_firstname = data.name;
          this.ticket.tech_lastname = this.ticket.tech_email = "";
-         this.selects.tech.selected = data.id;
+         //this.selects.tech.selected = data.id;
          this.getPosts(this.ticket.key);
        }
      });
@@ -992,42 +995,14 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
      let myModal = Modal.create(ChangeUserModal, { "number": this.ticket.number, "key": this.ticket.key, "subject": this.ticket.subject,  "user_firstname": this.ticket.user_firstname, "user_lastname": this.ticket.user_lastname});
      myModal.onDismiss(data => {
        if (data){
-         this.username = this.selects.user.value = this.ticket.user_firstname = data.name;
+         this.username = this.ticket.user_firstname = data.name;
          this.ticket.user_lastname = this.ticket.user_email = "";
-         this.selects.user.selected = data.id;
+         //this.selects.user.selected = data.id;
          this.getPosts(this.ticket.key);
        }
      });
      this.nav.present(myModal);
    }  
-
-   saveAltTech(event){
-     console.log("event-alt-tech", event);
-     this.ticketProvider.addAltTech(this.ticket.key, event).subscribe(
-       data => {
-         //this.nav.alert('Subject on the ' + this.config.current.names.ticket.s + ' has been changed :)');
-         console.log("data-finish-tech", data);
-       },
-       error => {
-         this.nav.alert(error, true);
-         console.log(error || 'Server error');
-       }
-       );
-   }
-
-   saveAltUser(event){
-     console.log("event-alt-user", event);
-     this.ticketProvider.addAltTech(this.ticket.key, event).subscribe(
-       data => {
-         //this.nav.alert('Subject on the ' + this.config.current.names.ticket.s + ' has been changed :)');
-         console.log("data-finish-user", data);
-       },
-       error => {
-         this.nav.alert(error, true);
-         console.log(error || 'Server error');
-       }
-       );
-   }
 
    changeSubject(name1){
      this.subject = name1.viewModel;

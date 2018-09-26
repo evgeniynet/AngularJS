@@ -174,21 +174,8 @@ export class TicketProvider {
             return this.apiData.get(url, data, "POST");
         }
 
-        addAltTech(id, tech_id) {
+        transferUserTech(id, data) {
             let url = `${this.URL}/${id}`;
-            let data = {
-                "action": "add_tech",
-                "tech_id": tech_id,
-            };
-            return this.apiData.get(url, data, "POST");
-        }
-
-        addAltUser(id, user_id) {
-            let url = `${this.URL}/${id}`;
-            let data = {
-                "action": "add_user",
-                "user_id": user_id,
-            };
             return this.apiData.get(url, data, "POST");
         }
 

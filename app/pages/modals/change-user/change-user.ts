@@ -51,10 +51,12 @@ export class ChangeUserModal {
     onSubmit(form) {
         if (form.valid) {
             let newuser = {
+                //note_text
                 "name": this.selects.value,
                 "user_id": this.selects.selected,
+                "action":  "transfer",
             };
-            this.ticketProvider.closeOpenTicket(this.ticket.key, newuser).subscribe(
+            this.ticketProvider.transferUserTech(this.ticket.key, newuser).subscribe(
        data => {
          this.nav.alert(this.config.current.names.ticket.s + ' has been transferred :)');
          this.dismiss(newuser);
