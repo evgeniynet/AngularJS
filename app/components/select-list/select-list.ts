@@ -255,11 +255,16 @@ export class SelectListComponent {
          let myModal = Modal.create(modal, this.list);
          let value = "";
          myModal.onDismiss(data => {
+                 if (!data)
+                     return;
                  console.log("this.list.value", this.list.value);
                  this.selected = this.list.selected_items = data;
-                 this.list.selected_items.forEach(select => {
-                    select.is_selected = true;
-                      });
+
+                 if (this.list.selected_items.length){
+                     this.list.selected_items.forEach(select => {
+                        select.is_selected = true;
+                          });
+                 }
                  console.log("this.selected", this.selected);
                  this.emit_changed(data);
              

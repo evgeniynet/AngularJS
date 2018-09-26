@@ -13,6 +13,7 @@ export class ChangeUserModal {
 
     ticket: any;
     selects: any;
+    ticketnote: string;
 
     constructor(private nav: Nav, private navParams: NavParams, private ticketProvider: TicketProvider, private config: Config,
         private viewCtrl: ViewController) {
@@ -50,8 +51,9 @@ export class ChangeUserModal {
     
     onSubmit(form) {
         if (form.valid) {
+            var post = htmlEscape((this.ticketnote || "").trim()).substr(0, 5000);
             let newuser = {
-                //note_text
+                "note_text": post,
                 "name": this.selects.value,
                 "user_id": this.selects.selected,
                 "action":  "transfer",

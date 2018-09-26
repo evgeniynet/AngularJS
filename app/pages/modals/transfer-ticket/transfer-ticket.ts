@@ -76,33 +76,6 @@ export class TransferTicketModal {
         }
     }
 
-   saveAltTech(event){
-     console.log("event-alt-tech", event);
-     this.ticketProvider.addAltTech(this.ticket.key, event).subscribe(
-       data => {
-         //this.nav.alert('Subject on the ' + this.config.current.names.ticket.s + ' has been changed :)');
-         console.log("data-finish-tech", data);
-       },
-       error => {
-         this.nav.alert(error, true);
-         console.log(error || 'Server error');
-       }
-       );
-   }
-
-   saveAltUser(event){
-     console.log("event-alt-user", event);
-     this.ticketProvider.addAltTech(this.ticket.key, event).subscribe(
-       data => {
-         //this.nav.alert('Subject on the ' + this.config.current.names.ticket.s + ' has been changed :)');
-         console.log("data-finish-user", data);
-       },
-       error => {
-         this.nav.alert(error, true);
-         console.log(error || 'Server error');
-       }
-       );
-   }
 
 
 }

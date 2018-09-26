@@ -40,7 +40,7 @@ export class InfinitySelectModal {
 
         this.term = '';
         this.name = this.navParams.data.name || "List";
-        this.isdefault_enabled = !~["user", "account", "tech", "task type"].indexOf(this.name.toLowerCase());
+        this.isdefault_enabled = !~["user", "account", "alt techs", "alt users", "task type"].indexOf(this.name.toLowerCase());
         this.isnew_enabled = !!~["user", "tech"].indexOf(this.name.toLowerCase());
         this.url = this.navParams.data.url || "";
         this.data = this.navParams.data.items || {};
@@ -81,8 +81,9 @@ export class InfinitySelectModal {
             //let data = { 'foo': 'bar' };
             
             console.log("item",item);
+            console.log("this.is_alt",this.is_alt);
 
-            if (!item) {
+            if (!item || !this.is_alt) {
             this.viewCtrl.dismiss(item);
             return;
            }

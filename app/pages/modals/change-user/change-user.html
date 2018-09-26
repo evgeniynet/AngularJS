@@ -16,7 +16,9 @@
     <select-list  preload="true" [list]="selects.user" (onChanged)='saveSelect($event)'></select-list>
 
     <form #addForm="ngForm" class="response-ticket">
-      
+      <div class="tooltips">
+        <textarea class="width100 textLogin commentText" style="margin-left:2px" [(ngModel)]="ticketnote" type="text" placeholder="Add Transfer Note" ngControl="note" #note="ngForm" maxlength="4000"></textarea>
+        <span [hidden]="note.valid || note.untouched">Note should be less 5000 chars</span></div>
       
 
 
