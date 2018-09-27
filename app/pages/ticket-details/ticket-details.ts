@@ -6,6 +6,7 @@ import {TicketProvider} from '../../providers/ticket-provider';
 import {getDateTime, htmlEscape, getCurrency, getFullName, fullapplink, mailtolink, parseXml, FileUrlHelper} from '../../directives/helpers';
 import {PostsListComponent} from '../../components/posts-list/posts-list';
 import {SelectListComponent}  from '../../components/select-list/select-list';
+import {MultiSelectComponent}  from '../../components/multi-select/multi-select';
 import {ClassListComponent} from '../../components/class-list/class-list';
 import {LocationListComponent} from '../../components/location-list/location-list';
 import {CloseTicketModal, TransferTicketModal, ChangeUserModal} from '../../pages/modals/modals';
@@ -316,7 +317,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
 
  @Page({
    templateUrl: 'build/pages/ticket-details/ticket-details.html',
-   directives: [TodoListComponent, CustomFieldComponent, PostsListComponent, forwardRef(() => SelectListComponent), forwardRef(() => ClassListComponent), forwardRef(() => LocationListComponent), UploadButtonComponent],
+   directives: [TodoListComponent, CustomFieldComponent, PostsListComponent, forwardRef(() => SelectListComponent), forwardRef(() => MultiSelectComponent), forwardRef(() => ClassListComponent), forwardRef(() => LocationListComponent), UploadButtonComponent],
    pipes: [GravatarPipe, LinebreaksPipe, DaysoldPipe, DaysagoPipe, HtmlsafePipe],
  })
  export class TicketDetailsPage {

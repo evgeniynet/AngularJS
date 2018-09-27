@@ -91,9 +91,9 @@
 
 <div *ngSwitchWhen="'Info'" class="list max-width700 general-alignment">
   
-  <select-list is_alt="true" preload="true" [list]="selects.alttechs" (onChanged)='saveSelect($event)'></select-list>
+  <multi-select preload="true" [list]="selects.alttechs" (onChanged)='saveSelect($event)'></multi-select>
 
-  <select-list is_alt="true" ajax="true" [list]="selects.altusers" (onChanged)='saveSelect($event)' preload="true"></select-list>
+  <multi-select ajax="true" [list]="selects.altusers" (onChanged)='saveSelect($event)' preload="true"></multi-select>
  
   <select-list [list]="selects.account" preload="true" ajax="true" (onChanged)='saveSelect($event)'></select-list>
 
