@@ -149,7 +149,11 @@ textarea{
     overflow: hidden;
     background-color: $blue3;
 }}}
-
+.alts p{
+    font-size: 14px;
+    margin: 0;
+    padding-top: 10px;
+}
 .ion-segment-button{
     background-color: $segment !important;
 }

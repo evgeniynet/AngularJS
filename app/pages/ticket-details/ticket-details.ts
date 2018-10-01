@@ -326,6 +326,8 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
    ticket: any = {};
    userphone: string;
    customfields: any = [];
+   technicians: any = [];
+   users: any = [];
    subject: any;
    next_step: any;
    next_step_date: any;
@@ -389,6 +391,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
    }
 
    initSelects(data){
+     console.log("data", data);
      let account_id = data.account_id || -1;
      this.username = getFullName(data.user_firstname, data.user_lastname, data.user_email);
      this.techname = getFullName(data.technician_firstname || data.tech_firstname, data.technician_lastname || data.tech_lastname, data.technician_email || data.tech_email);
@@ -556,6 +559,8 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
      this.ticket = data;
      this.is_editworkpad = !(this.ticket.workpad || "").length;
      this.ticket.customfields = [];
+     this.technicians = data.technicians;
+     this.users = data.users;
      this.ticket.mailto = `r.${this.config.current.org}.${this.config.current.instance}.${data.key}@app.sherpadesk.com`;
 
      this.initSelects(data);
