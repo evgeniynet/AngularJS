@@ -9,7 +9,7 @@ import {AddUserModal} from '../modals';
 })
 
 export class InfinitySelectModal {
-   
+
     items: any;
     url: string;
     name: string;
@@ -17,16 +17,12 @@ export class InfinitySelectModal {
     data: any;
     count: number;
     is_empty: boolean;
-    is_alt: boolean;
     busy: boolean;
     pager: any;
     isbutton: boolean;
     isdefault_enabled: boolean = false;
     isnew_enabled: boolean = false;
     date: any;
-    selected_items: any;
-    item_selected: any = [];
-
     
 
 
@@ -37,28 +33,14 @@ export class InfinitySelectModal {
     }
 
     ngOnInit() {
-
+        
         this.term = '';
         this.name = this.navParams.data.name || "List";
-        this.isdefault_enabled = !~["user", "account", "alt techs", "alt users", "task type"].indexOf(this.name.toLowerCase());
+        this.isdefault_enabled = !~["user", "account", "tech", "task type"].indexOf(this.name.toLowerCase());
         this.isnew_enabled = !!~["user", "tech"].indexOf(this.name.toLowerCase());
         this.url = this.navParams.data.url || "";
         this.data = this.navParams.data.items || {};
-        console.log("parametr",this.navParams.data);
-        this.is_alt = this.navParams.data.is_alt;
-        this.item_selected = this.navParams.data.selected_items;
-         console.log("this.item_selected", this.item_selected);
         this.items = this.data;
-        this.items.forEach(item => {
-        item.is_selected = false;
-          });
-            if (this.item_selected) {
-        this.item_selected.forEach(item_selected => {
-        if (item_selected.is_selected == false)
-        item_selected.is_selected = true;
-          });}
-       
-        console.log("this.items", this.items);
         this.count = this.items.length;
         this.isbutton = this.navParams.data.isbutton;
         this.is_empty = false;
@@ -79,18 +61,8 @@ export class InfinitySelectModal {
 
         dismiss(item) {
             //let data = { 'foo': 'bar' };
-            
-            console.log("item",item);
-            console.log("this.is_alt",this.is_alt);
-
-            if (!item || !this.is_alt) {
+            item = item || {};
             this.viewCtrl.dismiss(item);
-            return;
-           }
-       
-            this.selected_items = item.filter((v) => v.is_selected);
-             console.log("this.selected_items",this.selected_items);
-            this.viewCtrl.dismiss(this.selected_items);
         }
 
         invite()
@@ -199,7 +171,6 @@ export class InfinitySelectModal {
                     if (infiniteScroll) {
                         infiniteScroll.complete();
                     }
-                    console.log(this.items);
                 },
                 error => {
                     if (timer) {

@@ -16,7 +16,6 @@ export class SelectListComponent {
     @Input() isbutton: boolean;
     @Input() is_enabled: boolean = true;
     @Input() is_me: boolean;
-    @Input() is_alt: boolean;
     @Input() preload: boolean;
     @Input() ajax: boolean;
     @Output() public onChanged: EventEmitter<any> = new EventEmitter(false);
@@ -58,10 +57,8 @@ export class SelectListComponent {
         if (this.list.hidden)
             return;
 
-        if (listname == "alt techs")
-            this.name = "Alt " + this.config.current.names.tech.p;
-        else if (listname == "alt users")
-            this.name = "Alt " + this.config.current.names.user.p;
+        if ( listname == "tech" || listname == "user")
+            this.name = (this.config.current.names[listname] || {}).a;
         else
             this.name = (this.config.current.names[listname] || {}).s || this.list.name;
 
@@ -161,12 +158,11 @@ export class SelectListComponent {
                      id = item.prepaid_pack_id;
                  }
 
-                 results.push({id: id, name: name, email: item.email});
+                 results.push({id: id, name: name});
                  
 
              });
          this.list.items = results;
-         this.list.is_alt = this.is_alt;
      }
 
 
@@ -179,35 +175,10 @@ export class SelectListComponent {
  }
 
  emit_changed(value){
-     console.log("value", value);
-     
-     if (!value ) 
-        return;
-
-     if (this.is_alt)
-     {
-     let names = "";
-     let ids = "";
-     for (var n = 0;  n < value.length; n++) {
-       names += value[n].name.replace("  (" +value[n].email+ ")", ",");
-       ids += value[n].id + ", ";
-     }
-     ids = ids.slice(0,-1);
-     names = names.slice(0,-1);
-     console.log("ids", ids);
-     this.list.value = names;
-     value = {
-         id: ids,
-         name: names,
-     };
-     }
-     else
      this.list.value = value.name;
-
      value.type = this.list.name.split(' ').join('').toLowerCase();
-     this.selected = this.list.value;
      this.onChanged.emit(value);
-     }
+ }
 
  openRadio() {         
      let title=this.name;
@@ -251,23 +222,13 @@ export class SelectListComponent {
          //TODO check counts: is more than 100 - do ajax
          this.list.isbutton = this.isbutton;
          let len = this.list.items.length || 0;
-         let modal = len >= 25 && len%25 == 0 || this.is_alt ? InfinitySelectModal : BasicSelectModal;
+         let modal = len >= 25 && len%25 == 0  ? InfinitySelectModal : BasicSelectModal;
          let myModal = Modal.create(modal, this.list);
-         let value = "";
          myModal.onDismiss(data => {
-                 if (!data)
-                     return;
-                 console.log("this.list.value", this.list.value);
-                 this.selected = this.list.selected_items = data;
-
-                 if (this.list.selected_items.length){
-                     this.list.selected_items.forEach(select => {
-                        select.is_selected = true;
-                          });
-                 }
-                 console.log("this.selected", this.selected);
+             if (data.name) {
+                 this.selected = data;
                  this.emit_changed(data);
-             
+             }
          });
          this.nav.present(myModal);
      }

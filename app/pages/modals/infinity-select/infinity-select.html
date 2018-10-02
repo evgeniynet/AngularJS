@@ -1,12 +1,12 @@
 <ion-toolbar>
 <ion-buttons style="flex: 0;" start>
-<button (click)="dismiss(item)">
+<button (click)="dismiss()">
             <span>Cancel</span>
         </button>
   </ion-buttons>
     <ion-searchbar debounce="400" [(ngModel)]="term" (input)="searchItems($event)" placeholder="{{name}} (min 3 chars)" hideCancelButton="true"></ion-searchbar>  
     <ion-buttons style="flex: 0;" end>
-<button (click)="dismiss(items)">
+<button (click)="dismiss()">
             <span>Done</span>
         </button>
   </ion-buttons>
@@ -23,30 +23,14 @@
             <ion-icon name="add-circle" style="padding-left: 12px;font-size: 38px; float:left;"></ion-icon>
             <h2 class="color" style="margin-top:8px"> &nbsp;&nbsp;&nbsp;Invite new {{name}} {{is_empty ? '"'+term+'"' : ""}}</h2>
         </a>
-         <!-- if test_selected-->
-        <div *ngIf="is_alt && test_selected">
-        <a detail-none href=# ion-item class="basic-margin text-left" *ngFor="let select of test_selected" (click)="select.is_selected = !select.is_selected"> 
-            <ion-icon [ngClass]="{'ion-ios-checkmark-circle secondary' : select.is_selected, 'ion-ios-radio-button-on grey2' : !select.is_selected}" class="font18 todos-padding margin-top3" style="float:left;"></ion-icon>
-            <h2 class="color">{{select.name}}</h2>
-           <h5 style="color: #cccaca;">{{select.email}}</h5>
-        </a></div>
-        <!-- end test_selected-->
-
-        <!-- if alt user or alt tech-->
-        <div *ngIf="is_alt">
-        <a detail-none href=# ion-item class="basic-margin text-left" *ngFor="let item of items" (click)="item.is_selected = !item.is_selected"> 
-            <ion-icon [ngClass]="{'ion-ios-checkmark-circle secondary' : item.is_selected, 'ion-ios-radio-button-on grey2' : !item.is_selected}" class="font18 todos-padding margin-top3" style="float:left;"></ion-icon>
+        
+        <a detail-none href=# ion-item class="basic-margin text-left" *ngFor="let item of items" (click)="dismiss(item)">
+            <!--<ion-icon class="ion-ios-checkmark-circle secondary font18 todos-padding margin-top3" style="float:left;"></ion-icon>-->
             <h2 class="color">{{item.name}}</h2>
-           <h5 style="color: #cccaca;">{{item.email}}</h5>
-        </a></div>
-        <!-- end alt user or alt tech-->
+           <!-- <h5 style="color: #cccaca;">visahelpp@gmail.com</h5>-->
+        </a>
 
-        <!-- if NOT alt user or alt tech-->
-        <div *ngIf="!is_alt">
-        <a detail-none href=# ion-item class="basic-margin text-left" *ngFor="let item of items" (click)="dismiss(item)"> 
-            <h2 class="color">{{item.name}}</h2>
-        </a></div>
-        <!-- end NOT alt user or alt tech-->
+        
 
     </ion-list>
 <div *ngIf="is_empty && !isdefault_enabled && !isnew_enabled" class="table grey2 menu-text">No {{name}} found yet</div>

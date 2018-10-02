@@ -93,10 +93,6 @@
 </div>
 
 <div *ngSwitchWhen="'Info'" class="list max-width700 general-alignment">
-  
-  <multi-select  preload="true" [list]="selects.alttechs" (onChanged)='saveSelect($event)'></multi-select>
-
-  <multi-select ajax="true" [list]="selects.altusers" (onChanged)='saveSelect($event)' preload="true"></multi-select>
  
   <select-list [list]="selects.account" preload="true" ajax="true" (onChanged)='saveSelect($event)'></select-list>
 
@@ -146,13 +142,13 @@
     <p *ngIf="user.is_primary" class="left color primary" style="width: 17%">Primary</p>
     <p class="left color date" style="width: 33%;">{{user.start_date.slice(0, 10)}} {{user.start_date.slice(12, 16)}}</p>
   </div>
-
-
     <div>&nbsp;&nbsp;</div>
   <button secondary block (click)="onUpdate()" type="submit" class="disable-hover button button-default button-block">Update</button>
   
   <span class="span-block"></span>
 </div>
+
+
 
 <ion-list class="list general-alignment max-width700" [hidden]="details_tab != 'Notes'">
 

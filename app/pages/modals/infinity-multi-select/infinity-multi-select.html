@@ -20,14 +20,6 @@
             <ion-icon name="add-circle" style="padding-left: 12px;font-size: 38px; float:left;"></ion-icon>
             <h2 class="color" style="margin-top:8px"> &nbsp;&nbsp;&nbsp;Invite new {{name}} {{is_empty ? '"'+term+'"' : ""}}</h2>
         </a>
-         <!-- if test_selected-->
-        <div *ngIf="item_selected">
-        <a detail-none href=# ion-item class="basic-margin text-left" *ngFor="let select of item_selected" (click)="select.is_selected = !select.is_selected"> 
-            <ion-icon [ngClass]="{'ion-ios-checkmark-circle secondary' : select.is_selected, 'ion-ios-radio-button-on grey2' : !select.is_selected}" class="font18 todos-padding margin-top3" style="float:left;"></ion-icon>
-            <h2 class="color">{{select.name}}</h2>
-           <h5 style="color: #cccaca;">{{select.email}}</h5>
-        </a></div>
-        <!-- end test_selected-->
 
         <!-- if alt user or alt tech-->
         <div>

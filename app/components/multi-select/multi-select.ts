@@ -28,43 +28,15 @@ export class MultiSelectComponent {
         this.list = {};
     }  
 
-/*
-    ngOnChanges(event) {
-        console.log(event);
-        if ("list" in event) {
-            console.log(this.url);
-            if (!event.list.isFirstChange() && event.list.currentValue.url !== this.url) {
-                console.log(this.list.items)
-                //this.list.hidden = true;
-            }
-        }
-    }
-*/
     ngOnInit() {
         let listname = this.list.name.toLowerCase();
-    //    if ((listname == "project" && !this.config.current.is_project_tracking) ||
-    //        (listname == "location" && !this.config.current.is_location_tracking) ||
-    //        (listname == "priority" && !this.config.current.is_priorities_general) ||
-    //        (listname == "account" && !this.config.current.is_account_manager) ||
-    //        (listname == "level" && (!this.config.current.is_ticket_levels || (this.config.current.is_restrict_tech_escalate && !this.config.current.user.is_admin))) ||
-    //        ((listname == "resolution" || listname == "category") && !this.config.current.is_resolution_tracking)) 
-    //    {
-    //        this.list.hidden = true;
-    //    }
-
         this.is_enabled = !this.list.is_disabled;
-
-    //    if (this.list.hidden)
-    //        return;
 
         if (listname == "alt techs")
             this.name = "Alt " + this.config.current.names.tech.p;
         else if (listname == "alt users")
             this.name = "Alt " + this.config.current.names.user.p;
-    //    else
-    //        this.name = (this.config.current.names[listname] || {}).s || this.list.name;
-
-
+  
         if (this.list.url)
         {
             this.url = this.list.url;
@@ -177,13 +149,7 @@ export class MultiSelectComponent {
  }
 
  emit_changed(value){
-     console.log("value", value);
-     
-    // if (!value ) 
-   //     return;
 
-    // if (this.is_alt)
-  //   {
      let names = "";
      let ids = "";
      for (var n = 0;  n < value.length; n++) {
@@ -192,7 +158,6 @@ export class MultiSelectComponent {
      }
      ids = ids.slice(0,-1);
      names = names.slice(0,-1);
-     console.log("ids", ids);
      this.list.value = names;
      value = {
          id: ids,
@@ -204,43 +169,6 @@ export class MultiSelectComponent {
      this.onChanged.emit(value);
      }
 
- //openRadio() {         
- //    let title=this.name;
-//
- //    let alert = Alert.create({
- //        title: 'Choose '+title,
- //        buttons: [
- //        {
- //            text: 'Cancel',
-  //           role: 'cancel',
-  //           handler: () => {
-//console.log('Cancel clicked');
-  //           }
-  //       },
-   //      {
-   //          text: 'OK',
-    //         handler: data => {
-    //             if(data){
-     //                this.selected = data;
-     //                this.emit_changed(data);
-      //           }
-    //         }
-    //     }
-    //     ]
-  //   });
-
-   //  this.list.items.forEach(item => {
-   //      alert.addInput({
-   //          type: 'radio',
-    //         label: item.name,
-    //         value: item,
-                 //checked: this.list.selected === item.id
-    //         });
-   //  });
-
-   //  this.nav.present(alert);
-         //.then(() => { this.testRadioOpen = true;});
-  //   }
 
      openModal() {
          //TODO check counts: is more than 100 - do ajax
@@ -252,13 +180,11 @@ export class MultiSelectComponent {
          myModal.onDismiss(data => {
                  if (!data)
                      return;
-                 console.log("this.list.value", this.list.value);
                  this.selected = this.list.selected_items = data;
                      this.list.selected_items.forEach(select => {
                         select.is_selected = true;
                           });
                  
-                 console.log("this.selected", this.selected);
                  this.emit_changed(data);
              
          });

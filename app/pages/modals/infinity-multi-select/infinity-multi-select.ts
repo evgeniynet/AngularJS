@@ -17,15 +17,12 @@ export class InfinityMultiSelectModal {
     data: any;
     count: number;
     is_empty: boolean;
-    is_alt: boolean;
     busy: boolean;
     pager: any;
     isbutton: boolean;
-   // isdefault_enabled: boolean = false;
     isnew_enabled: boolean = false;
     date: any;
     selected_items: any;
-    item_selected: any = [];
 
     
 
@@ -40,33 +37,14 @@ export class InfinityMultiSelectModal {
 
         this.term = '';
         this.name = this.navParams.data.name || "List";
-       // this.isdefault_enabled = !~["user", "account", "alt techs", "alt users", "task type"].indexOf(this.name.toLowerCase());
         this.isnew_enabled = !!~["user", "tech"].indexOf(this.name.toLowerCase());
         this.url = this.navParams.data.url || "";
         this.data = this.navParams.data.items || {};
-        console.log("parametr",this.navParams.data);
-        //this.is_alt = this.navParams.data.is_alt;
-        this.item_selected = this.navParams.data.selected_items;
-         console.log("this.item_selected", this.item_selected);
-        if (!this.item_selected){
-            this.item_selected = [];
-            this.item_selected[0]= {
-                id: this.navParams.data.selected,
-                name: this.navParams.data.value,
-                is_selected: true
-            }
-        }
         this.items = this.data;
         this.items.forEach(item => {
         item.is_selected = false;
           });
-            if (this.item_selected) {
-        this.item_selected.forEach(item_selected => {
-        if (item_selected.is_selected == false)
-        item_selected.is_selected = true;
-          });}
-       
-        console.log("this.items", this.items);
+   
         this.count = this.items.length;
         this.isbutton = this.navParams.data.isbutton;
         this.is_empty = false;
@@ -87,17 +65,12 @@ export class InfinityMultiSelectModal {
 
         dismiss(item) {
             //let data = { 'foo': 'bar' };
-            
-            console.log("item",item);
-            console.log("this.is_alt",this.is_alt);
-
             if (!item) {
             this.viewCtrl.dismiss(item);
             return;
            }
        
             this.selected_items = item.filter((v) => v.is_selected);
-             console.log("this.selected_items",this.selected_items);
             this.viewCtrl.dismiss(this.selected_items);
         }
 
@@ -106,15 +79,11 @@ export class InfinityMultiSelectModal {
             let myModal = Modal.create(AddUserModal, {type: this.name.toLowerCase(), name: this.term});
             myModal.onDismiss(data => {
              if (data){
-                    //console.log(data);
                     data.name = getFullName(data.firstname, data.lastname, data.email);
                     this.dismiss(data);
-                    //this.selects[type].selected = data.id;
-                    //this.selects[type].value = getFullName(data.firstname, data.lastname, data.email);
                 }
             });
             this.nav.present(myModal);
-            //setTimeout(() => { this.nav.present(myModal); }, 500);
         }
 
         searchItems(searchbar) {
@@ -207,7 +176,6 @@ export class InfinityMultiSelectModal {
                     if (infiniteScroll) {
                         infiniteScroll.complete();
                     }
-                    console.log(this.items);
                 },
                 error => {
                     if (timer) {

@@ -391,15 +391,12 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
    }
 
    initSelects(data){
-     console.log("data", data);
      let account_id = data.account_id || -1;
      this.username = getFullName(data.user_firstname, data.user_lastname, data.user_email);
      this.techname = getFullName(data.technician_firstname || data.tech_firstname, data.technician_lastname || data.tech_lastname, data.technician_email || data.tech_email);
      let contract_id = data.default_contract_id || 0;
      let contract_name = data.default_contract_name;
 
-     //data.users (user_is, user_fullname2)
-     //data.technicians
     
      this.select_button = {
        "tech": {
@@ -598,7 +595,6 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
    }
 
    saveSelect(event){
-     console.log("event", event);
      let name = event.type;
      this.selects[name].selected = event.id;
      this.selects[name].value = event.name;
@@ -626,16 +622,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
               break;
               this.getCustomfield(event.id);
               break;
-            case "tech" :
-             // if (this.ticket.class_id == event.id) 
-             // break;
-              //this.saveAltTech(event.id);
-              break;
-             case "user" :
-             // if (this.ticket.class_id == event.id) 
-             // break;
-              //this.saveAltUser(event.id);
-              break;
+            
         }
    }
 
@@ -849,7 +836,6 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
      if (customfields_xml == "") {
        return;
      }
-     console.log("selects", this.selects);
      let data = {
        "class_id": this.selects.class.selected,
        "level_id": this.selects.level.selected,
@@ -990,7 +976,6 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
        if (data){
          this.techname = this.ticket.tech_firstname = data.name;
          this.ticket.tech_lastname = this.ticket.tech_email = "";
-         //this.selects.tech.selected = data.id;
          this.getPosts(this.ticket.key);
        }
      });
@@ -1003,7 +988,6 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
        if (data){
          this.username = this.ticket.user_firstname = data.name;
          this.ticket.user_lastname = this.ticket.user_email = "";
-         //this.selects.user.selected = data.id;
          this.getPosts(this.ticket.key);
        }
      });
