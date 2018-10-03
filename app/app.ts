@@ -253,6 +253,10 @@ data.user.is_limit_assigned_tkts = true;
 data.user.is_admin = false;
 //onhold_status
 data.is_onhold_status = true;
+//payments status
+data.is_payments = false
+//billing status
+data.is_invoice = false
 */
 /*
 data.names = {

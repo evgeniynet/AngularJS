@@ -44,6 +44,7 @@ export class SelectListComponent {
         let listname = this.list.name.toLowerCase();
         if ((listname == "project" && !this.config.current.is_project_tracking) ||
             (listname == "location" && !this.config.current.is_location_tracking) ||
+            ((listname == "contract" || listname == "prepaid pack") && !this.config.current.is_invoice) ||
             (listname == "priority" && !this.config.current.is_priorities_general) ||
             (listname == "account" && !this.config.current.is_account_manager) ||
             (listname == "level" && (!this.config.current.is_ticket_levels || (this.config.current.is_restrict_tech_escalate && !this.config.current.user.is_admin))) ||

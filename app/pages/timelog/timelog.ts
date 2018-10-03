@@ -212,6 +212,11 @@ ngOnInit()
             this.selects.prepaidpack.selected = 0;
             account_id = event.id;
             this.selects.ticket.hidden = this.time.is_project_log || this.time.task_type_id || false;
+            if (!this.time.task_type_id){
+                this.selects.ticket.url = `tickets?status=open&account=${account_id}&project=${project_id}`,
+                this.selects.ticket.value = "Choose (optional)";
+                this.selects.ticket.selected = 0;
+            }
             this.selects.project.hidden = !this.config.current.is_project_tracking;
             break;
             case "project" :
@@ -422,8 +427,6 @@ ngOnInit()
     {
         let timecount : number = this.getInterval();
         this.timecount = timecount.toFixed(2);
-        let timecount_nonwork : number = this.getInterval();
-        this.timecount_nonwork = timecount_nonwork.toFixed(2);
     }
 
     endsWith(str, search)
