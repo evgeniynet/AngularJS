@@ -64,10 +64,9 @@ export class TimelogPage {
 AddHours(date, hours)
 {
     if (date){
-        if (date.length == 19)
-            date = date.slice(0,-3);
-        let temp = new Date(date);
-        return new Date(temp.setTime(temp.getTime() + (hours*60*60*1000) + -1*temp.getTimezoneOffset()*60*1000)).toJSON();
+        date = new Date(date.substring(0,19)+"Z");
+        date = new Date(date.setTime(date.getTime() + hours*60*60*1000)).toJSON();
+        return date;
     }
     return date;
 }
@@ -80,11 +79,10 @@ ngOnInit()
     let name = (this.time.user_name + " " + this.time.user_email).trim().split(' ')[0];
             if (this.time.time_id)
             {
-                this.UserDateOffset = this.time.time_offset;
-                this.title = `Timelog #${this.time.time_id} by\u00a0${name} on\u00a0` + this.setDate(this.AddHours(this.time.date, this.UserDateOffset), false, true);
+                this.title = `Timelog #${this.time.time_id} by\u00a0${name} on\u00a0` + this.setDate(this.time.created_time, false, true);
                 //fix timezone
-                this.start_time = this.AddHours(this.time.start_time, this.UserDateOffset);
-                this.stop_time = this.AddHours(this.time.stop_time, this.UserDateOffset);
+                this.start_time = this.AddHours(this.time.start_time, this.time.time_offset);
+                this.stop_time = this.AddHours(this.time.stop_time, this.time.time_offset);
                 //if (this.start_time && this.stop_time)
                 //    this.start_stop_hours = Number(Math.round((+(new Date(this.stop_time)) - +(new Date(this.start_time))) / 60000)/60);
             }
@@ -94,7 +92,7 @@ ngOnInit()
                 this.title = "Add Time";
             if (this.time.invoice_id > 0)
             {
-                this.title = `Invoiced #${this.time.invoice_id} on\u00a0` + this.setDate(this.AddHours(this.time.date, this.UserDateOffset), false, true);
+                this.title = `Invoiced #${this.time.invoice_id} on\u00a0` + this.setDate(this.AddHours(this.time.date, this.time.time_offset), false, true);
             }
 
             this.mintime = this.config.getCurrent("time_minimum_time") || 0.25;
@@ -295,17 +293,16 @@ ngOnInit()
             var note = htmlEscape(this.timenote.trim()).substr(0, 5000);
 
             var isEdit = !!this.time.time_id;
-            var time_offset = -1 * this.UserDateOffset;
             var start_time = this.start_time;
             if (this.endsWith(this.start_time, "Z"))
                 start_time = start_time.substring(0,19);
             var stop_time = this.stop_time;
             if (this.endsWith(this.stop_time, "Z"))
                 stop_time = stop_time.substring(0,19);
-            var date = this.time.date;
+            var date = this.time.date || (new Date()).toJSON();
             if (start_time)
             {
-                date = this.AddHours(start_time, time_offset);
+                date = this.AddHours(start_time, -1*this.UserDateOffset);
             }
             //TODO if other user changes what id should I write?  
             let data = {
@@ -320,10 +317,11 @@ ngOnInit()
                 "hours": hours,
                 "no_invoice": this.isbillable,
                 "date": date || "", 
-                "start_date": this.AddHours(start_time, time_offset)  || "",
-                "stop_date": this.AddHours(stop_time, time_offset)  || "",
+                "start_date": start_time || "",
+                "stop_date": stop_time || "",
                 "non_working_hours": non_work_hours,
-                "contract_id": this.selects.contract.selected
+                "contract_id": this.selects.contract.selected,
+                "is_local_time": true,
             };
 
             this.timeProvider.addTime(this.time.time_id, data, isEdit ? "PUT" : "POST").subscribe(
@@ -338,15 +336,15 @@ ngOnInit()
                                                 "prepaidpack": this.selects.prepaidpack});
                     }
                     if (isEdit){
-                        this.time.start_time = data.start_date;
-                        this.time.stop_time = data.stop_date;
+                        this.time.start_time = this.AddHours(data.start_date, -1*this.UserDateOffset);
+                        this.time.stop_time = this.AddHours(data.stop_date, -1*this.UserDateOffset);
                         this.time.hours = data.hours;
                         this.time.non_working_hours = data.non_working_hours;
                         this.time.no_invoice = data.no_invoice;
                     }
                     else
                     {
-                        var tdate = data.date || this.AddHours(new Date(), this.UserDateOffset);
+                        var tdate = data.date || (new Date()).toJSON();
                         var tt = {
                             time_id:0,
                             account_id:data.account_id,
@@ -359,9 +357,9 @@ ngOnInit()
                             note:data.note_text,
                             project_id:data.project_id,
                             project_name:this.selects.project.value,
-                            start_time:data.start_date,
-                            stop_time:data.stop_date,
-                            time_offset:time_offset,
+                            start_time: this.AddHours(data.start_date, -1*this.UserDateOffset),
+                            stop_time: this.AddHours(data.stop_date, -1*this.UserDateOffset),
+                            time_offset:this.UserDateOffset,
                             task_type:this.selects.tasktype.value,
                             task_type_id:data.task_type_id,
                             contract_name:this.selects.contract.value,
@@ -390,15 +388,15 @@ ngOnInit()
     }
 
     setMinTime(date) {
-        return (date || this.time.date || this.AddHours(new Date(), this.UserDateOffset)).substring(0,4);
+        return (date || this.time.date || (new Date()).toJSON().substring(0,4));
     }
 
     setMaxTime(date) {
-        return (date || this.time.date || this.AddHours(new Date(), this.UserDateOffset)).substring(0,4);
+        return (date || this.time.date || (new Date()).toJSON().substring(0,4));
     }
 
     getStartDate(time) {
-        return (time || this.time.date || this.AddHours(new Date(), this.UserDateOffset)).substring(0,19);
+        return (time || this.time.date || (new Date()).toJSON().substring(0,19));
     }
 
     setStartDate(time){

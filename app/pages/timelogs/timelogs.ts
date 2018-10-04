@@ -108,7 +108,7 @@ export class TimelogsPage {
     
     setDate(date, time_offset, showmonth?, istime?) {
     if (date){
-        date = new Date(date.substring(0,23));
+        date = new Date(date.substring(0,23)+"Z");
         date = new Date(date.setTime(date.getTime() + time_offset*60*60*1000)).toJSON();
         return getDateTime(date, showmonth, istime);
     }
