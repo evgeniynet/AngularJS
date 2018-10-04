@@ -41,6 +41,9 @@
   <ion-segment-button value="Info">
     Info
   </ion-segment-button>
+  <ion-segment-button value="Assign">
+    Assign
+  </ion-segment-button>
   <ion-segment-button value="Notes">
     Notes
   </ion-segment-button>
@@ -90,8 +93,6 @@
 </div>
 
 <div *ngSwitchWhen="'Info'" class="list max-width700 general-alignment">
-  
-  <select-list is_me="true" ajax="true" [list]="selects.user" (onChanged)='saveSelect($event)' preload="true"></select-list>
  
   <select-list [list]="selects.account" preload="true" ajax="true" (onChanged)='saveSelect($event)'></select-list>
 
@@ -100,8 +101,6 @@
   <select-list preload="true" [list]="selects.level" (onChanged)='saveSelect($event)'></select-list>
 
   <select-list preload="true" [list]="selects.priority" (onChanged)='saveSelect($event)'></select-list>
-
-  <select-list is_me="true" preload="true" [list]="selects.tech" (onChanged)='saveSelect($event)'></select-list>
 
   <location-list preload="true" [list]="selects.location" (onChanged)='saveSelect($event)'></location-list>
 
@@ -126,6 +125,31 @@
     </ion-label>
   <span class="span-block"></span>
 </div>
+
+<div *ngSwitchWhen="'Assign'" class="list max-width700 general-alignment">
+    <multi-select  preload="true" [list]="selects.alttechs" (onChanged)='saveSelect($event)'></multi-select>
+      <div *ngFor="let tech of technicians" class="alts">
+    <p class="left color fullname" style="width: 50%">{{tech.user_fullname2.slice(0, 23)}}</p>
+    <p *ngIf="!tech.is_primary" class="left color no-primary" style="width: 17%;">-</p>
+    <p *ngIf="tech.is_primary" class="left color primary" style="width: 17%">Primary</p>
+    <p class="left color date" style="width: 33%;">{{tech.start_date.slice(0, 10)}} {{tech.start_date.slice(12, 16)}}</p>
+  </div>
+<div>&nbsp;<br>&nbsp;</div>
+    <multi-select ajax="true" [list]="selects.altusers" (onChanged)='saveSelect($event)' preload="true"></multi-select>
+      <div *ngFor="let user of users" class="alts">
+    <p class="left color fullname" style="width: 50%">{{user.user_fullname2.slice(0, 23)}}</p>
+    <p *ngIf="!user.is_primary" class="left color no-primary" style="width: 17%;">-</p>
+    <p *ngIf="user.is_primary" class="left color primary" style="width: 17%">Primary</p>
+    <p class="left color date" style="width: 33%;">{{user.start_date.slice(0, 10)}} {{user.start_date.slice(12, 16)}}</p>
+  </div>
+    <div>&nbsp;&nbsp;</div>
+  <button secondary block (click)="onUpdate()" type="submit" class="disable-hover button button-default button-block">Update</button>
+  
+  <span class="span-block"></span>
+</div>
+
+
+
 <ion-list class="list general-alignment max-width700" [hidden]="details_tab != 'Notes'">
 
   <textarea [ngModel]="ticket?.note | Htmlsafe" class="glow width100 textLogin commentText" style="resize: vertical;max-height: 300px;min-height: 110px;" #notetext type="text" placeholder="Notes:"></textarea>
@@ -150,10 +174,13 @@
     <span class="span-block"></span>
      <!--button (click)="addFilesButton()" secondary item-right fab fab-right fab-bottom style="z-index: 2"><ion-icon class="button_circle action-but" name="md-add"></ion-icon></button-->
   </ion-list>
+
   <div *ngSwitchWhen="'Options'" class="list max-width700 general-alignment">
     <button *ngIf="config.current.is_time_tracking" (click)="addTime()" block type="submit" class="blue2 disable-hover button button-default button-block class-margin">Add Time</button>
     <button *ngIf="config.current.is_onhold_status" (click)="onHold()" block type="submit" class="blue2 disable-hover button button-default button-block class-margin">{{  ticket.status == "OnHold" ? ("ReOpen " + config.current.names.ticket.s) : "Place On Hold" }}</button>
     <button *ngIf="config.current.is_expenses" (click)="addExpense()" block type="submit" class="blue2 disable-hover button button-default button-block class-margin">Add Expense</button>
+
+    <button (click)='changeUser()' block type="submit" class="blue2 class-margin">Change {{config.current.names.user.s}}</button>
 
     <button (click)='transferTicket()' block type="submit" class="blue2 class-margin">Transfer {{config.current.names.ticket.s}}</button>
 

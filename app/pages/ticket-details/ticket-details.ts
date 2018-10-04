@@ -6,9 +6,10 @@ import {TicketProvider} from '../../providers/ticket-provider';
 import {getDateTime, htmlEscape, getCurrency, getFullName, fullapplink, mailtolink, parseXml, FileUrlHelper} from '../../directives/helpers';
 import {PostsListComponent} from '../../components/posts-list/posts-list';
 import {SelectListComponent}  from '../../components/select-list/select-list';
+import {MultiSelectComponent}  from '../../components/multi-select/multi-select';
 import {ClassListComponent} from '../../components/class-list/class-list';
 import {LocationListComponent} from '../../components/location-list/location-list';
-import {CloseTicketModal, TransferTicketModal} from '../../pages/modals/modals';
+import {CloseTicketModal, TransferTicketModal, ChangeUserModal} from '../../pages/modals/modals';
 import {TimelogPage} from '../../pages/timelog/timelog'; 
 import {ExpenseCreatePage} from '../../pages/expense-create/expense-create';
 import {GravatarPipe, LinebreaksPipe, DaysoldPipe, DaysagoPipe, HtmlsafePipe} from '../../pipes/pipes';
@@ -316,7 +317,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
 
  @Page({
    templateUrl: 'build/pages/ticket-details/ticket-details.html',
-   directives: [TodoListComponent, CustomFieldComponent, PostsListComponent, forwardRef(() => SelectListComponent), forwardRef(() => ClassListComponent), forwardRef(() => LocationListComponent), UploadButtonComponent],
+   directives: [TodoListComponent, CustomFieldComponent, PostsListComponent, forwardRef(() => SelectListComponent), forwardRef(() => MultiSelectComponent), forwardRef(() => ClassListComponent), forwardRef(() => LocationListComponent), UploadButtonComponent],
    pipes: [GravatarPipe, LinebreaksPipe, DaysoldPipe, DaysagoPipe, HtmlsafePipe],
  })
  export class TicketDetailsPage {
@@ -325,6 +326,8 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
    ticket: any = {};
    userphone: string;
    customfields: any = [];
+   technicians: any = [];
+   users: any = [];
    subject: any;
    next_step: any;
    next_step_date: any;
@@ -393,6 +396,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
      this.techname = getFullName(data.technician_firstname || data.tech_firstname, data.technician_lastname || data.tech_lastname, data.technician_email || data.tech_email);
      let contract_id = data.default_contract_id || 0;
      let contract_name = data.default_contract_name;
+
     
      this.select_button = {
        "tech": {
@@ -404,8 +408,8 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
        },
      };
      this.selects = {
-       "user" : {
-         name: "User", 
+       "altusers" : {
+         name: "Alt Users", 
          value: this.username,
          selected: data.user_id,
          url: "users",
@@ -418,8 +422,8 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
          url: `locations?account=${account_id}&limit=500`,
          hidden: false
        },
-       "tech": {
-         name: "Tech",
+       "alttechs": {
+         name: "Alt Techs",
          value: this.techname,
          selected: data.tech_id,
          url: "technicians",
@@ -552,6 +556,8 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
      this.ticket = data;
      this.is_editworkpad = !(this.ticket.workpad || "").length;
      this.ticket.customfields = [];
+     this.technicians = data.technicians;
+     this.users = data.users;
      this.ticket.mailto = `r.${this.config.current.org}.${this.config.current.instance}.${data.key}@app.sherpadesk.com`;
 
      this.initSelects(data);
@@ -575,7 +581,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
          this.getCustomfield(data.class_id);
        }
      }
-     else {
+     if (data.user_id){
       this.getProfile(data.user_id);
      }
    }
@@ -614,9 +620,9 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
             case "class" :
               if (this.ticket.class_id == event.id) 
               break;
-            
               this.getCustomfield(event.id);
               break;
+            
         }
    }
 
@@ -830,7 +836,6 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
      if (customfields_xml == "") {
        return;
      }
-     console.log("selects", this.selects);
      let data = {
        "class_id": this.selects.class.selected,
        "level_id": this.selects.level.selected,
@@ -838,8 +843,8 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
        "project_id": this.selects.project.selected,
        "location_id": this.selects.location.selected,
        "account_id": this.selects.account.selected,
-       "tech_id": this.selects.tech.selected,
-       "user_id": this.selects.user.selected,
+       "tech_id": this.selects.alttechs.selected,
+       "user_id": this.selects.altusers.selected,
        "customfields_xml": customfields_xml,
        "default_contract_id": this.selects.contract.selected,
        "default_contract_name": this.selects.contract.value
@@ -872,9 +877,9 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
      this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(
        data => {
          this.nav.alert(this.config.current.names.ticket.s + ' pickup was Succesfull!');
-         this.techname = this.selects.tech.value = this.ticket.tech_firstname = getFullName(this.he.firstname, this.he.lastname, this.he.email);
+         this.techname = this.ticket.tech_firstname = getFullName(this.he.firstname, this.he.lastname, this.he.email);
          this.ticket.tech_lastname = this.ticket.tech_email = "";
-         this.selects.tech.selected = this.he.user_id;
+         //this.selects.tech.selected = this.he.user_id;
          this.getPosts(this.ticket.key);
        },
        error => {
@@ -969,9 +974,20 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
      let myModal = Modal.create(TransferTicketModal, { "number": this.ticket.number, "key": this.ticket.key, "subject": this.ticket.subject,  "tech_firstname": this.ticket.tech_firstname, "tech_lastname": this.ticket.tech_lastname});
      myModal.onDismiss(data => {
        if (data){
-         this.techname = this.selects.tech.value = this.ticket.tech_firstname = data.name;
+         this.techname = this.ticket.tech_firstname = data.name;
          this.ticket.tech_lastname = this.ticket.tech_email = "";
-         this.selects.tech.selected = data.id;
+         this.getPosts(this.ticket.key);
+       }
+     });
+     this.nav.present(myModal);
+   }  
+
+   changeUser() {
+     let myModal = Modal.create(ChangeUserModal, { "number": this.ticket.number, "key": this.ticket.key, "subject": this.ticket.subject,  "user_firstname": this.ticket.user_firstname, "user_lastname": this.ticket.user_lastname});
+     myModal.onDismiss(data => {
+       if (data){
+         this.username = this.ticket.user_firstname = data.name;
+         this.ticket.user_lastname = this.ticket.user_email = "";
          this.getPosts(this.ticket.key);
        }
      });

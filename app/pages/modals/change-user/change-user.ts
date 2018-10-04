@@ -6,15 +6,14 @@ import {SelectListComponent} from '../../../components/select-list/select-list';
 
 
 @Page({
-    templateUrl: 'build/pages/modals/transfer-ticket/transfer-ticket.html',
+    templateUrl: 'build/pages/modals/change-user/change-user.html',
     directives: [forwardRef(() => SelectListComponent)],
 })
-export class TransferTicketModal {
+export class ChangeUserModal {
 
-    keep_attached: boolean;
-    ticketnote: string;
     ticket: any;
     selects: any;
+    ticketnote: string;
 
     constructor(private nav: Nav, private navParams: NavParams, private ticketProvider: TicketProvider, private config: Config,
         private viewCtrl: ViewController) {
@@ -25,17 +24,15 @@ export class TransferTicketModal {
 
     ngOnInit() {
 
-        this.keep_attached = false;
-
         this.ticket = this.navParams.data || 0;
 
         this.selects = {
-            "tech": {
-                name: "tech",
+            "user": {
+                name: "user",
                 value: "Choose",
                 selected: 0,
                 hidden: false,
-                url: "technicians"
+                url: "users"
                             },
         };
            }
@@ -55,17 +52,16 @@ export class TransferTicketModal {
     onSubmit(form) {
         if (form.valid) {
             var post = htmlEscape((this.ticketnote || "").trim()).substr(0, 5000);
-            let newtech = {
+            let newuser = {
                 "note_text": post,
                 "name": this.selects.value,
-                "tech_id": this.selects.selected,
-                "keep_attached": this.keep_attached,
+                "user_id": this.selects.selected,
                 "action":  "transfer",
             };
-            this.ticketProvider.transferUserTech(this.ticket.key, newtech).subscribe(
+            this.ticketProvider.transferUserTech(this.ticket.key, newuser).subscribe(
        data => {
          this.nav.alert(this.config.current.names.ticket.s + ' has been transferred :)');
-         this.dismiss(newtech);
+         this.dismiss(newuser);
        },
        error => {
          this.nav.alert(error, true);
@@ -75,7 +71,5 @@ export class TransferTicketModal {
 
         }
     }
-
-
 
 }

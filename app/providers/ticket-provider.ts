@@ -174,6 +174,11 @@ export class TicketProvider {
             return this.apiData.get(url, data, "POST");
         }
 
+        transferUserTech(id, data) {
+            let url = `${this.URL}/${id}`;
+            return this.apiData.get(url, data, "POST");
+        }
+
         getCustomfields(class_id, pager) {
             let url = addp("customfields", "class_id", class_id);
             return this.apiData.getPaged(url, pager);
