@@ -161,6 +161,7 @@
   <button [hidden]="!is_editworkpad" secondary class="button_reply img-top right " (click)="saveWorkpad(workpadtext)">{{ticket?.workpad?.length ? 'Save' : 'Add'}} Workpad</button>
   <span class="span-block"></span>
 </ion-list>
+
 <ion-list class="list img-top" no-lines *ngSwitchWhen="'Files'">
  <div [hidden]="attachments?.length" class="table grey2 menu-text">No Files yet</div>
  <ion-item *ngFor="let file of attachments">
@@ -172,8 +173,20 @@
           </div>
     </ion-item>
     <span class="span-block"></span>
-     <!--button (click)="addFilesButton()" secondary item-right fab fab-right fab-bottom style="z-index: 2"><ion-icon class="button_circle action-but" name="md-add"></ion-icon></button-->
+     <button (click)="callback($event)"  secondary item-right fab fab-right fab-bottom style="z-index: 2"><ion-icon class="button_circle action-but" name="md-add"></ion-icon></button>
+
+     <div>  <button type="button" (click)="uploadedFile()"  left class="button-attach attach color"><ion-icon class="button-font action-but color" name="md-attach"></ion-icon>Add Files</button></div>
   </ion-list>
+
+
+
+
+
+
+
+
+
+
 
   <div *ngSwitchWhen="'Options'" class="list max-width700 general-alignment">
     <button *ngIf="config.current.is_time_tracking" (click)="addTime()" block type="submit" class="blue2 disable-hover button button-default button-block class-margin">Add Time</button>

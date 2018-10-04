@@ -1103,7 +1103,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
        setDate(date, showmonth?, istime?) {
          if (date){
         var time_offset = this.config.getCurrent("timezone_offset");     
-        date = new Date(date.substring(0,23));
+        date = new Date(date.substring(0,23)+"Z");
         date = new Date(date.setTime(date.getTime() + time_offset*60*60*1000)).toJSON();
         return getDateTime(date, showmonth, istime);
     }
