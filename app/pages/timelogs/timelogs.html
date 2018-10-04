@@ -18,7 +18,7 @@
     <li class="font-hours">
     <ion-icon name="time">&nbsp;</ion-icon>
         <h2>{{getFixed(time.hours)}}</h2>
-        <p>{{setDate(time.date)}}</p>
+        <p>{{setDate(time.date, time.time_offset)}}</p>
         <h2 *ngIf="time.non_working_hours > 0" style="margin-bottom: 0px" class="outline_white">{{time.non_working_hours}}</h2>
         <p *ngIf="time.non_working_hours > 0" style="margin-top: 0px">non-work</p>
       </li>
