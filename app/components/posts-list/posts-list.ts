@@ -51,21 +51,15 @@ export class PostsListComponent {
         //   this.filter(); 
     }
 
-    getTime (date){
-        return new Date(date + "Z");
-        let hours= this.config.getCurrent("timezone_offset");
-    if (date){
-        if (date.length == 19)
-            date = date.slice(0,-3);
-        let temp = new Date(date);
-        return new Date(temp.setTime(temp.getTime() + (hours*60*60*1000))).toJSON();
-    }
-    return date;
-}
-
-
+  
     setDate(date, showmonth?, istime?) {
-         return date ? getDateTime(date, showmonth, istime) : null;
+         if (date){
+        var time_offset = this.config.getCurrent("timezone_offset");     
+        date = new Date(date.substring(0,23));
+        date = new Date(date.setTime(date.getTime() + time_offset*60*60*1000)).toJSON();
+        return getDateTime(date, showmonth, istime);
+    }
+     return null;
        }
 
     /*get posts()

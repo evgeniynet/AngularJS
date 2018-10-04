@@ -135,7 +135,13 @@ export class ExpenseCreatePage {
     }
 
     setDate(date, showmonth?, istime?) {
-        return date ? getDateTime(date, showmonth, istime) : null;
+        if (date){
+        var time_offset = this.config.getCurrent("timezone_offset");     
+        date = new Date(date.substring(0,23));
+        date = new Date(date.setTime(date.getTime() + time_offset*60*60*1000)).toJSON();
+        return getDateTime(date, showmonth, istime);
+    }
+     return null;
     }
 
     
