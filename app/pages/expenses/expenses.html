@@ -13,12 +13,13 @@
             <div class="expenses">
  <li class="text-left left">
     <h2 class="ellipsis color">{{expense.user_name}}</h2>
-     <h3 class="timelogs ellipsis color" ><b>Note: </b><span [innerHTML]="expense.note | Linebreaks"></span></h3>
+     <h3 class="timelogs ellipsis color" ><b>Note:&nbsp;</b><span [innerHTML]="expense.note | Linebreaks"></span></h3>
      <h3 class="timelogs ellipsis color" *ngIf="expense.ticket_id">{{"#"+expense.ticket_number+": "+expense.ticket_subject}}</h3>
-     <h3 class="timelogs ellipsis" *ngIf="expense.project_id"><b>Project: </b>{{expense.project_name}}</h3></li>
+     <h3 class="timelogs ellipsis" *ngIf="expense.project_id"><b>Project:&nbsp;</b>{{expense.project_name}}</h3></li>
       <li class="right margin font-time text-right">
     <span class="expense-hours color">{{getCurrency(expense.amount)}}</span> 
-    <h3 class="expense-hours color">{{setDate(expense.date, false, true)}}</h3> 
+    <h3 class="expense-hours color">{{setDate(expense.date)}}</h3> 
+    <h3 class="expense-hours color" style="margin-top: -2px;">{{setDate(expense.date, false, true).substr(8)}}</h3> 
       </li>
       
     </div>
