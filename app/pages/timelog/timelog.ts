@@ -76,8 +76,6 @@ ngOnInit()
     this.UserDateOffset = this.config.getCurrent("timezone_offset");
     this.time = this.navParams.data || {};
 
-    //this.time.is_force_time_on_closing_tickets
-
     let name = (this.time.user_name + " " + this.time.user_email).trim().split(' ')[0];
             if (this.time.time_id)
             {
