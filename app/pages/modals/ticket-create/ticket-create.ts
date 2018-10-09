@@ -136,6 +136,7 @@ export class TicketCreatePage {
     dismissPage(data) {
         if (data)
             this.nav.alert(this.config.current.names.ticket.s + ' was Succesfully Created :)');
+        //data.is_add_Time on Ticket Creation = true
         this.viewCtrl.dismiss(data);
     }
 

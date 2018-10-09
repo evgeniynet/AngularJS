@@ -371,7 +371,9 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
    }
 
    onPageLoaded() {
-     
+     //test only
+     this.config.current.is_force_time_on_closing_tickets = true;
+
      this.ticket.customfields = [];
      this.active = true;
      this.he = this.config.getCurrent("user");
@@ -1035,9 +1037,10 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
    addTime()
    {
      let myModal = Modal.create(TimelogPage, { "number": this.ticket.number, "ticket_number": this.ticket.key, "subject": this.ticket.subject, "account_id": this.ticket.account_id });
-     //myModal.onDismiss(data => {
-       //    console.log(data);
-       //});
+     myModal.onDismiss(data => {
+       //this.config.current.is_force_time_on_closing_tickets
+           console.log(data);
+       });
        this.nav.present(myModal);
      }
 
@@ -1051,7 +1054,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
        }
 
        addFilesButton() {
-    console.log("Function connect");
+    console.log("Function cocrennect");
     let myModal = Modal.create(AddFilesModal);
         myModal.onDismiss(data1 => {
             //this.gotoUser(data1);

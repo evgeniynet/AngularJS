@@ -76,6 +76,8 @@ ngOnInit()
     this.UserDateOffset = this.config.getCurrent("timezone_offset");
     this.time = this.navParams.data || {};
 
+    //this.time.is_force_time_on_closing_tickets
+
     let name = (this.time.user_name + " " + this.time.user_email).trim().split(' ')[0];
             if (this.time.time_id)
             {
@@ -374,7 +376,7 @@ ngOnInit()
                             (this.timeProvider._dataStore[this.time.cachename] || []).splice(0, 0, tt);
                         }
                         this.nav.alert('Time was successfully ' + (isEdit ? 'updated' : 'added') + ' :)');
-                        this.close();
+                        this.close(1);
                     },
                     error => {
                         console.log(error || 'Server error');
@@ -450,8 +452,8 @@ ngOnInit()
         return Number(value || "0").toFixed(2).toString();
     }
     
-    close() {
-        this.view.dismiss();
+    close(data?) {
+        this.view.dismiss(data);
     }
 
     viewInvoice() {
