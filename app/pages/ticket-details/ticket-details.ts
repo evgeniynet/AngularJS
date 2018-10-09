@@ -371,8 +371,11 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
    }
 
    onPageLoaded() {
-     //test only
-     this.config.current.is_force_time_on_closing_tickets = true;
+     //for test only
+     this.config.current.is_force_time_on_closing_tickets = false;
+     this.config.current.allows_tech_to_reopen = true;
+     //
+
 
      this.ticket.customfields = [];
      this.active = true;
@@ -962,6 +965,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
        this.reopenTicket();
        return;
      }
+     console.log(this.config.current.is_force_time_on_closing_tickets);
      if (this.config.current.is_force_time_on_closing_tickets == true){
        this.addTime();
        return;

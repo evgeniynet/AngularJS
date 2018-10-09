@@ -203,7 +203,7 @@
 
     <button *ngIf="ticket.level_deescalate" (click)='Escalate(false)' block type="submit" class="blue2 class-margin">De-Escalate to Level {{ticket.level_deescalate}} &#8681;</button>
 
-    <button (click)="closeTicket()" secondary block type="submit" class="class-margin">{{ticket.status != 'Closed' ? 'Close' : 'ReOpen'}} {{config.current.names.ticket.s}}</button> 
+    <button (click)="closeTicket()"  [disabled]="ticket.status == 'Closed' && config.current.allows_tech_to_reopen" secondary block type="submit" class="class-margin">{{ticket.status != 'Closed' ? 'Close' : 'ReOpen'}} {{config.current.names.ticket.s}}</button> 
 
     <a *ngIf="userphone" href="tel://{{userphone}}" style="text-decoration: unset;">
       <div block secondary type="submit" class="callNow button button-secondary" ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 26px; margin-top:-5px;">

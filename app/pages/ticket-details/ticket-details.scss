@@ -193,3 +193,8 @@ ion-searchbar .searchbar-input {
     height: 2em;
     margin-right:10%;
 }
+.disabled{
+    cursor: none;
+    opacity: .4;
+    pointer-events: none;
+}
