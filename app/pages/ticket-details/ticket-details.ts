@@ -343,6 +343,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
    ticketnote: string;
    attachments: any;
    is_editworkpad: boolean = true;
+   disable: boolean = false;
    cachename: string = "";
    closed_index: number = 0;
    fileDest: any = {ticket: ""};
@@ -374,6 +375,8 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
      //for test only
      this.config.current.is_force_time_on_closing_tickets = false;
      this.config.current.allows_tech_to_reopen = true;
+     this.config.current.days_allowed_to_reopen = 15;
+     this.config.current.transfer_ticket_to_another_user = false;
      //
 
 
@@ -979,6 +982,28 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
      });
      this.nav.present(myModal);
    }  
+
+   cheakAllowsToReopen(){
+     if(this.config.current.allows_tech_to_reopen == false)
+       return false;
+     let daysago = this.dayOld(this.posts[0].record_date);
+     if (this.config.current.days_allowed_to_reopen <= daysago)
+       return false;
+    return true;
+   }
+
+   dayOld(value) {
+        value = value || 0;
+        if (isNaN(value))
+            value = Math.round((new Date().getTime() - +new Date(value + "Z")) / 60000);
+        var daysAgo: number = value / 60;
+        var result : string = "";
+                if (!value || value < 2)
+                  result = "0"; 
+                else
+                  result = parseInt((daysAgo / 24).toString()) + "";
+                    return result;
+    } 
 
    transferTicket() {
      let myModal = Modal.create(TransferTicketModal, { "number": this.ticket.number, "key": this.ticket.key, "subject": this.ticket.subject,  "tech_firstname": this.ticket.tech_firstname, "tech_lastname": this.ticket.tech_lastname});
