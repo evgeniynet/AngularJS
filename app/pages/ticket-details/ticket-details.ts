@@ -98,7 +98,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
    private error: string = "";
    private files: any = [];
    private in_progress: any;
-   private MAX_SIZE : number = 4194304; // 4 MB
+   private MAX_SIZE : number = 104857600; // 100 MB
 
 
   /**
@@ -243,7 +243,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
            let file = this.nativeInputBtn.nativeElement.files[i];
            if (this.isFile(file)){
              if (file.size > this.MAX_SIZE)
-               this.error += `File ${file.name} will be skipped. It is more 4 MB<br>`;
+               this.error += `File ${file.name} will be skipped. It is more 100 MB<br>`;
              else if (file.size === 0)
                this.error += `File ${file.name} will be skipped. It has zero size <br>`;
              else if (!file.name.trim())
