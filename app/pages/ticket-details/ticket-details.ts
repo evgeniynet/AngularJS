@@ -372,13 +372,6 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
    }
 
    onPageLoaded() {
-     //for test only
-     this.config.current.is_force_time_on_closing_tickets = false;
-     this.config.current.allows_tech_to_reopen = true;
-     this.config.current.days_allowed_to_reopen = 15;
-     this.config.current.transfer_ticket_to_another_user = false;
-     //
-
 
      this.ticket.customfields = [];
      this.active = true;
