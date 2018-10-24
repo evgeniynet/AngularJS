@@ -32,6 +32,9 @@ export class TicketCreatePage {
 
     ngOnInit()
     {
+        //for test only
+        this.config.current.is_require_ticket_initial_post = true;
+
         this.he = this.config.getCurrent("user");
 
         this.data = this.navParams.data || {};
@@ -232,8 +235,13 @@ export class TicketCreatePage {
             //proof double click
             if (this.ticket.in_progress && Date.now() - this.ticket.in_progress < 1500) {return;}
             this.ticket.in_progress = Date.now();
-            this.ticket.subject = htmlEscape(this.ticket.subject.trim());
+            this.ticket.subject = htmlEscape(this.ticket.subject.trim());          
             this.ticket.initial_post = htmlEscape(this.ticket.initial_post.trim()).substr(0, 4500);
+            if (this.config.current.is_require_ticket_initial_post && !this.ticket.initial_post.length)
+            {
+                this.nav.alert("Note is required!",true);
+                return;
+            }
 
             if (this.files.length)
             {

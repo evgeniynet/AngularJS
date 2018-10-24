@@ -33,7 +33,9 @@ export class InfinitySelectModal {
     }
 
     ngOnInit() {
-        
+        // for test only
+        this.config.current.is_add_new_user_link= false;
+
         this.term = '';
         this.name = this.navParams.data.name || "List";
         this.isdefault_enabled = !~["user", "account", "tech", "task type"].indexOf(this.name.toLowerCase());
