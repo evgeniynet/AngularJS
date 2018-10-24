@@ -977,7 +977,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
    }  
 
    cheakAllowsToReopen(){
-     if(this.config.current.allows_tech_to_reopen == false)
+     if(this.config.current.is_allows_tech_to_reopen == false)
        return false;
      let daysago = this.dayOld(this.posts[0].record_date);
      if (this.config.current.days_allowed_to_reopen <= daysago)
