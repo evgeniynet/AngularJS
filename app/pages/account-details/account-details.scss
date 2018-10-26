@@ -3,6 +3,47 @@
     overflow: hidden;
     /*text-overflow: ellipsis;*/
 }
+.width12{
+    width:12%;
+}
+
+.projecttitle{
+ion-label{
+margin-bottom:0px;
+}
+p{
+font-size: 1.5rem;
+}    
+}
+
+.projectlist{
+p{
+padding-left:5px;
+background-color: $grey;
+line-height: 2.6;
+font-size: 1.5rem;
+margin-top: -3px !important;
+}
+h3
+{
+height: 36px;
+background-color: $grey;
+line-height: 1.9;
+font-size: 1.9rem;
+}
+h3:first-of-type{
+background-color: $blue2;
+}
+h3:last-child{
+background-color: $blue2;
+}
+.item-inner{
+    border-bottom: none;
+}
+ion-label{
+    margin:0px;
+}
+}
 
 .note-account {
     height: 40px;

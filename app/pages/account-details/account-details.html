@@ -112,18 +112,18 @@
 
       <div [hidden]="account.projects?.length" class="table grey2 menu-text">No Projects yet</div>
 
-      <ion-item *ngIf="account.projects?.length" no-lines class="margin color">
-        <p class="text width30 text-left left"></p>
-        <p class="width17 right table table_account">Open</p>
-        <p class="width17 right table table_account">Logged</p>
-        <p class="width17 right table table_account">Remain</p>  
-        <p class="width19 right table table_account">Complete</p>
+      <ion-item *ngIf="account.projects?.length" no-lines class="margin color projecttitle">
+        <p class="text width35 text-left left">&nbsp;&nbsp;Name</p>
+        <p class="width12 left table table_account">Open</p>
+        <p class="width17 left table table_account">Logged</p>
+        <p class="width17 left table table_account">Remain</p>  
+        <p class="width19 left table table_account">Complete</p>
       </ion-item>
 
 
-      <ion-item class="color margin" *ngFor="let project of account.projects">
-        <p class="text color width30 left table_account text-left">{{project.name}}</p>
-        <h3 class="width17 left table">{{project.open_tickets}}</h3> 
+      <ion-item class="color margin projectlist" *ngFor="let project of account.projects">
+        <p class="text color width35 left table_account text-left">&nbsp;{{project.name}}</p>
+        <h3 class="width12 left table">{{project.open_tickets}}</h3> 
         <h3 class="width17 left table">{{project.logged_hours}}</h3> 
         <h3 class="width17 left table">{{project.remaining_hours}}</h3> 
         <h3 class="width19 right table">{{project.complete}}%</h3>
