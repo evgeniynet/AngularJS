@@ -124,6 +124,16 @@ getExpenses(account_id, pager) {
     return this.apiData.getPaged(url, pager);
 }
 
+getContracts(pager) {
+    let url = "contracts";
+    return this.apiData.getPaged(url, pager);
+}
+
+getPrepaid_packs(account_id, pager) {
+    let url = addp("prepaid_packs", "account", account_id);
+    return this.apiData.getPaged(url, pager);
+}
+
 getPriorities() {
     return this.apiData.get("priorities");
 }

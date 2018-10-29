@@ -193,7 +193,7 @@
     <button *ngIf="config.current.is_onhold_status" (click)="onHold()" block type="submit" class="blue2 disable-hover button button-default button-block class-margin">{{  ticket.status == "OnHold" ? ("ReOpen " + config.current.names.ticket.s) : "Place On Hold" }}</button>
     <button *ngIf="config.current.is_expenses" (click)="addExpense()" block type="submit" class="blue2 disable-hover button button-default button-block class-margin">Add Expense</button>
 
-    <button (click)='changeUser()' *ngIf="config.current.transfer_ticket_to_another_user" block type="submit" class="blue2 class-margin">Change {{config.current.names.user.s}}</button>
+    <button (click)='changeUser()' *ngIf="config.current.is_transfer_ticket_to_another_user" block type="submit" class="blue2 class-margin">Change {{config.current.names.user.s}}</button>
 
     <button (click)='transferTicket()' block type="submit" class="blue2 class-margin">Transfer {{config.current.names.ticket.s}}</button>
 

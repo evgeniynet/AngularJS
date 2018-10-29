@@ -19,7 +19,7 @@
         <div class="blue1 left width65 img-top">
           <a detail-none href=#tickets ion-item class="textLogin">Open {{config.current.names.ticket.ap}}</a>
           <a *ngIf="config.current.is_invoice && config.current.is_time_tracking" detail-none href=# ion-item (click)="openPage(0,account.account_statistics.invoices)" class="textLogin">Invoices</a>
-          <a *ngIf="config.current.is_expenses" detail-none href=# ion-item (click)="openPage(1, account.account_statistics.expenses)" class="textLogin">Expenses</a>
+          <a *ngIf="config.current.is_expenses" detail-none href=# ion-item (click)="openPage(1, account.account_statistics.expenses)" class="textLogin">Contracts</a>
           <a  *ngIf="config.current.is_time_tracking" detail-none href=# ion-item (click)="openPage(2, account.account_statistics.hours)" class="textLogin">Hours</a>
         </div>
         <div class="right width35 img-top">

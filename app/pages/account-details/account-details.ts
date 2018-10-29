@@ -3,7 +3,7 @@ import {TicketProvider} from '../../providers/providers';
 import {DataProvider} from '../../providers/data-provider';
 import {InvoicesPage} from '../invoices/invoices';
 import {TimelogsPage} from '../timelogs/timelogs';
-import {ExpensesPage} from '../expenses/expenses';
+import {ContractsPage} from '../contracts/contracts';
 import {FileUrlHelper} from '../../directives/helpers';
 import {TicketsListComponent} from '../../components/tickets-list/tickets-list';
 import {ActionButtonComponent} from '../../components/action-button/action-button';
@@ -25,7 +25,7 @@ export class AccountDetailsPage {
 
     constructor(private nav: Nav, private navParams: NavParams, private dataProvider: DataProvider, private ticketProvider: TicketProvider, private config: Config, private view: ViewController) {
         this.details_tab = "Stat";
-        this.pages = [InvoicesPage, ExpensesPage, TimelogsPage];
+        this.pages = [InvoicesPage, ContractsPage, TimelogsPage];
   }
     
     onPageLoaded()
