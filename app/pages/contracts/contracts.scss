@@ -9,6 +9,67 @@
     flex: 1;
     }
 }
+.Prepaidlist{
+h3{
+height: 20px;
+background-color: $grey;
+line-height: 1.5;
+font-size: 1.3rem;
+margin-bottom: 0;
+}
+h3:nth-of-type(2n+1){
+text-align:left;
+}
+h3:nth-of-type(2n){
+background-color: $blue2;
+}
+.item-inner{
+    border-bottom: none;
+}
+ion-label{
+    margin:0px;
+}
+}
+
+.contracttitle{
+ion-label{
+margin-bottom:0px;
+}
+p{
+font-size: 1.3rem;
+} 
+}
+
+.contractlist{
+p{
+padding-left:5px;
+background-color: $grey;
+line-height: 2.6;
+font-size: 1.2rem;
+margin-top: -3px !important;
+}
+h3{
+height: 20px;
+background-color: $grey;
+line-height: 1.5;
+font-size: 1.3rem;
+}
+h3:nth-of-type(2){
+background-color: $blue2;
+}
+h3:nth-of-type(5){
+background-color: $blue2;
+}
+.item-inner{
+    border-bottom: none;
+}
+ion-label{
+    margin:0px;
+    margin-top: -20px;
+
+}
+}
 
 .expense-hours{
     font-weight: 600;}
+
