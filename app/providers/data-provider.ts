@@ -130,7 +130,7 @@ getContracts(pager) {
 }
 
 getPrepaid_packs(account_id, pager) {
-    let url = addp("prepaid_packs", "account", account_id);
+    let url = addp("prepaid_packs", "account_id", account_id);
     return this.apiData.getPaged(url, pager);
 }
 

@@ -80,7 +80,7 @@ onPageWillEnter()
             }
         );
 
-        this.dataProvider.getPrepaid_packs(this.params.account.id, this.pager).subscribe(
+        this.dataProvider.getPrepaid_packs(this.params.account.id, this.pager).subscribe( 
             data => {
                 if (timer) {
                     this.is_empty_prepaid = !data.length;
@@ -106,6 +106,16 @@ onPageWillEnter()
         );
     }
 
+    setDate(date, showmonth?, istime?) {
+        if (date){
+        var time_offset = this.config.getCurrent("timezone_offset");     
+        date = new Date(date.substring(0,23)+"Z");
+        date = new Date(date.setTime(date.getTime() + time_offset*60*60*1000)).toJSON();
+        return getDateTime(date, showmonth, istime);
+    }
+     return null;
+    }
+
     doInfinite(infiniteScroll) {
         if (this.is_empty_contracts || this.count < this.LIMIT) {
             infiniteScroll.enable(false);
@@ -116,6 +126,7 @@ onPageWillEnter()
         this.getItems(infiniteScroll, null);
     }
 
+    
 
     getCurrency(value) {
         return getCurrency(value);
