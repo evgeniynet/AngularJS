@@ -42,69 +42,70 @@
         <tickets-list [hidden]="tabsTicket != 'Close'" preload="1500" [mode]="['closed', account.id]"></tickets-list>
       </div>
 
-      <ion-list class="list margin-top21" no-lines *ngSwitchWhen="'Info'">
-        <ion-item class="margin color"><h3 class="left width35 text-left">BWD Acct#</h3>
-         <h3 class="right width50 tkts-table">{{account.bwd_number}}</h3>
+      <ion-list class="list margin-top21 info" no-lines *ngSwitchWhen="'Info'">
+        <ion-item class="margin color infolist">
+          <h3 class="left width35 text-left">&nbsp;&nbsp;BWD Acct#</h3>
+         <h3 class="right width65 ">&nbsp;{{account.bwd_number}}</h3>
        </ion-item>
-       <ion-item class="margin color">
-         <h3 class="left width35 tet-detxt-left">Acc#</h3>
-         <h3 class="right width50 tkts-table">{{account.number}}</h3>
+       <ion-item class="margin color infolist">
+         <h3 class="left width35 tet-detxt-left">&nbsp;&nbsp;Acc#</h3>
+         <h3 class="right width65 tkts-table">&nbsp;{{account.number}}</h3>
        </ion-item>
-       <ion-item class="margin color">
-         <h3 class="left width35 text-left">Ref1#</h3>
-         <h3 class="right width50 tkts-table">{{account.ref1}}</h3>
+       <ion-item class="margin color infolist">
+         <h3 class="left width35 text-left">&nbsp;&nbsp;Ref1#</h3>
+         <h3 class="right width65 tkts-table">&nbsp;{{account.ref1}}</h3>
        </ion-item>
-       <ion-item class="margin color">
-         <h3 class="left width35 text-left">Ref2#</h3>
-         <h3 class="right width50 tkts-table">{{account.ref2}}</h3>
+       <ion-item class="margin color infolist">
+         <h3 class="left width35 text-left">&nbsp;&nbsp;Ref2#</h3>
+         <h3 class="right width65 tkts-table">&nbsp;{{account.ref2}}</h3>
        </ion-item>
-       <ion-item class="margin color">
-         <h3 class="left width35 text-left">Org/Indiv</h3>
-         <h3 class="right width50 tkts-table">{{account.is_organization ? "Organization" : "Individual"}}</h3>
+       <ion-item class="margin color infolist">
+         <h3 class="left width35 text-left">&nbsp;&nbsp;Org/Indiv</h3>
+         <h3 class="right width65 tkts-table">&nbsp;{{account.is_organization ? "Organization" : "Individual"}}</h3>
        </ion-item>
-       <ion-item class="margin color">
-         <h3 class="left width35 text-left">Acc Rep</h3>
-         <h3 class="right width50 tkts-table">{{account.representative_name}}</h3>
+       <ion-item class="margin color infolist">
+         <h3 class="left width35 text-left">&nbsp;&nbsp;Acc Rep</h3>
+         <h3 class="right width65 tkts-table">&nbsp;{{account.representative_name}}</h3>
        </ion-item>
-       <ion-item class="margin color">
-         <h3 class="left width35 text-left space-initial">Internal location</h3>
-         <h3 class="right width50 tkts-table">{{account.internal_location_name}}</h3>
+       <ion-item class="margin color infolist">
+         <h3 class="left width35 text-left space-initial">&nbsp;&nbsp;Internal location</h3>
+         <h3 class="right width65 tkts-table">&nbsp;{{account.internal_location_name}}</h3>
        </ion-item>
-       <ion-item class="margin color">
-         <h3 class="left width35 text-left">Email Suffix</h3>
-         <h3 class="right width50 tkts-table">{{account.email_suffix}}</h3>
+       <ion-item class="margin color infolist">
+         <h3 class="left width35 text-left">&nbsp;&nbsp;Email Suffix</h3>
+         <h3 class="right width65 tkts-table">&nbsp;{{account.email_suffix}}</h3>
        </ion-item>
-       <ion-item class="margin color">
-         <h3 class="left width35 text-left">Address 1</h3>
-         <h3 class="right width50 tkts-table">{{account.address1}}</h3>
+       <ion-item class="margin color infolist">
+         <h3 class="left width35 text-left">&nbsp;&nbsp;Address 1</h3>
+         <h3 class="right width65 tkts-table">&nbsp;{{account.address1}}</h3>
        </ion-item>
-       <ion-item class="margin color">
-         <h3 class="left width35 text-left">Address 2</h3>
-         <h3 class="right width50 tkts-table">{{account.address2}}</h3>
+       <ion-item class="margin color infolist">
+         <h3 class="left width35 text-left">&nbsp;&nbsp;Address 2</h3>
+         <h3 class="right width65 tkts-table">&nbsp;{{account.address2}}</h3>
        </ion-item>
-       <ion-item class="margin color">
-         <h3 class="left width35 text-left">City</h3>
-         <h3 class="right width50 tkts-table">{{account.city}}</h3>
+       <ion-item class="margin color infolist">
+         <h3 class="left width35 text-left">&nbsp;&nbsp;City</h3>
+         <h3 class="right width65 tkts-table">&nbsp;{{account.city}}</h3>
        </ion-item>
-       <ion-item class="margin color">
-         <h3 class="left width35 text-left">Postal Code</h3>
-         <h3 class="right width50 tkts-table">{{account.zipcode}}</h3>
+       <ion-item class="margin color infolist">
+         <h3 class="left width35 text-left">&nbsp;&nbsp;Postal Code</h3>
+         <h3 class="right width65 tkts-table">&nbsp;{{account.zipcode}}</h3>
        </ion-item>
-       <ion-item class="margin color">
-         <h3 class="left width35 text-left">Country</h3>
-         <h3 class="right width50 tkts-table">{{account.country}}</h3>
+       <ion-item class="margin color infolist">
+         <h3 class="left width35 text-left">&nbsp;&nbsp;Country</h3>
+         <h3 class="right width65 tkts-table">&nbsp;{{account.country}}</h3>
        </ion-item>
-       <ion-item class="margin color">
-         <h3 class="left width35 text-left">Phone 1</h3>
-         <h3 class="right width50 tkts-table">{{account.phone1}}</h3>
+       <ion-item class="margin color infolist">
+         <h3 class="left width35 text-left">&nbsp;&nbsp;Phone 1</h3>
+         <h3 class="right width65 tkts-table">&nbsp;{{account.phone1}}</h3>
        </ion-item>
-       <ion-item class="margin color">
-         <h3 class="left width35 text-left">Phone 2</h3>
-         <h3 class="right width50 tkts-table">{{account.phone2}}</h3>
+       <ion-item class="margin color infolist">
+         <h3 class="left width35 text-left">&nbsp;&nbsp;Phone 2</h3>
+         <h3 class="right width65 tkts-table">&nbsp;{{account.phone2}}</h3>
        </ion-item>
-       <ion-item class="color" *ngFor="let customfield of account.customfields">
-        <h3 class="left width35 text-left">{{customfield.Key}}</h3>
-        <h3 class="right width50 tkts-table">{{customfield.Value || '&nbsp;'}}</h3>
+       <ion-item class="color infolist" *ngFor="let customfield of account.customfields">
+        <h3 class="left width35 text-left">&nbsp;&nbsp;{{customfield.Key}}</h3>
+        <h3 class="right width65 tkts-table">&nbsp;{{customfield.Value || '&nbsp;'}}</h3>
       </ion-item>
     </ion-list> 
 
@@ -117,7 +118,7 @@
         <p class="width12 left table table_account">Open</p>
         <p class="width17 left table table_account">Logged</p>
         <p class="width17 left table table_account">Remain</p>  
-        <p class="width19 left table table_account">Complete</p>
+        <p class="width19 right table table_account">Complete</p>
       </ion-item>
 
 

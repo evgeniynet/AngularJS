@@ -12,7 +12,7 @@ ion-label{
 margin-bottom:0px;
 }
 p{
-font-size: 1.5rem;
+font-size: 1.35rem;
 } 
 
 }
@@ -22,7 +22,7 @@ height: 20px;
 background-color: $grey;
 line-height: 1.5;
 font-size: 1.3rem;
-margin-bottom: 0;
+margin-bottom: 2px;
 }
 h3:nth-of-type(2n+1){
 text-align:left;
@@ -104,6 +104,30 @@ background-color: $blue2;
 ion-label{
     margin:0px;
 }
+}
+
+.infolist{
+h3{
+height: 20px;
+background-color: $grey;
+line-height: 1.5;
+font-size: 1.3rem;
+margin-bottom: 0;
+}
+h3:nth-of-type(2n+1){
+text-align:left;
+}
+h3:nth-of-type(2n){
+background-color: $blue2;
+}
+ion-label{
+    margin:0px;
+}
+}
+.info{
+    ion-item{
+        min-height: 2.2rem !important;
+    }
 }
 
 .note-account {
