@@ -1,7 +1,7 @@
 import {Page, Config, Nav, NavParams, ViewController} from 'ionic-angular';
 import {TicketProvider} from '../../providers/providers';
 import {DataProvider} from '../../providers/data-provider';
-import {InvoicesPage} from '../invoices/invoices';
+import {ExpensesPage} from '../expenses/expenses';
 import {TimelogsPage} from '../timelogs/timelogs';
 import {ContractsPage} from '../contracts/contracts';
 import {FileUrlHelper} from '../../directives/helpers';
@@ -25,7 +25,7 @@ export class AccountDetailsPage {
 
     constructor(private nav: Nav, private navParams: NavParams, private dataProvider: DataProvider, private ticketProvider: TicketProvider, private config: Config, private view: ViewController) {
         this.details_tab = "Stat";
-        this.pages = [InvoicesPage, ContractsPage, TimelogsPage];
+        this.pages = [ContractsPage, ExpensesPage, TimelogsPage];
   }
     
     onPageLoaded()

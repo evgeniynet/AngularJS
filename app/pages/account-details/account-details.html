@@ -18,14 +18,14 @@
       <ion-list class="list img-top" no-lines>
         <div class="blue1 left width65 img-top">
           <a detail-none href=#tickets ion-item class="textLogin">Open {{config.current.names.ticket.ap}}</a>
-          <a *ngIf="config.current.is_invoice && config.current.is_time_tracking" detail-none href=# ion-item (click)="openPage(0,account.account_statistics.invoices)" class="textLogin">Invoices</a>
-          <a *ngIf="config.current.is_expenses" detail-none href=# ion-item (click)="openPage(1, account.account_statistics.expenses)" class="textLogin">Contracts</a>
+          <a *ngIf="config.current.is_invoice && config.current.is_time_tracking" detail-none href=# ion-item (click)="openPage(0,account.account_statistics.contracts)" class="textLogin">Contracts</a>
+          <a *ngIf="config.current.is_expenses" detail-none href=# ion-item (click)="openPage(1, account.account_statistics.expenses)" class="textLogin">Expenses</a>
           <a  *ngIf="config.current.is_time_tracking" detail-none href=# ion-item (click)="openPage(2, account.account_statistics.hours)" class="textLogin">Hours</a>
         </div>
         <div class="right width35 img-top">
           <a detail-none href=#tickets ion-item class="blue2">{{account.account_statistics.ticket_counts.open || 0}}</a>
-          <a *ngIf="config.current.is_invoice && config.current.is_time_tracking" detail-none href=# ion-item (click)="openPage(0,account.account_statistics.invoices)" class="blue2">{{account.account_statistics.invoices || 0}}</a>
-          <a  *ngIf="config.current.is_expenses" detail-none href=# ion-item (click)="openPage(1, account.account_statistics.expenses)" class="blue2" [innerHTML]="account.account_statistics.contracts | More:[10000,'<div class=item-inner><div class=input-wrapper><ion-label>VV</ion-label></div></div><ion-button-effect></ion-button-effect>']"></a>
+          <a *ngIf="config.current.is_invoice && config.current.is_time_tracking" detail-none href=# ion-item (click)="openPage(0,account.account_statistics.contracts)" class="blue2">{{account.account_statistics.contracts || 0}}</a>
+          <a  *ngIf="config.current.is_expenses" detail-none href=# ion-item (click)="openPage(1, account.account_statistics.expenses)" class="blue2" [innerHTML]="account.account_statistics.expenses | More:[10000,'<div class=item-inner><div class=input-wrapper><ion-label>VV$</ion-label></div></div><ion-button-effect></ion-button-effect>']"></a>
           <a *ngIf="config.current.is_time_tracking" detail-none href=# ion-item (click)="openPage(2, account.account_statistics.hours)" class="blue2" [innerHTML]="account.account_statistics.hours | More:[10000,'<div class=item-inner><div class=input-wrapper><ion-label>VV</ion-label></div></div><ion-button-effect></ion-button-effect>']"></a>
         </div>
       </ion-list>
@@ -123,7 +123,7 @@
 
 
       <ion-item class="color margin projectlist" *ngFor="let project of account.projects">
-        <p class="text color width35 left table_account text-left">&nbsp;{{project.name}}</p>
+        <h3 class="text color width35 left table_account text-left">&nbsp;{{project.name}}</h3>
         <h3 class="width12 left table">{{project.open_tickets}}</h3> 
         <h3 class="width17 left table">{{project.logged_hours}}</h3> 
         <h3 class="width17 left table">{{project.remaining_hours}}</h3> 
