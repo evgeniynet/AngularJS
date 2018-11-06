@@ -1,13 +1,14 @@
 import {Page, Config, Nav, NavParams, ViewController} from 'ionic-angular';
 import {TicketProvider} from '../../providers/providers';
 import {DataProvider} from '../../providers/data-provider';
-import {ExpensesPage} from '../expenses/expenses';
+import {InvoicesPage} from '../invoices/invoices';
 import {TimelogsPage} from '../timelogs/timelogs';
 import {ContractsPage} from '../contracts/contracts';
 import {FileUrlHelper} from '../../directives/helpers';
 import {TicketsListComponent} from '../../components/tickets-list/tickets-list';
 import {ActionButtonComponent} from '../../components/action-button/action-button';
 import {MorePipe} from '../../pipes/pipes';
+import {ExpensesPage} from '../expenses/expenses';
 
 @Page({
   templateUrl: 'build/pages/account-details/account-details.html',
