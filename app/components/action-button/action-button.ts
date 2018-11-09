@@ -32,7 +32,7 @@ export class ActionButtonComponent {
         myModal.onDismiss(data1 => { 
             //console.log(this.nav);
             //console.log(this.data);
-            if (data1 && !this.data.tech && !this.data.account)
+            if (data1 && !this.data.tech && !this.data.account && data1 != "close")
                 this.nav.push(TicketDetailsPage, data1);
         });
         this.nav.present(myModal);

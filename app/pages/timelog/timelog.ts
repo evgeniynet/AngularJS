@@ -374,7 +374,7 @@ ngOnInit()
                             (this.timeProvider._dataStore[this.time.cachename] || []).splice(0, 0, tt);
                         }
                         this.nav.alert('Time was successfully ' + (isEdit ? 'updated' : 'added') + ' :)');
-                        this.close(1);
+                        this.close("close");
                     },
                     error => {
                         console.log(error || 'Server error');
