@@ -961,7 +961,6 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
        this.reopenTicket();
        return;
      }
-     console.log(timeAdded);
      if (this.config.current.is_force_time_on_closing_tickets && !timeAdded){
        this.addTime(true);
        return;
