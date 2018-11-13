@@ -8,6 +8,7 @@ import {FileUrlHelper} from '../../directives/helpers';
 import {TicketsListComponent} from '../../components/tickets-list/tickets-list';
 import {ActionButtonComponent} from '../../components/action-button/action-button';
 import {MorePipe} from '../../pipes/pipes';
+import {ExpensesPage} from '../expenses/expenses';
 
 @Page({
   templateUrl: 'build/pages/account-details/account-details.html',
@@ -25,7 +26,7 @@ export class AccountDetailsPage {
 
     constructor(private nav: Nav, private navParams: NavParams, private dataProvider: DataProvider, private ticketProvider: TicketProvider, private config: Config, private view: ViewController) {
         this.details_tab = "Stat";
-        this.pages = [InvoicesPage, ContractsPage, TimelogsPage];
+        this.pages = [ContractsPage, ExpensesPage, TimelogsPage];
   }
     
     onPageLoaded()
