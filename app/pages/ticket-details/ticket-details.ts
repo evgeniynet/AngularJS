@@ -956,14 +956,13 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
    }
 
 
-   closeTicket() {
+   closeTicket(timeAdded?) {
      if (this.ticket.status == 'Closed') {
        this.reopenTicket();
        return;
      }
-     console.log(this.config.current.is_force_time_on_closing_tickets);
-     if (this.config.current.is_force_time_on_closing_tickets == true){
-       this.addTime();
+     if (this.config.current.is_force_time_on_closing_tickets && !timeAdded){
+       this.addTime(true);
        return;
      }
      let myModal = Modal.create(CloseTicketModal, { "number": this.ticket.number, "key": this.ticket.key, "subject": this.ticket.subject });
@@ -1060,13 +1059,12 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
      this.showSubjChange = !this.showSubjChange;
    }
 
-   addTime()
+   addTime(isClose?)
    {
-     let myModal = Modal.create(TimelogPage, { "number": this.ticket.number, "ticket_number": this.ticket.key, "subject": this.ticket.subject, "account_id": this.ticket.account_id, "is_force_time_on_closing_tickets": this.config.current.is_force_time_on_closing_tickets });
+     let myModal = Modal.create(TimelogPage, { "number": this.ticket.number, "ticket_number": this.ticket.key, "subject": this.ticket.subject, "account_id": this.ticket.account_id, "is_force_time_on_closing_tickets": this.config.current.is_force_time_on_closing_tickets && isClose });
      myModal.onDismiss(data => {
        if(data){
-       this.config.current.is_force_time_on_closing_tickets = false;
-       this.closeTicket();
+       this.closeTicket(true);
      }
        });
        this.nav.present(myModal);
