@@ -269,8 +269,8 @@ ngOnInit()
         this.selects[name].value = event.name;
     }
 
-    onSubmit(form) {
-        if (this.time.invoice_id)
+    onSubmit(form?) {
+ /*       if (this.time.invoice_id)
         {
             this.viewInvoice();
             return;
@@ -291,13 +291,13 @@ ngOnInit()
         {
             this.nav.alert("Hours value should be less or equal to Start/Stop range.", true);
             return;
-        }
+        }*/
         if (!this.selects.tasktype.selected)
         {
             this.nav.alert("Please, select Task Type from the list.", true);
             return;
         }
-        if (form.valid) {
+        /*if (form.valid) {
             //proof double click
             if (this.time.in_progress && Date.now() - this.time.in_progress < 1500) {return;}
             this.time.in_progress = Date.now();
@@ -314,27 +314,22 @@ ngOnInit()
             if (start_time)
             {
                 date = this.AddHours(start_time, -1*this.UserDateOffset);
-            }
+            }*/
             //TODO if other user changes what id should I write?  
             let data = {
-                "tech_id": isEdit ? this.time.user_id : this.he.user_id,
                 "project_id": this.selects.project.selected,
                 "is_project_log": !this.selects.ticket.selected,
                 "ticket_key": this.selects.ticket.selected,
                 "account_id": this.selects.account.selected,
-                "note_text": note,
                 "task_type_id": this.selects.tasktype.selected,
                 "prepaid_pack_id" : this.selects.prepaidpack.selected,
-                "hours": hours,
                 "no_invoice": this.isbillable,
-                "date": date || "", 
-                "start_date": start_time || "",
-                "stop_date": stop_time || "",
-                "non_working_hours": non_work_hours,
                 "contract_id": this.selects.contract.selected,
                 "is_local_time": true,
             };
+            console.log(data,"data");
 
+/*
             this.timeProvider.addTime(this.time.time_id, data, isEdit ? "PUT" : "POST").subscribe(
                 res => {
                     //store recent
@@ -391,7 +386,7 @@ ngOnInit()
                         console.log(error || 'Server error');
                     }
                     );
-        }
+        }*/
     }
 
     setDate(date, showmonth?, istime?) {

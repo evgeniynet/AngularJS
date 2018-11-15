@@ -86,7 +86,7 @@
 
  <!-- Recipients -->
      <div class="sticky">
-      <button (click)="send()" [disabled]="!recipients" secondary class="disable-hover button button-default button-block img-top display">{{!recipients.id ? "Create &" : ""}} Send</button>
+      <button type="submit" (click)="onSubmit(addForm)" [disabled]="!recipients" secondary class="disable-hover button button-default button-block img-top display">{{!recipients.id ? "Create &" : ""}} Send</button>
       <div class="stickyborder"></div>
     </div>
  <ion-item padding>
