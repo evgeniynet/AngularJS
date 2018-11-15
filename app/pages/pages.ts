@@ -19,6 +19,7 @@ export * from './ticket-details/ticket-details';
 export * from './tickets/tickets';
 export * from './timelog/timelog';
 export * from './timelogs/timelogs';
+export * from './invoice-create/invoice-create';
 export * from './uninvoices/uninvoices';
 export * from './todos/todos';
 export * from './todo-create/todo-create';

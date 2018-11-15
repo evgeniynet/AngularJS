@@ -5,7 +5,7 @@ import {TimelogPage} from '../../pages/timelog/timelog';
 import {TicketDetailsPage} from '../../pages/ticket-details/ticket-details';
 import {ExpenseCreatePage} from '../../pages/expense-create/expense-create';
 import {TodoCreatePage} from '../../pages/todo-create/todo-create';
-import {UnInvoicesPage} from '../../pages/uninvoices/uninvoices';
+import {InvoiceCreatePage} from '../../pages/invoice-create/invoice-create';
 
 @Component({
     selector: 'action-button',
@@ -71,7 +71,7 @@ export class ActionButtonComponent {
                     text: 'Add Invoice',
                     role: '',
                     handler: () => {
-                        this.actionSheet.dismiss().then(() => this.nav.push(UnInvoicesPage));
+                        this.actionSheet.dismiss().then(() => this.nav.push(InvoiceCreatePage));
                         return false;
                     }
                 });

@@ -1,0 +1,67 @@
+.timelog-input{
+    text-align: center;
+    margin: 0px !important;
+//    padding-left:11px;
+}
+
+.button-timelog{
+    margin: 0 5% 15px 0%;
+}
+
+.line-height5{
+    line-height: 5rem;
+}
+
+.padding-bottom1{
+     padding-bottom: 1px;
+}
+
+.padding-left8{
+    padding-left: 8px;
+}
+
+.start-end{
+    margin-top: 0px !important;
+    color: $time;
+    text-align: left !important;
+    font-size: 1.7rem;
+    height: 20px !important;
+    min-height: 20px !important;
+}
+
+.start-end2{
+    color: $time;
+    text-align: left;
+    padding-left: 15px;
+}
+
+.top0{
+    margin-top: 0px !important;
+}
+
+.top3{
+    margin-top: 3px !important;
+}
+
+.height51{
+    height: 51px;
+}
+
+.bottom5{
+    margin-bottom: 5px !important;
+}
+p.is-force-time{
+    margin-bottom: -15px !important;
+    text-align: center;
+    color: #ff0404 !important;
+}
+
+@media (min-width: 481px)  {
+   .start-end {
+    display: none;}
+}
+
+@media (max-width: 480px)  {
+   .start-end2{
+    display: none;}
+}
