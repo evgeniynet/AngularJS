@@ -270,52 +270,13 @@ ngOnInit()
     }
 
     onSubmit(form?) {
- /*       if (this.time.invoice_id)
-        {
-            this.viewInvoice();
-            return;
-        }
-        //{ "ticket" : localStorage.getItem('ticketNumber') } 
-        //{ "account" : account, "project": project } 
-        //edat = JSON.stringify(new Date(dat2));
-        let hours = Number(this.timecount);
-        let non_work_hours = Number(this.timecount_nonwork);
+        this.config.setRecent({"account": this.selects.account,
+                                               "project": this.selects.project,
+                                               "ticket": this.selects.ticket,
+                                               "contract": this.selects.contract,
+                                                "prepaidpack": this.selects.prepaidpack});
+ /* add time modal */
 
-        if (hours < this.mintime)
-        {
-            this.nav.alert("Not enough time", true);
-            return;
-        }
-        
-        if (this.start_time && this.stop_time && hours > this.getInterval())
-        {
-            this.nav.alert("Hours value should be less or equal to Start/Stop range.", true);
-            return;
-        }*/
-        if (!this.selects.tasktype.selected)
-        {
-            this.nav.alert("Please, select Task Type from the list.", true);
-            return;
-        }
-        /*if (form.valid) {
-            //proof double click
-            if (this.time.in_progress && Date.now() - this.time.in_progress < 1500) {return;}
-            this.time.in_progress = Date.now();
-            var note = htmlEscape(this.timenote.trim()).substr(0, 5000);
-
-            var isEdit = !!this.time.time_id;
-            var start_time = this.start_time;
-            if (this.endsWith(this.start_time, "Z"))
-                start_time = start_time.substring(0,19);
-            var stop_time = this.stop_time;
-            if (this.endsWith(this.stop_time, "Z"))
-                stop_time = stop_time.substring(0,19);
-            var date = this.time.date || (new Date()).toJSON();
-            if (start_time)
-            {
-                date = this.AddHours(start_time, -1*this.UserDateOffset);
-            }*/
-            //TODO if other user changes what id should I write?  
             let data = {
                 "project_id": this.selects.project.selected,
                 "is_project_log": !this.selects.ticket.selected,
@@ -328,65 +289,6 @@ ngOnInit()
                 "is_local_time": true,
             };
             console.log(data,"data");
-
-/*
-            this.timeProvider.addTime(this.time.time_id, data, isEdit ? "PUT" : "POST").subscribe(
-                res => {
-                    //store recent
-                    if (!this.time.number && !this.time.time_id && !(this.time.account || {}).id)
-                    {
-                        this.config.setRecent({"account": this.selects.account,
-                                               "project": this.selects.project,
-                                               "tasktype": this.selects.tasktype,
-                                               "contract": this.selects.contract,
-                                                "prepaidpack": this.selects.prepaidpack});
-                    }
-                    if (isEdit){
-                        this.time.start_time = this.AddHours(data.start_date, -1*this.UserDateOffset);
-                        this.time.stop_time = this.AddHours(data.stop_date, -1*this.UserDateOffset);
-                        this.time.hours = data.hours;
-                        this.time.non_working_hours = data.non_working_hours;
-                        this.time.no_invoice = data.no_invoice;
-                    }
-                    else
-                    {
-                        var tdate = data.date || (new Date()).toJSON();
-                        var tt = {
-                            time_id:0,
-                            account_id:data.account_id,
-                            account_name:this.selects.account.value,
-                            billable:data.no_invoice,
-                            date:tdate,
-                            hours:data.hours,
-                            non_working_hours:data.non_working_hours,
-                            is_project_log:data.is_project_log,
-                            note:data.note_text,
-                            project_id:data.project_id,
-                            project_name:this.selects.project.value,
-                            start_time: this.AddHours(data.start_date, -1*this.UserDateOffset),
-                            stop_time: this.AddHours(data.stop_date, -1*this.UserDateOffset),
-                            time_offset:this.UserDateOffset,
-                            task_type:this.selects.tasktype.value,
-                            task_type_id:data.task_type_id,
-                            contract_name:this.selects.contract.value,
-                            contract_id:data.contract_id,
-                            prepaid_pack:this.selects.prepaidpack.value,
-                            prepaid_pack_id:data.prepaid_pack_id,
-                            ticket_number:data.ticket_key,
-                            ticket_subject:this.selects.ticket.value,
-                            user_email:this.he.email,
-                            user_id:this.he.user_id,
-                            user_name :this.he.firstname + " " + this.he.lastname};
-                            (this.timeProvider._dataStore[this.time.cachename] || []).splice(0, 0, tt);
-                        }
-                        this.nav.alert('Time was successfully ' + (isEdit ? 'updated' : 'added') + ' :)');
-                        this.close(this.time.is_force_time_on_closing_tickets);
-                    },
-                    error => {
-                        console.log(error || 'Server error');
-                    }
-                    );
-        }*/
     }
 
     setDate(date, showmonth?, istime?) {

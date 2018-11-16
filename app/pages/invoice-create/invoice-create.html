@@ -25,12 +25,9 @@
      
      <select-list [list]="selects.tasktype" preload="true" (onChanged)='saveSelect($event)'></select-list>
         </div>    
-                <form #addForm="ngForm">                 
-        
-    </form>
  <!--Timelogs-->
  <div style="border-bottom: 1px #fff solid">
-   <ion-icon [disabled]="!addForm.valid" (click)="onSubmit(addForm)" name="add-circle" role="img" class="ion-ios-add-circle item-icon" aria-label="add circle" style="font-size: 2.5em; position: relative; top: 4px; color: #64be42"></ion-icon>
+   <ion-icon (click)="onSubmit()" name="add-circle" role="img" class="ion-ios-add-circle item-icon" aria-label="add circle" style="font-size: 2.5em; position: relative; top: 4px; color: #64be42"></ion-icon>
    <h3 style="display: inline-block;">&nbsp;&nbsp;Timelogs</h3>
    <h3 style="float: right; width: 20%; text-align: right; text-decoration: underline;">20hr</h3>
  </div>
@@ -59,7 +56,7 @@
 
  <!-- Exspnses-->
  <div style="border-bottom: 1px #fff solid">
-   <ion-icon [disabled]="!addForm.valid" (click)="onSubmit(addForm)" name="add-circle" role="img" class="ion-ios-add-circle item-icon" aria-label="add circle" style="font-size: 2.5em; position: relative; top: 4px; color: #64be42"></ion-icon>
+   <ion-icon (click)="onSubmit()" name="add-circle" role="img" class="ion-ios-add-circle item-icon" aria-label="add circle" style="font-size: 2.5em; position: relative; top: 4px; color: #64be42"></ion-icon>
    <h3 style="display: inline-block;">&nbsp;&nbsp;Expenses</h3>
    <h3 style="float: right; width: 20%; text-align: right; text-decoration: underline;">$5000</h3>
  </div>
