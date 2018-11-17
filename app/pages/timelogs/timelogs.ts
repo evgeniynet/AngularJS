@@ -76,7 +76,7 @@ export class TimelogsPage {
         {
             setTimeout(() => {
                this.getTimeLogs();
-            }, 2000);
+            }, 4000);
         }
         this.initial_load = false;
     }
@@ -108,8 +108,8 @@ export class TimelogsPage {
     
     setDate(date, time_offset, showmonth?, istime?) {
     if (date){
-        date = new Date(date.substring(0,23)+"Z");
-        date = new Date(date.setTime(date.getTime() + time_offset*60*60*1000)).toJSON();
+        //date = new Date(date.substring(0,23)+"Z");
+        //date = new Date(date.setTime(date.getTime() + time_offset*60*60*1000)).toJSON();
         return getDateTime(date, showmonth, istime);
     }
      return null;

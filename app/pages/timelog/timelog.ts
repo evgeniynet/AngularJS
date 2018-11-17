@@ -71,6 +71,12 @@ AddHours(date, hours)
     return date;
 }
 
+GetLocalDate()
+{
+    let date = new Date();
+    return new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toJSON();
+}
+
 ngOnInit()
 {    
     this.UserDateOffset = this.config.getCurrent("timezone_offset");
@@ -95,12 +101,12 @@ ngOnInit()
                 this.title = `Invoiced #${this.time.invoice_id} on\u00a0` + this.setDate(this.AddHours(this.time.date, this.time.time_offset), false, true);
             }
 
-            this.mintime = this.config.getCurrent("time_minimum_time") || 0.25;
-            this.mintime = this.mintime > 0 ? this.mintime : 0.25;
+            this.inc = this.config.getCurrent("time_hour_increment") > 0 ? this.config.getCurrent("time_hour_increment") : 0.25;
+
+            this.mintime = this.config.getCurrent("time_minimum_time") || this.inc;
+            this.mintime = this.mintime > 0 ? this.mintime : this.inc;
 
             this.isbillable = this.time.no_invoice;
-
-            this.inc = this.config.getCurrent("time_hour_increment") > 0 ? this.config.getCurrent("time_hour_increment") : 0.25;
 
             this.displayFormat = getPickerDateTimeFormat(false, true);
 
@@ -299,10 +305,10 @@ ngOnInit()
             var stop_time = this.stop_time;
             if (this.endsWith(this.stop_time, "Z"))
                 stop_time = stop_time.substring(0,19);
-            var date = this.time.date || (new Date()).toJSON();
+            var date = this.time.date || this.GetLocalDate();
             if (start_time)
             {
-                date = this.AddHours(start_time, -1*this.UserDateOffset);
+                date = start_time;
             }
             //TODO if other user changes what id should I write?  
             let data = {
@@ -344,7 +350,7 @@ ngOnInit()
                     }
                     else
                     {
-                        var tdate = data.date || (new Date()).toJSON();
+                        var tdate = data.date || this.GetLocalDate();
                         var tt = {
                             time_id:0,
                             account_id:data.account_id,
@@ -388,15 +394,15 @@ ngOnInit()
     }
 
     setMinTime(date) {
-        return (date || this.time.date || (new Date()).toJSON().substring(0,4));
+        return (date || this.time.date || this.GetLocalDate().substring(0,4));
     }
 
     setMaxTime(date) {
-        return (date || this.time.date || (new Date()).toJSON().substring(0,4));
+        return (date || this.time.date || this.GetLocalDate().substring(0,4));
     }
 
     getStartDate(time) {
-        return (time || this.time.date || (new Date()).toJSON().substring(0,19));
+        return (time || this.time.date || this.GetLocalDate());
     }
 
     setStartDate(time){
@@ -436,13 +442,12 @@ ngOnInit()
 
     getInterval()
     {
-        var start_time = this.start_time;
-        if (!this.endsWith(this.start_time, "Z"))
-            start_time += "Z"; 
-        var stop_time = this.stop_time;
-        if (!this.endsWith(this.stop_time, "Z"))
-            stop_time += "Z"; 
-        return Number(Math.round((+(new Date(stop_time)) - +(new Date(start_time))) / 60000)/60);
+        var start_time = this.start_time.substring(0,16)+"Z";
+        var stop_time = this.stop_time.substring(0,16)+"Z";
+        let interval = Number(Math.round((+(new Date(stop_time)) - +(new Date(start_time))) / 60000)/60);
+        if (interval > 0 && interval < this.inc)
+            interval = this.inc;
+        return interval;
     }
 
 
