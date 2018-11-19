@@ -102,7 +102,7 @@ export class ExpenseCreatePage {
             var note = htmlEscape(this.expense.note.trim()).substr(0, 5000);
             var isEdit = !!this.expense.expense_id;
             //TODO if other user changes what id should I write? 
-            let data = {
+            let exsData = {
                 "ticket_key": this.expense.ticket_number || null,
                 "account_id": this.selects.account.selected,
                 "project_id": !this.expense.ticket_number ? this.selects.project.selected : null,
@@ -113,10 +113,11 @@ export class ExpenseCreatePage {
                 "is_billable": this.isbillable,
                 "vendor": this.expense.vendor
             };
+            console.log(exsData,"data");
 
             //console.log(data);
 
-            this.apiData.get("expenses" + (!isEdit ? "" : ("/" + this.expense.expense_id)), data, isEdit ? "PUT" : "POST").subscribe(
+            this.apiData.get("expenses" + (!isEdit ? "" : ("/" + this.expense.expense_id)), exsData, isEdit ? "PUT" : "POST").subscribe(
                 data => {
                     if (!this.expense.number && !this.expense.expense_id && !this.expense.account)
             {
@@ -125,7 +126,7 @@ export class ExpenseCreatePage {
             }
 
                     this.nav.alert('Expense was successfully added :)');
-                    setTimeout(() => this.close(), 500);
+                    setTimeout(() => this.close(exsData), 500);
                 },
                 error => {
                     console.log(error || 'Server error');
@@ -149,8 +150,8 @@ export class ExpenseCreatePage {
         return Number(value || "0").toFixed(2).toString();
     }
     
-    close() {
-        this.view.dismiss();
+    close(data) {
+        this.view.dismiss(data);
     }
 }
 

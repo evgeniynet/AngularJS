@@ -1,12 +1,13 @@
-import {Page, Config, Nav, NavParams, ViewController} from 'ionic-angular';
+import {Page, Config, Nav, NavParams, Modal, ViewController} from 'ionic-angular';
 import {forwardRef, ViewChild} from '@angular/core';
-import {getDateTime, getPickerDateTimeFormat, htmlEscape, linebreaks, getCurrency} from '../../directives/helpers';
+import {getDateTime, getPickerDateTimeFormat, htmlEscape, getFullName, linebreaks, getCurrency} from '../../directives/helpers';
 import {TimeProvider} from '../../providers/time-provider';
 import {ClassListComponent} from '../../components/class-list/class-list';
 import {SelectListComponent} from '../../components/select-list/select-list';
 import {InvoiceDetailsPage} from '../invoice-details/invoice-details';
+import {ExpenseCreatePage} from '../../pages/expense-create/expense-create';
 import {GravatarPipe, MorePipe, LinebreaksPipe} from '../../pipes/pipes';
-
+import {TimelogPage} from '../../pages/timelog/timelog'; 
 
 @Page({
     templateUrl: 'build/pages/invoice-create/invoice-create.html',
@@ -147,6 +148,13 @@ ngOnInit()
             let project_id = (this.time.project || {}).id || this.time.project_id || (recent.project || {}).selected || 0;
 
             this.selects = {
+                    "user" : {
+                    name: "User", 
+                    value: getFullName(this.he.firstname, this.he.lastname, this.he.email),
+                    selected: this.he.user_id,
+                    url: "users",
+                    hidden: false
+                },
                 "account" : {
                     name: "Account", 
                     value:  (this.time.account || {}).name || this.time.account_name || (recent.account || {}).value || this.he.account_name,
@@ -170,13 +178,6 @@ ngOnInit()
                     url: `tickets?status=open&account=${account_id}&project=${project_id}`,
                     hidden: this.time.is_project_log || false,
                     is_disabled: this.time.task_type_id
-                },
-                "tasktype" : { 
-                    name: "Task Type", 
-                    value: this.time.task_type || (recent.tasktype || {}).value || "Choose",
-                    selected: this.time.task_type_id || this.config.getRecent("tasktype").selected || 0,
-                    url: this.time.ticket_number ? `task_types?ticket=${this.time.ticket_number}` : `task_types?account=${account_id}`,
-                    hidden: false
                 },
                  "contract" : { 
                     name: "Contract", 
@@ -262,19 +263,52 @@ ngOnInit()
             ticket_id = event.id;
             break;
         }
-        this.selects.tasktype.url = `task_types?ticket=${ticket_id}&account=${account_id}&project=${project_id}&contract=${contract_id}`;
-        this.selects.tasktype.value = "Choose";
-        this.selects.tasktype.selected = 0;
         this.selects[name].selected = event.id;
         this.selects[name].value = event.name;
     }
 
+    addTime()
+   {
+       this.config.setRecent({"account": this.selects.account,
+                              "user": this.selects.user,
+                              "project": this.selects.project,
+                              "ticket": this.selects.ticket,
+                              "contract": this.selects.contract,
+                              "prepaidpack": this.selects.prepaidpack});
+       console.log("user", this.selects.user,);
+     let myModal = Modal.create(TimelogPage);
+     myModal.onDismiss(data => {
+       if(data){
+           this.timelogs.splice(0,0,data);
+       console.log(this.timelogs, "timelogs");
+     }
+       });
+       this.nav.present(myModal);
+     }
+
+     addExpense()
+     {
+       this.config.setRecent({"account": this.selects.account,
+                              "user": this.selects.user,
+                              "project": this.selects.project,
+                              "ticket": this.selects.ticket,
+                              "contract": this.selects.contract,
+                              "prepaidpack": this.selects.prepaidpack});
+       let myModal = Modal.create(ExpenseCreatePage);
+       myModal.onDismiss(data => {
+            this.expenses.splice(0,0,data);
+            console.log(this.expenses);
+         });
+         this.nav.present(myModal);
+       }
+
     onSubmit(form?) {
         this.config.setRecent({"account": this.selects.account,
-                                               "project": this.selects.project,
-                                               "ticket": this.selects.ticket,
-                                               "contract": this.selects.contract,
-                                                "prepaidpack": this.selects.prepaidpack});
+                                          "user": this.selects.user,
+                                          "project": this.selects.project,
+                                          "ticket": this.selects.ticket,
+                                          "contract": this.selects.contract,
+                                          "prepaidpack": this.selects.prepaidpack});
  /* add time modal */
 
             let data = {
@@ -282,7 +316,6 @@ ngOnInit()
                 "is_project_log": !this.selects.ticket.selected,
                 "ticket_key": this.selects.ticket.selected,
                 "account_id": this.selects.account.selected,
-                "task_type_id": this.selects.tasktype.selected,
                 "prepaid_pack_id" : this.selects.prepaidpack.selected,
                 "no_invoice": this.isbillable,
                 "contract_id": this.selects.contract.selected,
