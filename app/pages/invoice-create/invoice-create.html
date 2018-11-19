@@ -84,15 +84,16 @@
 
  <!-- Recipients -->
      <div class="sticky">
-      <button type="submit" (click)="onSubmit(addForm)" [disabled]="!recipients" secondary class="disable-hover button button-default button-block img-top display">{{!recipients.id ? "Create &" : ""}} Send</button>
+      <button type="submit" (click)="onSubmit()" [disabled]="!recipients" secondary class="disable-hover button button-default button-block img-top display">{{!recipients.id ? "Create &" : ""}} Send</button>
       <div class="stickyborder"></div>
     </div>
- <ion-item padding>
-    <h2 class="color">Recipients</h2>
+ <ion-item padding style="text-align: left"> 
+  <ion-icon (click)="invite()" name="add-circle" role="img" class="ion-ios-add-circle item-icon" aria-label="add circle" style="font-size: 1.8em; position: relative; top: 4px; color: #64be42"></ion-icon>
+    <h2 class="color" style="display: inline-block; font-size: 2.3rem; font-weight: 500; padding-left: 10px">Recipients</h2>
         </ion-item>
     <ion-list class="list">
     <div *ngIf="!recipients" class="table grey2 menu-text">No recipients yet</div>
-        <div *ngFor="let recipient of recipients.recipients">
+        <div *ngFor="let recipient of recipients">
         <div>
       <ion-avatar class="ticketImg left recipient width23">
    <img class="avatarInvoice margin-top10 img_avatar" [alt]="recipient.fullname" [src]="recipient.email | Gravatar"/>

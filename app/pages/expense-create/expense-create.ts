@@ -106,6 +106,7 @@ export class ExpenseCreatePage {
                 "ticket_key": this.expense.ticket_number || null,
                 "account_id": this.selects.account.selected,
                 "project_id": !this.expense.ticket_number ? this.selects.project.selected : null,
+                "project_name": this.selects.project.value,
                 "tech_id": isEdit? this.expense.user_id : this.he.user_id,
                 "note": this.expense.note,
                 "note_internal": this.expense.note_internal,

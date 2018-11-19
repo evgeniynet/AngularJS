@@ -8,6 +8,7 @@ import {InvoiceDetailsPage} from '../invoice-details/invoice-details';
 import {ExpenseCreatePage} from '../../pages/expense-create/expense-create';
 import {GravatarPipe, MorePipe, LinebreaksPipe} from '../../pipes/pipes';
 import {TimelogPage} from '../../pages/timelog/timelog'; 
+import {AddUserModal} from '../modals/modals';
 
 @Page({
     templateUrl: 'build/pages/invoice-create/invoice-create.html',
@@ -42,7 +43,7 @@ export class InvoiceCreatePage {
     constructor(private nav: Nav, private navParams: NavParams, private timeProvider: TimeProvider, private config: Config, private view: ViewController) {
     this.timelogs = [{"time_id":154101,"project_name":"","user_name":"Eugene Tolmachov","user_email":"eugene@micajah.com","user_id":496558,"note":"","date":"2018-11-14T11:09:00.0000000","stop_time":null,"start_time":null,"hours":0.2500,"fb_id":0,"is_project_log":true,"ticket_id":0,"task_type_id":51873,"task_type":"Onsite - Residential","project_id":0,"account_id":-1,"ticket_number":0,"account_name":"Demo Account Testing","ticket_subject":"","invoice_id":0,"no_invoice":false,"invoice_pseudo_id":"      ","qb_id":0,"payment_id":0,"prepaid_pack_name":"","prepaid_pack_id":0,"user_profile_image":"https://secure.gravatar.com/avatar/8a3bd35c5518ff857b460afd1ddb629d?d=identicon&r=g&s=40","hidden_from_invoice":false,"time_offset":2,"created_user_name":"Eugene Tolmachov","created_user_id":496558,"created_time":"2018-11-14T13:09:00.0000000","updated_user_name":"","updated_user_id":0,"updated_time":null,"non_working_hours":0.0000,"contract_name":"Main","contract_id":81}, {"time_id":154101,"project_name":"","user_name":"Eugene Tolmachov","user_email":"eugene@micajah.com","user_id":496558,"note":"","date":"2018-11-14T11:09:00.0000000","stop_time":null,"start_time":null,"hours":0.2500,"fb_id":0,"is_project_log":true,"ticket_id":0,"task_type_id":51873,"task_type":"Onsite - Residential","project_id":0,"account_id":-1,"ticket_number":0,"account_name":"Demo Account Testing","ticket_subject":"","invoice_id":0,"no_invoice":false,"invoice_pseudo_id":"      ","qb_id":0,"payment_id":0,"prepaid_pack_name":"","prepaid_pack_id":0,"user_profile_image":"https://secure.gravatar.com/avatar/8a3bd35c5518ff857b460afd1ddb629d?d=identicon&r=g&s=40","hidden_from_invoice":false,"time_offset":2,"created_user_name":"Eugene Tolmachov","created_user_id":496558,"created_time":"2018-11-14T13:09:00.0000000","updated_user_name":"","updated_user_id":0,"updated_time":null,"non_working_hours":0.0000,"contract_name":"Main","contract_id":81}];
     this.expenses = [{"expense_id":"faf9d799-f2ff-4ee0-9f4d-e0d65b1ba2f1","project_name":"","user_id":"270","user_name":"Eugene Tolmachov","user_email":"eugene@micajah.com","note":"test20150828","date":"2015-08-28T17:34:00.0000000","amount":10.0000,"fb_expense_id":0,"ticket_id":363663,"ticket_key":"3wnt4m","category_id":"","category":"","project_id":0,"account_id":-1,"ticket_number":4307,"account_name":"SherpaDesk Support","ticket_subject":"test","invoice_id":2626,"billable":false,"invoice_pseudo_id":"g5gngk","vendor":"","fb_staff_id":0,"fb_category_id":0,"fb_client_id":0,"fb_project_id":0,"markup":0,"markup_value":0,"note_internal":"","qb_expense_id":0,"qb_service_id":0,"qb_employee_id":0,"qb_vendor_id":0,"qb_customer_id":0,"qb_sync_token":0,"qb_is_employee":false,"qb_account_id":0,"user_profile_image":"https://secure.gravatar.com/avatar/8a3bd35c5518ff857b460afd1ddb629d?d=identicon&r=g&s=40","hidden_from_invoice":false,"is_technician_payment":false,"payment_id":0,"units":1,"contract_id":0,"contract_name":"Main"},{"expense_id":"cd6ce5f2-fda1-4867-b059-2be23d4b65ad","project_name":"Freshbooks Integration v1","user_id":"1","user_name":"Jon Vickers","user_email":"jon.vickers@micajah.com","note":"I am adding a test expense to the system","date":"2013-07-09T00:00:00.0000000","amount":12.0000,"fb_expense_id":0,"ticket_id":17925,"ticket_key":"xshmey","category_id":"","category":"","project_id":71,"account_id":-1,"ticket_number":798,"account_name":"SherpaDesk Support","ticket_subject":"Freshbooks Configuration Refinements Small","invoice_id":0,"billable":true,"invoice_pseudo_id":"      ","vendor":"","fb_staff_id":0,"fb_category_id":0,"fb_client_id":0,"fb_project_id":0,"markup":0,"markup_value":0,"note_internal":"","qb_expense_id":0,"qb_service_id":0,"qb_employee_id":0,"qb_vendor_id":0,"qb_customer_id":0,"qb_sync_token":0,"qb_is_employee":false,"qb_account_id":0,"user_profile_image":"https://secure.gravatar.com/avatar/57f5bc4e7331308ba723d81cbe59927b?d=identicon&r=g&s=40","hidden_from_invoice":false,"is_technician_payment":false,"payment_id":0,"units":1,"contract_id":0,"contract_name":""},{"expense_id":"faf9d799-f2ff-4ee0-9f4d-e0d65b1ba2f1","project_name":"","user_id":"270","user_name":"Eugene Tolmachov","user_email":"eugene@micajah.com","note":"test20150828","date":"2015-08-28T17:34:00.0000000","amount":10.0000,"fb_expense_id":0,"ticket_id":363663,"ticket_key":"3wnt4m","category_id":"","category":"","project_id":0,"account_id":-1,"ticket_number":4307,"account_name":"SherpaDesk Support","ticket_subject":"test","invoice_id":2626,"billable":false,"invoice_pseudo_id":"g5gngk","vendor":"","fb_staff_id":0,"fb_category_id":0,"fb_client_id":0,"fb_project_id":0,"markup":0,"markup_value":0,"note_internal":"","qb_expense_id":0,"qb_service_id":0,"qb_employee_id":0,"qb_vendor_id":0,"qb_customer_id":0,"qb_sync_token":0,"qb_is_employee":false,"qb_account_id":0,"user_profile_image":"https://secure.gravatar.com/avatar/8a3bd35c5518ff857b460afd1ddb629d?d=identicon&r=g&s=40","hidden_from_invoice":false,"is_technician_payment":false,"payment_id":0,"units":1,"contract_id":0,"contract_name":"Main"},{"expense_id":"cd6ce5f2-fda1-4867-b059-2be23d4b65ad","project_name":"Freshbooks Integration v1","user_id":"1","user_name":"Jon Vickers","user_email":"jon.vickers@micajah.com","note":"I am adding a test expense to the system","date":"2013-07-09T00:00:00.0000000","amount":12.0000,"fb_expense_id":0,"ticket_id":17925,"ticket_key":"xshmey","category_id":"","category":"","project_id":71,"account_id":-1,"ticket_number":798,"account_name":"SherpaDesk Support","ticket_subject":"Freshbooks Configuration Refinements Small","invoice_id":0,"billable":true,"invoice_pseudo_id":"      ","vendor":"","fb_staff_id":0,"fb_category_id":0,"fb_client_id":0,"fb_project_id":0,"markup":0,"markup_value":0,"note_internal":"","qb_expense_id":0,"qb_service_id":0,"qb_employee_id":0,"qb_vendor_id":0,"qb_customer_id":0,"qb_sync_token":0,"qb_is_employee":false,"qb_account_id":0,"user_profile_image":"https://secure.gravatar.com/avatar/57f5bc4e7331308ba723d81cbe59927b?d=identicon&r=g&s=40","hidden_from_invoice":false,"is_technician_payment":false,"payment_id":0,"units":1,"contract_id":0,"contract_name":""}]
-    this.recipients = {"id":"","recipients":[{"email":"demo@demo.com","fullname":"Account, Demo","id":"182922","is_accounting_contact":"false","phone":"","type":"tech"},{"email":"demo@demo.com","fullname":"Account, Demo","id":"182922","is_accounting_contact":"false","phone":"","type":"tech"},{"email":"demo@demo.com","fullname":"Account, Demo","id":"182922","is_accounting_contact":"false","phone":"","type":"tech"},{"email":"demo@demo.com","fullname":"Account, Demo","id":"182922","is_accounting_contact":"true","phone":"","type":"tech"},{"email":"demo@demo.com","fullname":"Account, Demo","id":"182922","is_accounting_contact":"true","phone":"","type":"tech"}]};
+    this.recipients = [];
     console.log(this.timelogs);
     }
 
@@ -266,7 +267,17 @@ ngOnInit()
         this.selects[name].selected = event.id;
         this.selects[name].value = event.name;
     }
-
+invite()
+        {
+            let myModal = Modal.create(AddUserModal);
+            myModal.onDismiss(data => {
+             if (data){
+                    console.log("invite",data);
+                    this.recipients.splice(0,0,data);    
+                }
+            });
+            this.nav.present(myModal);
+        }
     addTime()
    {
        this.config.setRecent({"account": this.selects.account,
@@ -296,20 +307,39 @@ ngOnInit()
                               "prepaidpack": this.selects.prepaidpack});
        let myModal = Modal.create(ExpenseCreatePage);
        myModal.onDismiss(data => {
+           if(data){
             this.expenses.splice(0,0,data);
             console.log(this.expenses);
+            }
          });
          this.nav.present(myModal);
        }
 
-    onSubmit(form?) {
+    
+
+    onSubmit() {
         this.config.setRecent({"account": this.selects.account,
-                                          "user": this.selects.user,
-                                          "project": this.selects.project,
-                                          "ticket": this.selects.ticket,
-                                          "contract": this.selects.contract,
-                                          "prepaidpack": this.selects.prepaidpack});
- /* add time modal */
+                              "user": this.selects.user,
+                              "project": this.selects.project,
+                              "ticket": this.selects.ticket,
+                              "contract": this.selects.contract,
+                              "prepaidpack": this.selects.prepaidpack});
+
+ console.log(this.timelogs.length,"timelogs");
+         let timelog_ids = "";
+         for (var n = 0;  n < this.timelogs.length; n++) 
+            timelog_ids += this.timelogs[n].time_id + ", ";
+         
+         let expense_ids = "";
+         for (var n = 0;  n < this.expenses.length; n++) 
+            expense_ids += this.expenses[n].expense_id + ", ";
+         
+         let recipient_ids = "";
+         for (var n = 0;  n < this.recipients.length; n++) 
+            recipient_ids += this.recipients[n].id + ", ";
+        timelog_ids = timelog_ids.slice(0,-2);
+        expense_ids = expense_ids.slice(0,-2);
+        recipient_ids = recipient_ids.slice(0,-2);
 
             let data = {
                 "project_id": this.selects.project.selected,
@@ -317,9 +347,12 @@ ngOnInit()
                 "ticket_key": this.selects.ticket.selected,
                 "account_id": this.selects.account.selected,
                 "prepaid_pack_id" : this.selects.prepaidpack.selected,
-                "no_invoice": this.isbillable,
                 "contract_id": this.selects.contract.selected,
                 "is_local_time": true,
+                "timelog_ids": timelog_ids,
+                "expense_ids": expense_ids,
+                "recipient_ids": recipient_ids
+
             };
             console.log(data,"data");
     }

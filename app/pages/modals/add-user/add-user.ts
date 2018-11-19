@@ -37,7 +37,7 @@ export class AddUserModal {
         if (form.valid) {
             this.dataProvider.addUser(form.value.email, form.value.firstname, form.value.lastname, this.data.type).subscribe(
                 data => {
-                    this.nav.alert(this.data.charAt(0).toUpperCase() + this.data.slice(1) + ' was created :)');
+                   // this.nav.alert(this.data.charAt(0).toUpperCase() + this.data.slice(1) + ' was created :)');
                     setTimeout(() => {
                         this.dismissPage(data);
                     }, 1000);
