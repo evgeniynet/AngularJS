@@ -308,6 +308,7 @@ invite()
        let myModal = Modal.create(ExpenseCreatePage);
        myModal.onDismiss(data => {
            if(data){
+            data.date= new Date().toJSON().substring(0,19);
             this.expenses.splice(0,0,data);
             console.log(this.expenses);
             }
@@ -355,6 +356,15 @@ invite()
 
             };
             console.log(data,"data");
+    }
+
+    deleteRecipient(recipient){
+        console.log(recipient,"recipient");
+        for (var n = 0;  n < this.recipients.length; n++){
+            if (this.recipients[n].id == recipient.id)
+                console.log(this.recipients[n],"this.recipients[n]");
+                delete this.recipients[n];
+        }
     }
 
     setDate(date, showmonth?, istime?) {

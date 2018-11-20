@@ -1,6 +1,6 @@
 import {Page, Config, Nav, NavParams, ViewController} from 'ionic-angular';
 import {forwardRef} from '@angular/core';
-import {getDateTime, htmlEscape, linebreaks} from '../../directives/helpers';
+import {getDateTime, htmlEscape, linebreaks, getFullName} from '../../directives/helpers';
 import {ApiData} from '../../providers/api-data';
 import {ClassListComponent} from '../../components/class-list/class-list';
 import {SelectListComponent} from '../../components/select-list/select-list';
@@ -108,6 +108,7 @@ export class ExpenseCreatePage {
                 "project_id": !this.expense.ticket_number ? this.selects.project.selected : null,
                 "project_name": this.selects.project.value,
                 "tech_id": isEdit? this.expense.user_id : this.he.user_id,
+                "user_name": getFullName(this.he.firstname, this.he.lastname, this.he.email),
                 "note": this.expense.note,
                 "note_internal": this.expense.note_internal,
                 "amount": amount,
