@@ -159,7 +159,7 @@ export class SelectListComponent {
                      id = item.prepaid_pack_id;
                  }
 
-                 results.push({id: id, name: name});
+                 results.push({id: id, name: name, email: item.email});
                  
 
              });

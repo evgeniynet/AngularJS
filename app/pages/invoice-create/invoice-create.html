@@ -98,7 +98,7 @@
       <div class="stickyborder"></div>
     </div>
  <ion-item padding style="text-align: left"> 
-  <ion-icon (click)="invite()" name="add-circle" role="img" class="ion-ios-add-circle item-icon" aria-label="add circle" style="font-size: 1.8em; position: relative; top: 4px; color: #64be42"></ion-icon>
+      <select-list *ngIf="!time.number" ajax="true" [isbutton]=true [list]="selects.recipient_user" (onChanged)='saveSelect($event)' preload="true" style="float: left"></select-list>
     <h2 class="color" style="display: inline-block; font-size: 2.3rem; font-weight: 500; padding-left: 10px">Recipients</h2>
         </ion-item>
     <ion-list class="list">
@@ -111,7 +111,7 @@
         
         <ion-item class="blue3 width80 invoicelist right margin" no-lines>
       <h3 class="recipient-calc left textLogin margin-top2 ellipsis">{{recipient.email}}</h3>
-    <button fab class="red buttonInvoice right topInvoice email-invoice button-fab" (click)="deleteRecipient(recipient)">
+    <button fab class="red buttonInvoice right topInvoice email-invoice button-fab" (click)="changeContact(recipient)">
       <ion-icon *ngIf="recipient.is_accounting_contact" class="invoiceCircle" name="checkmark"></ion-icon>
       <ion-icon *ngIf="!recipient.is_accounting_contact" class="invoiceCircle" name="close"></ion-icon>
     </button>

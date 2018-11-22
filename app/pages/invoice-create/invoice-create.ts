@@ -9,7 +9,7 @@ import {InvoiceDetailsPage} from '../invoice-details/invoice-details';
 import {ExpenseCreatePage} from '../../pages/expense-create/expense-create';
 import {GravatarPipe, MorePipe, LinebreaksPipe} from '../../pipes/pipes';
 import {TimelogPage} from '../../pages/timelog/timelog'; 
-import {AddUserModal} from '../modals/modals';
+import {AddUserModal, BasicSelectModal, InfinitySelectModal} from '../modals/modals';
 
 @Page({
     templateUrl: 'build/pages/invoice-create/invoice-create.html',
@@ -160,6 +160,13 @@ ngOnInit()
                     url: "users",
                     hidden: false
                 },
+                "recipient_user" : {
+                    name: "recipient_user", 
+                    value: getFullName(this.he.firstname, this.he.lastname, this.he.email),
+                    selected: this.he.user_id,
+                    url: "users",
+                    hidden: false
+                },
                 "account" : {
                     name: "Account", 
                     value:  (this.time.account || {}).name || this.time.account_name || (recent.account || {}).value || this.he.account_name,
@@ -271,6 +278,15 @@ ngOnInit()
             }
             ticket_id = event.id;
             break;
+
+            case "recipient_user" :
+            if (this.selects.recipient_user.selected === event.id)
+            {
+                break;
+            }
+            let new_recipient = {"id": event.id, "email": event.email, "fullname": event.name};
+            this.recipients.push(new_recipient);
+            break;
         }
         this.selects[name].selected = event.id;
         this.selects[name].value = event.name;
@@ -286,17 +302,6 @@ ngOnInit()
         );
     }
 
-    invite()
-        {
-            let myModal = Modal.create(AddUserModal);
-            myModal.onDismiss(data => {
-             if (data){
-                    console.log("invite",data);
-                    this.recipients.splice(0,0,data);    
-                }
-            });
-            this.nav.present(myModal);
-        }
     addTime()
    {
        this.config.setRecent({"account": this.selects.account,
@@ -377,13 +382,8 @@ ngOnInit()
             console.log(data,"data");
     }
 
-    deleteRecipient(recipient){
-        console.log(recipient,"recipient");
-        for (var n = 0;  n < this.recipients.length; n++){
-            if (this.recipients[n].id == recipient.id)
-                console.log(this.recipients[n],"this.recipients[n]");
-                delete this.recipients[n];
-        }
+    changeContact(recipient) {
+        recipient.is_accounting_contact = !recipient.is_accounting_contact;
     }
 
     setDate(date, showmonth?, istime?) {
