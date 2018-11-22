@@ -124,8 +124,11 @@ getExpenses(account_id, pager) {
     return this.apiData.getPaged(url, pager);
 }
 
-getContracts(pager) {
-    let url = "contracts";
+getContracts(pager,id?) {
+    let url = `contracts`;
+    if (id){
+        url = `contracts/${id}`;
+    }
     return this.apiData.getPaged(url, pager);
 }
 

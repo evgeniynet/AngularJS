@@ -25,7 +25,17 @@
      <!--New PrePaid-->
      <select-list [list]="selects.prepaidpack" preload="true" (onChanged)='saveSelect($event)'></select-list>
      
-        </div>    
+        </div>
+        <!--info -->
+        <div *ngIf="contract.id" class="flatfee">
+          <h3 class="text color width35 left table_account text-left">&nbsp;&nbsp;Date Range:</h3>
+          <h3 class="width65 left table">{{setDate(contract.date)}} - {{setDate(contract.date)}}</h3>
+          <h3 class="text color width35 left table_account text-left">&nbsp;&nbsp;Billing Method:</h3>
+          <h3 class="width65 left table">{{contract.billing_method}}</h3>
+          <h3 class="text color width35 left table_account text-left">&nbsp;&nbsp;Overage:</h3>
+          <h3 class="width65 left table" style="margin-bottom: 10px">{{contract.overage}}</h3>
+        </div>
+        <!--end info-->    
  <!--Timelogs-->
  <div style="border-bottom: 1px #fff solid">
    <ion-icon (click)="addTime()" name="add-circle" role="img" class="ion-ios-add-circle item-icon" aria-label="add circle" style="font-size: 2.5em; position: relative; top: 4px; color: #64be42"></ion-icon>
