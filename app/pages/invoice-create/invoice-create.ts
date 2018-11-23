@@ -21,6 +21,7 @@ export class InvoiceCreatePage {
     inc : number;
     isbillable: boolean;
     contract: any = [];
+    contract_id: any;
     timecount: any;
     timelogs: any = [];
     pager: any = [];
@@ -149,8 +150,9 @@ ngOnInit()
             }
 
             let account_id = (this.time.account || {}).id || this.time.account_id || (recent.account || {}).selected || this.he.account_id || -1;
-            let contract_id = (this.time.contract || {}).id || this.time.contract_id || (recent.contract || {}).selected || 0;
+            this.contract_id = (this.time.contract || {}).id || this.time.contract_id || (recent.contract || {}).selected || 0;
             let project_id = (this.time.project || {}).id || this.time.project_id || (recent.project || {}).selected || 0;
+            this.getContract(this.contract_id);
 
             this.selects = {
                     "user" : {
@@ -202,10 +204,11 @@ ngOnInit()
                     name: "PrePaid Pack", 
                     value: this.time.prepaid_pack_name || (recent.prepaidpack || {}).value || "Choose",
                     selected: this.time.prepaid_pack_id || this.config.getRecent("prepaidpack").selected || 0,
-                    url: `prepaid_packs?contract_id=${contract_id}`,
+                    url: `prepaid_packs?contract_id=${this.contract_id}`,
                     hidden: false
                 }
             };
+            this.contract_id = this.selects.contract.selected;
         }
 
         saveSelect(event){
@@ -228,7 +231,7 @@ ngOnInit()
             this.selects.project.selected = 0;
             project_id = 0;
             this.selects.contract.url = `contracts?account_id=${event.id}`;
-            this.selects.contract.value = "Default";
+            this.selects.contract.value = "Choose";
             this.selects.contract.selected = 0;
             contract_id = 0;
             this.selects.prepaidpack.url = `prepaid_packs?contract_id=0`;
