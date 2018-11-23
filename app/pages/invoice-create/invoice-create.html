@@ -11,13 +11,13 @@
 
  <div class="general-alignment2">     
     
-    <select-list *ngIf="!time.number" ajax="true" [list]="selects.user" (onChanged)='saveSelect($event)' preload="true"></select-list>
+    <select-list *ngIf="!data.number" ajax="true" [list]="selects.user" (onChanged)='saveSelect($event)' preload="true"></select-list>
 
-     <select-list *ngIf="!time.number" [list]="selects.account"  ajax="true" preload="true" (onChanged)='saveSelect($event)'></select-list> 
+     <select-list *ngIf="!data.number" [list]="selects.account"  ajax="true" preload="true" (onChanged)='saveSelect($event)'></select-list> 
 
-     <select-list *ngIf="!time.number" [list]="selects.project" preload="true" (onChanged)='saveSelect($event)'></select-list> 
+     <select-list *ngIf="!data.number" [list]="selects.project" preload="true" (onChanged)='saveSelect($event)'></select-list> 
 
-     <select-list *ngIf="!time.number" [list]="selects.ticket" preload="true" (onChanged)='saveSelect($event)'></select-list>
+     <select-list *ngIf="!data.number" [list]="selects.ticket" preload="true" (onChanged)='saveSelect($event)'></select-list>
 
      <!--New Contract-->
      <select-list [list]="selects.contract" preload="true" (onChanged)='saveSelect($event)'></select-list>
@@ -98,7 +98,7 @@
       <div class="stickyborder"></div>
     </div>
  <ion-item padding style="text-align: left"> 
-      <select-list *ngIf="!time.number" ajax="true" [isbutton]=true [list]="selects.recipient_user" (onChanged)='saveSelect($event)' preload="true" style="float: left"></select-list>
+      <select-list *ngIf="!data.number" ajax="true" [isbutton]=true [list]="selects.recipient_user" (onChanged)='saveSelect($event)' preload="true" style="float: left"></select-list>
     <h2 class="color" style="display: inline-block; font-size: 2.3rem; font-weight: 500; padding-left: 15px; margin-top:7px;">Recipients</h2>
         </ion-item>
     <ion-list class="list">

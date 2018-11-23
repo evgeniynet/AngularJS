@@ -23,7 +23,7 @@ export class BasicSelectModal {
     ) {
         this.name = this.params.data.name;
         this.isdefault_enabled = !~["user", "account", "tech", "task type"].indexOf(this.name.toLowerCase());
-        this.isnew_enabled = !!~["user", "tech"].indexOf(this.name.toLowerCase());
+        this.isnew_enabled = this.config.current.is_add_new_user_link && !!~["user", "tech"].indexOf(this.name.toLowerCase());
         this.data = this.params.data.items;
         this.items = this.data;
     }
