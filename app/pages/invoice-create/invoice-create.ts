@@ -65,6 +65,9 @@ ngOnInit()
             let project_id = (this.data.project || {}).id || this.data.project_id || (recent.project || {}).selected || 0;
             if(contract_id)
                 this.getContract(contract_id);
+            if (contract_id && account_id !=0)
+                this.getInvoice(account_id, contract_id);
+
 
             this.selects = {
                     "user" : {
@@ -179,6 +182,7 @@ ngOnInit()
             this.selects.prepaidpack.value = "Choose (optional)";
             this.selects.prepaidpack.selected = 0;
             contract_id = event.id;
+
             if (contract_id) 
                    this.getContract(contract_id);
             break;
@@ -201,13 +205,15 @@ ngOnInit()
             break;
         }
         this.selects[name].selected = event.id;
+        this.selects[name].is_disabled = true;
         this.selects[name].value = event.name;
+        if (contract_id && account_id !=0)
+            this.getInvoice(account_id, contract_id);
     }
     
     getContract(contract_id){
         this.dataProvider.getContracts(this.pager, contract_id).subscribe(
             data => {
-                console.log(data, "data get Contract");
                 this.contract = data;
                 this.contract.date = new Date().toJSON().substring(0,19);
             },
@@ -252,7 +258,24 @@ ngOnInit()
          this.nav.present(myModal);
        }
 
-    
+       getInvoice(account_id, contract_id){
+
+        this.dataProvider.getInvoice(false, account_id, contract_id).subscribe(
+            data => {
+                if (data.length == 1)
+                    data = data[0];
+                console.log(data,"dataInvoice");
+                if (data.recipients)
+                data.recipients = data.recipients.sort(function(a, b) {
+                    return a.is_accounting_contact < b.is_accounting_contact ? 1 : -1;
+                });
+                this.recipients = data.recipients;
+                    },
+            error => {
+                console.log(error || 'Server error');
+            }
+        ); 
+   }   
 
     onSubmit() {
         this.config.setRecent({"account": this.selects.account,

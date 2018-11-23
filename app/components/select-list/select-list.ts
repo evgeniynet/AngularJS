@@ -71,6 +71,7 @@ export class SelectListComponent {
              {
                  this.loadData(false);
              }
+
          }
      }
 
@@ -126,6 +127,7 @@ export class SelectListComponent {
      }
      else
          this.proceed_list(show);
+     this.is_enabled = !this.list.is_disabled;
  }
 
  error(message)

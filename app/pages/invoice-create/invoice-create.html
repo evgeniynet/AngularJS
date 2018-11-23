@@ -17,7 +17,7 @@
 
      <select-list *ngIf="!data.number" [list]="selects.project" preload="true" (onChanged)='saveSelect($event)'></select-list> 
 
-     <select-list *ngIf="!data.number" [list]="selects.ticket" preload="true" (onChanged)='saveSelect($event)'></select-list>
+     <!--<select-list *ngIf="!data.number" [list]="selects.ticket" preload="true" (onChanged)='saveSelect($event)'></select-list>-->
 
      <!--New Contract-->
      <select-list [list]="selects.contract" preload="true" (onChanged)='saveSelect($event)'></select-list>
@@ -27,9 +27,9 @@
      
         </div>
         <!--info -->
-        <div *ngIf="contract_id && contract_id != 0" class="flatfee">
+        <div *ngIf="selects.contract.selected" class="flatfee">
           <h3 class="text color width35 left table_account text-left">&nbsp;&nbsp;Date Range:</h3>
-          <h3 class="width65 left table">{{setDate(contract.date)}} - {{setDate(contract.date)}}</h3>
+          <h3 class="width65 left table">{{setDate(contract.start_date)}} - {{setDate(contract.end_date)}}</h3>
           <h3 class="text color width35 left table_account text-left">&nbsp;&nbsp;Billing Method:</h3>
           <h3 class="width65 left table">{{contract.billing_method}}</h3>
           <h3 class="text color width35 left table_account text-left">&nbsp;&nbsp;Overage:</h3>
