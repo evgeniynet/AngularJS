@@ -113,7 +113,9 @@ ngOnInit()
                     value: this.data.contract_name || (recent.contract || {}).value || "Choose",
                     selected: this.data.contract_id || this.config.getRecent("contract").selected || 0,
                     url: `contracts?account_id=${account_id}`,
-                    hidden: false
+                    hidden: false,
+                    is_disabled: false,
+                    is_once: true
                 },
                 "prepaidpack" : {
                     name: "PrePaid Pack", 
@@ -205,7 +207,6 @@ ngOnInit()
             break;
         }
         this.selects[name].selected = event.id;
-        this.selects[name].is_disabled = true;
         this.selects[name].value = event.name;
         if (contract_id && account_id !=0)
             this.getInvoice(account_id, contract_id);

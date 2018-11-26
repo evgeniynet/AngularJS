@@ -15,6 +15,7 @@ export class SelectListComponent {
     @Input() list: any;
     @Input() isbutton: boolean;
     @Input() is_enabled: boolean = true;
+    @Input() is_once: boolean = false;
     @Input() is_me: boolean;
     @Input() preload: boolean;
     @Input() ajax: boolean;
@@ -28,15 +29,18 @@ export class SelectListComponent {
         this.list = {};
     }  
 
-/*
+
+ /*
     ngOnChanges(event) {
-        console.log(event);
+        console.log(event.list.is_disabled);
         if ("list" in event) {
+            this.is_enabled = !this.list.is_disabled;
             console.log(this.url);
             if (!event.list.isFirstChange() && event.list.currentValue.url !== this.url) {
                 console.log(this.list.items)
                 //this.list.hidden = true;
             }
+            
         }
     }
 */
@@ -54,6 +58,7 @@ export class SelectListComponent {
         }
 
         this.is_enabled = !this.list.is_disabled;
+        this.is_once = this.list.is_once;
 
         if (this.list.hidden)
             return;
@@ -127,7 +132,6 @@ export class SelectListComponent {
      }
      else
          this.proceed_list(show);
-     this.is_enabled = !this.list.is_disabled;
  }
 
  error(message)
@@ -178,6 +182,8 @@ export class SelectListComponent {
  }
 
  emit_changed(value){
+     if (value && this.is_once)
+        this.is_enabled = false;
      this.list.value = value.name;
      value.type = this.list.name.split(' ').join('').toLowerCase();
      this.onChanged.emit(value);
