@@ -20,6 +20,19 @@
     padding-left: 8px;
 }
 
+.total_invoice{
+    border-top: 1px #fff solid;
+    margin-top: 10px;
+    h3 {
+        margin-top:0.7rem;
+        font-size: 2.5rem;
+    }
+}
+
+.invoice_create scroll-content{
+    bottom:10px !important;
+}
+
 .flatfee{
     h3{
 height: 27px;

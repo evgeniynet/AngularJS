@@ -341,7 +341,7 @@ force_redirect(isRedirect)
     //page = pages.AccountsPage; 
     //page = modals.TicketCreatePage; 
     //page = pages.AddUserModal;
-    page = pages.InvoiceCreatePage; 
+    //page = pages.InvoiceCreatePage; 
 
     this.nav.setRoot(page, param, { animation: "wp-transition" });
   }

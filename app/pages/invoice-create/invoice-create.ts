@@ -23,6 +23,9 @@ export class InvoiceCreatePage {
     contract: any = [];
     timecount: any;
     timelogs: any = [];
+    invoice_start_date: any;
+    invoice_end_date: any;
+    total_cost: any;
     pager: any = [];
     expenses: any = [];
     recipients: any = [];
@@ -271,6 +274,9 @@ ngOnInit()
                     return a.is_accounting_contact < b.is_accounting_contact ? 1 : -1;
                 });
                 this.recipients = data.recipients;
+                this.invoice_start_date = data.start_date;
+                this.invoice_end_date = data.end_date;
+                this.total_cost = data.total_cost;
                     },
             error => {
                 console.log(error || 'Server error');
@@ -334,6 +340,10 @@ ngOnInit()
     getCurrency(value) {
         return getCurrency(value);
     }
+    close() {
+        this.view.dismiss();
+     }
+
 
 // show invoice ?
     viewInvoice() {
