@@ -5,6 +5,7 @@ import {TimelogPage} from '../../pages/timelog/timelog';
 import {TicketDetailsPage} from '../../pages/ticket-details/ticket-details';
 import {ExpenseCreatePage} from '../../pages/expense-create/expense-create';
 import {TodoCreatePage} from '../../pages/todo-create/todo-create';
+import {InvoicesPage} from '../../pages/invoices/invoices';
 import {InvoiceCreatePage} from '../../pages/invoice-create/invoice-create';
 
 @Component({
@@ -68,10 +69,21 @@ export class ActionButtonComponent {
                 but.push(
                 {
                     icon: 'card',
-                    text: 'Add Invoice',
+                    text: 'Create Invoice',
                     role: '',
                     handler: () => {
                         this.actionSheet.dismiss().then(() => this.nav.push(InvoiceCreatePage));
+                        return false;
+                    }
+                });
+            if (this.config.current.is_invoice)
+                but.push(
+                {
+                    icon: 'card',
+                    text: 'Show Invoices',
+                    role: '',
+                    handler: () => {
+                        this.actionSheet.dismiss().then(() => this.nav.push(InvoicesPage));
                         return false;
                     }
                 });

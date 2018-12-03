@@ -2,7 +2,7 @@ import {Page, Config, Nav, NavParams, ViewController} from 'ionic-angular';
 import {DataProvider} from '../../providers/data-provider';
 import {MorePipe} from '../../pipes/pipes';
 import {InvoiceDetailsPage} from '../invoice-details/invoice-details';
-import {UnInvoicesPage} from '../uninvoices/uninvoices';
+import {InvoiceCreatePage} from '../invoice-create/invoice-create';
 import {getDateTime, getCurrency} from '../../directives/helpers';
 
 @Page({
@@ -15,11 +15,15 @@ export class InvoicesPage {
     count: number;
     account: any;
     is_empty: boolean;
+    unis_empty: boolean;
     busy: boolean;
+    unbusy: boolean;
     params: any;
     pager: any;
     invoices: Array<any>;
+    uninvoices: Array<any> = [];
     initial_load: boolean = true;
+    details_tab: string;
 
     constructor(private nav: Nav, private dataProvider: DataProvider, private config: Config, private navParams: NavParams, private view: ViewController) {
         this.is_empty = false;
@@ -28,6 +32,7 @@ export class InvoicesPage {
 
     onPageLoaded() {
         this.params = this.navParams.data || {};
+        this.details_tab = "Ready";
         this.pager = { page: 0, limit: this.LIMIT };
         this.params.account = { id: this.params.account_id || 0, name: this.params.account_name || this.config.getCurrent("user").account_name };
         if (this.params.is_empty)
@@ -101,8 +106,8 @@ export class InvoicesPage {
         this.nav.push(InvoiceDetailsPage, item);
     }
 
-    showUninvoiced() {
-        this.nav.push(UnInvoicesPage, this.params);
+    createInvoice() {
+        this.nav.push(InvoiceCreatePage, this.params);
     }
     
     setDate(date, showmonth?, istime?) {
