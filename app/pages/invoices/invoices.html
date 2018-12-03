@@ -14,7 +14,7 @@
     <div *ngIf="is_empty" class="table grey2 menu-text">No Invoices yet</div>
     
     <div>
-    <ion-list class="general-alignment2">
+    <ion-list class="general-alignment2 invoices" padding>
         <a detail-none href=# ion-item class="margin" (click)="itemTapped(invoice)" *ngFor="let invoice of uninvoices">
     <p class="tkts-table left invoices color padding-top6" style="width: 37%">{{setDate(invoice.end_date || invoice.date, true)}}&nbsp;</p> 
     <h3 class="color" style="font-size: 1.6rem; text-align: left">{{invoice.account_name || invoice.customer}}</h3>

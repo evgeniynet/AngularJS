@@ -11,8 +11,7 @@ import {getDateTime, getCurrency} from '../../directives/helpers';
 })
 export class InvoicesPage {
 
-    LIMIT: number = 15;
-    count: number;
+    LIMIT: number = 100;
     account: any;
     is_empty: boolean;
     unis_empty: boolean;
@@ -27,7 +26,9 @@ export class InvoicesPage {
 
     constructor(private nav: Nav, private dataProvider: DataProvider, private config: Config, private navParams: NavParams, private view: ViewController) {
         this.is_empty = false;
+        this.unis_empty = false;
         this.invoices = [];
+        this.uninvoices = [];
   }
 
     onPageLoaded() {
@@ -35,18 +36,14 @@ export class InvoicesPage {
         this.details_tab = "Ready";
         this.pager = { page: 0, limit: this.LIMIT };
         this.params.account = { id: this.params.account_id || 0, name: this.params.account_name || this.config.getCurrent("user").account_name };
-        if (this.params.is_empty)
-            this.params.count = 0;
 
-        if (this.params.count !== 0) {
-            var timer = setTimeout(() => {
+        var timer = setTimeout(() => {
                 this.busy = true;
+                this.unbusy = true;
             }, 500);
 
-            this.getItems(null, timer);
-        }
-        else
-            this.is_empty = true;
+            this.getItems(timer);
+            this.getItems(timer, true);
     }
 
     onPageWillEnter() {
@@ -58,29 +55,30 @@ export class InvoicesPage {
                 let test=0;
             }, 500);
             setTimeout(() => {
-               this.getItems(null, timer);;
+               this.getItems(timer);
+               this.getItems(timer, true);
             }, 1000);
         }
         this.initial_load = false;
     }
 
 
-    getItems(infiniteScroll, timer) {
-        this.dataProvider.getInvoices(this.params.account.id, true, this.pager).subscribe(
+    getItems(timer, isbilled?) {
+        this.dataProvider.getInvoices(this.params.account.id, isbilled || false, this.pager).subscribe(
             data => {
-                if (timer) {
+                    if (isbilled)
+                    {
                     this.is_empty = !data.length;
-                    clearTimeout(timer);
                     this.busy = false;
                     this.invoices = data;
-                }
-                else
-                    this.invoices.push(...data);
-                if (infiniteScroll) {
-                    infiniteScroll.enable(data.length == this.LIMIT);
-                    infiniteScroll.complete();
-                }
-                this.count = data.length;
+                    }
+                    else
+                    {
+                        this.unis_empty = !data.length;
+                    this.unbusy = false;
+                    this.uninvoices = data;
+                    }
+                    clearTimeout(timer);
             },
             error => {
                 if (timer) {
@@ -90,16 +88,6 @@ export class InvoicesPage {
                 console.log(error || 'Server error');
             }
         );
-    }
-
-    doInfinite(infiniteScroll) {
-        if (this.is_empty || this.count < this.LIMIT) {
-            infiniteScroll.enable(false);
-            infiniteScroll.complete();
-            return;
-        }
-        this.pager.page += 1;
-        this.getItems(infiniteScroll, null);
     }
     
     itemTapped(item) {
