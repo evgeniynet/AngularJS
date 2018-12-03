@@ -48,7 +48,7 @@
   <div *ngIf="is_empty" class="table grey2 menu-text">No Timelogs yet</div>
     <ion-list class="list general-alignment2" style="width: 100%" no-lines>
         <a detail-none href=# ion-item *ngFor="let timelog of timelogs" class="margin-top0" style="max-height: 70px;border-bottom: 1px #808080 solid; padding-bottom: 10px; margin-bottom: 10px;">
- <ion-avatar item-left style="width: 20%; margin: 10px 4px 8px 0;">
+ <ion-avatar item-left style="width: 17%; margin: 10px 4px 8px 0;">
         <p style="display: inline-flex;">{{timelog.user_name}} {{timelog.user_lastname}}</p>
     </ion-avatar>
             <div class="expenses">
@@ -76,14 +76,15 @@
    <div *ngIf="is_empty" class="table grey2 menu-text">No Expenses yet</div>
     <ion-list class="list general-alignment2" style="width: 100%" no-lines>
         <a detail-none href=# ion-item *ngFor="let expense of expenses" class="margin-top0" style="max-height: 70px;border-bottom: 1px #808080 solid; padding-bottom: 9px; margin-bottom: 10px;">
-    <ion-avatar item-left style="width: 20%; margin: 10px 4px 8px 0;">
+    <ion-avatar item-left style="width: 17%; margin: 10px 4px 8px 0;">
         <p style="display: inline-flex;">{{expense.user_name}}</p>
     </ion-avatar>
             <div class="expenses">
  <li class="text-left left">
      <h3 class="timelogs ellipsis color" ><b>Note:&nbsp;</b><span [innerHTML]="expense.note | Linebreaks"></span></h3>
-     <h3 class="timelogs ellipsis color" *ngIf="expense.ticket_id">{{"#"+expense.ticket_number+": "+expense.ticket_subject}}</h3>
-     <h3 class="timelogs ellipsis" *ngIf="expense.project_id"><b>Project:&nbsp;</b>{{expense.project_name}}</h3></li>
+     <h3 class="timelogs ellipsis" *ngIf="expense.project_id"><b>Project:&nbsp;</b>{{expense.project_name}}</h3>
+     <h3 class="timelogs ellipsis" *ngIf="expense.ticket_key"><b>Ticket:&nbsp;</b>{{expense.ticket_name}}</h3>
+     </li>
       <li class="right margin font-time text-right">
     <span class="expense-hours color">{{getCurrency(expense.amount)}}</span> 
     <h3 class="expense-hours color">{{setDate(expense.date)}}</h3>  

@@ -16,6 +16,12 @@
    <select-list *ngIf="!expense.number" [list]="selects.account"  ajax="true" preload="true" (onChanged)='saveSelect($event)'></select-list>
 
    <select-list *ngIf="!expense.number" [list]="selects.project" preload="true" (onChanged)='saveSelect($event)'></select-list>
+
+   <select-list *ngIf="!expense.number" [list]="selects.ticket" preload="true" (onChanged)='saveSelect($event)'></select-list>
+
+    <select-list [list]="selects.contract" preload="true" (onChanged)='saveSelect($event)'></select-list>
+
+
         </div>    
 <div class="tooltips"> 
 <textarea required [(ngModel)]="expense.note" ngControl="note" #note="ngForm" class="width100 textLogin commentText" type="text" placeholder="Note"  maxlength="4000"></textarea>
