@@ -141,7 +141,7 @@ ngOnInit()
                     value:  (this.time.account || {}).name || this.time.account_name || (recent.account || {}).value || this.he.account_name,
                     selected: account_id,
                     url: "accounts?is_with_statistics=false",
-                    hidden: false,
+                    hidden: this.time.is_fixed,
                     is_disabled: this.time.ticket_number
                 },
                 "project" : {
@@ -149,7 +149,7 @@ ngOnInit()
                     value:  this.time.project_name || (recent.project || {}).value || "Default",
                     selected: project_id,
                     url: `projects?account=${account_id}&is_with_statistics=false`,
-                    hidden: false,
+                    hidden: this.time.is_fixed,
                     is_disabled: this.time.ticket_number
                 },
                 "ticket" : {
@@ -165,21 +165,21 @@ ngOnInit()
                     value: this.time.task_type || (recent.tasktype || {}).value || "Choose",
                     selected: this.time.task_type_id || this.config.getRecent("tasktype").selected || 0,
                     url: this.time.ticket_number ? `task_types?ticket=${this.time.ticket_number}` : `task_types?account=${account_id}`,
-                    hidden: false
+                    hidden: this.time.is_fixed
                 },
                  "contract" : { 
                     name: "Contract", 
                     value: this.time.contract_name || (recent.contract || {}).value || "Choose",
                     selected: this.time.contract_id || this.config.getRecent("contract").selected || 0,
                     url: `contracts?account_id=${account_id}`,
-                    hidden: false
+                    hidden: this.time.is_fixed
                 },
                 "prepaidpack" : {
                     name: "PrePaid Pack", 
                     value: this.time.prepaid_pack_name || (recent.prepaidpack || {}).value || "Choose",
                     selected: this.time.prepaid_pack_id || this.config.getRecent("prepaidpack").selected || 0,
                     url: `prepaid_packs?contract_id=${contract_id}`,
-                    hidden: false
+                    hidden: this.time.is_fixed
                 }
             };
         }

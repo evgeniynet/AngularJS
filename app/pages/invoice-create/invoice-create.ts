@@ -236,7 +236,7 @@ ngOnInit()
                               "contract": this.selects.contract,
                               "prepaidpack": this.selects.prepaidpack});
        console.log("user", this.selects.user,);
-     let myModal = Modal.create(TimelogPage);
+     let myModal = Modal.create(TimelogPage, {is_fixed: true});
      myModal.onDismiss(data => {
        if(data){
            this.timelogs.splice(0,0,data);
@@ -266,8 +266,9 @@ ngOnInit()
        }
 
        getInvoice(account_id, contract_id){
-
-        this.dataProvider.getInvoice(false, account_id, contract_id).subscribe(
+           let start_date = new Date().toJSON().substring(0,19);
+           let end_date = new Date().toJSON().substring(0,19);
+        this.dataProvider.getInvoice(false, account_id, contract_id, start_date, end_date).subscribe(
             data => {
                 if (data.length == 1)
                     data = data[0];

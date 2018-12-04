@@ -35,6 +35,7 @@ export class InvoicesPage {
         this.params = this.navParams.data || {};
         this.details_tab = "Ready";
         this.pager = { page: 0, limit: this.LIMIT };
+        console.log(this.navParams,"this.navParams");
         this.params.account = { id: this.params.account_id || 0, name: this.params.account_name || this.config.getCurrent("user").account_name };
 
         var timer = setTimeout(() => {
