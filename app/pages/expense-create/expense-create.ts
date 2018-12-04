@@ -58,7 +58,7 @@ export class ExpenseCreatePage {
                 value: this.expense.account_name || (this.expense.account || {}).name || (recent.account || {}).value || this.he.account_name,
                 selected: account_id,
                 url: "accounts?is_with_statistics=false",
-                hidden: false
+                hidden: this.expense.is_fixed
             },
             "ticket" : {
                     name: "Ticket", 
@@ -67,13 +67,14 @@ export class ExpenseCreatePage {
                     url: `tickets?status=open&account=${account_id}&project=${project_id}`,
                     hidden: this.expense.is_project_log || false,
                     is_disabled: this.expense.task_type_id,
+                    hidden: this.expense.is_fixed
                 },
             "contract" : { 
                     name: "Contract", 
                     value: this.expense.contract_name || (recent.contract || {}).value || "Choose",
                     selected: this.expense.contract_id || this.config.getRecent("contract").selected || 0,
                     url: `contracts?account_id=${account_id}`,
-                    hidden: false,
+                    hidden: this.expense.is_fixed,
                     is_disabled: false,
                 },
             "project": {
@@ -81,7 +82,7 @@ export class ExpenseCreatePage {
                 value: this.expense.project_name || (recent.project || {}).value || "Default",
                 selected: project_id,
                 url: `projects?account=${account_id}&is_with_statistics=false`,
-                hidden: false
+                hidden: this.expense.is_fixed
             },
         };      
     }

@@ -254,7 +254,7 @@ ngOnInit()
                               "ticket": this.selects.ticket,
                               "contract": this.selects.contract,
                               "prepaidpack": this.selects.prepaidpack});
-       let myModal = Modal.create(ExpenseCreatePage);
+       let myModal = Modal.create(ExpenseCreatePage, {is_fixed: true});
        myModal.onDismiss(data => {
            if(data){
             data.date= new Date().toJSON().substring(0,19);
