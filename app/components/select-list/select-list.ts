@@ -92,7 +92,10 @@ export class SelectListComponent {
 
      open()
      {
+        this.is_enabled = !this.list.is_disabled;
+        if (this.is_enabled){
          this.loadData(true);
+        }
      }
 
      loadData (show)
@@ -144,6 +147,7 @@ export class SelectListComponent {
      if (!this.list.items || this.list.items.length == 0)
      {
          this.list.value = "Default (nothing to select)";
+         this.onChanged.emit({type: this.name.split(' ').join('').toLowerCase(), id: 0});
          //this.open = function { return false; };
          //this.error(this.list.name + ' list is empty!');
          return;

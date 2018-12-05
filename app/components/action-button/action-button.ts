@@ -72,7 +72,7 @@ export class ActionButtonComponent {
                     text: 'Create Invoice',
                     role: '',
                     handler: () => {
-                        this.actionSheet.dismiss().then(() => this.openModal(InvoiceCreatePage));
+                        this.actionSheet.dismiss().then(() => this.nav.push(InvoiceCreatePage,this.data));
                         return false;
                     }
                 });
@@ -83,7 +83,7 @@ export class ActionButtonComponent {
                     text: 'Show Invoices',
                     role: '',
                     handler: () => {
-                        this.actionSheet.dismiss().then(() => this.openModal(InvoicesPage));
+                        this.actionSheet.dismiss().then(() => this.nav.push(InvoicesPage,this.data));
                         return false;
                     }
                 });

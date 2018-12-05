@@ -30,6 +30,7 @@ export class InvoiceCreatePage {
     pager: any = [];
     expenses: any = [];
     recipients: any = [];
+    localrecipients: any = [];
     timecount_nonwork: any;
     mintime: number;
     data: any = {};
@@ -65,7 +66,7 @@ ngOnInit()
             let contract_id = (this.data.contract || {}).id || this.data.contract_id || (recent.contract || {}).selected || 0;
             let project_id = (this.data.project || {}).id || this.data.project_id || (recent.project || {}).selected || 0;
             if(contract_id)
-                this.getContract(contract_id);
+                this.getContractInfo(contract_id);
             if (contract_id && account_id !=0)
                 this.getInvoice(account_id, contract_id);
 
@@ -92,8 +93,7 @@ ngOnInit()
                     selected: account_id,
                     url: "accounts?is_with_statistics=false",
                     hidden: false,
-                    is_disabled: this.data.ticket_number,
-                    is_once: true
+                    is_disabled: this.data.ticket_number
                 },
                 "project" : {
                     name: "Project", 
@@ -134,6 +134,7 @@ ngOnInit()
         }
 
         saveSelect(event){
+            console.log("event", event);
             let name = event.type;
             let account_id = this.selects.account.selected;
             let ticket_id = this.selects.ticket.selected;
@@ -181,6 +182,16 @@ ngOnInit()
             project_id = event.id;
             break;
             case "contract" :
+            if (event.id){
+                    this.getContractInfo(event.id);
+                    this.selects.account.is_disabled = true;
+                    this.selects.project.is_disabled = true;
+                }
+            else
+                {
+                this.nav.alert("Cannot create any invoice. Please add Contract to "+this.selects.account.value, true);
+            return;
+            }
             if (this.selects.contract.selected === event.id)
             {
                 break;
@@ -190,9 +201,6 @@ ngOnInit()
             this.selects.prepaidpack.value = "Choose (optional)";
             this.selects.prepaidpack.selected = 0;
             contract_id = event.id;
-
-            if (contract_id) 
-                   this.getContract(contract_id);
             break;
 
             case "ticket" :
@@ -208,17 +216,19 @@ ngOnInit()
             {
                 break;
             }
-            let new_recipient = {"id": event.id, "email": event.email, "fullname": event.name};
+            let new_recipient = {"id": event.id, "email": event.email, "fullname": event.name, "is_accounting_contact" : true};
+            this.localrecipients.push(new_recipient);
             this.recipients.push(new_recipient);
             break;
         }
         this.selects[name].selected = event.id;
-        this.selects[name].value = event.name;
-        if (contract_id && account_id !=0)
+        if (event.id > 0 )
+            this.selects[name].value = event.name || "Default";
+        if (this.selects.contract.selected)
             this.getInvoice(account_id, contract_id);
     }
     
-    getContract(contract_id){
+    getContractInfo(contract_id){
         this.dataProvider.getContracts(this.pager, contract_id).subscribe(
             data => {
                 this.contract = data;
@@ -273,11 +283,15 @@ ngOnInit()
                 if (data.length == 1)
                     data = data[0];
                 console.log(data,"dataInvoice");
-                if (data.recipients)
+                data.recipients = data.recipients || [];
                 data.recipients = data.recipients.sort(function(a, b) {
                     return a.is_accounting_contact < b.is_accounting_contact ? 1 : -1;
                 });
-                this.recipients = data.recipients;
+                this.recipients = [];
+                this.recipients.push(...this.localrecipients);
+                console.log("this.localrecipients", this.localrecipients);
+                console.log("this.recipients", this.recipients);
+                this.recipients.push(...data.recipients);
                 this.invoice_start_date = new Date().toJSON().substring(0,19);
                 this.invoice_end_date = new Date().toJSON().substring(0,19);
                 this.total_cost = data.total_cost;
@@ -289,6 +303,11 @@ ngOnInit()
    }   
 
    onSubmit() {
+        if (!this.total_cost) {
+            this.nav.alert("Total cost is 0. Please add time or expenses!", true);
+            return;
+        }
+
         if (!this.recipients.filter(v => v.is_accounting_contact).length) {
             this.nav.alert("No accounting contacts selected", true);
             return;
@@ -328,46 +347,6 @@ ngOnInit()
                     console.log(error || 'Server error');
                 }
             );
-    }
-
-    onSubmit1() {
-        this.config.setRecent({"account": this.selects.account,
-                              "user": this.selects.user,
-                              "project": this.selects.project,
-                              "ticket": this.selects.ticket,
-                              "contract": this.selects.contract,
-                              "prepaidpack": this.selects.prepaidpack});
-
- console.log(this.timelogs.length,"timelogs");
-         let timelog_ids = "";
-         for (var n = 0;  n < this.timelogs.length; n++) 
-            timelog_ids += this.timelogs[n].time_id + ", ";
-         
-         let expense_ids = "";
-         for (var n = 0;  n < this.expenses.length; n++) 
-            expense_ids += this.expenses[n].expense_id + ", ";
-         
-         let recipient_ids = "";
-         for (var n = 0;  n < this.recipients.length; n++) 
-            recipient_ids += this.recipients[n].id + ", ";
-        timelog_ids = timelog_ids.slice(0,-2);
-        expense_ids = expense_ids.slice(0,-2);
-        recipient_ids = recipient_ids.slice(0,-2);
-
-            let data = {
-                "project_id": this.selects.project.selected,
-                "is_project_log": !this.selects.ticket.selected,
-                "ticket_key": this.selects.ticket.selected,
-                "account_id": this.selects.account.selected,
-                "prepaid_pack_id" : this.selects.prepaidpack.selected,
-                "contract_id": this.selects.contract.selected,
-                "is_local_time": true,
-                "timelog_ids": timelog_ids,
-                "expense_ids": expense_ids,
-                "recipient_ids": recipient_ids
-
-            };
-            console.log(data,"data");
     }
 
     changeContact(recipient) {

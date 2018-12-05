@@ -164,8 +164,7 @@ ngOnInit()
                     name: "Task Type", 
                     value: this.time.task_type || (recent.tasktype || {}).value || "Choose",
                     selected: this.time.task_type_id || this.config.getRecent("tasktype").selected || 0,
-                    url: this.time.ticket_number ? `task_types?ticket=${this.time.ticket_number}` : `task_types?account=${account_id}`,
-                    hidden: this.time.is_fixed
+                    url: this.time.ticket_number ? `task_types?ticket=${this.time.ticket_number}` : `task_types?account=${account_id}`
                 },
                  "contract" : { 
                     name: "Contract", 
@@ -255,7 +254,7 @@ ngOnInit()
         this.selects.tasktype.value = "Choose";
         this.selects.tasktype.selected = 0;
         this.selects[name].selected = event.id;
-        this.selects[name].value = event.name;
+        this.selects[name].value = event.name || "Default";
     }
 
     onSubmit(form) {

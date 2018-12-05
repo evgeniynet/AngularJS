@@ -20,10 +20,10 @@
      <!--<select-list *ngIf="!data.number" [list]="selects.ticket" preload="true" (onChanged)='saveSelect($event)'></select-list>-->
 
      <!--New Contract-->
-     <select-list [list]="selects.contract" preload="true" (onChanged)='saveSelect($event)'></select-list>
+     <select-list [list]="selects.contract" (onChanged)='saveSelect($event)'></select-list>
 
      <!--New PrePaid-->
-     <select-list [list]="selects.prepaidpack" preload="true" (onChanged)='saveSelect($event)'></select-list>
+     <select-list [list]="selects.prepaidpack" (onChanged)='saveSelect($event)'></select-list>
      
         </div>
         <!--info -->
@@ -104,7 +104,7 @@
 
  <!-- Recipients -->
      <div class="sticky">
-      <button type="submit" (click)="onSubmit()" [disabled]="!recipients" secondary class="disable-hover button button-default button-block img-top display">{{!recipients.id ? "Create &" : ""}} Send</button>
+      <button type="submit" (click)="onSubmit()" secondary class="disable-hover button button-default button-block img-top display">Create & Send</button>
       <div class="stickyborder"></div>
     </div>
  <ion-item padding style="text-align: left; margin-top: -10px;"> 
