@@ -246,6 +246,11 @@ ngOnInit()
                               "contract": this.selects.contract,
                               "prepaidpack": this.selects.prepaidpack});
        console.log("user", this.selects.user,);
+       if (!this.selects.contract.selected){
+           this.nav.alert("Please choose Contract", true);
+           return;
+       }
+       
      let myModal = Modal.create(TimelogPage, {is_fixed: true});
      myModal.onDismiss(data => {
        if(data){
@@ -264,6 +269,10 @@ ngOnInit()
                               "ticket": this.selects.ticket,
                               "contract": this.selects.contract,
                               "prepaidpack": this.selects.prepaidpack});
+        if (!this.selects.contract.selected){
+           this.nav.alert("Please choose Contract", true);
+           return;
+        }
        let myModal = Modal.create(ExpenseCreatePage, {is_fixed: true});
        myModal.onDismiss(data => {
            if(data){
