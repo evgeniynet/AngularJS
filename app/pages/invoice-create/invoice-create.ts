@@ -27,6 +27,8 @@ export class InvoiceCreatePage {
     invoice_start_date: any;
     invoice_end_date: any;
     total_cost: any;
+    total_hours: any;
+    exspense_total: any;
     pager: any = [];
     expenses: any = [];
     recipients: any = [];
@@ -93,6 +95,7 @@ ngOnInit()
                     selected: account_id,
                     url: "accounts?is_with_statistics=false",
                     hidden: false,
+                    is_once: true,
                     is_disabled: this.data.ticket_number
                 },
                 "project" : {
@@ -155,6 +158,12 @@ ngOnInit()
             this.selects.contract.value = "Choose";
             this.selects.contract.selected = 0;
             contract_id = 0;
+            this.timelogs = [];
+            this.expenses = [];
+            this.recipients = [];
+            this.total_hours = false;
+            this.exspense_total = false;
+            this.total_cost = false;
             this.selects.prepaidpack.url = `prepaid_packs?contract_id=0`;
             this.selects.prepaidpack.value = "Choose (optional)";
             this.selects.prepaidpack.selected = 0;
@@ -254,7 +263,7 @@ ngOnInit()
      let myModal = Modal.create(TimelogPage, {is_fixed: true});
      myModal.onDismiss(data => {
        if(data){
-           this.timelogs.splice(0,0,data);
+       //ß    this.timelogs.splice(0,0,data);
            this.getInvoice(this.selects.account.selected, this.selects.contract.selected);
      }
        });
@@ -276,8 +285,8 @@ ngOnInit()
        let myModal = Modal.create(ExpenseCreatePage, {is_fixed: true});
        myModal.onDismiss(data => {
            if(data){
-            data.date= new Date().toJSON().substring(0,19);
-            this.expenses.splice(0,0,data);
+           // data.date= new Date().toJSON().substring(0,19);
+           // this.expenses.splice(0,0,data);
             this.getInvoice(this.selects.account.selected, this.selects.contract.selected);
             }
          });
@@ -287,7 +296,7 @@ ngOnInit()
        getInvoice(account_id, contract_id){
            let start_date = new Date().toJSON().substring(0,19);
            let end_date = new Date().toJSON().substring(0,19);
-        this.dataProvider.getInvoice(false, account_id, contract_id, start_date, end_date).subscribe(
+        this.dataProvider.getInvoice(false, account_id, contract_id, start_date, end_date, true).subscribe(
             data => {
                 if (data.length == 1)
                     data = data[0];
@@ -304,6 +313,10 @@ ngOnInit()
                 this.invoice_start_date = new Date().toJSON().substring(0,19);
                 this.invoice_end_date = new Date().toJSON().substring(0,19);
                 this.total_cost = data.total_cost;
+                this.total_hours = data.total_hours;
+                this.exspense_total = data.misc_cost;
+                this.timelogs = data.time_logs;
+                this.expenses = data.expenses;
                     },
             error => {
                 console.log(error || 'Server error');

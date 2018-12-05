@@ -35,31 +35,31 @@
           <h3 class="text color width35 left table_account text-left">&nbsp;&nbsp;Overage:</h3>
           <h3 class="width65 left table">{{contract.overage}}</h3>
           <h3 *ngIf="contract.flat_fee" class="text color width35 left table_account text-left">&nbsp;&nbsp;Flat Fee:</h3>
-          <h3 *ngIf="contract.flat_fee" class="width65 left table" style="margin-bottom: 10px">{{contract.flat_fee}}</h3>
+          <h3 *ngIf="contract.flat_fee" class="width65 left table">{{contract.flat_fee}}</h3>
         </div>
         <!--end info-->    
  <!--Timelogs-->
  <div style="border-bottom: 1px #fff solid">
    <ion-icon (click)="addTime()" name="add-circle" role="img" class="ion-ios-add-circle item-icon" aria-label="add circle" style="font-size: 2.5em; position: relative; top: 4px; color: #64be42"></ion-icon>
    <h3 style="display: inline-block;">&nbsp;&nbsp;Timelogs</h3>
-   <h3 style="float: right; width: 20%; text-align: right; text-decoration: underline;">20hr</h3>
+   <h3 *ngIf="total_hours" style="float: right; width: 20%; text-align: right; text-decoration: underline;">{{total_hours}}hr</h3>
  </div>
  
   <div *ngIf="is_empty" class="table grey2 menu-text">No Timelogs yet</div>
     <ion-list class="list general-alignment2" style="width: 100%" no-lines>
         <a detail-none href=# ion-item *ngFor="let timelog of timelogs" class="margin-top0" style="max-height: 70px;border-bottom: 1px #808080 solid; padding-bottom: 10px; margin-bottom: 10px;">
  <ion-avatar item-left style="width: 17%; margin: 10px 4px 8px 0;">
-        <p style="display: inline-flex;">{{timelog.user_name}} {{timelog.user_lastname}}</p>
+        <p style="display: inline-flex;">{{timelog.name}}</p>
     </ion-avatar>
             <div class="expenses">
  <li class="text-left left">
-     <h3 class="timelogs ellipsis color" [innerHTML]="'<b>' + ((timelog.ticket_number ? ('#'+timelog.ticket_number+': '+timelog.ticket_subject + (timelog.note ? ' - ' : '')) : (timelog.account_name + ': ')) + '</b>' + timelog.note)"></h3>
+     <!--<h3 class="timelogs ellipsis color" [innerHTML]="'<b>' + ((timelog.ticket_number ? ('#'+timelog.ticket_number+': '+timelog.ticket_subject + (timelog.note ? ' - ' : '')) : (timelog.account_name + ': ')) + '</b>' + timelog.note)"></h3>-->
      <h3 class="timelogs ellipsis" *ngIf="timelog.contract_name"><b>Contract:</b> {{timelog.contract_name}}</h3>
      <h3 class="timelogs ellipsis" *ngIf="timelog.prepaid_pack_id > 0"><b>Pre-Paid Pack:</b> {{timelog.prepaid_pack_name}}</h3>
    </li>
       <li class="right margin font-time text-right">
     <span class="expense-hours color" style="text-decoration: underline;">{{getFixed(timelog.hours)}}</span><br>
-    <span class="expense-hours color">11$</span> 
+    <span class="expense-hours color">${{timelog.total}}</span> 
     <h3 class="expense-hours color">{{setDate(timelog.date, timelog.time_offset)}}</h3>  
       </li>
     </div>
@@ -71,17 +71,17 @@
  <div style="border-bottom: 1px #fff solid">
    <ion-icon (click)="addExpense()" name="add-circle" role="img" class="ion-ios-add-circle item-icon" aria-label="add circle" style="font-size: 2.5em; position: relative; top: 4px; color: #64be42"></ion-icon>
    <h3 style="display: inline-block;">&nbsp;&nbsp;Expenses</h3>
-   <h3 style="float: right; width: 20%; text-align: right; text-decoration: underline;">$5000</h3>
+   <h3 style="float: right; width: 20%; text-align: right; text-decoration: underline;" *ngIf="exspense_total">${{exspense_total}}</h3>
  </div>
    <div *ngIf="is_empty" class="table grey2 menu-text">No Expenses yet</div>
     <ion-list class="list general-alignment2" style="width: 100%" no-lines>
         <a detail-none href=# ion-item *ngFor="let expense of expenses" class="margin-top0" style="max-height: 70px;border-bottom: 1px #808080 solid; padding-bottom: 9px; margin-bottom: 10px;">
     <ion-avatar item-left style="width: 17%; margin: 10px 4px 8px 0;">
-        <p style="display: inline-flex;">{{expense.user_name}}</p>
+        <p style="display: inline-flex;">{{expense.name}}</p>
     </ion-avatar>
             <div class="expenses">
  <li class="text-left left">
-     <h3 class="timelogs ellipsis color" ><b>Note:&nbsp;</b><span [innerHTML]="expense.note | Linebreaks"></span></h3>
+     <h3 class="timelogs ellipsis color" *ngIf="expense.note"><b>Note:&nbsp;{{expense.project_note}}</b></h3>
      <h3 class="timelogs ellipsis" *ngIf="expense.project_id"><b>Project:&nbsp;</b>{{expense.project_name}}</h3>
      <h3 class="timelogs ellipsis" *ngIf="expense.ticket_key"><b>Ticket:&nbsp;</b>{{expense.ticket_name}}</h3>
      </li>
