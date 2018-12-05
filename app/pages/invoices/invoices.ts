@@ -29,6 +29,7 @@ export class InvoicesPage {
         this.unis_empty = false;
         this.invoices = [];
         this.uninvoices = [];
+        console.log(this.navParams,"this.navParams");
   }
 
     onPageLoaded() {
@@ -36,6 +37,7 @@ export class InvoicesPage {
         this.details_tab = "Ready";
         this.pager = { page: 0, limit: this.LIMIT };
         console.log(this.navParams,"this.navParams");
+        if (!this.params.account) 
         this.params.account = { id: this.params.account_id || 0, name: this.params.account_name || this.config.getCurrent("user").account_name };
 
         var timer = setTimeout(() => {
@@ -48,7 +50,7 @@ export class InvoicesPage {
     }
 
     onPageWillEnter() {
-        if (this.params.account_name)
+        if (this.params.account.name)
             this.view.setBackButtonText('');
         if (!this.initial_load)
         {
