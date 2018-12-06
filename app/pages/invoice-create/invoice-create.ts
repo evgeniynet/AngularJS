@@ -1,4 +1,4 @@
-import {Page, Config, Nav, NavParams, Modal, ViewController} from 'ionic-angular';
+import {Page, Config, Nav, NavParams, Modal, ViewController, Loading} from 'ionic-angular';
 import {forwardRef, ViewChild} from '@angular/core';
 import {getDateTime, getPickerDateTimeFormat, htmlEscape, getFullName, linebreaks, getCurrency} from '../../directives/helpers';
 import {TimeProvider} from '../../providers/time-provider';
@@ -296,6 +296,13 @@ ngOnInit()
        getInvoice(account_id, contract_id){
            let start_date = new Date().toJSON().substring(0,19);
            let end_date = new Date().toJSON().substring(0,19);
+           let loading = null;
+                     loading = Loading.create({
+                     content: "Please wait...",
+                     //duration: 2000,
+                     dismissOnPageChange: true
+                 });
+                 this.nav.present(loading);
         this.dataProvider.getInvoice(false, account_id, contract_id, start_date, end_date, true).subscribe(
             data => {
                 if (data.length == 1)
@@ -317,8 +324,10 @@ ngOnInit()
                 this.exspense_total = data.misc_cost;
                 this.timelogs = data.time_logs;
                 this.expenses = data.expenses;
+                loading.dismiss();
                     },
             error => {
+                loading.dismiss();
                 console.log(error || 'Server error');
             }
         ); 
