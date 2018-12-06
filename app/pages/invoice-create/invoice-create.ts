@@ -195,6 +195,7 @@ ngOnInit()
                     this.getContractInfo(event.id);
                     this.selects.account.is_disabled = true;
                     this.selects.project.is_disabled = true;
+                    this.selects.prepaidpack.is_disabled = true;
                 }
             else
                 {
@@ -210,6 +211,8 @@ ngOnInit()
             this.selects.prepaidpack.value = "Choose (optional)";
             this.selects.prepaidpack.selected = 0;
             contract_id = event.id;
+            if (this.selects.contract.selected)
+            this.getInvoice(account_id, contract_id);
             break;
 
             case "ticket" :
@@ -233,8 +236,6 @@ ngOnInit()
         this.selects[name].selected = event.id;
         if (event.id > 0 )
             this.selects[name].value = event.name || "Default";
-        if (this.selects.contract.selected)
-            this.getInvoice(account_id, contract_id);
     }
     
     getContractInfo(contract_id){
