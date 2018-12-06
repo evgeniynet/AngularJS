@@ -211,7 +211,7 @@ ngOnInit()
             this.selects.prepaidpack.value = "Choose (optional)";
             this.selects.prepaidpack.selected = 0;
             contract_id = event.id;
-            if (this.selects.contract.selected)
+            if (contract_id)
             this.getInvoice(account_id, contract_id);
             break;
 

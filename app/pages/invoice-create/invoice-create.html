@@ -54,8 +54,14 @@
             <div class="expenses">
  <li class="text-left left">
      <!--<h3 class="timelogs ellipsis color" [innerHTML]="'<b>' + ((timelog.ticket_number ? ('#'+timelog.ticket_number+': '+timelog.ticket_subject + (timelog.note ? ' - ' : '')) : (timelog.account_name + ': ')) + '</b>' + timelog.note)"></h3>-->
-     <h3 class="timelogs ellipsis" *ngIf="timelog.contract_name"><b>Contract:</b> {{timelog.contract_name}}</h3>
-     <h3 class="timelogs ellipsis" *ngIf="timelog.prepaid_pack_id > 0"><b>Pre-Paid Pack:</b> {{timelog.prepaid_pack_name}}</h3>
+     <h3 class="timelogs ellipsis" *ngIf="!timelog.tktsubject">
+      <span *ngIf="timelog.ticket_project"><b>Project:</b> {{timelog.ticket_project}}</span>
+    </h3>
+     <h3 class="timelogs ellipsis" *ngIf="timelog.tktsubject">
+      <span *ngIf="timelog.ticket_project"><b>Ticket #</b>{{timelog.ticket_project}}</span>
+    </h3>
+    <h3 class="timelogs ellipsis" *ngIf="timelog.tktsubject"><b>Ticket Subject:</b> {{timelog.tktsubject}}</h3>
+     <h3 class="timelogs ellipsis color" *ngIf="timelog.prepaid_pack_id > 0"><b>Note:</b> {{timelog.note}}</h3>
    </li>
       <li class="right margin font-time text-right">
     <span class="expense-hours color" style="text-decoration: underline;">{{getFixed(timelog.hours)}}</span><br>
@@ -81,9 +87,14 @@
     </ion-avatar>
             <div class="expenses">
  <li class="text-left left">
-     <h3 class="timelogs ellipsis color" *ngIf="expense.note"><b>Note:&nbsp;{{expense.project_note}}</b></h3>
-     <h3 class="timelogs ellipsis" *ngIf="expense.project_id"><b>Project:&nbsp;</b>{{expense.project_name}}</h3>
-     <h3 class="timelogs ellipsis" *ngIf="expense.ticket_key"><b>Ticket:&nbsp;</b>{{expense.ticket_name}}</h3>
+     <h3 class="timelogs ellipsis" *ngIf="!expense.tktsubject">
+      <span *ngIf="expense.ticket_project != 0"><b>Project:</b> {{expense.ticket_project}}</span>
+    </h3>
+     <h3 class="timelogs ellipsis" *ngIf="expense.tktsubject">
+      <span *ngIf="expense.ticket_project"><b>Ticket #</b>{{expense.ticket_project}}</span>
+    </h3>
+    <h3 class="timelogs ellipsis" *ngIf="expense.tktsubject"><b>Ticket Subject:</b> {{expense.tktsubject}}</h3>
+     <h3 class="timelogs ellipsis color" *ngIf="expense.note"><b>Note:&nbsp;{{expense.note}}</b></h3>
      </li>
       <li class="right margin font-time text-right">
     <span class="expense-hours color">{{getCurrency(expense.amount)}}</span> 
