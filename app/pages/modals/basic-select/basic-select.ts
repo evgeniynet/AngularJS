@@ -1,4 +1,4 @@
-import {Nav, NavParams, Page, Events, ViewController, Modal} from 'ionic-angular';
+import {Nav, NavParams, Page, Events, ViewController, Modal, Config} from 'ionic-angular';
 import {AddUserModal} from '../modals';
 import {getFullName} from '../../../directives/helpers';
 //import {Input} from '@angular/core';
@@ -19,11 +19,12 @@ export class BasicSelectModal {
     constructor(
         private nav: Nav,
         private params: NavParams,
-        private viewCtrl: ViewController
+        private viewCtrl: ViewController,
+        private config: Config
     ) {
         this.name = this.params.data.name;
         this.isdefault_enabled = !~["user", "account", "tech", "task type"].indexOf(this.name.toLowerCase());
-        this.isnew_enabled = !!~["user", "tech"].indexOf(this.name.toLowerCase());
+        this.isnew_enabled = this.config.current.is_add_new_user_link && !!~["user", "tech"].indexOf(this.name.toLowerCase());
         this.data = this.params.data.items;
         this.items = this.data;
     }

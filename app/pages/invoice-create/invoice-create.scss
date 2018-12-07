@@ -1,0 +1,87 @@
+.timelog-input{
+    text-align: center;
+    margin: 0px !important;
+//    padding-left:11px;
+}
+
+.button-timelog{
+    margin: 0 5% 15px 0%;
+}
+
+.line-height5{
+    line-height: 5rem;
+}
+
+.padding-bottom1{
+     padding-bottom: 1px;
+}
+
+.padding-left8{
+    padding-left: 8px;
+}
+
+.total_invoice{
+    border-top: 3px #fff solid;
+    margin-top: 10px;
+    h3 {
+        margin-top:0.7rem;
+        font-size: 2.5rem;
+    }
+}
+
+.invoice_create scroll-content{
+    bottom:10px !important;
+}
+
+.flatfee{
+    h3{
+height: 27px;
+background-color: $grey;
+line-height: 1.5;
+font-size: 1.6rem;
+margin-bottom: -10px;
+padding-top:1px;
+}
+h3:nth-of-type(2n+1){
+text-align:left;
+}
+h3:nth-of-type(2n){
+background-color: $blue2;
+}
+h3:last-of-type{
+    margin-bottom: 10px;
+}
+}
+
+
+
+.top0{
+    margin-top: 0px !important;
+}
+
+.top3{
+    margin-top: 3px !important;
+}
+
+.height51{
+    height: 51px;
+}
+
+.bottom5{
+    margin-bottom: 5px !important;
+}
+p.is-force-time{
+    margin-bottom: -15px !important;
+    text-align: center;
+    color: #ff0404 !important;
+}
+
+@media (min-width: 481px)  {
+   .start-end {
+    display: none;}
+}
+
+@media (max-width: 480px)  {
+   .start-end2{
+    display: none;}
+}

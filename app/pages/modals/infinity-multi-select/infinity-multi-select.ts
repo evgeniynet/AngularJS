@@ -37,7 +37,7 @@ export class InfinityMultiSelectModal {
 
         this.term = '';
         this.name = this.navParams.data.name || "List";
-        this.isnew_enabled = !!~["user", "tech"].indexOf(this.name.toLowerCase());
+        this.isnew_enabled = this.config.current.is_add_new_user_link && !!~["user", "tech"].indexOf(this.name.toLowerCase());
         this.url = this.navParams.data.url || "";
         this.data = this.navParams.data.items || {};
         this.items = this.data;
