@@ -269,7 +269,7 @@ ngOnInit()
         let hours = Number(this.timecount);
         let non_work_hours = Number(this.timecount_nonwork);
 
-        if (hours < this.mintime)
+        if (hours + this.timecount_nonwork < this.mintime)
         {
             this.nav.alert("Not enough time", true);
             return;
