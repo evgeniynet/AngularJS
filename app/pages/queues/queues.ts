@@ -1,4 +1,4 @@
-import {Page, Nav} from 'ionic-angular';
+import {Page, Config, Nav} from 'ionic-angular';
 import {TicketsPage} from '../tickets/tickets';
 import {DataProvider} from '../../providers/data-provider';
 import {AjaxSearchPage} from '../ajax-search/ajax-search';
@@ -10,65 +10,50 @@ import {QueuesListComponent, ActionButtonComponent} from '../../components/compo
 })
 export class QueuesPage {
 
-    queues: any;
-    busy: boolean;
     test: boolean;
+    term: string = '';
     search_results: any;
+    queues: any;
+    items: any = [];
     
-    constructor(private nav: Nav, private dataProvider: DataProvider) {
+    constructor(private nav: Nav, private config: Config, private dataProvider: DataProvider) {
   }
     
     onPageLoaded()
     {
-           var timer = setTimeout(() => {
-            this.busy = true;
-        }, 500);
         this.dataProvider.getQueueList().subscribe(
             data => {
-                this.queues = data
-                this.busy = false;
+                this.queues = data;
+                this.searchItems({value : this.term});
                     }, 
             error => { 
                 console.log(error || 'Server error');}
         ); 
+        
     }
     searchItems(searchbar) {
         // Reset items back to all of the items
-        this.search_results = [];
-
+        this.items = this.queues;
         // set q to the value of the searchbar
-        var q = searchbar.value;
+        let q = searchbar.value.toLowerCase();
 
         // if the value is an empty string don't filter the search_results
-        if (q.trim() == '' || this.busy) {
+        if (q.trim() == '') {
             return;
         }
 
-        if (q.length > 1)
+        if (this.queues && q.length > 1)
         {
-            var timer = setTimeout(() => { this.busy = true; }, 500);
-            this.onPageLoaded();
+            this.items = this.queues.filter((queues) => queues.fullname.toLowerCase().indexOf(q) > -1);
         }
     }
 
-     clearSearch(searchbar?)
+    clearSearch(searchbar?)
     {
         this.search_results = [];
-        this.busy = false;
         if (searchbar) searchbar.value = "";
     }
 
-    getSearch(searchbar) {
-        this.test = false;
-        this.clearSearch();
-        // Reset items back to all of the items
-        // set q to the value of the searchbar
-        let term = searchbar.target.value;
-        if (term.length < 4)
-            term += "    ";
-        let list = { search: term };
-        this.test = false;
-        this.nav.push(AjaxSearchPage, list);
-    }
+  
 
 }
