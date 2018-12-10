@@ -36,11 +36,6 @@ export class AccountsPage {
         this.getItems(null, timer);
     }
 
-    onPageDidEnter()
-    {
-        this.term = "";
-    }
-
     searchItems(searchbar) {
         // Reset items back to all of the items
         this.items = this.accounts;
