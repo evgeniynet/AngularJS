@@ -2,7 +2,7 @@ import {Nav, NavParams, Page, ViewController, Config} from 'ionic-angular';
 import {forwardRef} from '@angular/core';
 import {TicketProvider} from '../../../providers/ticket-provider';
 import {ApiData} from '../../../providers/api-data';
-import {htmlEscape} from '../../../directives/helpers';
+import {htmlEscape, getFullName} from '../../../directives/helpers';
 import {SelectListComponent} from '../../../components/select-list/select-list';
 
 
@@ -17,6 +17,8 @@ export class CloseTicketModal {
     ticket: any;
     selects: any;
     categories: any;
+    he: any;
+    users: any = [];
 
     constructor(private nav: Nav, private navParams: NavParams, private apiData: ApiData, private ticketProvider: TicketProvider, private config: Config,
         private viewCtrl: ViewController) {
@@ -32,6 +34,7 @@ export class CloseTicketModal {
         this.ticket = this.navParams.data || 0;
 
         this.categories = [];
+        this.he = this.config.getCurrent("user");
 
         this.selects = {
             "resolution": {
@@ -44,6 +47,13 @@ export class CloseTicketModal {
                     { "name": 'UnResolved', "id": 0 },
                 ]
             },
+            "user" : {
+                    name: "user", 
+                    value: getFullName(this.he.firstname, this.he.lastname, this.he.email),
+                    selected: this.he.user_id,
+                    url: "users",
+                    hidden: false,
+                },
             "category": {
                 name: "Category",
                 value: "Choose",
@@ -86,6 +96,22 @@ export class CloseTicketModal {
                 this.categories.filter(v => v.is_resolved) : this.categories.filter(v => !v.is_resolved);
             this.selects.category.hidden = !this.selects.category.items.length;
         }
+        if (name == "user"){
+            let user = {
+                "id": this.selects.user.selected,
+                "name": this.selects.user.value
+            };
+            this.users.push(user);
+        }
+    }
+    deleteUser(user_id){
+        let num;
+        for (var n = 0;  n < this.users.length; n++) {
+            if(this.users[n].id == user_id){
+                num = n;
+            }
+        }
+        this.users.splice(num, 1);
     }
     
     onSubmit(form) {
@@ -97,6 +123,14 @@ export class CloseTicketModal {
                 this.nav.alert("Note is required!",true);
                 return;
             }
+            let user_ids = "";
+            if(this.users.length){
+                for (var n = 0;  n < this.users.length; n++) {
+                   user_ids += this.users[n].id + ", ";
+                 }
+                 user_ids = user_ids.slice(0,-2);
+            }
+            console.log(user_ids,"user_ids");
 
             let data = {
                 "status": "closed",
@@ -105,8 +139,8 @@ export class CloseTicketModal {
                 "resolved": this.selects.resolution.selected == 1,
                 "resolution_id": this.selects.category.selected,
                 "confirmed": this.isconfirm,
-                "confirm_note": ""
-
+                "confirm_note": "",
+                "cc": user_ids
             };
 
             this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(

@@ -280,6 +280,12 @@ ngOnInit()
             this.nav.alert("Hours value should be less or equal to Start/Stop range.", true);
             return;
         }
+        console.log(this.selects.contract.selected,"this.selects.contract.selected");
+        if (!this.selects.contract.selected || this.selects.contract.selected == 0 || this.selects.contract.selected == 82)
+        {
+            this.nav.alert("Please, select Contract from the list.", true);
+            return;
+        }
         if (!this.selects.tasktype.selected)
         {
             this.nav.alert("Please, select Task Type from the list.", true);
