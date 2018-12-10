@@ -14,10 +14,12 @@ export class AccountsPage {
     is_empty: boolean;
     busy: boolean;
     params: any;
+    term: string = '';
     pager: any;
     test: boolean;
     search_results: any;
     accounts: Array<any>;
+    items: any = [];
     LIMIT: number = 500;
 
     constructor(private nav: Nav, private config: Config, private dataProvider: DataProvider) {
@@ -34,22 +36,26 @@ export class AccountsPage {
         this.getItems(null, timer);
     }
 
+    onPageDidEnter()
+    {
+        this.term = "";
+    }
+
     searchItems(searchbar) {
         // Reset items back to all of the items
-        this.search_results = [];
+        this.items = this.accounts;
 
         // set q to the value of the searchbar
-        var q = searchbar.value;
+        let q = searchbar.value.toLowerCase();
 
         // if the value is an empty string don't filter the search_results
         if (q.trim() == '' || this.busy) {
             return;
         }
 
-        if (q.length > 1)
+        if (this.accounts && q.length > 1)
         {
-            var timer = setTimeout(() => { this.busy = true; }, 500);
-            this.getItems(q, timer);
+            this.items = this.accounts.filter((account) => account.name.toLowerCase().indexOf(q) > -1);
         }
     }
 
@@ -73,6 +79,7 @@ export class AccountsPage {
                     infiniteScroll.complete();
                 }
                 this.count = data.length;
+                this.searchItems({value : this.term})
             },
             error => {
                 if (timer) {
@@ -89,19 +96,6 @@ export class AccountsPage {
         this.search_results = [];
         this.busy = false;
         if (searchbar) searchbar.value = "";
-    }
-
-    getSearch(searchbar) {
-        this.test = false;
-        this.clearSearch();
-        // Reset items back to all of the items
-        // set q to the value of the searchbar
-        let term = searchbar.target.value;
-        if (term.length < 4)
-            term += "    ";
-        let list = { search: term };
-        this.test = false;
-        this.nav.push(AjaxSearchPage, list);
     }
 
     doInfinite(infiniteScroll) {
