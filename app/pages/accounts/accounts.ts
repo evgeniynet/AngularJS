@@ -1,5 +1,6 @@
 import {Page, Config, Nav} from 'ionic-angular';
 import {DataProvider} from '../../providers/data-provider';
+import {AjaxSearchPage} from '../ajax-search/ajax-search';
 import {AccountsListComponent, ActionButtonComponent} from '../../components/components';
 
 
@@ -14,6 +15,8 @@ export class AccountsPage {
     busy: boolean;
     params: any;
     pager: any;
+    test: boolean;
+    search_results: any;
     accounts: Array<any>;
     LIMIT: number = 500;
 
@@ -31,6 +34,24 @@ export class AccountsPage {
         this.getItems(null, timer);
     }
 
+    searchItems(searchbar) {
+        // Reset items back to all of the items
+        this.search_results = [];
+
+        // set q to the value of the searchbar
+        var q = searchbar.value;
+
+        // if the value is an empty string don't filter the search_results
+        if (q.trim() == '' || this.busy) {
+            return;
+        }
+
+        if (q.length > 1)
+        {
+            var timer = setTimeout(() => { this.busy = true; }, 500);
+            this.getItems(q, timer);
+        }
+    }
 
     getItems(infiniteScroll, timer) {
         this.dataProvider.getAccountList(false, this.pager, true, true).subscribe(
@@ -61,6 +82,26 @@ export class AccountsPage {
                 console.log(error || 'Server error');
             }
         );
+    }
+
+    clearSearch(searchbar?)
+    {
+        this.search_results = [];
+        this.busy = false;
+        if (searchbar) searchbar.value = "";
+    }
+
+    getSearch(searchbar) {
+        this.test = false;
+        this.clearSearch();
+        // Reset items back to all of the items
+        // set q to the value of the searchbar
+        let term = searchbar.target.value;
+        if (term.length < 4)
+            term += "    ";
+        let list = { search: term };
+        this.test = false;
+        this.nav.push(AjaxSearchPage, list);
     }
 
     doInfinite(infiniteScroll) {
