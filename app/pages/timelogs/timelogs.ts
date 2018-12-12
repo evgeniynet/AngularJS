@@ -21,10 +21,6 @@ export class TimelogsPage {
     cachelen: number;
     cachename: string;
     timelogs: any;
-    term: string = '';
-    test: boolean;
-    search_results: any;
-    items: any = [];
     busy: boolean;
     initial_load: boolean = true;
 
@@ -56,7 +52,6 @@ export class TimelogsPage {
     {
         this.timeProvider.getTimelogs(this.params.account.id, this.pager);
         this.timelogs = this.timeProvider.times$[this.cachename];
-        this.searchItems({value : this.term});
         if (!this.cachelen)
         {
             var timer = setTimeout(() => {
@@ -81,39 +76,9 @@ export class TimelogsPage {
         {
             setTimeout(() => {
                this.getTimeLogs();
-            }, 2000);
+            }, 4000);
         }
         this.initial_load = false;
-    }
-
-    searchItems(searchbar) {
-        // Reset items back to all of the items
-        this.items = this.timelogs;
-
-        // set q to the value of the searchbar
-        let q = searchbar.value.toLowerCase();
-
-        // if the value is an empty string don't filter the search_results
-        if (q.trim() == '' || this.busy) {
-            return;
-        }
-
-        if (this.timelogs && q.length > 1)
-        {
-            this.items = this.timelogs.filter((time) => time.ticket_number.toLowerCase().indexOf(q) > -1
-            || time.ticket_subject.toLowerCase().indexOf(q) > -1
-            || time.note.toLowerCase().indexOf(q) > -1
-            || time.user_firstname.toLowerCase().indexOf(q) > -1
-            || time.user_lastname.toLowerCase().indexOf(q) > -1
-            || time.contract_name.toLowerCase().indexOf(q) > -1
-            || time.prepaid_pack_name.toLowerCase().indexOf(q) > -1);        }
-    }
-
-    clearSearch(searchbar?)
-    {
-        this.search_results = [];
-        this.busy = false;
-        if (searchbar) searchbar.value = "";
     }
 
     doInfinite(infiniteScroll) {
@@ -143,8 +108,8 @@ export class TimelogsPage {
     
     setDate(date, time_offset, showmonth?, istime?) {
     if (date){
-        date = new Date(date.substring(0,23)+"Z");
-        date = new Date(date.setTime(date.getTime() + time_offset*60*60*1000)).toJSON();
+        //date = new Date(date.substring(0,23)+"Z");
+        //date = new Date(date.setTime(date.getTime() + time_offset*60*60*1000)).toJSON();
         return getDateTime(date, showmonth, istime);
     }
      return null;
