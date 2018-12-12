@@ -36,24 +36,6 @@ export class AccountsPage {
         this.getItems(null, timer);
     }
 
-    searchItems(searchbar) {
-        // Reset items back to all of the items
-        this.items = this.accounts;
-
-        // set q to the value of the searchbar
-        let q = searchbar.value.toLowerCase();
-
-        // if the value is an empty string don't filter the search_results
-        if (q.trim() == '' || this.busy) {
-            return;
-        }
-
-        if (this.accounts && q.length > 1)
-        {
-            this.items = this.accounts.filter((account) => account.name.toLowerCase().indexOf(q) > -1);
-        }
-    }
-
     getItems(infiniteScroll, timer) {
         this.dataProvider.getAccountList(false, this.pager, true, true).subscribe(
             data => {
@@ -74,7 +56,7 @@ export class AccountsPage {
                     infiniteScroll.complete();
                 }
                 this.count = data.length;
-                this.searchItems({value : this.term})
+                this.searchItems({value : this.term});
             },
             error => {
                 if (timer) {
@@ -84,6 +66,24 @@ export class AccountsPage {
                 console.log(error || 'Server error');
             }
         );
+    }
+
+    searchItems(searchbar) {
+        // Reset items back to all of the items
+        this.items = this.accounts;
+
+        // set q to the value of the searchbar
+        let q = searchbar.value.toLowerCase();
+
+        // if the value is an empty string don't filter the search_results
+        if (q.trim() == '' || this.busy) {
+            return;
+        }
+
+        if (this.accounts && q.length > 1)
+        {
+            this.items = this.accounts.filter((account) => account.name.toLowerCase().indexOf(q) > -1);
+        }
     }
 
     clearSearch(searchbar?)

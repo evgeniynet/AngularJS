@@ -1,13 +1,16 @@
 
 <ion-navbar *navbar><button menuToggle><ion-icon name="menu"></ion-icon></button>
   <ion-title class="padding-right24">Timelogs {{params.account_name ? "of&nbsp;" + params.account.name : ""}}</ion-title>
+       <ion-buttons end>
+    <button danger class="right transparent" (click)="test = !test"><ion-icon name="ios-search"></ion-icon></button>
+    </ion-buttons>
 </ion-navbar>
 
 <ion-content>
-    
+    <ion-searchbar *ngIf="test" [focuser] debounce="700" (cancel)="test = !test" (input)="searchItems($event)" [(ngModel)]="term" placeholder="Type Timelog data"></ion-searchbar>
     <ion-list class="list general-alignment2" no-lines>
         <img *ngIf="busy" class="imglogo img-padding" src="img/loading2.gif">
-        <ion-item-sliding class="timelog-item" *ngFor="let time of timelogs | async" #slidingItem>
+        <ion-item-sliding class="timelog-item" *ngFor="let time of items | async" #slidingItem>
         <a detail-none href=# ion-item (click)="itemTapped(time)">
     <ion-avatar padding item-left>
             <li>
