@@ -16,7 +16,8 @@ export class LocationsPage {
     busy: boolean;
     params: any;
     pager: any;
-    items: any;
+    search_results: any;
+    items: any =[];
     data: any;
     LIMIT: number = 25;
     test: boolean;
@@ -53,14 +54,9 @@ export class LocationsPage {
 
             this.date = Date.now();
 
-            if (q.length < 3)
+            if (this.data && q.length > 1)
             {
-                this.items = this.data;
-                this.is_empty = !this.data.length;
-            }
-            else {
-                var timer = setTimeout(() => { this.busy = true; }, 500);
-                this.getItems(q, null, timer);
+            this.items = this.data.filter((data) => data.name.toLowerCase().indexOf(q) > -1);
             }
         }
 
@@ -128,7 +124,7 @@ export class LocationsPage {
 
     clearSearch(searchbar?)
     {
-        this.items = this.data;
+        this.search_results = [];
         this.busy = false;
         if (searchbar) searchbar.value = "";
     }

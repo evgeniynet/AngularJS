@@ -1,14 +1,16 @@
 import {Page, Config, Nav, NavParams, ViewController} from 'ionic-angular';
-import {TicketProvider} from '../../providers/providers';
+import {TicketProvider, ApiData} from '../../providers/providers';
 import {DataProvider} from '../../providers/data-provider';
 import {InvoicesPage} from '../invoices/invoices';
 import {TimelogsPage} from '../timelogs/timelogs';
 import {ContractsPage} from '../contracts/contracts';
-import {FileUrlHelper} from '../../directives/helpers';
+import {FileUrlHelper, addp} from '../../directives/helpers';
 import {TicketsListComponent} from '../../components/tickets-list/tickets-list';
+import {TicketDetailsPage} from '../ticket-details/ticket-details';
 import {ActionButtonComponent} from '../../components/action-button/action-button';
 import {MorePipe} from '../../pipes/pipes';
 import {ExpensesPage} from '../expenses/expenses';
+import {AjaxSearchPage} from '../ajax-search/ajax-search';
 
 @Page({
   templateUrl: 'build/pages/account-details/account-details.html',
@@ -23,8 +25,12 @@ export class AccountDetailsPage {
     tabsTicket: string; 
     is_editnote: boolean = true;
     is_ready: boolean = false;
+    search_results: any;
+    test: boolean;
+    term: string = '';
+    busy: boolean;
 
-    constructor(private nav: Nav, private navParams: NavParams, private dataProvider: DataProvider, private ticketProvider: TicketProvider, private config: Config, private view: ViewController) {
+    constructor(private nav: Nav, private navParams: NavParams,private apiData: ApiData, private dataProvider: DataProvider, private ticketProvider: TicketProvider, private config: Config, private view: ViewController) {
         this.details_tab = "Stat";
         this.pages = [ContractsPage, ExpensesPage, TimelogsPage];
   }
@@ -103,4 +109,77 @@ export class AccountDetailsPage {
     console.log("Function connect");
        
     }
-}
+    gotoTicket(data)
+    {
+      this.test = false;
+      this.clearSearch();
+      if (data)
+      {
+        setTimeout(() => {
+          this.nav.push(TicketDetailsPage, data);
+        }, 500);
+      }
+    }
+    searchItems(searchbar) {
+      // Reset items back to all of the items
+      this.search_results = [];
+
+      // set q to the value of the searchbar
+      var q = searchbar.value;
+
+      // if the value is an empty string don't filter the search_results
+      if (q.trim() == '' || this.busy) {
+        return;
+      }
+
+      if (q.length > 1)
+      {
+        var timer = setTimeout(() => { this.busy = true; }, 500);
+        this.searchItemsAPI(q, timer);
+      }
+    }
+
+    searchItemsAPI(term, timer) {
+      this.search_results = [];
+      let url = "tickets?query=all&account="+this.account.id; //status=allopen&
+      let pager = { limit: 3 };
+      this.apiData.getPaged(addp(url, "search", term + "*"), pager).subscribe(
+        data => {
+          if (timer) {
+            clearTimeout(timer);
+            this.busy = false;
+          }
+          this.search_results = data;
+        },
+        error => {
+          if (timer) {
+            clearTimeout(timer);
+            this.busy = false;
+          }
+          console.log(error || 'Server error');
+        }
+        );
+    }
+
+
+    clearSearch(searchbar?)
+    {
+      this.search_results = [];
+      this.busy = false;
+      if (searchbar) searchbar.value = "";
+    }
+
+    getSearch(searchbar) {
+      this.test = false;
+      this.clearSearch();
+      // Reset items back to all of the items
+      // set q to the value of the searchbar
+      let term = searchbar.target.value;
+      if (term.length < 4)
+        term += "    ";
+      let list = { search: term, location: this.account };
+      this.test = false;
+      this.nav.push(AjaxSearchPage, list);
+    }
+  }
+
