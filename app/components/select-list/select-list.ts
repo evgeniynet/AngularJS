@@ -115,14 +115,14 @@ export class SelectListComponent {
                  this.apiData.get(this.list.url).subscribe(
                      data => {
                          this.list.items = data;
-                         if (show) {
+                         if (loading) {
                              loading.dismiss();
                          }
                          this.proceed_list(show);
                          this.url = this.list.url;
                      },
                      error => {
-                         if (show) loading.dismiss();
+                         if (loading) loading.dismiss();
                          this.error("Cannot get " + this.name + " list! Error: " + error);
                          console.log(error || 'Server error');
                      }

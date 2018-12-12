@@ -80,7 +80,7 @@ ngOnInit()
                     selected: this.he.user_id,
                     url: "users",
                     hidden: false,
-                    is_once: true
+                    //is_once: true
                 },
                 "recipient_user" : {
                     name: "recipient_user", 
@@ -95,7 +95,7 @@ ngOnInit()
                     selected: account_id,
                     url: "accounts?is_with_statistics=false",
                     hidden: false,
-                    is_once: true,
+                    //is_once: true,
                     is_disabled: this.data.ticket_number
                 },
                 "project" : {
@@ -105,7 +105,7 @@ ngOnInit()
                     url: `projects?account=${account_id}&is_with_statistics=false`,
                     hidden: false,
                     is_disabled: this.data.ticket_number,
-                    is_once: true
+                    //is_once: true
                 },
                 "ticket" : {
                     name: "Ticket", 
@@ -114,7 +114,7 @@ ngOnInit()
                     url: `tickets?status=open&account=${account_id}&project=${project_id}`,
                     hidden: this.data.is_project_log || false,
                     is_disabled: this.data.task_type_id,
-                    is_once: true
+                    //is_once: true
                 },
                  "contract" : { 
                     name: "Contract", 
@@ -123,7 +123,7 @@ ngOnInit()
                     url: `contracts?account_id=${account_id}`,
                     hidden: false,
                     is_disabled: false,
-                    is_once: true
+                    //is_once: true
                 },
                 "prepaidpack" : {
                     name: "PrePaid Pack", 
@@ -131,7 +131,7 @@ ngOnInit()
                     selected: this.data.prepaid_pack_id || this.config.getRecent("prepaidpack").selected || 0,
                     url: `prepaid_packs?contract_id=${contract_id}`,
                     hidden: false,
-                    is_once: true
+                    //is_once: true
                 }
             };
         }
@@ -192,10 +192,10 @@ ngOnInit()
             break;
             case "contract" :
             if (event.id){
-                    this.getContractInfo(event.id);
-                    this.selects.account.is_disabled = true;
-                    this.selects.project.is_disabled = true;
-                    this.selects.prepaidpack.is_disabled = true;
+                    //this.getContractInfo(event.id);
+                    //this.selects.account.is_disabled = true;
+                    //this.selects.project.is_disabled = true;
+                    //this.selects.prepaidpack.is_disabled = true;
                 }
             else
                 {
@@ -298,14 +298,15 @@ ngOnInit()
            let start_date = new Date().toJSON().substring(0,19);
            let end_date = new Date().toJSON().substring(0,19);
            let loading = null;
-                     loading = Loading.create({
+                     /*loading = Loading.create({
                      content: "Please wait...",
-                     //duration: 2000,
+                     duration: 1000,
                      dismissOnPageChange: true
-                 });
-                 this.nav.present(loading);
+                 });*/
+                 //this.nav.present(loading);
         this.dataProvider.getInvoice(false, account_id, contract_id, start_date, end_date, true).subscribe(
             data => {
+                //loading.dismiss();
                 if (data.length == 1)
                     data = data[0];
                 console.log(data,"dataInvoice");
@@ -325,10 +326,9 @@ ngOnInit()
                 this.exspense_total = data.misc_cost;
                 this.timelogs = data.time_logs;
                 this.expenses = data.expenses;
-                loading.dismiss();
                     },
             error => {
-                loading.dismiss();
+                //loading.dismiss();
                 console.log(error || 'Server error');
             }
         ); 

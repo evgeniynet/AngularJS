@@ -52,6 +52,8 @@ export class InfinitySelectModal {
 
             this.getItems("", null, timer);
         }
+        //focuser
+        //document.getElementsByClassName("searchbar-input")[1].focus();
         //else {
             //    this.pager.page = 1;
             //    this.is_empty = true;
