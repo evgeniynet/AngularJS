@@ -101,12 +101,12 @@ export class SelectListComponent {
      loadData (show)
      {
          if (this.url != this.list.url || !this.list.items || this.list.items.length == 0){
+            let loading = null;
              if (this.list.url) {
-                 let loading = null;
                  if (show){
                      loading = Loading.create({
                      content: "Please wait...",
-                     //duration: 2000,
+                     duration: 2000,
                      dismissOnPageChange: true
                  });
                  this.nav.present(loading);
