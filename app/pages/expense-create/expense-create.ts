@@ -13,6 +13,7 @@ export class ExpenseCreatePage {
 
     expense: any;
     isbillable: boolean;
+    is_technician_payment: boolean;
     he: any;
     selects: any;
     title: string;
@@ -38,6 +39,7 @@ export class ExpenseCreatePage {
         this.expense.amount = this.getFixed(this.expense.amount);
 
         this.isbillable = typeof this.expense.billable === 'undefined' ? true : this.expense.billable;
+        this.is_technician_payment = typeof this.expense.is_technician_payment === 'undefined' ? true : this.expense.is_technician_payment;
         
         this.he = this.config.getCurrent("user");
 
@@ -47,10 +49,11 @@ export class ExpenseCreatePage {
             {
                 recent = this.config.current.recent || {};
             }
-
+            console.log(recent,"recent");
         let account_id = (this.expense.account || {}).id || this.expense.account_id || (recent.account || {}).selected || this.he.account_id || -1;
         let project_id = (this.expense.project || {}).id || this.expense.project_id || (recent.project || {}).selected || 0;
         let contract_id = (this.expense.contract || {}).id || this.expense.contract_id || (recent.contract || {}).selected || 0;
+        let category_id = (this.expense.category || {}).id || this.expense.category_id || (recent.category || {}).selected || 0;
 
         this.selects = {
             "account": {
@@ -68,6 +71,13 @@ export class ExpenseCreatePage {
                     hidden: this.expense.is_project_log || this.expense.is_fixed || false,
                     is_disabled: this.expense.task_type_id,
                 },
+            "project": {
+                name: "Project",
+                value: this.expense.project_name || (recent.project || {}).value || "Default",
+                selected: project_id,
+                url: `projects?account=${account_id}&is_with_statistics=false`,
+                hidden: this.expense.is_fixed 
+                },
             "contract" : { 
                     name: "Contract", 
                     value: this.expense.contract_name || (recent.contract || {}).value || "Choose",
@@ -76,13 +86,14 @@ export class ExpenseCreatePage {
                     hidden: this.expense.is_fixed,
                     is_disabled: false,
                 },
-            "project": {
-                name: "Project",
-                value: this.expense.project_name || (recent.project || {}).value || "Default",
-                selected: project_id,
-                url: `projects?account=${account_id}&is_with_statistics=false`,
-                hidden: this.expense.is_fixed 
-            },
+            "category" : { 
+                    name: "Category", 
+                    value: this.expense.category_name || (recent.category || {}).value || "Choose",
+                    selected: this.expense.category_id || this.config.getRecent("category").selected || null,
+                    url: `expenses/categories`,
+                    hidden: this.expense.is_fixed,
+                    is_disabled: false,
+                },
         };      
     }
     
@@ -146,6 +157,7 @@ export class ExpenseCreatePage {
                 "ticket_name": this.selects.ticket.value || null,
                 "account_id": this.selects.account.selected,
                 "contract_id": this.selects.contract.selected,
+                "category_id": this.selects.category.selected,
                 "project_id": !this.expense.ticket_number ? this.selects.project.selected : null,
                 "project_name": this.selects.project.value,
                 "tech_id": isEdit? this.expense.user_id : this.he.user_id,
@@ -154,7 +166,9 @@ export class ExpenseCreatePage {
                 "note_internal": this.expense.note_internal,
                 "amount": amount,
                 "is_billable": this.isbillable,
-                "vendor": this.expense.vendor
+                "is_technician_payment": this.is_technician_payment,
+                "vendor": this.expense.vendor,
+                "units": this.expense.units
             };
             console.log(exsData,"data");
 

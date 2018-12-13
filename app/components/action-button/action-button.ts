@@ -32,7 +32,7 @@ export class ActionButtonComponent {
         let myModal = Modal.create(page, this.data);
         myModal.onDismiss(data1 => { 
             //console.log(this.nav);
-            if (data1 && !this.data.tech && !this.data.account && !data1.task_type_id)
+            if (data1 && data1.number)
                 this.nav.push(TicketDetailsPage, data1);
         });
         this.nav.present(myModal);
