@@ -38,6 +38,7 @@ export class ExpenseCreatePage {
 
         this.expense.amount = this.getFixed(this.expense.amount);
         this.expense.units = (typeof this.expense.units === 'undefined' || this.expense.units === 0) ? 1 : this.expense.units;
+        this.expense.markup = (typeof this.expense.markup === 'undefined' || this.expense.markup === 0) ? 1 : this.expense.markup;
 
         this.isbillable = typeof this.expense.billable === 'undefined' ? true : this.expense.billable;
         this.is_technician_payment = typeof this.expense.is_technician_payment === 'undefined' ? true : this.expense.is_technician_payment;
@@ -50,7 +51,7 @@ export class ExpenseCreatePage {
             {
                 recent = this.config.current.recent || {};
             }
-            console.log(recent,"recent");
+
         let account_id = (this.expense.account || {}).id || this.expense.account_id || (recent.account || {}).selected || this.he.account_id || -1;
         let project_id = (this.expense.project || {}).id || this.expense.project_id || (recent.project || {}).selected || 0;
         let contract_id = (this.expense.contract || {}).id || this.expense.contract_id || (recent.contract || {}).selected || 0;
@@ -150,11 +151,18 @@ export class ExpenseCreatePage {
                 this.nav.alert("Not enough amount", true);
                 return;
             }
+            console.log(form.value.units,"form.value.units");
             let units = isNaN(form.value.units) ? 0 : Number(form.value.units);
             if (units <= 0) {
                 this.nav.alert("Not enough units", true);
                 return;
             }
+            let markup = isNaN(form.value.markup) ? 0 : Number(form.value.markup);
+            if (markup <= 0) {
+                this.nav.alert("Not enough markup", true);
+                return;
+            }
+
             var note = htmlEscape(this.expense.note.trim()).substr(0, 5000);
             var isEdit = !!this.expense.expense_id;
             //TODO if other user changes what id should I write? 
@@ -174,7 +182,8 @@ export class ExpenseCreatePage {
                 "is_billable": this.isbillable,
                 "is_technician_payment": this.is_technician_payment,
                 "vendor": this.expense.vendor,
-                "units": this.expense.units
+                "units": this.expense.units,
+                "markup": this.expense.markup
             };
             console.log(exsData,"data");
 
