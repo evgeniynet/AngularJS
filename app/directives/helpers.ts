@@ -128,9 +128,12 @@ export const FileUrlHelper = {
         },
 
         matchKey : function (search, array){
-            for(var key in array) {
+            let properties = Object.keys(array);
+            for (var i = properties.length; i-- > 0;){
+                var key = properties[i];
+                key = key.replace(/[^0-9a-z]/gi, '');
                 if(key.indexOf(search) != -1) {
-                    return key;
+                    return properties[i];
                 }
             }
             return "";

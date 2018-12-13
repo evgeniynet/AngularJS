@@ -199,7 +199,7 @@ ngOnInit()
                 }
             else
                 {
-                this.nav.alert("Cannot create any invoice. Please add Contract to "+this.selects.account.value, true);
+                this.nav.alert("Cannot create any invoice. Please add or select Contract to "+this.selects.account.value, true);
             return;
             }
             if (this.selects.contract.selected === event.id)
@@ -297,16 +297,15 @@ ngOnInit()
        getInvoice(account_id, contract_id){
            let start_date = new Date().toJSON().substring(0,19);
            let end_date = new Date().toJSON().substring(0,19);
-           let loading = null;
-                     /*loading = Loading.create({
-                     content: "Please wait...",
+           let loading = Loading.create({
+                     content: "Refreshing...",
                      duration: 1000,
                      dismissOnPageChange: true
-                 });*/
-                 //this.nav.present(loading);
+                 });
+                 this.nav.present(loading);
         this.dataProvider.getInvoice(false, account_id, contract_id, start_date, end_date, true).subscribe(
             data => {
-                //loading.dismiss();
+                loading.dismiss();
                 if (data.length == 1)
                     data = data[0];
                 console.log(data,"dataInvoice");
@@ -328,7 +327,7 @@ ngOnInit()
                 this.expenses = data.expenses;
                     },
             error => {
-                //loading.dismiss();
+                loading.dismiss();
                 console.log(error || 'Server error');
             }
         ); 
