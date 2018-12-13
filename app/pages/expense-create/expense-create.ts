@@ -37,6 +37,7 @@ export class ExpenseCreatePage {
             this.title = "Create Expense";
 
         this.expense.amount = this.getFixed(this.expense.amount);
+        this.expense.units = (typeof this.expense.units === 'undefined' || this.expense.units === 0) ? 1 : this.expense.units;
 
         this.isbillable = typeof this.expense.billable === 'undefined' ? true : this.expense.billable;
         this.is_technician_payment = typeof this.expense.is_technician_payment === 'undefined' ? true : this.expense.is_technician_payment;
@@ -147,6 +148,11 @@ export class ExpenseCreatePage {
             let amount = isNaN(form.value.amount) ? 0 : Number(form.value.amount);
             if (amount <= 0) {
                 this.nav.alert("Not enough amount", true);
+                return;
+            }
+            let units = isNaN(form.value.units) ? 0 : Number(form.value.units);
+            if (units <= 0) {
+                this.nav.alert("Not enough units", true);
                 return;
             }
             var note = htmlEscape(this.expense.note.trim()).substr(0, 5000);
