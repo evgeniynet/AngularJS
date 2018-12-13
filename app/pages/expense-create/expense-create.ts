@@ -38,7 +38,7 @@ export class ExpenseCreatePage {
 
         this.expense.amount = this.getFixed(this.expense.amount);
         this.expense.units = (typeof this.expense.units === 'undefined' || this.expense.units === 0) ? 1 : this.expense.units;
-        this.expense.markup = (typeof this.expense.markup === 'undefined' || this.expense.markup === 0) ? 1 : this.expense.markup;
+        this.expense.markup_value = (typeof this.expense.markup_value === 'undefined' || this.expense.markup_value <= 0) ? "" : this.expense.markup_value;
 
         this.isbillable = typeof this.expense.billable === 'undefined' ? true : this.expense.billable;
         this.is_technician_payment = typeof this.expense.is_technician_payment === 'undefined' ? true : this.expense.is_technician_payment;
@@ -157,11 +157,7 @@ export class ExpenseCreatePage {
                 this.nav.alert("Not enough units", true);
                 return;
             }
-            let markup = isNaN(form.value.markup) ? 0 : Number(form.value.markup);
-            if (markup <= 0) {
-                this.nav.alert("Not enough markup", true);
-                return;
-            }
+            let markup_value = (!form.value.markup_value || isNaN(form.value.markup_value)) ? -1 : Number(form.value.markup_value);
 
             var note = htmlEscape(this.expense.note.trim()).substr(0, 5000);
             var isEdit = !!this.expense.expense_id;
@@ -183,7 +179,7 @@ export class ExpenseCreatePage {
                 "is_technician_payment": this.is_technician_payment,
                 "vendor": this.expense.vendor,
                 "units": this.expense.units,
-                "markup": this.expense.markup
+                "markup_value": markup_value
             };
             console.log(exsData,"data");
 
