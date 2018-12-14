@@ -35,6 +35,12 @@ export class BasicSelectModal {
         this.viewCtrl.dismiss(item);
     }
 
+    onPageDidEnter() {
+        var t = document.getElementsByClassName("searchbar-input");
+        t = t[t.length - 1];
+        t && t.focus();
+    }
+
     invite()
     {
         let myModal = Modal.create(AddUserModal, {type: this.name.toLowerCase(), name: this.searchQuery});
