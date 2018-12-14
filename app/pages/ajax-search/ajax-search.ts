@@ -60,6 +60,12 @@ export class AjaxSearchPage {
             this.is_empty = !this.items.length;
     }
 
+    onPageDidEnter() {
+        var t = document.getElementsByClassName("searchbar-input");
+        t = t[t.length - 1];
+        t && t.focus();
+    }
+
     dismiss(ticket)
     {
         this.nav.push(TicketDetailsPage, ticket);

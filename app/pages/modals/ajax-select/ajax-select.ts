@@ -47,6 +47,12 @@ export class AjaxSelectModal {
         }
     }
 
+    onPageDidEnter() {
+        var t = document.getElementsByClassName("searchbar-input");
+        t = t[t.length - 1];
+        t && t.focus();
+    }
+
     dismiss(item) {
         item = item || {};
         this.viewCtrl.dismiss(item);
