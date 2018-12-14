@@ -16,7 +16,7 @@
     <ion-item no-lines class="labels color img-top">Cost:</ion-item>
 <input class="width100 textLogin commentText subject-create" placeholder="Amount" required ngControl="amount" [ngModel]="expense.amount"/> 
 <ion-item no-lines class="labels color img-top">Markup:</ion-item>
-<input class="width100 blue3 subject-create commentText margin-bottom3" placeholder="Markup" ngControl="markup_value" type="number" [(ngModel)]="expense.markup_value"/>
+<input class="width100 blue3 subject-create commentText margin-bottom3" placeholder="Markup" ngControl="markup_value" type="number" step="0.01" [(ngModel)]="expense.markup_value"/>
  <div class="class-margin">
    <select-list *ngIf="!expense.number" [list]="selects.account"  ajax="true" preload="true" (onChanged)='saveSelect($event)'></select-list>
 

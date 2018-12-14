@@ -11,7 +11,7 @@ import {SelectListComponent} from '../../components/select-list/select-list';
 })
 export class ExpenseCreatePage {
 
-    expense: any;
+    expense: any = {};
     isbillable: boolean;
     is_technician_payment: boolean;
     he: any;
@@ -38,7 +38,7 @@ export class ExpenseCreatePage {
 
         this.expense.amount = this.getFixed(this.expense.amount);
         this.expense.units = (typeof this.expense.units === 'undefined' || this.expense.units === 0) ? 1 : this.expense.units;
-        this.expense.markup_value = (typeof this.expense.markup_value === 'undefined' || this.expense.markup_value <= 0) ? "" : this.expense.markup_value;
+        this.expense.markup_value = (typeof this.expense.markup_value === 'undefined' || this.expense.markup_value <= 0) ? "" : this.getFixed(this.expense.markup_value);
 
         this.isbillable = typeof this.expense.billable === 'undefined' ? true : this.expense.billable;
         this.is_technician_payment = typeof this.expense.is_technician_payment === 'undefined' ? true : this.expense.is_technician_payment;
@@ -70,15 +70,15 @@ export class ExpenseCreatePage {
                     value: this.expense.ticket_number ? `#${this.expense.ticket_number}: ${this.expense.ticket_subject}` : "Choose (optional)",
                     selected: this.expense.ticket_number || 0,
                     url: `tickets?status=open&account=${account_id}&project=${project_id}`,
-                    hidden: this.expense.is_project_log || this.expense.is_fixed || false,
-                    is_disabled: this.expense.task_type_id,
+                    hidden: this.expense.project_id || this.expense.is_fixed || false,
+                    is_disabled: this.expense.ticket_id,
                 },
             "project": {
                 name: "Project",
                 value: this.expense.project_name || (recent.project || {}).value || "Default",
                 selected: project_id,
                 url: `projects?account=${account_id}&is_with_statistics=false`,
-                hidden: this.expense.is_fixed 
+                hidden: this.expense.is_fixed || this.expense.ticket_id
                 },
             "contract" : { 
                     name: "Contract", 
@@ -103,6 +103,7 @@ export class ExpenseCreatePage {
         let name = event.type;
         let account_id = this.selects.account.selected;
         let ticket_id = this.selects.ticket.selected;
+        let project_id = this.selects.project.selected;
         let contract_id = this.selects.contract.selected;
         //change url on related lists
         switch (name) {
@@ -120,7 +121,19 @@ export class ExpenseCreatePage {
             this.selects.contract.selected = 0;
             contract_id = 0;
             break;
-
+            case "project" :
+            if (this.selects.project.selected === event.id)
+            {
+                break;
+            }
+            // dont change ticket on edit
+            if (!this.expense.ticket_id){
+                this.selects.ticket.url = `tickets?status=open&account=${account_id}&project=${event.id}`,
+                this.selects.ticket.value = "Choose (optional)";
+                this.selects.ticket.selected = 0;
+            }
+            project_id = event.id;
+            break;
             case "contract" :
             if (this.selects.contract.selected === event.id)
             {
@@ -135,10 +148,14 @@ export class ExpenseCreatePage {
                 break;
             }
             ticket_id = event.id;
+            this.selects.ticket.value = event.name;
+            this.selects.ticket.selected = event.id;
+            break;
+            default:
+            this.selects[name].selected = event.id;
+            this.selects[name].value = event.name;
             break;
         }
-        this.selects[name].selected = event.id;
-        this.selects[name].value = event.name;
     }
 
     onSubmit(form) {
@@ -147,11 +164,10 @@ export class ExpenseCreatePage {
             if (this.expense.in_progress && Date.now() - this.expense.in_progress < 1500) {return;}
             this.expense.in_progress = Date.now();
             let amount = isNaN(form.value.amount) ? 0 : Number(form.value.amount);
-            if (amount <= 0) {
+            if (amount == 0) {
                 this.nav.alert("Not enough amount", true);
                 return;
             }
-            console.log(form.value.units,"form.value.units");
             let units = isNaN(form.value.units) ? 0 : Number(form.value.units);
             if (units <= 0) {
                 this.nav.alert("Not enough units", true);
@@ -160,7 +176,7 @@ export class ExpenseCreatePage {
             let markup_value = (!form.value.markup_value || isNaN(form.value.markup_value)) ? -1 : Number(form.value.markup_value);
 
             var note = htmlEscape(this.expense.note.trim()).substr(0, 5000);
-            var isEdit = !!this.expense.expense_id;
+
             //TODO if other user changes what id should I write? 
             let exsData = {
                 "ticket_key": this.selects.ticket.selected || null,
@@ -170,7 +186,7 @@ export class ExpenseCreatePage {
                 "category_id": this.selects.category.selected,
                 "project_id": !this.expense.ticket_number ? this.selects.project.selected : null,
                 "project_name": this.selects.project.value,
-                "tech_id": isEdit? this.expense.user_id : this.he.user_id,
+                "tech_id": !!this.expense.expense_id ? this.expense.user_id : this.he.user_id,
                 "user_name": getFullName(this.he.firstname, this.he.lastname, this.he.email),
                 "note": this.expense.note,
                 "note_internal": this.expense.note_internal,
@@ -179,13 +195,11 @@ export class ExpenseCreatePage {
                 "is_technician_payment": this.is_technician_payment,
                 "vendor": this.expense.vendor,
                 "units": this.expense.units,
-                "markup_value": markup_value
+                "markup_value": markup_value,
+                "expense_id": this.expense.expense_id || ""
             };
-            console.log(exsData,"data");
 
-            //console.log(data);
-
-            this.apiData.get("expenses" + (!isEdit ? "" : ("/" + this.expense.expense_id)), exsData, isEdit ? "PUT" : "POST").subscribe(
+            this.apiData.get("expenses", exsData, "POST").subscribe(
                 data => {
                     if (!this.expense.number && !this.expense.expense_id && !this.expense.account)
             {

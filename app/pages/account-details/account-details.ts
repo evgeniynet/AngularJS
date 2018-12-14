@@ -91,7 +91,7 @@ export class AccountDetailsPage {
     openPage(page, count)
     {
         setTimeout(() =>
-        this.nav.push(this.pages[page], {"is_empty": !count, "account_id": this.account.id || "-1", "account_name": this.account.name}),
+        this.nav.push(this.pages[page], {"is_empty": !count && !this.is_ready, "account_id": this.account.id || "-1", "account_name": this.account.name}),
         this.is_ready ? 0 : 2000);
     }
     
