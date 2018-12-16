@@ -144,4 +144,15 @@ export class LocationsPage {
             }, 500);
         }
     }
+
+        toggle(){
+        this.test = !this.test;
+        if (this.test){
+            setTimeout(() => {
+        var t = document.getElementsByClassName("searchbar-input");
+        t = t[t.length - 1];
+        t && t.focus();
+        }, 500);
+        }
+    }
 }

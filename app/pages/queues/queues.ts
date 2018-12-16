@@ -53,7 +53,16 @@ export class QueuesPage {
         this.search_results = [];
         if (searchbar) searchbar.value = "";
     }
-
+        toggle(){
+        this.test = !this.test;
+        if (this.test){
+            setTimeout(() => {
+        var t = document.getElementsByClassName("searchbar-input");
+        t = t[t.length - 1];
+        t && t.focus();
+        }, 500);
+        }
+    }
   
 
 }

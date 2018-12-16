@@ -34,6 +34,12 @@ export class AccountDetailsPage {
         this.details_tab = "Stat";
         this.pages = [ContractsPage, ExpensesPage, TimelogsPage];
   }
+
+      onPageDidEnter() {
+        var t = document.getElementsByClassName("searchbar-input");
+        t = t[t.length - 1];
+        t && t.focus();
+    }
     
     onPageLoaded()
     {
@@ -181,5 +187,17 @@ export class AccountDetailsPage {
       this.test = false;
       this.nav.push(AjaxSearchPage, list);
     }
+
+    toggle(){
+        this.test = !this.test;
+        if (this.test){
+            setTimeout(() => {
+        var t = document.getElementsByClassName("searchbar-input");
+        t = t[t.length - 1];
+        t && t.focus();
+        }, 500);
+        }
+    }
+
   }
 

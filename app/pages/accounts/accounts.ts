@@ -24,7 +24,9 @@ export class AccountsPage {
 
     constructor(private nav: Nav, private config: Config, private dataProvider: DataProvider) {
   }
-    
+
+
+
     onPageLoaded()
     {
         this.pager = { page: 0, limit: this.LIMIT };
@@ -101,5 +103,17 @@ export class AccountsPage {
         }
         this.pager.page += 1;
         this.getItems(infiniteScroll, null);
+    }
+    toggle(){
+        this.test = !this.test;
+        if (this.test){
+            setTimeout(() => {
+        var t = document.getElementsByClassName("searchbar-input");
+        t = t[t.length - 1];
+        t && t.focus();
+        }, 500);
+        
+
+        }
     }
 }
