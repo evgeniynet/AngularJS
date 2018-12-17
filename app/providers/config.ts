@@ -7,5 +7,5 @@ export let MobileSite = 'https://m0.' + Site;
 export let AppSite = 'https://app.beta.' + Site;
 export let ApiSite = 'https://api.beta.' + Site;
 export let  year="2018";
-export let  appVersion = "73";
+export let  appVersion = "72";
 export let  AppTitle = isSD ? 'SherpaDesk ' : 'HelpDesk ';
