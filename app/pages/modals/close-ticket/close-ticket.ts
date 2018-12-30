@@ -97,11 +97,19 @@ export class CloseTicketModal {
             this.selects.category.hidden = !this.selects.category.items.length;
         }
         if (name == "user"){
+            let repeat = false;
             let user = {
                 "id": this.selects.user.selected,
                 "name": this.selects.user.value
             };
-            this.users.push(user);
+            for (var n = 0; n < this.users.length; n++) {
+                if (this.users[n].id == user.id){
+                   repeat = true;
+                   break;
+                }
+            }
+            if (!repeat)
+                this.users.push(user);
         }
     }
     deleteUser(user_id){
