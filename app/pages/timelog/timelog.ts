@@ -14,6 +14,7 @@ export class TimelogPage {
 
     inc : number;
     isbillable: boolean;
+    istaxable: boolean = true;
     timecount: any;
     timecount_nonwork: any;
     mintime: number;
@@ -99,6 +100,8 @@ ngOnInit()
             this.mintime = this.mintime > 0 ? this.mintime : 0.25;
 
             this.isbillable = this.time.no_invoice;
+            if (this.time.taxable == false || this.time.taxable == true)
+                this.istaxable = this.time.taxable;
 
             this.inc = this.config.getCurrent("time_hour_increment") > 0 ? this.config.getCurrent("time_hour_increment") : 0.25;
 
@@ -321,6 +324,7 @@ ngOnInit()
                 "prepaid_pack_id" : this.selects.prepaidpack.selected,
                 "hours": hours,
                 "no_invoice": this.isbillable,
+                "taxable": this.istaxable,
                 "date": date || "", 
                 "start_date": start_time || "",
                 "stop_date": stop_time || "",
