@@ -34,7 +34,7 @@ export class ExpenseCreatePage {
             this.title = `Add Expense to\u00a0#${this.expense.number} ${this.expense.subject}`;
         else
             this.title = "Create Expense";
-
+        if(this.expense.amount)
         this.expense.amount = this.getFixed(this.expense.amount);
 
         this.isbillable = typeof this.expense.billable === 'undefined' ? true : this.expense.billable;

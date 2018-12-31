@@ -34,13 +34,14 @@ export class TicketCreatePage {
     {
         //for test only
         this.config.current.is_require_ticket_initial_post = true;
+        this.config.current.is_budget_time = true;
 
         this.he = this.config.getCurrent("user");
 
         this.data = this.navParams.data || {};
 
         let recent : any = {};
-
+        console.log(this.config.current);    
         if (!this.data.account)
         {
                 recent = this.config.current.recent || {};
@@ -235,6 +236,11 @@ export class TicketCreatePage {
             //proof double click
             if (this.ticket.in_progress && Date.now() - this.ticket.in_progress < 1500) {return;}
             this.ticket.in_progress = Date.now();
+            this.ticket.budgeted_time = isNaN(form.value.budgeted_time) ? 0 : Number(form.value.budgeted_time);
+            if (this.ticket.budgeted_time <= 0) {
+                this.nav.alert("Not enough Budgeted Time", true);
+                return;
+            }
             this.ticket.subject = htmlEscape(this.ticket.subject.trim());          
             this.ticket.initial_post = htmlEscape(this.ticket.initial_post.trim()).substr(0, 4500);
             if (this.config.current.is_require_ticket_initial_post && !this.ticket.initial_post.length)
@@ -289,6 +295,10 @@ export class TicketCreatePage {
                     console.log(error || 'Server error');}
             );
         }
+    }
+
+    getFixed(value){
+        return Number(value || "0").toFixed(2).toString();
     }
 }
 
