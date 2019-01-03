@@ -33,7 +33,7 @@ export class TicketCreatePage {
     ngOnInit()
     {
         //for test only
-        //this.config.current.is_require_ticket_initial_post = true;
+        //console.log(this.config.current.is_require_ticket_initial_post);
         //this.config.current.is_budget_time = true;
 
         this.he = this.config.getCurrent("user");
@@ -133,7 +133,11 @@ export class TicketCreatePage {
             "tech_id" : 0,
             "default_contract_id": contract_id,
             "priority_id" : 0,
+            "estimated_time": 0,
         };
+
+        this.ticket.estimated_time = this.getFixed(this.ticket.estimated_time);
+
             this.getCustomfield(contract_id);
     }
 
@@ -236,11 +240,9 @@ export class TicketCreatePage {
             //proof double click
             if (this.ticket.in_progress && Date.now() - this.ticket.in_progress < 1500) {return;}
             this.ticket.in_progress = Date.now();
-            this.ticket.estimated_time = isNaN(form.value.budgeted_time) ? 0 : Number(form.value.budgeted_time);
-            if (this.ticket.budgeted_time <= 0) {
-                this.nav.alert("Not enough Budgeted Time", true);
-                return;
-            }
+            if (this.config.current.is_budget_time)
+                this.ticket.estimated_time = isNaN(form.value.budgeted_time) ? 0 : Number(form.value.budgeted_time);
+           
             this.ticket.subject = htmlEscape(this.ticket.subject.trim());          
             this.ticket.initial_post = htmlEscape(this.ticket.initial_post.trim()).substr(0, 4500);
             if (this.config.current.is_require_ticket_initial_post && !this.ticket.initial_post.length)
@@ -268,6 +270,8 @@ export class TicketCreatePage {
             this.ticket.customfields_xml = customfields_xml;
             this.ticket.default_contract_id = this.selects.contract.selected;
             this.ticket.default_contract_name = this.selects.contract.value;
+
+            console.log(this.ticket,"this.ticket");
 
             this.ticketProvider.addTicket(this.ticket).subscribe(
                 data => {
@@ -298,7 +302,7 @@ export class TicketCreatePage {
     }
 
     getFixed(value){
-        return Number(value || "0").toFixed(2).toString();
+        return Number(value || "0").toFixed(2);
     }
 }
 
