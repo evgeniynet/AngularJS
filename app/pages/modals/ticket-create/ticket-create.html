@@ -60,7 +60,7 @@
                 <div class="list max-width700">
                     <!-- Start Budgeted Time-->
                      <template [ngIf]="config.current.is_budget_time"> 
-                    <input class="width100 textLogin blue3 commentText subject-create" style="margin-bottom: 20px;" placeholder="Budgeted Time" required ngControl="budgeted_time" [ngModel]="ticket.budgeted_time"/>
+                    <input class="width100 textLogin blue3 commentText subject-create" style="margin-bottom: 20px;" placeholder="Budgeted Time" required ngControl="budgeted_time" [ngModel]="ticket.estimated_time"/>
                 </template>
                     <!-- end Budgeted Time-->
                     <div class="tooltips"><input class="width100 blue3 subject-create commentText margin-bottom3" [(ngModel)]="ticket.subject" placeholder="Subject"  ngControl="subject" #subject="ngForm" required maxlength="100"/>

@@ -257,6 +257,8 @@ data.is_onhold_status = true;
 data.is_payments = false
 //billing status
 data.is_invoice = false
+//budgeted hours
+data.is_invoice = false
 */
 /*
 data.names = {

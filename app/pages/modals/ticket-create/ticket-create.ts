@@ -33,8 +33,8 @@ export class TicketCreatePage {
     ngOnInit()
     {
         //for test only
-        this.config.current.is_require_ticket_initial_post = true;
-        this.config.current.is_budget_time = true;
+        //this.config.current.is_require_ticket_initial_post = true;
+        //this.config.current.is_budget_time = true;
 
         this.he = this.config.getCurrent("user");
 
@@ -236,7 +236,7 @@ export class TicketCreatePage {
             //proof double click
             if (this.ticket.in_progress && Date.now() - this.ticket.in_progress < 1500) {return;}
             this.ticket.in_progress = Date.now();
-            this.ticket.budgeted_time = isNaN(form.value.budgeted_time) ? 0 : Number(form.value.budgeted_time);
+            this.ticket.estimated_time = isNaN(form.value.budgeted_time) ? 0 : Number(form.value.budgeted_time);
             if (this.ticket.budgeted_time <= 0) {
                 this.nav.alert("Not enough Budgeted Time", true);
                 return;
