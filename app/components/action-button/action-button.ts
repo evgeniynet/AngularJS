@@ -64,7 +64,7 @@ export class ActionButtonComponent {
                     return false;
                 }
             });
-            if (this.config.current.is_invoice)
+            if (this.config.current.is_invoice && (this.config.current.is_financial_info_for_tech || this.config.current.user.is_admin))
                 but.push(
                 {
                     icon: 'card',
@@ -75,7 +75,7 @@ export class ActionButtonComponent {
                         return false;
                     }
                 });
-            if (this.config.current.is_invoice)
+            if (this.config.current.is_invoice && (this.config.current.is_financial_info_for_tech || this.config.current.user.is_admin))
                 but.push(
                 {
                     icon: 'card',

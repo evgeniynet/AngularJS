@@ -258,7 +258,9 @@ data.is_payments = false
 //billing status
 data.is_invoice = false
 //budgeted hours
-data.is_invoice = false
+data.is_budget_time = false
+//show financial info for tech
+data.is_financial_info_for_tech = false
 */
 /*
 data.names = {
@@ -279,7 +281,7 @@ if (this.config.current.user.is_techoradmin)
 { title: data.names.account.p, component: pages.AccountsPage, icon: "people", is_active: this.config.current.is_account_manager },
 { title: data.names.location.p, component: pages.LocationsPage, icon: "navigate", is_active: this.config.current.is_location_tracking },
 { title: data.names.tech.p, component: pages.TechniciansPage, icon: "people-outline", is_active: true },
-{ title: 'Invoices', component: pages.InvoicesPage, icon: "card", is_active: this.config.current.is_time_tracking && this.config.current.is_invoice },
+{ title: 'Invoices', component: pages.InvoicesPage, icon: "card", is_active: this.config.current.is_time_tracking && this.config.current.is_invoice && (this.config.current.is_financial_info_for_tech || this.config.current.user.is_admin)},
 { title: 'Queues', component: pages.QueuesPage, icon: "md-list-box", is_active: this.config.current.is_unassigned_queue && (!this.config.current.user.is_limit_assigned_tkts || this.config.current.user.is_admin)},
 { title: 'ToDos', component: pages.TodosPage, icon: "list-box", is_active: this.config.current.is_todos },
 { title: 'Switch Org', component: pages.OrganizationsPage, icon: "md-swap", is_active: this.config.current.is_multiple_org },
