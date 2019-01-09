@@ -3,6 +3,32 @@
 .blue3{
      background-color: $blue3;
 }
+.lineblock{
+    margin-left: 18px;
+    margin-right: 15px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+.dioitem{
+    float: left;
+    width: 23%;
+    margin-block-end: 0;
+    margin-block-start: 0;
+}
+.dioline{
+    height:17px;
+    background:#4c5c6d;
+    float:right;
+    width: 77%;
+}
+.complete{
+        height:17px;
+        margin-block-end: 0;
+        margin-block-start: 0;
+        background: #5cb2e2;
+        border-radius:2px;
+        text-align: center !important;
+    }
 
 .ticket-details{
     white-space: initial !important;
@@ -193,6 +219,7 @@ ion-searchbar .searchbar-input {
     height: 2em;
     margin-right:10%;
 }
+
 .disabled{
     cursor: none;
     opacity: .4;

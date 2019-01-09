@@ -324,6 +324,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
 
    counts: any;
    ticket: any = {};
+   percentage_budget: any;
    userphone: string;
    customfields: any = [];
    technicians: any = [];
@@ -556,9 +557,12 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
      
      this.ticket = data;
      this.is_editworkpad = !(this.ticket.workpad || "").length;
-     this.ticket.customfields = [];
+     this.ticket.customfields = [];  
      this.technicians = data.technicians;
      this.users = data.users;
+     if (this.ticket.budget_hours != 0){
+       this.percentage_budget = (this.ticket.total_hours / this.ticket.budget_hours) * 100;
+     }
      this.ticket.mailto = `r.${this.config.current.org}.${this.config.current.instance}.${data.key}@app.sherpadesk.com`;
 
      this.initSelects(data);

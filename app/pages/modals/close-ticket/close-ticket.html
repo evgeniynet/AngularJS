@@ -16,8 +16,19 @@
 
     <select-list [list]="selects.category" preload="true" (onChanged)='saveSelect($event)'></select-list>
 
-    <form #addForm="ngForm" class="response-ticket">
-      
+    <select-list [list]="selects.user" preload="true" (onChanged)='saveSelect($event)'></select-list>
+    
+
+    <div class="width100">
+    <div *ngFor="let user of users">
+    <p class="left text-toggle color width90" style="margin-top: 5px;margin-bottom: 0px;">{{user.name}}</p>
+    <button style="background-color: unset; height: 2.0em; width: 1.6em;" class="width10" (click)="deleteUser(user.id)">
+      <ion-icon class="invoiceCircle right" style="padding:0px !important" name="close"></ion-icon>
+    </button>
+    </div>
+    </div>
+    
+    <form #addForm="ngForm" class="response-ticket width100" style="display: block;">      
       <template [ngIf]="config.current.is_confirmation_tracking">
         <ion-item no-lines class="left toggle-width">
       <ion-toggle class="toggle" [(ngModel)]="isconfirm" disabled='false'></ion-toggle>

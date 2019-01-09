@@ -7,7 +7,7 @@
 <ion-content>
   <ion-toolbar class="blue3 display_flex">
   <div (click)="showSubjChange = !showSubjChange">
-   <h4 class="width90">{{ticket.subject | Htmlsafe}}</h4>
+   <h4 class="width90" style="width: 85% !important;">{{ticket.subject | Htmlsafe}}</h4>
    <ion-icon name="md-create" style="font-size:1.8em; margin-top:9px" ></ion-icon>
    <h5 *ngIf="ticket.next_step != ''" class="width90 span-left grey3_color" style="margin-top: -5px; margin-bottom: 5px; padding: 0px !important;">Next step: <span class="text-color">{{ticket.next_step}} - </span>  {{ticket.next_step_date | Daysago}}</h5>
   </div>
@@ -34,6 +34,20 @@
       <template [ngIf]="config.current.is_expenses && ticket.misc_cost > 0"><p><u>Expenses</u>:  {{getCurrency(ticket.misc_cost)}}</p><br/></template>
       </span>
  </ion-toolbar>
+ <!--% estimate and budgeded time -->   
+   <div *ngIf="ticket?.percentage_complete" class="lineblock">
+    <p class="dioitem">Complete:</p>
+     <div class="dioline">
+       <p class="complete" [style.width]="ticket?.percentage_complete + '%'">{{ticket?.percentage_complete}}%</p>
+     </div>
+  </div>
+  <div class="lineblock" *ngIf="ticket?.budget_hours">
+    <p class="dioitem" style="margin-top: 2px;">Budget:</p>
+      <div class="dioline" style="margin-top: 2px; margin-bottom: 2px;">
+     <p class="complete" style="max-width: 100%" [style.width]="percentage_budget + '%'">{{percentage_budget}}%</p>
+   </div>
+  </div>
+   <!--END % estimate and budgeded time -->  
  <ion-segment [(ngModel)]="details_tab" *ngIf="config.current.user.is_techoradmin">
   <ion-segment-button value="Reply">
     Reply

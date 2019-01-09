@@ -14,6 +14,10 @@ export class TechniciansPage {
     busy: boolean;
     params: any;
     pager: any;
+    term: string = '';
+    test: boolean;
+    search_results: any;
+    items: any = [];
     technicians: Array<any>;
     LIMIT: number = 500;
 
@@ -30,7 +34,6 @@ export class TechniciansPage {
 
         this.getItems(null, timer);
     }
-
 
     getItems(infiniteScroll, timer) {
         this.dataProvider.getTechniciansList( this.pager, true, true).subscribe(
@@ -54,6 +57,7 @@ export class TechniciansPage {
                     infiniteScroll.complete();
                 }
                 this.count = data.length;
+                this.searchItems({value : this.term})
             },
             error => {
                 if (timer) {
@@ -65,6 +69,31 @@ export class TechniciansPage {
         );
     }
 
+    searchItems(searchbar) {
+        // Reset items back to all of the items
+        this.items = this.technicians;
+
+        // set q to the value of the searchbar
+        let q = searchbar.value.toLowerCase();
+
+        // if the value is an empty string don't filter the search_results
+        if (q.trim() == '' || this.busy) {
+            return;
+        }
+
+        if (this.technicians && q.length > 1)
+        {
+            this.items = this.technicians.filter((technician) => technician.FullName.toLowerCase().indexOf(q) > -1);
+        }
+    }
+
+    clearSearch(searchbar?)
+    {
+        this.search_results = [];
+        this.busy = false;
+        if (searchbar) searchbar.value = "";
+    }
+
     doInfinite(infiniteScroll) {
         if (this.count < this.LIMIT) {
             infiniteScroll.enable(false);
@@ -73,5 +102,15 @@ export class TechniciansPage {
         }
         this.pager.page += 1;
         this.getItems(infiniteScroll, null);
+    }
+        toggle(){
+        this.test = !this.test;
+        if (this.test){
+            setTimeout(() => {
+        var t = document.getElementsByClassName("searchbar-input");
+        t = t[t.length - 1];
+        t && t.focus();
+        }, 500);
+        }
     }
 }

@@ -35,7 +35,7 @@ export class ExpenseCreatePage {
             this.title = `Add Expense to\u00a0#${this.expense.number} ${this.expense.subject}`;
         else
             this.title = "Create Expense";
-
+        if(this.expense.amount)
         this.expense.amount = this.getFixed(this.expense.amount);
         this.expense.units = (typeof this.expense.units === 'undefined' || this.expense.units === 0) ? 1 : this.expense.units;
         this.expense.markup_value = (typeof this.expense.markup_value === 'undefined' || this.expense.markup_value <= 0) ? "" : this.getFixed(this.expense.markup_value);

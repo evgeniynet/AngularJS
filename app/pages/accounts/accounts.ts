@@ -1,5 +1,6 @@
 import {Page, Config, Nav} from 'ionic-angular';
 import {DataProvider} from '../../providers/data-provider';
+import {AjaxSearchPage} from '../ajax-search/ajax-search';
 import {AccountsListComponent, ActionButtonComponent} from '../../components/components';
 
 
@@ -13,13 +14,19 @@ export class AccountsPage {
     is_empty: boolean;
     busy: boolean;
     params: any;
+    term: string = '';
     pager: any;
+    test: boolean;
+    search_results: any;
     accounts: Array<any>;
+    items: any = [];
     LIMIT: number = 500;
 
     constructor(private nav: Nav, private config: Config, private dataProvider: DataProvider) {
   }
-    
+
+
+
     onPageLoaded()
     {
         this.pager = { page: 0, limit: this.LIMIT };
@@ -30,7 +37,6 @@ export class AccountsPage {
 
         this.getItems(null, timer);
     }
-
 
     getItems(infiniteScroll, timer) {
         this.dataProvider.getAccountList(false, this.pager, true, true).subscribe(
@@ -52,6 +58,7 @@ export class AccountsPage {
                     infiniteScroll.complete();
                 }
                 this.count = data.length;
+                this.searchItems({value : this.term});
             },
             error => {
                 if (timer) {
@@ -63,6 +70,31 @@ export class AccountsPage {
         );
     }
 
+    searchItems(searchbar) {
+        // Reset items back to all of the items
+        this.items = this.accounts;
+
+        // set q to the value of the searchbar
+        let q = searchbar.value.toLowerCase();
+
+        // if the value is an empty string don't filter the search_results
+        if (q.trim() == '' || this.busy) {
+            return;
+        }
+
+        if (this.accounts && q.length > 1)
+        {
+            this.items = this.accounts.filter((account) => account.name.toLowerCase().indexOf(q) > -1);
+        }
+    }
+
+    clearSearch(searchbar?)
+    {
+        this.search_results = [];
+        this.busy = false;
+        if (searchbar) searchbar.value = "";
+    }
+
     doInfinite(infiniteScroll) {
         if (this.count < this.LIMIT) {
             infiniteScroll.enable(false);
@@ -71,5 +103,17 @@ export class AccountsPage {
         }
         this.pager.page += 1;
         this.getItems(infiniteScroll, null);
+    }
+    toggle(){
+        this.test = !this.test;
+        if (this.test){
+            setTimeout(() => {
+        var t = document.getElementsByClassName("searchbar-input");
+        t = t[t.length - 1];
+        t && t.focus();
+        }, 500);
+        
+
+        }
     }
 }

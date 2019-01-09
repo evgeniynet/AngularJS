@@ -60,6 +60,12 @@ export class InfinitySelectModal {
             //}
         }
 
+        onPageDidEnter() {
+        var t = document.getElementsByClassName("searchbar-input");
+        t = t[t.length - 1];
+        t && t.focus();
+        }
+
         dismiss(item) {
             //let data = { 'foo': 'bar' };
             item = item || {};
