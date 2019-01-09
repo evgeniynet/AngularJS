@@ -7,7 +7,7 @@ import {linebreaks} from '../directives/helpers';
 })
 export class LinebreaksPipe {
     transform(value, args) {
-    	value = value.replace(/^<p>(<\/p>)?(\r)?/, '').replace(/^<p>(<\/p>)?(\n)?/,"");
+    	value = value.replace(/^<p>(<br>)?(\r)?/, '').replace(/^<p>(<br>)?(\n)?/,"");
         return linebreaks(value, args);
     }
 }
