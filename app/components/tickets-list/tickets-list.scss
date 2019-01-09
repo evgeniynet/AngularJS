@@ -37,7 +37,16 @@ ion-avatar li img p{
     padding-bottom: 20px;
 
 }}
-
+.postGrey{
+    padding: 0px 15px;
+}
+.postGrey * {
+    color: #dadada;
+    font-size: 1.4rem !important;
+    }
+.postGrey table{
+    display:none;
+}
 .alignment{
     margin-top: 1px;
     
