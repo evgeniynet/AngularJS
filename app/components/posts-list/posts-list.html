@@ -9,7 +9,7 @@
     <p>{{post.record_date | Daysold}}</p> 
     <p>{{setDate(post.record_date, false, true)}}</p>
             <p>{{post.log_type}}</p></span>
-        <p class="post-note textCopy" [innerHTML]="post.note | Linebreaks | Files : attachments"></p>
+        <p class="post-note textCopy" [innerHTML]="post.note | Linebreaks | Files : attachments" class="postOnlyGrey" style="color: #dadada;"></p>
         <ion-item no-lines></ion-item>
     </ion-card-content>
 </div>
