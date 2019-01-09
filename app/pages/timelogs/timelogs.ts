@@ -59,7 +59,7 @@ export class TimelogsPage {
             }, 500);
             setTimeout(() => {
                 this.busy = false;
-            }, 3000);
+            }, 10000);
             this.timelogs.subscribe(
                 data => {
                     clearTimeout(timer);

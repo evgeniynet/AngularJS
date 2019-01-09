@@ -13,7 +13,8 @@ import {InvoiceDetailsPage} from '../invoice-details/invoice-details';
 export class TimelogPage {
 
     inc : number;
-    isbillable: boolean;
+    isno_invoice: boolean;
+    istaxable: boolean = true;
     timecount: any;
     timecount_nonwork: any;
     mintime: number;
@@ -106,7 +107,8 @@ ngOnInit()
             this.mintime = this.config.getCurrent("time_minimum_time") || this.inc;
             this.mintime = this.mintime > 0 ? this.mintime : this.inc;
 
-            this.isbillable = this.time.no_invoice;
+            this.isno_invoice = this.time.no_invoice;
+            this.istaxable = this.time.is_taxable;
 
             this.displayFormat = getPickerDateTimeFormat(false, true);
 
@@ -286,6 +288,11 @@ ngOnInit()
             this.nav.alert("Hours value should be less or equal to Start/Stop range.", true);
             return;
         }
+        if (!this.selects.contract.selected || this.selects.contract.selected == 0 || this.selects.contract.selected == 82)
+        {
+            this.nav.alert("Please, select Contract from the list.", true);
+            return;
+        }
         if (!this.selects.tasktype.selected)
         {
             this.nav.alert("Please, select Task Type from the list.", true);
@@ -320,7 +327,8 @@ ngOnInit()
                 "task_type_id": this.selects.tasktype.selected,
                 "prepaid_pack_id" : this.selects.prepaidpack.selected,
                 "hours": hours,
-                "no_invoice": this.isbillable,
+                "no_invoice": this.isno_invoice,
+                "is_taxable": this.istaxable,
                 "date": date || "", 
                 "start_date": start_time || "",
                 "stop_date": stop_time || "",
@@ -346,6 +354,7 @@ ngOnInit()
                         this.time.hours = data.hours;
                         this.time.non_working_hours = data.non_working_hours;
                         this.time.no_invoice = data.no_invoice;
+                        this.time.is_taxable = data.is_taxable;
                     }
                     else
                     {
@@ -354,7 +363,8 @@ ngOnInit()
                             time_id:0,
                             account_id:data.account_id,
                             account_name:this.selects.account.value,
-                            billable:data.no_invoice,
+                            no_invoice:data.no_invoice,
+                            is_taxable : data.is_taxable,
                             date:tdate,
                             hours:data.hours,
                             non_working_hours:data.non_working_hours,
