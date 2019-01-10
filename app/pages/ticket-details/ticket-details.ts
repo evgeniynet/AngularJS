@@ -562,6 +562,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
      this.users = data.users;
      if (this.ticket.budget_hours != 0){
        this.percentage_budget = (this.ticket.total_hours / this.ticket.budget_hours) * 100;
+       this.percentage_budget = this.getFixed(this.percentage_budget);
      }
      this.ticket.mailto = `r.${this.config.current.org}.${this.config.current.instance}.${data.key}@app.sherpadesk.com`;
 
@@ -682,6 +683,10 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
      else
        this.saveNoteSuccess(note);
    }
+
+   getFixed(value){
+        return Number(value || "0").toFixed(0).toString();
+    }
 
    saveWorkpad(form) {
      var workpad = (form.value || "").trim().replace(/\n/g, "<p>"); 
