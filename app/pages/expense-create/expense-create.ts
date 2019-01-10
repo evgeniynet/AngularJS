@@ -93,7 +93,6 @@ export class ExpenseCreatePage {
                     value: this.expense.category_name || (recent.category || {}).value || "Choose",
                     selected: this.expense.category_id || this.config.getRecent("category").selected || null,
                     url: `expenses/categories`,
-                    hidden: this.expense.is_fixed,
                     is_disabled: false,
                 },
         };      
