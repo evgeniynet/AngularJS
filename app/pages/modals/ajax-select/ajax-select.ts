@@ -129,7 +129,7 @@ export class AjaxSelectModal {
                         //if users or techs
                         if (item.email)
                             name = getFullName(item.firstname, item.lastname, item.email, " ");
-                        results.push({ id: item.id, name: name });
+                        results.push({ id: item.id, name: name, email: item.email });
                     });
                     data = results;
                 }

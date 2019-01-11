@@ -143,7 +143,7 @@ export class InfinityMultiSelectModal {
                             //if tickets
                             else if (item.number)
                                 name = `#${item.number}: ${item.subject}`;
-                            results.push({ id: item.id, name: name });
+                            results.push({ id: item.id, name: name, email: item.email });
                         });
                         data = results;
                     }

@@ -98,6 +98,7 @@ export class CloseTicketModal {
         }
         if (name == "user"){
             let repeat = false;
+            console.log("this.selects.user", this.selects.user);
             let user = {
                 "id": this.selects.user.selected,
                 "name": this.selects.user.value
