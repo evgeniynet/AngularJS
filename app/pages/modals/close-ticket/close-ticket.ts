@@ -52,7 +52,7 @@ export class CloseTicketModal {
                     value: getFullName(this.he.firstname, this.he.lastname, this.he.email),
                     selected: this.he.user_id,
                     url: "users",
-                    hidden: false,
+                    hidden: true,
                 },
             "category": {
                 name: "Category",
