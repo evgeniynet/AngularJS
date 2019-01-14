@@ -62,7 +62,7 @@ export class CloseTicketModal {
                  value: this.ticket.class_name,
                  selected: this.ticket.class_id,
                  url: "classes",
-                 hidden: this.ticket.class_id && !this.config.current.is_class_tracking,
+                 hidden: this.ticket.class_id && this.config.current.is_class_tracking,
        },
             "category": {
                 name: "Category",
