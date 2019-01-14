@@ -190,7 +190,6 @@ export class SelectListComponent {
         this.is_enabled = false;
      this.list.value = value.name;
      value.type = this.list.name.split(' ').join('').toLowerCase();
-     console.log("value", value); 
      this.onChanged.emit(value);
  }
 

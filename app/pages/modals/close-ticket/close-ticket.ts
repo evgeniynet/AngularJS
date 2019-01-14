@@ -47,12 +47,12 @@ export class CloseTicketModal {
                     { "name": 'UnResolved', "id": 0 },
                 ]
             },
-            "user" : {
-                    name: "user", 
-                    value: getFullName(this.he.firstname, this.he.lastname, this.he.email),
-                    selected: this.he.user_id,
+            "cc" : {
+                    name: "CC", 
+                    value: "Choose "+ this.config.current.names.user.s,
+                    selected: 0,
                     url: "users",
-                    hidden: true,
+                    hidden: false,
                 },
             "category": {
                 name: "Category",
@@ -86,30 +86,29 @@ export class CloseTicketModal {
 
     saveSelect(event) {
         let name = event.type;
-        this.selects[name].selected = event.id;
-        this.selects[name].value = event.name;
         if (name == "resolution")
         {
+            this.selects[name].selected = event.id;
+            this.selects[name].value = event.name;
             this.selects.category.value = "Choose";
             this.selects.category.selected = 0;
             this.selects.category.items = this.selects.resolution.selected ?
                 this.categories.filter(v => v.is_resolved) : this.categories.filter(v => !v.is_resolved);
             this.selects.category.hidden = !this.selects.category.items.length;
         }
-        if (name == "user"){
-            let repeat = false;
-            console.log("this.selects.user", this.selects.user);
+        else if (name == "category")
+        {
+            this.selects[name].selected = event.id;
+            this.selects[name].value = event.name;
+        }
+        else if (name == "cc"){
+            this.selects[name].selected = 0;
+            this.selects[name].value = "Choose "+ this.config.current.names.user.s;
             let user = {
-                "id": this.selects.user.selected,
-                "name": this.selects.user.value
-            };
-            for (var n = 0; n < this.users.length; n++) {
-                if (this.users[n].id == user.id){
-                   repeat = true;
-                   break;
-                }
-            }
-            if (!repeat)
+                "id": event.email,
+                "name": event.name
+            };   
+            if (this.users.filter(u => u.id == user.id).length == 0)
                 this.users.push(user);
         }
     }
@@ -132,14 +131,7 @@ export class CloseTicketModal {
                 this.nav.alert("Note is required!",true);
                 return;
             }
-            let user_ids = "";
-            if(this.users.length){
-                for (var n = 0;  n < this.users.length; n++) {
-                   user_ids += this.users[n].id + ", ";
-                 }
-                 user_ids = user_ids.slice(0,-2);
-            }
-            console.log(user_ids,"user_ids");
+            let user_ids = this.users.map(u => u.id).join(", ");
 
             let data = {
                 "status": "closed",
