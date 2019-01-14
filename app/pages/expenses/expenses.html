@@ -26,7 +26,7 @@
      <h3 class="timelogs ellipsis color" ><b>Note:&nbsp;</b><span [innerHTML]="expense.note | Linebreaks"></span></h3>
 </li>
       <li class="right margin font-time text-right">
-    <span class="expense-hours color">{{getCurrency(expense.amount)}}</span> 
+    <span class="expense-hours color">{{getCurrency(expense.amount*expense.units+expense.markup_value)}}</span> 
     <h3 class="expense-hours color">{{setDate(expense.date)}}</h3> 
     <h3 class="expense-hours color" style="margin-top: -2px;">{{setDate(expense.date, false, true).substr(8)}}</h3> 
       </li>
