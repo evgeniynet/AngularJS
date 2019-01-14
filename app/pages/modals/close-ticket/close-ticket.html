@@ -20,9 +20,9 @@
     
 
     <div class="width100">
-    <div *ngFor="let user of users">
+    <div *ngFor="let user of users" style="padding-left: 7px;">
     <p class="left text-toggle color width90" style="margin-top: 5px;margin-bottom: 0px;">{{user.name}}</p>
-    <button style="background-color: unset; height: 2.0em; width: 1.6em;" class="width10" (click)="deleteUser(user.id)">
+    <button style="background-color: unset; height: 17px; width: 1.6em;" class="width10" (click)="deleteUser(user.id)">
       <ion-icon class="invoiceCircle right" style="padding:0px !important" name="close"></ion-icon>
     </button>
     </div>
