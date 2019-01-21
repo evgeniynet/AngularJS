@@ -120,6 +120,11 @@
 
   <select-list preload="true" [list]="selects.project" (onChanged)='saveSelect($event)'></select-list>
 
+<!-- New categories and submissions-->
+  <select-list preload="true" [list]="selects.categories" (onChanged)='saveSelect($event)'></select-list>
+  <select-list preload="true" [list]="selects.submissions" (onChanged)='saveSelect($event)'></select-list>
+<!-- End categories and submissions-->
+
   <!-- New Contract -->
     <select-list [list]="selects.contract" preload="true" (onChanged)='saveSelect($event)'></select-list>
 <!--End Contract-->
