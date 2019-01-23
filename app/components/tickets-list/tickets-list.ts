@@ -161,6 +161,11 @@ export class TicketsListComponent {
              this.reopenTicket(ticket);
              return;
          }
+         if (this.config.current.is_force_time_on_closing_tickets && 0 == ticket.total_hours)
+         {
+            this.nav.alert("Your administrator is requiring time entries before a " + this.config.current.names.ticket.s + " can be closed.", true);
+            return;
+         }
          let myModal = Modal.create(CloseTicketModal, ticket);
          myModal.onDismiss(data => {
              if (!data)
