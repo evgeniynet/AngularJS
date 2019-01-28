@@ -965,6 +965,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
          is_close = !is_close;
          this.closed_index = 0;
        }
+       try{
        if (is_close) {
          this.closed_index = this.ticketProvider._dataStore[this.cachename].findIndex(tkt => tkt.key === this.ticket.key);
          this.ticketProvider._dataStore[this.cachename].splice(this.closed_index,1);
@@ -983,6 +984,11 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
          }
        }
      }
+     catch(ex) {
+      console.log("index not found.");
+      this.getPosts(this.ticket.key);
+    }
+     }
    }
 
 
@@ -991,7 +997,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
        this.reopenTicket();
        return;
      }
-     if (this.config.current.is_force_time_on_closing_tickets && !timeAdded){
+     if (this.config.current.is_force_time_on_closing_tickets && this.ticket.total_time_in_minutes < 1 && !timeAdded){
        this.addTime(true);
        return;
      }
@@ -1091,7 +1097,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
 
    addTime(isClose?)
    {
-     let myModal = Modal.create(TimelogPage, { "number": this.ticket.number, "ticket_number": this.ticket.key, "subject": this.ticket.subject, "account_id": this.ticket.account_id, "is_force_time_on_closing_tickets": this.config.current.is_force_time_on_closing_tickets && isClose });
+     let myModal = Modal.create(TimelogPage, { "number": this.ticket.number, "ticket_number": this.ticket.key, "subject": this.ticket.subject, "account_id": this.ticket.account_id, "is_force_time_on_closing_tickets": this.config.current.is_force_time_on_closing_tickets && this.ticket.total_time_in_minutes < 1 && isClose });
      myModal.onDismiss(data => {
        if(data){
        this.closeTicket(true);

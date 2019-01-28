@@ -34,7 +34,6 @@ export class CloseTicketModal {
         this.isconfirm = true;
 
         this.ticket = this.navParams.data || 0;
-        console.log(this.config.current, "this.config.current");
 
         this.categories = [];
         this.he = this.config.getCurrent("user");

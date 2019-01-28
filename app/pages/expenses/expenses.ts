@@ -16,6 +16,10 @@ export class ExpensesPage {
     busy: boolean;
     params: any;
     pager: any;
+    test: boolean;
+    term: string = '';
+    items: any = [];
+    search_results: any;
     expenses: Array<any>;
 
 
@@ -65,6 +69,7 @@ onPageWillEnter()
                     infiniteScroll.complete();
                 }
                 this.count = data.length;
+                this.searchItems({value : this.term});
             },
             error => {
                 if (timer) {
@@ -94,9 +99,9 @@ onPageWillEnter()
     
     setDate(date, showmonth?, istime?) {
         if (date){
-        var time_offset = this.config.getCurrent("timezone_offset");     
+        //var time_offset = this.config.getCurrent("timezone_offset");     
         date = new Date(date.substring(0,23)+"Z");
-        date = new Date(date.setTime(date.getTime() + time_offset*60*60*1000)).toJSON();
+        //date = new Date(date.setTime(date.getTime() + time_offset*60*60*1000)).toJSON();
         return getDateTime(date, showmonth, istime);
     }
      return null;
@@ -105,4 +110,51 @@ onPageWillEnter()
     getCurrency(value) {
         return getCurrency(value);
     }
+
+    searchItems(searchbar) {
+        // Reset items back to all of the items
+        this.items = this.expenses;
+
+        // set q to the value of the searchbar
+        let q = searchbar.value.toLowerCase();
+
+        // if the value is an empty string don't filter the search_results
+        if (q.trim() == '' || this.busy) {
+            return;
+        }
+
+        if (this.expenses && q.length > 1)
+        {
+            this.items = this.expenses.filter((expense) => expense.user_name.toLowerCase().indexOf(q) > -1 || 
+            expense.category.toLowerCase().indexOf(q) > -1 ||
+            expense.ticket_number.toString().toLowerCase().indexOf(q) > -1 ||
+            expense.ticket_subject.toString().toLowerCase().indexOf(q) > -1 ||
+            expense.units.toString().toLowerCase().indexOf(q) > -1 ||
+            expense.vendor.toString().toLowerCase().indexOf(q) > -1 ||
+            expense.amount.toString().toLowerCase().indexOf(q) > -1 ||
+            expense.date.toString().toLowerCase().indexOf(q) > -1 ||
+            expense.contract_name.toLowerCase().indexOf(q) > -1 ||
+            expense.project_name.toLowerCase().indexOf(q) > -1 ||
+            expense.note.toLowerCase().indexOf(q) > -1);
+        }
+    }
+
+    clearSearch(searchbar?)
+    {
+        this.search_results = [];
+        this.busy = false;
+        if (searchbar) searchbar.value = "";
+    }
+
+    toggle(){
+        this.test = !this.test;
+        if (this.test){
+            setTimeout(() => {
+        var t = document.getElementsByClassName("searchbar-input");
+        t = t[t.length - 1];
+        t && t.focus();
+        }, 500);
+        }
+    }
+
 }
