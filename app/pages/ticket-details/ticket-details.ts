@@ -445,20 +445,6 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
          url: `contracts?account_id=${account_id}`,
          hidden: false    
                 },
-       "submissions" : { 
-         name: "Submission Category", 
-         value: data.submission_category || "Default",
-         selected: data.submission_category || 0,
-         url: `submissions`,
-         hidden: !this.config.current.is_submission_category    
-                },
-       "categories" : { 
-         name: "Creation Category", 
-         value: data.creation_category_name || "Default",
-         selected: data.creation_category_id || 0,
-         url: `categories`,
-         hidden: !this.config.current.is_creation_categories    
-                },
        "level": {
          name: "Level",
          value: data.level_name ? (data.level + " - " + data.level_name) : "( Not Set )",
@@ -616,10 +602,6 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
 
    saveSelect(event){
      let name = event.type;
-     if (name == "creationcategory")
-            name = "categories";
-     if (name == "submissioncategory")
-            name = "submissions";
      this.selects[name].selected = event.id;
      this.selects[name].value = event.name;
      let contract_id = this.selects.contract.selected;
@@ -875,10 +857,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
        "user_id": this.selects.altusers.selected,
        "customfields_xml": customfields_xml,
        "default_contract_id": this.selects.contract.selected,
-       "default_contract_name": this.selects.contract.value,
-       "creation_category_id": this.selects.categories.selected,
-       "creation_category_name": this.selects.categories.value,
-       "submission_category": this.selects.submissions.value
+       "default_contract_name": this.selects.contract.value
      };
 
      this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(

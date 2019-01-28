@@ -112,6 +112,8 @@ export class AccountsPage {
         t = t[t.length - 1];
         t && t.focus();
         }, 500);
+        
+
         }
     }
 }
