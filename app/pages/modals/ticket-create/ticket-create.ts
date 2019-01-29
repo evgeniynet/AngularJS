@@ -73,6 +73,20 @@ export class TicketCreatePage {
                 url: `projects?account=${account_id}&is_with_statistics=false`,
                 hidden: false
             },
+            "submissions" : {
+                name: "Submission Category", 
+                value: (recent.submissions || {}).value || "Default",
+                selected: (recent.submissions || {}).value || 0,
+                url: `submissions`,
+                hidden: !this.config.current.is_submission_category
+            },
+            "categories" : {
+                name: "Creation Category", 
+                value: (recent.categories || {}).value || "Default",
+                selected: (recent.categories || {}).selected || 0,
+                url: `categories`,
+                hidden: !this.config.current.is_creation_categories
+            },
             "contract" : { 
                     name: "Contract", 
                     value: recent.default_contract_name || "Choose",
@@ -149,7 +163,12 @@ export class TicketCreatePage {
     }
 
     saveSelect(event){
+        console.log(event, "event");
         let name = event.type;
+        if (name == "creationcategory")
+            name = "categories";
+        if (name == "submissioncategory")
+            name = "submissions";
         let contract_id = this.selects.contract.selected;
         this.selects[name].selected = event.id;
         this.selects[name].value = event.name;
@@ -250,6 +269,16 @@ export class TicketCreatePage {
                 this.nav.alert("Note is required!",true);
                 return;
             }
+            if (this.config.current.is_submission_category && !this.selects.submissions.selected)
+            {
+                this.nav.alert("Please choose Submission Category",true);
+                return;
+            }
+            if (this.config.current.is_creation_categories && this.config.current.is_creation_categories_required_on_creation && !this.selects.categories.selected)
+            {
+                this.nav.alert("Please choose Creation Category",true);
+                return;
+            }
 
             if (this.files.length)
             {
@@ -270,6 +299,10 @@ export class TicketCreatePage {
             this.ticket.customfields_xml = customfields_xml;
             this.ticket.default_contract_id = this.selects.contract.selected;
             this.ticket.default_contract_name = this.selects.contract.value;
+            this.ticket.creation_category_id = this.selects.categories.selected;
+            this.ticket.creation_category_name = this.selects.categories.value;
+            this.ticket.submission_category = this.selects.submissions.value;
+            
 
             console.log(this.ticket,"this.ticket");
 
@@ -283,6 +316,8 @@ export class TicketCreatePage {
                                                "class": this.selects.class,
                                                "default_contract_id": this.selects.contract.selected,
                                                "default_contract_name": this.selects.contract.value,
+                                               "categories": this.selects.categories,
+                                               "submissions": this.selects.submissions,
                                                "priority": this.selects.priority});
             }
                     if (this.files.length)

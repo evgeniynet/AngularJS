@@ -63,6 +63,13 @@ export class CloseTicketModal {
                  url: "classes",
                  hidden: true //this.ticket.class_id || this.config.current.is_class_tracking,
        },
+       "categories": {
+                 name: "Creation Category",
+                 value: this.ticket.creation_category_name || "Default",
+                 selected: this.ticket.creation_category_id || 0,
+                 url: "categories",
+                 hidden: !this.config.current.is_creation_categories
+       },
             "category": {
                 name: "Category",
                 value: "Choose",
@@ -95,6 +102,8 @@ export class CloseTicketModal {
 
     saveSelect(event) {
         let name = event.type;
+        if (name == "creationcategory")
+            name = "categories";
         if (name == "resolution")
         {
             this.selects[name].selected = event.id;
@@ -106,6 +115,11 @@ export class CloseTicketModal {
             this.selects.category.hidden = !this.selects.category.items.length;
         }
         else if (name == "category")
+        {
+            this.selects[name].selected = event.id;
+            this.selects[name].value = event.name;
+        }
+        else if (name == "categories")
         {
             this.selects[name].selected = event.id;
             this.selects[name].value = event.name;
@@ -150,6 +164,11 @@ export class CloseTicketModal {
                 this.nav.alert("Note is required!",true);
                 return;
             }
+            if (this.config.current.is_creation_categories && !this.selects.categories.selected)
+            {
+                this.nav.alert("Please choose Creation Category",true);
+                return;
+            }
             let user_ids = this.users.map(u => u.id).join(", ");
 
             let data = {
@@ -160,6 +179,8 @@ export class CloseTicketModal {
                 "resolution_id": this.selects.category.selected,
                 "class_id": this.selects.class.selected,
                 "confirmed": this.isconfirm,
+                "creation_category_id": this.selects.categories.selected,
+                "creation_category_name": this.selects.categories.value,
                 "confirm_note": "",
                 "cc": user_ids
             };
