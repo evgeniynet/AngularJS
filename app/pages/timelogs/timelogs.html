@@ -7,7 +7,7 @@
 </ion-navbar>
 
 <ion-content>
-      <div *ngIf="test" debounce="700" class="open-filter">
+      <div [ngClass]="{'displayon': test, 'displayoff': !test" debounce="700" class="open-filter">
         <select-list [list]="selects.account" [preload]="config.current.user.is_techoradmin" [is_enabled]="config.current.user.is_techoradmin" ajax="true" (onChanged)='saveSelect($event)'></select-list>
         <select-list is_me="true" [list]="selects.tech" ajax="true" preload="true" (onChanged)='saveSelect($event)'></select-list>
       </div>
