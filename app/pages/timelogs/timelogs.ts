@@ -41,7 +41,24 @@ export class TimelogsPage {
         this.pager = { page: 0 };
         this.params.account = { id: this.params.account_id || "", name: this.params.account_name || "" };
         let recent : any = {};
-        this.initSelects();
+
+        this.selects = {
+            "tech" : {
+                name: "Tech", 
+                value: "--All Technician--",
+                selected: (this.params.tech || {}).id || 0,
+                url: "technicians",
+                hidden: false
+            },
+            "account" : {
+                name: "Account", 
+                value:  "--All Accounts--",
+                selected:  (this.params.account || {}).id || -1,
+                url: "accounts?is_with_statistics=false",
+                hidden: false
+            }
+        };
+        
         if (!this.params.account)
         {
                 recent = this.config.current.recent || {};
@@ -62,27 +79,8 @@ export class TimelogsPage {
 
     }
 
-    initSelects(){
-        this.selects = {
-            "tech" : {
-                name: "Tech", 
-                value: this.params.tech.name || "--All Technician--",
-                selected: this.params.tech.id || 0,
-                url: "technicians",
-                hidden: false
-            },
-            "account" : {
-                name: "Account", 
-                value:  this.params.account.name || "--All Accounts--",
-                selected:  this.params.account.id || -1,
-                url: "accounts?is_with_statistics=false",
-                hidden: false
-            }
-        }
-        console.log(this.selects, "this.selects");
-    }
-
     saveSelect(event){
+        let name = event.type;
         this.selects[name].selected = event.id;
         this.selects[name].value = event.name;
     }

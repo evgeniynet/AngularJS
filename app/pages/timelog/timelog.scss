@@ -20,6 +20,23 @@
     padding-left: 8px;
 }
 
+.open-filter{
+    background-color: #000000;
+}
+
+.open-filter .button{
+    height: 2.0em !important;
+    width: 90%;
+    margin: auto;
+    display: block;
+}
+
+.open-filter ion-item{
+    background-color: #000000;
+    width: 90%;
+    margin: auto;
+}
+
 .start-end{
     margin-top: 0px !important;
     color: $time;
