@@ -1,20 +1,24 @@
 import {Page, Config, Nav, NavParams, ViewController} from 'ionic-angular';
+import {forwardRef} from '@angular/core';
+import {FORM_DIRECTIVES, Validators} from '@angular/common';
 import {TimeProvider} from '../../providers/time-provider';
 import {addp} from '../../directives/helpers';
 import {TimelogPage} from '../timelog/timelog';
 import {ActionButtonComponent} from '../../components/action-button/action-button';
+import {SelectListComponent} from '../../components/select-list/select-list';
 import {getDateTime} from '../../directives/helpers';
 import {GravatarPipe, MorePipe, LinebreaksPipe} from '../../pipes/pipes';
 
 @Page({
     templateUrl: 'build/pages/timelogs/timelogs.html',
-    directives: [ActionButtonComponent],
+    directives: [forwardRef(() => SelectListComponent), ActionButtonComponent],
     pipes: [GravatarPipe, MorePipe, LinebreaksPipe],
 })
 export class TimelogsPage {
 
     LIMIT: number = 25;
     account: any;
+    selects: any;
     is_empty: boolean = false;
     params: any;
     pager: any;
@@ -22,6 +26,7 @@ export class TimelogsPage {
     cachename: string;
     timelogs: any;
     busy: boolean;
+    test: boolean;
     initial_load: boolean = true;
 
 
@@ -32,8 +37,15 @@ export class TimelogsPage {
     onPageLoaded()
     {
         this.params = this.navParams.data || {};
+        console.log(this.params, "this.params");
         this.pager = { page: 0 };
         this.params.account = { id: this.params.account_id || "", name: this.params.account_name || "" };
+        let recent : any = {};
+        this.initSelects();
+        if (!this.params.account)
+        {
+                recent = this.config.current.recent || {};
+        }
 
         this.cachename = addp("time", "account", this.params.account.id);
         this.cachelen = (this.timeProvider._dataStore[this.cachename] || {}).length;
@@ -44,8 +56,35 @@ export class TimelogsPage {
         if (this.params.count !== 0) {
             this.getTimeLogs();
         }
-        else
+        else{
             this.is_empty = true;
+        }
+
+    }
+
+    initSelects(){
+        this.selects = {
+            "tech" : {
+                name: "Tech", 
+                value: this.params.tech.name || "--All Technician--",
+                selected: this.params.tech.id || 0,
+                url: "technicians",
+                hidden: false
+            },
+            "account" : {
+                name: "Account", 
+                value:  this.params.account.name || "--All Accounts--",
+                selected:  this.params.account.id || -1,
+                url: "accounts?is_with_statistics=false",
+                hidden: false
+            }
+        }
+        console.log(this.selects, "this.selects");
+    }
+
+    saveSelect(event){
+        this.selects[name].selected = event.id;
+        this.selects[name].value = event.name;
     }
 
     getTimeLogs()
@@ -117,5 +156,15 @@ export class TimelogsPage {
 
     getFixed(value){
         return Number(value || "0").toFixed(2).toString();
+    }
+    toggle(){
+        this.test = !this.test;
+        if (this.test){
+            setTimeout(() => {
+        let t = document.getElementsByClassName("open-filter");
+        t = t[t.length - 1];
+        t && t.focus();
+        }, 500);
+        }
     }
 }
