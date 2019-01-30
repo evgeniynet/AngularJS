@@ -41,7 +41,6 @@ export class TicketCreatePage {
         this.data = this.navParams.data || {};
 
         let recent : any = {};
-        console.log(this.config.current);    
         if (!this.data.account)
         {
                 recent = this.config.current.recent || {};
@@ -163,7 +162,6 @@ export class TicketCreatePage {
     }
 
     saveSelect(event){
-        console.log(event, "event");
         let name = event.type;
         if (name == "creationcategory")
             name = "categories";
@@ -303,8 +301,6 @@ export class TicketCreatePage {
             this.ticket.creation_category_name = this.selects.categories.value;
             this.ticket.submission_category = this.selects.submissions.value;
             
-
-            console.log(this.ticket,"this.ticket");
 
             this.ticketProvider.addTicket(this.ticket).subscribe(
                 data => {
