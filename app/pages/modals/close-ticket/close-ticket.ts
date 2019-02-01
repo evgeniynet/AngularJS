@@ -58,17 +58,19 @@ export class CloseTicketModal {
                 },
             "class": {
                  name: "Class",
-                 value: this.ticket.class_name,
-                 selected: this.ticket.class_id,
+                 value: this.ticket.class_name || "Choose",
+                 selected: this.ticket.class_id || 0,
                  url: "classes",
-                 hidden: true //this.ticket.class_id || this.config.current.is_class_tracking,
+                 preload: !this.ticket.class_id && this.config.current.is_class_tracking,
+                 hidden: this.ticket.class_id || !this.config.current.is_class_tracking,
        },
        "categories": {
                  name: "Creation Category",
-                 value: this.ticket.creation_category_name || "Default",
+                 value: this.ticket.creation_category_name || "Choose",
                  selected: this.ticket.creation_category_id || 0,
                  url: "categories",
-                 hidden: !this.config.current.is_creation_categories
+                 preload: this.config.current.is_creation_categories && !this.ticket.creation_category_id
+                 hidden: this.ticket.creation_category_id || !this.config.current.is_creation_categories
        },
             "category": {
                 name: "Category",
@@ -154,7 +156,7 @@ export class CloseTicketModal {
         if (form.valid) {
             var post = htmlEscape((this.ticketnote || "").trim()).substr(0, 5000);
 
-            if(this.selects.class.selected)
+            if(!this.selects.class.selected && this.config.current.is_class_tracking)
             {
                 this.nav.alert("A class must be entered before ticket may be closed!",true);
                 return;
@@ -166,7 +168,7 @@ export class CloseTicketModal {
             }
             if (this.config.current.is_creation_categories && !this.selects.categories.selected)
             {
-                this.nav.alert("Please choose Creation Category",true);
+                this.nav.alert("A creation category must be entered before ticket may be closed!",true);
                 return;
             }
             let user_ids = this.users.map(u => u.id).join(", ");
