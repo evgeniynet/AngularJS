@@ -69,7 +69,7 @@ export class CloseTicketModal {
                  value: this.ticket.creation_category_name || "Choose",
                  selected: this.ticket.creation_category_id || 0,
                  url: "categories",
-                 preload: this.config.current.is_creation_categories && !this.ticket.creation_category_id
+                 preload: this.config.current.is_creation_categories && !this.ticket.creation_category_id,
                  hidden: this.ticket.creation_category_id || !this.config.current.is_creation_categories
        },
             "category": {
