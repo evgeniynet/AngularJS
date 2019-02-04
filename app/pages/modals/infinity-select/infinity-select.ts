@@ -20,6 +20,7 @@ export class InfinitySelectModal {
     busy: boolean;
     pager: any;
     isbutton: boolean;
+    default_text: string = "";
     isdefault_enabled: boolean = false;
     isnew_enabled: boolean = false;
     date: any;
@@ -35,8 +36,11 @@ export class InfinitySelectModal {
     ngOnInit() {
         this.term = '';
         this.name = this.navParams.data.name || "List";
-        this.isdefault_enabled = !~["user", "account", "tech", "task type"].indexOf(this.name.toLowerCase());
-        this.isnew_enabled = this.config.current.is_add_new_user_link && !!~["user", "tech"].indexOf(this.name.toLowerCase());
+        this.isdefault_enabled = !~["user", "account", "tech", "task type"].indexOf(this.name.toLowerCase()) 
+                                ||  !!this.navParams.data.default;
+        this.default_text = this.navParams.data.default || "Default";
+        this.isnew_enabled = this.config.current.is_add_new_user_link && !!~["user", "tech"].indexOf(this.name.toLowerCase()) 
+                             && !this.navParams.data.isnew_disabled;
         this.url = this.navParams.data.url || "";
         this.data = this.navParams.data.items || {};
         this.items = this.data;

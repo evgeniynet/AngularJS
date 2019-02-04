@@ -39,20 +39,24 @@ export class TimelogsPage {
         this.params = this.navParams.data || {};
         console.log(this.params, "this.params");
         this.pager = { page: 0 };
-        this.params.account = { id: this.params.account_id || "", name: this.params.account_name || "" };
+        this.params.account = { id: this.params.account_id || -1, name: this.params.account_name || "" };
+        this.params.tech = { id: this.params.tech_id || 0, name: this.params.tech_name || "" };
         let recent : any = {};
 
         this.selects = {
             "tech" : {
                 name: "Tech", 
-                value: "--All Technician--",
+                value: "--All " +this.config.current.names.tech.p+" --",
+                default: "--All " +this.config.current.names.tech.p+" --",
+                isnew_disabled: true,
                 selected: (this.params.tech || {}).id || 0,
                 url: "technicians",
                 hidden: false
             },
             "account" : {
                 name: "Account", 
-                value:  "--All Accounts--",
+                value:  "--All " +this.config.current.names.account.p+" --",
+                default: "--All " +this.config.current.names.account.p+" --",
                 selected:  (this.params.account || {}).id || -1,
                 url: "accounts?is_with_statistics=false",
                 hidden: false
@@ -65,6 +69,7 @@ export class TimelogsPage {
         }
 
         this.cachename = addp("time", "account", this.params.account.id);
+        this.cachename = addp(this.cachename, "tech", this.params.tech.id);
         this.cachelen = (this.timeProvider._dataStore[this.cachename] || {}).length;
 
         if (this.params.is_empty)
@@ -83,11 +88,22 @@ export class TimelogsPage {
         let name = event.type;
         this.selects[name].selected = event.id;
         this.selects[name].value = event.name;
+        this.params[name].id = event.id;
+        this.cachename = addp("time", "account", this.params.account.id);
+        this.cachename = addp(this.cachename, "tech", this.params.tech.id);
+        this.cachelen = (this.timeProvider._dataStore[this.cachename] || {}).length;
+        this.getTimeLogs();
     }
 
     getTimeLogs()
     {
-        this.timeProvider.getTimelogs(this.params.account.id, this.pager);
+        //let account_id
+        //if (this.selects.account.selected == -1) 
+//account_id = this.params.account.id;
+        //else
+        //    account_id = this.selects.account.selected;
+    
+        this.timeProvider.getTimelogs(this.params.account.id, this.params.tech.id, this.pager);
         this.timelogs = this.timeProvider.times$[this.cachename];
         if (!this.cachelen)
         {
@@ -126,7 +142,7 @@ export class TimelogsPage {
         }
         this.pager.page += 1;
         let cachedlen = (this.timeProvider._dataStore[this.cachename] || {}).length;
-        this.timeProvider.getTimelogs(this.params.account.id, this.pager);
+        this.timeProvider.getTimelogs(this.params.account.id, this.selects.tech.selected, this.pager);
         this.timelogs.subscribe(
             data => {
                 infiniteScroll.complete();

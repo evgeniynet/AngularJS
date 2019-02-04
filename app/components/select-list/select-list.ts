@@ -16,6 +16,7 @@ export class SelectListComponent {
     @Input() isbutton: boolean;
     @Input() is_enabled: boolean = true;
     @Input() is_once: boolean = false;
+    //@Input() default: string = "";
     @Input() is_me: boolean;
     @Input() preload: boolean;
     @Input() ajax: boolean;
@@ -146,7 +147,7 @@ export class SelectListComponent {
  {
      if (!this.list.items || this.list.items.length == 0)
      {
-         this.list.value = "Default (nothing to select)";
+         this.list.value = this.list.default || "Default (nothing to select)";
          this.onChanged.emit({type: this.name.split(' ').join('').toLowerCase(), id: 0});
          //this.open = function { return false; };
          //this.error(this.list.name + ' list is empty!');
@@ -233,6 +234,8 @@ export class SelectListComponent {
 
      openModal() {
          //TODO check counts: is more than 100 - do ajax
+         console.log(this.list, "list");
+
          this.list.isbutton = this.isbutton;
          let len = this.list.items.length || 0;
          let modal = len >= 25 && len%25 == 0  ? InfinitySelectModal : BasicSelectModal;

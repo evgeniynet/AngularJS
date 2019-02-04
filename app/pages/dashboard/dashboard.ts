@@ -121,7 +121,7 @@ export class DashboardPage {
                 this.ticketProvider.getTicketsList("user", "", "",{ "limit": 6 });
             }
             if (this.config.current.is_time_tracking && !(this.timeProvider._dataStore["time"] || {}).length)
-                this.timeProvider.getTimelogs("", { "limit": 25 });
+                this.timeProvider.getTimelogs("", "", { "limit": 25 });
         }, 2500);
     }
 

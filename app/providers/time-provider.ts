@@ -22,8 +22,9 @@ export class TimeProvider {
         this._dataStore = {};
      }
 
-    getTimelogs(account_id, pager) {
+    getTimelogs(account_id, tech_id,  pager) {
         let url = addp(this.URL, "account", account_id);
+        url = addp(url, "tech", tech_id);
         pager.limit = pager.limit || 25;
         pager.page = pager.page || 0;
         this._dataStore[url] = this._dataStore[url] || [];
