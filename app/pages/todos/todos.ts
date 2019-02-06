@@ -14,6 +14,8 @@ export class TodosPage {
     params: any;
     selects: any;
     test: boolean;
+    completed: string;
+    assigned: string;
     //undone: number = 0;
     
     constructor(private nav: Nav, private config: Config, private navParams: NavParams) {
@@ -35,6 +37,17 @@ export class TodosPage {
                 */
 
                 this.selects = {
+            "completed": {
+                name: "Completed",
+                value: "All",
+                selected: "",
+                hidden: false,
+                items: [
+                    { "name": 'All', "id": "" },
+                    { "name": 'Completed', "id": "1" },
+                    { "name": 'UnCompleted', "id": "0" },
+                ]
+            },
             "tech" : {
                 name: "Tech", 
                 value: "--All " +this.config.current.names.tech.p+" --",
@@ -49,8 +62,18 @@ export class TodosPage {
 
     saveSelect(event){
         let name = event.type;
-        this.selects[name].selected = event.id;
-        this.selects[name].value = event.name;
+        if (name == "completed")
+        {
+            this.selects[name].selected = event.id;
+            this.selects[name].value = event.name;
+            this.completed = this.selects[name].selected;
+        }
+        else if (name == "tech")
+        {
+            this.selects[name].selected = event.id;
+            this.selects[name].value = event.name;
+            this.assigned = this.selects[name].selected;
+        }
     }
 
     AddTodo()

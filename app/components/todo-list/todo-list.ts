@@ -1,5 +1,5 @@
 import {IONIC_DIRECTIVES, Nav, NavParams, Config, Modal} from 'ionic-angular';
-import {Component, Input, OnChanges} from '@angular/core';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {TodoProvider} from '../../providers/todo-provider';
 import {TodoCreatePage} from '../../pages/todo-create/todo-create';
 import {addp, getDateTime} from '../../directives/helpers';
@@ -15,6 +15,8 @@ export class TodoListComponent {
     @Input() simple: boolean;
     @Input() ticket: string = "";
     @Input() user: string = "";
+    @Input() assigned: string = "";
+    @Input() completed: string = "";
     LIMIT: number = 5000;
     is_empty: boolean = false;
     is_empty_list: boolean = true;
@@ -31,7 +33,41 @@ export class TodoListComponent {
      constructor(private nav: Nav, private todoProvider: TodoProvider, private config: Config, private navParams: NavParams) {
          this.is_empty = false;
          this.pager = { page: 0, limit: this.LIMIT };
+         this.params = this.navParams.data || {};
+         this.params.user = { id: this.params.user_id || this.config.current.user.user_id, name: this.params.user_name || "" };
 }
+
+    
+    ngOnChanges(event) {
+        if ("completed" in event) {
+            if (event.completed.isFirstChange())
+                 return;
+             this.completed = event.completed.currentValue;
+             this.cachename = addp("time", "assigned_id", this.assigned);
+             this.cachename = addp(this.cachename, "ticket", this.ticket || "");
+             this.cachename = addp(this.cachename, "is_completed", this.completed);
+             this.cachelen = (this.todoProvider._dataStore[this.cachename] || {}).length;
+             this.getTodos();
+         }
+        if ("assigned" in event) {
+            if (event.assigned.isFirstChange())
+                 return;
+             this.assigned = event.assigned.currentValue;
+             this.cachename = addp("time", "assigned_id", this.assigned);
+             this.cachename = addp(this.cachename, "ticket", this.ticket || "");
+             this.cachename = addp(this.cachename, "is_completed", this.completed);
+             this.cachelen = (this.todoProvider._dataStore[this.cachename] || {}).length;
+             this.getTodos();
+         }
+
+             
+            // else {
+              //   this.pager.limit = this.count;
+               //  this.onLoad();
+               //  this.is_empty = false;
+             //}
+         
+     }
 
     ngOnInit()
     {
@@ -39,9 +75,9 @@ export class TodoListComponent {
             return;
         this.hidden = this.simple;
         this.is_empty_list = this.simple;
-        this.params = this.navParams.data || {};
+        //this.params = this.navParams.data || {};
         //this.pager = { page: 0 };
-        this.params.user = { id: this.params.user_id || this.config.current.user.user_id, name: this.params.user_name || "" };
+        //this.params.user = { id: this.params.user_id || this.config.current.user.user_id, name: this.params.user_name || "" };
 
         if (this.user)
             this.params.user.id = this.user == "all" ? "" : this.user;
@@ -64,7 +100,7 @@ export class TodoListComponent {
 
     getTodos()
     {
-        this.todoProvider.getTodos(this.params.user.id, this.ticket, this.pager);
+        this.todoProvider.getTodos(this.params.user.id, this.ticket, this.completed, this.pager);
         this.todoLists = this.todoProvider.todos$[this.cachename];
         //if (!this.cachelen)
         {

@@ -8,9 +8,10 @@
 <ion-content>     
     <div [ngClass]="{'displayon': test, 'displayoff': !test}" debounce="700" class="open-filter">
         <select-list [list]="selects.tech" ajax="true" preload="true" (onChanged)='saveSelect($event)'></select-list>
+      <select-list [list]="selects.completed" ajax="true" preload="true" (onChanged)='saveSelect($event)'></select-list>
       </div>                                                                                                          
 
-    <todo-list></todo-list>
+    <todo-list [assigned]="assigned" [completed]="completed"></todo-list>
     
      </ion-content>
 

@@ -22,12 +22,14 @@ export class TodoProvider {
         this._dataStore = {};
      }
 
-    getTodos(user_id, ticket, pager) {
+    getTodos(user_id, ticket, completed, pager) {
         let url = this.URL;
         if (user_id)
             url = addp(this.URL, "assigned_id", user_id);
         if (ticket) 
             url = addp(url, "ticket", ticket || "");
+        if (completed) 
+            url = addp(url, "is_completed", completed || "");
         pager.limit = pager.limit || 25;
         pager.page = pager.page || 0;
         this._dataStore[url] = this._dataStore[url] || [];
