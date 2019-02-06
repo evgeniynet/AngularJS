@@ -14,7 +14,7 @@ export class TodosPage {
     params: any;
     selects: any;
     test: boolean;
-    completed: string;
+    completed: string = "false";
     assigned: string;
     //undone: number = 0;
     
@@ -40,12 +40,12 @@ export class TodosPage {
             "completed": {
                 name: "Completed",
                 value: "All",
-                selected: "",
+                selected: "false",
                 hidden: false,
                 items: [
-                    { "name": 'All', "id": "" },
-                    { "name": 'Completed', "id": "1" },
-                    { "name": 'UnCompleted', "id": "0" },
+                    { "name": 'All', "id": "false" },
+                    { "name": 'Completed', "id": "true" },
+                    { "name": 'UnCompleted', "id": " " },
                 ]
             },
             "tech" : {
@@ -62,17 +62,16 @@ export class TodosPage {
 
     saveSelect(event){
         let name = event.type;
+        this.selects[name].selected = event.id;
+        this.selects[name].value = event.name;
         if (name == "completed")
         {
-            this.selects[name].selected = event.id;
-            this.selects[name].value = event.name;
-            this.completed = this.selects[name].selected;
+
+            this.completed = event.id;
         }
         else if (name == "tech")
         {
-            this.selects[name].selected = event.id;
-            this.selects[name].value = event.name;
-            this.assigned = this.selects[name].selected;
+            this.assigned = event.id;
         }
     }
 

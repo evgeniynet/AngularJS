@@ -16,7 +16,7 @@ export class TodoListComponent {
     @Input() ticket: string = "";
     @Input() user: string = "";
     @Input() assigned: string = "";
-    @Input() completed: string = "";
+    @Input() completed: string = "false";
     LIMIT: number = 5000;
     is_empty: boolean = false;
     is_empty_list: boolean = true;
@@ -32,9 +32,6 @@ export class TodoListComponent {
 
      constructor(private nav: Nav, private todoProvider: TodoProvider, private config: Config, private navParams: NavParams) {
          this.is_empty = false;
-         this.pager = { page: 0, limit: this.LIMIT };
-         this.params = this.navParams.data || {};
-         this.params.user = { id: this.params.user_id || this.config.current.user.user_id, name: this.params.user_name || "" };
 }
 
     
@@ -43,7 +40,7 @@ export class TodoListComponent {
             if (event.completed.isFirstChange())
                  return;
              this.completed = event.completed.currentValue;
-             this.cachename = addp("time", "assigned_id", this.assigned);
+             this.cachename = addp("todos", "assigned_id", this.assigned);
              this.cachename = addp(this.cachename, "ticket", this.ticket || "");
              this.cachename = addp(this.cachename, "is_completed", this.completed);
              this.cachelen = (this.todoProvider._dataStore[this.cachename] || {}).length;
@@ -53,7 +50,7 @@ export class TodoListComponent {
             if (event.assigned.isFirstChange())
                  return;
              this.assigned = event.assigned.currentValue;
-             this.cachename = addp("time", "assigned_id", this.assigned);
+             this.cachename = addp("todos", "assigned_id", this.assigned);
              this.cachename = addp(this.cachename, "ticket", this.ticket || "");
              this.cachename = addp(this.cachename, "is_completed", this.completed);
              this.cachelen = (this.todoProvider._dataStore[this.cachename] || {}).length;
@@ -75,17 +72,19 @@ export class TodoListComponent {
             return;
         this.hidden = this.simple;
         this.is_empty_list = this.simple;
-        //this.params = this.navParams.data || {};
-        //this.pager = { page: 0 };
-        //this.params.user = { id: this.params.user_id || this.config.current.user.user_id, name: this.params.user_name || "" };
+        this.params = this.navParams.data || {};
+        this.pager = { page: 0 };
+        this.params.user = { id: this.params.user_id || this.config.current.user.user_id, name: this.params.user_name || "" };
 
         if (this.user)
             this.params.user.id = this.user == "all" ? "" : this.user;
+        this.assigned = this.params.user.id;
         this.cachename = "todos";
         if (this.params.user.id)
             this.cachename = addp(this.cachename, "assigned_id", this.params.user.id);
         if (this.ticket)
-            this.cachename = addp(this.cachename, "ticket", this.ticket || "");   
+            this.cachename = addp(this.cachename, "ticket", this.ticket || "");  
+        this.cachename = addp(this.cachename, "is_completed", this.completed); 
         this.cachelen = (this.todoProvider._dataStore[this.cachename] || {}).length;
 
         if (this.params.is_empty)
@@ -100,7 +99,7 @@ export class TodoListComponent {
 
     getTodos()
     {
-        this.todoProvider.getTodos(this.params.user.id, this.ticket, this.completed, this.pager);
+        this.todoProvider.getTodos(this.assigned, this.ticket, this.completed, this.pager);
         this.todoLists = this.todoProvider.todos$[this.cachename];
         //if (!this.cachelen)
         {
@@ -143,8 +142,7 @@ export class TodoListComponent {
 
     setDone(todo){
         this.undone = Math.max(todo.is_completed ? --this.undone : ++this.undone, 0);
-        var cachename = "todos?assigned_id=" + this.config.current.user.user_id;
-        ((this.todoProvider._dataStore[cachename].filter(t => t.list_id == todo.list_id) || [{}])[0].sub.filter(d => d.id == todo.id)[0] || {}).is_completed = todo.is_completed;
+        ((this.todoProvider._dataStore[this.cachename].filter(t => t.list_id == todo.list_id) || [{}])[0].sub.filter(d => d.id == todo.id)[0] || {}).is_completed = todo.is_completed;
         this.todoProvider.setCompletedTodo(todo.id, todo.is_completed);
     }
 

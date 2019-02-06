@@ -234,8 +234,6 @@ export class SelectListComponent {
 
      openModal() {
          //TODO check counts: is more than 100 - do ajax
-         console.log(this.list, "list");
-
          this.list.isbutton = this.isbutton;
          let len = this.list.items.length || 0;
          let modal = len >= 25 && len%25 == 0  ? InfinitySelectModal : BasicSelectModal;
