@@ -24,7 +24,7 @@ export class BasicSelectModal {
         private config: Config
     ) {
         this.name = this.params.data.name;
-        this.isdefault_enabled = !~["user", "account", "tech", "task type", "contract"].indexOf(this.name.toLowerCase()) 
+        this.isdefault_enabled = !~["user", "account", "tech", "task type", "contract", "completed"].indexOf(this.name.toLowerCase()) 
                                  ||  !!this.params.data.default;
         this.default_text = this.params.data.default || "Default";
         this.isnew_enabled = this.config.current.is_add_new_user_link && !!~["user", "tech"].indexOf(this.name.toLowerCase())
@@ -44,12 +44,6 @@ export class BasicSelectModal {
         //let data = { 'foo': 'bar' };
         item = item || {};
         this.viewCtrl.dismiss(item);
-    }
-
-    onPageDidEnter() {
-        var t = document.getElementsByClassName("searchbar-input");
-        t = t[t.length - 1];
-        t && t.focus();
     }
 
     invite()

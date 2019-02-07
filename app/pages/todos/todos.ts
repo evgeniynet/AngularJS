@@ -45,13 +45,13 @@ export class TodosPage {
                 items: [
                     { "name": 'All', "id": "false" },
                     { "name": 'Completed', "id": "true" },
-                    { "name": 'UnCompleted', "id": " " },
+                    { "name": 'Not Completed', "id": " " },
                 ]
             },
             "tech" : {
                 name: "Tech", 
                 value: "--All " +this.config.current.names.tech.p+" --",
-                default: "--All " +this.config.current.names.tech.p+" --",
+                default: "Everyone",
                 isnew_disabled: true,
                 selected: (this.params.tech || {}).id || 0,
                 url: "technicians",
