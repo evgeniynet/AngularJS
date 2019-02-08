@@ -1001,7 +1001,13 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
        this.addTime(true);
        return;
      }
-     let myModal = Modal.create(CloseTicketModal, { "number": this.ticket.number, "key": this.ticket.key, "subject": this.ticket.subject });
+     let myModal = Modal.create(CloseTicketModal, { "number": this.ticket.number, "key": this.ticket.key, 
+      "subject": this.ticket.subject, 
+      "creation_category_id": this.ticket.creation_category_id, 
+      "creation_category_name": this.ticket.creation_category_name, 
+      "class_id" : this.ticket.class_id,
+      "class_name" : this.ticket.class_name,
+       });
      myModal.onDismiss(data => {
        if (data){
          this.ticket.status = "Closed";

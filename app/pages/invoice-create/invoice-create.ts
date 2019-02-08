@@ -137,7 +137,6 @@ ngOnInit()
         }
 
         saveSelect(event){
-            console.log("event", event);
             let name = event.type;
             let account_id = this.selects.account.selected;
             let ticket_id = this.selects.ticket.selected;
@@ -255,7 +254,6 @@ ngOnInit()
                               "ticket": this.selects.ticket,
                               "contract": this.selects.contract,
                               "prepaidpack": this.selects.prepaidpack});
-       console.log("user", this.selects.user,);
        if (!this.selects.contract.selected){
            this.nav.alert("Please choose Contract", true);
            return;
@@ -308,15 +306,12 @@ ngOnInit()
                 loading.dismiss();
                 if (data.length == 1)
                     data = data[0];
-                console.log(data,"dataInvoice");
                 data.recipients = data.recipients || [];
                 data.recipients = data.recipients.sort(function(a, b) {
                     return a.is_accounting_contact < b.is_accounting_contact ? 1 : -1;
                 });
                 this.recipients = [];
                 this.recipients.push(...this.localrecipients);
-                console.log("this.localrecipients", this.localrecipients);
-                console.log("this.recipients", this.recipients);
                 this.recipients.push(...data.recipients);
                 this.invoice_start_date = new Date().toJSON().substring(0,19);
                 this.invoice_end_date = new Date().toJSON().substring(0,19);

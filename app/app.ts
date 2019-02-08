@@ -301,7 +301,8 @@ if (localStorage.getItem("isPhonegap") === "true")
   this.initOrgPreferences(this.config.current.org + "-" + this.config.current.instance + ":" + this.config.current.key);
   if (window.cordova && cordova.plugins.backgroundMode){
     cordova.plugins.backgroundMode.enable();
-    cordova.plugins.backgroundMode.overrideBackButton();
+    if (typeof cordova.plugins.backgroundMode.overrideBackButton === "function")
+      cordova.plugins.backgroundMode.overrideBackButton();
   }
 }
 

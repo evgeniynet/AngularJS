@@ -16,9 +16,9 @@
 
     <select-list [list]="selects.category" preload="true" (onChanged)='saveSelect($event)'></select-list>
 
-    <select-list [list]="selects.categories" preload="true" (onChanged)='saveSelect($event)'></select-list>
+    <select-list [list]="selects.categories" (onChanged)='saveSelect($event)'></select-list>
 
-    <class-list preload="true" [list]="selects.class" (onChanged)='saveSelect($event)'></class-list>
+    <class-list [list]="selects.class" (onChanged)='saveSelect($event)'></class-list>
 
     <select-list [list]="selects.cc" preload="true" (onChanged)='saveSelect($event)'></select-list>
     
