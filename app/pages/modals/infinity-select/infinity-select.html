@@ -16,7 +16,7 @@
 <ion-content class="has-header">
 <img *ngIf="busy" class="imglogo img-padding" src="img/loading2.gif">
     <ion-list class="list basic-list">
-        <a *ngIf="isdefault_enabled" detail-none href=# ion-item class="basic-margin text-left" (click)="dismiss({name: 'Default (no selection)', id: 0})">
+        <a *ngIf="isdefault_enabled" detail-none href=# ion-item class="basic-margin text-left" (click)="dismiss({name: default_text, id: 0})">
             <h2 class="color">{{default_text}}</h2>
         </a>
         <a *ngIf="isnew_enabled && config.current.is_add_new_user_link" detail-none href=# ion-item (click)="invite()" class="basic-margin text-left">

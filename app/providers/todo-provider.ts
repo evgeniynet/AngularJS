@@ -52,7 +52,7 @@ export class TodoProvider {
 
         }
         var gotourl = url;
-        this.apiData.getPaged(gotourl + "&all_item_types=true&is_sub_view=true", pager).subscribe(data => {
+        this.apiData.getPaged(gotourl.replace("is_completed= ", "is_completed=") + "&all_item_types=true&is_sub_view=true", pager).subscribe(data => {
             if (pager.page > 0  && cachelen > 0)
                 this._dataStore[url].push(...data);
             else

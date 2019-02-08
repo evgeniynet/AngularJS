@@ -146,7 +146,7 @@ export class SelectListComponent {
  proceed_list(show)
  {
      if (!this.list.items || this.list.items.length == 0)
-     {
+     {    
          this.list.value = this.list.default || "Default (nothing to select)";
          this.onChanged.emit({type: this.name.split(' ').join('').toLowerCase(), id: 0});
          //this.open = function { return false; };
