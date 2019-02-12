@@ -24,6 +24,8 @@ export class TimelogPage {
     he: any;
     selects: any = {};
     displayFormat: string;
+    date_now: any;
+    is_start: boolean = false;
     minuteValues: Array<number> = [0, 15, 30, 45, 0];
     start_time: string = "";
     stop_time: string = "";
@@ -82,6 +84,7 @@ ngOnInit()
 {    
     this.UserDateOffset = this.config.getCurrent("timezone_offset");
     this.time = this.navParams.data || {};
+    this.date_now = new Date().toJSON().substring(0,19);
 
     let name = (this.time.user_name + " " + this.time.user_email).trim().split(' ')[0];
             if (this.time.time_id)
@@ -459,6 +462,9 @@ ngOnInit()
         return interval;
     }
 
+    timerStart(){
+        this.is_start=!this.is_start;
+    }
 
     getFixed(value) {
         return Number(value || "0").toFixed(2).toString();

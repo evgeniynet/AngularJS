@@ -9,6 +9,13 @@
 <ion-content class="timelog">
     <div class="list max-width700">
       <p *ngIf="time.is_force_time_on_closing_tickets" class="is-force-time">Your administrator is requiring time entries before a {{config.current.names.ticket.s}} can be closed.</p>
+    <div *ngIf="!time.time_id" class="width100 blue_time">
+      <h3 class="date-timelog">{{setDate(date_now, true, false)}}</h3>
+    </div>
+    <div *ngIf="!time.time_id" class="width100 blue_time" style="padding-bottom:10px;">
+      <h3 class="timer">01:22:23</h3>
+      <button block type="submit" [ngClass]="{'button-secondary' : !is_start, 'blue_button' : is_start}" class="disable-hover button button-default timer_button" (click)="timerStart()">{{is_start ? 'Stop' : 'Start'}}</button>
+    </div>
     <div class="img-top">
     <a detail-none href=# (click)="decrement()" class="left width30 button-timelog">
   <ion-item no-lines class="width100 blue4"><ion-icon name="remove" class="padding-left8"></ion-icon></ion-item>
