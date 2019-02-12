@@ -1,8 +1,10 @@
 import {Page, Config, Nav} from 'ionic-angular';
 import {ApiData, DataProvider, TicketProvider, TimeProvider} from '../../providers/providers';
+import {getDateTime} from '../../directives/helpers';
 import {Focuser} from '../../directives/directives';
 import {QueuesListComponent, AccountsListComponent, ActionButtonComponent, TodoListComponent} from '../../components/components';
 import {TicketsPage} from '../tickets/tickets';
+import {TimelogsPage} from '../timelogs/timelogs';
 import {AccountDetailsPage} from '../account-details/account-details';
 import {TicketDetailsPage} from '../ticket-details/ticket-details';
 import {AjaxSearchPage} from '../ajax-search/ajax-search';
@@ -26,6 +28,7 @@ export class DashboardPage {
     downloadTimer: any;
     search_results: any;
     busy: boolean;
+    date: any;
 
     constructor(private nav: Nav, private config: Config, private apiData: ApiData, private dataProvider: DataProvider, private ticketProvider: TicketProvider, private timeProvider: TimeProvider) {
         let counts = config.getStat("tickets");
@@ -42,6 +45,7 @@ export class DashboardPage {
     onPageLoaded()
     {       
         this.simple = !this.config.current.is_time_tracking && !this.config.current.is_expenses;
+        this.date = new Date().toJSON().substring(0,19);
         this.ticketProvider.getTicketsCounts();
         this.ticketProvider.tickets$["tickets/counts"].subscribe(
             data => {
@@ -130,6 +134,17 @@ export class DashboardPage {
         this.term = "";
     }
 
+    itemTapped(event) {
+       // console.log(event);
+         let tech = { tech_id: this.config.current.user.user_id, tech_name: this.config.current.user.firstname+" "+this.config.current.user.lastname };
+         console.log(tech);
+         this.nav.push(TimelogsPage, tech);
+                   }
+
+    setDate(date, showmonth?, istime?) {
+        return date ? getDateTime(date, showmonth, istime) : null;
+    }
+                   
     saveCache(){
         let el = document.elementFromPoint(window.innerWidth/2, window.innerHeight/2);
         let content = el.closest('ion-nav');

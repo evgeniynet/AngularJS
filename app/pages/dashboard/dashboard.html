@@ -10,7 +10,7 @@
             <h2>{{item.status}} | #{{item.number}} - {{item.subject}} ({{item.user_firstname}} {{item.user_lastname}})</h2>
         </a>
     </ion-list>
-    <ion-list class="list height" no-lines margin-top>
+    <ion-list class="list height174" no-lines margin-top>
         <div class="width50 left blue3 decoration_none">
             <a detail-none href=# (click)="itemTappedTL({tab:'tech', count: counts.open_as_tech})" ion-item class="mainStat itemTech">{{counts.open_as_tech}}</a>
      <a detail-none href=# (click)="itemTappedTL({tab:'tech', count: counts.open_as_tech})" ion-item class="itemTech">As {{config.current.names.tech.a}}</a>
@@ -25,11 +25,13 @@
     <a detail-none href=# ion-item (click)="itemTappedTL({tab:'alt', count: counts.open_as_alttech})" class="itemTech dashboardRight dashboard font-size1 tkts-table">Alt {{config.current.names.tech.a}}</a>
     <a detail-none href=# ion-item (click)="itemTappedTL({tab:'all', count: counts.open_all})" class="itemTech dashboardRight dashboard font-size1 tkts-table">All Open</a>
          </div>
-        <br>        
+        <br>
+    <div class="width100 blue3">
+        <a detail-none href=# (click)="itemTapped($event)" ion-item class="itemTech dashboardRight font-size17 dashboard workinghours">{{setDate(date, true, false)}}<ion-icon name="time" class="padding-left8"></ion-icon> 8.00hr<ion-icon name="time" class="padding-left8" style="color:#394a5d"></ion-icon> 1.00hr</a>
+    </div>      
          </ion-list>
 <br>
 
-    
     <todo-list margin-top *ngIf="config.current.is_todos" [simple]="true"></todo-list>
 
     <queues-list margin-top class="container_list" *ngIf="config.current.is_unassigned_queue" [queues]="queues"></queues-list>
