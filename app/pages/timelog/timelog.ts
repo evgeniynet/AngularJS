@@ -84,7 +84,13 @@ ngOnInit()
 {    
     this.UserDateOffset = this.config.getCurrent("timezone_offset");
     this.time = this.navParams.data || {};
-    this.date_now = new Date().toJSON().substring(0,19);
+    let options = {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+          weekday: 'short'
+        };
+        this.date_now = new Date().toLocaleString("en-US", options);
 
     let name = (this.time.user_name + " " + this.time.user_email).trim().split(' ')[0];
             if (this.time.time_id)

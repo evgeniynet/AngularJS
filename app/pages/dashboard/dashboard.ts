@@ -45,7 +45,13 @@ export class DashboardPage {
     onPageLoaded()
     {       
         this.simple = !this.config.current.is_time_tracking && !this.config.current.is_expenses;
-        this.date = new Date().toJSON().substring(0,19);
+        let options = {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+          weekday: 'short'
+        };
+        this.date = new Date().toLocaleString("en-US", options);
         this.ticketProvider.getTicketsCounts();
         this.ticketProvider.tickets$["tickets/counts"].subscribe(
             data => {

@@ -10,7 +10,7 @@
     <div class="list max-width700">
       <p *ngIf="time.is_force_time_on_closing_tickets" class="is-force-time">Your administrator is requiring time entries before a {{config.current.names.ticket.s}} can be closed.</p>
     <div *ngIf="!time.time_id" class="width100 blue_time">
-      <h3 class="date-timelog">{{setDate(date_now, true, false)}}</h3>
+      <h3 class="date-timelog">{{date_now}}</h3>
     </div>
     <div *ngIf="!time.time_id" class="width100 blue_time" style="padding-bottom:10px;">
       <h3 class="timer">01:22:23</h3>
