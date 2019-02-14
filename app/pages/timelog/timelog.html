@@ -13,8 +13,8 @@
       <h3 class="date-timelog">{{date_now}}</h3>
     </div>
     <div *ngIf="!time.time_id" class="width100 blue_time" style="padding-bottom:10px;">
-      <h3 class="timer">01:22:23</h3>
-      <button block type="submit" [ngClass]="{'button-secondary' : !is_start, 'blue_button' : is_start}" class="disable-hover button button-default timer_button" (click)="timerStart()">{{is_start ? 'Stop' : 'Start'}}</button>
+      <h3 class="timer" id="demo">{{hours}}:{{minutes}}:{{seconds}}</h3>
+      <button block type="submit" [ngClass]="{'button-secondary' : !is_start, 'blue_button' : is_start}" class="disable-hover button button-default timer_button" (click)="!is_start? timerStart():timerStop()">{{is_start ? 'Stop' : 'Start'}}</button>
     </div>
     <div class="img-top">
     <a detail-none href=# (click)="decrement()" class="left width30 button-timelog">
