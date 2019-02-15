@@ -25,6 +25,10 @@ export class DashboardPage {
     test: boolean;
     simple: boolean = false;
     timer: any;
+    timelogs: any;
+    cachename: string;
+    working: number = 0;
+    non_working_hours: number = 0;
     downloadTimer: any;
     search_results: any;
     busy: boolean;
@@ -52,6 +56,8 @@ export class DashboardPage {
           weekday: 'short'
         };
         this.date = new Date().toLocaleString("en-US", options);
+        //this.timelogs = this.timeProvider._dataStore[this.cachename];
+        //this.getTimelog();
         this.ticketProvider.getTicketsCounts();
         this.ticketProvider.tickets$["tickets/counts"].subscribe(
             data => {
@@ -121,7 +127,7 @@ export class DashboardPage {
                     }
                     );  
         }
-        
+
         if (!this.ticketProvider._dataStore.tech.length){
             this.ticketProvider.getTicketsList("tech", "", "",{ "limit": 6 }); 
         }
@@ -130,9 +136,34 @@ export class DashboardPage {
             if (!this.ticketProvider._dataStore.user.length) {
                 this.ticketProvider.getTicketsList("user", "", "",{ "limit": 6 });
             }
-            if (this.config.current.is_time_tracking && !(this.timeProvider._dataStore["time"] || {}).length)
-                this.timeProvider.getTimelogs("", "", { "limit": 25 });
+            if (this.config.current.is_time_tracking && !(this.timeProvider._dataStore["time"] || {}).length){
+                let date = new Date().toJSON().substring(0,10);
+                this.timeProvider.getTimelogs(-1, this.config.current.user.user_id, { "limit": 25 }, date, date);
+                this.cachename = addp("time", "account", "-1");
+                this.cachename = addp(this.cachename, "tech", this.config.current.user.user_id);
+                this.cachename = addp(this.cachename, "start_date", date);
+                this.cachename = addp(this.cachename, "end_date", date);
+                console.log(this.cachename, "this.cachename");
+                this.timelogs = this.timeProvider.times$[this.cachename];
+                this.getTimelog();
+           }
         }, 2500);
+    }
+
+    getTimelog(){
+                this.timelogs.subscribe(
+                        data => {
+                            console.log(data, "data");
+                            let non_working_hours = 0;
+                            let working = 0;
+                            data.forEach(item => {
+                                 working += item.hours;
+                                 if (item.non_working_hours != -1)
+                                     non_working_hours += item.non_working_hours;
+                            });
+                            this.non_working_hours = non_working_hours;
+                            this.working = working;
+                });
     }
 
     onPageDidEnter()
