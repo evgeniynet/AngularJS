@@ -15,6 +15,7 @@
     <div *ngIf="!time.time_id" class="width100 blue_time" style="padding-bottom:10px;">
       <h3 class="timer" id="demo">{{hours}}:{{minutes}}:{{seconds}}</h3>
       <button block type="submit" [ngClass]="{'button-secondary' : !is_start, 'blue_button' : is_start}" class="disable-hover button button-default timer_button" (click)="!is_start? timerStart():timerStop()">{{is_start ? 'Stop' : 'Start'}}</button>
+      <p class="font-size18" [ngClass]="{'reset' : !is_start, 'dispaly_none' : is_start}" (click)="resetTimer()">Reset</p>
     </div>
     <div class="img-top">
     <a detail-none href=# (click)="decrement()" class="left width30 button-timelog">

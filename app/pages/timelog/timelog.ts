@@ -26,6 +26,7 @@ export class TimelogPage {
     displayFormat: string;
     date_now: any;
     is_start: boolean = false;
+    is_reset: boolean = false;
     minuteValues: Array<number> = [0, 15, 30, 45, 0];
     start_time: string = "";
     stop_time: string = "";
@@ -105,20 +106,14 @@ ngOnInit()
 
     if (localStorage.getItem('countDownDate') != ''){
         this.countDownDate = localStorage.getItem('countDownDate');
-        console.log(this.countDownDate, "this.countDownDate");
         this.timerStart();
     }
     else if (localStorage.getItem('countDownDate') == '' || localStorage.getItem('past') != ''){
         distance = localStorage.getItem('past');
-        console.log(localStorage.getItem('past'), "past");
         distance = Number(distance);
         this.showTimer(distance);
     }
-    else{
-        console.log(localStorage.getItem('past'), "past");
-        console.log(this.countDownDate, "this.countDownDate");
-        console.log(localStorage.getItem('countDownDate'),"locaL countdown");
-    }
+
 
     let name = (this.time.user_name + " " + this.time.user_email).trim().split(' ')[0];
             if (this.time.time_id)
@@ -313,7 +308,7 @@ ngOnInit()
         //edat = JSON.stringify(new Date(dat2));
         let hours = Number(this.timecount);
         let non_work_hours = Number(this.timecount_nonwork);
-        console.log(hours, "hours");
+
         if (hours + this.timecount_nonwork < this.mintime)
         {
             this.nav.alert("Not enough time", true);
@@ -428,6 +423,7 @@ ngOnInit()
                         }
                         this.nav.alert('Time was successfully ' + (isEdit ? 'updated' : 'added') + ' :)');
                         this.close(tt);
+                        this.resetTimer();
                     },
                     error => {
                         console.log(error || 'Server error');
@@ -456,7 +452,6 @@ ngOnInit()
                                                 "prepaidpack": this.selects.prepaidpack});
         let old = localStorage.getItem('past');
         old = Number(old);
-        console.log(old, "old");
     // Update the count down every 1 second
     this.stopwatch = setInterval(() => {
 
@@ -482,13 +477,21 @@ ngOnInit()
         localStorage.setItem('past', this.past);
         localStorage.setItem('countDownDate', '');
         this.countDownDate = '';
-        //tested
-        let temp = this.hours+"."+this.minutes;
-        temp = Number(temp);
-        console.log(temp,"temp");
-        //let x = this.roundToMultiple(temp, this.inc);
-        //console.log(x,"x");
-        console.log(this.countDownDate, "countDownDate");
+        //this.minutes = 44;   //for test value
+        //this.hours = 2;
+        let incHours = this.hours;
+        let incMinutes = this.roundToMultiple(this.minutes, this.inc);
+        if (incMinutes == 60){
+            incMinutes = 0;
+            incHours++;
+        }
+        let exportHours = incHours + "." + incMinutes;
+        exportHours = Number(exportHours);
+        if (exportHours == 0)
+            this.timecount = this.inc.toFixed(2);
+        else{
+        this.timecount = exportHours;
+        }
         this.config.setRecent({"account": this.selects.account,
                                                "project": this.selects.project,
                                                "tasktype": this.selects.tasktype,
@@ -497,14 +500,19 @@ ngOnInit()
     }
     roundToMultiple(time, inc) {
     if(inc ==0.25)
-        inc = 0.15;
+        inc = 15;
     else if (inc == 0.5)
-        inc = 0.3;
+        inc = 30;
     else
-        inc = 1;
-    let timehour = Math.round(time/inc)*inc;
-
-        return Math.round(time/inc)*inc;
+        inc = 60;
+    let min = Math.round(time/inc)*inc;
+    if(min == 15)
+        min = 25;
+    else if(min == 30)
+        min = 50;
+    else if(min == 45)
+        min = 75;
+    return min;
     }
 
     showTimer(distance){
@@ -526,6 +534,14 @@ ngOnInit()
       console.log("countDownDate", this.countDownDate, "distance", distance, this.seconds);
 
   }
+
+    resetTimer() {
+        this.hours = "00";
+        this.minutes = "00";
+        this.seconds = "00";
+        localStorage.setItem('past', '');
+        localStorage.setItem('countDownDate', '');
+    }
 
     setMinTime(date) {
         return (date || this.time.date || this.GetLocalDate().substring(0,4));

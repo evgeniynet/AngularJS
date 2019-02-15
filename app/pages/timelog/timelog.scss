@@ -32,6 +32,16 @@
     height: 1.8em;
     font-size: 30px;
 }
+.reset{
+    position: absolute;
+    right: 10%;
+    margin-top: -37px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.dispaly_none{
+    display:none;
+}
 
 .blue_button{
     background-color: #629fd3;
