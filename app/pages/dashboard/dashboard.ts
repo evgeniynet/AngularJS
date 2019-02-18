@@ -55,8 +55,6 @@ export class DashboardPage {
           weekday: 'short'
         };
         this.date = new Date().toLocaleString("en-US", options);
-        //this.timelogs = this.timeProvider._dataStore[this.cachename];
-        //this.getTimelog();
         this.ticketProvider.getTicketsCounts();
         this.ticketProvider.tickets$["tickets/counts"].subscribe(
             data => {
@@ -136,24 +134,28 @@ export class DashboardPage {
                 this.ticketProvider.getTicketsList("user", "", "",{ "limit": 6 });
             }
             if (this.config.current.is_time_tracking && !(this.timeProvider._dataStore["time"] || {}).length){
+                this.timeProvider.getTimelogs("", "", { "limit": 25 });
+           }
+        }, 2500);
+    
+        if (this.config.current.is_time_tracking){
                 let date = new Date().toJSON().substring(0,10);
-                this.timeProvider.getTimelogs(-1, this.config.current.user.user_id, { "limit": 25 }, date, date);
                 this.cachename = addp("time", "account", "-1");
                 this.cachename = addp(this.cachename, "tech", this.config.current.user.user_id);
                 this.cachename = addp(this.cachename, "start_date", date);
                 this.cachename = addp(this.cachename, "end_date", date);
-                console.log(this.cachename, "this.cachename");
+                this.countHours(this.timeProvider._dataStore[this.cachename] || []);
+                this.timeProvider.getTimelogs(-1, this.config.current.user.user_id, { "limit": 25 }, date, date);
                 this.timelogs = this.timeProvider.times$[this.cachename];
-                this.getTimelog();
-           }
-        }, 2500);
+                this.timelogs.subscribe(
+                        data => this.countHours(data, new Date())
+                        );
+         }
     }
 
-    getTimelog(){
-                this.timelogs.subscribe(
-                        data => {
-                            console.log(data, "data");
-                            let non_working_hours = 0;
+    countHours(data, count?){
+        console.log("countHours");
+        let non_working_hours = 0;
                             let working = 0;
                             data.forEach(item => {
                                  working += item.hours;
@@ -162,7 +164,6 @@ export class DashboardPage {
                             });
                             this.non_working_hours = non_working_hours;
                             this.working = working;
-                });
     }
 
     onPageDidEnter()
@@ -190,6 +191,8 @@ export class DashboardPage {
     }
 
     ngOnDestroy(){
+        console.log("ngOnDestroy"); 
+        //this.timelogs.unsÏubscribe();      
         clearTimeout(this.timer);  
     }
 
