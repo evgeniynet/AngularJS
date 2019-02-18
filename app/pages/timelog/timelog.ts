@@ -499,19 +499,11 @@ ngOnInit()
                                                 "prepaidpack": this.selects.prepaidpack});
     }
     roundToMultiple(time, inc) {
-    if(inc ==0.25)
-        inc = 15;
-    else if (inc == 0.5)
-        inc = 30;
-    else
-        inc = 60;
+    inc = 60 * inc;
+    console.log(inc,"inc");
     let min = Math.round(time/inc)*inc;
-    if(min == 15)
-        min = 25;
-    else if(min == 30)
-        min = 50;
-    else if(min == 45)
-        min = 75;
+    min = (min / 60)*100;
+    console.log(min,"min");
     return min;
     }
 
