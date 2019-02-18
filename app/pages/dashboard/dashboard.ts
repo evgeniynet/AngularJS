@@ -10,6 +10,7 @@ import {TicketDetailsPage} from '../ticket-details/ticket-details';
 import {AjaxSearchPage} from '../ajax-search/ajax-search';
 import {MorePipe} from '../../pipes/pipes';
 import {addp} from '../../directives/helpers';
+import {Subject} from 'rxjs';
 
 @Page({
     templateUrl: 'build/pages/dashboard/dashboard.html',
@@ -33,6 +34,7 @@ export class DashboardPage {
     search_results: any;
     busy: boolean;
     date: any;
+    private unsubscribe$:Subject<void> = new Subject();
 
     constructor(private nav: Nav, private config: Config, private apiData: ApiData, private dataProvider: DataProvider, private ticketProvider: TicketProvider, private timeProvider: TimeProvider) {
         let counts = config.getStat("tickets");
@@ -147,7 +149,7 @@ export class DashboardPage {
                 this.countHours(this.timeProvider._dataStore[this.cachename] || []);
                 this.timeProvider.getTimelogs(-1, this.config.current.user.user_id, { "limit": 25 }, date, date);
                 this.timelogs = this.timeProvider.times$[this.cachename];
-                this.timelogs.subscribe(
+                this.timelogs.takeUntil(this.unsubscribe$).subscribe(
                         data => this.countHours(data, new Date())
                         );
          }
@@ -190,9 +192,9 @@ export class DashboardPage {
         }
     }
 
-    ngOnDestroy(){
-        console.log("ngOnDestroy"); 
-        //this.timelogs.unsÏubscribe();      
+    ngOnDestroy(){  
+        this.unsubscribe$.next();
+        this.unsubscribe$.complete();   
         clearTimeout(this.timer);  
     }
 
