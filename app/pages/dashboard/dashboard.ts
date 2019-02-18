@@ -50,7 +50,6 @@ export class DashboardPage {
     {       
         this.simple = !this.config.current.is_time_tracking && !this.config.current.is_expenses;
         let options = {
-          year: 'numeric',
           month: 'short',
           day: 'numeric',
           weekday: 'short'
