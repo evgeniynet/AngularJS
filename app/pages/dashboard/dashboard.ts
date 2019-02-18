@@ -150,13 +150,12 @@ export class DashboardPage {
                 this.timeProvider.getTimelogs(-1, this.config.current.user.user_id, { "limit": 25 }, date, date);
                 this.timelogs = this.timeProvider.times$[this.cachename];
                 this.timelogs.takeUntil(this.unsubscribe$).subscribe(
-                        data => this.countHours(data, new Date())
+                        data => this.countHours(data)
                         );
          }
     }
 
-    countHours(data, count?){
-        console.log("countHours");
+    countHours(data){
         let non_working_hours = 0;
                             let working = 0;
                             data.forEach(item => {
