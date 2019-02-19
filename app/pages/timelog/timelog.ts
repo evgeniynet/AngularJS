@@ -24,9 +24,18 @@ export class TimelogPage {
     he: any;
     selects: any = {};
     displayFormat: string;
+    date_now: any;
+    is_start: boolean = false;
+    is_reset: boolean = false;
     minuteValues: Array<number> = [0, 15, 30, 45, 0];
     start_time: string = "";
     stop_time: string = "";
+    stopwatch: any;
+    countDownDate: any = '';
+    past: any;
+    seconds: any = "00";
+    minutes: any = "00";
+    hours: any = "00";
     UserDateOffset: number = -5;
     //start_stop_hours: number = 0;
     //@ViewChild('starttime') starttime:DateTime;
@@ -82,6 +91,29 @@ ngOnInit()
 {    
     this.UserDateOffset = this.config.getCurrent("timezone_offset");
     this.time = this.navParams.data || {};
+    let options = {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+          weekday: 'short'
+        };
+        this.date_now = new Date().toLocaleString("en-US", options);
+
+        let distance = localStorage.getItem('past');
+        distance = Number(distance);
+        if(isNaN(distance))
+            localStorage.setItem('past', '');
+
+    if (localStorage.getItem('countDownDate') != ''){
+        this.countDownDate = localStorage.getItem('countDownDate');
+        this.timerStart();
+    }
+    else if (localStorage.getItem('countDownDate') == '' || localStorage.getItem('past') != ''){
+        distance = localStorage.getItem('past');
+        distance = Number(distance);
+        this.showTimer(distance);
+    }
+
 
     let name = (this.time.user_name + " " + this.time.user_email).trim().split(' ')[0];
             if (this.time.time_id)
@@ -312,6 +344,7 @@ ngOnInit()
             if (this.endsWith(this.stop_time, "Z"))
                 stop_time = stop_time.substring(0,19);
             var date = this.time.date || this.GetLocalDate();
+            localStorage.setItem('past', '');
             if (start_time)
             {
                 date = start_time;
@@ -390,6 +423,7 @@ ngOnInit()
                         }
                         this.nav.alert('Time was successfully ' + (isEdit ? 'updated' : 'added') + ' :)');
                         this.close(tt);
+                        this.resetTimer();
                     },
                     error => {
                         console.log(error || 'Server error');
@@ -400,6 +434,105 @@ ngOnInit()
 
     setDate(date, showmonth?, istime?) {
         return date ? getDateTime(date, showmonth, istime) : null;
+    }
+
+    timerStart(){
+        this.is_start=!this.is_start;
+     if(!this.countDownDate || this.countDownDate == ''){
+         this.countDownDate = new Date().getTime();
+        localStorage.setItem('countDownDate', this.countDownDate.toString());
+     }
+     else (this.countDownDate != '')
+         this.countDownDate = Number(this.countDownDate);
+        
+        this.config.setRecent({"account": this.selects.account,
+                                               "project": this.selects.project,
+                                               "tasktype": this.selects.tasktype,
+                                               "contract": this.selects.contract,
+                                                "prepaidpack": this.selects.prepaidpack});
+        let old = localStorage.getItem('past');
+        old = Number(old);
+    // Update the count down every 1 second
+    this.stopwatch = setInterval(() => {
+
+      // Get todays date and time
+      let now = new Date().getTime();
+
+      // Find the distance between now and the count down date
+      let distance = now - this.countDownDate + old;
+      this.showTimer(distance);
+      
+    }, 1000);
+    }
+
+    timerStop(){
+        clearInterval(this.stopwatch);
+        this.is_start=!this.is_start;
+        let now = new Date().getTime();
+        this.past = now - this.countDownDate;
+        let oldTimer = localStorage.getItem('past')
+        oldTimer = Number(oldTimer);
+        this.past = this.past+oldTimer;
+        console.log(this.past, "past");
+        localStorage.setItem('past', this.past);
+        localStorage.setItem('countDownDate', '');
+        this.countDownDate = '';
+        //this.minutes = 44;   //for test value
+        //this.hours = 2;
+        let incHours = this.hours;
+        let incMinutes = this.roundToMultiple(this.minutes, this.inc);
+        if (incMinutes == 60){
+            incMinutes = 0;
+            incHours++;
+        }
+        let exportHours = incHours + "." + incMinutes;
+        exportHours = Number(exportHours);
+        if (exportHours == 0)
+            this.timecount = this.inc.toFixed(2);
+        else{
+        this.timecount = exportHours;
+        }
+        this.config.setRecent({"account": this.selects.account,
+                                               "project": this.selects.project,
+                                               "tasktype": this.selects.tasktype,
+                                               "contract": this.selects.contract,
+                                                "prepaidpack": this.selects.prepaidpack});
+    }
+    roundToMultiple(time, inc) {
+    inc = 60 * inc;
+    console.log(inc,"inc");
+    let min = Math.round(time/inc)*inc;
+    min = (min / 60)*100;
+    console.log(min,"min");
+    return min;
+    }
+
+    showTimer(distance){
+    this.hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      if (this.hours < 10) {
+          this.hours.toString();
+          this.hours = "0" + this.hours;
+      }
+      this.minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      if (this.minutes < 10) {
+          this.minutes.toString();
+          this.minutes = "0" + this.minutes;
+      }
+      this.seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      if (this.seconds < 10) {
+          this.seconds.toString();
+          this.seconds = "0" + this.seconds;
+      }
+      console.log("countDownDate", this.countDownDate, "distance", distance, this.seconds);
+
+  }
+
+    resetTimer() {
+        this.hours = "00";
+        this.minutes = "00";
+        this.seconds = "00";
+        localStorage.setItem('past', '');
+        localStorage.setItem('countDownDate', '');
     }
 
     setMinTime(date) {
@@ -459,12 +592,12 @@ ngOnInit()
         return interval;
     }
 
-
     getFixed(value) {
         return Number(value || "0").toFixed(2).toString();
     }
     
     close(data?) {
+        //clearInterval(this.stopwatch);
         this.view.dismiss(data);
     }
 

@@ -1,13 +1,16 @@
 import {Page, Config, Nav} from 'ionic-angular';
 import {ApiData, DataProvider, TicketProvider, TimeProvider} from '../../providers/providers';
+import {getDateTime} from '../../directives/helpers';
 import {Focuser} from '../../directives/directives';
 import {QueuesListComponent, AccountsListComponent, ActionButtonComponent, TodoListComponent} from '../../components/components';
 import {TicketsPage} from '../tickets/tickets';
+import {TimelogsPage} from '../timelogs/timelogs';
 import {AccountDetailsPage} from '../account-details/account-details';
 import {TicketDetailsPage} from '../ticket-details/ticket-details';
 import {AjaxSearchPage} from '../ajax-search/ajax-search';
 import {MorePipe} from '../../pipes/pipes';
 import {addp} from '../../directives/helpers';
+import {Subject} from 'rxjs';
 
 @Page({
     templateUrl: 'build/pages/dashboard/dashboard.html',
@@ -23,9 +26,15 @@ export class DashboardPage {
     test: boolean;
     simple: boolean = false;
     timer: any;
+    timelogs: any;
+    cachename: string;
+    working: number = 0;
+    non_working_hours: number = 0;
     downloadTimer: any;
     search_results: any;
     busy: boolean;
+    date: any;
+    private unsubscribe$:Subject<void> = new Subject();
 
     constructor(private nav: Nav, private config: Config, private apiData: ApiData, private dataProvider: DataProvider, private ticketProvider: TicketProvider, private timeProvider: TimeProvider) {
         let counts = config.getStat("tickets");
@@ -42,6 +51,12 @@ export class DashboardPage {
     onPageLoaded()
     {       
         this.simple = !this.config.current.is_time_tracking && !this.config.current.is_expenses;
+        let options = {
+          month: 'short',
+          day: 'numeric',
+          weekday: 'short'
+        };
+        this.date = new Date().toLocaleString("en-US", options);
         this.ticketProvider.getTicketsCounts();
         this.ticketProvider.tickets$["tickets/counts"].subscribe(
             data => {
@@ -111,7 +126,7 @@ export class DashboardPage {
                     }
                     );  
         }
-        
+
         if (!this.ticketProvider._dataStore.tech.length){
             this.ticketProvider.getTicketsList("tech", "", "",{ "limit": 6 }); 
         }
@@ -120,9 +135,36 @@ export class DashboardPage {
             if (!this.ticketProvider._dataStore.user.length) {
                 this.ticketProvider.getTicketsList("user", "", "",{ "limit": 6 });
             }
-            if (this.config.current.is_time_tracking && !(this.timeProvider._dataStore["time"] || {}).length)
+            if (this.config.current.is_time_tracking && !(this.timeProvider._dataStore["time"] || {}).length){
                 this.timeProvider.getTimelogs("", "", { "limit": 25 });
+           }
         }, 2500);
+    
+        if (this.config.current.is_time_tracking){
+                let date = new Date().toJSON().substring(0,10);
+                this.cachename = addp("time", "account", "-1");
+                this.cachename = addp(this.cachename, "tech", this.config.current.user.user_id);
+                this.cachename = addp(this.cachename, "start_date", date);
+                this.cachename = addp(this.cachename, "end_date", date);
+                this.countHours(this.timeProvider._dataStore[this.cachename] || []);
+                this.timeProvider.getTimelogs(-1, this.config.current.user.user_id, { "limit": 25 }, date, date);
+                this.timelogs = this.timeProvider.times$[this.cachename];
+                this.timelogs.takeUntil(this.unsubscribe$).subscribe(
+                        data => this.countHours(data)
+                        );
+         }
+    }
+
+    countHours(data){
+        let non_working_hours = 0;
+                            let working = 0;
+                            data.forEach(item => {
+                                 working += item.hours;
+                                 if (item.non_working_hours != -1)
+                                     non_working_hours += item.non_working_hours;
+                            });
+                            this.non_working_hours = non_working_hours;
+                            this.working = working;
     }
 
     onPageDidEnter()
@@ -130,6 +172,17 @@ export class DashboardPage {
         this.term = "";
     }
 
+    itemTapped(event) {
+       // console.log(event);
+         let tech = { tech_id: this.config.current.user.user_id, tech_name: this.config.current.user.firstname+" "+this.config.current.user.lastname };
+         console.log(tech);
+         this.nav.push(TimelogsPage, tech);
+                   }
+
+    setDate(date, showmonth?, istime?) {
+        return date ? getDateTime(date, showmonth, istime) : null;
+    }
+                   
     saveCache(){
         let el = document.elementFromPoint(window.innerWidth/2, window.innerHeight/2);
         let content = el.closest('ion-nav');
@@ -138,7 +191,9 @@ export class DashboardPage {
         }
     }
 
-    ngOnDestroy(){
+    ngOnDestroy(){  
+        this.unsubscribe$.next();
+        this.unsubscribe$.complete();   
         clearTimeout(this.timer);  
     }
 

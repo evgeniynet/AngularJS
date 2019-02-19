@@ -46,7 +46,7 @@ export class TimelogsPage {
         this.selects = {
             "tech" : {
                 name: "Tech", 
-                value: "--All " +this.config.current.names.tech.p+" --",
+                value: this.params.tech.id==0? "--All " +this.config.current.names.tech.p+" --": this.params.tech.name,
                 default: "--All " +this.config.current.names.tech.p+" --",
                 isnew_disabled: true,
                 selected: (this.params.tech || {}).id || 0,
@@ -62,7 +62,7 @@ export class TimelogsPage {
                 hidden: false
             }
         };
-        
+        console.log(this.selects.tech.default);
         if (!this.params.account)
         {
                 recent = this.config.current.recent || {};
