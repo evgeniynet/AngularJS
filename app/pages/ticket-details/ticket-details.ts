@@ -1106,7 +1106,8 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
      let myModal = Modal.create(TimelogPage, { "number": this.ticket.number, "ticket_number": this.ticket.key, "subject": this.ticket.subject, "account_id": this.ticket.account_id, "is_force_time_on_closing_tickets": this.config.current.is_force_time_on_closing_tickets && this.ticket.total_time_in_minutes < 1 && isClose });
      myModal.onDismiss(data => {
        if(data){
-       this.closeTicket(true);
+         if(isClose)
+           this.closeTicket(true);
      }
        });
        this.nav.present(myModal);
