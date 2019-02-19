@@ -104,11 +104,11 @@ ngOnInit()
         if(isNaN(distance))
             localStorage.setItem('past', '');
 
-    if (localStorage.getItem('countDownDate') != ''){
+    if (localStorage.getItem('countDownDate') != '' && !this.time.time_id){
         this.countDownDate = localStorage.getItem('countDownDate');
         this.timerStart();
     }
-    else if (localStorage.getItem('countDownDate') == '' || localStorage.getItem('past') != ''){
+    else if ((localStorage.getItem('countDownDate') == '' || localStorage.getItem('past') != '') && !this.time.time_id){
         distance = localStorage.getItem('past');
         distance = Number(distance);
         this.showTimer(distance);
@@ -473,7 +473,6 @@ ngOnInit()
         let oldTimer = localStorage.getItem('past')
         oldTimer = Number(oldTimer);
         this.past = this.past+oldTimer;
-        console.log(this.past, "past");
         localStorage.setItem('past', this.past);
         localStorage.setItem('countDownDate', '');
         this.countDownDate = '';
@@ -500,10 +499,8 @@ ngOnInit()
     }
     roundToMultiple(time, inc) {
     inc = 60 * inc;
-    console.log(inc,"inc");
     let min = Math.round(time/inc)*inc;
     min = (min / 60)*100;
-    console.log(min,"min");
     return min;
     }
 
@@ -523,7 +520,7 @@ ngOnInit()
           this.seconds.toString();
           this.seconds = "0" + this.seconds;
       }
-      console.log("countDownDate", this.countDownDate, "distance", distance, this.seconds);
+      //console.log("countDownDate", this.countDownDate, "distance", distance, this.seconds);
 
   }
 
@@ -533,6 +530,10 @@ ngOnInit()
         this.seconds = "00";
         localStorage.setItem('past', '');
         localStorage.setItem('countDownDate', '');
+    }
+
+    ngOnDestroy(){    
+        clearTimeout(this.stopwatch);  
     }
 
     setMinTime(date) {
