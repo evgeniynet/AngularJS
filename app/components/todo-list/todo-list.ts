@@ -4,6 +4,7 @@ import {TodoProvider} from '../../providers/todo-provider';
 import {TodoCreatePage} from '../../pages/todo-create/todo-create';
 import {addp, getDateTime} from '../../directives/helpers';
 import {TicketDetailsPage} from '../../pages/ticket-details/ticket-details';
+import {Subject} from 'rxjs';
 
 @Component({
     selector: 'todo-list',
@@ -29,6 +30,7 @@ export class TodoListComponent {
     busy: boolean;
     hidden: boolean;
     initial_load: boolean = true;
+    private unsubscribe$:Subject<void> = new Subject();
 
      constructor(private nav: Nav, private todoProvider: TodoProvider, private config: Config, private navParams: NavParams) {
          this.is_empty = false;
@@ -109,7 +111,7 @@ export class TodoListComponent {
             setTimeout(() => {
                 this.busy = false;
             }, 3000);
-            this.todoLists.subscribe(
+            this.todoLists.takeUntil(this.unsubscribe$).subscribe(
                 data => {
                     clearTimeout(timer);
                     //this.todoLists = this.todoProvider.todos$[this.cachename];
@@ -161,6 +163,11 @@ export class TodoListComponent {
         if (~value.indexOf("."))
             return Number(value).toFixed(2).toString();
         return value;
+    }
+
+    ngOnDestroy(){  
+        this.unsubscribe$.next();
+        this.unsubscribe$.complete(); 
     }
 
     itemTapped(tlist) {

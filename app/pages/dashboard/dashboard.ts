@@ -175,7 +175,6 @@ export class DashboardPage {
     itemTapped(event) {
        // console.log(event);
          let tech = { tech_id: this.config.current.user.user_id, tech_name: this.config.current.user.firstname+" "+this.config.current.user.lastname };
-         console.log(tech);
          this.nav.push(TimelogsPage, tech);
                    }
 

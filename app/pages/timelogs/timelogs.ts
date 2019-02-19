@@ -7,6 +7,7 @@ import {TimelogPage} from '../timelog/timelog';
 import {ActionButtonComponent} from '../../components/action-button/action-button';
 import {SelectListComponent} from '../../components/select-list/select-list';
 import {getDateTime} from '../../directives/helpers';
+import {Subject} from 'rxjs';
 import {GravatarPipe, MorePipe, LinebreaksPipe} from '../../pipes/pipes';
 
 @Page({
@@ -28,6 +29,7 @@ export class TimelogsPage {
     busy: boolean;
     test: boolean;
     initial_load: boolean = true;
+    private unsubscribe$:Subject<void> = new Subject();
 
 
     constructor(private nav: Nav, private timeProvider: TimeProvider, private config: Config, private navParams: NavParams, private view: ViewController) {
@@ -37,7 +39,6 @@ export class TimelogsPage {
     onPageLoaded()
     {
         this.params = this.navParams.data || {};
-        console.log(this.params, "this.params");
         this.pager = { page: 0 };
         this.params.account = { id: this.params.account_id || -1, name: this.params.account_name || "" };
         this.params.tech = { id: this.params.tech_id || 0, name: this.params.tech_name || "" };
@@ -62,7 +63,7 @@ export class TimelogsPage {
                 hidden: false
             }
         };
-        console.log(this.selects.tech.default);
+        
         if (!this.params.account)
         {
                 recent = this.config.current.recent || {};
@@ -113,13 +114,19 @@ export class TimelogsPage {
             setTimeout(() => {
                 this.busy = false;
             }, 10000);
-            this.timelogs.subscribe(
+            this.timelogs.takeUntil(this.unsubscribe$).subscribe(
                 data => {
+                    console.log(data,"data");
                     clearTimeout(timer);
                     this.busy = false;
                     this.is_empty = !data.length;
                 });
         }
+    }
+
+    ngOnDestroy(){  
+        this.unsubscribe$.next();
+        this.unsubscribe$.complete();   
     }
 
     onPageWillEnter() {
