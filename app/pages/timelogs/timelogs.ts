@@ -116,7 +116,6 @@ export class TimelogsPage {
             }, 10000);
             this.timelogs.takeUntil(this.unsubscribe$).subscribe(
                 data => {
-                    console.log(data,"data");
                     clearTimeout(timer);
                     this.busy = false;
                     this.is_empty = !data.length;
@@ -148,7 +147,6 @@ export class TimelogsPage {
             return;
         }
         this.pager.page += 1;
-        console.log( this.pager.page," this.pager.page");
         let cachedlen = (this.timeProvider._dataStore[this.cachename] || {}).length;
         this.timeProvider.getTimelogs(this.params.account.id, this.selects.tech.selected, this.pager);
         this.timelogs.takeUntil(this.unsubscribe$).subscribe(
