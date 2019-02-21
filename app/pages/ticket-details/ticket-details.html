@@ -7,7 +7,7 @@
 <ion-content>
   <ion-toolbar class="blue3 display_flex">
   <div (click)="showSubjChange = !showSubjChange">
-   <h4 class="width90" style="width: 85% !important;">{{ticket.subject | Htmlsafe}}</h4>
+   <h4 style="width: unset !important; max-width: 85%; margin-right: 10px">{{ticket.subject | Htmlsafe}}</h4>
    <ion-icon name="md-create" style="font-size:1.8em; margin-top:9px" ></ion-icon>
    <h5 *ngIf="ticket.next_step != ''" class="width90 span-left grey3_color" style="margin-top: -5px; margin-bottom: 5px; padding: 0px !important;">Next step: <span class="text-color">{{ticket.next_step}} - </span>  {{ticket.next_step_date | Daysago}}</h5>
   </div>
