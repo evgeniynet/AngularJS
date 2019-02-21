@@ -103,7 +103,7 @@ export class TimelogsPage {
 //account_id = this.params.account.id;
         //else
         //    account_id = this.selects.account.selected;
-    
+        this.pager.page = 0;
         this.timeProvider.getTimelogs(this.params.account.id, this.params.tech.id, this.pager);
         this.timelogs = this.timeProvider.times$[this.cachename];
         if (!this.cachelen)
@@ -148,9 +148,10 @@ export class TimelogsPage {
             return;
         }
         this.pager.page += 1;
+        console.log( this.pager.page," this.pager.page");
         let cachedlen = (this.timeProvider._dataStore[this.cachename] || {}).length;
         this.timeProvider.getTimelogs(this.params.account.id, this.selects.tech.selected, this.pager);
-        this.timelogs.subscribe(
+        this.timelogs.takeUntil(this.unsubscribe$).subscribe(
             data => {
                 infiniteScroll.complete();
                 let len = data.length;
