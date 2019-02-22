@@ -419,6 +419,8 @@ ngOnInit()
                             user_email:this.he.email,
                             user_id:this.he.user_id,
                             user_name :this.he.firstname + " " + this.he.lastname};
+                            let date = new Date().toJSON().substring(0,10);
+                            this.timeProvider.getTimelogs("0", this.config.current.user.user_id, { "limit": 25 }, date, date);
                             (this.timeProvider._dataStore[this.time.cachename] || []).splice(0, 0, tt);
                         }
                         this.nav.alert('Time was successfully ' + (isEdit ? 'updated' : 'added') + ' :)');
