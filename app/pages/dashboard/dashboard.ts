@@ -136,18 +136,19 @@ export class DashboardPage {
                 this.ticketProvider.getTicketsList("user", "", "",{ "limit": 6 });
             }
             if (this.config.current.is_time_tracking && !(this.timeProvider._dataStore["time"] || {}).length){
-                this.timeProvider.getTimelogs("", "", { "limit": 25 });
+                this.timeProvider.getTimelogs("0", "", { "limit": 25 });
            }
         }, 2500);
     
         if (this.config.current.is_time_tracking){
                 let date = new Date().toJSON().substring(0,10);
-                this.cachename = addp("time", "account", "-1");
+                let account = "0";
+                this.cachename = addp("time", "account", account);
                 this.cachename = addp(this.cachename, "tech", this.config.current.user.user_id);
                 this.cachename = addp(this.cachename, "start_date", date);
                 this.cachename = addp(this.cachename, "end_date", date);
                 this.countHours(this.timeProvider._dataStore[this.cachename] || []);
-                this.timeProvider.getTimelogs(-1, this.config.current.user.user_id, { "limit": 25 }, date, date);
+                this.timeProvider.getTimelogs(account, this.config.current.user.user_id, { "limit": 25 }, date, date);
                 this.timelogs = this.timeProvider.times$[this.cachename];
                 this.timelogs.takeUntil(this.unsubscribe$).subscribe(
                         data => this.countHours(data)

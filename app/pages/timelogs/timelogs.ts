@@ -40,7 +40,7 @@ export class TimelogsPage {
     {
         this.params = this.navParams.data || {};
         this.pager = { page: 0 };
-        this.params.account = { id: this.params.account_id || -1, name: this.params.account_name || "" };
+        this.params.account = { id: this.params.account_id || "0", name: this.params.account_name || "" };
         this.params.tech = { id: this.params.tech_id || 0, name: this.params.tech_name || "" };
         let recent : any = {};
 
@@ -58,7 +58,7 @@ export class TimelogsPage {
                 name: "Account", 
                 value:  "--All " +this.config.current.names.account.p+" --",
                 default: "--All " +this.config.current.names.account.p+" --",
-                selected:  (this.params.account || {}).id || -1,
+                selected:  (this.params.account || {}).id || "0",
                 url: "accounts?is_with_statistics=false",
                 hidden: false
             }
