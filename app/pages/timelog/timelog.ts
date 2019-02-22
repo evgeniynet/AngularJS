@@ -255,6 +255,8 @@ ngOnInit()
                 this.selects.ticket.selected = 0;
             }
             this.selects.project.hidden = !this.config.current.is_project_tracking;
+            this.selects.tasktype.value = "Choose";
+            this.selects.tasktype.selected = 0;
             break;
             case "project" :
             if (this.selects.project.selected === event.id)
@@ -269,6 +271,8 @@ ngOnInit()
                 this.selects.ticket.selected = 0;
             }
             project_id = event.id;
+            this.selects.tasktype.value = "Choose";
+            this.selects.tasktype.selected = 0;
             break;
             case "contract" :
             if (this.selects.contract.selected === event.id)
@@ -280,6 +284,8 @@ ngOnInit()
             this.selects.prepaidpack.value = "Choose (optional)";
             this.selects.prepaidpack.selected = 0;
             contract_id = event.id;
+            this.selects.tasktype.value = "Choose";
+            this.selects.tasktype.selected = 0;
             break;
 
             case "ticket" :
@@ -288,11 +294,11 @@ ngOnInit()
                 break;
             }
             ticket_id = event.id;
+            this.selects.tasktype.value = "Choose";
+            this.selects.tasktype.selected = 0;
             break;
         }
         this.selects.tasktype.url = `task_types?ticket=${ticket_id}&account=${account_id}&project=${project_id}&contract=${contract_id}`;
-        this.selects.tasktype.value = "Choose";
-        this.selects.tasktype.selected = 0;
         this.selects[name].selected = event.id;
         this.selects[name].value = event.name || "Default";
     }
