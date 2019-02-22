@@ -320,7 +320,7 @@ ngOnInit()
             this.nav.alert("Hours value should be less or equal to Start/Stop range.", true);
             return;
         }
-        if (this.config.current.is_invoice && !this.selects.contract.selected)
+        if (this.config.current.is_invoice && !this.selects.contract.selected && this.selects.contract.items.length != 0)
         {
             this.nav.alert("Please, select Contract from the list.", true);
             return;

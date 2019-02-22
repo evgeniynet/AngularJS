@@ -4,6 +4,11 @@
 //    padding-left:11px;
 }
 
+.noActive{
+    pointer-events: none;
+    opacity: 0.5;
+}
+
 .button-timelog{
     margin: 0 5% 15px 0%;
 }
