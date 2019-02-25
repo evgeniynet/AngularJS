@@ -13,7 +13,7 @@ import {InvoiceDetailsPage} from '../invoice-details/invoice-details';
 export class TimelogPage {
 
     inc : number;
-    isno_invoice: boolean;
+    isno_invoice: boolean = false;
     istaxable: boolean = true;
     timecount: any;
     timecount_nonwork: any;
@@ -106,7 +106,11 @@ ngOnInit()
 
     if (localStorage.getItem('countDownDate') != '' && !this.time.time_id){
         this.countDownDate = localStorage.getItem('countDownDate');
-        this.timerStart();
+        console.log(this.countDownDate,"this.countDownDate 1");
+        if (this.countDownDate === null)
+            this.showTimer("0");
+        else
+            this.timerStart();
     }
     else if ((localStorage.getItem('countDownDate') == '' || localStorage.getItem('past') != '') && !this.time.time_id){
         distance = localStorage.getItem('past');
@@ -127,8 +131,11 @@ ngOnInit()
             }
             else if (this.time.number)
                 this.title = `#${this.time.number} ${this.time.subject}`;
-            else
+            else{
                 this.title = "Add Time";
+                this.istaxable = true;
+                this.isno_invoice = false;
+            }
             if (this.time.invoice_id > 0)
             {
                 this.title = `Invoiced #${this.time.invoice_id} on\u00a0` + this.setDate(this.AddHours(this.time.date, this.time.time_offset), false, true);
@@ -138,9 +145,6 @@ ngOnInit()
 
             this.mintime = this.config.getCurrent("time_minimum_time") || this.inc;
             this.mintime = this.mintime > 0 ? this.mintime : this.inc;
-
-            this.isno_invoice = this.time.no_invoice;
-            this.istaxable = this.time.is_taxable;
 
             this.displayFormat = getPickerDateTimeFormat(false, true);
 
@@ -355,6 +359,7 @@ ngOnInit()
             {
                 date = start_time;
             }
+            console.log(this.istaxable, "this.istaxable final");
             //TODO if other user changes what id should I write?  
             let data = {
                 "tech_id": isEdit ? this.time.user_id : this.he.user_id,
