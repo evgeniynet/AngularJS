@@ -19,11 +19,13 @@ export class TimelogPage {
     timecount_nonwork: any;
     mintime: number;
     time: any = {};
+    date: string;
     timenote: string;
     title: string = "";
     he: any;
     selects: any = {};
     displayFormat: string;
+    displayFormatDays: string;
     date_now: any;
     is_start: boolean = false;
     is_reset: boolean = false;
@@ -31,6 +33,7 @@ export class TimelogPage {
     start_time: string = "";
     stop_time: string = "";
     stopwatch: any;
+    options; any = {};
     countDownDate: any = '';
     past: any;
     seconds: any = "00";
@@ -91,13 +94,13 @@ ngOnInit()
 {    
     this.UserDateOffset = this.config.getCurrent("timezone_offset");
     this.time = this.navParams.data || {};
-    let options = {
+    this.options = {
           year: 'numeric',
           month: 'short',
           day: 'numeric',
           weekday: 'short'
         };
-        this.date_now = new Date().toLocaleString("en-US", options);
+        this.date_now = new Date().toLocaleString("en-US", this.options);
 
         let distance = localStorage.getItem('past');
         distance = Number(distance);
@@ -106,7 +109,6 @@ ngOnInit()
 
     if (localStorage.getItem('countDownDate') != '' && !this.time.time_id){
         this.countDownDate = localStorage.getItem('countDownDate');
-        console.log(this.countDownDate,"this.countDownDate 1");
         if (this.countDownDate === null)
             this.showTimer("0");
         else
@@ -147,6 +149,7 @@ ngOnInit()
             this.mintime = this.mintime > 0 ? this.mintime : this.inc;
 
             this.displayFormat = getPickerDateTimeFormat(false, true);
+            this.displayFormatDays = getPickerDateTimeFormat(true, false); 
 
             if (this.inc >= 1)
                 this.minuteValues = [0];   
@@ -353,13 +356,13 @@ ngOnInit()
             var stop_time = this.stop_time;
             if (this.endsWith(this.stop_time, "Z"))
                 stop_time = stop_time.substring(0,19);
-            var date = this.time.date || this.GetLocalDate();
+            var date = this.time.date || this.date || this.GetLocalDate();
             localStorage.setItem('past', '');
             if (start_time)
             {
                 date = start_time;
             }
-            console.log(this.istaxable, "this.istaxable final");
+
             //TODO if other user changes what id should I write?  
             let data = {
                 "tech_id": isEdit ? this.time.user_id : this.he.user_id,
@@ -565,6 +568,8 @@ ngOnInit()
         if (time)
         {
             this.start_time = time.substring(0,19);
+            this.date_now = new Date(time).toLocaleString("en-US", this.options);
+            this.date = time;
             if (this.stop_time)
             {
                this.updateHours();
@@ -576,10 +581,20 @@ ngOnInit()
         if (time)
         {
             this.stop_time = time.substring(0,19);
+            this.date_now = new Date(time).toLocaleString("en-US", this.options);
+            this.date = time; 
             if (this.start_time)
-            {
+            {    
                 this.updateHours();
             }
+        }
+    }
+
+    setDateTimelog(time){
+        if (time)
+        {
+            this.date_now = new Date(time).toLocaleString("en-US", this.options);
+            this.date = time; 
         }
     }
 
