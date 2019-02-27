@@ -275,6 +275,7 @@ this.config.setCurrent(data);
 // set our app's pages
 if (this.config.current.user.is_techoradmin)
   this.pages = [
+{ title: 'Profile', component: pages.ProfilePage, icon: "speedometer", is_active: true },
 { title: 'Dashboard', component: pages.DashboardPage, icon: "speedometer", is_active: true },
 { title: data.names.ticket.p, component: pages.TicketsPage, icon: "create", is_active: true },
 { title: 'Timelogs', component: pages.TimelogsPage, icon: "md-time", is_active: this.config.current.is_time_tracking },

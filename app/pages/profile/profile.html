@@ -1,0 +1,40 @@
+
+<ion-navbar *navbar><button menuToggle><ion-icon name="menu"></ion-icon></button>
+  <ion-title class="padding-right24">Profile</ion-title>
+</ion-navbar>
+<ion-content class="timelog">
+    <div class="list max-width700">
+        
+  
+   <div class="general-alignment2">     
+      
+       <select-list *ngIf="!time.number" [list]="selects.account"  ajax="true" preload="true" (onChanged)='saveSelect($event)'></select-list> 
+       <ion-item no-lines class="left toggle-width" style="margin-top: 0px">
+        <ion-toggle class="toggle" [(ngModel)]="isno_invoice"></ion-toggle>
+      </ion-item>
+          <p class="left color">Showing push notification</p>
+
+       <select-list *ngIf="!time.number" [list]="selects.project" preload="true" (onChanged)='saveSelect($event)'></select-list> 
+              <ion-item no-lines class="left toggle-width" style="margin-top: 0px">
+        <ion-toggle class="toggle" [(ngModel)]="isno_invoice"></ion-toggle>
+      </ion-item>
+          <p class="left color">Showing push notification</p>
+  
+       <select-list *ngIf="!time.number" [list]="selects.ticket" preload="true" (onChanged)='saveSelect($event)'></select-list>
+              <ion-item no-lines class="left toggle-width" style="margin-top: 0px">
+        <ion-toggle class="toggle" [(ngModel)]="isno_invoice"></ion-toggle>
+      </ion-item>
+          <p class="left color">Showing push notification</p>
+          </div> 
+
+                  <form #addForm="ngForm">
+                      
+            
+          <div class="img-top">
+              <button secondary block type="submit" class="disable-hover button button-default button-block"
+              [disabled]="!addForm.valid" (click)="onSubmit(addForm)">Change Profile</button>
+              <span class="span-block"></span>
+      </div>
+      </form>
+      </div>]
+</ion-content>

@@ -4,6 +4,7 @@ export * from './technicians/technicians';
 export * from './locations/locations';
 export * from './ajax-search/ajax-search';
 export * from './dashboard/dashboard';
+export * from './profile/profile';
 export * from './expense-create/expense-create';
 export * from './expenses/expenses';
 export * from './invoice-details/invoice-details';
