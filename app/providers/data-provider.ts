@@ -66,6 +66,11 @@ export class DataProvider {
         return this.apiData.get(url);
     }
 
+    getProfile() {
+        let url = "profile";
+        return this.apiData.get(url);
+    }
+
  updateBadge() {
     if (window.cordova && ((cordova.plugins || {}).notification || {}).badge){
         if (localStorage.badge > 0){
