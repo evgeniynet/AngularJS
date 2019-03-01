@@ -163,6 +163,8 @@ export class SelectListComponent {
                  if (item.email)
                      name = getFullName(item.firstname, item.lastname, item.email, this.isbutton ? "" : " ");
                  //if tickets
+                 else if (item.fullname)
+                     name = item.fullname;
                  else if (item.number)
                      name = `#${item.number}: ${item.subject}`;
                  else if (item.prepaid_pack_id) {
