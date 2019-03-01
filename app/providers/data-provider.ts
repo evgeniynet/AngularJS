@@ -66,8 +66,10 @@ export class DataProvider {
         return this.apiData.get(url);
     }
 
-    getProfile() {
+    getProfile(id?, account?) {
         let url = "profile";
+        url = addp(url, "id", id);
+        url = addp(url, "account", account);
         return this.apiData.get(url);
     }
 

@@ -3,6 +3,7 @@ import {forwardRef, ViewChild} from '@angular/core';
 import {FORM_DIRECTIVES, Validators} from '@angular/common';
 import {TicketProvider} from '../../../providers/providers';
 import {htmlEscape, getFullName} from '../../../directives/helpers';
+import {DataProvider} from '../../../providers/data-provider';
 import {ClassListComponent} from '../../../components/class-list/class-list';
 import {LocationListComponent} from '../../../components/location-list/location-list';
 import {SelectListComponent} from '../../../components/select-list/select-list';
@@ -24,9 +25,10 @@ export class TicketCreatePage {
     files: any = [];
     customfields: any = [];
     pager: any;
+    profile: any = {};
 
     constructor(private nav: Nav, private navParams: NavParams, private ticketProvider: TicketProvider, private config: Config,
-                 private viewCtrl: ViewController) {
+                 private viewCtrl: ViewController, private dataProvider: DataProvider) {
         nav.swipeBackEnabled = false;
     }
 
@@ -40,14 +42,16 @@ export class TicketCreatePage {
 
         this.data = this.navParams.data || {};
 
+        this.getProfile();
+
         let recent : any = {};
         if (!this.data.account)
         {
                 recent = this.config.current.recent || {};
         }
 
-        let account_id = (this.data.account || {}).id || (recent.account || {}).selected || this.he.account_id || -1;
-        let location_id = (this.data.location || {}).id || (recent.location || {}).selected || 0;
+        let account_id = this.profile.account_id ||(this.data.account || {}).id || (recent.account || {}).selected || this.he.account_id || -1;
+        let location_id = this.profile.location_id || (this.data.location || {}).id || (recent.location || {}).selected || 0;
         let contract_id = recent.default_contract_id || 0;
 
         this.selects = {
@@ -60,7 +64,7 @@ export class TicketCreatePage {
             },
             "location" : {
                 name: "Location", 
-                value: (this.data.location || {}).name || (recent.location || {}).value || "Default",
+                value: this.profile.location_name || (this.data.location || {}).name || (recent.location || {}).value || "Default",
                 selected: location_id,
                 url: `locations?account=${account_id}&limit=500`,
                 hidden: false
@@ -129,7 +133,7 @@ export class TicketCreatePage {
 
         this.selects.account = {
             name: "Account", 
-            value: (this.data.account || {}).name || (recent.account || {}).value || this.he.account_name,
+            value: this.profile.account_name || (this.data.account || {}).name || (recent.account || {}).value || this.he.account_name,
             selected: account_id,
             url: "accounts?is_with_statistics=false",
             hidden: false
@@ -172,7 +176,11 @@ export class TicketCreatePage {
         this.selects[name].value = event.name;
         //change url on related lists
         switch (name) {
+            case "user" :
+                this.getProfile(event.id);
+                break;
             case "account" :
+                this.getProfile(this.selects.user.selected, event.id);
                 this.selects.project.url = `projects?account=${event.id}&is_with_statistics=false`;
                 this.selects.project.value = "Default";
                 this.selects.project.selected = 0;
@@ -181,10 +189,6 @@ export class TicketCreatePage {
                 this.selects.contract.value = "Default";
                 this.selects.contract.selected = 0;
                 contract_id = 0;
-
-                this.selects.location.url = `locations?account=${event.id}&limit=500`;
-                this.selects.location.value = "Default";
-                this.selects.location.selected = 0;
                 break;
             case "class" :
                 if (this.ticket.class_id == event.id)
@@ -194,6 +198,30 @@ export class TicketCreatePage {
               break;
         }
     }
+
+    getProfile(id?, account?){
+            this.dataProvider.getProfile(id, account).subscribe(
+            data => {
+                this.profile = data;
+                if (id && !account) {
+                this.selects.account.value = this.profile.account_name || this.he.account_name;
+                console.log(this.selects.account.value);
+                this.selects.account.selected = this.profile.account_id || -1;
+
+                this.selects.location.url = `locations?account=${this.selects.account.selected}&limit=500`;
+                this.selects.location.value = this.profile.location_name || "Default";
+                this.selects.location.selected = this.profile.location_id || 0;
+                }
+                else if(id && account){
+                this.selects.location.url = `locations?account=${this.selects.account.selected}&limit=500`;
+                this.selects.location.value = this.profile.location_name || "Default";
+                this.selects.location.selected = this.profile.location_id || 0;
+                }
+                    }, 
+            error => { 
+                console.log(error || 'Server error');}
+        ); 
+        }
 
     saveCustomfield(event){
      this.customfields.filter(tc => tc.id == event.id)[0].value = event.value;
