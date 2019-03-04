@@ -3,10 +3,12 @@ import {forwardRef, ViewChild} from '@angular/core';
 import {htmlEscape, linebreaks} from '../../directives/helpers';
 import {DataProvider} from '../../providers/data-provider';
 import {SelectListComponent} from '../../components/select-list/select-list';
+import {GravatarPipe} from '../../pipes/pipes';
 
 @Page({
     templateUrl: 'build/pages/profile/profile.html',
     directives: [forwardRef(() => SelectListComponent)],
+    pipes: [GravatarPipe],
 })
 export class ProfilePage {
 

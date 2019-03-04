@@ -1,13 +1,13 @@
 
 <ion-navbar *navbar><button menuToggle><ion-icon name="menu"></ion-icon></button>
-  <ion-title class="padding-right24">Profile</ion-title>
+  <ion-title class="padding-right24">Profile {{profile.firstname}} {{profile.lastname}}</ion-title>
 </ion-navbar>
 <ion-content class="timelog">
     <div class="list max-width700">
       <div>
-        <img src="https://static.intercomassets.com/avatars/18419/square_128/Headshot-1462396639-1462447233.jpeg?1462447233" class="avatar">
-        <h2 style="margin-bottom: 0px">{{profile.firstname}} {{profile.lastname}}</h2>
-        <h4 style="margin-top: 0px">{{profile.email}}</h4>
+        <img [alt]="profile.fullname" [src]="profile.email | Gravatar" class="avatar"/>
+        <h2 style="margin-bottom: 0px; padding-top: 7px;">{{profile.firstname}}<br>{{profile.lastname}}</h2>
+        <h6 style="margin-top: 17px">{{profile.email}}</h6>
       </div>
 
       <div *ngIf="profile.location_name">

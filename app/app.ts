@@ -5,6 +5,7 @@ import {OnInit, OnDestroy} from '@angular/core';
 import * as providers from './providers/providers';
 import {AppSite, MobileSite, dontClearCache, appVersion} from './providers/config';
 import {MOCKS} from './providers/mocks';
+import {GravatarPipe} from './pipes/pipes';
 import * as helpers from './directives/helpers';
 import * as pages from './pages/pages';
 import * as modals from './pages/modals/modals';
@@ -28,6 +29,7 @@ export interface Stat {
 @App({
   templateUrl: 'build/app.html',
   providers: [providers.ApiData, providers.DataProvider, providers.TicketProvider, providers.TimeProvider, providers.TodoProvider],
+  pipes: [GravatarPipe],
   prodMode : true,
   config: {
     tabbarPlacement: 'top',
@@ -272,10 +274,11 @@ data.names = {
 };
 */
 this.config.setCurrent(data);
+console.log(data);
 // set our app's pages
 if (this.config.current.user.is_techoradmin)
   this.pages = [
-{ title: 'Profile', component: pages.ProfilePage, icon: "speedometer", is_active: true },
+{ title: 'Profile', firstname: data.user.firstname, lastname: data.user.lastname, email: data.user.email, component: pages.ProfilePage, icon: "speedometer", is_profile: true },
 { title: 'Dashboard', component: pages.DashboardPage, icon: "speedometer", is_active: true },
 { title: data.names.ticket.p, component: pages.TicketsPage, icon: "create", is_active: true },
 { title: 'Timelogs', component: pages.TimelogsPage, icon: "md-time", is_active: this.config.current.is_time_tracking },
