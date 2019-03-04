@@ -39,13 +39,15 @@
 
         <select-list [list]="selects.categories" preload="true" (onChanged)='saveSelect($event)'></select-list>
         
+    <template [ngIf]="config.current.user.is_techoradmin || config.current.is_allow_user_choose_tech"> 
+        <select-list is_me="config.current.user.is_techoradmin" [list]="selects.tech" ajax="true" preload="true" (onChanged)='saveSelect($event)'></select-list>
+    </template>
+
     <template [ngIf]="config.current.user.is_techoradmin"> 
-    
-        <select-list is_me="true" [list]="selects.tech" ajax="true" preload="true" (onChanged)='saveSelect($event)'></select-list>
+        <select-list [list]="selects.level" preload="true" (onChanged)='saveSelect($event)'></select-list>
+    </template>
 
-          <select-list [list]="selects.level" preload="true" (onChanged)='saveSelect($event)'></select-list>
-
-    </template> 
+     
 
 <!-- New Contract -->
     <select-list [list]="selects.contract" preload="true" (onChanged)='saveSelect($event)'></select-list>
