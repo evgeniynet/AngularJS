@@ -274,7 +274,6 @@ data.names = {
 };
 */
 this.config.setCurrent(data);
-console.log(data);
 // set our app's pages
 if (this.config.current.user.is_techoradmin)
   this.pages = [

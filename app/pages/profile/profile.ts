@@ -80,7 +80,6 @@ ngOnInit()
 
         saveSelect(event){
             let name = event.type;
-            console.log(name);
             let queue1_id = this.selects.queue1.selected;
             let queue2_id = this.selects.queue2.selected;
             let queue3_id = this.selects.queue3.selected;    
