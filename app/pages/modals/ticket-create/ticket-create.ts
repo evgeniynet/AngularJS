@@ -172,11 +172,11 @@ export class TicketCreatePage {
         if (name == "submissioncategory")
             name = "submissions";
         let contract_id = this.selects.contract.selected;
-        this.selects[name].selected = event.id;
-        this.selects[name].value = event.name;
         //change url on related lists
         switch (name) {
             case "user" :
+                this.selects.user.value = event.name;
+                this.selects.user.selected = event.id;
                 this.getProfile(event.id);
                 break;
             case "account" :
@@ -196,28 +196,31 @@ export class TicketCreatePage {
             
               this.getCustomfield(event.id);
               break;
+            default:
+                    this.selects[name].selected = event.id;
+        console.log("event.id", event.id);
+        this.selects[name].value = event.name || "Default";
+        console.log("event.name", event.name);
+        break;
         }
     }
 
     getProfile(id?, account?){
             this.dataProvider.getProfile(id, account).subscribe(
             data => {
+                console.log("data", data);
                 this.profile = data;
+                console.log("account", account);
                 if (id && !account) {
                 this.selects.account.value = this.profile.account_name || this.he.account_name;
-                console.log(this.selects.account.value);
                 this.selects.account.selected = this.profile.account_id || -1;
+                this.getProfile(id, this.selects.account.selected);
+                }
 
-                this.selects.location.url = `locations?account=${this.selects.account.selected}&limit=500`;
+                this.selects.location.url = `locations?account=${this.selects.account.selected || -1}&limit=500`;
                 this.selects.location.value = this.profile.location_name || "Default";
                 this.selects.location.selected = this.profile.location_id || 0;
-                }
-                else if(id && account){
-                this.selects.location.url = `locations?account=${this.selects.account.selected}&limit=500`;
-                this.selects.location.value = this.profile.location_name || "Default";
-                this.selects.location.selected = this.profile.location_id || 0;
-                }
-                    }, 
+                   }, 
             error => { 
                 console.log(error || 'Server error');}
         ); 

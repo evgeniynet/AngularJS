@@ -14,8 +14,8 @@ export class ProfilePage {
 
     profile: any = {};
     is_queue1: boolean = true;
-    is_queue2: boolean = true;
-    is_queue3: boolean = true;
+    is_queue2: boolean = false;
+    is_queue3: boolean = false;
     date: string;
     title: string = "";
     selects: any = {};
@@ -35,9 +35,9 @@ ngOnInit()
             let queue1_id = localStorage.getItem('queue1_id') || 0;
             let queue2_id = localStorage.getItem('queue2_id') || 0;
             let queue3_id = localStorage.getItem('queue3_id') || 0;
-            this.is_queue1 = (localStorage.getItem('is_queue1') == "")? false : true;
-            this.is_queue2 = (localStorage.getItem('is_queue2') == "")? false : true;
-            this.is_queue3 = (localStorage.getItem('is_queue3') == "")? false : true;
+            this.is_queue1 = this.is_queue1 || (localStorage.getItem('is_queue1') == "true")? true : false;
+            this.is_queue2 = this.is_queue2 || (localStorage.getItem('is_queue2') == "true")? true : false;
+            this.is_queue3 = this.is_queue3 || (localStorage.getItem('is_queue3') == "true")? true : false;
 
             this.selects = {
                 "queue1" : {
@@ -143,7 +143,7 @@ ngOnInit()
             localStorage.setItem("is_queue2", (this.is_queue2)? "1":"");
             localStorage.setItem("is_queue3", (this.is_queue3)? "1":"");
             
-            this.nav.alert('Profile was changed');
+            this.nav.alert('Profile was updated');
         }
     
 

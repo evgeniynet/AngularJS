@@ -40,19 +40,19 @@
        <ion-item no-lines class="left toggle-width" style="margin-top: 0px">
         <ion-toggle class="toggle" [(ngModel)]="is_queue1"></ion-toggle>
       </ion-item>
-          <p class="left color">Showing push notification</p>
+          <p class="left color">Badge on app icon</p>
 
        <select-list [list]="selects.queue2" preload="true" (onChanged)='saveSelect($event)'></select-list> 
               <ion-item no-lines class="left toggle-width" style="margin-top: 0px">
         <ion-toggle class="toggle" [(ngModel)]="is_queue2"></ion-toggle>
       </ion-item>
-          <p class="left color">Showing push notification</p>
+          <p class="left color">Badge on app icon</p>
   
        <select-list [list]="selects.queue3" preload="true" (onChanged)='saveSelect($event)'></select-list>
               <ion-item no-lines class="left toggle-width" style="margin-top: 0px">
         <ion-toggle class="toggle" [(ngModel)]="is_queue3"></ion-toggle>
       </ion-item>
-          <p class="left color">Showing push notification</p>
+          <p class="left color">Badge on app icon</p>
           </div> 
 
                   <form #addForm="ngForm">
@@ -60,7 +60,7 @@
             
           <div class="img-top">
               <button secondary block type="submit" class="disable-hover button button-default button-block"
-              [disabled]="!addForm.valid" (click)="onSubmit(addForm)">Change Profile</button>
+              [disabled]="!addForm.valid" (click)="onSubmit(addForm)">Update Profile</button>
               <span class="span-block"></span>
       </div>
       </form>
