@@ -208,9 +208,7 @@ export class TicketCreatePage {
     getProfile(id?, account?){
             this.dataProvider.getProfile(id, account).subscribe(
             data => {
-                console.log("data", data);
                 this.profile = data;
-                console.log("account", account);
                 if (id && !account) {
                 this.selects.account.value = this.profile.account_name || this.he.account_name;
                 this.selects.account.selected = this.profile.account_id || -1;
