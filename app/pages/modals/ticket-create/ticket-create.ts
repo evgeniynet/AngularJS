@@ -127,10 +127,10 @@ export class TicketCreatePage {
             name: "Tech", 
             value: (this.data.tech || {}).name || "Default",
             selected: (this.data.tech || {}).id || 0,
-            url: "technicians",
+            url: this.config.current.is_allow_user_choose_tech && this.config.current.is_allow_user_choose_queue_only ? "users?role=queue" : "technicians",
             hidden: false
         };
-
+ 
         this.selects.account = {
             name: "Account", 
             value: this.profile.account_name || (this.data.account || {}).name || (recent.account || {}).value || this.he.account_name,

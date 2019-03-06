@@ -115,10 +115,7 @@ export class SelectListComponent {
 
                  this.apiData.get(this.list.url).subscribe(
                      data => {
-                         if (this.name == "user" && this.config.current.is_allow_user_choose_tech && this.config.current.is_allow_user_choose_queue_only)
-                             this.list.items = data.filter( v => v.type == "queue" );
-                         else
-                             this.list.items = data;
+                         this.list.items = data;
                          
                          if (loading) {
                              loading.dismiss();
