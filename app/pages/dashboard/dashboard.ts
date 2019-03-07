@@ -22,6 +22,7 @@ export class DashboardPage {
     counts: Object = { open_as_tech: 0 };
     accounts: Array<any> = [];
     queues: Array<any> = [];
+    queue_id: any = [];
     term: string = '';
     test: boolean;
     simple: boolean = false;
@@ -57,6 +58,11 @@ export class DashboardPage {
           weekday: 'short'
         };
         this.date = new Date().toLocaleString("en-US", options);
+
+        let localQueres_id = localStorage.getItem('queue_id');
+        this.queue_id = localQueres_id ? localStorage.getItem('queue_id').split(", ") : [];
+        console.log(this.queue_id , "this.queue_id ");
+
         this.ticketProvider.getTicketsCounts();
         this.ticketProvider.tickets$["tickets/counts"].subscribe(
             data => {
@@ -82,7 +88,7 @@ export class DashboardPage {
 
         if (this.config.current.is_unassigned_queue) {
             this.queues = this.config.getCache("dashqueues");
-
+            if (this.queue_id == 0) {
             this.dataProvider.getQueueList(3).subscribe(
                 data => {
                     this.queues = data;
@@ -92,6 +98,19 @@ export class DashboardPage {
                     console.log(error || 'Server error');
                 }
                 );
+            }
+            else{
+                this.dataProvider.getQueueList().subscribe(
+                data => {
+                    this.queues = data.filter( v => this.queue_id[0] == v.id || this.queue_id[1] == v.id || this.queue_id[2] == v.id);
+                    console.log(this.queues);
+                    this.config.setCache("dashqueues", this.queues);
+                },
+                error => {
+                    console.log(error || 'Server error');
+                }
+                );
+            }
 
         }
 

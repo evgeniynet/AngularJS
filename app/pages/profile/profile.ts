@@ -13,12 +13,17 @@ import {GravatarPipe} from '../../pipes/pipes';
 export class ProfilePage {
 
     profile: any = {};
+    queues: any = {};
+    queue_id: any = {};
+    queue_name: any = [];
+    is_queue: any = {};
     is_queue1: boolean = true;
-    is_queue2: boolean = false;
-    is_queue3: boolean = false;
+    is_queue2: boolean = true;
+    is_queue3: boolean = true;
     date: string;
     title: string = "";
     selects: any = {};
+    n: number = 3;
 
 
 
@@ -30,52 +35,104 @@ export class ProfilePage {
 ngOnInit()
 {    
     this.getProfile();
+    this.getQueue();
     let recent = this.config.current.recent || {};
-    
-            let queue1_id = localStorage.getItem('queue1_id') || 0;
-            let queue2_id = localStorage.getItem('queue2_id') || 0;
-            let queue3_id = localStorage.getItem('queue3_id') || 0;
-            this.is_queue1 = this.is_queue1 || (localStorage.getItem('is_queue1') == "true")? true : false;
+
+            var localQueres_id = localStorage.getItem('queue_id');
+            var local_is_Queres = localStorage.getItem('is_queue');
+            this.queue_id = localQueres_id ? localStorage.getItem('queue_id').split(", ") : [];
+            this.is_queue = local_is_Queres ? localStorage.getItem('is_queue').split(", ") : [];
+            console.log(this.queue_id, "start this.queue_id");
+
+            
             this.is_queue2 = this.is_queue2 || (localStorage.getItem('is_queue2') == "true")? true : false;
             this.is_queue3 = this.is_queue3 || (localStorage.getItem('is_queue3') == "true")? true : false;
 
             this.selects = {
                 "queue1" : {
                     name: "queue1", 
-                    value:  localStorage.getItem('queue1_name') || "Default",
-                    selected: queue1_id,
-                    url: "queues?sort_by=tickets_count",
+                    value:  this.queue_name[0],
+                    selected: this.queue_id[0],
+                    items: this.queues,
                     hidden: false,
                     is_disabled: false
                 },
                 "queue2" : {
                     name: "queue2", 
-                    value:  localStorage.getItem('queue2_name') || "Default",
-                    selected: queue2_id,
-                    url: "queues?sort_by=tickets_count",
+                    value:  this.queue_name[1],
+                    selected: this.queue_id[1],
+                    items: this.queues,
                     hidden: false,
                     is_disabled: false
                 },
                 "queue3" : {
                     name: "queue3", 
-                    value:  localStorage.getItem('queue1_name') || "Default",
-                    selected: queue3_id,
-                    url: "queues?sort_by=tickets_count",
+                    value:  this.queue_name[2],
+                    selected: this.queue_id[2],
+                    items: this.queues,
                     hidden: false,
                     is_disabled: false
                 }
             };
+            
+
         }
+
 
         getProfile(){
             this.dataProvider.getProfile().subscribe(
             data => {
                 this.profile = data;
                 console.log(this.profile);
+                
                     }, 
             error => { 
                 console.log(error || 'Server error');}
         ); 
+        }
+
+        getQueue(){
+            this.dataProvider.getQueueList().subscribe(
+                data => {
+                    this.queues = data;
+                    //let sort = [];
+                    console.log(this.queues);
+                    //this.selects.queue1.items = this.selects.queue2.items = this.selects.queue3.items = this.queues;
+                    if (this.queue_id == 0) {
+                        for (var i = 0; i < this.n; ++i) {
+                            this.queue_id[i] = this.queues[i].id;
+                            this.queue_name[i] = this.queues[i].fullname;
+                        }   
+                    }
+                    else {
+                        for (var i = 0; i < this.n; ++i) {
+                            let sort = (this.queues.filter( v => this.queue_id[i] == v.id ));
+                            sort.forEach(item => {
+                                this.queue_name.push(item.fullname);
+                            });
+                        }
+                        this.is_queue1 = this.is_queue[0] != "0" ? true : false;
+                        this.is_queue2 = this.is_queue[1] != "0" ? true : false;
+                        this.is_queue3 = this.is_queue[2] != "0" ? true : false;
+                    }
+                    this.selects.queue1.selected = this.queue_id[0];
+                    this.selects.queue2.selected = this.queue_id[1];
+                    this.selects.queue3.selected = this.queue_id[2];
+                    this.selects.queue1.value = this.queue_name[0];
+                    this.selects.queue2.value = this.queue_name[1];
+                    this.selects.queue3.value = this.queue_name[2];
+                    this.filterQueues();
+                },
+                error => {
+                    console.log(error || 'Server error');
+                }
+                );
+        }
+
+        filterQueues(){
+            let sort = this.queues.filter( v => this.queue_id[0] != v.id && this.queue_id[1] != v.id && this.queue_id[2] != v.id);
+            this.selects.queue1.items = this.selects.queue2.items = this.selects.queue3.items = sort;
+            console.log(sort,"sort");
         }
 
         saveSelect(event){
@@ -86,62 +143,50 @@ ngOnInit()
         //change url on related lists
         switch (name) {
             case "queue1":
-            if (this.selects.queue1.selected === event.id) {
-                break;
-            }
-            if (event.id == this.selects.queue2.selected || event.id == this.selects.queue3.selected){
-                this.selects.queue1.selected = 0;
-                this.selects.queue1.value = "Default";
-                this.nav.alert("Please choose anoter queue. It is already selected!", true);
-            }
-            else{
-                this.selects.queue1.selected = event.id;
-                this.selects.queue1.value = event.name || "Default";
-            }
+                this.selects.queue1.selected = this.queue_id[0] = event.id;
+                this.selects.queue1.value = this.queue_name[0] = event.name;
+                this.filterQueues();
             break;
             case "queue2":
-            if (this.selects.queue2.selected === event.id) {
-                break;
-            }
-            if (event.id == this.selects.queue1.selected || event.id == this.selects.queue3.selected){
-                this.selects.queue2.selected = 0;
-                this.selects.queue2.value = "Default";
-                this.nav.alert("Please choose anoter queue. It is already selected!", true);
-            }
-            else{
-                this.selects.queue2.selected = event.id;
-                this.selects.queue2.value = event.name || "Default";
-            }
+                this.selects.queue2.selected = this.queue_id[1] = event.id;
+                this.selects.queue2.value = this.queue_name[1] = event.name;
+                this.filterQueues();
             break;
             case "queue3":
-            if (this.selects.queue3.selected === event.id) {
-                break;
-            }
-            if (event.id == this.selects.queue1.selected || event.id == this.selects.queue3.selected){
-                this.selects.queue3.selected = 0;
-                this.selects.queue3.value = "Default";
-                this.nav.alert("Please choose anoter queue. It is selected!", true);
-            }
-            else{
-                this.selects.queue3.selected = event.id;
-                this.selects.queue3.value = event.name || "Default";
-            }
+                this.selects.queue3.selected = this.queue_id[2] = event.id;
+                this.selects.queue3.value = this.queue_name[2] = event.name;
+                this.filterQueues();
             break;
         }
     }
 
     onSubmit(form) {
 
-            //TODO if other user changes what id should I write?  
-            localStorage.setItem("queue1_id", this.selects.queue1.selected);
-            localStorage.setItem("queue2_id", this.selects.queue2.selected);
-            localStorage.setItem("queue3_id", this.selects.queue3.selected);
-            localStorage.setItem("queue1_name", this.selects.queue1.value);
-            localStorage.setItem("queue2_name", this.selects.queue2.value);
-            localStorage.setItem("queue3_name", this.selects.queue3.value);
-            localStorage.setItem("is_queue1", (this.is_queue1)? "1":"");
-            localStorage.setItem("is_queue2", (this.is_queue2)? "1":"");
-            localStorage.setItem("is_queue3", (this.is_queue3)? "1":"");
+            let string_id = "";
+            let string_is = "";
+            for (var i = 0; i < this.n; ++i) {
+                string_id += this.queue_id[i] + ", ";
+            }
+            string_id = string_id.slice(0,-2);
+            if (this.is_queue1)
+                string_is = this.queue_id[0] + ", ";
+            else 
+                string_is = "0, ";
+            if (this.is_queue2)
+                string_is += this.queue_id[1] + ", ";
+            else 
+                string_is += "0, ";
+            if (this.is_queue3)
+                string_is += this.queue_id[2] + "";
+            else 
+                string_is += "0";
+
+            console.log(string_id); 
+            console.log(string_is);
+            localStorage.setItem("queue_id", string_id);
+            
+            localStorage.setItem("is_queue", string_is);
+
             
             this.nav.alert('Profile was updated');
         }
