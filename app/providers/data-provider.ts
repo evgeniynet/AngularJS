@@ -88,9 +88,20 @@ getQueueList(limit?) {
     let url = addp("queues","sort_by", "tickets_count");
     return this.apiData.get(url).map((arr: Array<any>) => {
 
+        let local_is_Queres = localStorage.getItem('is_queue');
+        let is_queue = local_is_Queres ? localStorage.getItem('is_queue').split(", ") : [];
+
+
         let nt = arr.filter((val) => val.fullname.toLowerCase().indexOf("new ticket") == 0); 
         let badge = 0;
-        if (nt && nt.length > 0) badge = nt[0].tickets_count;
+        if (nt && nt.length > 0) {
+            arr.forEach(item => {
+                if (item.id == is_queue[0] || item.id == is_queue[1] || item.id == is_queue[2]) {
+                    badge += item.tickets_count;
+                }
+            });
+            console.log(badge, "badge");    
+        }
         localStorage.badge = badge;
 
         this.updateBadge();
