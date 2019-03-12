@@ -88,7 +88,7 @@ export class DashboardPage {
 
         if (this.config.current.is_unassigned_queue) {
             this.queues = this.config.getCache("dashqueues");
-            if (this.queue_id == 0) {
+            if (this.queue_id.length == 0) {
             this.dataProvider.getQueueList(3).subscribe(
                 data => {
                     this.queues = data;
@@ -101,10 +101,16 @@ export class DashboardPage {
             }
             else{
                 this.dataProvider.getQueueList().subscribe(
-                data => {
+                data => {  
                     this.queues = data.filter( v => this.queue_id[0] == v.id || this.queue_id[1] == v.id || this.queue_id[2] == v.id);
-                    console.log(this.queues);
+                    let default_queues = data.filter( v => this.queue_id[0] != v.id  && this.queue_id[1] != v.id && this.queue_id[2] != v.id);
+                    let difference = 3-this.queues.length;
+                    if (difference > 0)
+                    {
+                        this.queues.push(...default_queues.slice(0,difference));
+                    }
                     this.config.setCache("dashqueues", this.queues);
+
                 },
                 error => {
                     console.log(error || 'Server error');
