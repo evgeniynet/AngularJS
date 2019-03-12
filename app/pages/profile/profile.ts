@@ -17,9 +17,9 @@ export class ProfilePage {
     queue_id: any = {};
     queue_name: any = [];
     is_queue: any = {};
-    is_queue1: boolean = true;
-    is_queue2: boolean = true;
-    is_queue3: boolean = true;
+    is_queue1: boolean = false;
+    is_queue2: boolean = false;
+    is_queue3: boolean = false;
     date: string;
     title: string = "";
     selects: any = {};
@@ -44,13 +44,13 @@ ngOnInit()
             this.is_queue = local_is_Queres ? localStorage.getItem('is_queue').split(", ") : [];
             console.log(this.queue_id, "start this.queue_id");
 
-            
+            this.is_queue1 = this.is_queue1 || (localStorage.getItem('is_queue1') == "true")? true : false;
             this.is_queue2 = this.is_queue2 || (localStorage.getItem('is_queue2') == "true")? true : false;
             this.is_queue3 = this.is_queue3 || (localStorage.getItem('is_queue3') == "true")? true : false;
 
             this.selects = {
                 "queue1" : {
-                    name: "queue1", 
+                    name: "Queue 1", 
                     value:  this.queue_name[0],
                     selected: this.queue_id[0],
                     items: this.queues,
@@ -58,7 +58,7 @@ ngOnInit()
                     is_disabled: false
                 },
                 "queue2" : {
-                    name: "queue2", 
+                    name: "Queue 2", 
                     value:  this.queue_name[1],
                     selected: this.queue_id[1],
                     items: this.queues,
@@ -66,7 +66,7 @@ ngOnInit()
                     is_disabled: false
                 },
                 "queue3" : {
-                    name: "queue3", 
+                    name: "Queue 3", 
                     value:  this.queue_name[2],
                     selected: this.queue_id[2],
                     items: this.queues,
