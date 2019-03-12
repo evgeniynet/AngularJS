@@ -19,19 +19,19 @@
       <div *ngIf="profile.phone || profile.phone != ''">
         <form #loginForm="ngForm" novalidate>
           <ion-item no-lines class="labels color" style="font-size: 1.5rem;">Phone:</ion-item>
-          <input  class="width100 blue3 subject-create commentText margin-bottom3 noActived" placeholder="please add location" required maxlength="200" (ngModelChange)="changeText(name1)" #name1="ngForm" [ngModel]="profile.phone"/>
+          <input  class="width100 blue3 subject-create commentText margin-bottom3 noActived" placeholder="please add phone" required maxlength="200" (ngModelChange)="changeText(name1)" #name1="ngForm" [ngModel]="profile.phone"/>
         </form>
       </div>
       <div *ngIf="profile.mobile_phone || profile.mobile_phone != ''">
         <form #loginForm="ngForm" novalidate>
           <ion-item no-lines class="labels color" style="font-size: 1.5rem;">Mobile Phone:</ion-item>
-          <input  class="width100 blue3 subject-create commentText margin-bottom3 noActived" placeholder="please add location" required maxlength="200" (ngModelChange)="changeText(name1)" #name1="ngForm" [ngModel]="profile.mobile_phone"/>
+          <input  class="width100 blue3 subject-create commentText margin-bottom3 noActived" placeholder="please add mobile phone" required maxlength="200" (ngModelChange)="changeText(name1)" #name1="ngForm" [ngModel]="profile.mobile_phone"/>
         </form>
       </div>
-      <div *ngIf="profile.skype || profile.skype != ''">
+      <div *ngIf="profile.skype !== null">
         <form #loginForm="ngForm" novalidate>
           <ion-item no-lines class="labels color" style="font-size: 1.5rem;">Skype:</ion-item>
-          <input  class="width100 blue3 subject-create commentText margin-bottom3 noActived" placeholder="please add location" required maxlength="200" (ngModelChange)="changeText(name1)" #name1="ngForm" [ngModel]="profile.skype"/>
+          <input  class="width100 blue3 subject-create commentText margin-bottom3 noActived" placeholder="please add skype" required maxlength="200" (ngModelChange)="changeText(name1)" #name1="ngForm" [ngModel]="profile.skype"/>
         </form>
       </div>
    <div class="general-alignment2">     
