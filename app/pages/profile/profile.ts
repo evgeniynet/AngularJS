@@ -42,7 +42,6 @@ ngOnInit()
             var local_is_Queres = localStorage.getItem('is_queue');
             this.queue_id = localQueres_id ? localStorage.getItem('queue_id').split(", ") : [];
             this.is_queue = local_is_Queres ? localStorage.getItem('is_queue').split(", ") : [];
-            console.log(this.queue_id, "start this.queue_id");
 
             this.is_queue1 = this.is_queue1 || (localStorage.getItem('is_queue1') == "true")? true : false;
             this.is_queue2 = this.is_queue2 || (localStorage.getItem('is_queue2') == "true")? true : false;
@@ -51,24 +50,24 @@ ngOnInit()
             this.selects = {
                 "queue1" : {
                     name: "Queue 1", 
-                    value:  this.queue_name[0],
-                    selected: this.queue_id[0],
+                    value:  this.queue_name[0] || "Default",
+                    selected: this.queue_id[0] || 0,
                     items: this.queues,
                     hidden: false,
                     is_disabled: false
                 },
                 "queue2" : {
                     name: "Queue 2", 
-                    value:  this.queue_name[1],
-                    selected: this.queue_id[1],
+                    value:  this.queue_name[1] || "Default",
+                    selected: this.queue_id[1] || 0,
                     items: this.queues,
                     hidden: false,
                     is_disabled: false
                 },
                 "queue3" : {
                     name: "Queue 3", 
-                    value:  this.queue_name[2],
-                    selected: this.queue_id[2],
+                    value:  this.queue_name[2] || "Default",
+                    selected: this.queue_id[2] || 0,
                     items: this.queues,
                     hidden: false,
                     is_disabled: false
@@ -82,9 +81,7 @@ ngOnInit()
         getProfile(){
             this.dataProvider.getProfile().subscribe(
             data => {
-                this.profile = data;
-                console.log(this.profile);
-                
+                this.profile = data;                
                     }, 
             error => { 
                 console.log(error || 'Server error');}
@@ -95,13 +92,12 @@ ngOnInit()
             this.dataProvider.getQueueList().subscribe(
                 data => {
                     this.queues = data;
-                    //let sort = [];
-                    console.log(this.queues);
-                    //this.selects.queue1.items = this.selects.queue2.items = this.selects.queue3.items = this.queues;
+
                     if (this.queue_id == 0) {
                         for (var i = 0; i < this.n; ++i) {
                             this.queue_id[i] = this.queues[i].id;
                             this.queue_name[i] = this.queues[i].fullname;
+
                         }   
                     }
                     else {
@@ -118,9 +114,9 @@ ngOnInit()
                     this.selects.queue1.selected = this.queue_id[0];
                     this.selects.queue2.selected = this.queue_id[1];
                     this.selects.queue3.selected = this.queue_id[2];
-                    this.selects.queue1.value = this.queue_name[0];
-                    this.selects.queue2.value = this.queue_name[1];
-                    this.selects.queue3.value = this.queue_name[2];
+                    this.selects.queue1.value = this.queue_name[0] || "Default";
+                    this.selects.queue2.value = this.queue_name[1] || "Default";
+                    this.selects.queue3.value = this.queue_name[2] || "Default";
                     this.filterQueues();
                 },
                 error => {
@@ -132,7 +128,6 @@ ngOnInit()
         filterQueues(){
             let sort = this.queues.filter( v => this.queue_id[0] != v.id && this.queue_id[1] != v.id && this.queue_id[2] != v.id);
             this.selects.queue1.items = this.selects.queue2.items = this.selects.queue3.items = sort;
-            console.log(sort,"sort");
         }
 
         saveSelect(event){
@@ -181,8 +176,6 @@ ngOnInit()
             else 
                 string_is += "0";
 
-            console.log(string_id); 
-            console.log(string_is);
             localStorage.setItem("queue_id", string_id);
             
             localStorage.setItem("is_queue", string_is);

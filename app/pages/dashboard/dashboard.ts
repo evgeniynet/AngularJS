@@ -61,7 +61,6 @@ export class DashboardPage {
 
         let localQueres_id = localStorage.getItem('queue_id');
         this.queue_id = localQueres_id ? localStorage.getItem('queue_id').split(", ") : [];
-        console.log(this.queue_id , "this.queue_id ");
 
         this.ticketProvider.getTicketsCounts();
         this.ticketProvider.tickets$["tickets/counts"].subscribe(
@@ -199,7 +198,6 @@ export class DashboardPage {
     }
 
     itemTapped(event) {
-       // console.log(event);
          let tech = { tech_id: this.config.current.user.user_id, tech_name: this.config.current.user.firstname+" "+this.config.current.user.lastname };
          this.nav.push(TimelogsPage, tech);
                    }
