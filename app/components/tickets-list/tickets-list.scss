@@ -80,7 +80,12 @@ ion-avatar li img p{
     text-overflow: ellipsis;
     color: $grey2;
     margin: 0px !important;}
-        
+    h3 p, h3 p span{
+        color: $grey2 !important;
+        float: none !important;
+        white-space: initial !important;
+        text-align: left !important;
+    }        
     p{
         color: $grey2 !important;
         float: right;

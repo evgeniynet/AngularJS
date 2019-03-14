@@ -49,7 +49,8 @@ export class TimelogPage {
 
     decrement()
     {
-        this.timecount = Math.max(Number(this.timecount) - this.inc, 0).toFixed(2);
+        this.timecount = this.timecount > this.mintime ? Math.max(Number(this.timecount) - this.inc, 0).toFixed(2): this.timecount;
+
     }
 
     increment()
@@ -503,7 +504,7 @@ ngOnInit()
         let exportHours = incHours + "." + incMinutes;
         exportHours = Number(exportHours);
         if (exportHours == 0)
-            this.timecount = this.inc.toFixed(2);
+            this.timecount = this.mintime.toFixed(2);
         else{
         this.timecount = exportHours;
         }

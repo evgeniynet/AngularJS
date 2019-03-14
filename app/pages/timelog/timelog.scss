@@ -38,8 +38,9 @@
     font-size: 30px;
 }
 .reset{
-    position: absolute;
-    right: 8%;
+    position: relative;
+    left: -5%;
+    text-align: right;
     margin-top: -15px;
     text-decoration: underline;
     cursor: pointer;
