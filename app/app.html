@@ -2,6 +2,11 @@
   <ion-content class="menu-bg">
       <ion-list no-lines>
           <div *ngFor="let p of pages" (click)="openPage(p)">
+            <button detail-none *ngIf="p.is_profile" ion-item class="profileMenu">
+          <img [alt]="p.lastname" [src]="p.email | Gravatar" class="avatar-menu"/>
+              <h3>{{p.firstname}}</h3>
+              <h3 style="margin-top:-20px;">{{p.lastname}}</h3>
+      </button>
         <button detail-none *ngIf="p.is_active" ion-item>
           <i><ion-icon name="{{p.icon}}"></ion-icon></i>
               <h3>{{p.title}}</h3>

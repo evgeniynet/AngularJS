@@ -24,7 +24,8 @@ export class BasicSelectModal {
         private config: Config
     ) {
         this.name = this.params.data.name;
-        this.isdefault_enabled = !~["user", "account", "tech", "task type", "contract", "completed"].indexOf(this.name.toLowerCase()) 
+        console.log(this.name);
+        this.isdefault_enabled = !~["user", "account", "tech", "task type", "completed", "submission category"].indexOf(this.name.toLowerCase()) 
                                  ||  !!this.params.data.default;
         this.default_text = this.params.data.default || "Default";
         this.isnew_enabled = this.config.current.is_add_new_user_link && !!~["user", "tech"].indexOf(this.name.toLowerCase())

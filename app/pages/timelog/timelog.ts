@@ -13,17 +13,19 @@ import {InvoiceDetailsPage} from '../invoice-details/invoice-details';
 export class TimelogPage {
 
     inc : number;
-    isno_invoice: boolean;
+    isno_invoice: boolean = false;
     istaxable: boolean = true;
     timecount: any;
     timecount_nonwork: any;
     mintime: number;
     time: any = {};
+    date: string;
     timenote: string;
     title: string = "";
     he: any;
     selects: any = {};
     displayFormat: string;
+    displayFormatDays: string;
     date_now: any;
     is_start: boolean = false;
     is_reset: boolean = false;
@@ -31,6 +33,7 @@ export class TimelogPage {
     start_time: string = "";
     stop_time: string = "";
     stopwatch: any;
+    options; any = {};
     countDownDate: any = '';
     past: any;
     seconds: any = "00";
@@ -46,7 +49,8 @@ export class TimelogPage {
 
     decrement()
     {
-        this.timecount = Math.max(Number(this.timecount) - this.inc, 0).toFixed(2);
+        this.timecount = this.timecount > this.mintime ? Math.max(Number(this.timecount) - this.inc, 0).toFixed(2): this.timecount;
+
     }
 
     increment()
@@ -91,13 +95,13 @@ ngOnInit()
 {    
     this.UserDateOffset = this.config.getCurrent("timezone_offset");
     this.time = this.navParams.data || {};
-    let options = {
+    this.options = {
           year: 'numeric',
           month: 'short',
           day: 'numeric',
           weekday: 'short'
         };
-        this.date_now = new Date().toLocaleString("en-US", options);
+        this.date_now = new Date().toLocaleString("en-US", this.options);
 
         let distance = localStorage.getItem('past');
         distance = Number(distance);
@@ -106,7 +110,10 @@ ngOnInit()
 
     if (localStorage.getItem('countDownDate') != '' && !this.time.time_id){
         this.countDownDate = localStorage.getItem('countDownDate');
-        this.timerStart();
+        if (this.countDownDate === null)
+            this.showTimer("0");
+        else
+            this.timerStart();
     }
     else if ((localStorage.getItem('countDownDate') == '' || localStorage.getItem('past') != '') && !this.time.time_id){
         distance = localStorage.getItem('past');
@@ -127,8 +134,11 @@ ngOnInit()
             }
             else if (this.time.number)
                 this.title = `#${this.time.number} ${this.time.subject}`;
-            else
+            else{
                 this.title = "Add Time";
+                this.istaxable = true;
+                this.isno_invoice = false;
+            }
             if (this.time.invoice_id > 0)
             {
                 this.title = `Invoiced #${this.time.invoice_id} on\u00a0` + this.setDate(this.AddHours(this.time.date, this.time.time_offset), false, true);
@@ -139,10 +149,8 @@ ngOnInit()
             this.mintime = this.config.getCurrent("time_minimum_time") || this.inc;
             this.mintime = this.mintime > 0 ? this.mintime : this.inc;
 
-            this.isno_invoice = this.time.no_invoice;
-            this.istaxable = this.time.is_taxable;
-
             this.displayFormat = getPickerDateTimeFormat(false, true);
+            this.displayFormatDays = getPickerDateTimeFormat(true, false); 
 
             if (this.inc >= 1)
                 this.minuteValues = [0];   
@@ -255,6 +263,8 @@ ngOnInit()
                 this.selects.ticket.selected = 0;
             }
             this.selects.project.hidden = !this.config.current.is_project_tracking;
+            this.selects.tasktype.value = "Choose";
+            this.selects.tasktype.selected = 0;
             break;
             case "project" :
             if (this.selects.project.selected === event.id)
@@ -269,6 +279,8 @@ ngOnInit()
                 this.selects.ticket.selected = 0;
             }
             project_id = event.id;
+            this.selects.tasktype.value = "Choose";
+            this.selects.tasktype.selected = 0;
             break;
             case "contract" :
             if (this.selects.contract.selected === event.id)
@@ -280,6 +292,8 @@ ngOnInit()
             this.selects.prepaidpack.value = "Choose (optional)";
             this.selects.prepaidpack.selected = 0;
             contract_id = event.id;
+            this.selects.tasktype.value = "Choose";
+            this.selects.tasktype.selected = 0;
             break;
 
             case "ticket" :
@@ -288,11 +302,11 @@ ngOnInit()
                 break;
             }
             ticket_id = event.id;
+            this.selects.tasktype.value = "Choose";
+            this.selects.tasktype.selected = 0;
             break;
         }
         this.selects.tasktype.url = `task_types?ticket=${ticket_id}&account=${account_id}&project=${project_id}&contract=${contract_id}`;
-        this.selects.tasktype.value = "Choose";
-        this.selects.tasktype.selected = 0;
         this.selects[name].selected = event.id;
         this.selects[name].value = event.name || "Default";
     }
@@ -343,12 +357,13 @@ ngOnInit()
             var stop_time = this.stop_time;
             if (this.endsWith(this.stop_time, "Z"))
                 stop_time = stop_time.substring(0,19);
-            var date = this.time.date || this.GetLocalDate();
+            var date = this.time.date || this.date || this.GetLocalDate();
             localStorage.setItem('past', '');
             if (start_time)
             {
                 date = start_time;
             }
+
             //TODO if other user changes what id should I write?  
             let data = {
                 "tech_id": isEdit ? this.time.user_id : this.he.user_id,
@@ -489,7 +504,7 @@ ngOnInit()
         let exportHours = incHours + "." + incMinutes;
         exportHours = Number(exportHours);
         if (exportHours == 0)
-            this.timecount = this.inc.toFixed(2);
+            this.timecount = this.mintime.toFixed(2);
         else{
         this.timecount = exportHours;
         }
@@ -554,6 +569,8 @@ ngOnInit()
         if (time)
         {
             this.start_time = time.substring(0,19);
+            this.date_now = new Date(time).toLocaleString("en-US", this.options);
+            this.date = time;
             if (this.stop_time)
             {
                this.updateHours();
@@ -565,10 +582,20 @@ ngOnInit()
         if (time)
         {
             this.stop_time = time.substring(0,19);
+            this.date_now = new Date(time).toLocaleString("en-US", this.options);
+            this.date = time; 
             if (this.start_time)
-            {
+            {    
                 this.updateHours();
             }
+        }
+    }
+
+    setDateTimelog(time){
+        if (time)
+        {
+            this.date_now = new Date(time).toLocaleString("en-US", this.options);
+            this.date = time; 
         }
     }
 

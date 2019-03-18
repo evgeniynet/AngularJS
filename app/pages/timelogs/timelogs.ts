@@ -56,13 +56,17 @@ export class TimelogsPage {
             },
             "account" : {
                 name: "Account", 
-                value:  "--All " +this.config.current.names.account.p+" --",
+                value:  this.params.account.id==0? "--All " +this.config.current.names.account.p+" --" : this.params.account.name,
                 default: "--All " +this.config.current.names.account.p+" --",
                 selected:  (this.params.account || {}).id || "0",
                 url: "accounts?is_with_statistics=false",
                 hidden: false
             }
         };
+        if (this.params.tech.id != 0)
+            this.test = !this.test;
+        else if (this.params.account.id != "0")
+            this.test = !this.test;
         
         if (!this.params.account)
         {

@@ -11,6 +11,7 @@
       <p *ngIf="time.is_force_time_on_closing_tickets" class="is-force-time">Your administrator is requiring time entries before a {{config.current.names.ticket.s}} can be closed.</p>
     <div *ngIf="!time.time_id" class="width100 blue_time">
       <h3 class="date-timelog">{{date_now}}</h3>
+      <ion-datetime class="nocolor dateTimelog" [displayFormat]="displayFormatDays" (ngModelChange)="setDateTimelog($event)" [ngModel]="getStartDate(start_time)" style="margin-top: -50px;"></ion-datetime>
     </div>
     <div *ngIf="!time.time_id" class="width100 blue_time" style="padding-bottom:10px;">
       <h3 class="timer" id="demo">{{hours}}:{{minutes}}:{{seconds}}</h3>

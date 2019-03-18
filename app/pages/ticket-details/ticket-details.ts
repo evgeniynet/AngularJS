@@ -450,14 +450,16 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
          value: data.submission_category || "Default",
          selected: data.submission_category || 0,
          url: `submissions`,
-         hidden: !this.config.current.is_submission_category    
+         hidden: !this.config.current.is_submission_category,
+         is_disabled: false  
                 },
        "categories" : { 
          name: "Creation Category", 
          value: data.creation_category_name || "Default",
          selected: data.creation_category_id || 0,
          url: `categories`,
-         hidden: !this.config.current.is_creation_categories    
+         hidden: !this.config.current.is_creation_categories,
+         is_disabled: false   
                 },
        "level": {
          name: "Level",
