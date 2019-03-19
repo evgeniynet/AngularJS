@@ -95,6 +95,7 @@ ngOnInit()
 {    
     this.UserDateOffset = this.config.getCurrent("timezone_offset");
     this.time = this.navParams.data || {};
+    
     this.options = {
           year: 'numeric',
           month: 'short',
@@ -121,7 +122,7 @@ ngOnInit()
         this.showTimer(distance);
     }
 
-
+    let me_name = this.config.current.user.firstname + this.config.current.user.lastname + "";
     let name = (this.time.user_name + " " + this.time.user_email).trim().split(' ')[0];
             if (this.time.time_id)
             {
@@ -220,6 +221,13 @@ ngOnInit()
                     selected: this.time.contract_id || this.config.getRecent("contract").selected || 0,
                     url: `contracts?account_id=${account_id}`,
                     hidden: this.time.is_fixed
+                },
+                 "tech" : { 
+                    name: "Tech", 
+                    value: this.time.created_user_name || me_name || "Default",
+                    selected: this.time.created_user_id  || this.config.current.user.user_id || 0,
+                    url: this.config.current.is_allow_user_choose_tech && this.config.current.is_allow_user_choose_queue_only ? "users?role=queue" : "technicians",
+                    hidden: false
                 },
                 "prepaidpack" : {
                     name: "PrePaid Pack", 
