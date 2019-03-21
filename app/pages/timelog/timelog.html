@@ -96,8 +96,9 @@
                        <!--span [hidden]="note.valid || note.untouched">Note is required and less 5000 chars</span></div-->
           
         <div class="img-top">
-            <button secondary block type="submit" class="disable-hover button button-default button-block"
+            <button secondary block type="submit" class=" disable-hover button button-default button-block"
             [disabled]="!addForm.valid" (click)="onSubmit(addForm)">{{time.invoice_id > 0 ? ('View Invoice #'+time.invoice_id) : (time.time_id ? 'Update Time' : 'Add Time')}}</button>
+            <button *ngIf="time.time_id" block type="submit" class="red_button disable-hover button button-default button-block" (click)="deleteTimelog()">{{time.invoice_id > 0 ? ('Delete Invoice #'+time.invoice_id) : "Delete Timelog"}}</button>
             <span class="span-block"></span>
     </div>
     </form>

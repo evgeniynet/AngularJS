@@ -1,4 +1,4 @@
-import {Page, Config, Nav, NavParams, ViewController} from 'ionic-angular';
+import {Page, Config, Nav, NavParams, ViewController, Alert} from 'ionic-angular';
 import {forwardRef, ViewChild} from '@angular/core';
 import {getDateTime, getPickerDateTimeFormat, htmlEscape, linebreaks} from '../../directives/helpers';
 import {TimeProvider} from '../../providers/time-provider';
@@ -95,7 +95,7 @@ ngOnInit()
 {    
     this.UserDateOffset = this.config.getCurrent("timezone_offset");
     this.time = this.navParams.data || {};
-    
+
     this.options = {
           year: 'numeric',
           month: 'short',
@@ -122,7 +122,7 @@ ngOnInit()
         this.showTimer(distance);
     }
 
-    let me_name = this.config.current.user.firstname + this.config.current.user.lastname + "";
+    let me_name = this.config.current.user.firstname + " " + this.config.current.user.lastname;
     let name = (this.time.user_name + " " + this.time.user_email).trim().split(' ')[0];
             if (this.time.time_id)
             {
@@ -245,7 +245,8 @@ ngOnInit()
             let ticket_id = this.selects.ticket.selected;
             let project_id = this.selects.project.selected;
             let contract_id = this.selects.contract.selected;
-            let prepaidpack_id = this.selects.prepaidpack.selected;    
+            let prepaidpack_id = this.selects.prepaidpack.selected; 
+            this.delete_press = false;   
         //change url on related lists
         switch (name) {
             case "account":
@@ -374,7 +375,8 @@ ngOnInit()
 
             //TODO if other user changes what id should I write?  
             let data = {
-                "tech_id": isEdit ? this.time.user_id : this.he.user_id,
+                "tech_id": this.selects.tech.selected,
+                "test_name": this.selects.tech.value,
                 "project_id": this.selects.project.selected,
                 "is_project_log": !this.selects.ticket.selected,
                 "ticket_key": this.selects.ticket.selected,
@@ -440,8 +442,8 @@ ngOnInit()
                             ticket_number:data.ticket_key,
                             ticket_subject:this.selects.ticket.value,
                             user_email:this.he.email,
-                            user_id:this.he.user_id,
-                            user_name :this.he.firstname + " " + this.he.lastname};
+                            user_id:this.selects.tech.selected || this.he.user_id,
+                            user_name :this.selects.tech.value.split('(')[0] || this.he.firstname + " " + this.he.lastname};
                             let date = new Date().toJSON().substring(0,10);
                             this.timeProvider.getTimelogs("0", this.config.current.user.user_id, { "limit": 25 }, date, date);
                             (this.timeProvider._dataStore[this.time.cachename] || []).splice(0, 0, tt);
@@ -456,6 +458,45 @@ ngOnInit()
                     );
         }
     }
+    deleteTimelog(){
+            let data = {
+                "is_project_log": true,
+            };
+            let prompt = Alert.create({
+             title: 'Delete Timelog #' + this.time.time_id,
+             inputs: [
+             {
+                 name: 'note',
+                 placeholder: 'Note'
+             },
+             ],
+             buttons: [
+             {
+                 text: 'Cancel',
+                 handler: data => {
+                     console.log('Cancel clicked');
+                 }
+             },
+             {
+                 text: 'Delete',
+                 handler: data => {
+                    this.timeProvider.deleteTime(this.time.time_id, data).subscribe(
+                    data => {
+                        this.timeProvider.getTimelogs("0", this.config.current.user.user_id, { "limit": 25 });
+                        (this.timeProvider._dataStore[this.time.cachename] || []).splice(0, 0, this.time);
+                        this.close();
+                        this.resetTimer();
+                   }, 
+            error => { 
+                console.log(error || 'Server error');}
+        ); 
+                 }
+             }
+             ]
+         });
+         this.nav.present(prompt);
+        }
+
 
     setDate(date, showmonth?, istime?) {
         return date ? getDateTime(date, showmonth, istime) : null;
