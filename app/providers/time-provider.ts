@@ -66,6 +66,6 @@ export class TimeProvider {
 
         deleteTime(id, data) {
             let url = this.URL + "/" + id;
-            return this.apiData.get(url, {}, "DELETE");
+            return this.apiData.get(url, data, "DELETE");
         }
     }
