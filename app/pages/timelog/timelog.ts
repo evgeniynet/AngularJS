@@ -459,9 +459,6 @@ ngOnInit()
         }
     }
     deleteTimelog(){
-            let data = {
-                "is_project_log": true,
-            };
             let prompt = Alert.create({
              title: 'Delete Timelog #' + this.time.time_id,
              inputs: [
@@ -480,7 +477,10 @@ ngOnInit()
              {
                  text: 'Delete',
                  handler: data => {
-                    this.timeProvider.deleteTime(this.time.time_id, data).subscribe(
+                    let data1 = {
+                         "is_project_log": this.time.is_project_log,
+                    };
+                    this.timeProvider.deleteTime(this.time.time_id, data1).subscribe(
                     data => {
                         this.timeProvider.getTimelogs("0", this.config.current.user.user_id, { "limit": 25 });
                         (this.timeProvider._dataStore[this.time.cachename] || []).splice(0, 0, this.time);
