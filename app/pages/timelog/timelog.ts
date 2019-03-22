@@ -345,6 +345,11 @@ ngOnInit()
             this.nav.alert("Hours value should be less or equal to Start/Stop range.", true);
             return;
         }
+        if (this.is_start)
+        {
+            this.nav.alert("Please Stop Timer", true);
+            return;
+        }
         if (this.config.current.is_invoice && !this.selects.contract.selected && this.selects.contract.items.length != 0)
         {
             this.nav.alert("Please, select Contract from the list.", true);
@@ -544,7 +549,6 @@ ngOnInit()
         let oldTimer = localStorage.getItem('past')
         oldTimer = Number(oldTimer);
         this.past = this.past+oldTimer;
-        console.log(this.past, "past");
         this.stop_timer = new Date().toJSON().substring(0,19);
         this.start_timer = new Date(new Date().getTime() - this.past).toJSON().substring(0,19);
         localStorage.setItem('past', this.past);
