@@ -227,7 +227,7 @@ ngOnInit()
                     value: this.time.created_user_name || me_name || "Default",
                     selected: this.time.created_user_id  || this.config.current.user.user_id || 0,
                     url: this.config.current.is_allow_user_choose_tech && this.config.current.is_allow_user_choose_queue_only ? "users?role=queue" : "technicians",
-                    hidden: false
+                    hidden: !this.config.current.is_add_time_other_techs
                 },
                 "prepaidpack" : {
                     name: "PrePaid Pack", 

@@ -67,7 +67,7 @@
       <li class="right margin font-time text-right">
     <span class="expense-hours color">${{timelog.total}}</span><br><span *ngIf="!config.current.is_show_start_time_on_invoice"><br></span>
     <h3 *ngIf="config.current.is_show_start_time_on_invoice && timelog.start_time" class="expense-hours color">{{setDate(timelog.start_time, false, true)}} - <br>{{setDate(timelog.end_time, false, true)}}</h3> 
-    <h3 *ngIf="!config.current.is_show_start_time_on_invoice && !timelog.start_time" class="expense-hours color">{{setDate(timelog.date, timelog.time_offset)}}</h3>  
+    <h3 *ngIf="config.current.is_show_start_time_on_invoice && !timelog.start_time || !config.current.is_show_start_time_on_invoice && !timelog.start_time" class="expense-hours color">{{setDate(timelog.date, timelog.time_offset)}}</h3>  
       </li>
     </div>
   </a>
