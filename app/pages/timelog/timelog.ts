@@ -32,6 +32,8 @@ export class TimelogPage {
     minuteValues: Array<number> = [0, 15, 30, 45, 0];
     start_time: string = "";
     stop_time: string = "";
+    start_timer: any;
+    stop_timer: any;
     stopwatch: any;
     options; any = {};
     countDownDate: any = '';
@@ -388,12 +390,13 @@ ngOnInit()
                 "no_invoice": this.isno_invoice,
                 "is_taxable": this.istaxable,
                 "date": date || "", 
-                "start_date": start_time || "",
-                "stop_date": stop_time || "",
+                "start_date": this.start_timer || start_time || "",
+                "stop_date": this.stop_timer || stop_time || "",
                 "non_working_hours": non_work_hours,
                 "contract_id": this.selects.contract.selected,
                 "is_local_time": true,
             };
+
 
             this.timeProvider.addTime(this.time.time_id, data, isEdit ? "PUT" : "POST").subscribe(
                 res => {
@@ -505,11 +508,12 @@ ngOnInit()
     timerStart(){
         this.is_start=!this.is_start;
      if(!this.countDownDate || this.countDownDate == ''){
-         this.countDownDate = new Date().getTime();
+        this.countDownDate = new Date().getTime();
         localStorage.setItem('countDownDate', this.countDownDate.toString());
      }
-     else (this.countDownDate != '')
+     else {
          this.countDownDate = Number(this.countDownDate);
+     }
         
         this.config.setRecent({"account": this.selects.account,
                                                "project": this.selects.project,
@@ -518,6 +522,7 @@ ngOnInit()
                                                 "prepaidpack": this.selects.prepaidpack});
         let old = localStorage.getItem('past');
         old = Number(old);
+
     // Update the count down every 1 second
     this.stopwatch = setInterval(() => {
 
@@ -539,6 +544,9 @@ ngOnInit()
         let oldTimer = localStorage.getItem('past')
         oldTimer = Number(oldTimer);
         this.past = this.past+oldTimer;
+        console.log(this.past, "past");
+        this.stop_timer = new Date().toJSON().substring(0,19);
+        this.start_timer = new Date(new Date().getTime() - this.past).toJSON().substring(0,19);
         localStorage.setItem('past', this.past);
         localStorage.setItem('countDownDate', '');
         this.countDownDate = '';
@@ -594,6 +602,8 @@ ngOnInit()
         this.hours = "00";
         this.minutes = "00";
         this.seconds = "00";
+        this.stop_timer = false;
+        this.start_timer = false;
         localStorage.setItem('past', '');
         localStorage.setItem('countDownDate', '');
     }
@@ -616,7 +626,7 @@ ngOnInit()
 
     setStartDate(time){
         if (time)
-        {
+        {    
             this.start_time = time.substring(0,19);
             this.date_now = new Date(time).toLocaleString("en-US", this.options);
             this.date = time;
@@ -669,6 +679,7 @@ ngOnInit()
         if (interval > 0 && interval < this.inc)
             interval = this.inc;
         return interval;
+
     }
 
     getFixed(value) {
