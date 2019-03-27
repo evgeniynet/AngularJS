@@ -5,8 +5,13 @@
 }
 .red_button{
     background: #B22222;
-    height: 2.2em;
     margin-top: 30px;
+}
+.disabledbutton {
+    pointer-events: none;
+        button{
+            pointer-events: auto;
+        }
 }
 
 .noActive{

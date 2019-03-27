@@ -469,12 +469,6 @@ ngOnInit()
     deleteTimelog(){
             let prompt = Alert.create({
              title: 'Delete Timelog #' + this.time.time_id,
-             inputs: [
-             {
-                 name: 'note',
-                 placeholder: 'Note'
-             },
-             ],
              buttons: [
              {
                  text: 'Cancel',
@@ -492,8 +486,10 @@ ngOnInit()
                     data => {
                         this.timeProvider.getTimelogs("0", this.config.current.user.user_id, { "limit": 25 });
                         (this.timeProvider._dataStore[this.time.cachename] || []).splice(0, 0, this.time);
+                        this.nav.alert('Time was deleted');
                         this.close();
                         this.resetTimer();
+
                    }, 
             error => { 
                 console.log(error || 'Server error');}
@@ -548,7 +544,7 @@ ngOnInit()
         this.past = now - this.countDownDate;
         let oldTimer = localStorage.getItem('past')
         oldTimer = Number(oldTimer);
-        this.past = this.past+oldTimer;
+        this.past = this.past+oldTimerdele;        
         this.stop_timer = new Date().toJSON().substring(0,19);
         this.start_timer = new Date(new Date().getTime() - this.past).toJSON().substring(0,19);
         localStorage.setItem('past', this.past);
