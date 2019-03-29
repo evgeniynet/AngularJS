@@ -7,7 +7,7 @@
   <ion-title class="ellipsis padding-right24">{{title}}</ion-title>
 </ion-toolbar>
 <ion-content class="timelog">
-    <div class="list max-width700">
+    <div class="list max-width700" [ngClass]="{'disabledbutton':time.invoice_id}">
       <p *ngIf="time.is_force_time_on_closing_tickets" class="is-force-time">Your administrator is requiring time entries before a {{config.current.names.ticket.s}} can be closed.</p>
     <div *ngIf="!time.time_id" class="width100 blue_time">
       <h3 class="date-timelog">{{date_now}}</h3>
@@ -69,6 +69,8 @@
 
      <select-list *ngIf="!time.number" [list]="selects.ticket" preload="true" (onChanged)='saveSelect($event)'></select-list>
 
+     <select-list [list]="selects.tech" preload="true" (onChanged)='saveSelect($event)'></select-list>
+
      <!--New Contract-->
      <select-list [list]="selects.contract" preload="true" (onChanged)='saveSelect($event)'></select-list>
 
@@ -94,8 +96,9 @@
                        <!--span [hidden]="note.valid || note.untouched">Note is required and less 5000 chars</span></div-->
           
         <div class="img-top">
-            <button secondary block type="submit" class="disable-hover button button-default button-block"
+            <button secondary block type="submit" class=" disable-hover button button-default button-block"
             [disabled]="!addForm.valid" (click)="onSubmit(addForm)">{{time.invoice_id > 0 ? ('View Invoice #'+time.invoice_id) : (time.time_id ? 'Update Time' : 'Add Time')}}</button>
+            <button *ngIf="time.time_id && !time.invoice_id" block type="submit" class="red_button disable-hover button button-default button-block" (click)="deleteTimelog()">Remove Timelog</button>
             <span class="span-block"></span>
     </div>
     </form>

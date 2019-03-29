@@ -2,6 +2,12 @@
 font-size: 63px !important;
 height: 100px !important;
 }
+todo-list .general-alignment{
+  margin-top:0px;
+}
+.height235{
+  height: 235px;
+}
 
 .dashboard{
     padding-left: 9px !important;
@@ -10,17 +16,30 @@ height: 100px !important;
 .padding-right8{
         padding-right: 4px !important;
  }
-
+.padding-left5{
+        padding-left: 5px !important;
+ }
+ .padding-left10{
+        padding-left: 10px !important;
+ }
 .box10{
   background-color: rgba(253, 253, 253, 0) !important;
   margin-bottom: 5px !important;
   margin-top: 20px;
   color: $grey2; 
 }
-
+.font-size16{
+  font-size:16px;
+}
 .workinghours{
 	height: 30px !important;
 	min-height: 3.6rem;
+}
+.dateDashboard{
+    padding-top: 7px;
+    margin-bottom: 0px;
+    text-align: center;
+    padding-bottom: 5px;
 }
 .font-size21 {
     font-size: 21px;

@@ -53,9 +53,10 @@ export class DashboardPage {
     {       
         this.simple = !this.config.current.is_time_tracking && !this.config.current.is_expenses;
         let options = {
-          month: 'short',
+          month: 'long',
           day: 'numeric',
-          weekday: 'short'
+          weekday: 'long',
+          year: 'numeric'
         };
         this.date = new Date().toLocaleString("en-US", options);
 

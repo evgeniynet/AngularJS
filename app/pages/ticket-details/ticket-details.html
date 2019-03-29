@@ -95,7 +95,7 @@
   <h5 style="margin-top: 11px;">Waiting on Response</h5>
   </div>
   <ion-label class="text-left" style="font-size: 12px; white-space: normal; margin-top: 0px !important;
-    padding-bottom: 20px !important;">
+    padding-bottom: 40px !important;">
     <a href=# (click)="getMailTolink(ticket.key)" class="text-decor">
     <span style="font-weight: 900;">Ticket Email Address:</span><br>{{ticket.mailto}}&nbsp;</a>
     </ion-label>
@@ -192,9 +192,9 @@
           </div>
     </ion-item>
     <span class="span-block"></span>
-     <button (click)="callback($event)"  secondary item-right fab fab-right fab-bottom style="z-index: 2"><ion-icon class="button_circle action-but" name="md-add"></ion-icon></button>
+     <button (click)="callback($event)" hidden="true"  secondary item-right fab fab-right fab-bottom style="z-index: 2"><ion-icon class="button_circle action-but" name="md-add"></ion-icon></button>
 
-     <div>  <button type="button" (click)="uploadedFile()"  left class="button-attach attach color"><ion-icon class="button-font action-but color" name="md-attach"></ion-icon>Add Files</button></div>
+     <div hidden="true">  <button type="button" (click)="uploadedFile()"  left class="button-attach attach color"><ion-icon class="button-font action-but color" name="md-attach"></ion-icon>Add Files</button></div>
   </ion-list>
 
 

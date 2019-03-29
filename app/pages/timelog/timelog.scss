@@ -3,6 +3,16 @@
     margin: 0px !important;
 //    padding-left:11px;
 }
+.red_button{
+    background: #B22222;
+    margin-top: 30px;
+}
+.disabledbutton {
+    pointer-events: none;
+        button{
+            pointer-events: auto;
+        }
+}
 
 .noActive{
     pointer-events: none;
@@ -42,6 +52,7 @@
     left: -5%;
     text-align: right;
     margin-top: -15px;
+    margin-bottom: 0px;
     text-decoration: underline;
     cursor: pointer;
 }

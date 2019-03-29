@@ -1,6 +1,12 @@
 .p {color: $text !important;}
 .h2 {color: $text !important;}
 
+.stickySearch {
+  position: sticky;
+  top: 0px;
+  z-index: 5;
+}
+
 .timelog-item{
     padding-bottom: 5px;
     border-bottom: 1px solid $grey2;

@@ -7,7 +7,7 @@
 </ion-navbar>
 
 <ion-content class="queues">
-	      <ion-searchbar *ngIf="test" [focuser] debounce="700" (cancel)="test = !test" (input)="searchItems($event)" [(ngModel)]="term" placeholder="Type Queues name"></ion-searchbar>
+	      <ion-searchbar *ngIf="test" [focuser] debounce="700" (cancel)="test = !test" (input)="searchItems($event)" [(ngModel)]="term" placeholder="Type Queues name" class="stickySearch"></ion-searchbar>
  <p class="general-alignment"></p>
     <queues-list margin-top [queues]="items" [simple]="true"></queues-list>
     <span class="span-block"></span> 

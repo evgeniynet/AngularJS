@@ -1,4 +1,4 @@
-import {Page, Config, Nav, NavParams, ViewController} from 'ionic-angular';
+import {Page, Config, Nav, NavParams, ViewController, Alert} from 'ionic-angular';
 import {forwardRef, ViewChild} from '@angular/core';
 import {getDateTime, getPickerDateTimeFormat, htmlEscape, linebreaks} from '../../directives/helpers';
 import {TimeProvider} from '../../providers/time-provider';
@@ -32,6 +32,8 @@ export class TimelogPage {
     minuteValues: Array<number> = [0, 15, 30, 45, 0];
     start_time: string = "";
     stop_time: string = "";
+    start_timer: any;
+    stop_timer: any;
     stopwatch: any;
     options; any = {};
     countDownDate: any = '';
@@ -95,6 +97,7 @@ ngOnInit()
 {    
     this.UserDateOffset = this.config.getCurrent("timezone_offset");
     this.time = this.navParams.data || {};
+
     this.options = {
           year: 'numeric',
           month: 'short',
@@ -121,7 +124,7 @@ ngOnInit()
         this.showTimer(distance);
     }
 
-
+    let me_name = this.config.current.user.firstname + " " + this.config.current.user.lastname;
     let name = (this.time.user_name + " " + this.time.user_email).trim().split(' ')[0];
             if (this.time.time_id)
             {
@@ -146,8 +149,8 @@ ngOnInit()
 
             this.inc = this.config.getCurrent("time_hour_increment") > 0 ? this.config.getCurrent("time_hour_increment") : 0.25;
 
-            this.mintime = this.config.getCurrent("time_minimum_time") || this.inc;
-            this.mintime = this.mintime > 0 ? this.mintime : this.inc;
+            this.mintime = this.config.getCurrent("time_minimum_time");
+            this.mintime = this.mintime > 0 ? this.mintime : 0;
 
             this.displayFormat = getPickerDateTimeFormat(false, true);
             this.displayFormatDays = getPickerDateTimeFormat(true, false); 
@@ -221,6 +224,13 @@ ngOnInit()
                     url: `contracts?account_id=${account_id}`,
                     hidden: this.time.is_fixed
                 },
+                 "tech" : { 
+                    name: "Tech", 
+                    value: this.time.created_user_name || me_name || "Default",
+                    selected: this.time.created_user_id  || this.config.current.user.user_id || 0,
+                    url: this.config.current.is_allow_user_choose_tech && this.config.current.is_allow_user_choose_queue_only ? "users?role=queue" : "technicians",
+                    hidden: !this.config.current.is_add_time_other_techs
+                },
                 "prepaidpack" : {
                     name: "PrePaid Pack", 
                     value: this.time.prepaid_pack_name || (recent.prepaidpack || {}).value || "Choose",
@@ -237,7 +247,8 @@ ngOnInit()
             let ticket_id = this.selects.ticket.selected;
             let project_id = this.selects.project.selected;
             let contract_id = this.selects.contract.selected;
-            let prepaidpack_id = this.selects.prepaidpack.selected;    
+            let prepaidpack_id = this.selects.prepaidpack.selected; 
+            this.delete_press = false;   
         //change url on related lists
         switch (name) {
             case "account":
@@ -334,6 +345,11 @@ ngOnInit()
             this.nav.alert("Hours value should be less or equal to Start/Stop range.", true);
             return;
         }
+        if (this.is_start)
+        {
+            this.nav.alert("Please Stop Timer", true);
+            return;
+        }
         if (this.config.current.is_invoice && !this.selects.contract.selected && this.selects.contract.items.length != 0)
         {
             this.nav.alert("Please, select Contract from the list.", true);
@@ -366,7 +382,8 @@ ngOnInit()
 
             //TODO if other user changes what id should I write?  
             let data = {
-                "tech_id": isEdit ? this.time.user_id : this.he.user_id,
+                "tech_id": this.selects.tech.selected,
+                "test_name": this.selects.tech.value,
                 "project_id": this.selects.project.selected,
                 "is_project_log": !this.selects.ticket.selected,
                 "ticket_key": this.selects.ticket.selected,
@@ -378,12 +395,13 @@ ngOnInit()
                 "no_invoice": this.isno_invoice,
                 "is_taxable": this.istaxable,
                 "date": date || "", 
-                "start_date": start_time || "",
-                "stop_date": stop_time || "",
+                "start_date": this.start_timer || start_time || "",
+                "stop_date": this.stop_timer || stop_time || "",
                 "non_working_hours": non_work_hours,
                 "contract_id": this.selects.contract.selected,
                 "is_local_time": true,
             };
+
 
             this.timeProvider.addTime(this.time.time_id, data, isEdit ? "PUT" : "POST").subscribe(
                 res => {
@@ -432,8 +450,8 @@ ngOnInit()
                             ticket_number:data.ticket_key,
                             ticket_subject:this.selects.ticket.value,
                             user_email:this.he.email,
-                            user_id:this.he.user_id,
-                            user_name :this.he.firstname + " " + this.he.lastname};
+                            user_id:this.selects.tech.selected || this.he.user_id,
+                            user_name :this.selects.tech.value.split('(')[0] || this.he.firstname + " " + this.he.lastname};
                             let date = new Date().toJSON().substring(0,10);
                             this.timeProvider.getTimelogs("0", this.config.current.user.user_id, { "limit": 25 }, date, date);
                             (this.timeProvider._dataStore[this.time.cachename] || []).splice(0, 0, tt);
@@ -448,6 +466,41 @@ ngOnInit()
                     );
         }
     }
+    deleteTimelog(){
+            let prompt = Alert.create({
+             title: 'Do you really want to remove Time log #' + this.time.time_id,
+             buttons: [
+             {
+                 text: 'Cancel',
+                 handler: data => {
+                     console.log('Cancel clicked');
+                 }
+             },
+             {
+                 text: 'Delete',
+                 handler: data => {
+                    let data1 = {
+                         "is_project_log": this.time.is_project_log,
+                    };
+                    this.timeProvider.deleteTime(this.time.time_id, data1).subscribe(
+                    data => {
+                        this.timeProvider.getTimelogs("0", this.config.current.user.user_id, { "limit": 25 });
+                        (this.timeProvider._dataStore[this.time.cachename] || []).splice(0, 0, this.time);
+                        this.nav.alert('Time was deleted');
+                        this.close();
+                        this.resetTimer();
+
+                   }, 
+            error => { 
+                console.log(error || 'Server error');}
+        ); 
+                 }
+             }
+             ]
+         });
+         this.nav.present(prompt);
+        }
+
 
     setDate(date, showmonth?, istime?) {
         return date ? getDateTime(date, showmonth, istime) : null;
@@ -456,11 +509,12 @@ ngOnInit()
     timerStart(){
         this.is_start=!this.is_start;
      if(!this.countDownDate || this.countDownDate == ''){
-         this.countDownDate = new Date().getTime();
+        this.countDownDate = new Date().getTime();
         localStorage.setItem('countDownDate', this.countDownDate.toString());
      }
-     else (this.countDownDate != '')
+     else {
          this.countDownDate = Number(this.countDownDate);
+     }
         
         this.config.setRecent({"account": this.selects.account,
                                                "project": this.selects.project,
@@ -469,6 +523,7 @@ ngOnInit()
                                                 "prepaidpack": this.selects.prepaidpack});
         let old = localStorage.getItem('past');
         old = Number(old);
+
     // Update the count down every 1 second
     this.stopwatch = setInterval(() => {
 
@@ -489,7 +544,9 @@ ngOnInit()
         this.past = now - this.countDownDate;
         let oldTimer = localStorage.getItem('past')
         oldTimer = Number(oldTimer);
-        this.past = this.past+oldTimer;
+        this.past = this.past+oldTimerdele;        
+        this.stop_timer = new Date().toJSON().substring(0,19);
+        this.start_timer = new Date(new Date().getTime() - this.past).toJSON().substring(0,19);
         localStorage.setItem('past', this.past);
         localStorage.setItem('countDownDate', '');
         this.countDownDate = '';
@@ -545,6 +602,8 @@ ngOnInit()
         this.hours = "00";
         this.minutes = "00";
         this.seconds = "00";
+        this.stop_timer = false;
+        this.start_timer = false;
         localStorage.setItem('past', '');
         localStorage.setItem('countDownDate', '');
     }
@@ -567,7 +626,7 @@ ngOnInit()
 
     setStartDate(time){
         if (time)
-        {
+        {    
             this.start_time = time.substring(0,19);
             this.date_now = new Date(time).toLocaleString("en-US", this.options);
             this.date = time;
@@ -620,6 +679,7 @@ ngOnInit()
         if (interval > 0 && interval < this.inc)
             interval = this.inc;
         return interval;
+
     }
 
     getFixed(value) {
