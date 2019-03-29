@@ -149,8 +149,8 @@ ngOnInit()
 
             this.inc = this.config.getCurrent("time_hour_increment") > 0 ? this.config.getCurrent("time_hour_increment") : 0.25;
 
-            this.mintime = this.config.getCurrent("time_minimum_time") || this.inc;
-            this.mintime = this.mintime > 0 ? this.mintime : this.inc;
+            this.mintime = this.config.getCurrent("time_minimum_time");
+            this.mintime = this.mintime > 0 ? this.mintime : 0;
 
             this.displayFormat = getPickerDateTimeFormat(false, true);
             this.displayFormatDays = getPickerDateTimeFormat(true, false); 
