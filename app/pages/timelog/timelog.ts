@@ -468,7 +468,7 @@ ngOnInit()
     }
     deleteTimelog(){
             let prompt = Alert.create({
-             title: 'Delete Timelog #' + this.time.time_id,
+             title: 'Do you really want to remove Time log #' + this.time.time_id,
              buttons: [
              {
                  text: 'Cancel',

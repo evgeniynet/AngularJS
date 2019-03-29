@@ -623,7 +623,8 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
      if (name == "submissioncategory")
             name = "submissions";
      this.selects[name].selected = event.id;
-     this.selects[name].value = event.name;
+     this.selects[name].value = event.name || "Default (nothing to select)";
+     //if (this.selects[name].value)
      let contract_id = this.selects.contract.selected;
 
       switch (name) {
