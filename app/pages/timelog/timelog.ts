@@ -544,7 +544,7 @@ ngOnInit()
         this.past = now - this.countDownDate;
         let oldTimer = localStorage.getItem('past')
         oldTimer = Number(oldTimer);
-        this.past = this.past+oldTimerdele;        
+        this.past = this.past+oldTimer;        
         this.stop_timer = new Date().toJSON().substring(0,19);
         this.start_timer = new Date(new Date().getTime() - this.past).toJSON().substring(0,19);
         localStorage.setItem('past', this.past);
