@@ -19,6 +19,7 @@ export class TimelogPage {
     timecount_nonwork: any;
     mintime: number;
     time: any = {};
+    techs: any ={};
     date: string;
     timenote: string;
     title: string = "";
@@ -174,6 +175,7 @@ ngOnInit()
                 this.timecount_nonwork = 0;
             this.timenote = linebreaks(this.time.note || "", true);
             this.he = this.config.getCurrent("user");
+            console.log(this.he);
 
             let recent : any = {};
 
@@ -239,6 +241,10 @@ ngOnInit()
                     hidden: this.time.is_fixed
                 }
             };
+      
+             setTimeout(() => {
+               this.getContractor(account_id, true);
+                 }, 1000);
         }
 
         saveSelect(event){
@@ -248,7 +254,6 @@ ngOnInit()
             let project_id = this.selects.project.selected;
             let contract_id = this.selects.contract.selected;
             let prepaidpack_id = this.selects.prepaidpack.selected; 
-            this.delete_press = false;   
         //change url on related lists
         switch (name) {
             case "account":
@@ -267,6 +272,8 @@ ngOnInit()
             this.selects.prepaidpack.value = "Choose (optional)";
             this.selects.prepaidpack.selected = 0;
             account_id = event.id;
+            this.selects.tech.items.splice(0,this.techs);
+            this.getContractor(account_id);
             this.selects.ticket.hidden = this.time.is_project_log || this.time.task_type_id || false;
             if (!this.time.task_type_id){
                 this.selects.ticket.url = `tickets?status=open&account=${account_id}&project=${project_id}`,
@@ -607,6 +614,25 @@ ngOnInit()
         localStorage.setItem('past', '');
         localStorage.setItem('countDownDate', '');
     }
+
+    getContractor(account_id, first?)
+   {
+     this.timeProvider.getContractor(account_id).subscribe(
+       data => {
+         console.log(data, data.length);
+         this.techs=data.length;
+         if (data){
+         data.forEach(item => {
+             this.selects.tech.items.splice(0,0,item);
+         });
+         console.log(this.selects.tech.items);
+         }
+       },
+       error => {
+         console.log(error || 'Server error');
+       }
+       );
+   }
 
     ngOnDestroy(){    
         clearTimeout(this.stopwatch);  

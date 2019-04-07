@@ -59,13 +59,21 @@ export class TimeProvider {
         return cachelen;
     }
 
-        addTime(id, data, method) {
+    addTime(id, data, method) {
             let url = this.URL + (!id ? "" : ("/" + id));
             return this.apiData.get(url, data, method);
         }
 
-        deleteTime(id, data) {
+    deleteTime(id, data) {
             let url = this.URL + "/" + id;
             return this.apiData.get(url, data, "DELETE");
         }
+
+    getContractor(account) {
+        console.log(account);
+        let url = "users";
+        url = addp(url, "role", "contractor");
+        url = addp(url, "account", account);
+        return this.apiData.get(url);
+    }    
     }
