@@ -70,7 +70,6 @@ export class TimeProvider {
         }
 
     getContractor(account) {
-        console.log(account);
         let url = "users";
         url = addp(url, "role", "contractor");
         url = addp(url, "account", account);

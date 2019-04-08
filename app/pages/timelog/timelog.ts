@@ -19,7 +19,7 @@ export class TimelogPage {
     timecount_nonwork: any;
     mintime: number;
     time: any = {};
-    techs: any ={};
+    contractors: number;
     date: string;
     timenote: string;
     title: string = "";
@@ -175,7 +175,6 @@ ngOnInit()
                 this.timecount_nonwork = 0;
             this.timenote = linebreaks(this.time.note || "", true);
             this.he = this.config.getCurrent("user");
-            console.log(this.he);
 
             let recent : any = {};
 
@@ -272,7 +271,7 @@ ngOnInit()
             this.selects.prepaidpack.value = "Choose (optional)";
             this.selects.prepaidpack.selected = 0;
             account_id = event.id;
-            this.selects.tech.items.splice(0,this.techs);
+            this.selects.tech.items.splice(0,this.contractors);
             this.getContractor(account_id);
             this.selects.ticket.hidden = this.time.is_project_log || this.time.task_type_id || false;
             if (!this.time.task_type_id){
@@ -619,13 +618,11 @@ ngOnInit()
    {
      this.timeProvider.getContractor(account_id).subscribe(
        data => {
-         console.log(data, data.length);
-         this.techs=data.length;
+         this.contractors=data.length;
          if (data){
-         data.forEach(item => {
-             this.selects.tech.items.splice(0,0,item);
-         });
-         console.log(this.selects.tech.items);
+             data.forEach(item => {
+                 this.selects.tech.items.splice(0,0,item);
+             });
          }
        },
        error => {

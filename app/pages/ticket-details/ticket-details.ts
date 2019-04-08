@@ -440,14 +440,14 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
        },
        "contract" : { 
          name: "Contract", 
-         value: contract_name || "Choose",
+         value: contract_name || "( Not Set )",
          selected: contract_id || this.config.getRecent("contract").selected || 0,
          url: `contracts?account_id=${account_id}`,
          hidden: false    
                 },
        "submissions" : { 
          name: "Submission Category", 
-         value: data.submission_category || "Default",
+         value: data.submission_category || "( Not Set )",
          selected: data.submission_category || 0,
          url: `submissions`,
          hidden: !this.config.current.is_submission_category,
@@ -455,7 +455,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
                 },
        "categories" : { 
          name: "Creation Category", 
-         value: data.creation_category_name || "Default",
+         value: data.creation_category_name || "( Not Set )",
          selected: data.creation_category_id || 0,
          url: `categories`,
          hidden: !this.config.current.is_creation_categories,

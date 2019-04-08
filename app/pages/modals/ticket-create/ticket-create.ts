@@ -78,7 +78,7 @@ export class TicketCreatePage {
             },
             "submissions" : {
                 name: "Submission Category", 
-                value: (recent.submissions || {}).value || "Default",
+                value: (recent.submissions || {}).value || "Choose",
                 selected: (recent.submissions || {}).value || 0,
                 url: `submissions`,
                 hidden: !this.config.current.is_submission_category
@@ -99,7 +99,7 @@ export class TicketCreatePage {
                 },
             "class" : {
                 name: "Class", 
-                value: (recent.class || {}).value || "Default",
+                value: (recent.class || {}).value || "Choose",
                 selected: (recent.class || {}).selected || 0,
                 url: "classes",
                 hidden: false
@@ -125,7 +125,7 @@ export class TicketCreatePage {
 
         this.selects.tech = {
             name: "Tech", 
-            value: (this.data.tech || {}).name || "Default",
+            value: (this.data.tech || {}).name || "Choose",
             selected: (this.data.tech || {}).id || 0,
             url: this.config.current.is_allow_user_choose_tech && this.config.current.is_allow_user_choose_queue_only ? "users?role=queue" : "technicians",
             hidden: false
@@ -191,6 +191,8 @@ export class TicketCreatePage {
                 contract_id = 0;
                 break;
             case "class" :
+                this.selects.class.value = event.name;
+                this.selects.class.selected = event.id;
                 if (this.ticket.class_id == event.id)
                     break;
             
@@ -198,9 +200,7 @@ export class TicketCreatePage {
               break;
             default:
                     this.selects[name].selected = event.id;
-        console.log("event.id", event.id);
-        this.selects[name].value = event.name || "Default";
-        console.log("event.name", event.name);
+                    this.selects[name].value = event.name || "Default";
         break;
         }
     }
