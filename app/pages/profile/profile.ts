@@ -3,6 +3,7 @@ import {forwardRef, ViewChild} from '@angular/core';
 import {htmlEscape, linebreaks, addp} from '../../directives/helpers';
 import {DataProvider} from '../../providers/data-provider';
 import {TimeProvider} from '../../providers/providers';
+import {TimelogsPage} from '../timelogs/timelogs';
 import {SelectListComponent} from '../../components/select-list/select-list';
 import {GravatarPipe} from '../../pipes/pipes';
 
@@ -178,6 +179,11 @@ ngOnInit()
                 this.filterQueues();
             break;
         }
+    }
+
+    itemTapped(event) {
+        let tech = { tech_id: this.config.current.user.user_id, tech_name: this.config.current.user.firstname+" "+this.config.current.user.lastname };
+        this.nav.push(TimelogsPage, tech);
     }
 
     onSubmit(form) {
