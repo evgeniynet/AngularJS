@@ -324,10 +324,12 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
 
    counts: any;
    ticket: any = {};
+   account_id: number;
    percentage_budget: any;
    userphone: string;
    customfields: any = [];
    technicians: any = [];
+   contractors: number;
    users: any = [];
    subject: any;
    next_step: any;
@@ -393,7 +395,6 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
    }
 
    initSelects(data){
-     let account_id = data.account_id || -1;
      this.username = getFullName(data.user_firstname, data.user_lastname, data.user_email);
      this.techname = getFullName(data.technician_firstname || data.tech_firstname, data.technician_lastname || data.tech_lastname, data.technician_email || data.tech_email);
      let contract_id = data.default_contract_id || 0;
@@ -421,7 +422,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
          name: "Location",
          value: data.location_name || "( Not Set )",
          selected: data.location_id || 0,
-         url: `locations?account=${account_id}&limit=1000`,
+         url: `locations?account=${this.account_id}&limit=1000`,
          hidden: false
        },
        "alttechs": {
@@ -435,14 +436,14 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
          name: "Project",
          value: data.project_name || "( Not Set )",
          selected: data.project_id || 0,
-         url: `projects?account=${account_id}&is_with_statistics=false`,
+         url: `projects?account=${this.account_id}&is_with_statistics=false`,
          hidden: false
        },
        "contract" : { 
          name: "Contract", 
          value: contract_name || "( Not Set )",
          selected: contract_id || this.config.getRecent("contract").selected || 0,
-         url: `contracts?account_id=${account_id}`,
+         url: `contracts?account_id=${this.account_id}`,
          hidden: false    
                 },
        "submissions" : { 
@@ -487,10 +488,14 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
      this.selects.account = {
        name: "Account", 
        value: (data.account || {}).name || data.account_name || this.he.account_name,
-       selected: account_id,
+       selected: this.account_id,
        url: "accounts?is_with_statistics=false&limit=500",
        hidden: false
      };
+
+    // setTimeout(() => {
+   //            this.getContractor(account_id);
+    //             }, 10000);
    }
 
    uploadedFile(event)
@@ -510,6 +515,25 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
      {
        this.ticketnote = "  ";
      }
+   }
+
+   getContractor(account_id)
+   {
+     this.ticketProvider.getContractor(account_id).subscribe(
+       data => {
+         this.contractors=data.length;
+         if (data){
+           console.log(this.selects.alttechs.items, account_id);
+             data.forEach(item => {
+                 item.lastname = "Contractor: " + item.lastname;
+                 this.selects.alttechs.items.splice(0,0,item);
+             });
+         }
+       },
+       error => {
+         console.log(error || 'Server error');
+       }
+       );
    }
 
    getPosts(key)
@@ -581,7 +605,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
        this.percentage_budget = this.getFixed(this.percentage_budget);
      }
      this.ticket.mailto = `r.${this.config.current.org}.${this.config.current.instance}.${data.key}@app.sherpadesk.com`;
-
+     this.account_id = data.account_id || -1;
      this.initSelects(data);
 
      if (data.ticketlogs && data.ticketlogs.length > 0)
@@ -629,8 +653,14 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
 
       switch (name) {
             case "account" :
-              if (this.ticket.account_id == event.id) 
+              if (this.ticket.account_id == event.id){ 
+                this.account_id = this.selects.account.selected;
+                if (this.selects.alttechs.items){
+                this.selects.alttechs.items.splice(0,this.contractors);
+                this.getContractor(this.selects.account.selected);
+                }
               break;
+              }
                 this.selects.project.url = `projects?account=${event.id}&is_with_statistics=false`;
                 this.selects.project.value = "Default";
                 this.selects.project.selected = 0;
@@ -639,7 +669,13 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
                 this.selects.contract.value = "Default";
                 this.selects.contract.selected = 0;
                 contract_id = 0;
-                
+
+                this.account_id = this.selects.account.selected;
+                if (this.selects.alttechs.items){
+                this.selects.alttechs.items.splice(0,this.contractors);
+                this.getContractor(this.selects.account.selected);
+                }
+
                 this.selects.location.url = `locations?account=${event.id}&limit=1000`;
                 this.selects.location.value = "Default";
                 this.selects.location.selected = 0;
@@ -1043,7 +1079,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
     } 
 
    transferTicket() {
-     let myModal = Modal.create(TransferTicketModal, { "number": this.ticket.number, "key": this.ticket.key, "subject": this.ticket.subject,  "tech_firstname": this.ticket.tech_firstname, "tech_lastname": this.ticket.tech_lastname});
+     let myModal = Modal.create(TransferTicketModal, { "number": this.ticket.number, "key": this.ticket.key, "subject": this.ticket.subject,  "tech_firstname": this.ticket.tech_firstname, "tech_lastname": this.ticket.tech_lastname, "account_id": this.account_id});
      myModal.onDismiss(data => {
        if (data){
          this.techname = this.ticket.tech_firstname = data.name;

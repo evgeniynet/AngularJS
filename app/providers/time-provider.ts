@@ -68,11 +68,4 @@ export class TimeProvider {
             let url = this.URL + "/" + id;
             return this.apiData.get(url, data, "DELETE");
         }
-
-    getContractor(account) {
-        let url = "users";
-        url = addp(url, "role", "contractor");
-        url = addp(url, "account", account);
-        return this.apiData.get(url);
-    }    
     }

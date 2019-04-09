@@ -11,6 +11,7 @@ import {SelectListComponent} from '../../../components/select-list/select-list';
 })
 export class TransferTicketModal {
 
+    account_id: any;
     keep_attached: boolean;
     ticketnote: string;
     ticket: any;
@@ -28,7 +29,8 @@ export class TransferTicketModal {
         this.keep_attached = false;
 
         this.ticket = this.navParams.data || 0;
-
+        this.account_id = this.ticket.account_id;
+        console.log(this.account_id);
         this.selects = {
             "tech": {
                 name: "tech",
@@ -45,6 +47,23 @@ export class TransferTicketModal {
         //item = item || {};
         this.viewCtrl.dismiss(data);
     }
+
+    getContractor(account_id)
+   {
+     this.ticketProvider.getContractor(account_id).subscribe(
+       data => {
+         if (data){
+             data.forEach(item => {
+                 item.lastname = "Contractor: " + item.lastname;
+                 this.selects.tech.items.splice(0,0,item);
+             });
+         }
+       },
+       error => {
+         console.log(error || 'Server error');
+       }
+       );
+   }
 
     saveSelect(event) {
         let name = event.type;

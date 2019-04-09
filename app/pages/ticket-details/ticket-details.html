@@ -146,7 +146,7 @@
 </div>
 
 <div *ngSwitchWhen="'Assign'" class="list max-width700 general-alignment">
-    <multi-select  preload="true" [list]="selects.alttechs" (onChanged)='saveSelect($event)'></multi-select>
+    <multi-select  preload="true" [list]="selects.alttechs" (anOpen)='getContractor(account_id)' (onChanged)='saveSelect($event)'></multi-select>
       <div *ngFor="let tech of technicians" class="alts">
     <p class="left color fullname" style="width: 50%">{{tech.user_fullname2.slice(0, 23)}}</p>
     <p *ngIf="!tech.is_primary" class="left color no-primary" style="width: 17%;">-</p>

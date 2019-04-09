@@ -2,6 +2,7 @@ import {Page, Config, Nav, NavParams, ViewController, Alert} from 'ionic-angular
 import {forwardRef, ViewChild} from '@angular/core';
 import {getDateTime, getPickerDateTimeFormat, htmlEscape, linebreaks} from '../../directives/helpers';
 import {TimeProvider} from '../../providers/time-provider';
+import {TicketProvider} from '../../providers/ticket-provider';
 import {ClassListComponent} from '../../components/class-list/class-list';
 import {SelectListComponent} from '../../components/select-list/select-list';
 import {InvoiceDetailsPage} from '../invoice-details/invoice-details';
@@ -15,6 +16,7 @@ export class TimelogPage {
     inc : number;
     isno_invoice: boolean = false;
     istaxable: boolean = true;
+    account_id: any;
     timecount: any;
     timecount_nonwork: any;
     mintime: number;
@@ -47,7 +49,7 @@ export class TimelogPage {
     //@ViewChild('starttime') starttime:DateTime;
     //@ViewChild('stoptime') stoptime:DateTime;
 
-    constructor(private nav: Nav, private navParams: NavParams, private timeProvider: TimeProvider, private config: Config, private view: ViewController) {
+    constructor(private nav: Nav, private navParams: NavParams, private timeProvider: TimeProvider, private ticketProvider: TicketProvider, private config: Config, private view: ViewController) {
     }
 
     decrement()
@@ -183,7 +185,7 @@ ngOnInit()
                 recent = this.config.current.recent || {};
             }
 
-            let account_id = (this.time.account || {}).id || this.time.account_id || (recent.account || {}).selected || this.he.account_id || -1;
+            this.account_id = (this.time.account || {}).id || this.time.account_id || (recent.account || {}).selected || this.he.account_id || -1;
             let contract_id = (this.time.contract || {}).id || this.time.contract_id || (recent.contract || {}).selected || 0;
             let project_id = (this.time.project || {}).id || this.time.project_id || (recent.project || {}).selected || 0;
 
@@ -191,7 +193,7 @@ ngOnInit()
                 "account" : {
                     name: "Account", 
                     value:  (this.time.account || {}).name || this.time.account_name || (recent.account || {}).value || this.he.account_name,
-                    selected: account_id,
+                    selected: this.account_id,
                     url: "accounts?is_with_statistics=false&limit=500",
                     hidden: this.time.is_fixed,
                     is_disabled: this.time.ticket_number
@@ -200,7 +202,7 @@ ngOnInit()
                     name: "Project", 
                     value:  this.time.project_name || (recent.project || {}).value || "Default",
                     selected: project_id,
-                    url: `projects?account=${account_id}&is_with_statistics=false`,
+                    url: `projects?account=${this.account_id}&is_with_statistics=false`,
                     hidden: this.time.is_fixed,
                     is_disabled: this.time.ticket_number
                 },
@@ -208,7 +210,7 @@ ngOnInit()
                     name: "Ticket", 
                     value: this.time.ticket_number ? `#${this.time.ticket_number}: ${this.time.ticket_subject}` : "Choose (optional)",
                     selected: this.time.ticket_number || 0,
-                    url: `tickets?status=open&account=${account_id}&project=${project_id}`,
+                    url: `tickets?status=open&account=${this.account_id}&project=${project_id}`,
                     hidden: this.time.is_project_log || false,
                     is_disabled: this.time.task_type_id
                 },
@@ -216,13 +218,13 @@ ngOnInit()
                     name: "Task Type", 
                     value: this.time.task_type || (recent.tasktype || {}).value || "Choose",
                     selected: this.time.task_type_id || this.config.getRecent("tasktype").selected || 0,
-                    url: this.time.ticket_number ? `task_types?ticket=${this.time.ticket_number}` : `task_types?account=${account_id}`
+                    url: this.time.ticket_number ? `task_types?ticket=${this.time.ticket_number}` : `task_types?account=${this.account_id}`
                 },
                  "contract" : { 
                     name: "Contract", 
                     value: this.time.contract_name || (recent.contract || {}).value || "Choose",
                     selected: this.time.contract_id || this.config.getRecent("contract").selected || 0,
-                    url: `contracts?account_id=${account_id}`,
+                    url: `contracts?account_id=${this.account_id}`,
                     hidden: this.time.is_fixed
                 },
                  "tech" : { 
@@ -240,10 +242,6 @@ ngOnInit()
                     hidden: this.time.is_fixed
                 }
             };
-      
-             setTimeout(() => {
-               this.getContractor(account_id, true);
-                 }, 1000);
         }
 
         saveSelect(event){
@@ -614,9 +612,9 @@ ngOnInit()
         localStorage.setItem('countDownDate', '');
     }
 
-    getContractor(account_id, first?)
+    getContractor(account_id)
    {
-     this.timeProvider.getContractor(account_id).subscribe(
+     this.ticketProvider.getContractor(account_id).subscribe(
        data => {
          this.contractors=data.length;
          if (data){

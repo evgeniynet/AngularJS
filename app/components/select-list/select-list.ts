@@ -21,6 +21,7 @@ export class SelectListComponent {
     @Input() preload: boolean;
     @Input() ajax: boolean;
     @Output() public onChanged: EventEmitter<any> = new EventEmitter(false);
+    @Output() public anOpen: EventEmitter<any> = new EventEmitter<any>();
     selected: Object = {};
     init: boolean = true;
     url: string;
@@ -116,6 +117,7 @@ export class SelectListComponent {
                  this.apiData.get(this.list.url).subscribe(
                      data => {
                          this.list.items = data;
+                         this.anOpen.emit("open");
                          
                          if (loading) {
                              loading.dismiss();

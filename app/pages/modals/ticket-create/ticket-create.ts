@@ -19,6 +19,8 @@ export class TicketCreatePage {
     @ViewChild(UploadButtonComponent) private uploadComponent: UploadButtonComponent;
     data: any;
     ticket: any;
+    account_id: any;
+    contractors: number;
     he: any;
     selects: any;
     fileDest: any = {ticket: "11"};
@@ -50,7 +52,7 @@ export class TicketCreatePage {
                 recent = this.config.current.recent || {};
         }
 
-        let account_id = this.profile.account_id ||(this.data.account || {}).id || (recent.account || {}).selected || this.he.account_id || -1;
+        this.account_id = this.profile.account_id ||(this.data.account || {}).id || (recent.account || {}).selected || this.he.account_id || -1;
         let location_id = this.profile.location_id || (this.data.location || {}).id || (recent.location || {}).selected || 0;
         let contract_id = recent.default_contract_id || 0;
 
@@ -66,14 +68,14 @@ export class TicketCreatePage {
                 name: "Location", 
                 value: this.profile.location_name || (this.data.location || {}).name || (recent.location || {}).value || "Default",
                 selected: location_id,
-                url: `locations?account=${account_id}&limit=1000`,
+                url: `locations?account=${this.account_id}&limit=1000`,
                 hidden: false
             },
             "project" : {
                 name: "Project", 
                 value: (recent.project || {}).value || "Default",
                 selected: (recent.project || {}).selected || 0,
-                url: `projects?account=${account_id}&is_with_statistics=false`,
+                url: `projects?account=${this.account_id}&is_with_statistics=false`,
                 hidden: false
             },
             "submissions" : {
@@ -94,7 +96,7 @@ export class TicketCreatePage {
                     name: "Contract", 
                     value: recent.default_contract_name || "Choose",
                     selected: recent.default_contract_id || this.config.getRecent("contract").selected || 0,
-                    url: `contracts?account_id=${account_id}`,
+                    url: `contracts?account_id=${this.account_id}`,
                     hidden: false    
                 },
             "class" : {
@@ -134,7 +136,7 @@ export class TicketCreatePage {
         this.selects.account = {
             name: "Account", 
             value: this.profile.account_name || (this.data.account || {}).name || (recent.account || {}).value || this.he.account_name,
-            selected: account_id,
+            selected: this.account_id,
             url: "accounts?is_with_statistics=false&limit=500",
             hidden: false
         };
@@ -144,7 +146,7 @@ export class TicketCreatePage {
             "subject" : "",
             "initial_post" : "",
             "class_id" : null,
-            "account_id" : account_id,
+            "account_id" : this.account_id,
             "location_id": location_id,
             "user_id" : this.he.user_id,
             "tech_id" : 0,
@@ -184,6 +186,10 @@ export class TicketCreatePage {
                 this.selects.project.url = `projects?account=${event.id}&is_with_statistics=false`;
                 this.selects.project.value = "Default";
                 this.selects.project.selected = 0;
+                
+                this.account_id = event.id;
+                this.selects.tech.items.splice(0,this.contractors);
+                this.getContractor(this.account_id);
 
                 this.selects.contract.url = `contracts?account_id=${event.id}`;
                 this.selects.contract.value = "Default";
@@ -204,6 +210,25 @@ export class TicketCreatePage {
         break;
         }
     }
+
+    getContractor(account_id)
+   {
+     this.ticketProvider.getContractor(account_id).subscribe(
+       data => {
+         this.contractors=data.length;
+         if (data){
+           console.log(this.selects.tech.items, account_id);
+             data.forEach(item => {
+                 item.lastname = "Contractor: " + item.lastname;
+                 this.selects.tech.items.splice(0,0,item);
+             });
+         }
+       },
+       error => {
+         console.log(error || 'Server error');
+       }
+       );
+   }
 
     getProfile(id?, account?){
             this.dataProvider.getProfile(id, account).subscribe(

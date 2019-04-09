@@ -69,7 +69,7 @@
 
      <select-list *ngIf="!time.number" [list]="selects.ticket" preload="true" (onChanged)='saveSelect($event)'></select-list>
 
-     <select-list [list]="selects.tech" preload="true" (onChanged)='saveSelect($event)'></select-list>
+     <select-list [list]="selects.tech" preload="true" (anOpen)='getContractor(account_id)' (onChanged)='saveSelect($event)'></select-list>
 
      <!--New Contract-->
      <select-list [list]="selects.contract" preload="true" (onChanged)='saveSelect($event)'></select-list>
