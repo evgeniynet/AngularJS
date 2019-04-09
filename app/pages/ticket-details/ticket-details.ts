@@ -421,7 +421,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
          name: "Location",
          value: data.location_name || "( Not Set )",
          selected: data.location_id || 0,
-         url: `locations?account=${account_id}&limit=500`,
+         url: `locations?account=${account_id}&limit=1000`,
          hidden: false
        },
        "alttechs": {
@@ -488,7 +488,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
        name: "Account", 
        value: (data.account || {}).name || data.account_name || this.he.account_name,
        selected: account_id,
-       url: "accounts?is_with_statistics=false",
+       url: "accounts?is_with_statistics=false&limit=500",
        hidden: false
      };
    }
@@ -640,7 +640,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
                 this.selects.contract.selected = 0;
                 contract_id = 0;
                 
-                this.selects.location.url = `locations?account=${event.id}&limit=500`;
+                this.selects.location.url = `locations?account=${event.id}&limit=1000`;
                 this.selects.location.value = "Default";
                 this.selects.location.selected = 0;
                 break;

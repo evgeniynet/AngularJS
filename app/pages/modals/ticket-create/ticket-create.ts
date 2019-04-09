@@ -66,7 +66,7 @@ export class TicketCreatePage {
                 name: "Location", 
                 value: this.profile.location_name || (this.data.location || {}).name || (recent.location || {}).value || "Default",
                 selected: location_id,
-                url: `locations?account=${account_id}&limit=500`,
+                url: `locations?account=${account_id}&limit=1000`,
                 hidden: false
             },
             "project" : {
@@ -135,7 +135,7 @@ export class TicketCreatePage {
             name: "Account", 
             value: this.profile.account_name || (this.data.account || {}).name || (recent.account || {}).value || this.he.account_name,
             selected: account_id,
-            url: "accounts?is_with_statistics=false",
+            url: "accounts?is_with_statistics=false&limit=500",
             hidden: false
         };
 

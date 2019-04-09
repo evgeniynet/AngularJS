@@ -192,7 +192,7 @@ ngOnInit()
                     name: "Account", 
                     value:  (this.time.account || {}).name || this.time.account_name || (recent.account || {}).value || this.he.account_name,
                     selected: account_id,
-                    url: "accounts?is_with_statistics=false",
+                    url: "accounts?is_with_statistics=false&limit=500",
                     hidden: this.time.is_fixed,
                     is_disabled: this.time.ticket_number
                 },
@@ -621,6 +621,7 @@ ngOnInit()
          this.contractors=data.length;
          if (data){
              data.forEach(item => {
+                 item.lastname = "Contractor: " + item.lastname;
                  this.selects.tech.items.splice(0,0,item);
              });
          }

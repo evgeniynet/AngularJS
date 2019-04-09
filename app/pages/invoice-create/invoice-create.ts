@@ -93,7 +93,7 @@ ngOnInit()
                     name: "Account", 
                     value:  (this.data.account || {}).name || this.data.account_name || (recent.account || {}).value || this.he.account_name,
                     selected: account_id,
-                    url: "accounts?is_with_statistics=false",
+                    url: "accounts?is_with_statistics=false&limit=500",
                     hidden: false,
                     //is_once: true,
                     is_disabled: this.data.ticket_number

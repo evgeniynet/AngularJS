@@ -62,7 +62,7 @@ export class ExpenseCreatePage {
                 name: "Account",
                 value: this.expense.account_name || (this.expense.account || {}).name || (recent.account || {}).value || this.he.account_name,
                 selected: account_id,
-                url: "accounts?is_with_statistics=false",
+                url: "accounts?is_with_statistics=false&limit=500",
                 hidden: this.expense.is_fixed
             },
             "ticket" : {
