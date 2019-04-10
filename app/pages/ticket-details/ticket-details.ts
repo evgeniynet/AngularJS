@@ -670,12 +670,6 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
                 this.selects.contract.selected = 0;
                 contract_id = 0;
 
-                this.account_id = this.selects.account.selected;
-                if (this.selects.alttechs.items){
-                this.selects.alttechs.items.splice(0,this.contractors);
-                this.getContractor(this.selects.account.selected);
-                }
-
                 this.selects.location.url = `locations?account=${event.id}&limit=1000`;
                 this.selects.location.value = "Default";
                 this.selects.location.selected = 0;
@@ -898,6 +892,11 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
    onUpdate() {
      //proof double click
      if (this.ticket.in_progress && Date.now() - this.ticket.in_progress < 1500) {return;}
+     this.account_id = this.selects.account.selected;
+     if (this.selects.alttechs.items){
+        this.selects.alttechs.items.splice(0,this.contractors);
+        this.getContractor(this.selects.account.selected);
+     }
      this.ticket.in_progress = Date.now();
      var customfields_xml = this.getXML();
      if (customfields_xml == "") {

@@ -177,14 +177,15 @@ ngOnInit()
                 this.timecount_nonwork = 0;
             this.timenote = linebreaks(this.time.note || "", true);
             this.he = this.config.getCurrent("user");
-
+            if (this.he.account_id == 0)
+                this.he.account_id = -1;
             let recent : any = {};
 
             if (!this.time.number && !this.time.time_id && !(this.time.account || {}).id)
             {
                 recent = this.config.current.recent || {};
             }
-
+            console.log(this.time, recent.account, this.he.account_id);
             this.account_id = (this.time.account || {}).id || this.time.account_id || (recent.account || {}).selected || this.he.account_id || -1;
             let contract_id = (this.time.contract || {}).id || this.time.contract_id || (recent.contract || {}).selected || 0;
             let project_id = (this.time.project || {}).id || this.time.project_id || (recent.project || {}).selected || 0;
