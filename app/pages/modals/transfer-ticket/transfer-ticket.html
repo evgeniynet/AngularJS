@@ -13,7 +13,7 @@
 <div class="list max-width700 general-alignment">
 
 
-    <select-list  preload="true" [list]="selects.tech" (onChanged)='saveSelect($event)'></select-list>
+    <select-list  preload="true" [list]="selects.tech" (anOpen)='getContractor(account_id)' (onChanged)='saveSelect($event)'></select-list>
 
     <form #addForm="ngForm" class="response-ticket">
       

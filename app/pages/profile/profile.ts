@@ -1,7 +1,9 @@
 import {Page, Config, Nav, NavParams, ViewController} from 'ionic-angular';
 import {forwardRef, ViewChild} from '@angular/core';
-import {htmlEscape, linebreaks} from '../../directives/helpers';
+import {htmlEscape, linebreaks, addp} from '../../directives/helpers';
 import {DataProvider} from '../../providers/data-provider';
+import {TimeProvider} from '../../providers/providers';
+import {TimelogsPage} from '../timelogs/timelogs';
 import {SelectListComponent} from '../../components/select-list/select-list';
 import {GravatarPipe} from '../../pipes/pipes';
 
@@ -24,20 +26,23 @@ export class ProfilePage {
     title: string = "";
     selects: any = {};
     n: number = 3;
+    working: number = 0;
+    non_working_hours: number = 0;
+    cachename: string;
 
 
 
-
-    constructor(private nav: Nav, private config: Config, private dataProvider: DataProvider) {
+    constructor(private nav: Nav, private config: Config, private dataProvider: DataProvider, private timeProvider: TimeProvider) {
   }
 
 
 ngOnInit()
 {    
     this.getProfile();
-    this.getQueue();
+    if (this.config.current.user.is_techoradmin)
+        this.getQueue();
     let recent = this.config.current.recent || {};
-
+    if (this.config.current.user.is_techoradmin){
             var localQueres_id = localStorage.getItem('queue_id');
             var local_is_Queres = localStorage.getItem('is_queue');
             this.queue_id = localQueres_id ? localStorage.getItem('queue_id').split(", ") : [];
@@ -73,7 +78,16 @@ ngOnInit()
                     is_disabled: false
                 }
             };
-            
+        }
+            if (this.config.current.is_time_tracking && this.config.current.user.is_techoradmin){
+                let date = new Date().toJSON().substring(0,10);
+                let account = "0";
+                this.cachename = addp("time", "account", account);
+                this.cachename = addp(this.cachename, "tech", this.config.current.user.user_id);
+                this.cachename = addp(this.cachename, "start_date", date);
+                this.cachename = addp(this.cachename, "end_date", date);
+                this.countHours(this.timeProvider._dataStore[this.cachename] || []);
+         }
 
         }
 
@@ -130,6 +144,18 @@ ngOnInit()
             this.selects.queue1.items = this.selects.queue2.items = this.selects.queue3.items = sort;
         }
 
+        countHours(data){
+        let non_working_hours = 0;
+        let working = 0;
+        data.forEach(item => {
+            working += item.hours;
+                if (item.non_working_hours != -1)
+                    non_working_hours += item.non_working_hours;
+            });
+            this.non_working_hours = non_working_hours;
+            this.working = working;
+        }
+
         saveSelect(event){
             let name = event.type;
             let queue1_id = this.selects.queue1.selected;
@@ -153,6 +179,11 @@ ngOnInit()
                 this.filterQueues();
             break;
         }
+    }
+
+    itemTapped(event) {
+        let tech = { tech_id: this.config.current.user.user_id, tech_name: this.config.current.user.firstname+" "+this.config.current.user.lastname };
+        this.nav.push(TimelogsPage, tech);
     }
 
     onSubmit(form) {

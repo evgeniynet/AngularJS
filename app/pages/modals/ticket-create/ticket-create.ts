@@ -19,6 +19,8 @@ export class TicketCreatePage {
     @ViewChild(UploadButtonComponent) private uploadComponent: UploadButtonComponent;
     data: any;
     ticket: any;
+    account_id: any;
+    contractors: number;
     he: any;
     selects: any;
     fileDest: any = {ticket: "11"};
@@ -50,7 +52,7 @@ export class TicketCreatePage {
                 recent = this.config.current.recent || {};
         }
 
-        let account_id = this.profile.account_id ||(this.data.account || {}).id || (recent.account || {}).selected || this.he.account_id || -1;
+        this.account_id = this.profile.account_id ||(this.data.account || {}).id || (recent.account || {}).selected || this.he.account_id || -1;
         let location_id = this.profile.location_id || (this.data.location || {}).id || (recent.location || {}).selected || 0;
         let contract_id = recent.default_contract_id || 0;
 
@@ -66,19 +68,19 @@ export class TicketCreatePage {
                 name: "Location", 
                 value: this.profile.location_name || (this.data.location || {}).name || (recent.location || {}).value || "Default",
                 selected: location_id,
-                url: `locations?account=${account_id}&limit=500`,
+                url: `locations?account=${this.account_id}&limit=1000`,
                 hidden: false
             },
             "project" : {
                 name: "Project", 
                 value: (recent.project || {}).value || "Default",
                 selected: (recent.project || {}).selected || 0,
-                url: `projects?account=${account_id}&is_with_statistics=false`,
+                url: `projects?account=${this.account_id}&is_with_statistics=false`,
                 hidden: false
             },
             "submissions" : {
                 name: "Submission Category", 
-                value: (recent.submissions || {}).value || "Default",
+                value: (recent.submissions || {}).value || "Choose",
                 selected: (recent.submissions || {}).value || 0,
                 url: `submissions`,
                 hidden: !this.config.current.is_submission_category
@@ -94,12 +96,12 @@ export class TicketCreatePage {
                     name: "Contract", 
                     value: recent.default_contract_name || "Choose",
                     selected: recent.default_contract_id || this.config.getRecent("contract").selected || 0,
-                    url: `contracts?account_id=${account_id}`,
+                    url: `contracts?account_id=${this.account_id}`,
                     hidden: false    
                 },
             "class" : {
                 name: "Class", 
-                value: (recent.class || {}).value || "Default",
+                value: (recent.class || {}).value || "Choose",
                 selected: (recent.class || {}).selected || 0,
                 url: "classes",
                 hidden: false
@@ -125,7 +127,7 @@ export class TicketCreatePage {
 
         this.selects.tech = {
             name: "Tech", 
-            value: (this.data.tech || {}).name || "Default",
+            value: (this.data.tech || {}).name || "Choose",
             selected: (this.data.tech || {}).id || 0,
             url: this.config.current.is_allow_user_choose_tech && this.config.current.is_allow_user_choose_queue_only ? "users?role=queue" : "technicians",
             hidden: false
@@ -134,8 +136,8 @@ export class TicketCreatePage {
         this.selects.account = {
             name: "Account", 
             value: this.profile.account_name || (this.data.account || {}).name || (recent.account || {}).value || this.he.account_name,
-            selected: account_id,
-            url: "accounts?is_with_statistics=false",
+            selected: this.account_id,
+            url: "accounts?is_with_statistics=false&limit=500",
             hidden: false
         };
 
@@ -144,7 +146,7 @@ export class TicketCreatePage {
             "subject" : "",
             "initial_post" : "",
             "class_id" : null,
-            "account_id" : account_id,
+            "account_id" : this.account_id,
             "location_id": location_id,
             "user_id" : this.he.user_id,
             "tech_id" : 0,
@@ -184,6 +186,10 @@ export class TicketCreatePage {
                 this.selects.project.url = `projects?account=${event.id}&is_with_statistics=false`;
                 this.selects.project.value = "Default";
                 this.selects.project.selected = 0;
+                
+                this.account_id = event.id;
+                this.selects.tech.items.splice(0,this.contractors);
+                this.getContractor(this.account_id);
 
                 this.selects.contract.url = `contracts?account_id=${event.id}`;
                 this.selects.contract.value = "Default";
@@ -191,6 +197,8 @@ export class TicketCreatePage {
                 contract_id = 0;
                 break;
             case "class" :
+                this.selects.class.value = event.name;
+                this.selects.class.selected = event.id;
                 if (this.ticket.class_id == event.id)
                     break;
             
@@ -198,12 +206,29 @@ export class TicketCreatePage {
               break;
             default:
                     this.selects[name].selected = event.id;
-        console.log("event.id", event.id);
-        this.selects[name].value = event.name || "Default";
-        console.log("event.name", event.name);
+                    this.selects[name].value = event.name || "Default";
         break;
         }
     }
+
+    getContractor(account_id)
+   {
+     this.ticketProvider.getContractor(account_id).subscribe(
+       data => {
+         this.contractors=data.length;
+         if (data){
+           console.log(this.selects.tech.items, account_id);
+             data.forEach(item => {
+                 item.lastname = "Contractor: " + item.lastname;
+                 this.selects.tech.items.splice(0,0,item);
+             });
+         }
+       },
+       error => {
+         console.log(error || 'Server error');
+       }
+       );
+   }
 
     getProfile(id?, account?){
             this.dataProvider.getProfile(id, account).subscribe(

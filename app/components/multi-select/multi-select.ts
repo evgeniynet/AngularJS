@@ -19,6 +19,7 @@ export class MultiSelectComponent {
     @Input() preload: boolean;
     @Input() ajax: boolean;
     @Output() public onChanged: EventEmitter<any> = new EventEmitter(false);
+    @Output() public anOpen: EventEmitter<any> = new EventEmitter<any>();
     selected: Object = {};
     init: boolean = true;
     url: string;
@@ -79,6 +80,7 @@ export class MultiSelectComponent {
                  this.apiData.get(this.list.url).subscribe(
                      data => {
                          this.list.items = data;
+                         this.anOpen.emit("open");
                          if (show) {
                              loading.dismiss();
                          }

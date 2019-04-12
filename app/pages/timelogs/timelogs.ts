@@ -59,7 +59,7 @@ export class TimelogsPage {
                 value:  this.params.account.id==0? "--All " +this.config.current.names.account.p+" --" : this.params.account.name,
                 default: "--All " +this.config.current.names.account.p+" --",
                 selected:  (this.params.account || {}).id || "0",
-                url: "accounts?is_with_statistics=false",
+                url: "accounts?is_with_statistics=false&limit=500",
                 hidden: false
             }
         };

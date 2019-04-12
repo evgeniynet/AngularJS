@@ -59,12 +59,12 @@ export class TimeProvider {
         return cachelen;
     }
 
-        addTime(id, data, method) {
+    addTime(id, data, method) {
             let url = this.URL + (!id ? "" : ("/" + id));
             return this.apiData.get(url, data, method);
         }
 
-        deleteTime(id, data) {
+    deleteTime(id, data) {
             let url = this.URL + "/" + id;
             return this.apiData.get(url, data, "DELETE");
         }

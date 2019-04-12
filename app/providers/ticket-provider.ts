@@ -137,6 +137,13 @@ export class TicketProvider {
             return this.apiData.get(url, data, "PUT");
         }
 
+        getContractor(account) {
+            let url = "users";
+            url = addp(url, "role", "contractor");
+            url = addp(url, "account", account);
+            return this.apiData.get(url);
+        }    
+
         escalateTicket(id, is_esc) {
         let url = `${this.URL}/${id}`;
         let data = {

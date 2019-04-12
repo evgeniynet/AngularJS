@@ -293,6 +293,7 @@ if (this.config.current.user.is_techoradmin)
 ];
 else
   this.pages = [
+{ title: 'Profile', firstname: data.user.firstname, lastname: data.user.lastname, email: data.user.email, component: pages.ProfilePage, icon: "speedometer", is_profile: true },
 { title: data.names.ticket.p, component: pages.TicketsPage, icon: "create", is_active: true },
 { title: 'Switch Org', component: pages.OrganizationsPage, icon: "md-swap", is_active: this.config.current.is_multiple_org },
 { title: 'Signout', component: pages.LoginPage, icon: "md-log-in", is_active: true },
