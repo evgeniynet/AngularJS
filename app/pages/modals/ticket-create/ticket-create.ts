@@ -217,7 +217,6 @@ export class TicketCreatePage {
        data => {
          this.contractors=data.length;
          if (data){
-           console.log(this.selects.tech.items, account_id);
              data.forEach(item => {
                  item.lastname = "Contractor: " + item.lastname;
                  this.selects.tech.items.splice(0,0,item);
