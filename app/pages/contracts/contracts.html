@@ -18,8 +18,8 @@
         <h3 class="width70 left table">{{contract.default}}</h3> 
         <h3 class="width30 left table">&nbsp;Date:</h3> 
         <h3 class="width70 left table">{{setDate(contract.start_date)}} - {{setDate(contract.start_date)}}</h3> 
-        <h3 class="text color width30 left table_account text-left" style="height: 57px;">&nbsp;Billing Info:</h3>
-        <h3 class="width70 left table" style="height: 57px; white-space: normal;">${{contract.flat_fee}}<span [hidden]="contract.included_hours==0">&nbsp;({{contract.included_hours}}&nbsp;{{contract.flat_fee_mode}})</span>; Invoice every&nbsp;{{contract.invoice_frequency_val}}&nbsp;{{contract.flat_fee_mode}}; Overage:&nbsp;{{contract.overage}}; Next Invoice Date:&nbsp;{{setDate(contract.flat_fee_next_date)}}</h3>
+        <h3 class="text color width30 left table_account text-left" style="height: 76px;">&nbsp;Billing Info:</h3>
+        <h3 class="width70 left table" style="height: 76px; white-space: normal;">${{contract.flat_fee}}<span [hidden]="contract.included_hours==0">&nbsp;({{contract.included_hours}}&nbsp;{{contract.flat_fee_mode}})</span>; Invoice every&nbsp;{{contract.invoice_frequency_val}}&nbsp;{{contract.flat_fee_mode}}; Overage:&nbsp;{{contract.overage}}; Next Invoice Date:&nbsp;{{setDate(contract.flat_fee_next_date)}}</h3>
         <hr style="width: 100%; background-color: #ffffff; top: 4px; position: relative;">
       </ion-item>
 
