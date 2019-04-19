@@ -184,13 +184,8 @@ ngOnInit()
             {
                 recent = this.config.current.recent || {};
             }
-<<<<<<< HEAD
             
             this.account_id = this.time.account_id || (this.time.account || {}).id || (recent.account || {}).selected || this.he.account_id || -1;
-=======
-
-            this.account_id = (this.time.account || {}).id || this.time.account_id || (recent.account || {}).selected || this.he.account_id || -1;
->>>>>>> origin/dev
             let contract_id = (this.time.contract || {}).id || this.time.contract_id || (recent.contract || {}).selected || 0;
             let project_id = (this.time.project || {}).id || this.time.project_id || (recent.project || {}).selected || 0;
             if (this.account_id == 0)
