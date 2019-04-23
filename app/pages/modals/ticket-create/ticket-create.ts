@@ -121,7 +121,7 @@ export class TicketCreatePage {
                  hidden: !this.config.current.is_tech_choose_levels && !this.config.current.user.is_admin
            }
         };
-
+        
         if(this.selects.class.selected > 0)
             this.getCustomfield(recent.class.selected);
 

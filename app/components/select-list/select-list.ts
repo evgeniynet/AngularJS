@@ -117,6 +117,15 @@ export class SelectListComponent {
                  this.apiData.get(this.list.url).subscribe(
                      data => {
                          this.list.items = data;
+                         //console.log(this.list);
+                         if (this.list.name.toLowerCase() == "contract"){
+                             this.list.items.forEach(item => {
+                                 if (item.default){
+                                     this.list.selected = item.id;
+                                     this.list.value = item.name; 
+                                 }
+                             });
+                         }
                          this.anOpen.emit("open");
                          
                          if (loading) {
