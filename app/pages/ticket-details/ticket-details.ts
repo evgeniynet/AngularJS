@@ -338,6 +338,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
    details_tab: string;
    active: boolean;
    waiting_response: boolean = false;
+   is_techs_only: boolean = false;
    he: any;
    techname: string;
    username: string;
@@ -696,7 +697,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
 
      if (isClose && this.files.length || !isClose)
      {
-       this.ticketProvider.addTicketPost(this.ticket.id, post, this.files, this.waiting_response).subscribe(
+       this.ticketProvider.addTicketPost(this.ticket.id, post, this.files, this.waiting_response, this.is_techs_only).subscribe(
          data => {
            if (!isClose)
            { 

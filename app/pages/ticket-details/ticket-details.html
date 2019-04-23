@@ -79,6 +79,16 @@
    <div class="tooltips" style="position: inherit;">
     <textarea class="width100 textLogin commentText" [(ngModel)]="ticketnote" type="text" placeholder="Add Response" ngControl="note" #note="ngForm" required maxlength="4000"></textarea>
     <span [hidden]="note.valid || note.untouched">Response is required (max 5000 chars)</span></div>
+    <div class="Switcher">
+    <div *ngIf="config.current.is_waiting_on_response" (click)="waiting_response = !waiting_response;">
+      <ion-icon [ngClass]="{'ion-ios-checkmark-circle secondary' : waiting_response, 'ion-ios-radio-button-on grey2' : !waiting_response }" class="fontResp margin-top3"></ion-icon>
+      <h5>Waiting On</h5>
+    </div>
+    <div *ngIf="config.current.user.is_techoradmin" (click)="is_techs_only = !is_techs_only;" class="subSwitcher">
+      <ion-icon [ngClass]="{'ion-ios-checkmark-circle secondary' : is_techs_only, 'ion-ios-radio-button-on grey2' : !is_techs_only }" class="fontResp margin-top3"></ion-icon>
+      <h5>{{config.current.names.tech.ap}} Only</h5>
+    </div>
+  </div>
     <button secondary class="button_reply right indent-bottom margin-left10" [disabled]="!addForm.valid && !files?.length" (click)="u.onUpload()"  type="submit">Reply</button>
     <button *ngIf="!config.current.user.is_techoradmin && ticket.status != 'Closed'" secondary class="button_reply right indent-bottom margin-left10" (click)="u.onUpload(true)" [disabled]="!addForm.valid && !files?.length">Reply & Close</button>
     <upload-button #u (filesUploaded)="uploadedFile($event)"   
@@ -90,10 +100,7 @@
     [logCallback]=""></upload-button>
   </form>
   <!-- It radio will be needing to add logic-->
-  <div *ngIf="config.current.is_waiting_on_response" (click)="waiting_response = !waiting_response;" style="padding-bottom: 13px; margin-top: -10px !important; display:inline-flex;">
-  <ion-icon [ngClass]="{'ion-ios-checkmark-circle secondary' : waiting_response, 'ion-ios-radio-button-on grey2' : !waiting_response }" class="fontResp todos-padding margin-top3"></ion-icon>
-  <h5 style="margin-top: 11px;">Waiting on Response</h5>
-  </div>
+  
   <ion-label class="text-left" style="font-size: 12px; white-space: normal; margin-top: 0px !important;
     padding-bottom: 40px !important;">
     <a href=# (click)="getMailTolink(ticket.key)" class="text-decor">

@@ -221,9 +221,21 @@ ion-searchbar .searchbar-input {
     height: 2em;
     margin-right:10%;
 }
-
 .disabled{
     cursor: none;
     opacity: .4;
     pointer-events: none;
+}
+.Switcher{
+    padding-bottom: 10px; 
+    display:flex;
+
+    div{
+        width:150px;
+        display:flex;
+    }
+    h5{
+        margin-top: 11px;
+        padding-left: 8px;
+    }
 }
