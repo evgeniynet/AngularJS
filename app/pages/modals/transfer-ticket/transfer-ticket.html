@@ -20,13 +20,20 @@
         <ion-item no-lines class="left toggle-width">
       <ion-toggle class="toggle" [(ngModel)]="keep_attached" disabled='false'></ion-toggle>
     </ion-item>
-    <p style="width: 80%" class="left text-toggle color">Keep {{ticket.tech_firstname}} {{ticket.tech_lastname}} attached to this {{config.current.names.ticket.s}}</p>  
+    <p style="width: 77%" class="left text-toggle color">Keep {{ticket.tech_firstname}} {{ticket.tech_lastname}} attached to this {{config.current.names.ticket.s}}</p>  
 
     <div class="tooltips">
         <textarea class="width100 textLogin commentText" [(ngModel)]="ticketnote" type="text" placeholder="Add Transfer Note" ngControl="note" #note="ngForm" maxlength="4000"></textarea>
         <span [hidden]="note.valid || note.untouched">Note should be less 5000 chars</span></div>
+    <div class="SwitcherTransfer">
+        <div *ngIf="config.current.user.is_techoradmin" (click)="is_techs_only = !is_techs_only;">
+      <ion-icon [ngClass]="{'ion-ios-checkmark-circle secondary' : is_techs_only, 'ion-ios-radio-button-on grey2' : !is_techs_only }" class="fontResp margin-top3"></ion-icon>
+      <h5>{{config.current.names.tech.ap}} Visible Only</h5>
+    </div>
         <button secondary 
-        class="button_reply img-top right" [disabled]="!addForm.valid" (click)="onSubmit(addForm)"  type="submit">Transfer {{config.current.names.ticket.s}}</button>
+        class="button_reply" [disabled]="!addForm.valid" (click)="onSubmit(addForm)"  type="submit">Transfer {{config.current.names.ticket.s}}</button>
+    </div>    
+    
     </form>
 
 </div>

@@ -16,6 +16,7 @@ export class TransferTicketModal {
     ticketnote: string;
     ticket: any;
     selects: any;
+    is_techs_only: boolean = false;
 
     constructor(private nav: Nav, private navParams: NavParams, private ticketProvider: TicketProvider, private config: Config,
         private viewCtrl: ViewController) {
@@ -62,6 +63,7 @@ export class TransferTicketModal {
                 "name": this.selects.value,
                 "tech_id": this.selects.selected,
                 "keep_attached": this.keep_attached,
+                "is_techs_only": this.is_techs_only,
                 "action":  "transfer",
             };
             this.ticketProvider.transferUserTech(this.ticket.key, newtech).subscribe(
