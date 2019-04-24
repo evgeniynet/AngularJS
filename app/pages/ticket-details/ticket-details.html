@@ -133,7 +133,7 @@
 <!-- End categories and submissions-->
 
   <!-- New Contract -->
-    <select-list [list]="selects.contract" preload="true" (onChanged)='saveSelect($event)'></select-list>
+    <select-list [list]="selects.contract" preload="true" [account_id]="account_id" (onChanged)='saveSelect($event)'></select-list>
 <!--End Contract-->
 
 <!-- New Custom fields-->
@@ -153,7 +153,7 @@
 </div>
 
 <div *ngSwitchWhen="'Assign'" class="list max-width700 general-alignment">
-    <multi-select  preload="true" [list]="selects.alttechs" (anOpen)='getContractor(account_id)' (onChanged)='saveSelect($event)'></multi-select>
+    <multi-select  preload="true" [list]="selects.alttechs" [account_id]="account_id" (onChanged)='saveSelect($event)'></multi-select>
       <div *ngFor="let tech of technicians" class="alts">
     <p class="left color fullname" style="width: 50%">{{tech.user_fullname2.slice(0, 23)}}</p>
     <p *ngIf="!tech.is_primary" class="left color no-primary" style="width: 17%;">-</p>
@@ -161,7 +161,7 @@
     <p class="left color date" style="width: 33%;">{{tech.start_date.slice(0, 10)}} {{tech.start_date.slice(12, 16)}}</p>
   </div>
 <div>&nbsp;<br>&nbsp;</div>
-    <multi-select ajax="true" [list]="selects.altusers" (onChanged)='saveSelect($event)' preload="true"></multi-select>
+    <multi-select ajax="true" [list]="selects.altusers" [account_id]="account_id" (onChanged)='saveSelect($event)' preload="true"></multi-select>
       <div *ngFor="let user of users" class="alts">
     <p class="left color fullname" style="width: 50%">{{user.user_fullname2.slice(0, 23)}}</p>
     <p *ngIf="!user.is_primary" class="left color no-primary" style="width: 17%;">-</p>

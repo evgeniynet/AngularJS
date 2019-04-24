@@ -48,27 +48,11 @@ export class TransferTicketModal {
         this.viewCtrl.dismiss(data);
     }
 
-    getContractor(account_id)
-   {
-     this.ticketProvider.getContractor(account_id).subscribe(
-       data => {
-         if (data){
-             data.forEach(item => {
-                 item.lastname = "Contractor: " + item.lastname;
-                 this.selects.tech.items.splice(0,0,item);
-             });
-         }
-       },
-       error => {
-         console.log(error || 'Server error');
-       }
-       );
-   }
-
     saveSelect(event) {
         let name = event.type;
         this.selects.selected = event.id;
         this.selects.value = event.name;
+        this.account_id = event.id;
     }
     
     onSubmit(form) {

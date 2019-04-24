@@ -329,7 +329,6 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
    userphone: string;
    customfields: any = [];
    technicians: any = [];
-   contractors: number;
    users: any = [];
    subject: any;
    next_step: any;
@@ -445,7 +444,8 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
          value: contract_name || "( Not Set )",
          selected: contract_id || this.config.getRecent("contract").selected || 0,
          url: `contracts?account_id=${this.account_id}`,
-         hidden: false    
+         hidden: false,
+         is_default: true    
                 },
        "submissions" : { 
          name: "Submission Category", 
@@ -516,25 +516,6 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
      {
        this.ticketnote = "  ";
      }
-   }
-
-   getContractor(account_id)
-   {
-     this.ticketProvider.getContractor(account_id).subscribe(
-       data => {
-         this.contractors=data.length;
-         if (data){
-           console.log(this.selects.alttechs.items, account_id);
-             data.forEach(item => {
-                 item.lastname = "Contractor: " + item.lastname;
-                 this.selects.alttechs.items.splice(0,0,item);
-             });
-         }
-       },
-       error => {
-         console.log(error || 'Server error');
-       }
-       );
    }
 
    getPosts(key)
@@ -656,15 +637,12 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
             case "account" :
               if (this.ticket.account_id == event.id){ 
                 this.account_id = this.selects.account.selected;
-                if (this.selects.alttechs.items){
-                this.selects.alttechs.items.splice(0,this.contractors);
-                this.getContractor(this.selects.account.selected);
-                }
               break;
               }
                 this.selects.project.url = `projects?account=${event.id}&is_with_statistics=false`;
                 this.selects.project.value = "Default";
                 this.selects.project.selected = 0;
+                this.account_id = event.id;
 
                 this.selects.contract.url = `contracts?account_id=${event.id}`;
                 this.selects.contract.value = "Default";
@@ -894,10 +872,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
      //proof double click
      if (this.ticket.in_progress && Date.now() - this.ticket.in_progress < 1500) {return;}
      this.account_id = this.selects.account.selected;
-     if (this.selects.alttechs.items){
-        this.selects.alttechs.items.splice(0,this.contractors);
-        this.getContractor(this.selects.account.selected);
-     }
+     
      this.ticket.in_progress = Date.now();
      var customfields_xml = this.getXML();
      if (customfields_xml == "") {
