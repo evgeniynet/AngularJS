@@ -36,14 +36,12 @@ export class SelectListComponent {
 
  
     ngOnChanges(event) {
-        console.log(this.list);
         if (this.list.name.toLowerCase() == "contract" && !event.account_id.isFirstChange() || this.list.name.toLowerCase() == "tech" && !event.account_id.isFirstChange()) {
                 if (this.list.name.toLowerCase() == "contract"){
                     this.loadData(false);
                     this.defaultContract();
                 }    
                 else if (this.list.name.toLowerCase() == "tech"){
-                    console.log("tech if");
                     this.list.items.splice(0,this.contractors); 
                     this.getContractor(this.account_id);
                 }}
@@ -140,7 +138,6 @@ export class SelectListComponent {
                          }
                          if (this.list.name.toLowerCase() == "tech")
                              this.getContractor(this.account_id);
-                         console.log(this.list);
                      },
                      error => {
                          if (loading) loading.dismiss();

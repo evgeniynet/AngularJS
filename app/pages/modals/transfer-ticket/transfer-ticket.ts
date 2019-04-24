@@ -30,7 +30,6 @@ export class TransferTicketModal {
 
         this.ticket = this.navParams.data || 0;
         this.account_id = this.ticket.account_id;
-        console.log(this.account_id);
         this.selects = {
             "tech": {
                 name: "tech",

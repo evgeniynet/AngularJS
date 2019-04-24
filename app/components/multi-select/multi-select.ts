@@ -31,13 +31,9 @@ export class MultiSelectComponent {
         this.list = {};
     }  
     ngOnChanges(event) {
-        console.log(event, this.account_id, this.list.name.toLowerCase());
         if (this.list.name.toLowerCase() == "alt techs" && !event.account_id.isFirstChange() || this.list.name.toLowerCase() == "alt users" && !event.account_id.isFirstChange()) {
-                //if (this.list.name.toLowerCase() == "alt techs" || this.list.name.toLowerCase() == "alt users"){
-                    console.log("tech if");
                     this.list.items.splice(0,this.contractors); 
                     this.getContractor(this.account_id);
-               // }
             }
         }
 
