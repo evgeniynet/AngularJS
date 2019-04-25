@@ -159,8 +159,7 @@ export class TicketProvider {
                 "note_text": note,
                 "files" : files || [],
                 "is_waiting_on_response" : waiting_response,
-                "is_techs_only" : is_techs_only,
-
+                "is_tech_only" : is_techs_only,
             };
             return this.apiData.get(url, data, "POST");
         }

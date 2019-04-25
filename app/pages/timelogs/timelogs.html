@@ -9,7 +9,7 @@
 <ion-content>
       <div [ngClass]="{'displayon': test, 'displayoff': !test}" debounce="700" class="open-filter stickySearch">
         <select-list [list]="selects.account" [preload]="config.current.user.is_techoradmin" [is_enabled]="config.current.user.is_techoradmin" ajax="true" (onChanged)='saveSelect($event)'></select-list>
-        <select-list [list]="selects.tech" ajax="true" preload="true" (onChanged)='saveSelect($event)'></select-list>
+        <select-list [list]="selects.tech" ajax="true" [account_id]="selects.account.selected" preload="true" (onChanged)='saveSelect($event)'></select-list>
       </div>
 
     <ion-list class="list general-alignment2" no-lines>

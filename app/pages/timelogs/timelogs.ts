@@ -86,7 +86,6 @@ export class TimelogsPage {
         else{
             this.is_empty = true;
         }
-
     }
 
     saveSelect(event){
@@ -110,6 +109,7 @@ export class TimelogsPage {
         this.pager.page = 0;
         this.timeProvider.getTimelogs(this.params.account.id, this.params.tech.id, this.pager);
         this.timelogs = this.timeProvider.times$[this.cachename];
+
         if (!this.cachelen)
         {
             var timer = setTimeout(() => {
