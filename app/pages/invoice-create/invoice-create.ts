@@ -24,6 +24,7 @@ export class InvoiceCreatePage {
     contract: any = [];
     timecount: any;
     timelogs: any = [];
+    account_id: any;
     invoice_start_date: any;
     invoice_end_date: any;
     total_cost: any;
@@ -64,13 +65,13 @@ ngOnInit()
                 recent = this.config.current.recent || {};
             }
 
-            let account_id = (this.data.account || {}).id || this.data.account_id || (recent.account || {}).selected || this.he.account_id || -1;
+            this.account_id = (this.data.account || {}).id || this.data.account_id || (recent.account || {}).selected || this.he.account_id || -1;
             let contract_id = (this.data.contract || {}).id || this.data.contract_id || (recent.contract || {}).selected || 0;
             let project_id = (this.data.project || {}).id || this.data.project_id || (recent.project || {}).selected || 0;
             if(contract_id)
                 this.getContractInfo(contract_id);
-            if (contract_id && account_id !=0)
-                this.getInvoice(account_id, contract_id);
+            if (contract_id && this.account_id !=0)
+                this.getInvoice(this.account_id, contract_id);
 
 
             this.selects = {
@@ -92,7 +93,7 @@ ngOnInit()
                 "account" : {
                     name: "Account", 
                     value:  (this.data.account || {}).name || this.data.account_name || (recent.account || {}).value || this.he.account_name,
-                    selected: account_id,
+                    selected: this.account_id,
                     url: "accounts?is_with_statistics=false&limit=500",
                     hidden: false,
                     //is_once: true,
@@ -102,7 +103,7 @@ ngOnInit()
                     name: "Project", 
                     value:  this.data.project_name || (recent.project || {}).value || "Default",
                     selected: project_id,
-                    url: `projects?account=${account_id}&is_with_statistics=false`,
+                    url: `projects?account=${this.account_id}&is_with_statistics=false`,
                     hidden: false,
                     is_disabled: this.data.ticket_number,
                     //is_once: true
@@ -111,7 +112,7 @@ ngOnInit()
                     name: "Ticket", 
                     value: this.data.ticket_number ? `#${this.data.ticket_number}: ${this.data.ticket_subject}` : "Choose (optional)",
                     selected: this.data.ticket_number || 0,
-                    url: `tickets?status=open&account=${account_id}&project=${project_id}`,
+                    url: `tickets?status=open&account=${this.account_id}&project=${project_id}`,
                     hidden: this.data.is_project_log || false,
                     is_disabled: this.data.task_type_id,
                     //is_once: true
@@ -120,9 +121,9 @@ ngOnInit()
                     name: "Contract", 
                     value: this.data.contract_name || (recent.contract || {}).value || "Choose",
                     selected: this.data.contract_id || this.config.getRecent("contract").selected || 0,
-                    url: `contracts?account_id=${account_id}`,
+                    url: `contracts?account_id=${this.account_id}`,
                     hidden: false,
-                    is_disabled: false,
+                    //is_disabled: false,
                     //is_once: true
                 },
                 "prepaidpack" : {
@@ -138,7 +139,7 @@ ngOnInit()
 
         saveSelect(event){
             let name = event.type;
-            let account_id = this.selects.account.selected;
+            this.account_id = this.selects.account.selected;
             let ticket_id = this.selects.ticket.selected;
             let project_id = this.selects.project.selected;
             let contract_id = this.selects.contract.selected;
@@ -166,10 +167,10 @@ ngOnInit()
             this.selects.prepaidpack.url = `prepaid_packs?contract_id=0`;
             this.selects.prepaidpack.value = "Choose (optional)";
             this.selects.prepaidpack.selected = 0;
-            account_id = event.id;
+            this.account_id = event.id;
             this.selects.ticket.hidden = this.data.is_project_log || this.data.task_type_id || false;
             if (!this.data.task_type_id){
-                this.selects.ticket.url = `tickets?status=open&account=${account_id}&project=${project_id}`,
+                this.selects.ticket.url = `tickets?status=open&account=${this.account_id}&project=${project_id}`,
                 this.selects.ticket.value = "Choose (optional)";
                 this.selects.ticket.selected = 0;
             }
@@ -183,7 +184,7 @@ ngOnInit()
             // dont change ticket on edit
             if (!this.data.task_type_id){
                 this.selects.ticket.hidden = this.data.is_project_log || this.data.task_type_id || false;
-                this.selects.ticket.url = `tickets?status=open&account=${account_id}&project=${event.id}`,
+                this.selects.ticket.url = `tickets?status=open&account=${this.account_id}&project=${event.id}`,
                 this.selects.ticket.value = "Choose (optional)";
                 this.selects.ticket.selected = 0;
             }
@@ -211,7 +212,7 @@ ngOnInit()
             this.selects.prepaidpack.selected = 0;
             contract_id = event.id;
             if (contract_id)
-            this.getInvoice(account_id, contract_id);
+            this.getInvoice(this.account_id, contract_id);
             break;
 
             case "ticket" :
