@@ -89,10 +89,12 @@ AddHours(date, hours)
     return date;
 }
 
-GetLocalDate()
+GetLocalDate(nojson?)
 {
     let date = new Date();
-    return new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toJSON();
+    date = new Date(date.getTime() - (date.getTimezoneOffset() * 60000))
+    if (nojson) return date;
+    return date.toJSON();
 }
 
 ngOnInit()
@@ -619,15 +621,15 @@ ngOnInit()
     }
 
     setMinTime(date) {
-        return (date || this.time.date || this.GetLocalDate().substring(0,4));
+        return (date || this.time.date || this.GetLocalDate(true));
     }
 
     setMaxTime(date) {
-        return (date || this.time.date || this.GetLocalDate().substring(0,4));
+        return (date || this.time.date || this.GetLocalDate(true));
     }
 
     getStartDate(time) {
-        return (time || this.time.date || this.GetLocalDate());
+        return (time || this.time.date || this.GetLocalDate(true));
     }
 
     setStartDate(time){
