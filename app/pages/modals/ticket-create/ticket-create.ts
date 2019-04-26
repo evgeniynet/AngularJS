@@ -19,10 +19,10 @@ export class TicketCreatePage {
     @ViewChild(UploadButtonComponent) private uploadComponent: UploadButtonComponent;
     data: any;
     ticket: any;
-    account_id: any;
     contractors: number;
     he: any;
     selects: any;
+    account_id: number;
     fileDest: any = {ticket: "11"};
     files: any = [];
     customfields: any = [];
@@ -187,14 +187,15 @@ export class TicketCreatePage {
                 this.selects.project.value = "Default";
                 this.selects.project.selected = 0;
                 
+                this.selects.account.value = event.name;
+                this.selects.account.selected = event.id;
                 this.account_id = event.id;
-                this.selects.tech.items.splice(0,this.contractors);
-                this.getContractor(this.account_id);
 
                 this.selects.contract.url = `contracts?account_id=${event.id}`;
                 this.selects.contract.value = "Default";
                 this.selects.contract.selected = 0;
                 contract_id = 0;
+
                 break;
             case "class" :
                 this.selects.class.value = event.name;
@@ -211,24 +212,6 @@ export class TicketCreatePage {
         }
     }
 
-    getContractor(account_id)
-   {
-     this.ticketProvider.getContractor(account_id).subscribe(
-       data => {
-         this.contractors=data.length;
-         if (data){
-             data.forEach(item => {
-                 item.lastname = "Contractor: " + item.lastname;
-                 this.selects.tech.items.splice(0,0,item);
-             });
-         }
-       },
-       error => {
-         console.log(error || 'Server error');
-       }
-       );
-   }
-
     getProfile(id?, account?){
             this.dataProvider.getProfile(id, account).subscribe(
             data => {
@@ -238,7 +221,7 @@ export class TicketCreatePage {
                 this.selects.account.selected = this.profile.account_id || -1;
                 this.getProfile(id, this.selects.account.selected);
                 }
-
+                
                 this.selects.location.url = `locations?account=${this.selects.account.selected || -1}&limit=500`;
                 this.selects.location.value = this.profile.location_name || "Default";
                 this.selects.location.selected = this.profile.location_id || 0;

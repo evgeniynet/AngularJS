@@ -21,7 +21,6 @@ export class TimelogPage {
     timecount_nonwork: any;
     mintime: number;
     time: any = {};
-    contractors: number;
     date: string;
     timenote: string;
     title: string = "";
@@ -248,7 +247,7 @@ ngOnInit()
 
         saveSelect(event){
             let name = event.type;
-            let account_id = this.selects.account.selected;
+            this.account_id = this.selects.account.selected;
             let ticket_id = this.selects.ticket.selected;
             let project_id = this.selects.project.selected;
             let contract_id = this.selects.contract.selected;
@@ -270,14 +269,13 @@ ngOnInit()
             this.selects.prepaidpack.url = `prepaid_packs?contract_id=0`;
             this.selects.prepaidpack.value = "Choose (optional)";
             this.selects.prepaidpack.selected = 0;
-            account_id = event.id;
-            if(!this.selects.tech.hidden){
-                this.selects.tech.items.splice(0,this.contractors);
-                this.getContractor(account_id);
-            }
+            this.account_id = event.id;
+            this.selects.account.value = event.name;
+            this.selects.account.selected = event.id;
+
             this.selects.ticket.hidden = this.time.is_project_log || this.time.task_type_id || false;
             if (!this.time.task_type_id){
-                this.selects.ticket.url = `tickets?status=open&account=${account_id}&project=${project_id}`,
+                this.selects.ticket.url = `tickets?status=open&account=${this.account_id}&project=${project_id}`,
                 this.selects.ticket.value = "Choose (optional)";
                 this.selects.ticket.selected = 0;
             }
@@ -293,7 +291,7 @@ ngOnInit()
             // dont change ticket on edit
             if (!this.time.task_type_id){
                 this.selects.ticket.hidden = this.time.is_project_log || this.time.task_type_id || false;
-                this.selects.ticket.url = `tickets?status=open&account=${account_id}&project=${event.id}`,
+                this.selects.ticket.url = `tickets?status=open&account=${this.account_id}&project=${event.id}`,
                 this.selects.ticket.value = "Choose (optional)";
                 this.selects.ticket.selected = 0;
             }
@@ -325,7 +323,7 @@ ngOnInit()
             this.selects.tasktype.selected = 0;
             break;
         }
-        this.selects.tasktype.url = `task_types?ticket=${ticket_id}&account=${account_id}&project=${project_id}&contract=${contract_id}`;
+        this.selects.tasktype.url = `task_types?ticket=${ticket_id}&account=${this.account_id}&project=${project_id}&contract=${contract_id}`;
         this.selects[name].selected = event.id;
         this.selects[name].value = event.name || "Default";
     }
@@ -615,24 +613,6 @@ ngOnInit()
         localStorage.setItem('past', '');
         localStorage.setItem('countDownDate', '');
     }
-
-    getContractor(account_id)
-   {
-     this.ticketProvider.getContractor(account_id).subscribe(
-       data => {
-         this.contractors=data.length;
-         if (data){
-             data.forEach(item => {
-                 item.lastname = "Contractor: " + item.lastname;
-                 this.selects.tech.items.splice(0,0,item);
-             });
-         }
-       },
-       error => {
-         console.log(error || 'Server error');
-       }
-       );
-   }
 
     ngOnDestroy(){    
         clearTimeout(this.stopwatch);  

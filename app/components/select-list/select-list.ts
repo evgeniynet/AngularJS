@@ -1,7 +1,8 @@
 import {IONIC_DIRECTIVES, Nav, Modal, Alert, Config, Loading} from 'ionic-angular';
 import {ApiData} from '../../providers/api-data';
 import {getFullName} from '../../directives/helpers';
-import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
+import {TicketProvider} from '../../providers/providers';
+import {Component, Input, Output, EventEmitter, OnInit, OnChanges} from '@angular/core';
 import {BasicSelectModal, InfinitySelectModal, AjaxSelectModal} from '../../pages/modals/modals';
 
 const alertLimit = 5;
@@ -13,6 +14,7 @@ const alertLimit = 5;
 })
 export class SelectListComponent {
     @Input() list: any;
+    @Input() account_id: any;
     @Input() isbutton: boolean;
     @Input() is_enabled: boolean = true;
     @Input() is_once: boolean = false;
@@ -21,21 +23,29 @@ export class SelectListComponent {
     @Input() preload: boolean;
     @Input() ajax: boolean;
     @Output() public onChanged: EventEmitter<any> = new EventEmitter(false);
-    @Output() public anOpen: EventEmitter<any> = new EventEmitter<any>();
     selected: Object = {};
     init: boolean = true;
+    contractors: number = 0;
     url: string;
     name: string = "";
 
-    constructor(private nav: Nav, private apiData: ApiData, private config: Config) {
+    constructor(private nav: Nav, private ticketProvider: TicketProvider, private apiData: ApiData, private config: Config) {
         this.list = {};
     }  
 
 
- /*
+ 
     ngOnChanges(event) {
-        console.log(event.list.is_disabled);
-        if ("list" in event) {
+        if (this.list.name.toLowerCase() == "contract" && !event.account_id.isFirstChange() || this.list.name.toLowerCase() == "tech" && !event.account_id.isFirstChange()) {
+                if (this.list.name.toLowerCase() == "contract"){
+                    this.loadData(false);
+                    this.defaultContract();
+                }    
+                else if (this.list.name.toLowerCase() == "tech"){
+                    this.list.items.splice(0,this.contractors); 
+                    this.getContractor(this.account_id);
+                }}
+        /*if ("list" in event) {
             this.is_enabled = !this.list.is_disabled;
             console.log(this.url);
             if (!event.list.isFirstChange() && event.list.currentValue.url !== this.url) {
@@ -43,9 +53,9 @@ export class SelectListComponent {
                 //this.list.hidden = true;
             }
             
-        }
+        }*/
     }
-*/
+
     ngOnInit() {
         let listname = this.list.name.toLowerCase();
         if ((listname == "project" && !this.config.current.is_project_tracking) ||
@@ -101,7 +111,7 @@ export class SelectListComponent {
      }
 
      loadData (show)
-     {
+     {    
          if (this.url != this.list.url || !this.list.items || this.list.items.length == 0){
             let loading = null;
              if (this.list.url) {
@@ -117,13 +127,17 @@ export class SelectListComponent {
                  this.apiData.get(this.list.url).subscribe(
                      data => {
                          this.list.items = data;
-                         this.anOpen.emit("open");
                          
                          if (loading) {
                              loading.dismiss();
                          }
                          this.proceed_list(show);
                          this.url = this.list.url;
+                         if (this.list.name.toLowerCase() == "contract" && !this.list.is_default){
+                             this.defaultContract();
+                         }
+                         if (this.list.name.toLowerCase() == "tech")
+                             this.getContractor(this.account_id);
                      },
                      error => {
                          if (loading) loading.dismiss();
@@ -139,6 +153,15 @@ export class SelectListComponent {
      }
      else
          this.proceed_list(show);
+ }
+
+ defaultContract(){
+     this.list.items.forEach(item => {
+                                 if (item.default){
+                                     this.list.selected = item.id;
+                                     this.list.value = item.name; 
+                                 }
+                             });
  }
 
  error(message)
@@ -236,6 +259,24 @@ export class SelectListComponent {
      this.nav.present(alert);
          //.then(() => { this.testRadioOpen = true;});
      }
+
+     getContractor(account_id)
+   {
+     this.ticketProvider.getContractor(account_id).subscribe(
+       data => {
+         this.contractors=data.length;
+         if (data){
+             data.forEach(item => {
+                 item.lastname = "Contractor: " + item.lastname;
+                 this.list.items.splice(0,0,item);
+             });
+         }
+       },
+       error => {
+         console.log(error || 'Server error');
+       }
+       );
+   }
 
      openModal() {
          //TODO check counts: is more than 100 - do ajax

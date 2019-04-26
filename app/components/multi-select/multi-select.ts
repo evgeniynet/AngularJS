@@ -1,7 +1,8 @@
 import {IONIC_DIRECTIVES, Nav, Modal, Alert, Config, Loading} from 'ionic-angular';
 import {ApiData} from '../../providers/api-data';
 import {getFullName} from '../../directives/helpers';
-import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
+import {TicketProvider} from '../../providers/providers';
+import {Component, Input, Output, EventEmitter, OnInit, OnChanges} from '@angular/core';
 import {BasicSelectModal, InfinityMultiSelectModal, AjaxSelectModal} from '../../pages/modals/modals';
 
 const alertLimit = 5;
@@ -13,21 +14,28 @@ const alertLimit = 5;
 })
 export class MultiSelectComponent {
     @Input() list: any;
+    @Input() account_id: any;
     @Input() isbutton: boolean;
     @Input() is_enabled: boolean = true;
     @Input() is_me: boolean;
     @Input() preload: boolean;
     @Input() ajax: boolean;
     @Output() public onChanged: EventEmitter<any> = new EventEmitter(false);
-    @Output() public anOpen: EventEmitter<any> = new EventEmitter<any>();
     selected: Object = {};
     init: boolean = true;
     url: string;
+    contractors: number = 0;
     name: string = "";
 
-    constructor(private nav: Nav, private apiData: ApiData, private config: Config) {
+    constructor(private nav: Nav, private apiData: ApiData, private ticketProvider: TicketProvider, private config: Config) {
         this.list = {};
     }  
+    ngOnChanges(event) {
+        if (this.list.name.toLowerCase() == "alt techs" && !event.account_id.isFirstChange() || this.list.name.toLowerCase() == "alt users" && !event.account_id.isFirstChange()) {
+                    this.list.items.splice(0,this.contractors); 
+                    this.getContractor(this.account_id);
+            }
+        }
 
     ngOnInit() {
         let listname = this.list.name.toLowerCase();
@@ -80,11 +88,13 @@ export class MultiSelectComponent {
                  this.apiData.get(this.list.url).subscribe(
                      data => {
                          this.list.items = data;
-                         this.anOpen.emit("open");
+                         
                          if (show) {
                              loading.dismiss();
                          }
                          this.proceed_list(show);
+                         if (this.list.name.toLowerCase() == "alt users" || this.list.name.toLowerCase() == "alt techs")
+                             this.getContractor(this.account_id);
                          this.url = this.list.url;
                      },
                      error => {
@@ -171,6 +181,23 @@ export class MultiSelectComponent {
      this.onChanged.emit(value);
      }
 
+     getContractor(account_id)
+   {
+     this.ticketProvider.getContractor(account_id).subscribe(
+       data => {
+         this.contractors=data.length;
+         if (data){
+             data.forEach(item => {
+                 item.lastname = "Contractor: " + item.lastname;
+                 this.list.items.splice(0,0,item);
+             });
+         }
+       },
+       error => {
+         console.log(error || 'Server error');
+       }
+       );
+   }
 
      openModal() {
          //TODO check counts: is more than 100 - do ajax
