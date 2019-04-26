@@ -123,7 +123,7 @@ ngOnInit()
                     selected: this.data.contract_id || this.config.getRecent("contract").selected || 0,
                     url: `contracts?account_id=${this.account_id}`,
                     hidden: false,
-                    //is_disabled: false,
+                    is_disabled: false,
                     //is_once: true
                 },
                 "prepaidpack" : {

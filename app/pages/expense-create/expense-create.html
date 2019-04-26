@@ -26,7 +26,7 @@
 
    <select-list [list]="selects.category" preload="true" (onChanged)='saveSelect($event)'></select-list>
 
-    <select-list [list]="selects.contract" preload="true" (onChanged)='saveSelect($event)'></select-list>
+    <select-list [list]="selects.contract" [account_id]="account_id" preload="true" (onChanged)='saveSelect($event)'></select-list>
 
         </div>    
 <div class="tooltips"> 
