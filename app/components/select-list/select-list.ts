@@ -36,6 +36,8 @@ export class SelectListComponent {
 
  
     ngOnChanges(event) {
+        
+        if ("account_id" in event ) {
         if (this.list.name.toLowerCase() == "contract" && !event.account_id.isFirstChange() || this.list.name.toLowerCase() == "tech" && !event.account_id.isFirstChange()) {
                 if (this.list.name.toLowerCase() == "contract"){
                     this.loadData(false);
@@ -45,6 +47,7 @@ export class SelectListComponent {
                     this.list.items.splice(0,this.contractors); 
                     this.getContractor(this.account_id);
                 }}
+        }
         /*if ("list" in event) {
             this.is_enabled = !this.list.is_disabled;
             console.log(this.url);

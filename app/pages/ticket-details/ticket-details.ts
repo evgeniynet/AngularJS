@@ -682,6 +682,8 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
              this.nav.alert('New post added :)');
              this.ticketnote = "";
              this.active = false;
+             this.waiting_response = !this.waiting_response;
+             this.is_techs_only = !this.is_techs_only;
              setTimeout(() => this.active = true, 0);
              this.getPosts(this.ticket.key);
            }
@@ -871,7 +873,6 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
    onUpdate() {
      //proof double click
      if (this.ticket.in_progress && Date.now() - this.ticket.in_progress < 1500) {return;}
-     this.account_id = this.selects.account.selected;
      
      this.ticket.in_progress = Date.now();
      var customfields_xml = this.getXML();
