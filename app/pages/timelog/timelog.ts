@@ -621,15 +621,15 @@ ngOnInit()
     }
 
     setMinTime(date) {
-        return (date || this.time.date || this.GetLocalDate(true));
+        return (date || this.time.date || this.GetLocalDate());
     }
 
     setMaxTime(date) {
-        return (date || this.time.date || this.GetLocalDate(true));
+        return (date || this.time.date || this.GetLocalDate());
     }
 
     getStartDate(time) {
-        return (time || this.time.date || this.GetLocalDate(true));
+        return (time || this.time.date || this.GetLocalDate());
     }
 
     setStartDate(time){
