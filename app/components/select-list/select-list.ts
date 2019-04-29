@@ -38,15 +38,15 @@ export class SelectListComponent {
     ngOnChanges(event) {
         
         if ("account_id" in event ) {
-        if (this.list.name.toLowerCase() == "contract" && !event.account_id.isFirstChange() || this.list.name.toLowerCase() == "tech" && !event.account_id.isFirstChange()) {
-                if (this.list.name.toLowerCase() == "contract"){
-                    this.loadData(false);
-                    this.defaultContract();
-                }    
-                else if (this.list.name.toLowerCase() == "tech"){
+            if (this.list.name.toLowerCase() == "contract" && !event.account_id.isFirstChange() && !this.list.hidden) {
+                this.loadData(false);
+            }    
+            else if (this.list.name.toLowerCase() == "tech" && !event.account_id.isFirstChange() && !this.list.hidden){
+                if  (this.list.items.length){
                     this.list.items.splice(0,this.contractors); 
                     this.getContractor(this.account_id);
-                }}
+                }
+            }
         }
         /*if ("list" in event) {
             this.is_enabled = !this.list.is_disabled;
