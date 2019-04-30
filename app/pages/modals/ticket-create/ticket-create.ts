@@ -225,10 +225,13 @@ export class TicketCreatePage {
                 this.selects.location.url = `locations?account=${this.selects.account.selected || -1}&limit=500`;
                 this.selects.location.value = this.profile.location_name || "Default";
                 this.selects.location.selected = this.profile.location_id || 0;
+
+                this.account_id = this.selects.account.selected;
+                this.selects.contract.url = `contracts?account_id=${this.account_id}`
                    }, 
             error => { 
                 console.log(error || 'Server error');}
-        ); 
+        );          
         }
 
     saveCustomfield(event){

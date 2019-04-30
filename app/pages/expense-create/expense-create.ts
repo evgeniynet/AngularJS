@@ -17,6 +17,7 @@ export class ExpenseCreatePage {
     he: any;
     selects: any;
     title: string;
+    account_id: any;
 
     constructor(private nav: Nav, private navParams: NavParams, private apiData: ApiData, private config: Config, private view: ViewController) {
     }
@@ -52,7 +53,7 @@ export class ExpenseCreatePage {
                 recent = this.config.current.recent || {};
             }
 
-        let account_id = (this.expense.account || {}).id || this.expense.account_id || (recent.account || {}).selected || this.he.account_id || -1;
+        this.account_id = (this.expense.account || {}).id || this.expense.account_id || (recent.account || {}).selected || this.he.account_id || -1;
         let project_id = (this.expense.project || {}).id || this.expense.project_id || (recent.project || {}).selected || 0;
         let contract_id = (this.expense.contract || {}).id || this.expense.contract_id || (recent.contract || {}).selected || 0;
         let category_id = (this.expense.category || {}).id || this.expense.category_id || (recent.category || {}).selected || 0;
@@ -61,7 +62,7 @@ export class ExpenseCreatePage {
             "account": {
                 name: "Account",
                 value: this.expense.account_name || (this.expense.account || {}).name || (recent.account || {}).value || this.he.account_name,
-                selected: account_id,
+                selected: this.account_id,
                 url: "accounts?is_with_statistics=false&limit=500",
                 hidden: this.expense.is_fixed
             },
@@ -69,7 +70,7 @@ export class ExpenseCreatePage {
                     name: "Ticket", 
                     value: this.expense.ticket_number ? `#${this.expense.ticket_number}: ${this.expense.ticket_subject}` : "Choose (optional)",
                     selected: this.expense.ticket_number || 0,
-                    url: `tickets?status=open&account=${account_id}&project=${project_id}`,
+                    url: `tickets?status=open&account=${this.account_id}&project=${project_id}`,
                     hidden: this.expense.project_id || this.expense.is_fixed || false,
                     is_disabled: this.expense.ticket_id,
                 },
@@ -77,14 +78,14 @@ export class ExpenseCreatePage {
                 name: "Project",
                 value: this.expense.project_name || (recent.project || {}).value || "Default",
                 selected: project_id,
-                url: `projects?account=${account_id}&is_with_statistics=false`,
+                url: `projects?account=${this.account_id}&is_with_statistics=false`,
                 hidden: this.expense.is_fixed || this.expense.ticket_id
                 },
             "contract" : { 
                     name: "Contract", 
                     value: this.expense.contract_name || (recent.contract || {}).value || "Choose",
                     selected: this.expense.contract_id || this.config.getRecent("contract").selected || 0,
-                    url: `contracts?account_id=${account_id}`,
+                    url: `contracts?account_id=${this.account_id}`,
                     hidden: this.expense.is_fixed,
                     is_disabled: false,
                 },
@@ -100,7 +101,7 @@ export class ExpenseCreatePage {
     
     saveSelect(event) {
         let name = event.type;
-        let account_id = this.selects.account.selected;
+        this.account_id = this.selects.account.selected;
         let ticket_id = this.selects.ticket.selected;
         let project_id = this.selects.project.selected;
         let contract_id = this.selects.contract.selected;
@@ -113,7 +114,7 @@ export class ExpenseCreatePage {
             this.selects.project.url = `projects?account=${event.id}&is_with_statistics=false`;
             this.selects.project.value = "Default";
             this.selects.project.selected = 0;
-            account_id = event.id;
+            this.account_id = event.id;
             this.selects.project.hidden = false;
             this.selects.contract.url = `contracts?account_id=${event.id}`;
             this.selects.contract.value = "Choose";
@@ -127,7 +128,7 @@ export class ExpenseCreatePage {
             }
             // dont change ticket on edit
             if (!this.expense.ticket_id){
-                this.selects.ticket.url = `tickets?status=open&account=${account_id}&project=${event.id}`,
+                this.selects.ticket.url = `tickets?status=open&account=${this.account_id}&project=${event.id}`,
                 this.selects.ticket.value = "Choose (optional)";
                 this.selects.ticket.selected = 0;
             }

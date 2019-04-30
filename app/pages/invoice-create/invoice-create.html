@@ -20,7 +20,7 @@
      <!--<select-list *ngIf="!data.number" [list]="selects.ticket" preload="true" (onChanged)='saveSelect($event)'></select-list>-->
 
      <!--New Contract-->
-     <select-list [list]="selects.contract" (onChanged)='saveSelect($event)'></select-list>
+     <select-list [list]="selects.contract" [account_id]="account_id" (onChanged)='saveSelect($event)'></select-list>
 
      <!--New PrePaid-->
      <select-list [list]="selects.prepaidpack" (onChanged)='saveSelect($event)'></select-list>

@@ -33,7 +33,7 @@
         <ion-item no-lines class="start-end top0">Start Time</ion-item>
     <ion-item no-lines class="blue3 top0 bottom5"><!--left button-calc -->
   <ion-label class="start-end2">Start Time</ion-label>
-    <ion-datetime [ngClass]="{'nocolor': !start_time, 'text-color': start_time}" #starttime [displayFormat]="displayFormat" [min]="setMinTime(start_time)" [max]="setMaxTime(stop_time)" 
+    <ion-datetime [ngClass]="{'nocolor': !start_time, 'text-color': start_time}" #starttime [displayFormat]="displayFormat" 
     [minuteValues]="minuteValues" (ngModelChange)="setStartDate($event)" [ngModel]="getStartDate(start_time)"></ion-datetime>
         </ion-item></div>
         <!--div width-10 *ngIf="start_time"><button class="right transparent" (click)="start_time = ''"><ion-icon name="ios-close"></ion-icon></button></div-->
@@ -42,7 +42,7 @@
         <ion-item no-lines class="start-end">End Time</ion-item>
         <ion-item no-lines class="blue3 top0 bottom5">
   <ion-label class="start-end2">End Time</ion-label>
-    <ion-datetime [ngClass]="{'nocolor': !stop_time, 'text-color': stop_time}" #stoptime [displayFormat]="displayFormat" [min]="setMinTime(start_time)" [max]="setMaxTime(stop_time)" 
+    <ion-datetime [ngClass]="{'nocolor': !stop_time, 'text-color': stop_time}" #stoptime [displayFormat]="displayFormat"
     [minuteValues]="minuteValues" (ngModelChange)="setStopDate($event)" [ngModel]="getStartDate(stop_time)"></ion-datetime>  
             </ion-item></div>
 

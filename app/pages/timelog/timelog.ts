@@ -89,10 +89,12 @@ AddHours(date, hours)
     return date;
 }
 
-GetLocalDate()
+GetLocalDate(nojson?)
 {
     let date = new Date();
-    return new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toJSON();
+    date = new Date(date.getTime() - (date.getTimezoneOffset() * 60000))
+    if (nojson) return date;
+    return date.toJSON();
 }
 
 ngOnInit()
@@ -176,18 +178,19 @@ ngOnInit()
                 this.timecount_nonwork = 0;
             this.timenote = linebreaks(this.time.note || "", true);
             this.he = this.config.getCurrent("user");
-            if (this.he.account_id == 0)
-                this.he.account_id = -1;
+            
             let recent : any = {};
 
             if (!this.time.number && !this.time.time_id && !(this.time.account || {}).id)
             {
                 recent = this.config.current.recent || {};
             }
-
-            this.account_id = (this.time.account || {}).id || this.time.account_id || (recent.account || {}).selected || this.he.account_id || -1;
+            
+            this.account_id = this.time.account_id || (this.time.account || {}).id || (recent.account || {}).selected || this.he.account_id || -1;
             let contract_id = (this.time.contract || {}).id || this.time.contract_id || (recent.contract || {}).selected || 0;
             let project_id = (this.time.project || {}).id || this.time.project_id || (recent.project || {}).selected || 0;
+            if (this.account_id == 0)
+                this.account_id = -1;
 
             this.selects = {
                 "account" : {
@@ -618,11 +621,11 @@ ngOnInit()
     }
 
     setMinTime(date) {
-        return (date || this.time.date || this.GetLocalDate().substring(0,4));
+        return (date || this.time.date || this.GetLocalDate());
     }
 
     setMaxTime(date) {
-        return (date || this.time.date || this.GetLocalDate().substring(0,4));
+        return (date || this.time.date || this.GetLocalDate());
     }
 
     getStartDate(time) {
