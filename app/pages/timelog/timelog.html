@@ -94,7 +94,9 @@
                        [(ngModel)]="timenote"
                        ngControl="note" #note="ngForm" maxlength="4000">{{time.note}}</textarea>
                        <!--span [hidden]="note.valid || note.untouched">Note is required and less 5000 chars</span></div-->
-          
+                      <textarea class="width100 textLogin commentText" type="text" placeholder="Internal Notes"
+                       [(ngModel)]="internalnotes"
+                       ngControl="internal" #note="ngForm" maxlength="4000">{{time.internal}}</textarea>
         <div class="img-top">
             <button secondary block type="submit" class=" disable-hover button button-default button-block"
             [disabled]="!addForm.valid" (click)="onSubmit(addForm)">{{time.invoice_id > 0 ? ('View Invoice #'+time.invoice_id) : (time.time_id ? 'Update Time' : 'Add Time')}}</button>
