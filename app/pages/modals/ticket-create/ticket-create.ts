@@ -301,7 +301,7 @@ export class TicketCreatePage {
            
             this.ticket.subject = htmlEscape(this.ticket.subject.trim());          
             this.ticket.initial_post = htmlEscape(this.ticket.initial_post.trim()).substr(0, 4500);
-            if (this.config.current.is_require_ticket_initial_post && !this.ticket.initial_post.length)
+            if (this.config.current.is_require_ticket_initial_post && !this.ticket.initial_post.length && !this.files.length)
             {
                 this.nav.alert("Note is required!",true);
                 return;
