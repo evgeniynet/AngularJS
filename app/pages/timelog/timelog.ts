@@ -178,7 +178,7 @@ ngOnInit()
             if (this.timecount_nonwork<0) 
                 this.timecount_nonwork = 0;
             this.timenote = linebreaks(this.time.note || "", true);
-            this.internalnotes = linebreaks(this.time.internal || "", true);
+            this.internalnotes = linebreaks(this.time.note_internal || "", true);
             this.he = this.config.getCurrent("user");
             
             let recent : any = {};
@@ -400,7 +400,7 @@ ngOnInit()
                 "ticket_key": this.selects.ticket.selected,
                 "account_id": this.selects.account.selected,
                 "note_text": note,
-                "internal_notes": internal,
+                "note_internal": internal,
                 "task_type_id": this.selects.tasktype.selected,
                 "prepaid_pack_id" : this.selects.prepaidpack.selected,
                 "hours": hours,
@@ -448,7 +448,7 @@ ngOnInit()
                             non_working_hours:data.non_working_hours,
                             is_project_log:data.is_project_log,
                             note:data.note_text,
-                            internal:data.internal_notes,
+                            internal:data.note_internal,
                             project_id:data.project_id,
                             project_name:this.selects.project.value,
                             start_time: this.AddHours(data.start_date, -1*this.UserDateOffset),
