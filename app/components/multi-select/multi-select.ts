@@ -87,8 +87,11 @@ export class MultiSelectComponent {
 
                  this.apiData.get(this.list.url).subscribe(
                      data => {
-                         this.list.items = data;
-                         
+                         if(this.name == "Alt " + this.config.current.names.tech.p)
+                             this.sortCheakIn(data);
+                         else
+                             this.list.items = data;
+                                                
                          if (show) {
                              loading.dismiss();
                          }
@@ -198,6 +201,19 @@ export class MultiSelectComponent {
        }
        );
    }
+
+   sortCheakIn(data){
+    var results = [];
+    if (this.config.current.is_tech_checkin && this.config.current.is_restrict_transfer_to_in){
+        data.forEach(item => {
+            if (item.checkin_status == "IN")
+                results.push(item);
+        });
+        this.list.items = results;
+    }
+    else
+        this.list.items = data;
+  }
 
      openModal() {
          //TODO check counts: is more than 100 - do ajax

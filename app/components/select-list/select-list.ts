@@ -129,7 +129,10 @@ export class SelectListComponent {
 
                  this.apiData.get(this.list.url).subscribe(
                      data => {
-                         this.list.items = data;
+                         if(this.name =="Tech")
+                             this.sortCheakIn(data);
+                         else
+                             this.list.items = data;
                          
                          if (loading) {
                              loading.dismiss();
@@ -165,6 +168,19 @@ export class SelectListComponent {
                                      this.list.value = item.name; 
                                  }
                              });
+ }
+
+ sortCheakIn(data){
+    var results = [];
+    if (this.config.current.is_tech_checkin && this.config.current.is_restrict_transfer_to_in){
+        data.forEach(item => {
+            if (item.checkin_status == "IN")
+                results.push(item);
+        });
+        this.list.items = results;
+    }
+    else
+        this.list.items = data;
  }
 
  error(message)
