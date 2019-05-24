@@ -23,6 +23,7 @@ export class TimelogPage {
     time: any = {};
     date: string;
     timenote: string;
+    internalnotes: string;
     title: string = "";
     he: any;
     selects: any = {};
@@ -177,6 +178,7 @@ ngOnInit()
             if (this.timecount_nonwork<0) 
                 this.timecount_nonwork = 0;
             this.timenote = linebreaks(this.time.note || "", true);
+            this.internalnotes = linebreaks(this.time.note_internal || "", true);
             this.he = this.config.getCurrent("user");
             
             let recent : any = {};
@@ -373,6 +375,7 @@ ngOnInit()
             if (this.time.in_progress && Date.now() - this.time.in_progress < 1500) {return;}
             this.time.in_progress = Date.now();
             var note = htmlEscape(this.timenote.trim()).substr(0, 5000);
+            var internal = htmlEscape(this.internalnotes.trim()).substr(0, 5000);
 
             var isEdit = !!this.time.time_id;
             var start_time = this.start_time;
@@ -397,6 +400,7 @@ ngOnInit()
                 "ticket_key": this.selects.ticket.selected,
                 "account_id": this.selects.account.selected,
                 "note_text": note,
+                "note_internal": internal,
                 "task_type_id": this.selects.tasktype.selected,
                 "prepaid_pack_id" : this.selects.prepaidpack.selected,
                 "hours": hours,
@@ -444,6 +448,7 @@ ngOnInit()
                             non_working_hours:data.non_working_hours,
                             is_project_log:data.is_project_log,
                             note:data.note_text,
+                            internal:data.note_internal,
                             project_id:data.project_id,
                             project_name:this.selects.project.value,
                             start_time: this.AddHours(data.start_date, -1*this.UserDateOffset),
