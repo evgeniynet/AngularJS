@@ -15,6 +15,8 @@ const alertLimit = 5;
 export class SelectListComponent {
     @Input() list: any;
     @Input() account_id: any;
+    @Input() class_id: any;
+    @Input() project_id: any;
     @Input() isbutton: boolean;
     @Input() is_enabled: boolean = true;
     @Input() is_once: boolean = false;
@@ -48,6 +50,16 @@ export class SelectListComponent {
                 }
             }
         }
+        if ("class_id" in event ) {
+            if (this.list.name.toLowerCase() == "todos" && !event.class_id.isFirstChange() && !this.list.hidden) {
+                this.loadData(false);
+            }
+        }
+        if ("project_id" in event ) {
+            if (this.list.name.toLowerCase() == "todos" && !event.project_id.isFirstChange() && !this.list.hidden) {
+                this.loadData(false);
+            }
+        }        
         /*if ("list" in event) {
             this.is_enabled = !this.list.is_disabled;
             console.log(this.url);

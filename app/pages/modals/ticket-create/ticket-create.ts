@@ -23,6 +23,8 @@ export class TicketCreatePage {
     he: any;
     selects: any;
     account_id: number;
+    class_id: number;
+    project_id: number;
     fileDest: any = {ticket: "11"};
     files: any = [];
     customfields: any = [];
@@ -55,6 +57,9 @@ export class TicketCreatePage {
         this.account_id = this.profile.account_id ||(this.data.account || {}).id || (recent.account || {}).selected || this.he.account_id || -1;
         let location_id = this.profile.location_id || (this.data.location || {}).id || (recent.location || {}).selected || 0;
         let contract_id = recent.default_contract_id || 0;
+        this.class_id = (recent.class || {}).selected || 0;
+        this.project_id = (recent.project || {}).selected || 0;
+
 
         this.selects = {
             "user" : {
@@ -113,6 +118,13 @@ export class TicketCreatePage {
                 url: "priorities",
                 hidden: false
             },
+            "todos" : { 
+                    name: "Todos", 
+                    value: (recent.todos || {}).value || "Default",
+                    selected: (recent.todos || {}).selected || 0,
+                    url: `todos?class_id=${this.class_id}&project_id=${this.project_id}`,
+                    hidden: false    
+                },
             "level": {
                  name: "Level",
                  value: "Default",
@@ -145,7 +157,7 @@ export class TicketCreatePage {
             {
             "subject" : "",
             "initial_post" : "",
-            "class_id" : null,
+            "class_id" : this.class_id,
             "account_id" : this.account_id,
             "location_id": location_id,
             "user_id" : this.he.user_id,
@@ -169,6 +181,7 @@ export class TicketCreatePage {
 
     saveSelect(event){
         let name = event.type;
+        console.log(name);
         if (name == "creationcategory")
             name = "categories";
         if (name == "submissioncategory")
@@ -200,11 +213,33 @@ export class TicketCreatePage {
             case "class" :
                 this.selects.class.value = event.name;
                 this.selects.class.selected = event.id;
+                this.class_id = event.id;
+                this.selects.todos.url = `todos?class_id=${event.id}&project_id=${this.project_id}`;
                 if (this.ticket.class_id == event.id)
                     break;
+                this.getCustomfield(event.id);
+                break;
+            case "project" :
+                this.selects.project.value = event.name;
+                this.selects.project.selected = event.id;
+                this.project_id = event.id;
+                this.selects.todos.url = `todos?class_id=${this.class_id}&project_id=${event.id}`;
+                if (this.ticket.project_id == event.id)
+                    break;
+                break;  
+            case "project" :
+                this.selects.project.value = event.name;
+                this.selects.project.selected = event.id;
+                this.project_id = event.id;
+                if (this.ticket.project_id == event.id)
+                    break;
+                break;
+            case "todos" :
+                this.selects.todos.value = event.name || "Default";
+                this.selects.todos.selected = event.id || 0;
+                break;          
             
-              this.getCustomfield(event.id);
-              break;
+              
             default:
                     this.selects[name].selected = event.id;
                     this.selects[name].value = event.name || "Default";
@@ -331,6 +366,7 @@ export class TicketCreatePage {
             this.ticket.location_id = this.selects.location.selected;
             this.ticket.user_id = this.he.is_techoradmin ? this.selects.user.selected : this.he.user_id;
             this.ticket.tech_id = this.selects.tech.selected;
+            this.ticket.todos_id = this.selects.todos.selected;
             this.ticket.priority_id = this.selects.priority.selected;
             this.ticket.level = this.selects.level.selected;
             this.ticket.customfields_xml = customfields_xml;
@@ -352,6 +388,7 @@ export class TicketCreatePage {
                                                "default_contract_id": this.selects.contract.selected,
                                                "default_contract_name": this.selects.contract.value,
                                                "categories": this.selects.categories,
+                                               "todos": this.selects.todos,
                                                "submissions": this.selects.submissions,
                                                "priority": this.selects.priority});
             }
