@@ -11,9 +11,12 @@
   
 <form #addForm="ngForm">
     <ion-list class="list max-width700 general-alignment" no-lines >
-   
+        <select-list [list]="selects.tech" preload="true" [account_id]="account_id" (onChanged)='saveSelect($event)'></select-list>
+        <select-list [list]="selects.account" [preload]="config.current.user.is_techoradmin" [is_enabled]="config.current.user.is_techoradmin" ajax="true" (onChanged)='saveSelect($event)'></select-list>
+        <select-list [list]="selects.project" preload="true" (onChanged)='saveSelect($event)'></select-list>
+        <select-list *ngIf="!todo.number" [list]="selects.ticket" preload="true" (onChanged)='saveSelect($event)'></select-list>
 
-    <div class="tooltips"><input [(ngModel)]="todo.title" class="width100 blue3 subject-create commentText margin-bottom3" placeholder="Title" ngControl="title"  required maxlength="100"/></div>
+    <div class="tooltips subject-padding"><input [(ngModel)]="todo.title" class="width100 blue3 subject-create commentText margin-bottom3" placeholder="Title" ngControl="title"  required maxlength="100"/></div>
     <br>
 <textarea [(ngModel)]="todo.note" ngControl="note" #note="ngForm" class="width100 textLogin commentText margin" type="text" placeholder="Note"  maxlength="4000"></textarea>
     <br>
