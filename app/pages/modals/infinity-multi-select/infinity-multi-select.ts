@@ -41,10 +41,11 @@ export class InfinityMultiSelectModal {
         this.url = this.navParams.data.url || "";
         this.data = this.navParams.data.items || {};
         this.items = this.data;
-        this.items.forEach(item => {
-        item.is_selected = false;
-          });
-   
+        if(this.name != 'ToDo Templates'){
+            this.items.forEach(item => {
+            item.is_selected = false;
+              });
+       }
         this.count = this.items.length;
         this.isbutton = this.navParams.data.isbutton;
         this.is_empty = false;

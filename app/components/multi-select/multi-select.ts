@@ -15,6 +15,7 @@ const alertLimit = 5;
 export class MultiSelectComponent {
     @Input() list: any;
     @Input() account_id: any;
+    @Input() class_id: any;
     @Input() isbutton: boolean;
     @Input() is_enabled: boolean = true;
     @Input() is_me: boolean;
@@ -23,6 +24,7 @@ export class MultiSelectComponent {
     @Output() public onChanged: EventEmitter<any> = new EventEmitter(false);
     selected: Object = {};
     init: boolean = true;
+    classes: any = {};
     url: string;
     contractors: number = 0;
     name: string = "";
@@ -35,6 +37,11 @@ export class MultiSelectComponent {
                     this.list.items.splice(0,this.contractors); 
                     this.getContractor(this.account_id);
             }
+        if ("class_id" in event ) {
+            if (this.list.name.toLowerCase() == "todo templates" && !event.class_id.isFirstChange() && !this.list.hidden) {
+                this.selectTodoTemplate();
+            }
+        }
         }
 
     ngOnInit() {
@@ -45,7 +52,13 @@ export class MultiSelectComponent {
             this.name = "Alt " + this.config.current.names.tech.p;
         else if (listname == "alt users")
             this.name = "Alt " + this.config.current.names.user.p;
-  
+        else{
+            this.name = this.list.name;
+            this.getClasses();
+        }
+        
+
+
         if (this.list.url)
         {
             this.url = this.list.url;
@@ -167,12 +180,19 @@ export class MultiSelectComponent {
 
      let names = "";
      let ids = "";
+     if (this.list.name =='ToDo Templates'){
      for (var n = 0;  n < value.length; n++) {
-       names += value[n].name.replace(" (" +value[n].email+ ")", ",");
+       names += value[n].name + ", ";
        ids += value[n].id + ", ";
+     }}
+     else{
+         for (var n = 0;  n < value.length; n++) {
+           names += value[n].name.replace(" (" +value[n].email+ ")", ",");
+           ids += value[n].id + ", ";
+         }
      }
      ids = ids.slice(0,-1);
-     names = names.slice(0,-1);
+     names = names.slice(0,-2);
      this.list.value = names;
      value = {
          id: ids,
@@ -200,6 +220,54 @@ export class MultiSelectComponent {
          console.log(error || 'Server error');
        }
        );
+   }
+
+    getClasses(){
+     this.ticketProvider.getClasses().subscribe(
+       data => {
+         if (data){
+             this.classes = data;         }
+       },
+       error => {
+         console.log(error || 'Server error');
+       }
+       );
+   }
+
+   selectTodoTemplate(){
+       let itemTodo;
+       this.classes.forEach(item =>{
+           if(item.id ==this.class_id)
+               itemTodo = item.todo_templates;
+       });
+       if (itemTodo){
+        itemTodo = itemTodo.replace(/-/g, '');   
+        this.list.selected = itemTodo;
+        let toDos = itemTodo.split(",");
+        let itemsSelected = [];
+        this.list.items.forEach(item=>{
+            for (var i = 0; i < toDos.length; ++i) {
+                if (item.id == toDos[i]){
+                   itemsSelected.push(item);  
+                }
+                else
+                   item.is_selected = false;  
+            }
+        });
+        itemsSelected.forEach(item=>{
+           item.is_selected = true; 
+        });
+        this.list.selected_items = itemsSelected;
+        this.emit_changed(itemsSelected);
+        }
+        else{
+           this.list.selected_items = [];
+           this.list.selected = "";
+           this.list.items.forEach(item=>{
+               item.is_selected = false;
+           });
+           this.emit_changed(this.list.selected_items);
+        }
    }
 
    sortCheakIn(data){

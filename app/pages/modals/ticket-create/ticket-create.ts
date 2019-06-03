@@ -7,12 +7,13 @@ import {DataProvider} from '../../../providers/data-provider';
 import {ClassListComponent} from '../../../components/class-list/class-list';
 import {LocationListComponent} from '../../../components/location-list/location-list';
 import {SelectListComponent} from '../../../components/select-list/select-list';
+import {MultiSelectComponent}  from '../../../components/multi-select/multi-select';
 import {UploadButtonComponent} from '../../../pages/ticket-details/ticket-details';
 import {CustomFieldComponent} from '../../../components/custom-field/custom-field';
 
 @Page({
     templateUrl: 'build/pages/modals/ticket-create/ticket-create.html',
-    directives: [forwardRef(() => ClassListComponent), forwardRef(() => LocationListComponent), forwardRef(() => CustomFieldComponent), forwardRef(() => SelectListComponent), UploadButtonComponent],
+    directives: [forwardRef(() => ClassListComponent), forwardRef(() => LocationListComponent), forwardRef(() => CustomFieldComponent), forwardRef(() => SelectListComponent), forwardRef(() => MultiSelectComponent), UploadButtonComponent],
 })
 export class TicketCreatePage {
 
@@ -119,10 +120,10 @@ export class TicketCreatePage {
                 hidden: false
             },
             "todos" : { 
-                    name: "Todos", 
-                    value: (recent.todos || {}).value || "Default",
+                    name: "ToDo Templates", 
+                    value: (recent.todos || {}).value || "Select",
                     selected: (recent.todos || {}).selected || 0,
-                    url: `todos?class_id=${this.class_id}&project_id=${this.project_id}`,
+                    url: `todos/templates`,
                     hidden: false    
                 },
             "level": {
@@ -186,6 +187,8 @@ export class TicketCreatePage {
             name = "categories";
         if (name == "submissioncategory")
             name = "submissions";
+        if (name == "todotemplates")
+            name = "todos";
         let contract_id = this.selects.contract.selected;
         //change url on related lists
         switch (name) {
@@ -214,28 +217,12 @@ export class TicketCreatePage {
                 this.selects.class.value = event.name;
                 this.selects.class.selected = event.id;
                 this.class_id = event.id;
-                this.selects.todos.url = `todos?class_id=${event.id}&project_id=${this.project_id}`;
                 if (this.ticket.class_id == event.id)
                     break;
                 this.getCustomfield(event.id);
                 break;
-            case "project" :
-                this.selects.project.value = event.name;
-                this.selects.project.selected = event.id;
-                this.project_id = event.id;
-                this.selects.todos.url = `todos?class_id=${this.class_id}&project_id=${event.id}`;
-                if (this.ticket.project_id == event.id)
-                    break;
-                break;  
-            case "project" :
-                this.selects.project.value = event.name;
-                this.selects.project.selected = event.id;
-                this.project_id = event.id;
-                if (this.ticket.project_id == event.id)
-                    break;
-                break;
             case "todos" :
-                this.selects.todos.value = event.name || "Default";
+                this.selects.todos.value = event.name || "Select";
                 this.selects.todos.selected = event.id || 0;
                 break;          
             
@@ -375,7 +362,7 @@ export class TicketCreatePage {
             this.ticket.creation_category_id = this.selects.categories.selected;
             this.ticket.creation_category_name = this.selects.categories.value;
             this.ticket.submission_category = this.selects.submissions.value;
-            
+            this.ticket.todo_templates = this.selects.todos.selected;
 
             this.ticketProvider.addTicket(this.ticket).subscribe(
                 data => {
