@@ -29,7 +29,7 @@
   </span>
   <span class="span-right">
    <p><u>{{ticket.days_old_in_minutes | Daysold}}</u></p><br/>
-      <template [ngIf]="config.current.is_time_tracking && config.current.is_show_time_on_ticketlog && config.current.user.is_techoradmin && ticket.total_hours > 0"><p><u>{{ticket.total_hours}}</u>&nbsp;Hours</p><br/></template>
+      <template [ngIf]="config.current.is_time_tracking && config.current.user.is_techoradmin && ticket.total_hours > 0"><p><u>{{ticket.total_hours}}</u>&nbsp;Hours</p><br/></template>
    <template [ngIf]="ticket.sla_complete_date != null"><p><u>SLA</u>: {{setDate(ticket.sla_complete_date, false, true)}}</p><br/></template>
       <template [ngIf]="config.current.is_expenses && ticket.misc_cost > 0"><p><u>Expenses</u>:  {{getCurrency(ticket.misc_cost)}}</p><br/></template>
       </span>
