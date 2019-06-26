@@ -6,7 +6,7 @@
     </ion-buttons>
 </ion-navbar>       
 <ion-content>     
-    <div [ngClass]="{'displayon': test, 'displayoff': !test}" debounce="700" class="open-filter">
+    <div [ngClass]="{'displayon': test, 'displayoff': !test}" debounce="700" class="open-filter stickySearch">
         <select-list [list]="selects.tech" ajax="true" preload="true" (onChanged)='saveSelect($event)'></select-list>
       <select-list [list]="selects.completed" (onChanged)='saveSelect($event)'></select-list>
       </div>                                                                                                          
