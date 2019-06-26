@@ -48,7 +48,7 @@
           </ion-segment>
         </div></ion-item>
         <br>
-        <tickets-list [hidden]="tabsTicket != 'Open'" [mode]="['open', account.id]"></tickets-list>
+        <tickets-list [hidden]="tabsTicket != 'Open'" preload="1500" [mode]="['open', account.id]"></tickets-list>
         <tickets-list [hidden]="tabsTicket != 'Close'" preload="1500" [mode]="['closed', account.id]"></tickets-list>
       </div>
 
