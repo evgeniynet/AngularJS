@@ -54,10 +54,15 @@ export class LocationsPage {
 
             this.date = Date.now();
 
-            if (this.data && q.length > 1)
-            {
+            if (this.data && q.length < 4)
+        {
             this.items = this.data.filter((data) => data.name.toLowerCase().indexOf(q) > -1);
-            }
+                this.is_empty = !this.items.length;
+        }
+        else {
+            var timer = setTimeout(() => { this.busy = true; }, 500);
+            this.getItems(q, null, timer);
+        }
         }
 
         getItems(term, infiniteScroll, timer?) {

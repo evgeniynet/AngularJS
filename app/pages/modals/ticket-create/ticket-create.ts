@@ -23,6 +23,8 @@ export class TicketCreatePage {
     he: any;
     selects: any;
     account_id: number;
+    location_id: number;
+    location: string;
     fileDest: any = {ticket: "11"};
     files: any = [];
     customfields: any = [];
@@ -53,7 +55,8 @@ export class TicketCreatePage {
         }
 
         this.account_id = this.profile.account_id ||(this.data.account || {}).id || (recent.account || {}).selected || this.he.account_id || -1;
-        let location_id = this.profile.location_id || (this.data.location || {}).id || (recent.location || {}).selected || 0;
+        this.location_id = this.profile.location_id || (this.data.location || {}).id || (recent.location || {}).selected || 0;
+        this.location = this.profile.location_name || (this.data.location || {}).name || (recent.location || {}).value;
         let contract_id = recent.default_contract_id || 0;
 
         this.selects = {
@@ -66,8 +69,8 @@ export class TicketCreatePage {
             },
             "location" : {
                 name: "Location", 
-                value: this.profile.location_name || (this.data.location || {}).name || (recent.location || {}).value || "Default",
-                selected: location_id,
+                value: this.location || "Default",
+                selected: this.location_id,
                 url: `locations?account=${this.account_id}&limit=1000`,
                 hidden: false
             },
@@ -147,7 +150,7 @@ export class TicketCreatePage {
             "initial_post" : "",
             "class_id" : null,
             "account_id" : this.account_id,
-            "location_id": location_id,
+            "location_id": this.location_id,
             "user_id" : this.he.user_id,
             "tech_id" : 0,
             "default_contract_id": contract_id,
@@ -223,8 +226,8 @@ export class TicketCreatePage {
                 }
                 
                 this.selects.location.url = `locations?account=${this.selects.account.selected || -1}&limit=500`;
-                this.selects.location.value = this.profile.location_name || "Default";
-                this.selects.location.selected = this.profile.location_id || 0;
+                this.selects.location.value = this.location || this.profile.location_name || "Default";
+                this.selects.location.selected = this.location_id || this.profile.location_id || 0;
 
                 this.account_id = this.selects.account.selected;
                 this.selects.contract.url = `contracts?account_id=${this.account_id}`
