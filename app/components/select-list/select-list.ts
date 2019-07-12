@@ -15,6 +15,7 @@ const alertLimit = 5;
 export class SelectListComponent {
     @Input() list: any;
     @Input() account_id: any;
+    @Input() class_id: any;
     @Input() isbutton: boolean;
     @Input() is_enabled: boolean = true;
     @Input() is_once: boolean = false;
@@ -48,6 +49,11 @@ export class SelectListComponent {
                 }
             }
         }
+        if ("class_id" in event ) {
+            if (this.list.name.toLowerCase() == "todos" && !event.class_id.isFirstChange() && !this.list.hidden) {
+                this.loadData(false);
+            }
+        }       
         /*if ("list" in event) {
             this.is_enabled = !this.list.is_disabled;
             console.log(this.url);
@@ -129,7 +135,10 @@ export class SelectListComponent {
 
                  this.apiData.get(this.list.url).subscribe(
                      data => {
-                         this.list.items = data;
+                         if(this.name =="Tech")
+                             this.sortCheakIn(data);
+                         else
+                             this.list.items = data;
                          
                          if (loading) {
                              loading.dismiss();
@@ -165,6 +174,19 @@ export class SelectListComponent {
                                      this.list.value = item.name; 
                                  }
                              });
+ }
+
+ sortCheakIn(data){
+    var results = [];
+    if (this.config.current.is_tech_checkin && this.config.current.is_restrict_transfer_to_in){
+        data.forEach(item => {
+            if (item.checkin_status == "IN")
+                results.push(item);
+        });
+        this.list.items = results;
+    }
+    else
+        this.list.items = data;
  }
 
  error(message)

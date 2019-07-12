@@ -142,7 +142,13 @@ export class TicketProvider {
             url = addp(url, "role", "contractor");
             url = addp(url, "account", account);
             return this.apiData.get(url);
-        }    
+        }
+
+        getClasses() {
+            let url = "classes";
+            url = addp(url, "is_flat_list", "true");
+            return this.apiData.get(url);
+        }     
 
         escalateTicket(id, is_esc) {
         let url = `${this.URL}/${id}`;

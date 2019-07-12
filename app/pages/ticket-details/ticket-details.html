@@ -29,7 +29,7 @@
   </span>
   <span class="span-right">
    <p><u>{{ticket.days_old_in_minutes | Daysold}}</u></p><br/>
-      <template [ngIf]="config.current.is_time_tracking && config.current.is_show_time_on_ticketlog && config.current.user.is_techoradmin && ticket.total_hours > 0"><p><u>{{ticket.total_hours}}</u>&nbsp;Hours</p><br/></template>
+      <template [ngIf]="config.current.is_time_tracking && config.current.user.is_techoradmin && ticket.total_hours > 0"><p><u>{{ticket.total_hours}}</u>&nbsp;Hours</p><br/></template>
    <template [ngIf]="ticket.sla_complete_date != null"><p><u>SLA</u>: {{setDate(ticket.sla_complete_date, false, true)}}</p><br/></template>
       <template [ngIf]="config.current.is_expenses && ticket.misc_cost > 0"><p><u>Expenses</u>:  {{getCurrency(ticket.misc_cost)}}</p><br/></template>
       </span>
@@ -75,7 +75,12 @@
     
     <ion-label class="font-size17 text-right">Logs</ion-label><ion-toggle [(ngModel)]="is_showlogs" style="margin-left: -16px !important;"></ion-toggle></ion-item>
    <posts-list [posts]="posts" [is_first]="true" [attachments]="attachments" [is_showlogs]="is_showlogs"></posts-list>
+
   <form *ngIf="active" #addForm="ngForm">
+    <!-- Todo's --> 
+    <div class="todosDetail">
+  <todo-list *ngIf="config.current.is_todos" [simple]="true" [ticket]="ticket.key" user="all" class="tktTodo"></todo-list></div> 
+    <!-- End Todo's --> 
    <div class="tooltips" style="position: inherit;">
     <textarea class="width100 textLogin commentText" [(ngModel)]="ticketnote" type="text" placeholder="Add Response" ngControl="note" #note="ngForm" required maxlength="4000"></textarea>
     <span [hidden]="note.valid || note.untouched">Response is required (max 5000 chars)</span></div>
@@ -107,8 +112,7 @@
     <span style="font-weight: 900;">Ticket Email Address:</span><br>{{ticket.mailto}}&nbsp;</a>
     </ion-label>
 
-  <div class="NoMarginTop">
-  <todo-list *ngIf="config.current.is_todos" [ticket]="ticket.key" user="all"></todo-list></div>
+  
    <posts-list [posts]="posts" [attachments]="attachments" class="general-alignment" [is_showlogs]="is_showlogs"></posts-list>
   <span class="span-block"></span>
 </div>

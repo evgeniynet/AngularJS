@@ -226,6 +226,17 @@ ion-searchbar .searchbar-input {
     opacity: .4;
     pointer-events: none;
 }
+.todosDetail{
+    padding-bottom: 15px; 
+    
+    .list{
+        width: 100% !important;
+    }
+    .tktTodo{
+        width: 100%; 
+        display: inline-block;
+    }
+}
 .Switcher{
     padding-bottom: 10px; 
     display:flex;

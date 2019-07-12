@@ -47,7 +47,7 @@
         <select-list [list]="selects.level" preload="true" (onChanged)='saveSelect($event)'></select-list>
     </template>
 
-     
+     <multi-select [list]="selects.todos" [class_id]="class_id" preload="true" (onChanged)='saveSelect($event)' ></multi-select>
 
 <!-- New Contract -->
     <select-list [list]="selects.contract" [account_id]="account_id" preload="true" (onChanged)='saveSelect($event)'></select-list>

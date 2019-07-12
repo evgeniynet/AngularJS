@@ -7,12 +7,13 @@ import {DataProvider} from '../../../providers/data-provider';
 import {ClassListComponent} from '../../../components/class-list/class-list';
 import {LocationListComponent} from '../../../components/location-list/location-list';
 import {SelectListComponent} from '../../../components/select-list/select-list';
+import {MultiSelectComponent}  from '../../../components/multi-select/multi-select';
 import {UploadButtonComponent} from '../../../pages/ticket-details/ticket-details';
 import {CustomFieldComponent} from '../../../components/custom-field/custom-field';
 
 @Page({
     templateUrl: 'build/pages/modals/ticket-create/ticket-create.html',
-    directives: [forwardRef(() => ClassListComponent), forwardRef(() => LocationListComponent), forwardRef(() => CustomFieldComponent), forwardRef(() => SelectListComponent), UploadButtonComponent],
+    directives: [forwardRef(() => ClassListComponent), forwardRef(() => LocationListComponent), forwardRef(() => CustomFieldComponent), forwardRef(() => SelectListComponent), forwardRef(() => MultiSelectComponent), UploadButtonComponent],
 })
 export class TicketCreatePage {
 
@@ -23,8 +24,10 @@ export class TicketCreatePage {
     he: any;
     selects: any;
     account_id: number;
-    location_id: number;
-    location: string;
+  location_id: number;
+  location: string;
+    class_id: number;
+    project_id: number;
     fileDest: any = {ticket: "11"};
     files: any = [];
     customfields: any = [];
@@ -58,6 +61,9 @@ export class TicketCreatePage {
         this.location_id = this.profile.location_id || (this.data.location || {}).id || (recent.location || {}).selected || 0;
         this.location = this.profile.location_name || (this.data.location || {}).name || (recent.location || {}).value;
         let contract_id = recent.default_contract_id || 0;
+        this.class_id = (recent.class || {}).selected || 0;
+        this.project_id = (recent.project || {}).selected || 0;
+
 
         this.selects = {
             "user" : {
@@ -116,6 +122,13 @@ export class TicketCreatePage {
                 url: "priorities",
                 hidden: false
             },
+            "todos" : { 
+                    name: "ToDo Templates", 
+                    value: (recent.todos || {}).value || "Select",
+                    selected: (recent.todos || {}).selected || 0,
+                    url: `todos/templates`,
+                    hidden: false    
+                },
             "level": {
                  name: "Level",
                  value: "Default",
@@ -148,7 +161,7 @@ export class TicketCreatePage {
             {
             "subject" : "",
             "initial_post" : "",
-            "class_id" : null,
+            "class_id" : this.class_id,
             "account_id" : this.account_id,
             "location_id": this.location_id,
             "user_id" : this.he.user_id,
@@ -176,6 +189,8 @@ export class TicketCreatePage {
             name = "categories";
         if (name == "submissioncategory")
             name = "submissions";
+        if (name == "todotemplates")
+            name = "todos";
         let contract_id = this.selects.contract.selected;
         //change url on related lists
         switch (name) {
@@ -203,11 +218,17 @@ export class TicketCreatePage {
             case "class" :
                 this.selects.class.value = event.name;
                 this.selects.class.selected = event.id;
+                this.class_id = event.id;
                 if (this.ticket.class_id == event.id)
                     break;
+                this.getCustomfield(event.id);
+                break;
+            case "todos" :
+                this.selects.todos.value = event.name || "Select";
+                this.selects.todos.selected = event.id || 0;
+                break;          
             
-              this.getCustomfield(event.id);
-              break;
+              
             default:
                     this.selects[name].selected = event.id;
                     this.selects[name].value = event.name || "Default";
@@ -334,6 +355,7 @@ export class TicketCreatePage {
             this.ticket.location_id = this.selects.location.selected;
             this.ticket.user_id = this.he.is_techoradmin ? this.selects.user.selected : this.he.user_id;
             this.ticket.tech_id = this.selects.tech.selected;
+            this.ticket.todos_id = this.selects.todos.selected;
             this.ticket.priority_id = this.selects.priority.selected;
             this.ticket.level = this.selects.level.selected;
             this.ticket.customfields_xml = customfields_xml;
@@ -342,7 +364,7 @@ export class TicketCreatePage {
             this.ticket.creation_category_id = this.selects.categories.selected;
             this.ticket.creation_category_name = this.selects.categories.value;
             this.ticket.submission_category = this.selects.submissions.value;
-            
+            this.ticket.todo_templates = this.selects.todos.selected;
 
             this.ticketProvider.addTicket(this.ticket).subscribe(
                 data => {
@@ -355,6 +377,7 @@ export class TicketCreatePage {
                                                "default_contract_id": this.selects.contract.selected,
                                                "default_contract_name": this.selects.contract.value,
                                                "categories": this.selects.categories,
+                                               "todos": this.selects.todos,
                                                "submissions": this.selects.submissions,
                                                "priority": this.selects.priority});
             }
