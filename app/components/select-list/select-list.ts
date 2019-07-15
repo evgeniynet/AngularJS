@@ -68,6 +68,7 @@ export class SelectListComponent {
     ngOnInit() {
         let listname = this.list.name.toLowerCase();
         if ((listname == "project" && !this.config.current.is_project_tracking) ||
+            (listname == "todos" && !this.config.current.is_todos) ||
             (listname == "location" && !this.config.current.is_location_tracking) ||
             ((listname == "contract" || listname == "prepaid pack") && !this.config.current.is_invoice) ||
             (listname == "priority" && !this.config.current.is_priorities_general) ||

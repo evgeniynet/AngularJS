@@ -46,6 +46,26 @@ export class MultiSelectComponent {
 
     ngOnInit() {
         let listname = this.list.name.toLowerCase();
+        
+        if ((listname == "project" && !this.config.current.is_project_tracking) ||
+            (listname == "todos" && !this.config.current.is_todos) ||
+            (listname == "todo templates" && !this.config.current.is_todos) ||
+            (listname == "location" && !this.config.current.is_location_tracking) ||
+            ((listname == "contract" || listname == "prepaid pack") && !this.config.current.is_invoice) ||
+            (listname == "priority" && !this.config.current.is_priorities_general) ||
+            (listname == "account" && !this.config.current.is_account_manager) ||
+            (listname == "level" && (!this.config.current.is_ticket_levels || (this.config.current.is_restrict_tech_escalate && !this.config.current.user.is_admin))) ||
+            ((listname == "resolution" || listname == "category") && !this.config.current.is_resolution_tracking)) 
+        {
+            this.list.hidden = true;
+        }
+
+        this.is_enabled = !this.list.is_disabled;
+        this.is_once = this.list.is_once;
+
+        if (this.list.hidden)
+            return;
+
         this.is_enabled = !this.list.is_disabled;
 
         if (listname == "alt techs")

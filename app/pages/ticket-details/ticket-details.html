@@ -94,8 +94,8 @@
       <h5>{{config.current.names.tech.ap}} Only</h5>
     </div>
   </div>
-    <button secondary class="button_reply right indent-bottom margin-left10" [disabled]="!addForm.valid && !files?.length" (click)="u.onUpload()"  type="submit">Reply</button>
-    <button *ngIf="!config.current.user.is_techoradmin && ticket.status != 'Closed'" secondary class="button_reply right indent-bottom margin-left10" (click)="u.onUpload(true)" [disabled]="!addForm.valid && !files?.length">Reply & Close</button>
+    <button secondary class="button_reply right indent-bottom margin-left3" style="z-index: 1;" [disabled]="!addForm.valid && !files?.length" (click)="u.onUpload()"  type="submit">Reply</button>
+    <button *ngIf="!config.current.user.is_techoradmin && ticket.status != 'Closed'" secondary class="button_reply right indent-bottom margin-left3" style="z-index: 1;" (click)="u.onUpload(true)" [disabled]="!addForm.valid && !files?.length">Reply & Close</button>
     <upload-button #u (filesUploaded)="uploadedFile($event)"   
     (filesSelected)="selectedFile($event)"     
     btnStyle="add-circle"               
