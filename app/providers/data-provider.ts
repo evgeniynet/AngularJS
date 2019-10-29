@@ -180,7 +180,7 @@ getAccountList(is_dashboard, pager, is_no_stat?, is_open?) {
         url = addp(url, "is_open_tickets", "true");
     return this.apiData.getPaged(url, pager).map((arr: Array<any>) => {
         if (is_dashboard && arr) {
-            arr = arr.filter(val => val.account_statistics.ticket_counts.open > 0);
+            arr = arr.filter(val => ((val.account_statistics || {}).ticket_counts || {}).open > 0);
         }
         return arr;
     });

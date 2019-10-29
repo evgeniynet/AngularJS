@@ -139,8 +139,8 @@ export class DashboardPage {
                         console.log(error || 'Server error');
                     }
                     );
-
             if (!this.simple)
+                setTimeout(() => {
                 this.dataProvider.getAccountList(true, pager).subscribe(
                     data => {
                         this.accounts = data;
@@ -150,6 +150,7 @@ export class DashboardPage {
                         console.log(error || 'Server error');
                     }
                     );  
+            }, 100);
         }
 
         if (!this.ticketProvider._dataStore.tech.length){
