@@ -61,12 +61,12 @@ export function parseXml(xmlStr) {
 export function addp (url: string, param: string, value?: any) {
         if (!url || !value || !param)
             return url;
-        var pos = url.indexOf(param + '=');
-        //if parameter exists
-        if (pos != -1)
-            return url.slice(0, pos + param.length) + '=' + value;
-        var ch = url.indexOf('?') > 0 ? '&' : '?';
-        return url + ch + param + '=' + value;
+    var pattern = new RegExp('\\b('+param+'=).*?(&|#|$)');
+    if (url.search(pattern)>=0) {
+        return url.replace(pattern,'$1' + value + '$2');
+    }
+    url = url.replace(/[?#]$/,'');
+    return url + (url.indexOf('?')>0 ? '&' : '?') + param + '=' + value;
  }
 
 export function fullapplink (site, ticketkey, inst,org){

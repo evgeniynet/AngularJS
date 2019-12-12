@@ -4,7 +4,7 @@
             <span>Cancel</span>
         </button>
   </ion-buttons>
-    <ion-searchbar *ngIf="name != 'Completed'" [ngModel]="searchQuery" (input)="getItems($event)" [placeholder]="name" hideCancelButton="true"></ion-searchbar>
+    <ion-searchbar *ngIf="name != 'Completed'" [ngModel]="searchQuery" (input)="getItems($event)" [placeholder]="displayname" hideCancelButton="true"></ion-searchbar>
 </ion-toolbar>
 
 <ion-content>

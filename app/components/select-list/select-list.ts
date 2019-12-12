@@ -86,9 +86,9 @@ export class SelectListComponent {
             return;
 
         if ( listname == "tech" || listname == "user")
-            this.name = (this.config.current.names[listname] || {}).a;
+            this.list.displayname = this.name = (this.config.current.names[listname] || {}).a;
         else
-            this.name = (this.config.current.names[listname] || {}).s || this.list.name;
+            this.list.displayname = this.name = (this.config.current.names[listname] || {}).s || this.list.name;
 
 
         if (this.list.url)

@@ -13,6 +13,7 @@ export class InfinitySelectModal {
     items: any;
     url: string;
     name: string;
+    displayname: string;
     term: string;
     data: any;
     count: number;
@@ -36,6 +37,7 @@ export class InfinitySelectModal {
     ngOnInit() {
         this.term = '';
         this.name = this.navParams.data.name || "List";
+        this.displayname = this.navParams.data.displayname || this.name;
         if (this.name == "recipient_user")
             this.name = "Recipient"
         this.isdefault_enabled = !~["user", "account", "tech", "task type", "recipient"].indexOf(this.name.toLowerCase()) 

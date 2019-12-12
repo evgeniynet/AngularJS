@@ -10,6 +10,7 @@ export class BasicSelectModal {
 
     items: Array<any>;
     name: string;
+    displayname: string;
     searchQuery: string = '';
     default_text: string = "";
     data: any;
@@ -24,6 +25,7 @@ export class BasicSelectModal {
         private config: Config
     ) {
         this.name = this.params.data.name;
+        this.displayname = this.params.data.displayname || this.name;
         this.isdefault_enabled = !~["user", "account", "tech", "task type", "completed", "submission category"].indexOf(this.name.toLowerCase()) 
                                  ||  !!this.params.data.default;
         this.default_text = this.params.data.default || "Default";

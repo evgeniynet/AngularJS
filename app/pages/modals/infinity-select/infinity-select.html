@@ -4,7 +4,7 @@
             <span>Cancel</span>
         </button>
   </ion-buttons>
-    <ion-searchbar debounce="400" [(ngModel)]="term" (input)="searchItems($event)" placeholder="{{name}} (min 3 chars)" hideCancelButton="true"></ion-searchbar>  
+    <ion-searchbar debounce="400" [(ngModel)]="term" (input)="searchItems($event)" placeholder="{{displayname}} (min 3 chars)" hideCancelButton="true"></ion-searchbar>  
     <ion-buttons style="flex: 0;" end>
 <button (click)="dismiss()">
             <span>Done</span>
