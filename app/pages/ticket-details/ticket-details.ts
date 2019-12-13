@@ -399,7 +399,6 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
      this.techname = getFullName(data.technician_firstname || data.tech_firstname, data.technician_lastname || data.tech_lastname, data.technician_email || data.tech_email);
      let contract_id = data.default_contract_id || 0;
      let contract_name = data.default_contract_name;
-
     
      this.select_button = {
        "tech": {
@@ -423,7 +422,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
          value: data.location_name || "( Not Set )",
          selected: data.location_id || 0,
          url: `locations?account=${this.account_id}&limit=1000`,
-         hidden: false
+         hidden: !this.config.current.is_location_tracking
        },
        "alttechs": {
          name: "Alt Techs",
@@ -437,14 +436,14 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
          value: data.project_name || "( Not Set )",
          selected: data.project_id || 0,
          url: `projects?account=${this.account_id}&is_with_statistics=false`,
-         hidden: false
+         hidden: !this.config.current.is_project_tracking
        },
        "contract" : { 
          name: "Contract", 
          value: contract_name || "( Not Set )",
          selected: contract_id || this.config.getRecent("contract").selected || 0,
          url: `contracts?account_id=${this.account_id}`,
-         hidden: false,
+         hidden: !this.config.current.is_invoice,
          is_default: true    
                 },
        "submissions" : { 
@@ -468,21 +467,21 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
          value: data.level_name ? (data.level + " - " + data.level_name) : "( Not Set )",
          selected: data.level || 0,
          url: "levels",
-         hidden: false
+         hidden: !this.config.current.is_ticket_levels || (this.config.current.is_restrict_tech_escalate && !this.config.current.user.is_admin)
        },
        "priority": {
          name: "Priority",
          value: data.priority_name ? (data.priority + " - " + data.priority_name) : "( Not Set )",
          selected: data.priority_id || 0,
          url: "priorities",
-         hidden: false
+         hidden: !this.config.current.is_priorities_general
        },
        "class": {
          name: "Class",
          value: data.class_name || "( Not Set )",
          selected: data.class_id || 0,
          url: "classes",
-         hidden: false
+         hidden: !this.config.current.is_class_tracking
        }
      };
 
@@ -491,7 +490,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
        value: (data.account || {}).name || data.account_name || this.he.account_name,
        selected: this.account_id,
        url: "accounts?is_with_statistics=false&limit=500",
-       hidden: false
+       hidden: !this.config.current.is_account_manager
      };
 
     // setTimeout(() => {
@@ -792,7 +791,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
            this.active = false;
            setTimeout(() => this.active = true, 0);
            this.files = [];
-           this.getPosts(this.ticket.key);
+           this.processDetails(data);
          }
        },
        error => {
@@ -899,7 +898,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
      this.ticketProvider.closeOpenTicket(this.ticket.key, data).subscribe(
        data => {
          this.nav.alert(this.config.current.names.ticket.s + ' was successfully updated :)');
-         this.getPosts(this.ticket.key);
+         this.processDetails(data);
        },
        error => {
          console.log(error || 'Server error');
@@ -926,7 +925,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
          this.techname = this.ticket.tech_firstname = getFullName(this.he.firstname, this.he.lastname, this.he.email);
          this.ticket.tech_lastname = this.ticket.tech_email = "";
          //this.selects.tech.selected = this.he.user_id;
-         this.getPosts(this.ticket.key);
+         this.processDetails(data);
        },
        error => {
          this.nav.alert(error, true);

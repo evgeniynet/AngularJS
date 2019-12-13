@@ -82,15 +82,14 @@ export class SelectListComponent {
         this.is_enabled = !this.list.is_disabled;
         this.is_once = this.list.is_once;
 
-        if (this.list.hidden)
-            return;
-
         if ( listname == "tech" || listname == "user")
             this.list.displayname = this.name = (this.config.current.names[listname] || {}).a;
         else
             this.list.displayname = this.name = (this.config.current.names[listname] || {}).s || this.list.name;
 
-
+        if (this.list.hidden)
+            return;
+        
         if (this.list.url)
         {
             this.url = this.list.url;
