@@ -105,7 +105,7 @@ export class TicketCreatePage {
                     name: "Contract", 
                     value: recent.default_contract_name || "Choose",
                     selected: recent.default_contract_id || this.config.getRecent("contract").selected || 0,
-                    url: `contracts?account_id=${this.account_id}`,
+                    url: `contracts?account_id=${this.account_id}&for_time_logs=false`,
                     hidden: false    
                 },
             "class" : {
@@ -209,7 +209,7 @@ export class TicketCreatePage {
                 this.selects.account.selected = event.id;
                 this.account_id = event.id;
 
-                this.selects.contract.url = `contracts?account_id=${event.id}`;
+                this.selects.contract.url = `contracts?account_id=${event.id}&for_time_logs=false`;
                 this.selects.contract.value = "Default";
                 this.selects.contract.selected = 0;
                 contract_id = 0;
@@ -251,7 +251,7 @@ export class TicketCreatePage {
                 this.selects.location.selected = this.location_id || this.profile.location_id || 0;
 
                 this.account_id = this.selects.account.selected;
-                this.selects.contract.url = `contracts?account_id=${this.account_id}`
+                this.selects.contract.url = `contracts?account_id=${this.account_id}&for_time_logs=false`
                    }, 
             error => { 
                 console.log(error || 'Server error');}

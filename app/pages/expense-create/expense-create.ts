@@ -85,7 +85,7 @@ export class ExpenseCreatePage {
                     name: "Contract", 
                     value: this.expense.contract_name || (recent.contract || {}).value || "Choose",
                     selected: this.expense.contract_id || this.config.getRecent("contract").selected || 0,
-                    url: `contracts?account_id=${this.account_id}`,
+                    url: `contracts?account_id=${this.account_id}&for_time_logs=false`,
                     hidden: this.expense.is_fixed,
                     is_disabled: false,
                 },
@@ -116,7 +116,7 @@ export class ExpenseCreatePage {
             this.selects.project.selected = 0;
             this.account_id = event.id;
             this.selects.project.hidden = false;
-            this.selects.contract.url = `contracts?account_id=${event.id}`;
+            this.selects.contract.url = `contracts?account_id=${event.id}&for_time_logs=false`;
             this.selects.contract.value = "Choose";
             this.selects.contract.selected = 0;
             contract_id = 0;

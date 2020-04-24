@@ -121,7 +121,7 @@ ngOnInit()
                     name: "Contract", 
                     value: this.data.contract_name || (recent.contract || {}).value || "Choose",
                     selected: this.data.contract_id || this.config.getRecent("contract").selected || 0,
-                    url: `contracts?account_id=${this.account_id}`,
+                    url: `contracts?account_id=${this.account_id}&for_time_logs=false`,
                     hidden: false,
                     is_disabled: false,
                     //is_once: true
@@ -154,7 +154,7 @@ ngOnInit()
             this.selects.project.value = "Default";
             this.selects.project.selected = 0;
             project_id = 0;
-            this.selects.contract.url = `contracts?account_id=${event.id}`;
+            this.selects.contract.url = `contracts?account_id=${event.id}&for_time_logs=false`;
             this.selects.contract.value = "Choose";
             this.selects.contract.selected = 0;
             contract_id = 0;
@@ -239,7 +239,7 @@ ngOnInit()
     }
     
     getContractInfo(contract_id){
-        this.dataProvider.getContracts(this.pager, contract_id).subscribe(
+        this.dataProvider.getContracts(this.pager, false, contract_id).subscribe(
             data => {
                 this.contract = data;
                 this.contract.date = new Date().toJSON().substring(0,19);

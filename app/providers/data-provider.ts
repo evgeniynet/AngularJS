@@ -148,10 +148,13 @@ getExpenses(account_id, pager) {
     return this.apiData.getPaged(url, pager);
 }
 
-getContracts(pager,id?) {
+getContracts(pager,is_for_timelogs?,id?) {
     let url = `contracts`;
     if (id){
         url = `contracts/${id}`;
+    }
+    else if (!is_for_timelogs){
+        url = `contracts?for_time_logs=false`;
     }
     return this.apiData.getPaged(url, pager);
 }
@@ -177,13 +180,8 @@ getAccountList(is_dashboard, pager, is_no_stat?, is_open?) {
     if (is_no_stat) 
         url = addp(url, "is_with_statistics", "false");
     if (is_open) 
-        url = addp(url, "is_open_tickets", "true");
-    return this.apiData.getPaged(url, pager).map((arr: Array<any>) => {
-        if (is_dashboard && arr) {
-            arr = arr.filter(val => ((val.account_statistics || {}).ticket_counts || {}).open > 0);
-        }
-        return arr;
-    });
+        url = addp(url, "is_open_tickets", is_dashboard ? "1" : "true");
+    return this.apiData.getPaged(url, pager);
 }   
 
 getTechniciansList(pager, is_stat?, is_open?) {

@@ -442,7 +442,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
          name: "Contract", 
          value: contract_name || "( Not Set )",
          selected: contract_id || this.config.getRecent("contract").selected || 0,
-         url: `contracts?account_id=${this.account_id}`,
+         url: `contracts?account_id=${this.account_id}&for_time_logs=false`,
          hidden: !this.config.current.is_invoice,
          is_default: true    
                 },
@@ -643,7 +643,7 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
                 this.selects.project.selected = 0;
                 this.account_id = event.id;
 
-                this.selects.contract.url = `contracts?account_id=${event.id}`;
+                this.selects.contract.url = `contracts?account_id=${event.id}&for_time_logs=false`;
                 this.selects.contract.value = "Default";
                 this.selects.contract.selected = 0;
                 contract_id = 0;

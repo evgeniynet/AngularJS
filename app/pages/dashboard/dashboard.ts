@@ -128,7 +128,7 @@ export class DashboardPage {
             let pager = { limit: ~accountslen ? accountslen : 500 };
 
             if (!this.accounts || this.accounts.length == 0)
-                this.dataProvider.getAccountList(true, pager, true, true).subscribe(
+                this.dataProvider.getAccountList(true, pager, false, true).subscribe(
                     data => {
                         this.accounts = data;
                         this.config.setStat("accounts", data.length);
@@ -139,7 +139,7 @@ export class DashboardPage {
                         console.log(error || 'Server error');
                     }
                     );
-            if (!this.simple)
+            /*if (!this.simple)
                 setTimeout(() => {
                 this.dataProvider.getAccountList(true, pager).subscribe(
                     data => {
@@ -150,7 +150,7 @@ export class DashboardPage {
                         console.log(error || 'Server error');
                     }
                     );  
-            }, 100);
+            }, 100);*/
         }
 
         if (!this.ticketProvider._dataStore.tech.length){
