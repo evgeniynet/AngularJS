@@ -64,7 +64,6 @@ export class TicketCreatePage {
         this.class_id = (recent.class || {}).selected || 0;
         this.project_id = (recent.project || {}).selected || 0;
 
-
         this.selects = {
             "user" : {
                 name: "User", 
@@ -75,7 +74,7 @@ export class TicketCreatePage {
             },
             "location" : {
                 name: "Location", 
-                value: this.location || "Default",
+                value: this.he.is_techoradmin ? (this.location  || "Default") : "Choose",
                 selected: this.location_id,
                 url: `locations?account=${this.account_id}&limit=1000`,
                 hidden: false
@@ -227,7 +226,6 @@ export class TicketCreatePage {
                 this.selects.todos.value = event.name || "Select";
                 this.selects.todos.selected = event.id || 0;
                 break;          
-            
               
             default:
                     this.selects[name].selected = event.id;
@@ -247,7 +245,7 @@ export class TicketCreatePage {
                 }
                 
                 this.selects.location.url = `locations?account=${this.selects.account.selected || -1}&limit=500`;
-                this.selects.location.value = this.location || this.profile.location_name || "Default";
+                this.selects.location.value = this.location || this.profile.location_name || (this.he.is_techoradmin ? "Default" : "Choose");
                 this.selects.location.selected = this.location_id || this.profile.location_id || 0;
 
                 this.account_id = this.selects.account.selected;
@@ -328,6 +326,17 @@ export class TicketCreatePage {
             if (this.config.current.is_require_ticket_initial_post && !this.ticket.initial_post.length && !this.files.length)
             {
                 this.nav.alert("Note is required!",true);
+                return;
+            }
+
+            if (!this.he.is_techoradmin && this.config.current.is_location_tracking && !this.selects.location.selected)
+            {
+                this.nav.alert("Please choose "+this.config.current.names.location.s,true);
+                return;
+            }
+            if (!this.he.is_techoradmin && this.config.current.is_class_tracking && !this.selects.class.selected)
+            {
+                this.nav.alert("Please choose Class",true);
                 return;
             }
             if (this.config.current.is_submission_category && !this.selects.submissions.selected)
