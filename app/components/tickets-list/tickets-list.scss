@@ -41,9 +41,10 @@ ion-avatar li img p{
 }
 .postGrey * {
     font-family: -apple-system,"Helvetica Neue","Roboto",sans-serif;
-    color: #dadada;
+    color: #dadada !important;
     font-size: 1.4rem !important;
     text-align: left !important;
+    background-color: transparent !important;
     }
 .postGrey table{
     display:none;
