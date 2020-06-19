@@ -681,8 +681,8 @@ import {CustomFieldComponent} from '../../components/custom-field/custom-field';
              this.nav.alert('New post added :)');
              this.ticketnote = "";
              this.active = false;
-             this.waiting_response = !this.waiting_response;
-             this.is_techs_only = !this.is_techs_only;
+             this.waiting_response = false; //!this.waiting_response;
+             this.is_techs_only = false; //!this.is_techs_only;
              setTimeout(() => this.active = true, 0);
              this.getPosts(this.ticket.key);
            }

@@ -27,12 +27,12 @@
     <p><u>{{config.current.names.user.a}}</u>: {{username}}</p>
     <p *ngIf="config.current.is_account_manager && ticket.account_name"><u>{{config.current.names.account.a}}</u>:&nbsp;{{ticket.account_name}}</p>
     <p *ngIf="config.current.is_location_tracking && ticket.location_name"><u>{{config.current.names.location.a}}</u>:&nbsp;{{ticket.location_name}}</p>
+    <p *ngIf="ticket.sla_complete_date != null"><u>SLA</u>: {{setDate(ticket.sla_complete_date, false, true)}}</p>
+    <p *ngIf="config.current.is_expenses && ticket.misc_cost > 0"><u>Expenses</u>:  {{getCurrency(ticket.misc_cost)}}</p>
   </span>
   <span class="span-right">
    <p><u>{{ticket.days_old_in_minutes | Daysold}}</u></p><br/>
       <template [ngIf]="config.current.is_time_tracking && config.current.user.is_techoradmin && ticket.total_hours > 0"><p><u>{{ticket.total_hours}}</u>&nbsp;Hours</p><br/></template>
-   <template [ngIf]="ticket.sla_complete_date != null"><p><u>SLA</u>: {{setDate(ticket.sla_complete_date, false, true)}}</p><br/></template>
-      <template [ngIf]="config.current.is_expenses && ticket.misc_cost > 0"><p><u>Expenses</u>:  {{getCurrency(ticket.misc_cost)}}</p><br/></template>
       </span>
  </ion-toolbar>
  <!--% estimate and budgeded time -->   
@@ -161,17 +161,17 @@
     <multi-select  preload="true" [list]="selects.alttechs" [account_id]="account_id" (onChanged)='saveSelect($event)'></multi-select>
       <div *ngFor="let tech of technicians" class="alts">
     <p class="left color fullname" style="width: 50%">{{tech.user_fullname2.slice(0, 23)}}</p>
-    <p *ngIf="!tech.is_primary" class="left color no-primary" style="width: 17%;">-</p>
-    <p *ngIf="tech.is_primary" class="left color primary" style="width: 17%">Primary</p>
-    <p class="left color date" style="width: 33%;">{{tech.start_date.slice(0, 10)}} {{tech.start_date.slice(12, 16)}}</p>
+    <p *ngIf="!tech.is_primary" class="left color no-primary" style="width: 18%;">-</p>
+    <p *ngIf="tech.is_primary" class="left color primary" style="width: 18%">Primary</p>
+    <p class="left color date" style="width: 32%;">{{tech.start_date.slice(0, 10)}} {{tech.start_date.slice(12, 16)}}</p>
   </div>
 <div>&nbsp;<br>&nbsp;</div>
     <multi-select ajax="true" [list]="selects.altusers" [account_id]="account_id" (onChanged)='saveSelect($event)' preload="true"></multi-select>
       <div *ngFor="let user of users" class="alts">
     <p class="left color fullname" style="width: 50%">{{user.user_fullname2.slice(0, 23)}}</p>
-    <p *ngIf="!user.is_primary" class="left color no-primary" style="width: 17%;">-</p>
-    <p *ngIf="user.is_primary" class="left color primary" style="width: 17%">Primary</p>
-    <p class="left color date" style="width: 33%;">{{user.start_date.slice(0, 10)}} {{user.start_date.slice(12, 16)}}</p>
+    <p *ngIf="!user.is_primary" class="left color no-primary" style="width: 18%;">-</p>
+    <p *ngIf="user.is_primary" class="left color primary" style="width: 18%">Primary</p>
+    <p class="left color date" style="width: 32%;">{{user.start_date.slice(0, 10)}} {{user.start_date.slice(12, 16)}}</p>
   </div>
     <div>&nbsp;&nbsp;</div>
   <button secondary block (click)="onUpdate()" type="submit" class="disable-hover button button-default button-block">Update</button>
