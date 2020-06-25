@@ -39,19 +39,19 @@
       </div>
    <div *ngIf="config.current.user.is_techoradmin" class="general-alignment2">     
       
-       <select-list [list]="selects.queue1"  ajax="true" preload="true" (onChanged)='saveSelect($event)'></select-list> 
+       <select-list *ngIf="queues.length > 0" [list]="selects.queue1"  ajax="true" preload="true" (onChanged)='saveSelect($event)'></select-list> 
        <ion-item no-lines class="left toggle-width" style="margin-top: 0px">
         <ion-toggle class="toggle" [(ngModel)]="is_queue1"></ion-toggle>
       </ion-item>
           <p class="left color">Badge on app icon</p>
 
-       <select-list [list]="selects.queue2" preload="true" (onChanged)='saveSelect($event)'></select-list> 
+       <select-list *ngIf="queues.length > 1" [list]="selects.queue2" preload="true" (onChanged)='saveSelect($event)'></select-list> 
               <ion-item no-lines class="left toggle-width" style="margin-top: 0px">
         <ion-toggle class="toggle" [(ngModel)]="is_queue2"></ion-toggle>
       </ion-item>
           <p class="left color">Badge on app icon</p>
   
-       <select-list [list]="selects.queue3" preload="true" (onChanged)='saveSelect($event)'></select-list>
+       <select-list *ngIf="queues.length > 2" [list]="selects.queue3" preload="true" (onChanged)='saveSelect($event)'></select-list>
               <ion-item no-lines class="left toggle-width" style="margin-top: 0px">
         <ion-toggle class="toggle" [(ngModel)]="is_queue3"></ion-toggle>
       </ion-item>

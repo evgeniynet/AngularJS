@@ -52,32 +52,35 @@ ngOnInit()
             this.is_queue2 = this.is_queue2 || (localStorage.getItem('is_queue2') == "true")? true : false;
             this.is_queue3 = this.is_queue3 || (localStorage.getItem('is_queue3') == "true")? true : false;
 
-            this.selects = {
-                "queue1" : {
+            if (this.n > 0)
+            this.selects.queue1 = {
                     name: "Queue 1", 
                     value:  this.queue_name[0] || "Default",
                     selected: this.queue_id[0] || 0,
                     items: this.queues,
                     hidden: false,
                     is_disabled: false
-                },
-                "queue2" : {
+                };
+
+            if (this.n > 1)    
+            this.selects.queue2 = {
                     name: "Queue 2", 
                     value:  this.queue_name[1] || "Default",
                     selected: this.queue_id[1] || 0,
                     items: this.queues,
                     hidden: false,
                     is_disabled: false
-                },
-                "queue3" : {
+                };
+
+            if (this.n > 2)
+            this.selects.queue3 = {
                     name: "Queue 3", 
                     value:  this.queue_name[2] || "Default",
                     selected: this.queue_id[2] || 0,
                     items: this.queues,
                     hidden: false,
                     is_disabled: false
-                }
-            };
+                };
         }
             if (this.config.current.is_time_tracking && this.config.current.user.is_techoradmin){
                 let date = new Date().toJSON().substring(0,10);
@@ -106,6 +109,8 @@ ngOnInit()
             this.dataProvider.getQueueList().subscribe(
                 data => {
                     this.queues = data;
+                    if (data.length < this.n) 
+                        this.n = data.length;
 
                     if (this.queue_id == 0) {
                         for (var i = 0; i < this.n; ++i) {
@@ -125,12 +130,19 @@ ngOnInit()
                         this.is_queue2 = this.is_queue[1] != "0" ? true : false;
                         this.is_queue3 = this.is_queue[2] != "0" ? true : false;
                     }
+                    if (this.n > 0)
+                    {
                     this.selects.queue1.selected = this.queue_id[0];
-                    this.selects.queue2.selected = this.queue_id[1];
-                    this.selects.queue3.selected = this.queue_id[2];
                     this.selects.queue1.value = this.queue_name[0] || "Default";
+                    }
+                    if (this.n > 1){
+                    this.selects.queue2.selected = this.queue_id[1];
                     this.selects.queue2.value = this.queue_name[1] || "Default";
+                    }
+                    if (this.n > 2){
+                    this.selects.queue3.selected = this.queue_id[2];
                     this.selects.queue3.value = this.queue_name[2] || "Default";
+                    }
                     this.filterQueues();
                 },
                 error => {
@@ -141,7 +153,9 @@ ngOnInit()
 
         filterQueues(){
             let sort = this.queues.filter( v => this.queue_id[0] != v.id && this.queue_id[1] != v.id && this.queue_id[2] != v.id);
-            this.selects.queue1.items = this.selects.queue2.items = this.selects.queue3.items = sort;
+            for (var i = 0; i < this.n; ++i) {
+            this.selects["queue"+(i+1)].items = sort;
+            }
         }
 
         countHours(data){
