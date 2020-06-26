@@ -16,7 +16,7 @@
           <button class="login-margin"
                   [disabled]="busy" (click)="onLogin(loginForm)" type="submit" block secondary>Login</button>
                 </form><br>
-          <template [ngIf]="is_sd">
+         
    <!--       <div>
           <ul class="googleStripes">
         <li></li><li></li><li></li><li></li>
@@ -35,6 +35,6 @@
                 <span class="SingUptext button-inner" style="background-color: #2e752d !important">Create New Account</span>
               </button>
   <!--<button  (click)="onSignup()" block dark class="login-margin">Create New Account</button>-->
-  </template>
+   <div style="margin: 15px 0 5px 0;"><center><span>App Version: {{version}} | Last update: {{date_updated}}<b></b></span></center></div>
  </div> 
 </ion-content>
