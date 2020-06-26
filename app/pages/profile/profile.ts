@@ -51,33 +51,6 @@ ngOnInit()
             this.is_queue1 = this.is_queue1 || (localStorage.getItem('is_queue1') == "true")? true : false;
             this.is_queue2 = this.is_queue2 || (localStorage.getItem('is_queue2') == "true")? true : false;
             this.is_queue3 = this.is_queue3 || (localStorage.getItem('is_queue3') == "true")? true : false;
-
-            this.selects = {
-                "queue1" : {
-                    name: "Queue 1", 
-                    value:  this.queue_name[0] || "Default",
-                    selected: this.queue_id[0] || 0,
-                    items: this.queues,
-                    hidden: false,
-                    is_disabled: false
-                },
-                "queue2" : {
-                    name: "Queue 2", 
-                    value:  this.queue_name[1] || "Default",
-                    selected: this.queue_id[1] || 0,
-                    items: this.queues,
-                    hidden: false,
-                    is_disabled: false
-                },
-                "queue3" : {
-                    name: "Queue 3", 
-                    value:  this.queue_name[2] || "Default",
-                    selected: this.queue_id[2] || 0,
-                    items: this.queues,
-                    hidden: false,
-                    is_disabled: false
-                }
-            };
         }
             if (this.config.current.is_time_tracking && this.config.current.user.is_techoradmin){
                 let date = new Date().toJSON().substring(0,10);
@@ -106,6 +79,9 @@ ngOnInit()
             this.dataProvider.getQueueList().subscribe(
                 data => {
                     this.queues = data;
+                    console.log("data", data);
+                    if (data.length < this.n) 
+                        this.n = data.length;
 
                     if (this.queue_id == 0) {
                         for (var i = 0; i < this.n; ++i) {
@@ -125,12 +101,21 @@ ngOnInit()
                         this.is_queue2 = this.is_queue[1] != "0" ? true : false;
                         this.is_queue3 = this.is_queue[2] != "0" ? true : false;
                     }
-                    this.selects.queue1.selected = this.queue_id[0];
-                    this.selects.queue2.selected = this.queue_id[1];
-                    this.selects.queue3.selected = this.queue_id[2];
-                    this.selects.queue1.value = this.queue_name[0] || "Default";
-                    this.selects.queue2.value = this.queue_name[1] || "Default";
-                    this.selects.queue3.value = this.queue_name[2] || "Default";
+
+                                        console.log("this.queue_name", this.queue_name);
+                                                            console.log("this.queue_id", this.queue_id);
+
+                    for (var i = 0; i < this.n; ++i) {
+                        this.selects["queue"+(i+1)] = {
+                    name: "Queue "+(i+1), 
+                    value:  this.queue_name[i] || "Default",
+                    selected: this.queue_id[i] || 0,
+                    items: this.queues,
+                    hidden: false,
+                    is_disabled: false
+                };
+            }
+            console.log("this.selects", this.selects);
                     this.filterQueues();
                 },
                 error => {
@@ -141,7 +126,10 @@ ngOnInit()
 
         filterQueues(){
             let sort = this.queues.filter( v => this.queue_id[0] != v.id && this.queue_id[1] != v.id && this.queue_id[2] != v.id);
-            this.selects.queue1.items = this.selects.queue2.items = this.selects.queue3.items = sort;
+            for (var i = 0; i < this.n; ++i) {
+                if (sort.length != 0)
+            this.selects["queue"+(i+1)].items = sort;
+            }
         }
 
         countHours(data){
@@ -158,9 +146,10 @@ ngOnInit()
 
         saveSelect(event){
             let name = event.type;
-            let queue1_id = this.selects.queue1.selected;
+            /*let queue1_id = this.selects.queue1.selected;
             let queue2_id = this.selects.queue2.selected;
             let queue3_id = this.selects.queue3.selected;    
+        */
         //change url on related lists
         switch (name) {
             case "queue1":
