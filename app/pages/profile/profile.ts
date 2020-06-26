@@ -79,7 +79,6 @@ ngOnInit()
             this.dataProvider.getQueueList().subscribe(
                 data => {
                     this.queues = data;
-                    console.log("data", data);
                     if (data.length < this.n) 
                         this.n = data.length;
 
@@ -102,9 +101,6 @@ ngOnInit()
                         this.is_queue3 = this.is_queue[2] != "0" ? true : false;
                     }
 
-                                        console.log("this.queue_name", this.queue_name);
-                                                            console.log("this.queue_id", this.queue_id);
-
                     for (var i = 0; i < this.n; ++i) {
                         this.selects["queue"+(i+1)] = {
                     name: "Queue "+(i+1), 
@@ -115,7 +111,6 @@ ngOnInit()
                     is_disabled: false
                 };
             }
-            console.log("this.selects", this.selects);
                     this.filterQueues();
                 },
                 error => {
