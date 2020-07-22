@@ -20,7 +20,7 @@ export class AccountsPage {
     search_results: any;
     accounts: Array<any>;
     items: any = [];
-    LIMIT: number = 100;
+    LIMIT: number = 250;
 
     constructor(private nav: Nav, private config: Config, private dataProvider: DataProvider) {
   }

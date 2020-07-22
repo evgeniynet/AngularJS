@@ -19,9 +19,14 @@ export class DaysoldPipe {
                     else if (value < 120)
                         result = "one hour ago"; 
                     else if(daysOld > 24){
-                        result = parseInt((daysOld / 24).toString()) + " days ago";
+                        var days = parseInt((daysOld / 24).toString());
+                        result = days + " day(s)";
+                        var hours = parseInt((daysOld - days * 24).toString());
+                        if (hours > 0)
+                           result += " " + hours + " hour(s)";
+                        result += " ago";
                     } else {
-                        result = parseInt(daysOld.toString()) + " hours ago";
+                        result = parseInt(daysOld.toString()) + " hour(s) ago";
                     }
                     return result;
     } 
