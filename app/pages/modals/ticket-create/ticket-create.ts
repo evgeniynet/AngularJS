@@ -69,7 +69,7 @@ export class TicketCreatePage {
                 name: "User", 
                 value: getFullName(this.he.firstname, this.he.lastname, this.he.email),
                 selected: this.he.user_id,
-                url: "users",
+                url: `users?account=${this.account_id}`,
                 hidden: false
             },
             "location" : {
@@ -212,6 +212,10 @@ export class TicketCreatePage {
                 this.selects.contract.value = "Default";
                 this.selects.contract.selected = 0;
                 contract_id = 0;
+
+                this.selects.user.value = "Choose";
+                this.selects.user.selected = 0;
+                this.selects.user.url = `users?account=${event.id}`;
 
                 break;
             case "class" :
