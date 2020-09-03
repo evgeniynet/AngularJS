@@ -13,7 +13,7 @@
             <h2>{{default_text}}</h2>
         </a>
         <a *ngIf="isnew_enabled" detail-none href=# ion-item (click)="invite()">
-            <h2 class="color"> <ion-icon name="add-circle"></ion-icon>&nbsp;&nbsp;&nbsp;Invite new {{name}} {{is_empty ? '"'+searchQuery+'"' : ""}}</h2>
+            <h2 class="color"> <ion-icon name="add-circle"></ion-icon>&nbsp;&nbsp;&nbsp;Invite new {{name}}</h2>
         </a>
         <a detail-none href=# ion-item *ngFor="let item of items" (click)="dismiss(item)">
             <h2>{{item.name}}</h2>
