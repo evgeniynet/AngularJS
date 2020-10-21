@@ -4,7 +4,7 @@
 <span *ngIf="title?.length < 15" primary>Cancel</span>
             <ion-icon *ngIf="title?.length > 15" primary class="invoiceCircle" name="ios-arrow-back"></ion-icon>      
     </button>
-<ion-title class="ellipsis padding-right24">Add ToDo</ion-title>
+<ion-title class="ellipsis padding-right24">{{title}}</ion-title>
 </ion-toolbar>
 
 <ion-content class="expense-create">
@@ -18,7 +18,7 @@
 
     <div class="tooltips subject-padding"><input [(ngModel)]="todo.title" class="width100 blue3 subject-create commentText margin-bottom3" placeholder="Title" ngControl="title"  required maxlength="100"/></div>
     <br>
-<textarea [(ngModel)]="todo.note" ngControl="note" #note="ngForm" class="width100 textLogin commentText margin" type="text" placeholder="Note"  maxlength="4000"></textarea>
+<textarea [(ngModel)]="todo.text" ngControl="note" #note="ngForm" class="width100 textLogin commentText margin" type="text" placeholder="Note"  maxlength="4000"></textarea>
     <br>
 
        <div class="general-alignment2">
@@ -31,8 +31,9 @@
 <textarea [(ngModel)]="todo.estimated_remain" class="width100 textLogin commentText subject-create" type="text" placeholder="Est. Time hh:mm"></textarea>
     <br>
                 <div>
-  <button (click)="onSubmit(addForm)" secondary block="" type="submit" [disabled]="!addForm.valid" class="disable-hover button button-default button-block">Add ToDo</button>
-    </div>
+  <button (click)="onSubmit(addForm)" secondary block="" type="submit" [disabled]="!addForm.valid" class="disable-hover button button-default button-block">{{todo.id ? 'Update Todo' : 'Add ToDo'}}</button>
+   <button *ngIf="todo.id" block type="submit" class="red_button disable-hover button button-default button-block" (click)="deleteTodo()">Remove Todo</button>
+            <span class="span-block"></span> </div>
     </ion-list>
 </form>
 </ion-content>
