@@ -27,7 +27,7 @@ export class InvoiceDetailsPage {
     onPageLoaded() {
         this.invoice = this.navParams.data || {};
         if (this.invoice.id)
-        this.title = `Send Invoice #${this.invoice.id} to\u00a0${this.invoice.account_name}`;
+        this.title = `Send Invoice #${this.invoice.number} to\u00a0${this.invoice.account_name}`;
         else 
             this.title = `Create Invoice on\u00a0${this.invoice.account_name}`;
         this.he = this.config.getCurrent("user");
