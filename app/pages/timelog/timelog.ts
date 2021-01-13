@@ -407,8 +407,8 @@ ngOnInit()
                 "no_invoice": this.isno_invoice,
                 "is_taxable": this.istaxable,
                 "date": date || "", 
-                "start_date": this.start_timer || start_time || "",
-                "stop_date": this.stop_timer || stop_time || "",
+                "start_date": start_time || "",
+                "stop_date": stop_time || "",
                 "non_working_hours": non_work_hours,
                 "contract_id": this.selects.contract.selected,
                 "is_local_time": true,
@@ -557,9 +557,13 @@ ngOnInit()
         this.past = now - this.countDownDate;
         let oldTimer = localStorage.getItem('past')
         oldTimer = Number(oldTimer);
-        this.past = this.past+oldTimer;        
-        this.stop_timer = new Date().toJSON().substring(0,19);
-        this.start_timer = new Date(new Date().getTime() - this.past).toJSON().substring(0,19);
+        this.past = this.past+oldTimer;  
+        this.stop_time = new Date().toJSON().substring(0,19);    
+        //this.stop_timer = new Date().toJSON().substring(0,19);
+        this.setStartDate(new Date(new Date().getTime() - this.past).toJSON());  
+        //this.start_timer = new Date(new Date().getTime() - this.past).toJSON().substring(0,19);
+        this.start_time = this.AddHours(this.start_time, this.UserDateOffset);
+        this.stop_time = this.AddHours(this.stop_time, this.UserDateOffset);
         localStorage.setItem('past', this.past);
         localStorage.setItem('countDownDate', '');
         this.countDownDate = '';
@@ -615,8 +619,10 @@ ngOnInit()
         this.hours = "00";
         this.minutes = "00";
         this.seconds = "00";
-        this.stop_timer = false;
-        this.start_timer = false;
+        //this.stop_timer = false;
+        //this.start_timer = false;
+        this.start_time = "";
+        this.stop_time = "";
         localStorage.setItem('past', '');
         localStorage.setItem('countDownDate', '');
     }

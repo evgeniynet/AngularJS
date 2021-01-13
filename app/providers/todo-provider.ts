@@ -22,7 +22,7 @@ export class TodoProvider {
         this._dataStore = {};
      }
 
-    getTodos(user_id, ticket, completed, pager) {
+    getTodos(user_id, ticket, completed, pager, no_cache) {
         let url = this.URL;
         if (user_id)
             url = addp(this.URL, "assigned_id", user_id);
@@ -52,7 +52,7 @@ export class TodoProvider {
 
         }
         var gotourl = url;
-        this.apiData.getPaged(gotourl.replace("is_completed= ", "is_completed=") + "&all_item_types=true&is_sub_view=true", pager).subscribe(data => {
+        this.apiData.getPaged(gotourl.replace("is_completed= ", "is_completed=") + "&all_item_types=true&is_sub_view=true" + (no_cache ? "&c=1" : ""), pager).subscribe(data => {
             if (pager.page > 0  && cachelen > 0)
                 this._dataStore[url].push(...data);
             else
@@ -65,6 +65,11 @@ export class TodoProvider {
  
         addTodo(data) {
             return this.apiData.get(this.URL, data, "POST");
+        }
+
+        deleteTodo(id) {
+            let url = `${this.URL}/${id}`;
+            return this.apiData.get(url, {}, "DELETE");
         }
 
         setCompletedTodo(id, is_done) {

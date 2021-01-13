@@ -18,7 +18,7 @@ export class TodoListComponent {
     @Input() user: string = "";
     @Input() assigned: string = "";
     @Input() completed: string = "false";
-    LIMIT: number = 5000;
+    LIMIT: number = 250;
     is_empty: boolean = false;
     is_empty_list: boolean = true;
     params: any;
@@ -75,7 +75,7 @@ export class TodoListComponent {
         this.hidden = this.simple;
         this.is_empty_list = this.simple;
         this.params = this.navParams.data || {};
-        this.pager = { page: 0 };
+        this.pager = { page: 0, limit: this.LIMIT};
         this.params.user = { id: this.params.user_id || this.config.current.user.user_id, name: this.params.user_name || "" };
 
         if (this.user)
@@ -99,9 +99,9 @@ export class TodoListComponent {
         //    this.is_empty = true;
     }
 
-    getTodos()
+    getTodos(no_cache?)
     {
-        this.todoProvider.getTodos(this.assigned, this.ticket, this.completed, this.pager);
+        this.todoProvider.getTodos(this.assigned, this.ticket, this.completed, this.pager, no_cache);
         this.todoLists = this.todoProvider.todos$[this.cachename];
         //if (!this.cachelen)
         {
@@ -139,6 +139,22 @@ export class TodoListComponent {
         //time.cachename = this.cachename;
         tlist.hidden = !(tlist.sub || {}).length || !tlist.hidden;
         let myModal = Modal.create(TodoCreatePage, {"list_id" : (tlist || {}).list_id || "" });
+        myModal.onDismiss(data => {
+             if (data) {
+                 this.getTodos(true);
+             }
+         });
+        this.nav.present(myModal);
+    }
+
+    EditTodo(todo)
+    {
+        let myModal = Modal.create(TodoCreatePage, todo);
+        myModal.onDismiss(data => {
+             if (data) {
+                 this.getTodos(true);
+             }
+         });
         this.nav.present(myModal);
     }
 

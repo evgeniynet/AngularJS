@@ -16,6 +16,8 @@ export class LoginPage {
     busy: boolean = false;
     is_sd: boolean = isSD;
     fileDest: any = {ticket: "wonvhr"};
+    version: any = "4." + appVersion;
+    date_updated: any = "";
     //@ViewChild('google_openid') google_openid: NgForm;
 
     constructor(private nav: Nav, private dataProvider: DataProvider, private config: Config, private events: Events) {
@@ -26,6 +28,13 @@ export class LoginPage {
         if (localStorage.getItem("isExtension") === "true")
             window.top.postMessage("logout", "*");
         events.publish("app:logout");   
+        this.options = {
+          year: 'numeric',
+          month: 'short',
+          /*day: 'numeric',
+          weekday: 'short'*/
+        };
+        this.date_updated = new Date().toLocaleString("en-US", this.options);
     }
     
     onPageLoaded()

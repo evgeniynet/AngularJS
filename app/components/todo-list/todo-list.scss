@@ -19,7 +19,7 @@ display: flex;}
     h5{
      flex: 1;
      width: 70px;
-     white-space: nowrap !important;
+//     white-space: nowrap !important;
      overflow: hidden;
 //   line-height: 20px !important;
      text-overflow: clip;
@@ -54,12 +54,12 @@ h6:nth-child(2){
 }}
  
 span:first-child{
-white-space: nowrap;
+//white-space: nowrap;
 overflow: hidden;
 //    flex: 1;
 }
 span{
-white-space: nowrap;
+//white-space: nowrap;
 overflow: hidden;
     flex: 1;
 } 

@@ -15,14 +15,15 @@
 
 <ion-content>
     <div class="list max-width700 margin-top-5">
+
+        <select-list [list]="selects.account" [preload]="config.current.user.is_techoradmin" [is_enabled]="config.current.user.is_techoradmin" ajax="true" (onChanged)='saveSelect($event)'></select-list>
+
     <template [ngIf]="config.current.user.is_techoradmin"> 
         
         <select-list ajax="true" [list]="selects.user" (onChanged)='saveSelect($event)' preload="true"></select-list>
     
     </template> 
-
-        <select-list [list]="selects.account" [preload]="config.current.user.is_techoradmin" [is_enabled]="config.current.user.is_techoradmin" ajax="true" (onChanged)='saveSelect($event)'></select-list>
-         
+             
         <location-list preload="true" [list]="selects.location" (onChanged)='saveSelect($event)'></location-list>
         
     <template [ngIf]="config.current.user.is_techoradmin"> 

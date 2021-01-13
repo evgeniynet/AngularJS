@@ -16,13 +16,16 @@
 
          <template [ngIf]="!todoList?.hidden">
          <template ngFor let-todo [ngForOf]="todoList?.sub" let-last="last" let-even="seven" let-odd="sodd">
-         <div (click)="todo.is_completed = !todo.is_completed;setDone(todo)">
-            <ion-icon [ngClass]="{'ion-ios-checkmark-circle secondary' : todo.is_completed, 'ion-ios-radio-button-on grey2' : !todo.is_completed}" class="font18 todos-padding margin-top3"></ion-icon><h5 [ngClass]="{'color decoration_line grey3_color' : todo.is_completed, 'color' : !todo.is_completed}" class="textCopy"><span style="font-size: 1.6rem">{{todo.title}}<i *ngIf="todo.text">{{" - " + todo.text}}</i></span></h5><!--ion-icon name="md-create" role="img" class="ion-s padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon--></div>
+         <div>
+         <div style="width: calc(100% - 40px);" (click)="todo.is_completed = !todo.is_completed;setDone(todo)">
+            <ion-icon [ngClass]="{'ion-ios-checkmark-circle secondary' : todo.is_completed, 'ion-ios-radio-button-on grey2' : !todo.is_completed}" class="font18 todos-padding margin-top3"></ion-icon><h5 [ngClass]="{'color decoration_line grey3_color' : todo.is_completed, 'color' : !todo.is_completed}" class="textCopy"><span style="font-size: 1.6rem">{{todo.title}}<i *ngIf="todo.text">{{" - " + todo.text}}</i></span></h5>
+            </div>
+            <div (click)="EditTodo(todo)"><ion-icon name="md-create" role="img" class="ion-s padding-left15 todos-arrow right" aria-label="arrow down"></ion-icon></div>
+            </div>
             <div class="todos-flex right color">
              <h6></h6> 
                 <h6 *ngIf="todo.assigned_name && !simple">{{todo.assigned_name}}</h6> 
                 <h6 *ngIf="todo.due_date">Due&nbsp;{{setDate(todo.due_date)}}</h6>
-                <h6 *ngIf="todo.estimated_remain">{{getFixed(todo.estimated_remain)}}&nbsp;hrs</h6>
             </div>
         <hr *ngIf="!last" class="width_calc100-40"/>
             </template>

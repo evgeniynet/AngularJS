@@ -21,7 +21,7 @@
         </a>
         <a *ngIf="isnew_enabled && config.current.is_add_new_user_link" detail-none href=# ion-item (click)="invite()" class="basic-margin text-left">
             <ion-icon name="add-circle" style="padding-left: 12px;font-size: 38px; float:left;"></ion-icon>
-            <h2 class="color" style="margin-top:8px"> &nbsp;&nbsp;&nbsp;Invite new {{name}} {{is_empty ? '"'+term+'"' : ""}}</h2>
+            <h2 class="color" style="margin-top:8px"> &nbsp;&nbsp;&nbsp;Invite new {{name}}</h2>
         </a>
         
         <a detail-none href=# ion-item class="basic-margin text-left" *ngFor="let item of items" (click)="dismiss(item)">
