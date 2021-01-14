@@ -33,7 +33,7 @@ export class MultiSelectComponent {
         this.list = {};
     }  
     ngOnChanges(event) {
-        if (this.list.name.toLowerCase() == "alt techs" && !event.account_id.isFirstChange() || this.list.name.toLowerCase() == "alt users" && !event.account_id.isFirstChange()) {
+        if (event.account_id && (this.list.name.toLowerCase() == "alt techs" && !event.account_id.isFirstChange() || this.list.name.toLowerCase() == "alt users" && !event.account_id.isFirstChange())) {
                     this.list.items.splice(0,this.contractors); 
                     this.getContractor(this.account_id);
             }
