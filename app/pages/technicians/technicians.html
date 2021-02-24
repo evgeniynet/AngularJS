@@ -7,7 +7,7 @@
 </ion-navbar>
 
     <ion-content class="accounts">
-      <ion-searchbar *ngIf="test" [focuser] debounce="700" (cancel)="test = !test" (input)="searchItems($event)" [(ngModel)]="term" placeholder="Type {{config.current.names.tech.s}} name" class="stickySearch"></ion-searchbar>
+      <ion-searchbar *ngIf="test" [focuser] debounce="700" (cancel)="test = !test" (input)="searchItems($event)" [(ngModel)]="term" placeholder="Filter by {{config.current.names.tech.s}} name" class="stickySearch"></ion-searchbar>
  <p class="general-alignment"></p>
  <img *ngIf="busy" class="imglogo img-padding" src="img/loading2.gif">
         <techs-list margin-top [simple]="true" [technicians]="items"></techs-list>

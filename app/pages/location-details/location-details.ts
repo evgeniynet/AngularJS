@@ -70,12 +70,12 @@ export class LocationDetailsPage {
       }
     }
 
-    searchItems(searchbar) {
-      // Reset items back to all of the items
+    searchItems(searchbar) {}
+    /*  // Reset items back to all of the items
       this.search_results = [];
 
       // set q to the value of the searchbar
-      var q = searchbar.value;
+      var q = (searchbar.target || {}).value || "";
 
       // if the value is an empty string don't filter the search_results
       if (q.trim() == '' || this.busy) {
@@ -87,7 +87,7 @@ export class LocationDetailsPage {
         var timer = setTimeout(() => { this.busy = true; }, 500);
         this.searchItemsAPI(q, timer);
       }
-    }
+    }*/
 
     searchItemsAPI(term, timer) {
       this.search_results = [];

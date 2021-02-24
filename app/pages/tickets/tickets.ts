@@ -74,6 +74,7 @@ export class TicketsPage {
         }
     }
 
+/*
     searchItems(searchbar) {
         // Reset items back to all of the items
         this.search_results = [];
@@ -91,7 +92,7 @@ export class TicketsPage {
             var timer = setTimeout(() => { this.busy = true; }, 500);
             this.getItems(q, timer);
         }
-    }
+    }*/
 
     getItems(term, timer) {
         this.search_results = [];

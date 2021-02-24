@@ -40,12 +40,13 @@ export class LocationsPage {
         this.getItems("", null, timer);
     }
 
+
     searchItems(searchbar) {
             // Reset items back to all of the items
             this.items = this.data;
 
             // set q to the value of the searchbar
-            var q = searchbar.value.trim();
+            var q = (searchbar.target || {}).value || "";
 
             // if the value is an empty string don't filter the items
             if (q.trim() == '' || this.busy) {

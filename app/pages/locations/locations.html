@@ -9,7 +9,7 @@
 </ion-navbar>
 <!--<ion-navbar *navbar><button menuToggle><ion-icon name="menu"></ion-icon></button>
   <ion-title>{{config.current.names.location.p}}</ion-title>-->
- <ion-searchbar *ngIf="test" [focuser] debounce="700" (cancel)="test = !test" (input)="searchItems($event)" [(ngModel)]="term" placeholder="Enter to search (min 4 chars) {{config.current.names.location.p}}" class="stickySearch"></ion-searchbar>
+ <ion-searchbar *ngIf="test" [focuser] (cancel)="test = !test" (search)="searchItems($event)" [(ngModel)]="term" placeholder="Type {{config.current.names.location.p}} name and Press Enter" class="stickySearch"></ion-searchbar>
     <ion-content class="accounts">
  <p class="general-alignment"></p>
  <img *ngIf="busy" class="imglogo img-padding" src="img/loading2.gif">

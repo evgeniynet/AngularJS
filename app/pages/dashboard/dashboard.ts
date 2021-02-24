@@ -222,8 +222,9 @@ export class DashboardPage {
         clearTimeout(this.timer);  
     }
 
+/* 
     searchItems(searchbar) {
-        // Reset items back to all of the items
+       // Reset items back to all of the items
         this.search_results = [];
 
         // set q to the value of the searchbar
@@ -239,7 +240,7 @@ export class DashboardPage {
             var timer = setTimeout(() => { this.busy = true; }, 500);
             this.getItems(q, timer);
         }
-    }
+    }*/
 
     getItems(term, timer) {
         this.search_results = [];
