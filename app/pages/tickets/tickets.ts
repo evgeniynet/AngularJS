@@ -128,10 +128,11 @@ export class TicketsPage {
 
     getSearch(searchbar) {
         this.test = false;
-        this.clearSearch();
+        //this.clearSearch();
         // Reset items back to all of the items
         // set q to the value of the searchbar
         let term = searchbar.target.value;
+        searchbar.value = "";
         if (term.length < 4)
             term += "    ";
         let list = { search: term };

@@ -222,8 +222,9 @@ export class DashboardPage {
         clearTimeout(this.timer);  
     }
 
-/* 
-    searchItems(searchbar) {
+
+    searchItems(searchbar) {}
+    /* 
        // Reset items back to all of the items
         this.search_results = [];
 
@@ -283,11 +284,13 @@ export class DashboardPage {
 
     getSearch(searchbar) {
         this.test = false;
-        this.clearSearch();
+        //this.clearSearch();
         // Reset items back to all of the items
         // set q to the value of the searchbar
         //if (searchbar.target.value.trim().length > 2) {
             let term = searchbar.target.value;
+            searchbar.value = "";
+            console.log(searchbar.value);
             if (term.length < 4)
                 term += "    ";
             let list = { search: term };
